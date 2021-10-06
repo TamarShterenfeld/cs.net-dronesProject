@@ -3,4 +3,4 @@ Gili & Tami Course_2021
 Project_1_by_Gili_Maman&amp;Tami_Shterenfeld
 Good Bye
 new line
-This is a good idea foor writing a code efficiently!
+This is a good idea for writing a code efficiently!
