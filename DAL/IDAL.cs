@@ -6,6 +6,9 @@ namespace IDAL
     {
         public class IDAL
         {
+            /// <summary>
+            /// the struct BaseStation has id, name, longitude, latitude, chargeSolts
+            /// </summary>
             public struct BaseStation
             {
                 private string id;
