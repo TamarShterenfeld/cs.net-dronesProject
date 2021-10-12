@@ -7,6 +7,7 @@ namespace ConsoleUI
         static void Main(string[] args)
         {
             Console.WriteLine("new project");
+            
         }
     }
 }
