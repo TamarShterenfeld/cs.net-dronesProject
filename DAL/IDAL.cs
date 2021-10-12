@@ -23,7 +23,7 @@ namespace IDAL
                         }
                         foreach(char letter in value)
                         {
-                            if(letter<0 || letter>9)
+                            if(letter<'0' || letter>'9')
                             {
                                 throw (new FormatException("ID must include only digits"));
 
