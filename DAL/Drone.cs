@@ -6,15 +6,16 @@ namespace IDAL
 {
     namespace DO
     {
-        enum WeightCategories
+        public enum WeightCategories
         {
             Light = 1, Average, Heavy
         }
 
-        enum DroneStatuses
+        public enum DroneStatuses
         {
             Available = 1, Maintenance, Shipment
         }
+
         public partial class IDAL
         {
             /// <summary>
@@ -24,12 +25,10 @@ namespace IDAL
             {
                 string id;
                 double battery;
-
                 public string Id
                 {
                     set
                     {
-                        //check validation of the inputed id number.
                         if (value.Length != 9)
                             throw new FormatException("Id number must contain exactly nine digits.");
                         foreach (char item in value)
@@ -43,24 +42,24 @@ namespace IDAL
                 }
 
                 public string Model { get; set; }
-
                 public double Battery
                 {
                     get { return battery; }
                     set
                     {
                         if (value < 0)
-                            throw new FormatException("battery must hold a positive value.");
+                            throw new FormatException("Battery must hold a positive value.");
                         if (value > 100)
-                            throw new FormatException("battery can't hold a value more than 100% of charge.");
+                            throw new FormatException("Battery can't hold a value more than 100% of charge.");
                         battery = value;
                     }
                 }
 
-                public IDAL.DO.DroneStatuses Status { get; set; }
-                public IDAL.DO.WeightCategories MaxWeight { set; get; }
+                public DroneStatuses Status { set; get; } 
+                public WeightCategories MaxWeight { set; get; }
             }
         }
     }
     
 }
+
