@@ -13,6 +13,12 @@ namespace IDAL
             public struct BaseStation
             {
                 private string id;
+                private string name;
+                private double longitude;
+                private double latitude;
+                private int chrgeSlots;
+
+
                 public string Id
                 {
                     get
@@ -21,7 +27,7 @@ namespace IDAL
                     }
                     set 
                     {
-                        if(value.Length < 9 )
+                        if(value.Length != 9 )
                         {
                             throw new FormatException("ID must include 9 digits");
                         }
@@ -36,9 +42,6 @@ namespace IDAL
                         id = value;
                     }
                 }
-
-
-                private string name;
                 public string Name 
                 {
                     get
@@ -49,12 +52,12 @@ namespace IDAL
                     {
                         if (value == null )
                         {
-                            throw (new FormatException("you must enter the name"));
+                            throw new FormatException("you must enter the name");
                         }
                     }
                 }
 
-                private double longitude;
+               
                 public double Longitude
                 {
                     get
@@ -65,14 +68,13 @@ namespace IDAL
                     {
                         if (value < 0)
                         {
-                            throw (new FormatException("not valid longitude"));
+                            throw new FormatException("not valid longitude");
                         }
 
                         longitude = value;
                     }
                 }
 
-                private double latitude;
                 public double Latitude
                 {
                     get
@@ -83,13 +85,12 @@ namespace IDAL
                     {
                         if (value < 0)
                         {
-                            throw (new FormatException("not valid latitude"));
+                            throw new FormatException("not valid latitude");
                         }
 
                         latitude = value;
                     }
                 }
-                private int chrgeSlots;
                 public int ChrgeSlots
                 {
                     get
@@ -100,7 +101,7 @@ namespace IDAL
                     {
                         if (value < 0)
                         {
-                            throw (new FormatException("not valid number of chrgeSlots"));
+                            throw new FormatException("not valid number of chrgeSlots");
                         }
 
                         chrgeSlots = value;
