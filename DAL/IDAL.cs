@@ -4,7 +4,7 @@ namespace IDAL
 {
     namespace DO
     {
-        public class Class1
+        public class IDAL
         {
 
         }
