@@ -8,7 +8,7 @@ namespace ConsoleUI
     }
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             int option; bool valid = false;
             option = int.Parse(Console.ReadLine());
