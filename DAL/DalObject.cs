@@ -75,7 +75,7 @@ namespace DalObject
 
         /// <summary>
         /// the class Config contains the indexes of the first free place in the arrays
-        /// in addition, ...?
+        /// in addition, it contains ParcelId
         /// </summary>
         internal class Config
         {
