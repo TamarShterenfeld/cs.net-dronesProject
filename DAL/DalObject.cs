@@ -67,11 +67,11 @@ namespace DalObject
         /// </summary>
         internal class Config
         {
-            internal static int indexOfDrone = 0;
-            internal static int indexOfBaseStation = 0;
-            internal static int indexOfCustomer = 0;
-            internal static int indexOfParcel = 0;
-
+            internal static int IndexOfDrone = 0;
+            internal static int IndexOfBaseStation = 0;
+            internal static int IndexOfCustomer = 0;
+            internal static int IndexOfParcel = 0;
+            internal static int NumOfParcel = rand.Next(100,200); 
 
         }
 
@@ -79,6 +79,15 @@ namespace DalObject
 
     public class DalObject
     {
+        // constructor
+        public DalObject()
+        {
+            DataSource.Initialize();
+        }
 
+        public int AddingParcel()
+        {
+            return ++DataSource.Config.NumOfParcel;
+        }
     }
 }
