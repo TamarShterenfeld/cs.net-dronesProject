@@ -46,7 +46,7 @@ namespace DalObject
                 //initalize a status for each item in DronesArr.
                 status = rand.Next(1, Enum.GetNames(typeof(DroneStatuses)).Length);
                 DronesArr[i] = new Drone();
-                DronesArr[i].Status = (DroneStatuses)Enum.GetNames(typeof(DroneStatuses)).GetValue(status);
+                DronesArr[i].Status = (DroneStatuses)Enum.GetNames(typeof(DroneStatuses)).GetValue(status-1);
             }
             Config.IndexOfDrone = size-1;
 
