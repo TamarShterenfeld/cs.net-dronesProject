@@ -87,6 +87,15 @@ namespace DalObject
 
     public class DalObject
     {
+        // constructor
+        public DalObject()
+        {
+            DataSource.Initialize();
+        }
 
+        public int AddingParcel()
+        {
+            return ++DataSource.Config.NumOfParcel;
+        }
     }
 }
