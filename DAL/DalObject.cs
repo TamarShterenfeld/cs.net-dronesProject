@@ -68,6 +68,9 @@ namespace DalObject
                 ParcelsArr[i].Priority = (Priorities)Enum.GetNames(typeof(Priorities)).GetValue(priority);
             }
             Config.indexOfParcel = size;
+
+            //initalize parcelId for the first instance
+            Config.ParcelId = rand.Next(100, 200);
         }
 
         /// <summary>
@@ -80,7 +83,7 @@ namespace DalObject
             internal static int indexOfBaseStation = 0;
             internal static int indexOfCustomer = 0;
             internal static int indexOfParcel = 0;
-            int parcelId;
+            public static int ParcelId;
         }
 
     }
@@ -95,7 +98,7 @@ namespace DalObject
 
         public int AddingParcel()
         {
-            return ++DataSource.Config.NumOfParcel;
+            return DataSource.Config.ParcelId++;
         }
     }
 }
