@@ -36,7 +36,7 @@ namespace DalObject
             {
                 BaseStationsArr[i] = new BaseStation();
             }
-            Config.indexOfBaseStation = size-1;
+            Config.IndexOfBaseStation = size-1;
 
             //initalize at least the first five drones in DronesArr
             size = rand.Next(5, DRONESAMOUNT);
@@ -56,7 +56,7 @@ namespace DalObject
             {
                 CustomersArr[i] = new Customer();
             }
-            Config.indexOfCustomer = size-1;
+            Config.IndexOfCustomer = size-1;
 
             //initalize at least the first tenth parcels.
             size = rand.Next(10, PARCELAMOUNT);
@@ -80,8 +80,8 @@ namespace DalObject
         internal class Config
         {
             internal static int indexOfDrone = 0;
-            internal static int indexOfBaseStation = 0;
-            internal static int indexOfCustomer = 0;
+            internal static int IndexOfBaseStation = 0;
+            internal static int IndexOfCustomer = 0;
             internal static int indexOfParcel = 0;
             public static int ParcelId;
         }
