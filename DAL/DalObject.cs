@@ -15,10 +15,10 @@ namespace DalObject
         const int PARCELAMOUNT = 1000;
 
         //internal arrs of different entities.
-        internal Drone[] DroneArr = new Drone[DRONESAMOUNT];
-        internal BaseStation[] BaseStationsArr = new BaseStation[BASESTATIONSAMOUNT];
-        internal Customer[] CustomersArr = new Customer[CUSTOMERSAMOUNT];
-        internal Parcel[] ParcelsArr = new Parcel[PARCELAMOUNT];
+        internal static Drone[] DronesArr = new Drone[DRONESAMOUNT];
+        internal static BaseStation[] BaseStationsArr = new BaseStation[BASESTATIONSAMOUNT];
+        internal static Customer[] CustomersArr = new Customer[CUSTOMERSAMOUNT];
+        internal static Parcel[] ParcelsArr = new Parcel[PARCELAMOUNT];
 
     }
 
