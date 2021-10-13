@@ -6,16 +6,7 @@ namespace IDAL
 {
     namespace DO
     {
-        public enum WeightCategories
-        {
-            Light = 1, Average, Heavy
-        }
-
-        public enum DroneStatuses
-        {
-            Available = 1, Maintenance, Shipment
-        }
-
+       
         public partial class IDAL
         {
             /// <summary>
@@ -23,18 +14,15 @@ namespace IDAL
             /// </summary>
             public struct Drone
             {
-                string id;
+                int id;
                 double battery;
-                public string Id
+                public int Id
                 {
                     set
                     {
-                        if (value.Length != 9)
-                            throw new FormatException("Id number must contain exactly nine digits.");
-                        foreach (char item in value)
+                        if (value < 0)
                         {
-                            if (Char.IsNumber(item))
-                                throw new FormatException("Id can contain only numbers.");
+                            throw new FormatException("Id must contain a positive number");
                         }
                         id = value;
                     }
@@ -55,11 +43,10 @@ namespace IDAL
                     }
                 }
 
-                public DroneStatuses Status { set; get; } 
-                public WeightCategories MaxWeight { set; get; }
+                public DO.DroneStatuses Status { set; get; }
+                public DO.WeightCategories MaxWeight { set; get; }
             }
         }
     }
-    
 }
 

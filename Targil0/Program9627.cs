@@ -4,7 +4,7 @@ namespace Targil0
 {
     partial class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             Welcome9627();
             Welcome5223();

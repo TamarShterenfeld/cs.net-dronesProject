@@ -9,12 +9,18 @@ namespace IDAL
         public partial class IDAL
         {
             /// <summary>
-            /// the struct BaseStation contains all the needed details for a base station
+            /// the struct Customer contains all the needed details for a customer.
             /// </summary>
-            public struct BaseStation
+            /// 
+            public struct Customer
             {
-                private int id;
-                public int Id
+                private string id;
+                private string name;
+                private string phone;
+                private double longitude;
+                private double latitude;
+
+                public string Id
                 {
                     get
                     {
@@ -22,16 +28,21 @@ namespace IDAL
                     }
                     set
                     {
-                        if (value < 0)
+                        if (value.Length != 9)
                         {
-                            throw new FormatException("Id must contain a positive number");
+                            throw new FormatException("Id must include exactly 9 digits");
+                        }
+                        foreach (char letter in value)
+                        {
+                            if (!Char.IsDigit(letter))
+                            {
+                                throw new FormatException("Id must include only digits");
+
+                            }
                         }
                         id = value;
                     }
                 }
-
-
-                private string name;
                 public string Name
                 {
                     get
@@ -39,7 +50,7 @@ namespace IDAL
                         return name;
                     }
                     set
-                    {
+                    { 
                         foreach (char letter in value)
                         {
                             if (!Char.IsLetter(letter))
@@ -51,7 +62,31 @@ namespace IDAL
                     }
                 }
 
-                private double longitude;
+                public string Phone
+                {
+                    get
+                    {
+                        return phone;
+                    }
+                    set
+                    {
+                        if (value == null)
+                        {
+                            throw new FormatException("You must enter your phone");
+                        }
+                        foreach (char digit in value)
+                        {
+                            if (Char.IsDigit(digit))
+                            {
+                                throw new FormatException("Phone must include only digits");
+
+                            }
+                        }
+                        phone = value;
+                    }
+                }
+
+
                 public double Longitude
                 {
                     get
@@ -62,14 +97,13 @@ namespace IDAL
                     {
                         if (value < 0)
                         {
-                            throw (new FormatException("Longitude must be a positive number."));
+                            throw new FormatException("Longitude must be a positive number.");
                         }
 
                         longitude = value;
                     }
                 }
 
-                private double latitude;
                 public double Latitude
                 {
                     get
@@ -80,27 +114,10 @@ namespace IDAL
                     {
                         if (value < 0)
                         {
-                            throw (new FormatException("Latitude must be a positive number."));
+                            throw new FormatException("Latitude must be a positive number.");
                         }
 
                         latitude = value;
-                    }
-                }
-                private int chrgeSlots;
-                public int ChrgeSlots
-                {
-                    get
-                    {
-                        return chrgeSlots;
-                    }
-                    set
-                    {
-                        if (value < 0)
-                        {
-                            throw (new FormatException("Not valid number of chrgeSlots"));
-                        }
-
-                        chrgeSlots = value;
                     }
                 }
             }
