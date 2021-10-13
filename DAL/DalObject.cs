@@ -48,7 +48,7 @@ namespace DalObject
                 DronesArr[i] = new Drone();
                 DronesArr[i].Status = (DroneStatuses)Enum.GetNames(typeof(DroneStatuses)).GetValue(status);
             }
-            Config.indexOfDrone = size-1;
+            Config.IndexOfDrone = size-1;
 
             //initalize at least the first tenth customers.
             size = rand.Next(10, CUSTOMERSAMOUNT);
@@ -67,7 +67,7 @@ namespace DalObject
                 ParcelsArr[i] = new Parcel();
                 ParcelsArr[i].Priority = (Priorities)Enum.GetNames(typeof(Priorities)).GetValue(priority);
             }
-            Config.indexOfParcel = size;
+            Config.IndexOfParcel = size;
 
             //initalize parcelId for the first instance
             Config.ParcelId = rand.Next(100, 200);
@@ -79,10 +79,10 @@ namespace DalObject
         /// </summary>
         internal class Config
         {
-            internal static int indexOfDrone = 0;
+            internal static int IndexOfDrone = 0;
             internal static int IndexOfBaseStation = 0;
             internal static int IndexOfCustomer = 0;
-            internal static int indexOfParcel = 0;
+            internal static int IndexOfParcel = 0;
             public static int ParcelId;
         }
 
