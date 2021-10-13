@@ -61,6 +61,20 @@ namespace DalObject
             }
         }
 
+        /// <summary>
+        /// the class Config contains the indexes of the first free place in the arrays
+        /// in addition, ...?
+        /// </summary>
+        internal class Config
+        {
+            internal static int indexOfDrone = 0;
+            internal static int indexOfBaseStation = 0;
+            internal static int indexOfCustomer = 0;
+            internal static int indexOfParcel = 0;
+
+
+        }
+
     }
 
     public class DalObject
