@@ -20,7 +20,13 @@ namespace DalObject
         internal static BaseStation[] BaseStationsArr = new BaseStation[BASESTATIONSAMOUNT];
         internal static Customer[] CustomersArr = new Customer[CUSTOMERSAMOUNT];
         internal static Parcel[] ParcelsArr = new Parcel[PARCELAMOUNT];
+        
+        //a static random field - for general use.
         public static Random rand = new Random();
+        
+        /// <summary>
+        /// the method Initalize initalizes all the Config class fields.
+        /// </summary>
         public static void Initialize()
         {
             int size;
@@ -30,11 +36,11 @@ namespace DalObject
             {
                 BaseStationsArr[i] = new BaseStation();
             }
+            Config.indexOfBaseStation = size-1;
 
             //initalize at least the first five drones in DronesArr
             size = rand.Next(5, DRONESAMOUNT);
             int status;
-           
             for (int i = 0; i<size; i++)
             {
                 //initalize a status for each item in DronesArr.
@@ -42,6 +48,7 @@ namespace DalObject
                 DronesArr[i] = new Drone();
                 DronesArr[i].Status = (DroneStatuses)Enum.GetNames(typeof(DroneStatuses)).GetValue(status);
             }
+            Config.indexOfDrone = size-1;
 
             //initalize at least the first tenth customers.
             size = rand.Next(10, CUSTOMERSAMOUNT);
@@ -49,6 +56,7 @@ namespace DalObject
             {
                 CustomersArr[i] = new Customer();
             }
+            Config.indexOfCustomer = size-1;
 
             //initalize at least the first tenth parcels.
             size = rand.Next(10, PARCELAMOUNT);
@@ -59,6 +67,7 @@ namespace DalObject
                 ParcelsArr[i] = new Parcel();
                 ParcelsArr[i].Priority = (Priorities)Enum.GetNames(typeof(Priorities)).GetValue(priority);
             }
+            Config.indexOfParcel = size;
         }
 
         /// <summary>
@@ -71,8 +80,7 @@ namespace DalObject
             internal static int indexOfBaseStation = 0;
             internal static int indexOfCustomer = 0;
             internal static int indexOfParcel = 0;
-
-
+            int parcelId;
         }
 
     }
