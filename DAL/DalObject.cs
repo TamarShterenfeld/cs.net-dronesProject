@@ -282,6 +282,37 @@ namespace DalObject
             }
             return index;
         }
+
+
+        public static void DisplayBaseStation(int index)
+        {
+            if(index == -1)
+            {
+                Console.WriteLine("Base station ID does not exist ");
+                return;
+            }
+            Console.WriteLine($"id: {DataSource.BaseStationsArr[DataSource.Config.IndexOfBaseStation].Id} \n" +
+                              $"name: {DataSource.BaseStationsArr[DataSource.Config.IndexOfBaseStation].Name} \n" +
+                              $"longitude: {DataSource.BaseStationsArr[DataSource.Config.IndexOfBaseStation].Longitude}\n" +
+                              $"latitude:  {DataSource.BaseStationsArr[DataSource.Config.IndexOfBaseStation].Latitude}\n"+
+                              $"number of chrge slots: {DataSource.BaseStationsArr[DataSource.Config.IndexOfBaseStation].ChrgeSlots}\n");
+        }
+
+        public static void DisplayDrone(int index)
+        {
+            if (index == -1)
+            {
+                Console.WriteLine("Base station ID does not exist ");
+                return;
+            }
+            Console.WriteLine($"id: {DataSource.DronesArr[DataSource.Config.IndexOfDrone].Id} \n" +
+                              $"model: {DataSource.DronesArr[DataSource.Config.IndexOfDrone].Model} \n" +
+                              $"status: {DataSource.DronesArr[DataSource.Config.IndexOfDrone].Status}\n" +
+                              $"maxWeight:  {DataSource.DronesArr[DataSource.Config.IndexOfDrone].MaxWeight}\n" +
+                              $"battery: {DataSource.DronesArr[DataSource.Config.IndexOfDrone].Battery}\n");
+        }
+
+       
     }
 }
 

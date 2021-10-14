@@ -153,11 +153,21 @@ namespace ConsoleUI
                                 {
                                     case (int)DisplayOptions.BaseStation:
                                         {
+                                            if (int.TryParse(Console.ReadLine(), out id))
+                                            {
+                                                DisplayBaseStation(SearchBaseStation(id));
+                                            }
+                                            else Console.WriteLine("Id must contain  only digits");
                                             break;
                                         }
 
                                     case (int)DisplayOptions.Drone:
                                         {
+                                            if (int.TryParse(Console.ReadLine(), out id))
+                                            {
+                                                DisplayDrone(SearchDrone(id));
+                                            }
+                                            else Console.WriteLine("Id must contain  only digits");
                                             break;
                                         }
                                     case (int)DisplayOptions.Customer:
@@ -166,6 +176,11 @@ namespace ConsoleUI
                                         }
                                     case (int)DisplayOptions.Package:
                                         {
+                                            if (int.TryParse(Console.ReadLine(), out id))
+                                            {
+                                               // DisplayParcel(SearchParcel(id));
+                                            }
+                                            else Console.WriteLine("Id must contain  only digits");
                                             break;
                                         }
                                     default:
