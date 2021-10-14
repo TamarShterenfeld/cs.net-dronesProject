@@ -1,5 +1,10 @@
 ﻿using System;
 using static IDAL.DO.IDAL;
+using IDAL.DO;
+using static DalObject.DalObject;
+
+
+
 namespace ConsoleUI
 {
     public enum Options
@@ -53,29 +58,41 @@ namespace ConsoleUI
                             int addingOption;
                             addingOption = int.Parse(Console.ReadLine());
 
-                            int id = 0;
-                            string name = ""; 
-                            double longitude= 0 , latitude = 0;
+                            int id = 0, senderId = 0 , targetId = 0, droneId = 0;
+                            string name = "", customerId = "" , phone = "", model=""; 
+                            double longitude= 0 , latitude = 0, battery = 0;
                             int chrgeSlots = 0;
+                            DroneStatuses status = 0;
+                            WeightCategories maxWeight = 0;
+                            WeightCategories Weight = 0;
+                            Priorities Priority = 0;
+                            DateTime Production = new DateTime() , Association = new DateTime(), PickingUp = new DateTime() , Arrival = new DateTime();
 
                             switch (addingOption)
                             {
-                                case (int)AddingOptions.AddingBaseStation:
+                                case (int)AddOptions.BaseStation:
                                     {
                                         BaseStationDetails(ref id, ref name ,ref longitude, ref latitude,ref chrgeSlots);
+                                        CreatingBaseStation(id, name, longitude, latitude, chrgeSlots);
                                         break;
                                     }
 
-                                case (int)AddingOptions.AddingDrone:
+                                case (int)AddOptions.Drone:
                                     {
+                                        //
+                                        CreatingDrone(id, model, status, maxWeight, battery);
                                         break;
                                     }
-                                case (int)AddingOptions.AddingCustomer:
+                                case (int)AddOptions.Customer:
                                     {
+                                        CustomerDetails(ref customerId, ref name, ref phone, ref longitude, ref latitude);
+                                        CreatingCustomer(ref customerId, ref name, ref phone, ref longitude, ref latitude);
                                         break;
                                     }
-                                case (int)AddingOptions.AddingParcel:
+                                case (int)AddOptions.Package:
                                     {
+                                        //
+                                        CreatingParcel(id, senderId, targetId, droneId, Weight, Priority, Production, Association, PickingUp, Arrival);
                                         break;
                                     }
                                 default:
