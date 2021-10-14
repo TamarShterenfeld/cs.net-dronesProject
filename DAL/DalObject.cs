@@ -111,13 +111,10 @@ namespace DalObject
                 return;
             }
 
-            foreach (BaseStation station in DataSource.BaseStationsArr)
+            if (SearchBaseStation(id) == -1)
             {
-                if(station.Id == id)
-                {
-                    Console.WriteLine("Can not add base station, this station ID already exists ");
-                    return;
-                }
+                Console.WriteLine("Can not add base station, this station ID already exists ");
+                return;
             }
 
             BaseStation baseStation = new BaseStation();
@@ -141,13 +138,10 @@ namespace DalObject
                 return;
             }
 
-            foreach (Drone oneDrone in DataSource.DronesArr)
+            if(SearchDrone(id) == -1)
             {
-                if (oneDrone.Id == id)
-                {
-                    Console.WriteLine("Can not add drone, this drone ID already exists ");
-                    return;
-                }
+                Console.WriteLine("Can not add drone, this drone ID already exists ");
+                return;
             }
 
             Drone drone = new Drone();
@@ -169,13 +163,10 @@ namespace DalObject
                 return;
             }
 
-            foreach (Customer oneCustomer in DataSource.CustomersArr)
+            if(SearchCustomer(id) == -1)
             {
-                if (oneCustomer.Id == id)
-                {
-                    Console.WriteLine("Can not add customer, this customer ID already exists ");
-                    return;
-                }
+                Console.WriteLine("Can not add customer, this customer ID already exists ");
+                return;
             }
 
             Customer customer = new Customer();
@@ -219,50 +210,78 @@ namespace DalObject
 
         private static bool ChackingParcel(int id, string senderId, string targetId, int droneId)
         {
-
-            foreach (Parcel package in DataSource.ParcelsArr)
+            if(SearchParcel(id) == -1)
             {
-                if (package.Id == id)
-                {
-                    Console.WriteLine("Can not add parcel, this parcel ID already exists ");
-                    return false;
-                }
+                Console.WriteLine("Can not add parcel, this parcel ID already exists ");
+                return false;
             }
 
-            bool senderExist = false, targetExist = false;
-            foreach (Customer customer in DataSource.CustomersArr)
-            {
-               
-                if (customer.Id == senderId)
-                {
-                    senderExist = true;
-                }
-                if(customer.Id == targetId)
-                {
-                    targetExist = true;
-                }
-            }
-            if(!senderExist || !targetExist)
+            if(SearchCustomer(senderId) == -1 || SearchCustomer(targetId) == -1)
             {
                 Console.WriteLine("Can not add parcel, sender ID or target ID does not exist ");
                 return false;
             }
 
-            bool droneExist = false;
-            foreach (Drone drone in DataSource.DronesArr)
-            {
-                if (drone.Id == droneId)
-                {
-                    droneExist = true;
-                }
-            }
-            if(!droneExist)
+            if(SearchDrone(droneId) == -1)
             {
                 Console.WriteLine("Can not add parcel, drone ID does not exist ");
                 return false;
             }
-
             return true;
+        }
+
+
+        public static int SearchBaseStation(int id)
+        {
+            int index = -1;
+            for (int i = 0 ; i < DataSource.Config.IndexOfBaseStation ; ++i)
+            {
+                if (DataSource.BaseStationsArr[i].Id == id)
+                {
+                    index = i;
+                }
+            }
+            return index;
+        }
+
+        public static int SearchDrone(int id)
+        {
+            int index = -1;
+            for (int i = 0; i < DataSource.Config.IndexOfDrone; ++i)
+            {
+                if (DataSource.DronesArr[i].Id == id)
+                {
+                    index = i;
+                }
+            }
+            return index;
+        }
+
+        public static int SearchCustomer(string id)
+        {
+            int index = -1;
+            for (int i = 0; i < DataSource.Config.IndexOfCustomer; ++i)
+            {
+                if (DataSource.CustomersArr[i].Id == id)
+                {
+                    index = i;
+                }
+            }
+            return index;
+        }
+
+        public static int SearchParcel(int id)
+        {
+            int index = -1;
+            for (int i = 0; i < DataSource.Config.IndexOfParcel; ++i)
+            {
+                if (DataSource.ParcelsArr[i].Id == id)
+                {
+                    index = i;
+                }
+            }
+            return index;
         }
     }
 }
+
