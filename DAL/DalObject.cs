@@ -110,6 +110,16 @@ namespace DalObject
                 Console.WriteLine("It is impossible to add a base station");
                 return;
             }
+
+            foreach (BaseStation station in DataSource.BaseStationsArr)
+            {
+                if(station.Id == id)
+                {
+                    Console.WriteLine("Can not add base station, this station ID already exists ");
+                    return;
+                }
+            }
+
             BaseStation baseStation = new BaseStation();
             baseStation.Id = id;
             baseStation.Name = name;
@@ -120,6 +130,8 @@ namespace DalObject
             ++DataSource.Config.IndexOfBaseStation;
         }
 
+        
+
         public static void CreatingDrone(int id, string model, DroneStatuses status, WeightCategories maxWeight, double battery)
         {
 
@@ -128,6 +140,16 @@ namespace DalObject
                 Console.WriteLine("It is impossible to add a drone");
                 return;
             }
+
+            foreach (Drone oneDrone in DataSource.DronesArr)
+            {
+                if (oneDrone.Id == id)
+                {
+                    Console.WriteLine("Can not add drone, this drone ID already exists ");
+                    return;
+                }
+            }
+
             Drone drone = new Drone();
             drone.Id = id;
             drone.Model = model;
@@ -146,6 +168,16 @@ namespace DalObject
                 Console.WriteLine("It is impossible to add a customer");
                 return;
             }
+
+            foreach (Customer oneCustomer in DataSource.CustomersArr)
+            {
+                if (oneCustomer.Id == id)
+                {
+                    Console.WriteLine("Can not add customer, this customer ID already exists ");
+                    return;
+                }
+            }
+
             Customer customer = new Customer();
             customer.Id = id;
             customer.Phone = phone;
@@ -156,14 +188,7 @@ namespace DalObject
             ++DataSource.Config.IndexOfCustomer;
         }
 
-
-        WeightCategories Weight = 0;
-        Priorities Priority = 0;
-        DateTime Production, Association, PickingUp, Arrival;
-
-
-        public static void CreatingParcel(int id ,int senderId , int targetId , int droneId , WeightCategories Weight,
-                                          Priorities Priority, DateTime Production, DateTime Association, DateTime PickingUp, DateTime Arrival)
+        public static void CreatingParcel(int id ,string senderId , string targetId , int droneId , WeightCategories Weight, Priorities Priority, DateTime Production, DateTime Association, DateTime PickingUp, DateTime Arrival)
         {
 
             if (DataSource.Config.IndexOfParcel >= DataSource.BASESTATIONSAMOUNT)
@@ -171,6 +196,12 @@ namespace DalObject
                 Console.WriteLine("It is impossible to add a parcel");
                 return;
             }
+
+            if(!ChackingParcel( id,  senderId,  targetId,  droneId))
+            {
+                return;
+            }
+
             Parcel parcel = new Parcel();
             parcel.Id = id;
             parcel.SenderId = senderId;
@@ -184,6 +215,54 @@ namespace DalObject
             parcel.Arrival = Arrival;
             DataSource.ParcelsArr[DataSource.Config.IndexOfParcel] = parcel;
             ++DataSource.Config.IndexOfParcel;
+        }
+
+        private static bool ChackingParcel(int id, string senderId, string targetId, int droneId)
+        {
+
+            foreach (Parcel package in DataSource.ParcelsArr)
+            {
+                if (package.Id == id)
+                {
+                    Console.WriteLine("Can not add parcel, this parcel ID already exists ");
+                    return false;
+                }
+            }
+
+            bool senderExist = false, targetExist = false;
+            foreach (Customer customer in DataSource.CustomersArr)
+            {
+               
+                if (customer.Id == senderId)
+                {
+                    senderExist = true;
+                }
+                if(customer.Id == targetId)
+                {
+                    targetExist = true;
+                }
+            }
+            if(!senderExist || !targetExist)
+            {
+                Console.WriteLine("Can not add parcel, sender ID or target ID does not exist ");
+                return false;
+            }
+
+            bool droneExist = false;
+            foreach (Drone drone in DataSource.DronesArr)
+            {
+                if (drone.Id == droneId)
+                {
+                    droneExist = true;
+                }
+            }
+            if(!droneExist)
+            {
+                Console.WriteLine("Can not add parcel, drone ID does not exist ");
+                return false;
+            }
+
+            return true;
         }
     }
 }

@@ -58,8 +58,8 @@ namespace ConsoleUI
                             int addingOption;
                             addingOption = int.Parse(Console.ReadLine());
 
-                            int id = 0, senderId = 0 , targetId = 0, droneId = 0;
-                            string name = "", customerId = "" , phone = "", model=""; 
+                            int id = 0, droneId = 0;
+                            string name = "", customerId = "" , phone = "", model="" , senderId = "" , targetId ="";
                             double longitude= 0 , latitude = 0, battery = 0;
                             int chrgeSlots = 0;
                             DroneStatuses status = 0;
