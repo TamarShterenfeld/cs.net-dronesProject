@@ -40,23 +40,15 @@ namespace ConsoleUI
         public static void InputDetailsOfParcel(ref Parcel parcel)
         {
             Console.WriteLine("Please enter :\n id, sender id, getter id, category weight and the priority of the drone.");
-            int id, senderId, getterId;
-            string category, priority;
+            int id;
+            string category, priority, senderId, getterId;
 
             while (!int.TryParse(Console.ReadLine(), out id))
             {
                 Console.WriteLine("id can contain only digits!");
             }
-
-            while (!int.TryParse(Console.ReadLine(), out senderId))
-            {
-                Console.WriteLine("sender id can contain only digits!");
-            }
-
-            while (!int.TryParse(Console.ReadLine(), out getterId))
-            {
-                Console.WriteLine("sender id can contain only digits!");
-            }
+            senderId = Console.ReadLine();
+            getterId = Console.ReadLine();
 
             category = Console.ReadLine();
             priority = Console.ReadLine();

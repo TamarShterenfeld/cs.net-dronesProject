@@ -15,8 +15,8 @@ namespace IDAL
             public struct Parcel
             {
                 int id;
-                int senderId;
-                int targetId;
+                string senderId;
+                string targetId;
                 int droneId;
 
                 public int Id
@@ -31,28 +31,49 @@ namespace IDAL
                         id = value;
                     }
                 }
-
-                public int SenderId
+                public string SenderId
                 {
-                    get { return id; }
+                    get
+                    {
+                        return senderId;
+                    }
                     set
                     {
-                        if (value < 0)
+                        if (value.Length != 9)
                         {
-                            throw new FormatException("Id must contain a positive number");
+                            throw new FormatException("Sender ID must include exactly 9 digits");
                         }
-                        senderId = value;
+                        foreach (char letter in value)
+                        {
+                            if (!Char.IsDigit(letter))
+                            {
+                                throw new FormatException("Sender ID must include only digits");
+
+                            }
+                        }
+                       senderId = value;
                     }
                 }
 
-                public int TargetId
+                public string TargetId
                 {
-                    get { return id; }
+                    get
+                    {
+                        return targetId;
+                    }
                     set
                     {
-                        if (value < 0)
+                        if (value.Length != 9)
                         {
-                            throw new FormatException("Id must contain a positive number");
+                            throw new FormatException("Target ID must include exactly 9 digits");
+                        }
+                        foreach (char letter in value)
+                        {
+                            if (!Char.IsDigit(letter))
+                            {
+                                throw new FormatException("Target ID must include only digits");
+
+                            }
                         }
                         targetId = value;
                     }
