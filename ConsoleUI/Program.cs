@@ -67,6 +67,10 @@ namespace ConsoleUI
                                     case (int)UpDateOptions.AssociatingParcel:
                                         {
                                             AssociatingParcel(ref parcel, ref drone);
+                                            //foreach (int item in collection)
+                                            //{
+
+                                            //}
                                             break;
                                         }
                                     case (int)UpDateOptions.PickingUpParcel:
