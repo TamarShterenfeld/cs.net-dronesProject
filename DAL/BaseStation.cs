@@ -86,21 +86,21 @@ namespace IDAL
                         latitude = value;
                     }
                 }
-                private int chrgeSlots;
-                public int ChrgeSlots
+                private int chargeSlots;
+                public int ChargeSlots
                 {
                     get
                     {
-                        return chrgeSlots;
+                        return chargeSlots;
                     }
                     set
                     {
                         if (value < 0)
                         {
-                            throw (new FormatException("Not valid number of chrgeSlots"));
+                            throw (new FormatException("Not valid number of chargeSlots"));
                         }
 
-                        chrgeSlots = value;
+                        chargeSlots = value;
                     }
                 }
             }

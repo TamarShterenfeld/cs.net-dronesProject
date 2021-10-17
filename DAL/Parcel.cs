@@ -65,13 +65,13 @@ namespace IDAL
                     {
                         if (value.Length != 9)
                         {
-                            throw new FormatException("Target ID must include exactly 9 digits");
+                            throw new FormatException("Target Id must include exactly 9 digits");
                         }
                         foreach (char letter in value)
                         {
                             if (!Char.IsDigit(letter))
                             {
-                                throw new FormatException("Target ID must include only digits");
+                                throw new FormatException("Target Id must include only digits");
 
                             }
                         }

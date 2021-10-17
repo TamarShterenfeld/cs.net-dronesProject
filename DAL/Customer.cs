@@ -70,10 +70,8 @@ namespace IDAL
                     }
                     set
                     {
-                        if (value == null)
-                        {
-                            throw new FormatException("You must enter your phone");
-                        }
+                        if (value[0] != '0')
+                            throw new FormatException("the first digit of a phone number must be '0'");
                         foreach (char digit in value)
                         {
                             if (Char.IsDigit(digit))

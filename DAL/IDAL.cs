@@ -19,12 +19,7 @@ namespace IDAL
         }
         public enum Priorities
         {
-            Standard =1, Fast , Emergency
-        }
-        public partial class IDAL
-        {
-
-
+            Standard = 1, Fast, Emergency
         }
     }
 
