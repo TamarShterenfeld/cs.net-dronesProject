@@ -19,15 +19,16 @@ namespace DalObject
                     Console.WriteLine("Id can contain only digits, Please try again!");
                 }
             }
-            id = searchBaseStation(id);
-            Console.WriteLine($"id: {BaseStationsArr[id].Id} \n" +
-                              $"name: {BaseStationsArr[id].Name} \n" +
-                              $"longitude: {BaseStationsArr[id].Longitude}\n" +
-                              $"latitude:  {BaseStationsArr[IndexOfBaseStation].Latitude}\n" +
-                              $"number of charge slots: {BaseStationsArr[IndexOfBaseStation].ChargeSlots}\n");
+            int index = searchBaseStation(id);
+            Console.WriteLine($"id: {BaseStationsArr[index].Id} \n" +
+                              $"name: {BaseStationsArr[index].Name} \n" +
+                              $"longitude: {BaseStationsArr[index].Longitude}\n" +
+                              $"latitude:  {BaseStationsArr[index].Latitude}\n" +
+                              $"number of charge slots: {BaseStationsArr[index].ChargeSlots}\n");
         }
 
-        public  void DisplayDrone(int id)
+        
+        public void DisplayDrone(int id)
         {
             while (searchDrone(id) == -1)
             {
@@ -37,13 +38,53 @@ namespace DalObject
                     Console.WriteLine("Id can contain only digits, Please try again!");
                 }
             }
-            id = searchBaseStation(id);
-            Console.WriteLine($"id: {DronesArr[id].Id} \n" +
-                              $"model: {DronesArr[id].Model} \n" +
-                              $"status: {DronesArr[id].Status}\n" +
-                              $"maxWeight:  {DronesArr[id].MaxWeight}\n" +
-                              $"battery: {DronesArr[id].Battery}\n");
+            int index = searchBaseStation(id);
+            Console.WriteLine($"id: {DronesArr[index].Id} \n" +
+                              $"model: {DronesArr[index].Model} \n" +
+                              $"status: {DronesArr[index].Status}\n" +
+                              $"maxWeight:  {DronesArr[index].MaxWeight}\n" +
+                              $"battery: {DronesArr[index].Battery}\n");
         }
+
+        public void DisplayCustomer(string id)
+        {
+            while (searchCustomer(id) == -1)
+            {
+                Console.WriteLine("Customer's Id does not exist, Please try again!");
+                id = Console.ReadLine();
+            }
+            int index = searchCustomer(id);
+            Console.WriteLine($"id: {CustomersArr[index].Id} \n" +
+                              $"name: {CustomersArr[index].Name} \n" +
+                              $"phone: {CustomersArr[index].Phone}\n"+
+                              $"longitude: {CustomersArr[index].Longitude}\n" +
+                              $"latitude:  {CustomersArr[index].Latitude}\n");
+        }
+
+
+        public void DisplayParcel(int id)
+        {
+            while (searchParcel(id) == -1)
+            {
+                Console.WriteLine("Parcel's Id does not exist, Please try again!");
+                while (!int.TryParse(Console.ReadLine(), out id))
+                {
+                    Console.WriteLine("Id can contain only digits, Please try again!");
+                }
+            }
+            int index = searchParcel(id);
+            Console.WriteLine($"id: {ParcelsArr[index].Id} \n" +
+                              $"senderId: {ParcelsArr[index].SenderId} \n" +
+                              $"targetId: {ParcelsArr[index].TargetId}\n" +
+                              $"droneId:  {ParcelsArr[index].DroneId}\n" +
+                              $"weight:  {ParcelsArr[index].Weight}\n" +
+                              $"priority:  {ParcelsArr[index].Priority}\n" +
+                              $"production:  {ParcelsArr[index].Production}\n" +
+                              $"association:  {ParcelsArr[index].Association}\n" +
+                              $"pickingUp:  {ParcelsArr[index].PickingUp}\n" +
+                              $"arrival: {ParcelsArr[index].Arrival}\n");
+        }
+
 
         private int searchBaseStation(int id)
         {

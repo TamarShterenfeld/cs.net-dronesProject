@@ -50,7 +50,7 @@ namespace ConsoleUI
 
                                     case (int)AddOptions.Drone:
                                         {
-                                            //
+                                            
                                             InputingDroneDetails(ref id, ref battery, ref model, ref maxWeight, ref status);
                                             dalObject.AddingDrone(id, model, status, maxWeight, battery);
                                             break;
@@ -160,7 +160,7 @@ namespace ConsoleUI
                                         {
                                             Console.WriteLine("Please enter customerId");
                                             customerId = Console.ReadLine();
-                                            //   DisplayCustomer(id);
+                                            dalObject.DisplayCustomer(customerId);
                                             break;
                                         }
                                     case (int)DisplayOptions.Parcel:
@@ -170,7 +170,7 @@ namespace ConsoleUI
                                             {
                                                 Console.WriteLine("Id can contain only digits, Please try again!");
                                             }
-                                            //   DisplayParcel(id);
+                                            dalObject.DisplayParcel(id);
                                             break;
                                         }
                                     default:
