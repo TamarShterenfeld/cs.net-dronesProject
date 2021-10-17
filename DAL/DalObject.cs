@@ -23,7 +23,7 @@ namespace DalObject
 
         public  List<Drone> GettingDronesList()
         {
-            List<Drone> dronesList = new List<Drone>(IndexOfDrone);
+            List<Drone> dronesList = new List<Drone>(IndexOfDrone+1);
             foreach (Drone item in DronesArr)
             {
                 dronesList.Add(item);
@@ -33,7 +33,7 @@ namespace DalObject
 
         public  List<BaseStation> GettingBaseStationList()
         {
-            List<BaseStation> baseStationsList = new List<BaseStation>(IndexOfBaseStation);
+            List<BaseStation> baseStationsList = new List<BaseStation>(IndexOfBaseStation+1);
             foreach (BaseStation item in BaseStationsArr)
             {
                 baseStationsList.Add(item);
@@ -43,7 +43,7 @@ namespace DalObject
 
         public  List<Customer> GettingCustomerList()
         {
-            List<Customer> customersList = new List<Customer>(IndexOfCustomer);
+            List<Customer> customersList = new List<Customer>(IndexOfCustomer+1);
             foreach (Customer item in CustomersArr)
             {
                 customersList.Add(item);
@@ -53,7 +53,7 @@ namespace DalObject
 
         public  List<Parcel> GettingParcelList()
         {
-            List<Parcel> parcelsList = new List<Parcel>(IndexOfParcel);
+            List<Parcel> parcelsList = new List<Parcel>(IndexOfParcel+1);
             foreach (Parcel item in ParcelsArr)
             {
                 parcelsList.Add(item);
@@ -63,7 +63,9 @@ namespace DalObject
 
         public  List<Parcel> GettingNotAssociatedParcels()
         {
-            List<Parcel> notAssociatedDronesList = new List<Parcel>(IndexOfParcel - DroneChargeList.Count);
+            //the needed size of the notAssociatedDronesList is the space between IndexOfParcel and DroneChargeList.Count + 1
+            //because we need the amount of parcels which appearin ParcelArr and don't appear in DroneChargeList
+            List<Parcel> notAssociatedDronesList = new List<Parcel>(IndexOfParcel - DroneChargeList.Count +1);
             foreach (Parcel item in ParcelsArr)
             {
                 //check for each parcel if it related to dronesChargeList
@@ -90,7 +92,7 @@ namespace DalObject
 
         public  List<BaseStation> GettingAvailableChageSlots()
         {
-            List<BaseStation> AvailableChargeSlotsList = new List<BaseStation>(IndexOfBaseStation);
+            List<BaseStation> AvailableChargeSlotsList = new List<BaseStation>(IndexOfBaseStation+1);
             foreach (BaseStation item in BaseStationsArr)
             {
                 if (item.ChargeSlots > 0)
