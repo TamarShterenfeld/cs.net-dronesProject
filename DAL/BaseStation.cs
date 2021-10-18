@@ -42,9 +42,12 @@ namespace IDAL
                     {
                         foreach (char letter in value)
                         {
-                            if (!Char.IsLetter(letter))
+                            if (letter != ' ')
                             {
-                                throw new FormatException("Name can contain only letters.");
+                                if (!Char.IsLetter(letter))
+                                {
+                                    throw new FormatException("Name can contain only letters.");
+                                }
                             }
                         }
                         name = value;
@@ -60,9 +63,9 @@ namespace IDAL
                     }
                     set
                     {
-                        if (value < 0)
+                        if (value < 0 || value > 360)
                         {
-                            throw (new FormatException("Longitude must be a positive number."));
+                            throw (new FormatException("Longitude must be a positive number and in range of 360 degrees."));
                         }
 
                         longitude = value;
@@ -78,9 +81,9 @@ namespace IDAL
                     }
                     set
                     {
-                        if (value < 0)
+                        if (value < 0 || value >360 )
                         {
-                            throw (new FormatException("Latitude must be a positive number."));
+                            throw (new FormatException("Latitude must be a positive number and in range of 360 degrees."));
                         }
 
                         latitude = value;

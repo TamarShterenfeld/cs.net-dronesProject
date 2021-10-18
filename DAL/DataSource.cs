@@ -52,7 +52,7 @@ namespace DalObject
             }
 
 
-            //initalize at least the first five drones in DronesArr
+            //initalize at least the first five drones in DronesAr
             size = rand.Next(5, DRONESAMOUNT);
             int status, weight;
             for (int i = 0; i < size; i++)
@@ -60,10 +60,10 @@ namespace DalObject
                 DronesArr[i] = new Drone();
                 DronesArr[i].Id = Config.IndexOfDrone++;
                 status = rand.Next(0, Enum.GetNames(typeof(DroneStatuses)).Length - 1);
-                DronesArr[i].Status = (DroneStatuses)Enum.GetNames(typeof(DroneStatuses)).GetValue(status);
+                DronesArr[i].Status = (DroneStatuses)Enum.Parse(typeof(DroneStatuses), (string)Enum.GetNames(typeof(DroneStatuses)).GetValue(status), true);
                 DronesArr[i].Model = droneModels[rand.Next(0, INITALIZBASESTATIONSIZE)];
                 weight = rand.Next(0, Enum.GetNames(typeof(WeightCategories)).Length);
-                DronesArr[i].MaxWeight = (WeightCategories)Enum.GetNames(typeof(WeightCategories)).GetValue(weight);
+                DronesArr[i].MaxWeight = (WeightCategories)Enum.Parse(typeof(WeightCategories), (string)Enum.GetNames(typeof(WeightCategories)).GetValue(weight), true);
                 DronesArr[i].Battery = 0.6 * rand.Next(0, 100) + 0.4 * rand.Next(0, 100);
             }
 
@@ -72,12 +72,13 @@ namespace DalObject
             for (int i = 0; i < size; i++)
             {
                 CustomersArr[i] = new Customer();
-                CustomersArr[i].Id = (Config.IndexOfCustomer++).ToString();
+                CustomersArr[i].Id = rand.Next(100000000, 999999999).ToString();
                 CustomersArr[i].Name = customerName[rand.Next(0, INITALIZBASESTATIONSIZE)];
                 CustomersArr[i].Phone = "0" + (rand.Next(100000000, 999999999)).ToString();
                 //the latitude & longitude values are displayed in degrees.
-                BaseStationsArr[i].Latitude = 0.6 * rand.Next(1, 360);
-                BaseStationsArr[i].Longitude = 0.99 * rand.Next(1, 360);
+                CustomersArr[i].Latitude = 0.6 * rand.Next(1, 360);
+                CustomersArr[i].Longitude = 0.99 * rand.Next(1, 360);
+                Config.IndexOfCustomer++;
             }
 
             //initalize at least the first tenth parcels in ParcelArr.
@@ -87,16 +88,16 @@ namespace DalObject
             {
                 ParcelsArr[i] = new Parcel();
                 ParcelsArr[i].Id = Config.IndexOfParcel++;
-                senderIndex = rand.Next(0, Config.IndexOfCustomer - 1);
+                senderIndex = rand.Next(0, Config.IndexOfCustomer-1);
                 ParcelsArr[i].SenderId = CustomersArr[senderIndex].Id;
                 targetIndex = rand.Next(0, Config.IndexOfCustomer - 1);
                 //the man who sends the parcel can't also get it.
                 while (targetIndex == senderIndex) { targetIndex = rand.Next(0, Config.IndexOfCustomer - 1); }
                 ParcelsArr[i].TargetId = CustomersArr[targetIndex].Id;
                 priority = rand.Next(0, Enum.GetNames(typeof(Priorities)).Length - 1);
-                ParcelsArr[i].Priority = (Priorities)Enum.GetNames(typeof(Priorities)).GetValue(priority);
+                ParcelsArr[i].Priority = (Priorities)Enum.Parse(typeof(Priorities),(string)Enum.GetNames(typeof(Priorities)).GetValue(priority), true);
                 weight1 = rand.Next(0, Enum.GetNames(typeof(WeightCategories)).Length - 1);
-                ParcelsArr[i].Weight = (WeightCategories)Enum.GetNames(typeof(WeightCategories)).GetValue(weight1);
+                ParcelsArr[i].Weight = (WeightCategories)Enum.Parse(typeof(WeightCategories), (string)Enum.GetNames(typeof(WeightCategories)).GetValue(weight1), true);
                 ParcelsArr[i].DroneId = DronesArr[rand.Next(0, Config.IndexOfDrone - 1)].Id;
                 //initalize (random) a date of Production & the other DateTime fields are based on it.
                 //while assuming that each part of the shipment process maximum takes 14 business days.

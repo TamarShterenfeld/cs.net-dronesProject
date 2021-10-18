@@ -29,6 +29,7 @@ namespace IDAL
                     get { return id; }
                 }
 
+                //there's nothing to check for a model can hold a string and also digits.
                 public string Model { get; set; }
                 public double Battery
                 {
