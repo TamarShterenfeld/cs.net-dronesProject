@@ -1,8 +1,5 @@
 ﻿using System;
-using static IDAL.DO.IDAL;
-using IDAL.DO;
 using static DalObject.DalObject;
-using static DalObject.DataSource;
 
 
 
@@ -11,7 +8,7 @@ namespace ConsoleUI
     public partial class Program
     {
         static void Main()
-        {
+        { 
             int option, innerChoice;
             int id = 0, droneId = 0, parcelId = 0, baseStationId = 0;
             string name = "", customerId = "", phone = "", model = "", senderId = "", targetId = "";
@@ -20,19 +17,16 @@ namespace ConsoleUI
             //all the enum type litteral are entered as string type and then checked.
             string status = "", maxWeight = "", weight = "", priority = "";
             DateTime Production = new DateTime(), Association = new DateTime(), PickingUp = new DateTime(), Arrival = new DateTime();
-            
-            
-            try
-            {
-                DalObject.DalObject dalObject = new DalObject.DalObject();
-                while (true)
-                {
-                    Console.WriteLine("Please enter : \n1- For add\n2- For update\n3- For display\n4- For showing the lists\n5- For exit");
-                    while (!int.TryParse(Console.ReadLine(), out option))
-                    {
-                        Console.WriteLine("Please enter a digit and not a char! Try again!");
-                    }
 
+            while (true)
+            {
+                Console.WriteLine("Please enter : \n1- For add\n2- For update\n3- For display\n4- For showing the lists\n5- For exit");
+                while (!int.TryParse(Console.ReadLine(), out option))
+                {
+                    Console.WriteLine("Please enter only a digit! Try again!");
+                }
+                try
+                {
                     switch (option)
                     {
                         case (int)Options.Add:
@@ -44,28 +38,28 @@ namespace ConsoleUI
                                     {
                                         case (int)AddOptions.BaseStation:
                                             {
-                                                InputingBaseStationDetails(ref id, ref name, ref longitude, ref latitude, ref chrgeSlots);
-                                                dalObject.AddingBaseStation(id, name, longitude, latitude, chrgeSlots);
+                                                CheckBaseStationDetails(ref id, ref name, ref longitude, ref latitude, ref chrgeSlots);
+                                                AddingBaseStation(id, name, longitude, latitude, chrgeSlots);
                                                 break;
                                             }
 
                                         case (int)AddOptions.Drone:
                                             {
 
-                                                InputingDroneDetails(ref id, ref battery, ref model, ref maxWeight, ref status);
-                                                dalObject.AddingDrone(id, model, status, maxWeight, battery);
+                                                CheckDroneDetails(ref id, ref battery, ref model, ref maxWeight, ref status);
+                                                AddingDrone(id, model, status, maxWeight, battery);
                                                 break;
                                             }
                                         case (int)AddOptions.Customer:
                                             {
-                                                InputingCustomerDetails(ref customerId, ref name, ref phone, ref longitude, ref latitude);
-                                                dalObject.AddingCustomer(ref customerId, ref name, ref phone, ref longitude, ref latitude);
+                                                CheckCustomerDetails(ref customerId, ref name, ref phone, ref longitude, ref latitude);
+                                                AddingCustomer(ref customerId, ref name, ref phone, ref longitude, ref latitude);
                                                 break;
                                             }
                                         case (int)AddOptions.Parcel:
                                             {
-                                                InputingParcelDetails(ref customerId, ref senderId, ref targetId, ref weight, ref priority);
-                                                dalObject.AddingParcel(id, senderId, targetId, droneId, weight, priority, Production, Association, PickingUp, Arrival);
+                                                CheckParcelDetails(ref customerId, ref senderId, ref targetId, ref weight, ref priority);
+                                                AddingParcel(id, senderId, targetId, droneId, weight, priority, Production, Association, PickingUp, Arrival);
                                                 break;
                                             }
                                         default:
@@ -90,31 +84,31 @@ namespace ConsoleUI
                                         case (int)UpDateOptions.AssociatingParcel:
                                             {
                                                 Console.WriteLine("Please enter the parcel's id and the drone's id");
-                                                dalObject.AssociatingParcel(parcelId, droneId);
+                                                AssociatingParcel(parcelId, droneId);
                                                 break;
                                             }
                                         case (int)UpDateOptions.PickingUpParcel:
                                             {
                                                 Console.WriteLine("Please enter the parcel's id and the sender's id");
-                                                dalObject.PickingUpParcel(parcelId, senderId);
+                                                PickingUpParcel(parcelId, senderId);
                                                 break;
                                             }
                                         case (int)UpDateOptions.SupplyingParcel:
                                             {
                                                 Console.WriteLine("Please enter the parcel's id and the target's id");
-                                                dalObject.SupplyingParcel(parcelId, targetId);
+                                                SupplyingParcel(parcelId, targetId);
                                                 break;
                                             }
                                         case (int)UpDateOptions.ChargingDrone:
                                             {
                                                 Console.WriteLine("Please enter droneId and baseStationId");
-                                                dalObject.ChargingDrone(droneId, baseStationId);
+                                                ChargingDrone(droneId, baseStationId);
                                                 break;
                                             }
                                         case (int)UpDateOptions.StopDroneCharging:
                                             {
                                                 Console.WriteLine("Please enter droneId and baseStationId");
-                                                dalObject.StopDroneCharging(droneId, baseStationId);
+                                                StopDroneCharging(droneId, baseStationId);
                                                 break;
                                             }
                                         default:
@@ -143,7 +137,7 @@ namespace ConsoleUI
                                                 {
                                                     Console.WriteLine("Id can contain only digits, Please try again!");
                                                 }
-                                                dalObject.DisplayBaseStation(id);
+                                                DisplayBaseStation(id);
                                                 break;
                                             }
 
@@ -154,14 +148,14 @@ namespace ConsoleUI
                                                 {
                                                     Console.WriteLine("Id can contain only digits, Please try again!");
                                                 }
-                                                dalObject.DisplayDrone(id);
+                                                DisplayDrone(id);
                                                 break;
                                             }
                                         case (int)DisplayOptions.Customer:
                                             {
                                                 Console.WriteLine("Please enter customerId");
                                                 customerId = Console.ReadLine();
-                                                dalObject.DisplayCustomer(customerId);
+                                                DisplayCustomer(customerId);
                                                 break;
                                             }
                                         case (int)DisplayOptions.Parcel:
@@ -171,7 +165,7 @@ namespace ConsoleUI
                                                 {
                                                     Console.WriteLine("Id can contain only digits, Please try again!");
                                                 }
-                                                dalObject.DisplayParcel(parcelId);
+                                                DisplayParcel(parcelId);
                                                 break;
                                             }
                                         default:
@@ -195,32 +189,32 @@ namespace ConsoleUI
                                     {
                                         case (int)ShowingListsOptions.BaseStations:
                                             {
-                                                dalObject.ShowingBaseStationsList();
+                                                ShowingBaseStationsList();
                                                 break;
                                             }
                                         case (int)ShowingListsOptions.Drones:
                                             {
-                                                dalObject.ShowingBDronesList();
+                                                ShowingBDronesList();
                                                 break;
                                             }
                                         case (int)ShowingListsOptions.Customers:
                                             {
-                                                dalObject.ShowingCustomersList();
+                                                ShowingCustomersList();
                                                 break;
                                             }
                                         case (int)ShowingListsOptions.Parcels:
                                             {
-                                                dalObject.ShowingParcelsList();
+                                                ShowingParcelsList();
                                                 break;
                                             }
                                         case (int)ShowingListsOptions.NotAssociatedParcels:
                                             {
-                                                dalObject.ShowingNotAssociatedParcelsList();
+                                                ShowingNotAssociatedParcelsList();
                                                 break;
                                             }
                                         case (int)ShowingListsOptions.AvailableChargeSlots:
                                             {
-                                                dalObject.AvailableChargeSlots();
+                                                AvailableChargeSlots();
                                                 break;
                                             }
                                     }
@@ -246,11 +240,13 @@ namespace ConsoleUI
                             }
                     }
                 }
+                catch (FormatException exe)
+                {
+                    Console.WriteLine(exe.Message);
+                }
             }
-            catch(FormatException exe)
-            {
-                Console.WriteLine(exe.Message);
-            }
+
+
 
         }
 

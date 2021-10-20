@@ -9,7 +9,7 @@ namespace DalObject
     public partial class DalObject
     {
 
-        public void AddingBaseStation(int id, string name, double longitude, double latitude, int chrgeSlots)
+        public static void  AddingBaseStation(int id, string name, double longitude, double latitude, int chrgeSlots)
         {
 
             if (DataSource.Config.IndexOfBaseStation >= DataSource.BASESTATIONSAMOUNT)
@@ -34,7 +34,7 @@ namespace DalObject
             ++DataSource.Config.IndexOfBaseStation;
         }
 
-        public  void AddingDrone(int id, string model, string status, string maxWeight, double battery)
+        public static void AddingDrone(int id, string model, string status, string maxWeight, double battery)
         {
 
             if (DataSource.Config.IndexOfDrone >= DataSource.DRONESAMOUNT)
@@ -59,7 +59,7 @@ namespace DalObject
             ++DataSource.Config.IndexOfDrone;
         }
 
-        public  void AddingCustomer(ref string id, ref string name, ref string phone, ref double longitude, ref double latitude)
+        public static void AddingCustomer(ref string id, ref string name, ref string phone, ref double longitude, ref double latitude)
         {
 
             if (DataSource.Config.IndexOfCustomer >= DataSource.CUSTOMERSAMOUNT)
@@ -84,7 +84,7 @@ namespace DalObject
             ++DataSource.Config.IndexOfCustomer;
         }
 
-        public void AddingParcel(int id, string senderId, string targetId, int droneId, string Weight, string Priority, DateTime Production, DateTime Association, DateTime PickingUp, DateTime Arrival)
+        public static void AddingParcel(int id, string senderId, string targetId, int droneId, string Weight, string Priority, DateTime Production, DateTime Association, DateTime PickingUp, DateTime Arrival)
         {
 
             if (DataSource.Config.IndexOfParcel >= DataSource.BASESTATIONSAMOUNT)
@@ -114,7 +114,7 @@ namespace DalObject
         }
 
 
-        private bool chackingIdentitiesOfParcel(int id, string senderId, string targetId, int droneId)
+        private static bool chackingIdentitiesOfParcel(int id, string senderId, string targetId, int droneId)
         {
             if (searchParcel(id) == -1)
             {

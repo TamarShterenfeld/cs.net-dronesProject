@@ -9,7 +9,7 @@ namespace DalObject
 {
     public partial class DalObject
     {
-        public  void DisplayBaseStation(int id)
+        public static void DisplayBaseStation(int id)
         {
             while (searchBaseStation(id) == -1)
             {
@@ -28,7 +28,7 @@ namespace DalObject
         }
 
         
-        public void DisplayDrone(int id)
+        public static void DisplayDrone(int id)
         {
             while (searchDrone(id) == -1)
             {
@@ -46,7 +46,7 @@ namespace DalObject
                               $"battery: {DronesArr[index].Battery}\n");
         }
 
-        public void DisplayCustomer(string id)
+        public static void DisplayCustomer(string id)
         {
             while (searchCustomer(id) == -1)
             {
@@ -86,7 +86,7 @@ namespace DalObject
         }
 
 
-        private int searchBaseStation(int id)
+        private static int searchBaseStation(int id)
         {
             int index = -1;
             for (int i = 0; i < IndexOfBaseStation; ++i)
@@ -99,7 +99,7 @@ namespace DalObject
             return index;
         }
 
-        private  int searchDrone(int id)
+        private static int searchDrone(int id)
         {
             int index = -1;
             for (int i = 0; i <IndexOfDrone; ++i)
@@ -112,7 +112,7 @@ namespace DalObject
             return index;
         }
 
-        private  int searchCustomer(string id)
+        private static int searchCustomer(string id)
         {
             int index = -1;
             for (int i = 0; i < IndexOfCustomer; ++i)
@@ -125,7 +125,7 @@ namespace DalObject
             return index;
         }
 
-        private  int searchParcel(int id)
+        private static int searchParcel(int id)
         {
             int index = -1;
             for (int i = 0; i <IndexOfParcel; ++i)

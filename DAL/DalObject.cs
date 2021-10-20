@@ -21,7 +21,7 @@ namespace DalObject
             return DataSource.Config.ParcelId++;
         }
 
-        public  List<Drone> GettingDronesList()
+        public static List<Drone> GettingDronesList()
         {
             List<Drone> dronesList = new List<Drone>(IndexOfDrone+1);
             foreach (Drone item in DronesArr)
@@ -31,7 +31,7 @@ namespace DalObject
             return dronesList;
         }
 
-        public  List<BaseStation> GettingBaseStationList()
+        public static List<BaseStation> GettingBaseStationList()
         {
             List<BaseStation> baseStationsList = new List<BaseStation>(IndexOfBaseStation+1);
             foreach (BaseStation item in BaseStationsArr)
@@ -41,7 +41,7 @@ namespace DalObject
             return baseStationsList;
         }
 
-        public  List<Customer> GettingCustomerList()
+        public static List<Customer> GettingCustomerList()
         {
             List<Customer> customersList = new List<Customer>(IndexOfCustomer+1);
             foreach (Customer item in CustomersArr)
@@ -51,7 +51,7 @@ namespace DalObject
             return customersList;
         }
 
-        public  List<Parcel> GettingParcelList()
+        public static List<Parcel> GettingParcelList()
         {
             List<Parcel> parcelsList = new List<Parcel>(IndexOfParcel+1);
             foreach (Parcel item in ParcelsArr)
@@ -61,7 +61,7 @@ namespace DalObject
             return parcelsList;
         }
 
-        public  List<Parcel> GettingNotAssociatedParcels()
+        public static List<Parcel> GettingNotAssociatedParcels()
         {
             //the needed size of the notAssociatedDronesList is the space between IndexOfParcel and DroneChargeList.Count + 1
             //because we need the amount of parcels which appearin ParcelArr and don't appear in DroneChargeList
@@ -78,7 +78,7 @@ namespace DalObject
             return notAssociatedDronesList;
         }
 
-        private  int searchDronesChargeList(int droneId)
+        private static int searchDronesChargeList(int droneId)
         {
             DroneCharge item;
             for(int i =0; i < DroneChargeList.Count; i++)
@@ -90,7 +90,7 @@ namespace DalObject
             return -1;
         }
 
-        public  List<BaseStation> GettingAvailableChageSlots()
+        public static List<BaseStation> GettingAvailableChageSlots()
         {
             List<BaseStation> AvailableChargeSlotsList = new List<BaseStation>(IndexOfBaseStation+1);
             foreach (BaseStation item in BaseStationsArr)

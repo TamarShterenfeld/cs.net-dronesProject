@@ -9,7 +9,7 @@ namespace DalObject
 {
     public  partial class DalObject
     {
-        public  void ShowingBaseStationsList()
+        public static void ShowingBaseStationsList()
         {
             List<BaseStation> baseStationsList = new List<BaseStation>(GettingBaseStationList());
             foreach (BaseStation item in baseStationsList)
@@ -22,7 +22,7 @@ namespace DalObject
             }
         }
 
-        public  void ShowingBDronesList()
+        public static void ShowingBDronesList()
         {
             List<Drone> dronesList = new List<Drone>(GettingDronesList());
             foreach (Drone item in DronesArr)
@@ -35,7 +35,7 @@ namespace DalObject
             }
         }
 
-        public  void ShowingCustomersList()
+        public static void ShowingCustomersList()
         {
             List<Customer> customersList = new List<Customer>(GettingCustomerList());
             foreach (Customer item in CustomersArr)
@@ -48,7 +48,7 @@ namespace DalObject
             }
         }
 
-        public  void ShowingParcelsList()
+        public static void ShowingParcelsList()
         {
             List<Parcel> parcelsList = new List<Parcel>(GettingParcelList());
             foreach (Parcel item in ParcelsArr)
@@ -66,7 +66,7 @@ namespace DalObject
             }
         }
 
-        public  void ShowingNotAssociatedParcelsList()
+        public static void ShowingNotAssociatedParcelsList()
         {
             List<Parcel> notAssociatedParcelsList = new List<Parcel>(GettingNotAssociatedParcels());
             foreach (Parcel item in notAssociatedParcelsList)
@@ -84,7 +84,7 @@ namespace DalObject
             }
         }
 
-        public void AvailableChargeSlots()
+        public static void AvailableChargeSlots()
         {
             foreach (BaseStation item in GettingAvailableChageSlots())
             {

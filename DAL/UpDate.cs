@@ -9,7 +9,7 @@ namespace DalObject
 {
     public partial class DalObject
     {
-        public  void AssociatingParcel(int parcelId, int droneId)
+        public static void AssociatingParcel(int parcelId, int droneId)
         {
             while (int.TryParse(Console.ReadLine(), out parcelId))
             {
@@ -41,7 +41,7 @@ namespace DalObject
             DronesArr[droneId].Status = DroneStatuses.Shipment;
         }
 
-        public void PickingUpParcel(int parcelId, string senderId)
+        public static void PickingUpParcel(int parcelId, string senderId)
         {
             while (int.TryParse(Console.ReadLine(), out parcelId))
             {
@@ -66,7 +66,7 @@ namespace DalObject
             ParcelsArr[parcelId].PickingUp = DateTime.Now;
         }
 
-        public void SupplyingParcel(int parcelId, string targetId)
+        public static void SupplyingParcel(int parcelId, string targetId)
         {
             while (int.TryParse(Console.ReadLine(), out parcelId))
             {
@@ -89,7 +89,7 @@ namespace DalObject
             ParcelsArr[parcelId].Arrival = DateTime.Now;
         }
 
-        public void ChargingDrone(int droneId, int baseStationId)
+        public static void ChargingDrone(int droneId, int baseStationId)
         {
             while (int.TryParse(Console.ReadLine(), out droneId))
             {
@@ -136,7 +136,7 @@ namespace DalObject
 
         }
 
-        public void StopDroneCharging(int droneId, int baseStationId)
+        public static void StopDroneCharging(int droneId, int baseStationId)
         {
             int index;
             while (int.TryParse(Console.ReadLine(), out droneId))
@@ -165,7 +165,7 @@ namespace DalObject
             DronesArr[droneId].Status = DroneStatuses.Available;
         }
 
-        private int searchDroneCharge(int droneId, int baseStationId)
+        private static int searchDroneCharge(int droneId, int baseStationId)
         {
             DroneCharge item;
             for (int i = 0; i<DroneChargeList.Count;i++)
