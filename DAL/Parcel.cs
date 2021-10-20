@@ -18,7 +18,6 @@ namespace IDAL
                 string senderId;
                 string targetId;
                 int droneId;
-
                 public int Id
                 {
                     get { return id; }
@@ -48,13 +47,11 @@ namespace IDAL
                             if (!Char.IsDigit(letter))
                             {
                                 throw new FormatException("Sender ID must include only digits");
-
                             }
                         }
                        senderId = value;
                     }
                 }
-
                 public string TargetId
                 {
                     get
@@ -96,6 +93,12 @@ namespace IDAL
                 public DateTime Association{ get; set; }
                 public DateTime PickingUp { get; set; }
                 public DateTime Arrival { get; set; }
+
+                public Parcel (int id, string senderId, string targetId, int droneId, WeightCategories weight, Priorities priority)
+                {
+                    this.id = id; this.senderId = senderId; this.targetId = targetId; this.droneId = droneId; Weight = weight; Priority = priority;
+                    Production = Association = PickingUp = Arrival = DateTime.Now;
+                }
             }
         }
 

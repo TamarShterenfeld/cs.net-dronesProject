@@ -62,7 +62,7 @@ namespace DalObject
         }
 
 
-        public void DisplayParcel(int id)
+        public static void DisplayParcel(int id)
         {
             while (searchParcel(id) == -1)
             {

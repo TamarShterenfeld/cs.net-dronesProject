@@ -29,7 +29,7 @@ namespace IDAL
                     get { return id; }
                 }
 
-                //there's nothing to check for a model can hold a string and also digits.
+                //there's nothing to check for a model - it can hold chars and also digits.
                 public string Model { get; set; }
                 public double Battery
                 {
@@ -46,6 +46,10 @@ namespace IDAL
 
                 public DO.DroneStatuses Status { set; get; }
                 public DO.WeightCategories MaxWeight { set; get; }
+                public Drone(int id, double battery, string model, DroneStatuses status, WeightCategories maxWeight)
+                {
+                    this.id = id; this.battery = battery; Model = model; Status = status; MaxWeight = maxWeight;
+                }
             }
         }
     }

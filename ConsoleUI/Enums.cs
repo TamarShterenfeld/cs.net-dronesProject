@@ -26,6 +26,6 @@ namespace ConsoleUI
 
     public enum ShowingListsOptions
     {
-        BaseStations, Drones, Customers, Parcels, NotAssociatedParcels, AvailableChargeSlots,
+        BaseStations = 1, Drones, Customers, Parcels, NotAssociatedParcels, AvailableChargeSlots,
     }
 }

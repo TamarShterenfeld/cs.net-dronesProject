@@ -28,6 +28,27 @@ namespace ConsoleUI
             inputWeightCategory(ref maxWeight);
             inputDroneStatus(ref status);
         }
+
+        public static void CheckParcelDetails(ref string id, ref string senderId, ref string getterId, ref string weight, ref string priority)
+        {
+            Console.WriteLine("Please enter :\n id, sender id, getter id, category weight and the priority of the drone.");
+            //the checkings of the different (string) id are implemented within the struct Parcel and another function named "chackingIdentitiesOfParcel"
+            id = Console.ReadLine();
+            senderId = Console.ReadLine();
+            getterId = Console.ReadLine();
+            inputWeightCategory(ref weight);
+            inputPriority(ref priority);
+        }
+        public static void CheckCustomerDetails(ref string id, ref string name, ref string phone, ref double longitude, ref double latitude)
+        {
+            Console.WriteLine("Enter base customer's details : id, name, phone,  longitude, latitude.");
+            //the needed checkings are implemented within the struct Customer or in DalObject.
+            id = Console.ReadLine();
+            name = Console.ReadLine();
+            phone = Console.ReadLine();
+            inputDoubleValue(ref longitude);
+            inputDoubleValue(ref latitude);
+        }
         private static void inputIntValue(ref int numericalValue)
         {
             while (!int.TryParse(Console.ReadLine(), out numericalValue))
@@ -100,7 +121,7 @@ namespace ConsoleUI
             }
         }
         /// <summary>
-        /// getting a string and check its existance in Priority enum.
+        /// getting a string and check its existance in Priorities enum.
         /// </summary>
         private static void inputPriority(ref string priority)
         {
@@ -126,25 +147,6 @@ namespace ConsoleUI
                 }
             }
         }
-        public static void CheckParcelDetails(ref string id, ref string senderId, ref string getterId, ref string weight, ref string priority)
-        {
-            Console.WriteLine("Please enter :\n id, sender id, getter id, category weight and the priority of the drone.");
-            //the checkings of the different (string) id are implemented within the struct Parcel and another function named "chackingIdentitiesOfParcel"
-            id = Console.ReadLine();
-            senderId = Console.ReadLine();
-            getterId = Console.ReadLine();
-            inputWeightCategory(ref weight);
-            inputPriority(ref priority);
-        }
-        public static void CheckCustomerDetails(ref string id, ref string name, ref string phone, ref double longitude, ref double latitude)
-        {
-            Console.WriteLine("Enter base customer's details : id, name, phone,  longitude, latitude.");
-            //the needed checkings are implemented within the struct Customer or in DalObject.
-            id = Console.ReadLine();
-            name = Console.ReadLine();
-            phone = Console.ReadLine();
-            inputDoubleValue(ref longitude);
-            inputDoubleValue(ref latitude);
-        }
+        
     }
 }

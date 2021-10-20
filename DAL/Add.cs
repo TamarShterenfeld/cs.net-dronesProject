@@ -3,66 +3,54 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using static IDAL.DO.IDAL;
+using static DalObject.DataSource.Config;
+using static DalObject.DataSource;
 
 namespace DalObject
 {
     public partial class DalObject
     {
 
-        public static void  AddingBaseStation(int id, string name, double longitude, double latitude, int chrgeSlots)
+        public static void  AddingBaseStation(int myId, string name, double longitude, double latitude, int chrgeSlots)
         {
-
-            if (DataSource.Config.IndexOfBaseStation >= DataSource.BASESTATIONSAMOUNT)
+            if (IndexOfBaseStation >= BASESTATIONSAMOUNT)
             {
-                Console.WriteLine("It is impossible to add a base station");
+                Console.WriteLine("The amount of base stations objects arrived to its maximum limit");
                 return;
             }
-
-            if (searchBaseStation(id) == -1)
+            if (searchBaseStation(myId) == -1)
             {
-                Console.WriteLine("Can not add base station, this station ID already exists ");
+                Console.WriteLine("Can not add base station, this station's ID already exists ");
                 return;
             }
-
-            BaseStation baseStation = new BaseStation();
-            baseStation.Id = id;
-            baseStation.Name = name;
-            baseStation.Longitude = longitude;
-            baseStation.Latitude = latitude;
-            baseStation.ChargeSlots = chrgeSlots;
-            DataSource.BaseStationsArr[DataSource.Config.IndexOfBaseStation] = baseStation;
-            ++DataSource.Config.IndexOfBaseStation;
+            BaseStation baseStation = new BaseStation( myId, name, longitude, latitude, chrgeSlots);
+            BaseStationsArr[IndexOfBaseStation] = baseStation;
+            ++IndexOfBaseStation;
         }
 
         public static void AddingDrone(int id, string model, string status, string maxWeight, double battery)
         {
-
-            if (DataSource.Config.IndexOfDrone >= DataSource.DRONESAMOUNT)
+            if (IndexOfDrone >= DRONESAMOUNT)
             {
-                Console.WriteLine("It is impossible to add a drone");
+                Console.WriteLine("The amount of drones objects arrived to its maximum limit");
                 return;
             }
-
             if (searchDrone(id) == -1)
             {
-                Console.WriteLine("Can not add drone, this drone ID already exists ");
+                Console.WriteLine("Can not add drone, this drone's ID already exists ");
                 return;
             }
-
-            Drone drone = new Drone();
-            drone.Id = id;
-            drone.Model = model;
-            drone.Status = (DroneStatuses)int.Parse(status);
-            drone.MaxWeight = (WeightCategories)int.Parse(maxWeight);
-            drone.Battery = battery;
-            DataSource.DronesArr[DataSource.Config.IndexOfDrone] = drone;
-            ++DataSource.Config.IndexOfDrone;
+            DroneStatuses droneStatuses = (DroneStatuses)int.Parse(status); 
+            WeightCategories weightCategory = (WeightCategories)int.Parse(maxWeight); ;
+            Drone drone = new Drone(id, battery, model, droneStatuses, weightCategory);
+            DronesArr[IndexOfDrone] = drone;
+            ++IndexOfDrone;
         }
 
         public static void AddingCustomer(ref string id, ref string name, ref string phone, ref double longitude, ref double latitude)
         {
 
-            if (DataSource.Config.IndexOfCustomer >= DataSource.CUSTOMERSAMOUNT)
+            if (IndexOfCustomer >=CUSTOMERSAMOUNT)
             {
                 Console.WriteLine("It is impossible to add a customer");
                 return;
@@ -74,20 +62,20 @@ namespace DalObject
                 return;
             }
 
-            Customer customer = new Customer();
+            Customer customer = new Customer(id = id, name, phone, longitude, latitude );
             customer.Id = id;
             customer.Phone = phone;
             customer.Name = name;
             customer.Longitude = longitude;
             customer.Latitude = latitude;
-            DataSource.CustomersArr[DataSource.Config.IndexOfCustomer] = customer;
-            ++DataSource.Config.IndexOfCustomer;
+            CustomersArr[IndexOfCustomer] = customer;
+            ++IndexOfCustomer;
         }
 
         public static void AddingParcel(int id, string senderId, string targetId, int droneId, string Weight, string Priority, DateTime Production, DateTime Association, DateTime PickingUp, DateTime Arrival)
         {
 
-            if (DataSource.Config.IndexOfParcel >= DataSource.BASESTATIONSAMOUNT)
+            if (IndexOfParcel >= BASESTATIONSAMOUNT)
             {
                 Console.WriteLine("It is impossible to add a parcel");
                 return;
@@ -109,8 +97,8 @@ namespace DalObject
             parcel.Association = Association;
             parcel.PickingUp = PickingUp;
             parcel.Arrival = Arrival;
-            DataSource.ParcelsArr[DataSource.Config.IndexOfParcel] = parcel;
-            ++DataSource.Config.IndexOfParcel;
+           ParcelsArr[IndexOfParcel] = parcel;
+            ++IndexOfParcel;
         }
 
 
@@ -135,26 +123,6 @@ namespace DalObject
             }
             return true;
         }
-
-        //public static void DroneDetails(ref int id, ref double battery, ref string model, ref IDAL.DO.DroneStatuses status, ref IDAL.DO.WeightCategories maxWeight)
-        //{
-        //    Console.WriteLine("Enter drone's details : id, battery, model, status, maxWeight.");
-        //    id = int.Parse(Console.ReadLine());
-        //    battery = id = int.Parse(Console.ReadLine());
-        //    model = Console.ReadLine();
-        //    //status = Console.ReadLine();
-        //    //maxWeight = Console.ReadLine();
-        //}
-
-        //public static void PackageDetails(ref int id, ref string name, ref double longitude, ref double latitude, ref int chargeSlots)
-        //{
-        //    Console.WriteLine("Enter base station's details : id, name, longitude, latitude, number of chargeSlots.");
-        //    id = int.Parse(Console.ReadLine());
-        //    name = Console.ReadLine();
-        //    longitude = int.Parse(Console.ReadLine());
-        //    latitude = int.Parse(Console.ReadLine());
-        //    chargeSlots = int.Parse(Console.ReadLine());
-        //}
 
     }
 }

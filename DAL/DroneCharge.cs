@@ -37,6 +37,12 @@ namespace IDAL
                         }
                     }
                 }
+
+                public DroneCharge(int stationId, int droneId)
+                {
+                    this.stationId = stationId; this.droneId = droneId;
+                    StationId = stationId; DroneId = droneId;
+                }
             }
         }
     }

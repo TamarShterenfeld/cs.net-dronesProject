@@ -29,8 +29,6 @@ namespace IDAL
                         id = value;
                     }
                 }
-
-
                 private string name;
                 public string Name
                 {
@@ -53,7 +51,6 @@ namespace IDAL
                         name = value;
                     }
                 }
-
                 private double longitude;
                 public double Longitude
                 {
@@ -71,7 +68,6 @@ namespace IDAL
                         longitude = value;
                     }
                 }
-
                 private double latitude;
                 public double Latitude
                 {
@@ -105,6 +101,11 @@ namespace IDAL
 
                         chargeSlots = value;
                     }
+                }
+                public BaseStation(int id, string name, double longitude, double latitude, int chargeSlots)
+                {         
+                    this.id = id; this.name = name; this.latitude = latitude; this.longitude = longitude;  this.chargeSlots = chargeSlots;
+                    Id = id; Name = name; Latitude = latitude; Longitude = longitude; ChargeSlots = chargeSlots;
                 }
             }
         }
