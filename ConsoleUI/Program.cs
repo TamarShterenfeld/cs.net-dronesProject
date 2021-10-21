@@ -48,8 +48,9 @@ namespace ConsoleUI
 
                                         case (int)AddOptions.Drone:
                                             {
-                                                CheckDroneDetails(ref id, ref battery, ref model, ref maxWeight, ref status);
-                                                AddDrone(id, model, status, maxWeight, battery);
+
+                                                InputingDroneDetails(ref id, ref battery, ref model, ref maxWeight);
+                                                dalObject.AddingDrone(id, model, maxWeight, battery);
                                                 break;
                                             }
                                         case (int)AddOptions.Customer:

@@ -11,16 +11,16 @@ namespace DalObject
     public partial class DalObject
     {
 
-        public static void AddBaseStation(int id, string name, double longitude, double latitude, int chrgeSlots)
+        public void AddingBaseStation(int id, string name, double longitude, double latitude, int chrgeSlots)
         {
             if (IndexOfBaseStation >= BASESTATIONSAMOUNT)
             {
-                Console.WriteLine("The amount of base stations objects arrived to its maximum limit");
+                Console.WriteLine("It is impossible to add a base station");
                 return;
             }
             if (searchBaseStation(id) == -1)
             {
-                Console.WriteLine("Can not add base station, this station's ID already exists ");
+                Console.WriteLine("Can not add a base station, this station ID already exists ");
                 return;
             }
             BaseStation baseStation = new BaseStation(id, name, longitude, latitude, chrgeSlots);
@@ -28,7 +28,7 @@ namespace DalObject
             ++IndexOfBaseStation;
         }
 
-        public static void AddDrone(int id, string model, string status, string maxWeight, double battery)
+        public void AddingDrone(int id, string model, string maxWeight, double battery)
         {
             if (IndexOfDrone >= DRONESAMOUNT)
             {
@@ -37,7 +37,7 @@ namespace DalObject
             }
             if (searchDrone(id) == -1)
             {
-                Console.WriteLine("Can not add drone, this drone's ID already exists ");
+                Console.WriteLine("Can not add a drone, this drone ID already exists ");
                 return;
             }
             DroneStatuses droneStatuses = (DroneStatuses)int.Parse(status);
@@ -47,7 +47,7 @@ namespace DalObject
             ++IndexOfDrone;
         }
 
-        public static void AddCustomer( string id,  string name,  string phone,  double longitude, double latitude)
+        public  void AddingCustomer(ref string id, ref string name, ref string phone, ref double longitude, ref double latitude)
         {
 
             if (IndexOfCustomer >= CUSTOMERSAMOUNT)
@@ -65,7 +65,7 @@ namespace DalObject
             ++IndexOfCustomer;
         }
 
-        public static void AddParcel(int id, string senderId, string targetId, int droneId, string Weight, string Priority)
+        public void AddingParcel(int id, string senderId, string targetId, int droneId, string Weight, string Priority)
         {
 
             if (IndexOfParcel >= BASESTATIONSAMOUNT)
