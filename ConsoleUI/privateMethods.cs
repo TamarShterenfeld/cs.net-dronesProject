@@ -15,6 +15,14 @@ namespace ConsoleUI
             }
         }
 
+        private static void inputIntValue(ref int numericalValue)
+        {
+            while (!int.TryParse(Console.ReadLine(), out numericalValue))
+            {
+                Console.WriteLine("This field can input only numerical value! Please try again!");
+            }
+        }
+
         /// <summary>
         /// getting a string and check its existance in WeightCategories enum.
         /// </summary>

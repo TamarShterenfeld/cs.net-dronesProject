@@ -5,84 +5,77 @@ using System.Text;
 using static IDAL.DO.IDAL;
 using static DalObject.DataSource.Config;
 using static DalObject.DataSource;
+using System.Linq;
 
 namespace DalObject
 {
     public partial class DalObject
     {
 
-        public void AddingBaseStation(int id, string name, double longitude, double latitude, int chrgeSlots)
+        public static void AddBaseStation(int id, string name, double longitude, double latitude, int chrgeSlots)
         {
-            if (IndexOfBaseStation >= BASESTATIONSAMOUNT)
-            {
-                Console.WriteLine("It is impossible to add a base station");
-                return;
-            }
-            if (searchBaseStation(id) == -1)
-            {
-                Console.WriteLine("Can not add a base station, this station ID already exists ");
-                return;
-            }
+
+            BaseStationsList.First(item => item.Id == id);
             BaseStation baseStation = new BaseStation(id, name, longitude, latitude, chrgeSlots);
             BaseStationsList[IndexOfBaseStation] = baseStation;
+            if (IndexOfBaseStation + 1 >= BASESTATIONSAMOUNT)
+            {
+                throw new Exception("The amount of base stations objects arrived to its maximum limit");
+            }
             ++IndexOfBaseStation;
+            BaseStationsList.Add(baseStation);
         }
 
-        public void AddingDrone(int id, string model, string maxWeight, double battery)
+        public static void AddDrone(int id, string model, string status, string maxWeight, double battery)
         {
-            if (IndexOfDrone >= DRONESAMOUNT)
+
+            foreach (Drone item in DronesList)
             {
-                Console.WriteLine("The amount of drones objects arrived to its maximum limit");
-                return;
-            }
-            if (searchDrone(id) == -1)
-            {
-                Console.WriteLine("Can not add a drone, this drone ID already exists ");
-                return;
+                if (item.Id == id)
+                    throw new Exception("This drone already exists!");
             }
             DroneStatuses droneStatuses = (DroneStatuses)int.Parse(status);
-            WeightCategories weightCategory = (WeightCategories)int.Parse(maxWeight); ;
-            Drone drone = new Drone(id, battery, model, droneStatuses, weightCategory);
-            DronesList[IndexOfDrone] = drone;
+            WeightCategories weightCategory = (WeightCategories)int.Parse(maxWeight);
+            if (IndexOfDrone + 1 >= DRONESAMOUNT)
+            {
+                throw new Exception("The amount of drones objects arrived to its maximum limit");
+            }
             ++IndexOfDrone;
+            Drone drone = new Drone(id, battery, model, droneStatuses, weightCategory);
+            DronesList.Add(drone);
         }
 
-        public  void AddingCustomer(ref string id, ref string name, ref string phone, ref double longitude, ref double latitude)
+        public static void AddCustomer(string id, string name, string phone, double longitude, double latitude)
         {
-
-            if (IndexOfCustomer >= CUSTOMERSAMOUNT)
+            foreach (Customer item in CustomersList)
             {
-                Console.WriteLine("It is impossible to add a customer");
-                return;
+                if (item.Id == id)
+                    throw new Exception("This customer already exists!");
             }
-            if (searchCustomer(id) == -1)
+            if (IndexOfCustomer + 1 >= CUSTOMERSAMOUNT)
             {
-                Console.WriteLine("Can not add customer, this customer ID already exists ");
-                return;
+                throw new Exception("The amount of customers objects arrived to its maximum limit");
             }
             Customer customer = new Customer(id, name, phone, longitude, latitude);
-            CustomersList[IndexOfCustomer] = customer;
             ++IndexOfCustomer;
+            CustomersList.Add(customer);
         }
 
-        public void AddingParcel(int id, string senderId, string targetId, int droneId, string Weight, string Priority)
+        public static void AddParcel(int id, string senderId, string targetId, int droneId, string Weight, string Priority)
         {
 
-            if (IndexOfParcel >= BASESTATIONSAMOUNT)
+            if (IndexOfParcel + 1 >= BASESTATIONSAMOUNT)
             {
                 Console.WriteLine("It is impossible to add a parcel");
                 return;
             }
-            if (!chackingIdentitiesOfParcel(id, senderId, targetId, droneId))
-            {
-                return;
-            }
+            chackingIdentitiesOfParcel(id, senderId, targetId, droneId);
             WeightCategories weightCategories = (WeightCategories)int.Parse(Weight);
             Priorities priorities = (Priorities)int.Parse(Priority);
             Parcel parcel = new Parcel(id, senderId, targetId, droneId, weightCategories, priorities);
             ParcelsList[IndexOfParcel] = parcel;
             ++IndexOfParcel;
         }
-        
+
     }
 }

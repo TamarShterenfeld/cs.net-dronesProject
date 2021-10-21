@@ -8,7 +8,7 @@ namespace ConsoleUI
     public partial class Program
     {
         static void Main()
-        { 
+        {
             int option, innerChoice;
             int id = 0, droneId = 0, parcelId = 0, baseStationId = 0;
             string name = "", customerId = "", phone = "", model = "", senderId = "", targetId = "";
@@ -20,7 +20,7 @@ namespace ConsoleUI
             string status = "", maxWeight = "", weight = "", priority = "";
 
             DalObject.DalObject dalObject = new DalObject.DalObject();
-           
+
             while (true)
             {
                 Console.WriteLine("Please enter : \n1- For add\n2- For update\n3- For display\n4- For showing the lists\n5- For exit");
@@ -48,21 +48,20 @@ namespace ConsoleUI
 
                                         case (int)AddOptions.Drone:
                                             {
-
-                                                InputingDroneDetails(ref id, ref battery, ref model, ref maxWeight);
-                                                dalObject.AddingDrone(id, model, maxWeight, battery);
+                                                CheckDroneDetails(ref id, ref battery, ref model, ref maxWeight, ref status);
+                                                AddDrone(id, model, status, maxWeight, battery);
                                                 break;
                                             }
                                         case (int)AddOptions.Customer:
                                             {
                                                 CheckCustomerDetails(ref customerId, ref name, ref phone, ref longitude, ref latitude);
-                                                AddCustomer( customerId,  name,  phone,  longitude,  latitude);
+                                                AddCustomer(customerId, name, phone, longitude, latitude);
                                                 break;
                                             }
                                         case (int)AddOptions.Parcel:
                                             {
                                                 CheckParcelDetails(ref customerId, ref senderId, ref targetId, ref weight, ref priority);
-                                                AddParcel( id,  senderId, targetId,  droneId,  weight, priority);
+                                                AddParcel(id, senderId, targetId, droneId, weight, priority);
                                                 break;
                                             }
                                         default:
@@ -224,7 +223,7 @@ namespace ConsoleUI
                 }
                 catch (Exception exe)
                 {
-                    Console.WriteLine(exe.Message+"\nTry again from the beginning!");
+                    Console.WriteLine(exe.Message + "\nTry again from the beginning!");
                 }
             }
         }

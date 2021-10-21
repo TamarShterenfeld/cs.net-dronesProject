@@ -49,13 +49,7 @@ namespace ConsoleUI
             inputDoubleValue(ref longitude);
             inputDoubleValue(ref latitude);
         }
-        private static void inputIntValue(ref int numericalValue)
-        {
-            while (!int.TryParse(Console.ReadLine(), out numericalValue))
-            {
-                Console.WriteLine("This field can input only numerical value! Please try again!");
-            }
-        }
+        
         
     }
 }

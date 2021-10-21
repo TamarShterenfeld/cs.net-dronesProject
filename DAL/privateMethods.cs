@@ -5,11 +5,21 @@ using static DalObject.DataSource;
 using static DalObject.DataSource.Config;
 using static IDAL.DO.IDAL;
 using  IDAL.DO;
+using System.Linq;
 
 namespace DalObject
 {
     public partial class  DalObject
-    {
+    { 
+        private static int searchDrone( int id)
+        {
+            for(int i =0;i<DronesList.Count; i++)
+            {
+                if (DronesList[i].Id == id)
+                    return i;
+            }
+            return -1;
+        }
         /// <summary>
         /// getting a string and check its existance in WeightCategories enum.
         /// </summary>
@@ -94,24 +104,12 @@ namespace DalObject
             }
         }
 
-        private static bool chackingIdentitiesOfParcel(int id, string senderId, string targetId, int droneId)
+        private static void chackingIdentitiesOfParcel(int id, string senderId, string targetId, int droneId)
         {
-            if (searchParcel(id) == -1)
-            {
-                Console.WriteLine("Can not add parcel, this parcel ID already exists ");
-                return false;
-            }
-            if (searchCustomer(senderId) == -1 || searchCustomer(targetId) == -1)
-            {
-                Console.WriteLine("Can not add parcel, sender ID or target ID does not exist ");
-                return false;
-            }
-            if (searchDrone(droneId) == -1)
-            {
-                Console.WriteLine("Can not add parcel, drone ID does not exist ");
-                return false;
-            }
-            return true;
+            ParcelsList.First(item => item.Id == id);
+            CustomersList.First(item => item.Id == senderId);
+            CustomersList.First(item => item.Id == targetId);
+            DronesList.First(item => item.Id == droneId);
         }
         private static void inputIntValue(ref int id)
         {
@@ -120,64 +118,6 @@ namespace DalObject
                 Console.WriteLine("Id can contain only digits, Please try again!");
             }
         }
-        private static int searchDronesChargeList(int droneId)
-        {
-            DroneCharge item;
-            for (int i = 0; i < DroneChargeList.Count; i++)
-            {
-                item = DroneChargeList[i];
-                if (item.DroneId == droneId)
-                    return i;
-            }
-            return -1;
-        }
-        private static int searchBaseStation(int id)
-        {
-            int index = -1;
-            for (int i = 0; i < IndexOfBaseStation; ++i)
-            {
-                if (BaseStationsList[i].Id == id)
-                {
-                    index = i;
-                }
-            }
-            return index;
-        }
-        private static int searchDrone(int id)
-        {
-            int index = -1;
-            for (int i = 0; i < IndexOfDrone; ++i)
-            {
-                if (DronesList[i].Id == id)
-                {
-                    index = i;
-                }
-            }
-            return index;
-        }
-        private static int searchCustomer(string id)
-        {
-            int index = -1;
-            for (int i = 0; i < IndexOfCustomer; ++i)
-            {
-                if (CustomersList[i].Id == id)
-                {
-                    index = i;
-                }
-            }
-            return index;
-        }
-        private static int searchParcel(int id)
-        {
-            int index = -1;
-            for (int i = 0; i < IndexOfParcel; ++i)
-            {
-                if (ParcelsList[i].Id == id)
-                {
-                    index = i;
-                }
-            }
-            return index;
-        }
+       
     }
 }

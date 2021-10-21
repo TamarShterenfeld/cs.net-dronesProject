@@ -5,6 +5,7 @@ using static DalObject.DalObject;
 using static DalObject.DataSource.Config;
 using static DalObject.DataSource;
 using static IDAL.DO.IDAL;
+using System.Linq;
 
 namespace DalObject
 {
@@ -12,12 +13,7 @@ namespace DalObject
     {
         public static void DisplayBaseStation(int id)
         {
-            while (searchBaseStation(id) == -1)
-            {
-                Console.WriteLine("Base station's Id does not exist, Please try again!");
-                inputIntValue(ref id);
-            }
-            BaseStation currBaseStation = BaseStationsList[searchBaseStation(id)];
+            BaseStation currBaseStation = BaseStationsList.First(item => item.Id == id);
             Console.WriteLine($"id: {currBaseStation.Id} \n" +
                               $"name: {currBaseStation.Name} \n" +
                               $"longitude: {currBaseStation.Longitude}\n" +
@@ -26,12 +22,7 @@ namespace DalObject
         }
         public static void DisplayDrone(int id)
         {
-            while (searchDrone(id) == -1)
-            {
-                Console.WriteLine("Drone's Id does not exist, Please try again!");
-                inputIntValue(ref id);
-            }
-            Drone currDrone = DronesList[searchDrone(id)];
+            Drone currDrone = DronesList.First(item => item.Id == id);
             Console.WriteLine($"id: {currDrone.Id} \n" +
                               $"model: {currDrone.Model} \n" +
                               $"status: {currDrone.Status}\n" +
@@ -40,12 +31,7 @@ namespace DalObject
         }
         public static void DisplayCustomer(string id)
         {
-            while (searchCustomer(id) == -1)
-            {
-                Console.WriteLine("Customer's Id does not exist, Please try again!");
-                id = Console.ReadLine();
-            }
-            Customer currCustomer = CustomersList[searchCustomer(id)];
+            Customer currCustomer = CustomersList.First(item => item.Id == id);
             Console.WriteLine($"id: {currCustomer.Id} \n" +
                               $"name: {currCustomer.Name} \n" +
                               $"phone: {currCustomer.Phone}\n"+
@@ -54,12 +40,7 @@ namespace DalObject
         }
         public static void DisplayParcel(int id)
         {
-            while (searchParcel(id) == -1)
-            {
-                Console.WriteLine("Parcel's Id does not exist, Please try again!");
-                inputIntValue(ref id);
-            }
-            Parcel currParcel = ParcelsList[searchParcel(id)];
+            Parcel currParcel = ParcelsList.First(item => item.Id == id);
             Console.WriteLine($"id: {currParcel.Id} \n" +
                               $"senderId: {currParcel.SenderId} \n" +
                               $"targetId: {currParcel.TargetId}\n" +
