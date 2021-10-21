@@ -18,13 +18,13 @@ namespace ConsoleUI
             double longitude = 0, latitude = 0, battery = 0;
             int chrgeSlots = 0;
             //all the enum type litteral are entered as string type and then checked.
-            string status = "", maxWeight = "", weight = "", priority = "";
-            DateTime Production = new DateTime(), Association = new DateTime(), PickingUp = new DateTime(), Arrival = new DateTime();
+            string maxWeight = "", weight = "", priority = "";
             
             
-            try
+            
+            try  
             {
-                DalObject.DalObject dalObject = new DalObject.DalObject();
+                DalObject.DalObject dalObject = new DalObject.DalObject();  
                 while (true)
                 {
                     Console.WriteLine("Please enter : \n1- For add\n2- For update\n3- For display\n4- For showing the lists\n5- For exit");
@@ -52,8 +52,8 @@ namespace ConsoleUI
                                         case (int)AddOptions.Drone:
                                             {
 
-                                                InputingDroneDetails(ref id, ref battery, ref model, ref maxWeight, ref status);
-                                                dalObject.AddingDrone(id, model, status, maxWeight, battery);
+                                                InputingDroneDetails(ref id, ref battery, ref model, ref maxWeight);
+                                                dalObject.AddingDrone(id, model, maxWeight, battery);
                                                 break;
                                             }
                                         case (int)AddOptions.Customer:
@@ -65,7 +65,7 @@ namespace ConsoleUI
                                         case (int)AddOptions.Parcel:
                                             {
                                                 InputingParcelDetails(ref customerId, ref senderId, ref targetId, ref weight, ref priority);
-                                                dalObject.AddingParcel(id, senderId, targetId, droneId, weight, priority, Production, Association, PickingUp, Arrival);
+                                                dalObject.AddingParcel(id, senderId, targetId, droneId, weight, priority);
                                                 break;
                                             }
                                         default:

@@ -9,7 +9,7 @@ namespace DalObject
 {
     public  partial class DalObject
     {
-        public  void ShowingBaseStationsList()
+        public  void ShowingBaseStationsList() // מה העניין ברשימות
         {
             List<BaseStation> baseStationsList = new List<BaseStation>(GettingBaseStationList());
             foreach (BaseStation item in baseStationsList)

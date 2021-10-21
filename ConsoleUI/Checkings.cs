@@ -11,7 +11,9 @@ namespace ConsoleUI
         /// <summary>
         /// methods of checking the inputed details into the different structs.
         /// </summary>
+        
 
+        //  הערה לא קשורה
         public static void InputingBaseStationDetails(ref int id, ref string name, ref double longitude, ref double latitude, ref int chargeSlots)
         {
             Console.WriteLine("Enter base station's details : id, name, longitude, latitude, number of chargeSlots.");
@@ -35,7 +37,7 @@ namespace ConsoleUI
         }
 
 
-        public static void InputingDroneDetails(ref int id, ref double battery, ref string model, ref string maxWeight, ref string status)
+        public static void InputingDroneDetails(ref int id, ref double battery, ref string model, ref string maxWeight)
         {
             Console.WriteLine("Enter drone's details :\n id, battery, model, category weight and the status of the drone.");
             while (!int.TryParse(Console.ReadLine(), out id))
@@ -47,9 +49,9 @@ namespace ConsoleUI
             {
                 Console.WriteLine("Battery can contain only a numerical value!");
             }
-            bool isExist1 = false, isExist2 = false;
+            bool isExist1 = false;
             string currentEnum;
-            model = Console.ReadLine();
+            model = Console.ReadLine(); // האם צריך לבדוק אם המודל קיים
             //checking if the inputed category exists in WeightCategories enum
             while (isExist1 == false)
             {
@@ -71,36 +73,13 @@ namespace ConsoleUI
                     Console.WriteLine("The entered weight category doesn't exist\nPlease enter another category");
                 }
             }
-
-            //checking if the inputed status exists in DronesStatuses enum
-            while (isExist2 == false)
-            {
-                status = Console.ReadLine();
-                for (int i = 0; i < Enum.GetNames(typeof(DroneStatuses)).Length; i++)
-                {
-                    currentEnum = (string)Enum.GetNames(typeof(DroneStatuses)).GetValue(i);
-                    if (currentEnum == status || currentEnum.ToLower() == status)
-                    {
-                        //status is assigned to hold the numeic value of the enum type.
-                        status = i.ToString();
-                        isExist2 = true;
-                        break;
-                    }
-                }
-
-                if (isExist2 == false)
-                {
-                    Console.WriteLine("The entered status doesn't exist\nPlease enter another status");
-                }
-            }
-
         }
 
         public static void InputingParcelDetails(ref string id, ref string senderId, ref string getterId, ref string weight, ref string priority)
         {
             Console.WriteLine("Please enter :\n id, sender id, getter id, category weight and the priority of the drone.");
             //the checkings of the different id are implemented within the struct Parcel and another function named "chackingIdentitiesOfParcel"
-            id = Console.ReadLine();
+            id = Console.ReadLine(); // במבנה הוגדר כ -int
             senderId = Console.ReadLine();
             getterId = Console.ReadLine();
             bool isExist1 = false, isExist2 = false;

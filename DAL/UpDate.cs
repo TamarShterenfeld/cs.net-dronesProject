@@ -35,7 +35,7 @@ namespace DalObject
                     Console.WriteLine("Id can contain only digits");
                 }
             }
-            ParcelsArr[parcelId].Association = DateTime.Now;
+            ParcelsArr[parcelId].Association = DateTime.Now; // האינדקס נראה לא בסדר
             ParcelsArr[parcelId].DroneId = droneId;
             //updating the associated drone's status to be shipment.
             DronesArr[droneId].Status = DroneStatuses.Shipment;
@@ -136,7 +136,7 @@ namespace DalObject
 
         }
 
-        public void StopDroneCharging(int droneId, int baseStationId)
+        public void StopDroneCharging(int droneId, int baseStationId)// איך הפונקציה עובדת
         {
             int index;
             while (int.TryParse(Console.ReadLine(), out droneId))
@@ -167,7 +167,7 @@ namespace DalObject
 
         private int searchDroneCharge(int droneId, int baseStationId)
         {
-            DroneCharge item;
+            DroneCharge item;// למה צריך ליצור אוביקט
             for (int i = 0; i<DroneChargeList.Count;i++)
             {
                 item = DroneChargeList[i];
