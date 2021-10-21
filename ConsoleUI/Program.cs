@@ -221,7 +221,7 @@ namespace ConsoleUI
                             }
                     }
                 }
-                catch (FormatException exe)
+                catch (Exception exe)
                 {
                     Console.WriteLine(exe.Message+"\nTry again from the beginning!");
                 }

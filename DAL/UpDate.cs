@@ -4,6 +4,8 @@ using System.Text;
 using static IDAL.DO.IDAL;
 using IDAL.DO;
 using static DalObject.DataSource;
+using static DalObject.DataSource.Config;
+using System.Linq;
 
 namespace DalObject
 {
@@ -12,107 +14,64 @@ namespace DalObject
         public static void AssociatingParcel(int parcelId, int droneId)
         {
             inputIntValue(ref parcelId);
-            while (searchParcel(parcelId) == -1)
-            {
-                Console.WriteLine("ParcelId wasn't found! Please enter another ParcelId!");
-                inputIntValue(ref parcelId);
-            }
+            Parcel parcel = ParcelsList.First(item => item.Id == parcelId);
             inputIntValue(ref droneId);
-            while (searchDrone(droneId) == -1)
-            {
-                Console.WriteLine("DroneId wasn't found! Please enter another DroneId!");
-                inputIntValue(ref droneId);
-            }
-            int parcelIndex = searchParcel(parcelId);
-            ParcelsArr[parcelIndex].Association = DateTime.Now;
-            ParcelsArr[parcelIndex].DroneId = droneId;
-            //updating the associated drone's status to be shipment.
-            int droneIndex = searchDrone(droneId);
-            DronesArr[droneIndex].Status = DroneStatuses.Shipment;
+            Drone drone = DronesList.First(item => item.Id == droneId);
+            parcel.Association = DateTime.Now;
+            parcel.DroneId = droneId;
+            //updating the associated drone's status to be as shipment.
+            drone.Status = DroneStatuses.Shipment;
         }
 
         public static void PickingUpParcel(int parcelId, string senderId)
         {
             inputIntValue(ref parcelId);
-            while (searchParcel(parcelId) == -1)
-            {
-                Console.WriteLine("ParcelId wasn't found! Please enter another ParcelId!");
-                inputIntValue(ref parcelId);
-            }
-
+            Parcel parcel = ParcelsList.First(item => item.Id == parcelId);
             senderId = Console.ReadLine();
-            while (searchCustomer(senderId) == -1)
-            {
-                Console.WriteLine("senderId wasn't found! Please enter another senderId!");
-                senderId = Console.ReadLine();
-            }
-            int parcelIndex = searchParcel(parcelId);
-            ParcelsArr[parcelIndex].SenderId = senderId;
-            ParcelsArr[parcelIndex].PickingUp = DateTime.Now;
+            CustomersList.First(item => item.Id == senderId);
+            parcel.SenderId = senderId;
+            parcel.PickingUp = DateTime.Now;
         }
 
         public static void SupplyingParcel(int parcelId, string targetId)
         {
             inputIntValue(ref parcelId);
-            while (searchParcel(parcelId) == -1)
-            {
-                Console.WriteLine("ParcelId wasn't found! Please enter another ParcelId!");
-                inputIntValue(ref parcelId );
-            }
+            Parcel parcel = ParcelsList.First(item => item.Id == parcelId);
             targetId = Console.ReadLine();
-            while (searchCustomer(targetId) == -1)
-            {
-                Console.WriteLine("senderId wasn't found! Please enter another senderId!");
-                targetId = Console.ReadLine();
-            }
-            int parcelIndex = searchParcel(parcelId);
-            ParcelsArr[parcelIndex].Arrival = DateTime.Now;
+            CustomersList.First(item => item.Id == targetId);
+            parcel.Arrival = DateTime.Now;
         }
 
         public static void ChargingDrone(int droneId, int baseStationId)
         {
             inputIntValue(ref droneId);
-            while (searchParcel(droneId) == -1)
-            {
-                Console.WriteLine("ParcelId wasn't found! Please enter another ParcelId!");
-                inputIntValue(ref droneId);
-            }
-
+            Drone  drone = DronesList.First(item => item.Id == droneId);
             inputIntValue(ref baseStationId);
-            while (searchParcel(baseStationId) == -1)
-            {
-                Console.WriteLine("BaseStationId wasn't found! Please enter another baseStationId!");
-                inputIntValue(ref baseStationId);
-            }
-
-            while(BaseStationsArr[baseStationId].ChargeSlots == 0)
+            BaseStation baseStation = BaseStationsList.First(item => item.Id == baseStationId);
+            while(baseStation.ChargeSlots == 0)
             {
                 Console.WriteLine("The chosen base station isn't available to charge the drone.");
                 inputIntValue(ref baseStationId);
             }
-
+            while(drone.Status == DroneStatuses.Maintenance)
+            {
+                Console.WriteLine("The chosen drone is already being charging now");
+            }
             DroneCharge droneCharge = new DroneCharge(baseStationId, droneId);
             DroneChargeList.Add(droneCharge);
-            int droneIndex = searchDrone(droneId);
-            DronesArr[droneIndex].Status = DroneStatuses.Maintenance;
+            drone.Status = DroneStatuses.Maintenance;
         }
-
         public static void StopDroneCharging(int droneId)
         {
-            int index,  droneIndex, baseStationId, baseStationIndex;
+            int baseStationId;
             inputIntValue(ref droneId);
-            while (searchDronesChargeList(droneId)==-1)
-            {
-                Console.WriteLine("droneId don't exist in DroneCharge List, Try again!");
-                inputIntValue(ref droneId);
-            }
-            index = searchDronesChargeList(droneId);
-            droneIndex = searchDrone(droneId);
-            baseStationId = DroneChargeList[droneIndex].StationId;
-            baseStationIndex = searchBaseStation(baseStationId);
-            DroneChargeList.RemoveAt(index);
-            BaseStationsArr[baseStationIndex].ChargeSlots--;
-            DronesArr[droneIndex].Status = DroneStatuses.Available;
+            DroneCharge droneCharge = DroneChargeList.First(item => item.DroneId == droneId);
+            Drone drone = DronesList.First(item => item.Id == droneId);
+            baseStationId = droneCharge.StationId;
+            BaseStation baseStation = BaseStationsList.First(item => item.Id == baseStationId);
+            DroneChargeList.Remove(droneCharge);
+            baseStation.ChargeSlots++;
+            drone.Status = DroneStatuses.Available;
         }
     }
 }

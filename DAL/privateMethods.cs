@@ -136,7 +136,7 @@ namespace DalObject
             int index = -1;
             for (int i = 0; i < IndexOfBaseStation; ++i)
             {
-                if (BaseStationsArr[i].Id == id)
+                if (BaseStationsList[i].Id == id)
                 {
                     index = i;
                 }
@@ -148,7 +148,7 @@ namespace DalObject
             int index = -1;
             for (int i = 0; i < IndexOfDrone; ++i)
             {
-                if (DronesArr[i].Id == id)
+                if (DronesList[i].Id == id)
                 {
                     index = i;
                 }
@@ -160,7 +160,7 @@ namespace DalObject
             int index = -1;
             for (int i = 0; i < IndexOfCustomer; ++i)
             {
-                if (CustomersArr[i].Id == id)
+                if (CustomersList[i].Id == id)
                 {
                     index = i;
                 }
@@ -172,7 +172,7 @@ namespace DalObject
             int index = -1;
             for (int i = 0; i < IndexOfParcel; ++i)
             {
-                if (ParcelsArr[i].Id == id)
+                if (ParcelsList[i].Id == id)
                 {
                     index = i;
                 }

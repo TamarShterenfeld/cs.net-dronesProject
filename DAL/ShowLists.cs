@@ -12,35 +12,35 @@ namespace DalObject
     {
         public static void ShowBaseStationsList()
         {
-            foreach (BaseStation item in BaseStationsArr)
+            foreach (BaseStation item in BaseStationsList)
             {
                 DisplayBaseStation(item.Id);
             }
-            if (BaseStationsArr.Length == 0) Console.WriteLine("There are no base stations to show");
+            if (BaseStationsList.Count == 0) Console.WriteLine("There are no base stations to show");
         }
         public static void ShowDronesList()
         {
-            foreach (Drone item in DronesArr)
+            foreach (Drone item in DronesList)
             {
                 DisplayDrone(item.Id);
             }
-            if (DronesArr.Length == 0) Console.WriteLine("There are no drones to show");
+            if (DronesList.Count == 0) Console.WriteLine("There are no drones to show");
         }
         public static void ShowCustomersList()
         {
-            foreach (Customer item in CustomersArr)
+            foreach (Customer item in CustomersList)
             {
                 DisplayCustomer(item.Id);
             }
-            if (CustomersArr.Length == 0) Console.WriteLine("There are no customers to show");
+            if (CustomersList.Count == 0) Console.WriteLine("There are no customers to show");
         }
         public static void ShowParcelsList()
         {
-            foreach (Parcel item in ParcelsArr)
+            foreach (Parcel item in ParcelsList)
             {
                 DisplayParcel(item.Id);
             }
-            if (ParcelsArr.Length == 0) Console.WriteLine("There are no parcels to show");
+            if (ParcelsList.Count == 0) Console.WriteLine("There are no parcels to show");
         }
         public static void ShowNotAssociatedParcelsList()
         {

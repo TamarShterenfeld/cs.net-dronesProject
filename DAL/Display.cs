@@ -17,7 +17,7 @@ namespace DalObject
                 Console.WriteLine("Base station's Id does not exist, Please try again!");
                 inputIntValue(ref id);
             }
-            BaseStation currBaseStation = BaseStationsArr[searchBaseStation(id)];
+            BaseStation currBaseStation = BaseStationsList[searchBaseStation(id)];
             Console.WriteLine($"id: {currBaseStation.Id} \n" +
                               $"name: {currBaseStation.Name} \n" +
                               $"longitude: {currBaseStation.Longitude}\n" +
@@ -31,7 +31,7 @@ namespace DalObject
                 Console.WriteLine("Drone's Id does not exist, Please try again!");
                 inputIntValue(ref id);
             }
-            Drone currDrone = DronesArr[searchDrone(id)];
+            Drone currDrone = DronesList[searchDrone(id)];
             Console.WriteLine($"id: {currDrone.Id} \n" +
                               $"model: {currDrone.Model} \n" +
                               $"status: {currDrone.Status}\n" +
@@ -45,7 +45,7 @@ namespace DalObject
                 Console.WriteLine("Customer's Id does not exist, Please try again!");
                 id = Console.ReadLine();
             }
-            Customer currCustomer = CustomersArr[searchCustomer(id)];
+            Customer currCustomer = CustomersList[searchCustomer(id)];
             Console.WriteLine($"id: {currCustomer.Id} \n" +
                               $"name: {currCustomer.Name} \n" +
                               $"phone: {currCustomer.Phone}\n"+
@@ -59,7 +59,7 @@ namespace DalObject
                 Console.WriteLine("Parcel's Id does not exist, Please try again!");
                 inputIntValue(ref id);
             }
-            Parcel currParcel = ParcelsArr[searchParcel(id)];
+            Parcel currParcel = ParcelsList[searchParcel(id)];
             Console.WriteLine($"id: {currParcel.Id} \n" +
                               $"senderId: {currParcel.SenderId} \n" +
                               $"targetId: {currParcel.TargetId}\n" +

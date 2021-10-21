@@ -24,7 +24,7 @@ namespace DalObject
                 return;
             }
             BaseStation baseStation = new BaseStation(id, name, longitude, latitude, chrgeSlots);
-            BaseStationsArr[IndexOfBaseStation] = baseStation;
+            BaseStationsList[IndexOfBaseStation] = baseStation;
             ++IndexOfBaseStation;
         }
 
@@ -43,7 +43,7 @@ namespace DalObject
             DroneStatuses droneStatuses = (DroneStatuses)int.Parse(status);
             WeightCategories weightCategory = (WeightCategories)int.Parse(maxWeight); ;
             Drone drone = new Drone(id, battery, model, droneStatuses, weightCategory);
-            DronesArr[IndexOfDrone] = drone;
+            DronesList[IndexOfDrone] = drone;
             ++IndexOfDrone;
         }
 
@@ -61,7 +61,7 @@ namespace DalObject
                 return;
             }
             Customer customer = new Customer(id, name, phone, longitude, latitude);
-            CustomersArr[IndexOfCustomer] = customer;
+            CustomersList[IndexOfCustomer] = customer;
             ++IndexOfCustomer;
         }
 
@@ -80,7 +80,7 @@ namespace DalObject
             WeightCategories weightCategories = (WeightCategories)int.Parse(Weight);
             Priorities priorities = (Priorities)int.Parse(Priority);
             Parcel parcel = new Parcel(id, senderId, targetId, droneId, weightCategories, priorities);
-            ParcelsArr[IndexOfParcel] = parcel;
+            ParcelsList[IndexOfParcel] = parcel;
             ++IndexOfParcel;
         }
         

@@ -22,13 +22,13 @@ namespace DalObject
         public static List<Parcel> GettingNotAssociatedParcels()
         {
             List<Parcel> notAssociatedDronesList = new List<Parcel>();
-            foreach (Parcel parcel in ParcelsArr)
+            foreach (Parcel parcel in ParcelsList)
             {
                 //the current parcel's drone's id isn't associated to any parcel
                 if (parcel.DroneId == 0)
                 {
                     //if there's no a drone id = 0 or that there is one' but it's available.
-                    if (searchDrone(parcel.DroneId) == -1 || DronesArr[searchDrone(parcel.DroneId)].Status == DroneStatuses.Available)
+                    if (searchDrone(parcel.DroneId) == -1 || DronesList[searchDrone(parcel.DroneId)].Status == DroneStatuses.Available)
                         notAssociatedDronesList.Add(parcel);
                 }
             }
@@ -38,7 +38,7 @@ namespace DalObject
         public static List<BaseStation> GettingAvailableChargeSlots()
         {
             List<BaseStation> AvailableChargeSlotsList = new List<BaseStation>(IndexOfBaseStation+1);
-            foreach (BaseStation item in BaseStationsArr)
+            foreach (BaseStation item in BaseStationsList)
             {
                 if (item.ChargeSlots > 0)
                     AvailableChargeSlotsList.Add(item);
