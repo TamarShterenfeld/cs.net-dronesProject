@@ -15,82 +15,27 @@ namespace DalObject
         {
             DataSource.Initialize();
         }
-
-        public int AddingParcel()
+        public int AddParcel()
         {
             return DataSource.Config.ParcelId++;
         }
-
-        public  List<Drone> GettingDronesList()
+        public static List<Parcel> GettingNotAssociatedParcels()
         {
-            List<Drone> dronesList = new List<Drone>(IndexOfDrone+1);
-            foreach (Drone item in DronesArr)
+            List<Parcel> notAssociatedDronesList = new List<Parcel>();
+            foreach (Parcel parcel in ParcelsArr)
             {
-                dronesList.Add(item);
-            }
-            return dronesList;
-        }
-
-        public  List<BaseStation> GettingBaseStationList()
-        {
-            List<BaseStation> baseStationsList = new List<BaseStation>(IndexOfBaseStation+1);
-            foreach (BaseStation item in BaseStationsArr)
-            {
-                baseStationsList.Add(item);
-            }
-            return baseStationsList;
-        }
-
-        public  List<Customer> GettingCustomerList()
-        {
-            List<Customer> customersList = new List<Customer>(IndexOfCustomer+1);
-            foreach (Customer item in CustomersArr)
-            {
-                customersList.Add(item);
-            }
-            return customersList;
-        }
-
-        public  List<Parcel> GettingParcelList()
-        {
-            List<Parcel> parcelsList = new List<Parcel>(IndexOfParcel+1);
-            foreach (Parcel item in ParcelsArr)
-            {
-                parcelsList.Add(item);
-            }
-            return parcelsList;
-        }
-
-        public  List<Parcel> GettingNotAssociatedParcels()
-        {
-            //the needed size of the notAssociatedDronesList is the space between IndexOfParcel and DroneChargeList.Count + 1
-            //because we need the amount of parcels which appearin ParcelArr and don't appear in DroneChargeList
-            List<Parcel> notAssociatedDronesList = new List<Parcel>(IndexOfParcel - DroneChargeList.Count +1);
-            foreach (Parcel item in ParcelsArr)
-            {
-                //check for each parcel if it related to dronesChargeList
-                //add to notAssociatedDronesList the parcels which aren't related to dronesChargeList.
-                if (searchDronesChargeList(item.DroneId) == -1)
+                //the current parcel's drone's id isn't associated to any parcel
+                if (parcel.DroneId == 0)
                 {
-                    notAssociatedDronesList.Add(item);
+                    //if there's no a drone id = 0 or that there is one' but it's available.
+                    if (searchDrone(parcel.DroneId) == -1 || DronesArr[searchDrone(parcel.DroneId)].Status == DroneStatuses.Available)
+                        notAssociatedDronesList.Add(parcel);
                 }
             }
             return notAssociatedDronesList;
         }
-
-        private  int searchDronesChargeList(int droneId)
-        {
-            DroneCharge item;
-            for(int i =0; i < DroneChargeList.Count; i++)
-            {
-                item = DroneChargeList[i];
-                if (item.DroneId == droneId)
-                    return i;
-            }
-            return -1;
-        }
-
-        public  List<BaseStation> GettingAvailableChageSlots()
+        
+        public static List<BaseStation> GettingAvailableChargeSlots()
         {
             List<BaseStation> AvailableChargeSlotsList = new List<BaseStation>(IndexOfBaseStation+1);
             foreach (BaseStation item in BaseStationsArr)

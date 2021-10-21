@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using static IDAL.DO.IDAL;
+using static DalObject.DataSource.Config;
+using static DalObject.DataSource;
 
 namespace DalObject
 {
@@ -11,13 +13,11 @@ namespace DalObject
 
         public void AddingBaseStation(int id, string name, double longitude, double latitude, int chrgeSlots)
         {
-
-            if (DataSource.Config.IndexOfBaseStation >= DataSource.BASESTATIONSAMOUNT)
+            if (IndexOfBaseStation >= BASESTATIONSAMOUNT)
             {
                 Console.WriteLine("It is impossible to add a base station");
                 return;
             }
-
             if (searchBaseStation(id) == -1)
             {
                 Console.WriteLine("Can not add a base station, this station ID already exists ");
@@ -35,13 +35,11 @@ namespace DalObject
 
         public void AddingDrone(int id, string model, string maxWeight, double battery)
         {
-
-            if (DataSource.Config.IndexOfDrone >= DataSource.DRONESAMOUNT)
+            if (IndexOfDrone >= DRONESAMOUNT)
             {
-                Console.WriteLine("It is impossible to add a drone");
+                Console.WriteLine("The amount of drones objects arrived to its maximum limit");
                 return;
             }
-
             if (searchDrone(id) == -1)
             {
                 Console.WriteLine("Can not add a drone, this drone ID already exists ");
@@ -60,12 +58,11 @@ namespace DalObject
         public  void AddingCustomer(ref string id, ref string name, ref string phone, ref double longitude, ref double latitude)
         {
 
-            if (DataSource.Config.IndexOfCustomer >= DataSource.CUSTOMERSAMOUNT)
+            if (IndexOfCustomer >= CUSTOMERSAMOUNT)
             {
                 Console.WriteLine("It is impossible to add a customer");
                 return;
             }
-
             if (searchCustomer(id) == -1)
             {
                 Console.WriteLine("Can not add customer, this customer ID already exists ");
@@ -84,12 +81,11 @@ namespace DalObject
         public void AddingParcel(int id, string senderId, string targetId, int droneId, string Weight, string Priority)
         {
 
-            if (DataSource.Config.IndexOfParcel >= DataSource.BASESTATIONSAMOUNT)
+            if (IndexOfParcel >= BASESTATIONSAMOUNT)
             {
                 Console.WriteLine("It is impossible to add a parcel");
                 return;
             }
-
             if (!chackingIdentitiesOfParcel(id, senderId, targetId, droneId))
             {
                 return;

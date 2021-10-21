@@ -19,7 +19,6 @@ namespace IDAL
                 private string phone;
                 private double longitude;
                 private double latitude;
-
                 public string Id
                 {
                     get
@@ -59,13 +58,11 @@ namespace IDAL
                                 {
                                     throw new FormatException("Name can contain only letters.");
                                 }
-                            }
-                            
+                            }                           
                         }
                         name = value;
                     }
                 }
-
                 public string Phone
                 {
                     get
@@ -87,8 +84,6 @@ namespace IDAL
                         phone = value;
                     }
                 }
-
-
                 public double Longitude
                 {
                     get
@@ -105,7 +100,6 @@ namespace IDAL
                         longitude = value;
                     }
                 }
-
                 public double Latitude
                 {
                     get
@@ -118,9 +112,18 @@ namespace IDAL
                         {
                             throw new FormatException("Latitude must be a positive number and in range of 360 degrees.");
                         }
-
                         latitude = value;
                     }
+                }
+                public Customer(string id, string name, string phone, double longitude, double latitude)
+                {
+                    this.id = id; this.name = name; this.phone = phone; this.longitude = longitude; this.latitude = latitude;
+                    Id = id;Name = name; Phone = phone; Longitude = longitude; Latitude = latitude;
+                }
+
+                public override string ToString()
+                {
+                    return "This is a customer object, its id: "+Id+", name: "+Name;
                 }
             }
         }

@@ -3,102 +3,64 @@ using System.Collections.Generic;
 using System.Text;
 using static IDAL.DO.IDAL;
 using static DalObject.DataSource;
+using static DalObject.DataSource.Config;
 
 
 namespace DalObject
 {
     public  partial class DalObject
     {
-        public  void ShowingBaseStationsList() // מה העניין ברשימות
+        public static void ShowBaseStationsList()
         {
-            List<BaseStation> baseStationsList = new List<BaseStation>(GettingBaseStationList());
-            foreach (BaseStation item in baseStationsList)
+            foreach (BaseStation item in BaseStationsArr)
             {
-                Console.WriteLine($"id: {item.Id} \n" +
-                              $"name: {item.Name} \n" +
-                              $"longitude: {item.Longitude}\n" +
-                              $"latitude:  {item.Latitude}\n" +
-                              $"number of charge slots: {item.ChargeSlots}\n");
+                DisplayBaseStation(item.Id);
             }
+            if (BaseStationsArr.Length == 0) Console.WriteLine("There are no base stations to show");
         }
-
-        public  void ShowingBDronesList()
+        public static void ShowDronesList()
         {
-            List<Drone> dronesList = new List<Drone>(GettingDronesList());
             foreach (Drone item in DronesArr)
             {
-                Console.WriteLine($"id: {item.Id} \n" +
-                                $"model: {item.Model} \n" +
-                                $"weight: {item.MaxWeight}\n" +
-                                $"battery:  {item.Battery}\n" +
-                                $"status: {item.Status}\n");
+                DisplayDrone(item.Id);
             }
+            if (DronesArr.Length == 0) Console.WriteLine("There are no drones to show");
         }
-
-        public  void ShowingCustomersList()
+        public static void ShowCustomersList()
         {
-            List<Customer> customersList = new List<Customer>(GettingCustomerList());
             foreach (Customer item in CustomersArr)
             {
-                Console.WriteLine($"id: {item.Id} \n" +
-                                $"name: {item.Name} \n" +
-                                $"phone number: {item.Phone}\n" +
-                                $"longitude:  {item.Longitude}\n" +
-                                $"latitude: {item.Latitude}\n");
+                DisplayCustomer(item.Id);
             }
+            if (CustomersArr.Length == 0) Console.WriteLine("There are no customers to show");
         }
-
-        public  void ShowingParcelsList()
+        public static void ShowParcelsList()
         {
-            List<Parcel> parcelsList = new List<Parcel>(GettingParcelList());
             foreach (Parcel item in ParcelsArr)
             {
-                Console.WriteLine($"id: {item.Id} \n" +
-                                $"sender's id: {item.SenderId} \n" +
-                                $"target's id: {item.TargetId} \n" +
-                                $"weight: {item.Weight} \n" +
-                                $"priority:{item.Priority}\n" +
-                                $"drone's id:{item.DroneId}\n" +
-                                $"production date:{item.Production}\n" +
-                                $"association date:{item.Association}\n" +
-                                $"picking up date:{item.PickingUp}\n" +
-                                $"arrival date:{item.Arrival}\n"); 
+                DisplayParcel(item.Id);
             }
+            if (ParcelsArr.Length == 0) Console.WriteLine("There are no parcels to show");
         }
-
-        public  void ShowingNotAssociatedParcelsList()
+        public static void ShowNotAssociatedParcelsList()
         {
             List<Parcel> notAssociatedParcelsList = new List<Parcel>(GettingNotAssociatedParcels());
             foreach (Parcel item in notAssociatedParcelsList)
             {
-                Console.WriteLine($"id: {item.Id} \n" +
-                                $"sender's id: {item.SenderId} \n" +
-                                $"target's id: {item.TargetId} \n" +
-                                $"weight: {item.Weight} \n" +
-                                $"priority:{item.Priority}\n" +
-                                $"drone's id:{item.DroneId}\n" +
-                                $"production date:{item.Production}\n" +
-                                $"association date:{item.Association}\n" +
-                                $"picking up date:{item.PickingUp}\n" +
-                                $"arrival date:{item.Arrival}\n");
+                DisplayParcel(item.Id);
             }
+            if (notAssociatedParcelsList.Count == 0) Console.WriteLine("There are no not associated parcels to show");
         }
-
-        public void AvailableChargeSlots()
+        public static void AvailableChargeSlots()
         {
-            foreach (BaseStation item in GettingAvailableChageSlots())
+            List<BaseStation> availableChargeSlots = GettingAvailableChargeSlots();
+            foreach (BaseStation item in availableChargeSlots)
             {
-                Console.WriteLine($"id: {item.Id} \n" +
-                              $"name: {item.Name} \n" +
-                              $"longitude: {item.Longitude}\n" +
-                              $"latitude:  {item.Latitude}\n" +
-                              $"number of charge slots: {item.ChargeSlots}\n");
+                DisplayBaseStation(item.Id);
             }
+            if (availableChargeSlots.Count == 0) Console.WriteLine("There are no not available charge slots to show");
         }
-
     }
-
-
 }
 
 
