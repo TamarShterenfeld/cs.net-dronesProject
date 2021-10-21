@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using static IDAL.DO.IDAL;
+using static DalObject.DataSource.Config;
 
 
 namespace DalObject
@@ -43,7 +44,7 @@ namespace DalObject
             for (int i = 0; i < size; i++)
             {
                 BaseStationsArr[i] = new BaseStation();
-                BaseStationsArr[i].Id = Config.IndexOfBaseStation++;
+                BaseStationsArr[i].Id = IndexOfBaseStation++;
                 BaseStationsArr[i].Name = baseStationsNames[rand.Next(0, INITALIZBASESTATIONSIZE - 1)];
                 BaseStationsArr[i].ChargeSlots = rand.Next(0, 5);
                 //the latitude & longitude values are displayed in degrees.
@@ -51,14 +52,13 @@ namespace DalObject
                 BaseStationsArr[i].Longitude = 0.9 * rand.Next(1, 360);
             }
 
-
             //initalize at least the first five drones in DronesAr
             size = rand.Next(5, DRONESAMOUNT);
             int status, weight;
             for (int i = 0; i < size; i++)
             {
                 DronesArr[i] = new Drone();
-                DronesArr[i].Id = Config.IndexOfDrone++;
+                DronesArr[i].Id = IndexOfDrone++;
                 status = rand.Next(0, Enum.GetNames(typeof(DroneStatuses)).Length - 1);
                 DronesArr[i].Status = (DroneStatuses)Enum.Parse(typeof(DroneStatuses), (string)Enum.GetNames(typeof(DroneStatuses)).GetValue(status), true);
                 DronesArr[i].Model = droneModels[rand.Next(0, INITALIZBASESTATIONSIZE)];
@@ -78,7 +78,7 @@ namespace DalObject
                 //the latitude & longitude values are displayed in degrees.
                 CustomersArr[i].Latitude = 0.6 * rand.Next(1, 360);
                 CustomersArr[i].Longitude = 0.99 * rand.Next(1, 360);
-                Config.IndexOfCustomer++;
+                IndexOfCustomer++;
             }
 
             //initalize at least the first tenth parcels in ParcelArr.
@@ -87,18 +87,18 @@ namespace DalObject
             for (int i = 0; i < size; i++)
             {
                 ParcelsArr[i] = new Parcel();
-                ParcelsArr[i].Id = Config.IndexOfParcel++;
-                senderIndex = rand.Next(0, Config.IndexOfCustomer-1);
+                ParcelsArr[i].Id = IndexOfParcel++;
+                senderIndex = rand.Next(0, IndexOfCustomer-1);
                 ParcelsArr[i].SenderId = CustomersArr[senderIndex].Id;
-                targetIndex = rand.Next(0, Config.IndexOfCustomer - 1);
+                targetIndex = rand.Next(0, IndexOfCustomer - 1);
                 //the man who sends the parcel can't also get it.
-                while (targetIndex == senderIndex) { targetIndex = rand.Next(0, Config.IndexOfCustomer - 1); }
+                while (targetIndex == senderIndex) { targetIndex = rand.Next(0, IndexOfCustomer - 1); }
                 ParcelsArr[i].TargetId = CustomersArr[targetIndex].Id;
                 priority = rand.Next(0, Enum.GetNames(typeof(Priorities)).Length - 1);
                 ParcelsArr[i].Priority = (Priorities)Enum.Parse(typeof(Priorities),(string)Enum.GetNames(typeof(Priorities)).GetValue(priority), true);
                 weight1 = rand.Next(0, Enum.GetNames(typeof(WeightCategories)).Length - 1);
                 ParcelsArr[i].Weight = (WeightCategories)Enum.Parse(typeof(WeightCategories), (string)Enum.GetNames(typeof(WeightCategories)).GetValue(weight1), true);
-                ParcelsArr[i].DroneId = DronesArr[rand.Next(0, Config.IndexOfDrone - 1)].Id;
+                ParcelsArr[i].DroneId = DronesArr[rand.Next(0, IndexOfDrone - 1)].Id;
                 //initalize (random) a date of Production & the other DateTime fields are based on it.
                 //while assuming that each part of the shipment process maximum takes 14 business days.
                 DateTime start = new DateTime(2021, 1, 1);
@@ -122,7 +122,5 @@ namespace DalObject
             internal static int IndexOfParcel = 0;
             public static int ParcelId;
         }
-
     }
-
 }

@@ -11,49 +11,33 @@ namespace DalObject
     {
         public static void AssociatingParcel(int parcelId, int droneId)
         {
-            while (int.TryParse(Console.ReadLine(), out parcelId))
-            {
-                Console.WriteLine("Id can contain only digits");
-            }
+            inputIntValue(ref parcelId);
             while (searchParcel(parcelId) == -1)
             {
                 Console.WriteLine("ParcelId wasn't found! Please enter another ParcelId!");
-                while (int.TryParse(Console.ReadLine(), out parcelId))
-                {
-                    Console.WriteLine("Id can contain only digits");
-                }
+                inputIntValue(ref parcelId);
             }
-            while (int.TryParse(Console.ReadLine(), out droneId))
-            {
-                Console.WriteLine("Id can contain only digits");
-            }
+            inputIntValue(ref droneId);
             while (searchDrone(droneId) == -1)
             {
                 Console.WriteLine("DroneId wasn't found! Please enter another DroneId!");
-                while (int.TryParse(Console.ReadLine(), out droneId))
-                {
-                    Console.WriteLine("Id can contain only digits");
-                }
+                inputIntValue(ref droneId);
             }
-            ParcelsArr[parcelId].Association = DateTime.Now;
-            ParcelsArr[parcelId].DroneId = droneId;
+            int parcelIndex = searchParcel(parcelId);
+            ParcelsArr[parcelIndex].Association = DateTime.Now;
+            ParcelsArr[parcelIndex].DroneId = droneId;
             //updating the associated drone's status to be shipment.
-            DronesArr[droneId].Status = DroneStatuses.Shipment;
+            int droneIndex = searchDrone(droneId);
+            DronesArr[droneIndex].Status = DroneStatuses.Shipment;
         }
 
         public static void PickingUpParcel(int parcelId, string senderId)
         {
-            while (int.TryParse(Console.ReadLine(), out parcelId))
-            {
-                Console.WriteLine("Id can contain only digits");
-            }
+            inputIntValue(ref parcelId);
             while (searchParcel(parcelId) == -1)
             {
                 Console.WriteLine("ParcelId wasn't found! Please enter another ParcelId!");
-                while (int.TryParse(Console.ReadLine(), out parcelId))
-                {
-                    Console.WriteLine("Id can contain only digits");
-                }
+                inputIntValue(ref parcelId);
             }
 
             senderId = Console.ReadLine();
@@ -62,23 +46,18 @@ namespace DalObject
                 Console.WriteLine("senderId wasn't found! Please enter another senderId!");
                 senderId = Console.ReadLine();
             }
-            ParcelsArr[parcelId].SenderId = senderId;
-            ParcelsArr[parcelId].PickingUp = DateTime.Now;
+            int parcelIndex = searchParcel(parcelId);
+            ParcelsArr[parcelIndex].SenderId = senderId;
+            ParcelsArr[parcelIndex].PickingUp = DateTime.Now;
         }
 
         public static void SupplyingParcel(int parcelId, string targetId)
         {
-            while (int.TryParse(Console.ReadLine(), out parcelId))
-            {
-                Console.WriteLine("Id can contain only digits");
-            }
+            inputIntValue(ref parcelId);
             while (searchParcel(parcelId) == -1)
             {
                 Console.WriteLine("ParcelId wasn't found! Please enter another ParcelId!");
-                while (int.TryParse(Console.ReadLine(), out parcelId))
-                {
-                    Console.WriteLine("Id can contain only digits");
-                }
+                inputIntValue(ref parcelId );
             }
             targetId = Console.ReadLine();
             while (searchCustomer(targetId) == -1)
@@ -86,95 +65,54 @@ namespace DalObject
                 Console.WriteLine("senderId wasn't found! Please enter another senderId!");
                 targetId = Console.ReadLine();
             }
-            ParcelsArr[parcelId].Arrival = DateTime.Now;
+            int parcelIndex = searchParcel(parcelId);
+            ParcelsArr[parcelIndex].Arrival = DateTime.Now;
         }
 
         public static void ChargingDrone(int droneId, int baseStationId)
         {
-            while (int.TryParse(Console.ReadLine(), out droneId))
-            {
-                Console.WriteLine("Id can contain only digits");
-            }
-
+            inputIntValue(ref droneId);
             while (searchParcel(droneId) == -1)
             {
                 Console.WriteLine("ParcelId wasn't found! Please enter another ParcelId!");
-                while (int.TryParse(Console.ReadLine(), out droneId))
-                {
-                    Console.WriteLine("Id can contain only digits");
-                }
+                inputIntValue(ref droneId);
             }
 
-            while (int.TryParse(Console.ReadLine(), out baseStationId))
-            {
-                Console.WriteLine("Id can contain only digits");
-            }
-
+            inputIntValue(ref baseStationId);
             while (searchParcel(baseStationId) == -1)
             {
                 Console.WriteLine("BaseStationId wasn't found! Please enter another baseStationId!");
-                while (int.TryParse(Console.ReadLine(), out baseStationId))
-                {
-                    Console.WriteLine("Id can contain only digits");
-                }
+                inputIntValue(ref baseStationId);
             }
 
             while(BaseStationsArr[baseStationId].ChargeSlots == 0)
             {
                 Console.WriteLine("The chosen base station isn't available to charge the drone.");
-                while (int.TryParse(Console.ReadLine(), out baseStationId))
-                {
-                    Console.WriteLine("Id can contain only digits");
-                }
+                inputIntValue(ref baseStationId);
             }
 
-            DroneCharge droneCharge = new DroneCharge();
-            droneCharge.DroneId = droneId;
-            droneCharge.StationId = baseStationId;
+            DroneCharge droneCharge = new DroneCharge(baseStationId, droneId);
             DroneChargeList.Add(droneCharge);
-            DronesArr[droneId].Status = DroneStatuses.Maintenance;
-
+            int droneIndex = searchDrone(droneId);
+            DronesArr[droneIndex].Status = DroneStatuses.Maintenance;
         }
 
-        public static void StopDroneCharging(int droneId, int baseStationId)
+        public static void StopDroneCharging(int droneId)
         {
-            int index;
-            while (int.TryParse(Console.ReadLine(), out droneId))
+            int index,  droneIndex, baseStationId, baseStationIndex;
+            inputIntValue(ref droneId);
+            while (searchDronesChargeList(droneId)==-1)
             {
-                Console.WriteLine("Id can contain only digits");
+                Console.WriteLine("droneId don't exist in DroneCharge List, Try again!");
+                inputIntValue(ref droneId);
             }
-            while (int.TryParse(Console.ReadLine(), out baseStationId))
-            {
-                Console.WriteLine("Id can contain only digits");
-            }
-            while(searchDroneCharge(droneId, baseStationId)==-1)
-            {
-                Console.WriteLine("droneId & baseStationId don't exist in DroneCharge List, Try again!");
-                while (int.TryParse(Console.ReadLine(), out droneId))
-                {
-                    Console.WriteLine("Id can contain only digits");
-                }
-                while (int.TryParse(Console.ReadLine(), out baseStationId))
-                {
-                    Console.WriteLine("Id can contain only digits");
-                }
-            }
-            index = searchDroneCharge(droneId, baseStationId);
+            index = searchDronesChargeList(droneId);
+            droneIndex = searchDrone(droneId);
+            baseStationId = DroneChargeList[droneIndex].StationId;
+            baseStationIndex = searchBaseStation(baseStationId);
             DroneChargeList.RemoveAt(index);
-            BaseStationsArr[baseStationId].ChargeSlots--;
-            DronesArr[droneId].Status = DroneStatuses.Available;
-        }
-
-        private static int searchDroneCharge(int droneId, int baseStationId)
-        {
-            DroneCharge item;
-            for (int i = 0; i<DroneChargeList.Count;i++)
-            {
-                item = DroneChargeList[i];
-                if (item.DroneId == droneId && item.StationId == baseStationId)
-                    return i;
-            }
-            return -1;
+            BaseStationsArr[baseStationIndex].ChargeSlots--;
+            DronesArr[droneIndex].Status = DroneStatuses.Available;
         }
     }
 }

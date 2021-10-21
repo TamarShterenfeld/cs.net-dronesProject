@@ -107,6 +107,11 @@ namespace IDAL
                     this.id = id; this.name = name; this.latitude = latitude; this.longitude = longitude;  this.chargeSlots = chargeSlots;
                     Id = id; Name = name; Latitude = latitude; Longitude = longitude; ChargeSlots = chargeSlots;
                 }
+
+                public override string ToString()
+                {
+                    return "This is a base station object, its id: "+Id+" name:, "+Name;
+                }
             }
         }
     }

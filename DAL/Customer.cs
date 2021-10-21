@@ -120,6 +120,11 @@ namespace IDAL
                     this.id = id; this.name = name; this.phone = phone; this.longitude = longitude; this.latitude = latitude;
                     Id = id;Name = name; Phone = phone; Longitude = longitude; Latitude = latitude;
                 }
+
+                public override string ToString()
+                {
+                    return "This is a customer object, its id: "+Id+", name: "+Name;
+                }
             }
         }
     }

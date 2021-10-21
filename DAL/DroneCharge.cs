@@ -35,6 +35,7 @@ namespace IDAL
                         {
                             throw new FormatException("Id must hold a positive number.");
                         }
+                        droneId = value;
                     }
                 }
 
@@ -42,6 +43,11 @@ namespace IDAL
                 {
                     this.stationId = stationId; this.droneId = droneId;
                     StationId = stationId; DroneId = droneId;
+                }
+
+                public override string ToString()
+                {
+                    return "This is an object of drone charge, its drone's id: "+DroneId +", base station's id: "+StationId;
                 }
             }
         }

@@ -86,7 +86,9 @@ namespace IDAL
                         {
                             throw new FormatException("Id must hold a positive value");
                         }
+                        droneId = value;
                     }
+                   
                 }
 
                 public DateTime Production { get; set; }
@@ -98,6 +100,11 @@ namespace IDAL
                 {
                     this.id = id; this.senderId = senderId; this.targetId = targetId; this.droneId = droneId; Weight = weight; Priority = priority;
                     Production = Association = PickingUp = Arrival = DateTime.Now;
+                }
+
+                public override string ToString()
+                {
+                    return "This is a parcel object, its id: "+ Id+", sender id: "+ SenderId+", target id: "+ TargetId;
                 }
             }
         }
