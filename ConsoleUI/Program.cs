@@ -86,7 +86,7 @@ namespace ConsoleUI
                                     {
                                         case (int)UpDateOptions.AssociatingParcel:
                                             {
-                                                Console.WriteLine("Please enter the parcel's id and the drone's id");
+                                                Console.WriteLine("Please enter the parcel's id and the drone's id" );
                                                 AssociatingParcel(parcelId, droneId);
                                                 break;
                                             }
