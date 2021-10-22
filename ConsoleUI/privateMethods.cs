@@ -23,6 +23,76 @@ namespace ConsoleUI
             }
         }
 
+        private static void inputStringValue(ref string str)
+        {
+            bool isValid = true;
+            while (true)
+            {
+                str = Console.ReadLine();
+                while (string.IsNullOrEmpty(str))
+                {
+                    Console.WriteLine("String must hold a value!");
+                }
+                foreach (char letter in str)
+                {
+                    if (letter < 'a' || letter > 'Z')
+                        isValid = false;
+                }
+                if (!isValid)
+                {
+                    Console.WriteLine("The string type can hold only alphabetical values! Try again");
+                }
+                else
+                    return;
+            }
+        }
+
+        public static void inputStringId(ref string id)
+        {
+            bool isValid = true;
+            while (true)
+            {
+                inputStringValue(ref id);
+                if(id.Length != 9)
+                {
+                    isValid = false;
+                    Console.WriteLine("Id's length must be exactly nine! Try again!");
+                }
+
+            }
+        }
+
+        public static void inputPhone(ref string phone)
+        {
+            bool isValid = true;
+            while (true)
+            {
+                phone = Console.ReadLine();
+                if (phone.Length != 10 )
+                {
+                    Console.WriteLine("The phone length must be of 10 digits!");
+                    isValid = false;
+                }
+                if(phone[0] != '0')
+                {
+                    Console.WriteLine("The phone number must begin with the digit '0'");
+                    isValid = false;
+                }
+                foreach (char digit in phone)
+                {
+                    if(!Char.IsDigit(digit))
+                    {
+                        Console.WriteLine("Phone number can contain only digits!");
+                        isValid  = false;
+                    }
+                }
+                if (!isValid)
+                    Console.WriteLine("Try again!");
+                else
+                    return;
+            }
+        }
+
         /// <summary>
         /// getting a string and check its existance in WeightCategories enum.
         /// </summary>
@@ -39,7 +109,7 @@ namespace ConsoleUI
                     currentEnum = (string)Enum.GetNames(typeof(WeightCategories)).GetValue(i);
                     if (currentEnum == maxWeight || currentEnum.ToLower() == maxWeight)
                     {
-                        //category is assigned to hold the numeric value of the enum type.
+                        //category is assigned to hold the numeric indx of the enum type.
                         maxWeight = i.ToString();
                         isExist1 = true;
                         break;
@@ -67,7 +137,7 @@ namespace ConsoleUI
                     currentEnum = (string)Enum.GetNames(typeof(DroneStatuses)).GetValue(i);
                     if (currentEnum == status || currentEnum.ToLower() == status)
                     {
-                        //status is assigned to hold the numeic value of the enum type.
+                        //status is assigned to hold the numeic index of the enum type.
                         status = i.ToString();
                         isExist2 = true;
                         break;
@@ -94,7 +164,7 @@ namespace ConsoleUI
                     currentEnum = (string)Enum.GetNames(typeof(Priorities)).GetValue(i);
                     if (currentEnum == priority || currentEnum.ToLower() == priority)
                     {
-                        //priority is assigned to hold the numeic value of the enum type.
+                        //priority is assigned to hold the numeic index of the enum type.
                         priority = i.ToString();
                         isExist3 = true;
                         break;
@@ -102,7 +172,7 @@ namespace ConsoleUI
                 }
                 if (isExist3 == false)
                 {
-                    Console.WriteLine("The entered status doesn't exist\nPlease enter another status");
+                    Console.WriteLine("The entered priority doesn't exist\nPlease enter another priority");
                 }
             }
         }

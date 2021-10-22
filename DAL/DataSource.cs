@@ -62,6 +62,11 @@ namespace DalObject
                 drone.Id = IndexOfDrone++;
                 status = rand.Next(0, Enum.GetNames(typeof(DroneStatuses)).Length - 1);
                 drone.Status = (DroneStatuses)Enum.Parse(typeof(DroneStatuses), (string)Enum.GetNames(typeof(DroneStatuses)).GetValue(status), true);
+                while(drone.Status == DroneStatuses.Maintenance)
+                {
+                    status = rand.Next(0, Enum.GetNames(typeof(DroneStatuses)).Length - 1);
+                    drone.Status = (DroneStatuses)Enum.Parse(typeof(DroneStatuses), (string)Enum.GetNames(typeof(DroneStatuses)).GetValue(status), true);
+                }
                 drone.Model = droneModels[rand.Next(0, INITALIZBASESTATIONSIZE)];
                 weight = rand.Next(0, Enum.GetNames(typeof(WeightCategories)).Length);
                 drone.MaxWeight = (WeightCategories)Enum.Parse(typeof(WeightCategories), (string)Enum.GetNames(typeof(WeightCategories)).GetValue(weight), true);
@@ -104,6 +109,7 @@ namespace DalObject
                 parcel.DroneId = DronesList[rand.Next(0, IndexOfDrone - 1)].Id;
                 //initalize (random) a date of Production & the other DateTime fields are based on it.
                 //while assuming that each part of the shipment process maximum takes 14 business days.
+                //the initalization of association date - doesn't mean the 
                 DateTime start = new DateTime(2021, 1, 1);
                 int random = (DateTime.Today - start).Days;
                 parcel.Production = start.AddDays(rand.Next(random));

@@ -1,5 +1,7 @@
 ﻿using System;
 using static DalObject.DalObject;
+using  IDAL.DO;
+using static DalObject.DataSource;
 
 
 
@@ -9,6 +11,7 @@ namespace ConsoleUI
     {
         static void Main()
         {
+            
             int option, innerChoice;
             int id = 0, droneId = 0, parcelId = 0, baseStationId = 0;
             string name = "", customerId = "", phone = "", model = "", senderId = "", targetId = "";

@@ -14,7 +14,7 @@ namespace ConsoleUI
         {
             Console.WriteLine("Enter base station's details : id, name, longitude, latitude, number of chargeSlots.");
             inputIntValue(ref id);
-            name = Console.ReadLine();
+            inputStringValue(ref name);
             inputDoubleValue(ref longitude);
             inputDoubleValue(ref latitude);
             inputIntValue(ref chargeSlots);
@@ -24,18 +24,18 @@ namespace ConsoleUI
             Console.WriteLine("Enter drone's details :\n id, battery, model, category weight and the status of the drone.");
             inputIntValue(ref id);
             inputDoubleValue(ref battery);
-            model = Console.ReadLine();
+            inputStringValue(ref model);
             inputWeightCategory(ref maxWeight);
             inputDroneStatus(ref status);
         }
 
-        public static void CheckParcelDetails(ref string id, ref string senderId, ref string getterId, ref string weight, ref string priority)
+        public static void CheckParcelDetails(ref string id, ref string senderId, ref string targetId, ref string weight, ref string priority)
         {
             Console.WriteLine("Please enter :\n id, sender id, getter id, category weight and the priority of the drone.");
             //the checkings of the different (string) id are implemented within the struct Parcel and another function named "chackingIdentitiesOfParcel"
-            id = Console.ReadLine();
-            senderId = Console.ReadLine();
-            getterId = Console.ReadLine();
+            inputStringId(ref id);
+            inputStringId(ref senderId);
+            inputStringId(ref targetId);
             inputWeightCategory(ref weight);
             inputPriority(ref priority);
         }
@@ -43,9 +43,9 @@ namespace ConsoleUI
         {
             Console.WriteLine("Enter base customer's details : id, name, phone,  longitude, latitude.");
             //the needed checkings are implemented within the struct Customer or in DalObject.
-            id = Console.ReadLine();
-            name = Console.ReadLine();
-            phone = Console.ReadLine();
+            inputStringId(ref id);
+            inputStringValue(ref name);
+            inputPhone(ref phone);
             inputDoubleValue(ref longitude);
             inputDoubleValue(ref latitude);
         }

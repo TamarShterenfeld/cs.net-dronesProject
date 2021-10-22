@@ -4,22 +4,14 @@ using System.Text;
 using static DalObject.DataSource;
 using static DalObject.DataSource.Config;
 using static IDAL.DO.IDAL;
-using  IDAL.DO;
+using IDAL.DO;
 using System.Linq;
 
 namespace DalObject
 {
-    public partial class  DalObject
-    { 
-        private static int searchDrone( int id)
-        {
-            for(int i =0;i<DronesList.Count; i++)
-            {
-                if (DronesList[i].Id == id)
-                    return i;
-            }
-            return -1;
-        }
+    public partial class DalObject
+    {
+
         /// <summary>
         /// getting a string and check its existance in WeightCategories enum.
         /// </summary>
@@ -118,6 +110,8 @@ namespace DalObject
                 Console.WriteLine("Id can contain only digits, Please try again!");
             }
         }
-       
+
+        
+
     }
 }

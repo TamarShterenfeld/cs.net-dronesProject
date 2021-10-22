@@ -5,6 +5,7 @@ using static IDAL.DO.IDAL;
 using IDAL.DO;
 using static DalObject.DataSource.Config;
 using static DalObject.DataSource;
+using System.Linq;
 
 namespace DalObject
 {
@@ -24,13 +25,9 @@ namespace DalObject
             List<Parcel> notAssociatedDronesList = new List<Parcel>();
             foreach (Parcel parcel in ParcelsList)
             {
-                //the current parcel's drone's id isn't associated to any parcel
-                if (parcel.DroneId == 0)
-                {
-                    //if there's no a drone id = 0 or that there is one' but it's available.
-                    if (searchDrone(parcel.DroneId) == -1 || DronesList[searchDrone(parcel.DroneId)].Status == DroneStatuses.Available)
-                        notAssociatedDronesList.Add(parcel);
-                }
+                //checking
+                if (parcel.Association == new DateTime(01/01/0001))
+                    notAssociatedDronesList.Add(parcel);
             }
             return notAssociatedDronesList;
         }
