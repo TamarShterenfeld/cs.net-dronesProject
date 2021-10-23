@@ -46,7 +46,6 @@ namespace ConsoleUI
                     return;
             }
         }
-
         public static void inputStringId(ref string id)
         {
             bool isValid = true;
@@ -58,8 +57,17 @@ namespace ConsoleUI
                     isValid = false;
                     Console.WriteLine("Id's length must be exactly nine! Try again!");
                 }
-
             }
+
+            foreach (char digit in id)
+            {
+                if (!Char.IsDigit(digit))
+                {
+                    Console.WriteLine("ID  can contain only digits!");
+                    isValid = false;
+                }
+            }
+            
         }
 
         public static void inputPhone(ref string phone)

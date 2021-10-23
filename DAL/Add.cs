@@ -18,7 +18,8 @@ namespace DalObject
             if(BaseStationsList.FindIndex(item => item.Id == id) == -1)
             {
                 //the Base Station List is full totally.
-                if (IndexOfBaseStation + 1 >= BASESTATIONSAMOUNT)
+// הורדתי את ה-ועוד 1
+                if (IndexOfBaseStation >= BASESTATIONSAMOUNT)
                 {
                     throw new Exception("The amount of base stations objects arrived to its maximum limit");
                 }
@@ -35,7 +36,7 @@ namespace DalObject
         public static void AddDrone(int id, string model, string status, string maxWeight, double battery)
         {
             //drones list is fulll already.
-            if (IndexOfDrone + 1 >= DRONESAMOUNT)
+            if (IndexOfDrone  >= DRONESAMOUNT)
             {
                 throw new Exception("The amount of drones objects arrived to its maximum limit");
             }
@@ -59,7 +60,7 @@ namespace DalObject
         public static void AddCustomer(string id, string name, string phone, double longitude, double latitude)
         {
             //customers list is full already.
-            if (IndexOfCustomer + 1 >= CUSTOMERSAMOUNT)
+            if (IndexOfCustomer >= CUSTOMERSAMOUNT)
             {
                 throw new Exception("The amount of customers objects arrived to its maximum limit");
             }
@@ -75,7 +76,7 @@ namespace DalObject
         public static void AddParcel(int id, string senderId, string targetId, int droneId, string Weight, string Priority)
         {
 
-            if (IndexOfParcel + 1 >= BASESTATIONSAMOUNT)
+            if (IndexOfParcel >= BASESTATIONSAMOUNT)
             {
                 Console.WriteLine("It is impossible to add a parcel");
                 return;

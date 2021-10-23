@@ -11,6 +11,7 @@ namespace DalObject
 {
     public partial class DalObject
     {
+        
         public static void AssociatingParcel(int parcelId, int droneId)
         {
             inputIntValue(ref parcelId);

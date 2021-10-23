@@ -103,8 +103,6 @@ namespace IDAL
                     }
                 }
 
-
-// *** why do we need to initialize the fields and the properties?
                 public BaseStation(int id, string name, double longitude, double latitude, int chargeSlots)
                 {         
                     this.id = id; this.name = name; this.latitude = latitude; this.longitude = longitude;  this.chargeSlots = chargeSlots;
