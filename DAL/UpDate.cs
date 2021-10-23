@@ -10,45 +10,37 @@ using System.Linq;
 namespace DalObject
 {
     public partial class DalObject
-        {/// <summary>
-        /// 
-        /// </summary>
-        /// <param name="parcelId"></param>
-        /// <param name="droneId"></param>
-        /// <returns></returns>
-        public static bool AssociateParcel(int parcelId, int droneId)
+    {
+        public static void AssociateParcel(int parcelId, int droneId)
         {
             if(ParcelsList.FindIndex(item => item.Id == parcelId) ==-1)
-                    return false;
+                new Exception("parcelId don't exist!");
             Parcel parcel = ParcelsList.First(item => item.Id == parcelId);
             Drone drone = DronesList.First(item => item.Id == droneId);
             if (drone.Status != DroneStatuses.Available)
-                return false;
+                new Exception("the requested drone isn't available!");
             parcel.Association = DateTime.Now;
             parcel.DroneId = droneId;
             //updating the associated drone's status to be as shipment.
             drone.Status = DroneStatuses.Shipment;
-            return true;
         }
 
         
-        public static bool PickUpParcel(int parcelId, string senderId)
+        public static void PickUpParcel(int parcelId, string senderId)
         {
-            if (ParcelsList.FindIndex(item => item.Id == parcelId) == -1 || CustomersList.FindIndex(item=>item.Id == senderId) == -1)
-                return false;
+            if (ParcelsList.FindIndex(item => item.Id == parcelId) == -1 || CustomersList.FindIndex(item => item.Id == senderId) == -1)
+                throw new Exception("parcelId or senderId don't exist!");
             Parcel parcel = ParcelsList.First(item => item.Id == parcelId);
             parcel.SenderId = senderId;
             parcel.PickingUp = DateTime.Now;
-            return true;
         }
 
-        public static bool SupplyParcel(int parcelId, string targetId)
+        public static void SupplyParcel(int parcelId, string targetId)
         {
             if (ParcelsList.FindIndex(item => item.Id == parcelId) == -1 || CustomersList.FindIndex(item=>item.Id == targetId) == -1)
-                return false;
+                throw new Exception("parcelId or targetId don't exist!");
             Parcel parcel = ParcelsList.First(item => item.Id == parcelId);
             parcel.Arrival = DateTime.Now;
-            return true;
         }
 
         public static void ChargingDrone(int droneId, int baseStationId)
