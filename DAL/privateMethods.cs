@@ -100,12 +100,12 @@ namespace DalObject
         }
 
         /// <summary>
-        /// 
+        /// The function checks the ids of a parcel
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="senderId"></param>
-        /// <param name="targetId"></param>
-        /// <param name="droneId"></param>
+        /// <param name="id">parcel's id</param>
+        /// <param name="senderId">parcel's sender id</param>
+        /// <param name="targetId">parcel target id</param>
+        /// <param name="droneId">parcel drone id</param>
         private static void chackingIdentitiesOfParcel(int id, string senderId, string targetId, int droneId)
         {
             ParcelsList.First(item => item.Id == id);

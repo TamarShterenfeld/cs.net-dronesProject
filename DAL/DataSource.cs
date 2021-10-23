@@ -118,6 +118,7 @@ namespace DalObject
                         break;
                     }
                 }
+
                 //initalize (random) a date of Production & the other DateTime fields are based on it.
                 //while assuming that each part of the shipment process maximum takes 14 business days.
                 //the initalization of association date - doesn't mean the 

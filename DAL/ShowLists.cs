@@ -10,6 +10,9 @@ namespace DalObject
 {
     public partial class DalObject
     {
+        /// <summary>
+        /// The function shows all the base stations
+        /// </summary>
         public static void ShowBaseStationsList()
         {
             foreach (BaseStation item in BaseStationsList)
@@ -18,6 +21,10 @@ namespace DalObject
             }
             if (BaseStationsList.Count == 0) Console.WriteLine("There are no base stations to show");
         }
+
+        /// <summary>
+        /// The function shows all the drones
+        /// </summary>
         public static void ShowDronesList()
         {
             foreach (Drone item in DronesList)
@@ -26,6 +33,10 @@ namespace DalObject
             }
             if (DronesList.Count == 0) Console.WriteLine("There are no drones to show");
         }
+
+        /// <summary>
+        /// The function shows all the customers
+        /// </summary>
         public static void ShowCustomersList()
         {
             foreach (Customer item in CustomersList)
@@ -34,6 +45,10 @@ namespace DalObject
             }
             if (CustomersList.Count == 0) Console.WriteLine("There are no customers to show");
         }
+
+        /// <summary>
+        /// The function shows all the parcels 
+        /// </summary>
         public static void ShowParcelsList()
         {
             foreach (Parcel item in ParcelsList)
@@ -42,6 +57,10 @@ namespace DalObject
             }
             if (ParcelsList.Count == 0) Console.WriteLine("There are no parcels to show");
         }
+
+        /// <summary>
+        /// The function shows all the not associated parcels 
+        /// </summary>
         public static void ShowNotAssociatedParcelsList()
         {
             List<Parcel> notAssociatedParcelsList = new List<Parcel>(GettingNotAssociatedParcels());
@@ -51,6 +70,10 @@ namespace DalObject
             }
             if (notAssociatedParcelsList.Count == 0) Console.WriteLine("There are no not associated parcels to show");
         }
+
+        /// <summary>
+        /// The function shows all the available charge slots
+        /// </summary>
         public static void AvailableChargeSlots()
         {
             List<BaseStation> availableChargeSlots = GettingAvailableChargeSlots();

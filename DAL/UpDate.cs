@@ -11,6 +11,11 @@ namespace DalObject
 {
     public partial class DalObject
     {
+        /// <summary>
+        /// The function gives associate time to the parcel.
+        /// </summary>
+        /// <param name="parcelId">parcel id</param>
+        /// <param name="droneId">drone id</param>
         public static void AssociateParcel(int parcelId, int droneId)
         {
             if(ParcelsList.FindIndex(item => item.Id == parcelId) ==-1)
@@ -25,7 +30,11 @@ namespace DalObject
             drone.Status = DroneStatuses.Shipment;
         }
 
-        
+        /// <summary>
+        /// The function gives pick up time to the parcel.
+        /// </summary>
+        /// <param name="parcelId">parcel id</param>
+        /// <param name="senderId">sender id</param>
         public static void PickUpParcel(int parcelId, string senderId)
         {
             if (ParcelsList.FindIndex(item => item.Id == parcelId) == -1 || CustomersList.FindIndex(item => item.Id == senderId) == -1)
@@ -35,6 +44,11 @@ namespace DalObject
             parcel.PickingUp = DateTime.Now;
         }
 
+        /// <summary>
+        /// The function gives supply time to the parcel.
+        /// </summary>
+        /// <param name="parcelId">parcel id</param>
+        /// <param name="targetId">target id</param>
         public static void SupplyParcel(int parcelId, string targetId)
         {
             if (ParcelsList.FindIndex(item => item.Id == parcelId) == -1 || CustomersList.FindIndex(item=>item.Id == targetId) == -1)
