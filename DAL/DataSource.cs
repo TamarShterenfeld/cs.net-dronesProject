@@ -107,14 +107,15 @@ namespace DalObject
                 parcel.DroneId = -1;
                 for (int j = 0; j < DronesList.Count; j++)
                 {
-                    Drone currdrone = DronesList[j];
+                    Drone currdrone =  DronesList[j];
                     if (currdrone.Status == DroneStatuses.Available)
                     {
                         parcel.DroneId = currdrone.Id;
                         currdrone.Status = DroneStatuses.Shipment;
-                        //so that the changes will be kept we have to remove the object and add it again (including the changes)
+                        //from an unknown reason the changes aren't done - so that the changes will be kept we have to remove the object and add it again(including the changes)
                         DronesList.RemoveAt(j);
                         DronesList.Insert(j, currdrone);
+
                         break;
                     }
                 }

@@ -13,8 +13,8 @@ namespace DalObject
     {
         public static void AssociateParcel(int parcelId, int droneId)
         {
-            if(ParcelsList.FindIndex(item => item.Id == parcelId) ==-1)
-                new Exception("parcelId don't exist!");
+            if(ParcelsList.FindIndex(item => item.Id == parcelId) ==-1 || DronesList.FindIndex(item=>item.Id == droneId) == -1)
+                new Exception("parcelId or droneId don't exist!");
             Parcel parcel = ParcelsList.First(item => item.Id == parcelId);
             Drone drone = DronesList.First(item => item.Id == droneId);
             if (drone.Status != DroneStatuses.Available)
@@ -49,25 +49,20 @@ namespace DalObject
             Drone  drone = DronesList.First(item => item.Id == droneId);
             inputIntValue(ref baseStationId);
             BaseStation baseStation = BaseStationsList.First(item => item.Id == baseStationId);
-            while(baseStation.ChargeSlots == 0)
-            {
-                Console.WriteLine("The chosen base station isn't available to charge the drone.");
-                inputIntValue(ref baseStationId);
-            }
-            while(drone.Status == DroneStatuses.Maintenance)
-            {
+            if(baseStation.ChargeSlots == 0)      
+                throw new Exception("The chosen base station isn't available to charge the drone.");
+            if(drone.Status == DroneStatuses.Maintenance)
                 Console.WriteLine("The chosen drone is already being charging now");
-            }
             DroneCharge droneCharge = new DroneCharge(baseStationId, droneId);
-            DroneChargeList.Add(droneCharge);
             drone.Status = DroneStatuses.Maintenance;
+            DroneChargeList.Add(droneCharge);          
         }
         public static void StopDroneCharging(int droneId)
         {
             int baseStationId;
             inputIntValue(ref droneId);
-            DroneCharge droneCharge = DroneChargeList.First(item => item.DroneId == droneId);
             Drone drone = DronesList.First(item => item.Id == droneId);
+            DroneCharge droneCharge = DroneChargeList.First(item => item.DroneId == droneId);    
             baseStationId = droneCharge.StationId;
             BaseStation baseStation = BaseStationsList.First(item => item.Id == baseStationId);
             DroneChargeList.Remove(droneCharge);

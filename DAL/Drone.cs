@@ -50,6 +50,7 @@ namespace IDAL
                 {
                     this.id = id; this.battery = battery; Model = model; Status = status; MaxWeight = maxWeight;
                 }
+
                 public override string ToString()
                 {
                     return "This is a drone object, its id: "+Id+", model: "+ Model+", status: "+Status;
