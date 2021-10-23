@@ -25,7 +25,7 @@ namespace DalObject
             List<Parcel> notAssociatedDronesList = new List<Parcel>();
             foreach (Parcel parcel in ParcelsList)
             {
-                //checking
+                //checking if the association value isn't initalized to another value than the default value.
                 if (parcel.Association == new DateTime(01/01/0001))
                     notAssociatedDronesList.Add(parcel);
             }

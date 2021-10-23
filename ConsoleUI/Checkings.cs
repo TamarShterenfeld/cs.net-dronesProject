@@ -19,14 +19,13 @@ namespace ConsoleUI
             inputDoubleValue(ref latitude);
             inputIntValue(ref chargeSlots);
         }
-        public static void CheckDroneDetails(ref int id, ref double battery, ref string model, ref string maxWeight, ref string status)
+        public static void CheckDroneDetails(ref int id, ref double battery, ref string model, ref string maxWeight)
         {
             Console.WriteLine("Enter drone's details :\n id, battery, model, category weight and the status of the drone.");
             inputIntValue(ref id);
             inputDoubleValue(ref battery);
             inputStringValue(ref model);
             inputWeightCategory(ref maxWeight);
-            inputDroneStatus(ref status);
         }
 
         public static void CheckParcelDetails(ref string id, ref string senderId, ref string targetId, ref string weight, ref string priority)
@@ -49,7 +48,23 @@ namespace ConsoleUI
             inputDoubleValue(ref longitude);
             inputDoubleValue(ref latitude);
         }
-        
-        
+
+        public static void InputAssociatedParcelDetails(ref int parcelId, ref int droneId)
+        {
+            inputIntValue(ref parcelId);
+            inputIntValue(ref droneId);
+        }
+
+        public static void InputPickUpParcelDetails(ref int parcelId, ref string senderId)
+        {
+            inputIntValue(ref parcelId);
+            inputStringId(ref senderId);
+        }
+
+        public static void InputArrivalDetails(ref int parcelId, ref string targetId)
+        {
+            inputIntValue(ref parcelId);
+            inputStringValue(ref targetId);
+        }
     }
 }

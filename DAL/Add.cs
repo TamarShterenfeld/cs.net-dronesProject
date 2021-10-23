@@ -32,7 +32,7 @@ namespace DalObject
             }
         }
 
-        public static void AddDrone(int id, string model, string status, string maxWeight, double battery)
+        public static void AddDrone(int id, string model, string maxWeight, double battery)
         {
             //drones list is fulll already.
             if (IndexOfDrone + 1 >= DRONESAMOUNT)
@@ -43,7 +43,7 @@ namespace DalObject
             if (DronesList.FindIndex(item => item.Id == id) == -1)
             {
                 //the enum type variables were defined to hold the numerical index of the enum category.
-                DroneStatuses droneStatuses = (DroneStatuses)int.Parse(status);
+                DroneStatuses droneStatuses = DroneStatuses.Available;
                 WeightCategories weightCategory = (WeightCategories)int.Parse(maxWeight);
                
                 ++IndexOfDrone;
@@ -77,13 +77,13 @@ namespace DalObject
 
             if (IndexOfParcel + 1 >= BASESTATIONSAMOUNT)
             {
-                Console.WriteLine("It is impossible to add a parcel");
+                Console.WriteLine("The amount of base station objects arrived to its maximum limit");
                 return;
             }
             chackingIdentitiesOfParcel(id, senderId, targetId, droneId);
             WeightCategories weightCategories = (WeightCategories)int.Parse(Weight);
             Priorities priorities = (Priorities)int.Parse(Priority);
-            Parcel parcel = new Parcel(id, senderId, targetId, droneId, weightCategories, priorities);
+            Parcel parcel = new Parcel(id, senderId, targetId, weightCategories, priorities, droneId);
             ++IndexOfParcel;
             ParcelsList.Add(parcel);
         }

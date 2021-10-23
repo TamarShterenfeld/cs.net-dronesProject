@@ -29,13 +29,13 @@ namespace ConsoleUI
             while (true)
             {
                 str = Console.ReadLine();
-                while (string.IsNullOrEmpty(str))
+                if (string.IsNullOrEmpty(str))
                 {
                     Console.WriteLine("String must hold a value!");
                 }
                 foreach (char letter in str)
                 {
-                    if (letter < 'a' || letter > 'Z')
+                    if ((letter < 'a' || letter > 'Z') && (letter < '0' || letter > '9'))
                         isValid = false;
                 }
                 if (!isValid)
@@ -52,13 +52,32 @@ namespace ConsoleUI
             bool isValid = true;
             while (true)
             {
-                inputStringValue(ref id);
+                id = Console.ReadLine();
                 if(id.Length != 9)
                 {
                     isValid = false;
                     Console.WriteLine("Id's length must be exactly nine! Try again!");
                 }
-
+                if (string.IsNullOrEmpty(id))
+                {
+                    isValid = false;
+                    Console.WriteLine("String must hold a value!");
+                }
+                foreach (char digit in id)
+                {
+                    if (digit < '0' || digit > '9')
+                    {
+                        Console.WriteLine("Id can contain only digits!");
+                        isValid = false;
+                        break;
+                    }
+                }
+                if (!isValid)
+                {
+                    Console.WriteLine("Try again!");
+                }
+                else
+                    return;
             }
         }
 
