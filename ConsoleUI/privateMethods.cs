@@ -46,7 +46,6 @@ namespace ConsoleUI
                     return;
             }
         }
-
         public static void inputStringId(ref string id)
         {
             bool isValid = true;
@@ -79,6 +78,7 @@ namespace ConsoleUI
                 else
                     return;
             }
+            
         }
 
         public static void inputPhone(ref string phone)
