@@ -8,7 +8,7 @@ using static DalObject.DataSource.Config;
 
 namespace DalObject
 {
-    public  partial class DalObject
+    public partial class DalObject
     {
         public static void ShowBaseStationsList()
         {
@@ -59,8 +59,10 @@ namespace DalObject
                 DisplayBaseStation(item.Id);
             }
             if (availableChargeSlots.Count == 0) Console.WriteLine("There are no not available charge slots to show");
+
         }
     }
 }
+        
 
 

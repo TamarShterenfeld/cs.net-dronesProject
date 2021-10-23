@@ -209,6 +209,11 @@ namespace ConsoleUI
                                                 AvailableChargeSlots();
                                                 break;
                                             }
+                                        default:
+                                            {
+                                                Console.WriteLine("ERROR! \nan unknown option.");
+                                                break;
+                                            }
                                     }
                                 }
                                 else Console.WriteLine("The show list option must hold a numeric value!");

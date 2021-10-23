@@ -5,6 +5,7 @@ using System.Text;
 using static IDAL.DO.IDAL;
 using static DalObject.DataSource.Config;
 using static DalObject.DalObject;
+using System.Linq;
 
 
 namespace DalObject
@@ -54,7 +55,7 @@ namespace DalObject
                 BaseStationsList.Add(baseStation);
             }
 
-            //initalize at least the first five drones in DronesAr
+            //initalize at least the first five drones in DronesList
             size = rand.Next(5, DRONESAMOUNT);
             int statusIndex, weightIndex;
             for (int i = 0; i < size; i++)
@@ -70,7 +71,7 @@ namespace DalObject
                 DronesList.Add(drone);
             }
 
-            //initalize at least the first tenth customers in CustomerArr.
+            //initalize at least the first tenth customers in CustomerList
             size = rand.Next(10, CUSTOMERSAMOUNT);
             for (int i = 0; i < size; i++)
             {
@@ -90,6 +91,7 @@ namespace DalObject
             int priorityIndex, senderIndex, targetIndex;
             for (int i = 0; i < size; i++)
             {
+               
                 Parcel parcel = new Parcel();
                 parcel.Id = IndexOfParcel++;
                 senderIndex = rand.Next(0, IndexOfCustomer-1);
@@ -102,7 +104,20 @@ namespace DalObject
                 parcel.Priority = (Priorities)Enum.Parse(typeof(Priorities),(string)Enum.GetNames(typeof(Priorities)).GetValue(priorityIndex), true);
                 weightIndex = rand.Next(0, Enum.GetNames(typeof(WeightCategories)).Length - 1);
                 parcel.Weight = (WeightCategories)Enum.Parse(typeof(WeightCategories), (string)Enum.GetNames(typeof(WeightCategories)).GetValue(weightIndex), true);
-                parcel.DroneId = DronesList[rand.Next(0, IndexOfDrone)].Id;
+                parcel.DroneId = -1;
+                for (int j = 0; j < DronesList.Count; j++)
+                {
+                    Drone currdrone = DronesList[j];
+                    if (currdrone.Status == DroneStatuses.Available)
+                    {
+                        parcel.DroneId = currdrone.Id;
+                        currdrone.Status = DroneStatuses.Shipment;
+                        //so that the changes will be kept we have to remove the object and add it again (including the changes)
+                        DronesList.RemoveAt(j);
+                        DronesList.Insert(j, currdrone);
+                        break;
+                    }
+                }
                 //initalize (random) a date of Production & the other DateTime fields are based on it.
                 //while assuming that each part of the shipment process maximum takes 14 business days.
                 //the initalization of association date - doesn't mean the 
@@ -113,20 +128,10 @@ namespace DalObject
                 parcel.PickingUp = parcel.Association.AddDays(rand.Next(14));
                 parcel.Arrival = parcel.PickingUp.AddDays(rand.Next(14));
                 //there wasn't an available drone.
-                if (!AssociateParcel(parcel.Id, parcel.DroneId))
+                //a sign for an notassociated parcel
+                if (parcel.DroneId == -1)
                 {
-                    //a sign for an notassociated parcel
-                    parcel.DroneId = -1;
-                    parcel.Association = new DateTime(01 / 01 / 0001);
-                }
-                if(!PickUpParcel(parcel.Id, parcel.SenderId))
-                {
-                    parcel.PickingUp = new DateTime(01/01/0001);
-                   
-                }
-                if(!SupplyParcel(parcel.Id, parcel.TargetId))
-                {
-                    parcel.Arrival = new DateTime(01 / 01 / 0001);
+                    parcel.Association = new DateTime(01 / 01 / 0001)  ;
                 }
                 ParcelsList.Add(parcel);
             }
