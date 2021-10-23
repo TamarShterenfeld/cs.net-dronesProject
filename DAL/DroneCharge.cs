@@ -8,6 +8,9 @@ namespace IDAL
     {
         public partial class IDAL
         {
+            /// <summary>
+            /// the struct Drone contains the following details: station id, drone id.
+            /// </summary>
             public struct DroneCharge
             {
                 int stationId;

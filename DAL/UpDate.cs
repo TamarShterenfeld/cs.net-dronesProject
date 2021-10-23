@@ -10,7 +10,12 @@ using System.Linq;
 namespace DalObject
 {
     public partial class DalObject
-    {
+        {/// <summary>
+        /// 
+        /// </summary>
+        /// <param name="parcelId"></param>
+        /// <param name="droneId"></param>
+        /// <returns></returns>
         public static bool AssociateParcel(int parcelId, int droneId)
         {
             if(ParcelsList.FindIndex(item => item.Id == parcelId) ==-1)

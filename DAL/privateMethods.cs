@@ -15,6 +15,7 @@ namespace DalObject
         /// <summary>
         /// getting a string and check its existance in WeightCategories enum.
         /// </summary>
+        /// <param name="maxWeight">WeightCategory: maxWeight</param>
         private static void inputWeightCategory(ref string maxWeight)
         {
             bool isExist1 = false;
@@ -44,6 +45,7 @@ namespace DalObject
         /// <summary>
         /// getting a string and check its existance in DronesStatuses enum.
         /// </summary>
+        /// <param name="status">DronesStatuses: status</param>
         private static void inputDroneStatus(ref string status)
         {
             bool isExist2 = false;
@@ -71,6 +73,7 @@ namespace DalObject
         /// <summary>
         /// getting a string and check its existance in Priorities enum.
         /// </summary>
+        /// <param name="priority">priority</param>
         private static void inputPriority(ref string priority)
         {
             bool isExist3 = false;
@@ -96,6 +99,13 @@ namespace DalObject
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="senderId"></param>
+        /// <param name="targetId"></param>
+        /// <param name="droneId"></param>
         private static void chackingIdentitiesOfParcel(int id, string senderId, string targetId, int droneId)
         {
             ParcelsList.First(item => item.Id == id);
@@ -103,6 +113,11 @@ namespace DalObject
             CustomersList.First(item => item.Id == targetId);
             DronesList.First(item => item.Id == droneId);
         }
+
+        /// <summary>
+        /// The function checks if the variable is int type.
+        /// </summary>
+        /// <param name="numericalValue">a int type variable</param>
         private static void inputIntValue(ref int id)
         {
             while (!int.TryParse(Console.ReadLine(), out id))

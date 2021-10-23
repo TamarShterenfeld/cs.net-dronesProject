@@ -5,8 +5,7 @@ using System.Text;
 using static IDAL.DO.IDAL;
 using static DalObject.DataSource.Config;
 using static DalObject.DalObject;
-
-
+//*************************************
 namespace DalObject
 {
     public class DataSource

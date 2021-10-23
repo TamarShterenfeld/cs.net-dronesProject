@@ -6,7 +6,7 @@ using IDAL.DO;
 using static DalObject.DataSource.Config;
 using static DalObject.DataSource;
 using System.Linq;
-
+//*******************************
 namespace DalObject
 {
     public partial class DalObject

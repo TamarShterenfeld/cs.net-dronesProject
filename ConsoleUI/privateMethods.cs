@@ -7,6 +7,10 @@ namespace ConsoleUI
 {
     public partial class Program 
     {
+        /// <summary>
+        /// The function checks if the variable is double type.
+        /// </summary>
+        /// <param name="numericalValue">a double type variable</param>
         private static void inputDoubleValue(ref double numericalValue)
         {
             while (!double.TryParse(Console.ReadLine(), out numericalValue))
@@ -15,6 +19,10 @@ namespace ConsoleUI
             }
         }
 
+        /// <summary>
+        /// The function checks if the variable is int type.
+        /// </summary>
+        /// <param name="numericalValue">a int type variable</param>
         private static void inputIntValue(ref int numericalValue)
         {
             while (!int.TryParse(Console.ReadLine(), out numericalValue))
@@ -23,6 +31,10 @@ namespace ConsoleUI
             }
         }
 
+        /// <summary>
+        /// The function checks if the variable is string type.
+        /// </summary>
+        /// <param name="str">a string type variable</param>
         private static void inputStringValue(ref string str)
         {
             bool isValid = true;
@@ -46,6 +58,11 @@ namespace ConsoleUI
                     return;
             }
         }
+
+        /// <summary>
+        /// The function checks if the id is string type. 
+        /// </summary>
+        /// <param name="id">string type id</param>
         public static void inputStringId(ref string id)
         {
             bool isValid = true;
@@ -81,6 +98,10 @@ namespace ConsoleUI
             
         }
 
+        /// <summary>
+        /// The function checks if the phone is valid. 
+        /// </summary>
+        /// <param name="phone">phone</param>
         public static void inputPhone(ref string phone)
         {
             bool isValid = true;
@@ -115,6 +136,7 @@ namespace ConsoleUI
         /// <summary>
         /// getting a string and check its existance in WeightCategories enum.
         /// </summary>
+        /// <param name="maxWeight">WeightCategory: maxWeight</param>
         private static void inputWeightCategory(ref string maxWeight)
         {
             bool isExist1 = false;
@@ -144,6 +166,7 @@ namespace ConsoleUI
         /// <summary>
         /// getting a string and check its existance in DronesStatuses enum.
         /// </summary>
+        /// <param name="status">DronesStatuses: status</param>
         private static void inputDroneStatus(ref string status)
         {
             bool isExist2 = false;
@@ -168,9 +191,11 @@ namespace ConsoleUI
                 }
             }
         }
+
         /// <summary>
         /// getting a string and check its existance in Priorities enum.
         /// </summary>
+        /// <param name="priority">priority</param>
         private static void inputPriority(ref string priority)
         {
             bool isExist3 = false;
