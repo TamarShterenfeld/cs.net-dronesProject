@@ -82,7 +82,8 @@ namespace IDAL
                     get { return droneId; } 
                     set
                     {
-                        if(value < 0)
+                        //-1 - is a sign for a not initalized droneId
+                        if(value < -1)
                         {
                             throw new FormatException("Id must hold a positive value");
                         }
@@ -96,11 +97,12 @@ namespace IDAL
                 public DateTime PickingUp { get; set; }
                 public DateTime Arrival { get; set; }
 
-                public Parcel (int id, string senderId, string targetId, int droneId, WeightCategories weight, Priorities priority)
+                public Parcel (int id, string senderId, string targetId, WeightCategories weight, Priorities priority, int droneId = -1)
                 {
                     this.id = id; this.senderId = senderId; this.targetId = targetId; this.droneId = droneId; Weight = weight; Priority = priority;
-                    Production = Association = PickingUp = Arrival = DateTime.Now;
+                    Production = Association = PickingUp = Arrival = new DateTime(01/01/0001);
                 }
+                
 
                 public override string ToString()
                 {

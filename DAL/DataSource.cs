@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using static IDAL.DO.IDAL;
 using static DalObject.DataSource.Config;
+using static DalObject.DalObject;
 
 
 namespace DalObject
@@ -55,21 +56,16 @@ namespace DalObject
 
             //initalize at least the first five drones in DronesAr
             size = rand.Next(5, DRONESAMOUNT);
-            int status, weight;
+            int statusIndex, weightIndex;
             for (int i = 0; i < size; i++)
             {
                 Drone drone = new Drone();
                 drone.Id = IndexOfDrone++;
-                status = rand.Next(0, Enum.GetNames(typeof(DroneStatuses)).Length - 1);
-                drone.Status = (DroneStatuses)Enum.Parse(typeof(DroneStatuses), (string)Enum.GetNames(typeof(DroneStatuses)).GetValue(status), true);
-                while(drone.Status == DroneStatuses.Maintenance)
-                {
-                    status = rand.Next(0, Enum.GetNames(typeof(DroneStatuses)).Length - 1);
-                    drone.Status = (DroneStatuses)Enum.Parse(typeof(DroneStatuses), (string)Enum.GetNames(typeof(DroneStatuses)).GetValue(status), true);
-                }
+                statusIndex = rand.Next(0, Enum.GetNames(typeof(DroneStatuses)).Length - 1);
+                drone.Status = DroneStatuses.Available;
                 drone.Model = droneModels[rand.Next(0, INITALIZBASESTATIONSIZE)];
-                weight = rand.Next(0, Enum.GetNames(typeof(WeightCategories)).Length);
-                drone.MaxWeight = (WeightCategories)Enum.Parse(typeof(WeightCategories), (string)Enum.GetNames(typeof(WeightCategories)).GetValue(weight), true);
+                weightIndex = rand.Next(0, Enum.GetNames(typeof(WeightCategories)).Length);
+                drone.MaxWeight = (WeightCategories)Enum.Parse(typeof(WeightCategories), (string)Enum.GetNames(typeof(WeightCategories)).GetValue(weightIndex), true);
                 drone.Battery = 0.6 * rand.Next(0, 100) + 0.4 * rand.Next(0, 100);
                 DronesList.Add(drone);
             }
@@ -91,7 +87,7 @@ namespace DalObject
 
             //initalize at least the first tenth parcels in ParcelArr.
             size = rand.Next(10, PARCELAMOUNT);
-            int priority, weight1, senderIndex, targetIndex;
+            int priorityIndex, senderIndex, targetIndex;
             for (int i = 0; i < size; i++)
             {
                 Parcel parcel = new Parcel();
@@ -99,14 +95,14 @@ namespace DalObject
                 senderIndex = rand.Next(0, IndexOfCustomer-1);
                 parcel.SenderId = CustomersList[senderIndex].Id;
                 targetIndex = rand.Next(0, IndexOfCustomer - 1);
-                //the man who sends the parcel can't also get it.
-                while (targetIndex == senderIndex) { targetIndex = rand.Next(0, IndexOfCustomer - 1); }
+                //a man who sends the parcel can't also get it.
+                while (targetIndex == senderIndex) { targetIndex = rand.Next(0, IndexOfCustomer); }
                 parcel.TargetId = CustomersList[targetIndex].Id;
-                priority = rand.Next(0, Enum.GetNames(typeof(Priorities)).Length - 1);
-                parcel.Priority = (Priorities)Enum.Parse(typeof(Priorities),(string)Enum.GetNames(typeof(Priorities)).GetValue(priority), true);
-                weight1 = rand.Next(0, Enum.GetNames(typeof(WeightCategories)).Length - 1);
-                parcel.Weight = (WeightCategories)Enum.Parse(typeof(WeightCategories), (string)Enum.GetNames(typeof(WeightCategories)).GetValue(weight1), true);
-                parcel.DroneId = DronesList[rand.Next(0, IndexOfDrone - 1)].Id;
+                priorityIndex = rand.Next(0, Enum.GetNames(typeof(Priorities)).Length - 1);
+                parcel.Priority = (Priorities)Enum.Parse(typeof(Priorities),(string)Enum.GetNames(typeof(Priorities)).GetValue(priorityIndex), true);
+                weightIndex = rand.Next(0, Enum.GetNames(typeof(WeightCategories)).Length - 1);
+                parcel.Weight = (WeightCategories)Enum.Parse(typeof(WeightCategories), (string)Enum.GetNames(typeof(WeightCategories)).GetValue(weightIndex), true);
+                parcel.DroneId = DronesList[rand.Next(0, IndexOfDrone)].Id;
                 //initalize (random) a date of Production & the other DateTime fields are based on it.
                 //while assuming that each part of the shipment process maximum takes 14 business days.
                 //the initalization of association date - doesn't mean the 
@@ -116,6 +112,22 @@ namespace DalObject
                 parcel.Association = parcel.Production.AddDays(rand.Next(14));
                 parcel.PickingUp = parcel.Association.AddDays(rand.Next(14));
                 parcel.Arrival = parcel.PickingUp.AddDays(rand.Next(14));
+                //there wasn't an available drone.
+                if (!AssociateParcel(parcel.Id, parcel.DroneId))
+                {
+                    //a sign for an notassociated parcel
+                    parcel.DroneId = -1;
+                    parcel.Association = new DateTime(01 / 01 / 0001);
+                }
+                if(!PickUpParcel(parcel.Id, parcel.SenderId))
+                {
+                    parcel.PickingUp = new DateTime(01/01/0001);
+                   
+                }
+                if(!SupplyParcel(parcel.Id, parcel.TargetId))
+                {
+                    parcel.Arrival = new DateTime(01 / 01 / 0001);
+                }
                 ParcelsList.Add(parcel);
             }
         }

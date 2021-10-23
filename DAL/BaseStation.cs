@@ -103,7 +103,6 @@ namespace IDAL
                         chargeSlots = value;
                     }
                 }
-
                 public BaseStation(int id, string name, double longitude, double latitude, int chargeSlots)
                 {         
                     this.id = id; this.name = name; this.latitude = latitude; this.longitude = longitude;  this.chargeSlots = chargeSlots;
@@ -112,7 +111,7 @@ namespace IDAL
 
                 public override string ToString()
                 {
-                    return "This is a base station object, its id: "+Id+" ,name: "+Name;
+                    return "This is a base station object, its id: "+Id+" name:, "+Name;
                 }
             }
         }

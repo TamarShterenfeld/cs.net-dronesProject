@@ -11,36 +11,39 @@ namespace DalObject
 {
     public partial class DalObject
     {
-        
-        public static void AssociatingParcel(int parcelId, int droneId)
+        public static bool AssociateParcel(int parcelId, int droneId)
         {
-            inputIntValue(ref parcelId);
+            if(ParcelsList.FindIndex(item => item.Id == parcelId) ==-1)
+                    return false;
             Parcel parcel = ParcelsList.First(item => item.Id == parcelId);
-            inputIntValue(ref droneId);
             Drone drone = DronesList.First(item => item.Id == droneId);
+            if (drone.Status != DroneStatuses.Available)
+                return false;
             parcel.Association = DateTime.Now;
             parcel.DroneId = droneId;
             //updating the associated drone's status to be as shipment.
             drone.Status = DroneStatuses.Shipment;
+            return true;
         }
 
-        public static void PickingUpParcel(int parcelId, string senderId)
+        
+        public static bool PickUpParcel(int parcelId, string senderId)
         {
-            inputIntValue(ref parcelId);
+            if (ParcelsList.FindIndex(item => item.Id == parcelId) == -1 || CustomersList.FindIndex(item=>item.Id == senderId) == -1)
+                return false;
             Parcel parcel = ParcelsList.First(item => item.Id == parcelId);
-            senderId = Console.ReadLine();
-            CustomersList.First(item => item.Id == senderId);
             parcel.SenderId = senderId;
             parcel.PickingUp = DateTime.Now;
+            return true;
         }
 
-        public static void SupplyingParcel(int parcelId, string targetId)
+        public static bool SupplyParcel(int parcelId, string targetId)
         {
-            inputIntValue(ref parcelId);
+            if (ParcelsList.FindIndex(item => item.Id == parcelId) == -1 || CustomersList.FindIndex(item=>item.Id == targetId) == -1)
+                return false;
             Parcel parcel = ParcelsList.First(item => item.Id == parcelId);
-            targetId = Console.ReadLine();
-            CustomersList.First(item => item.Id == targetId);
             parcel.Arrival = DateTime.Now;
+            return true;
         }
 
         public static void ChargingDrone(int droneId, int baseStationId)

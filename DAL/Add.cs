@@ -18,8 +18,7 @@ namespace DalObject
             if(BaseStationsList.FindIndex(item => item.Id == id) == -1)
             {
                 //the Base Station List is full totally.
-// הורדתי את ה-ועוד 1
-                if (IndexOfBaseStation >= BASESTATIONSAMOUNT)
+                if (IndexOfBaseStation + 1 >= BASESTATIONSAMOUNT)
                 {
                     throw new Exception("The amount of base stations objects arrived to its maximum limit");
                 }
@@ -33,10 +32,10 @@ namespace DalObject
             }
         }
 
-        public static void AddDrone(int id, string model, string status, string maxWeight, double battery)
+        public static void AddDrone(int id, string model, string maxWeight, double battery)
         {
             //drones list is fulll already.
-            if (IndexOfDrone  >= DRONESAMOUNT)
+            if (IndexOfDrone + 1 >= DRONESAMOUNT)
             {
                 throw new Exception("The amount of drones objects arrived to its maximum limit");
             }
@@ -44,7 +43,7 @@ namespace DalObject
             if (DronesList.FindIndex(item => item.Id == id) == -1)
             {
                 //the enum type variables were defined to hold the numerical index of the enum category.
-                DroneStatuses droneStatuses = (DroneStatuses)int.Parse(status);
+                DroneStatuses droneStatuses = DroneStatuses.Available;
                 WeightCategories weightCategory = (WeightCategories)int.Parse(maxWeight);
                
                 ++IndexOfDrone;
@@ -60,7 +59,7 @@ namespace DalObject
         public static void AddCustomer(string id, string name, string phone, double longitude, double latitude)
         {
             //customers list is full already.
-            if (IndexOfCustomer >= CUSTOMERSAMOUNT)
+            if (IndexOfCustomer + 1 >= CUSTOMERSAMOUNT)
             {
                 throw new Exception("The amount of customers objects arrived to its maximum limit");
             }
@@ -76,15 +75,15 @@ namespace DalObject
         public static void AddParcel(int id, string senderId, string targetId, int droneId, string Weight, string Priority)
         {
 
-            if (IndexOfParcel >= BASESTATIONSAMOUNT)
+            if (IndexOfParcel + 1 >= BASESTATIONSAMOUNT)
             {
-                Console.WriteLine("It is impossible to add a parcel");
+                Console.WriteLine("The amount of base station objects arrived to its maximum limit");
                 return;
             }
             chackingIdentitiesOfParcel(id, senderId, targetId, droneId);
             WeightCategories weightCategories = (WeightCategories)int.Parse(Weight);
             Priorities priorities = (Priorities)int.Parse(Priority);
-            Parcel parcel = new Parcel(id, senderId, targetId, droneId, weightCategories, priorities);
+            Parcel parcel = new Parcel(id, senderId, targetId, weightCategories, priorities, droneId);
             ++IndexOfParcel;
             ParcelsList.Add(parcel);
         }

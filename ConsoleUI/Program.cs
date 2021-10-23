@@ -20,7 +20,7 @@ namespace ConsoleUI
 
             //all the enum type litteral are entered as string type
             //and then checked if they contain an enum name.
-            string status = "", maxWeight = "", weight = "", priority = "";
+            string maxWeight = "", weight = "", priority = "";
 
             DalObject.DalObject dalObject = new DalObject.DalObject();
 
@@ -51,8 +51,8 @@ namespace ConsoleUI
 
                                         case (int)AddOptions.Drone:
                                             {
-                                                CheckDroneDetails(ref id, ref battery, ref model, ref maxWeight, ref status);
-                                                AddDrone(id, model, status, maxWeight, battery);
+                                                CheckDroneDetails(ref id, ref battery, ref model, ref maxWeight);
+                                                AddDrone(id, model, maxWeight, battery);
                                                 break;
                                             }
                                         case (int)AddOptions.Customer:
@@ -87,19 +87,22 @@ namespace ConsoleUI
                                         case (int)UpDateOptions.AssociatingParcel:
                                             {
                                                 Console.WriteLine("Please enter the parcel's id and the drone's id" );
-                                                AssociatingParcel(parcelId, droneId);
+                                                InputAssociatedParcelDetails(ref parcelId, ref droneId);
+                                                AssociateParcel(parcelId, droneId);
                                                 break;
                                             }
                                         case (int)UpDateOptions.PickingUpParcel:
                                             {
                                                 Console.WriteLine("Please enter the parcel's id and the sender's id");
-                                                PickingUpParcel(parcelId, senderId);
+                                                InputPickUpParcelDetails(ref parcelId, ref senderId);
+                                                PickUpParcel(parcelId, senderId);
                                                 break;
                                             }
                                         case (int)UpDateOptions.SupplyingParcel:
                                             {
                                                 Console.WriteLine("Please enter the parcel's id and the target's id");
-                                                SupplyingParcel(parcelId, targetId);
+                                                InputArrivalDetails(ref parcelId, ref targetId);
+                                                SupplyParcel(parcelId, targetId);
                                                 break;
                                             }
                                         case (int)UpDateOptions.ChargingDrone:
@@ -204,11 +207,6 @@ namespace ConsoleUI
                                         case (int)ShowingListsOptions.AvailableChargeSlots:
                                             {
                                                 AvailableChargeSlots();
-                                                break;
-                                            }
-                                        default:
-                                            {
-                                                Console.WriteLine("ERROR! \nan unknown option.");
                                                 break;
                                             }
                                     }
