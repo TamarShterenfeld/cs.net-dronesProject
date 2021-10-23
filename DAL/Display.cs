@@ -12,6 +12,10 @@ namespace DalObject
 {
     public partial class DalObject
     {
+        /// <summary>
+        /// The function displays a base station.
+        /// </summary>
+        /// <param name="id">base station's id</param>
         public static void DisplayBaseStation(int id)
         {
             BaseStation currBaseStation = BaseStationsList.First(item => item.Id == id);
@@ -21,6 +25,11 @@ namespace DalObject
                               $"latitude:  {currBaseStation.Latitude}\n" +
                               $"number of charge slots: {currBaseStation.ChargeSlots}\n");
         }
+
+        /// <summary>
+        /// The function displays a drone.
+        /// </summary>
+        /// <param name="id">drone's id</param>
         public static void DisplayDrone(int id)
         {
             Drone currDrone = DronesList.First(item => item.Id == id);
@@ -30,6 +39,11 @@ namespace DalObject
                               $"maxWeight:  {currDrone.MaxWeight}\n" +
                               $"battery: {currDrone.Battery}\n");
         }
+
+        /// <summary>
+        /// The function displays a customer.
+        /// </summary>
+        /// <param name="id">customer's id</param>
         public static void DisplayCustomer(string id)
         {
             Customer currCustomer = CustomersList.First(item => item.Id == id);
@@ -39,6 +53,11 @@ namespace DalObject
                               $"longitude: {currCustomer.Longitude}\n" +
                               $"latitude:  {currCustomer.Latitude}\n");
         }
+
+        /// <summary>
+        /// The function displays a parcel.
+        /// </summary>
+        /// <param name="id">parcel's id</param>
         public static void DisplayParcel(int id)
         {
             Parcel currParcel = ParcelsList.First(item => item.Id == id);
