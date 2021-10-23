@@ -10,7 +10,7 @@ namespace IDAL
         public partial class IDAL
         {
             /// <summary>
-            /// the struct Parcel contains all the needed details for a parcel.
+            /// the struct Parcel contains the following details: id, senderId, targetId, droneId, weight, .
             /// </summary>
             public struct Parcel
             {

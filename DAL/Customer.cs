@@ -9,9 +9,9 @@ namespace IDAL
         public partial class IDAL
         {
             /// <summary>
-            /// the struct Customer contains all the needed details for a customer.
+            /// the struct Customer contains the following details: id, name, phone, longitude, latitude.
             /// </summary>
-            /// 
+            
             public struct Customer
             {
                 private string id;
