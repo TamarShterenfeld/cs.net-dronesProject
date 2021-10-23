@@ -63,7 +63,7 @@ namespace ConsoleUI
                                             }
                                         case (int)AddOptions.Parcel:
                                             {
-                                                CheckParcelDetails(ref customerId, ref senderId, ref targetId, ref weight, ref priority);
+                                                CheckParcelDetails(ref id, ref senderId, ref targetId, ref weight, ref priority);
                                                 AddParcel(id, senderId, targetId, droneId, weight, priority);
                                                 break;
                                             }

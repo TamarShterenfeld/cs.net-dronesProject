@@ -37,9 +37,9 @@ namespace ConsoleUI
         /// <param name="str">a string type variable</param>
         private static void inputStringValue(ref string str)
         {
-            bool isValid = true;
             while (true)
             {
+                bool isValid = true;
                 str = Console.ReadLine();
                 if (string.IsNullOrEmpty(str))
                 {
@@ -47,8 +47,11 @@ namespace ConsoleUI
                 }
                 foreach (char letter in str)
                 {
-                    if ((letter < 'a' || letter > 'Z') && (letter < '0' || letter > '9'))
-                        isValid = false;
+                    if ((letter < 'A' || letter >'z') && (letter < '0' || letter > '9'))
+                    { 
+                         isValid = false; 
+                    }
+                        
                 }
                 if (!isValid)
                 {
@@ -65,9 +68,9 @@ namespace ConsoleUI
         /// <param name="id">string type id</param>
         public static void inputStringId(ref string id)
         {
-            bool isValid = true;
             while (true)
             {
+                bool isValid = true;
                 id = Console.ReadLine();
                 if(id.Length != 9)
                 {

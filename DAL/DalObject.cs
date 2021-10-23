@@ -6,7 +6,7 @@ using IDAL.DO;
 using static DalObject.DataSource.Config;
 using static DalObject.DataSource;
 using System.Linq;
-//*******************************
+
 namespace DalObject
 {
     public partial class DalObject
@@ -16,6 +16,11 @@ namespace DalObject
         {
             DataSource.Initialize();
         }
+
+        /// <summary>
+        /// The function calculates the parcel's id
+        /// </summary>
+        /// <returns>parcel's id</returns>
         public int AddParcel()
         {
             return DataSource.Config.ParcelId++;
@@ -31,7 +36,11 @@ namespace DalObject
             }
             return notAssociatedDronesList;
         }
-        
+
+        /// <summary>
+        /// The function creates a list of all the available charge solts
+        /// </summary>
+        /// <returns>a list of all the available charge solts</returns>
         public static List<BaseStation> GettingAvailableChargeSlots()
         {
             List<BaseStation> AvailableChargeSlotsList = new List<BaseStation>(IndexOfBaseStation+1);

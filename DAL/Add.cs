@@ -25,7 +25,7 @@ namespace DalObject
             if(BaseStationsList.FindIndex(item => item.Id == id) == -1)
             {
                 //the Base Station List is full totally.
-// הורדתי את ה-ועוד 1
+
                 if (IndexOfBaseStation >= BASESTATIONSAMOUNT)
                 {
                     throw new Exception("The amount of base stations objects arrived to its maximum limit");
@@ -107,7 +107,7 @@ namespace DalObject
         public static void AddParcel(int id, string senderId, string targetId, int droneId, string Weight, string Priority)
         {
 
-            if (IndexOfParcel >= BASESTATIONSAMOUNT)
+            if (IndexOfParcel >= PARCELAMOUNT)
             {
                 Console.WriteLine("The amount of base station objects arrived to its maximum limit");
                 return;

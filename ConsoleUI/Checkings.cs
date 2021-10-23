@@ -33,7 +33,7 @@ namespace ConsoleUI
         /// <param name="maxWeight">drone's max weight</param>
         public static void CheckDroneDetails(ref int id, ref double battery, ref string model, ref string maxWeight)
         {
-            Console.WriteLine("Enter drone's details :\n id, battery, model, category weight and the status of the drone.");
+            Console.WriteLine("Enter drone's details :\n id, battery, model, category weight.");
             inputIntValue(ref id);
             inputDoubleValue(ref battery);
             inputStringValue(ref model);
@@ -48,11 +48,11 @@ namespace ConsoleUI
         /// <param name="targetId">parcel's target id</param>
         /// <param name="weight">parcel's weight</param>
         /// <param name="priority">parcel's priority </param>
-        public static void CheckParcelDetails(ref string id, ref string senderId, ref string targetId, ref string weight, ref string priority)
+        public static void CheckParcelDetails(ref int id, ref string senderId, ref string targetId, ref string weight, ref string priority)
         {
             Console.WriteLine("Please enter :\n id, sender id, getter id, category weight and the priority of the drone.");
             //the checkings of the different (string) id are implemented within the struct Parcel and another function named "chackingIdentitiesOfParcel"
-            inputStringId(ref id);
+            inputIntValue(ref id);
             inputStringId(ref senderId);
             inputStringId(ref targetId);
             inputWeightCategory(ref weight);

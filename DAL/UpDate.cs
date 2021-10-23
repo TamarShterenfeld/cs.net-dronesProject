@@ -57,6 +57,11 @@ namespace DalObject
             parcel.Arrival = DateTime.Now;
         }
 
+        /// <summary>
+        /// the functuin trys to charge the drone.
+        /// </summary>
+        /// <param name="droneId">drone's id</param>
+        /// <param name="baseStationId">base station's id</param>
         public static void ChargingDrone(int droneId, int baseStationId)
         {
             inputIntValue(ref droneId);
@@ -71,6 +76,11 @@ namespace DalObject
             drone.Status = DroneStatuses.Maintenance;
             DroneChargeList.Add(droneCharge);          
         }
+
+        /// <summary>
+        /// the function stops the drone from charging
+        /// </summary>
+        /// <param name="droneId">drone's id</param>
         public static void StopDroneCharging(int droneId)
         {
             int baseStationId;
