@@ -9,8 +9,9 @@ namespace IDAL
         public partial class IDAL
         {
             /// <summary>
-            /// the struct BaseStation contains all the needed details for a base station
+            /// the struct BaseStation contains the following details: id, name, longitude, latitude,  number of chargeSlots.
             /// </summary>
+
             public struct BaseStation
             {
                 private int id;

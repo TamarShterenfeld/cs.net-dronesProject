@@ -10,7 +10,7 @@ namespace IDAL
         public partial class IDAL
         {
             /// <summary>
-            /// the struct Drone contains all the needed details which are connected to a drone.
+            /// the struct Drone contains the following details: id, battery, model, status, maxWeight.
             /// </summary>
             public struct Drone
             {
