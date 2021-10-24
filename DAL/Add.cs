@@ -12,7 +12,7 @@ namespace DalObject
     public partial class DalObject
     {
         /// <summary>
-        /// The function adds a base station
+        /// The function adds a base station to the Base Stations' list.
         /// </summary>
         /// <param name="id">base station's id</param>
         /// <param name="name">base station's name</param>
@@ -21,7 +21,7 @@ namespace DalObject
         /// <param name="chargeSlots"> number of charge slots in the base station</param>
         public static void AddBaseStation(int id, string name, double longitude, double latitude, int chrgeSlots)
         {
-            //can add the base station just if the input id stil doesnt exist in the Base Station's list.
+            //can add the base station just if the input id still doesn't exist in the Base Station's list.
             if(BaseStationsList.FindIndex(item => item.Id == id) == -1)
             {
                 //the Base Station List is full totally.
@@ -86,9 +86,8 @@ namespace DalObject
             {
                 throw new Exception("The amount of customers objects arrived to its maximum limit");
             }
-            //can add the customer just if the input id stil doesnt exist in the customers' list.
-            if (CustomersList.FindIndex(item => item.Id == id) == -1){
-                
+            //can add the customer just if the input id stil doesn't exist in the customers' list.
+            if (CustomersList.FindIndex(item => item.Id == id) == -1){               
                 Customer customer = new Customer(id, name, phone, longitude, latitude);
                 ++IndexOfCustomer;
                 CustomersList.Add(customer);
@@ -104,7 +103,7 @@ namespace DalObject
         /// <param name="droneId">parcel's drone id</param>
         /// <param name="weight">parcel's weight</param>
         /// <param name="priority">parcel's priority </param>
-        public static void AddParcel(int id, string senderId, string targetId, int droneId, string Weight, string Priority)
+        public static void AddParcel(int id, string senderId, string targetId, int droneId, string weight, string priority)
         {
 
             if (IndexOfParcel >= PARCELAMOUNT)
@@ -113,10 +112,10 @@ namespace DalObject
                 return;
             }
             chackingIdentitiesOfParcel(id, senderId, targetId, droneId);
-            WeightCategories weightCategories = (WeightCategories)int.Parse(Weight);
-            Priorities priorities = (Priorities)int.Parse(Priority);
+            WeightCategories weightCategories = (WeightCategories)int.Parse(weight);
+            Priorities priorities = (Priorities)int.Parse(priority);
             Parcel parcel = new Parcel(id, senderId, targetId, weightCategories, priorities, droneId);
-            ++IndexOfParcel;
+            AddParcelIndex();
             ParcelsList.Add(parcel);
         }
 

@@ -12,8 +12,11 @@ namespace DalObject
 {
     public partial class DalObject
     {
+        //we didn't use the override function - ToString(),
+        //for it doesn't include enough details for printing.
+
         /// <summary>
-        /// The function displays a base station.
+        /// The function displays a base station according to the input id.
         /// </summary>
         /// <param name="id">base station's id</param>
         public static void DisplayBaseStation(int id)
@@ -27,7 +30,7 @@ namespace DalObject
         }
 
         /// <summary>
-        /// The function displays a drone.
+        /// The function displays a drone according to the input id.
         /// </summary>
         /// <param name="id">drone's id</param>
         public static void DisplayDrone(int id)
@@ -41,7 +44,7 @@ namespace DalObject
         }
 
         /// <summary>
-        /// The function displays a customer.
+        /// The function displays a customer according to the input id.
         /// </summary>
         /// <param name="id">customer's id</param>
         public static void DisplayCustomer(string id)
@@ -55,7 +58,7 @@ namespace DalObject
         }
 
         /// <summary>
-        /// The function displays a parcel.
+        /// The function displays a parcel according to the input id.
         /// </summary>
         /// <param name="id">parcel's id</param>
         public static void DisplayParcel(int id)

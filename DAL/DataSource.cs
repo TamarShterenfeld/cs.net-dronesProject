@@ -10,6 +10,9 @@ using System.Linq;
 
 namespace DalObject
 {
+    /// <summary>
+    /// a class which contains all the data of program.
+    /// </summary>
     public class DataSource
     {
         //const literals.
@@ -19,7 +22,7 @@ namespace DalObject
         internal const int PARCELAMOUNT = 1000;
         internal const int INITALIZBASESTATIONSIZE = 10;
 
-        //internal arrs of different entities.
+        //internal lists of different entities.
         internal static List<Drone> DronesList = new List<Drone>(DRONESAMOUNT);
         internal static List<BaseStation> BaseStationsList = new List<BaseStation>(BASESTATIONSAMOUNT);
         internal static List<Customer> CustomersList = new List<Customer>(CUSTOMERSAMOUNT);
@@ -41,7 +44,7 @@ namespace DalObject
         public static void Initialize()
         {
             int size;
-            //initalize at least the two first item in BaseStationArr.
+            //initalize at least the two first item in BaseStationList.
             size = rand.Next(2, BASESTATIONSAMOUNT);
             for (int i = 0; i < size; i++)
             {
@@ -86,14 +89,14 @@ namespace DalObject
                 CustomersList.Add(customer);
             }
 
-            //initalize at least the first tenth parcels in ParcelArr.
+            //initalize at least the first tenth parcels in ParcelList.
             size = rand.Next(10, PARCELAMOUNT);
             int priorityIndex, senderIndex, targetIndex;
             for (int i = 0; i < size; i++)
             {
                
                 Parcel parcel = new Parcel();
-                parcel.Id = IndexOfParcel++;
+                parcel.Id = AddParcelIndex();
                 senderIndex = rand.Next(0, IndexOfCustomer-1);
                 parcel.SenderId = CustomersList[senderIndex].Id;
                 targetIndex = rand.Next(0, IndexOfCustomer - 1);
@@ -122,15 +125,12 @@ namespace DalObject
 
                 //initalize (random) a date of Production & the other DateTime fields are based on it.
                 //while assuming that each part of the shipment process maximum takes 14 business days.
-                //the initalization of association date - doesn't mean the 
-                DateTime start = new DateTime(2021, 1, 1);
-                int random = (DateTime.Today - start).Days;
-                parcel.Production = start.AddDays(rand.Next(random));
-                parcel.Association = parcel.Production.AddDays(rand.Next(14));
-                parcel.PickingUp = parcel.Association.AddDays(rand.Next(14));
-                parcel.Arrival = parcel.PickingUp.AddDays(rand.Next(14));
+                parcel.Production = DateTime.Now;
+                parcel.Association = parcel.Production.AddDays(rand.Next(14)).AddHours(rand.Next(1, 24));
+                parcel.PickingUp = parcel.Association.AddDays(rand.Next(14)).AddHours(rand.Next(1, 24));
+                parcel.Arrival = parcel.PickingUp.AddDays(rand.Next(14)).AddHours(rand.Next(1, 24));
                 //there wasn't an available drone.
-                //a sign for an notassociated parcel
+                //the date: 01/ 01/ 0001 - is a sign for an unassociated parcel - a default value.
                 if (parcel.DroneId == -1)
                 {
                     parcel.Association = new DateTime(01 / 01 / 0001)  ;
@@ -140,7 +140,7 @@ namespace DalObject
         }
 
         /// <summary>
-        /// the class Config contains the indexes of the first free place in the arrays
+        /// the class Config contains the indexes of the first free place in the different lists.
         /// in addition, it contains ParcelId
         /// </summary>
         internal class Config
@@ -149,7 +149,7 @@ namespace DalObject
             internal static int IndexOfBaseStation = 0;
             internal static int IndexOfCustomer = 0;
             internal static int IndexOfParcel = 0;
-            public static int ParcelId;
+            public static int ParcelId = 0;
         }
     }
 }

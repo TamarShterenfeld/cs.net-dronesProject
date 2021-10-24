@@ -21,10 +21,16 @@ namespace DalObject
         /// The function calculates the parcel's id
         /// </summary>
         /// <returns>parcel's id</returns>
-        public int AddParcel()
+        public static int  AddParcelIndex()
         {
             return DataSource.Config.ParcelId++;
         }
+        
+        /// <summary>
+        /// returns a list of the not associated parcels
+        /// this is done by checking the assoviation date - if it was changed from the default value.
+        /// </summary>
+        /// <returns></returns>
         public static List<Parcel> GettingNotAssociatedParcels()
         {
             List<Parcel> notAssociatedDronesList = new List<Parcel>();

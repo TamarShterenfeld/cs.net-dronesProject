@@ -43,19 +43,21 @@ namespace ConsoleUI
                 str = Console.ReadLine();
                 if (string.IsNullOrEmpty(str))
                 {
+                    isValid = false;
                     Console.WriteLine("String must hold a value!");
                 }
                 foreach (char letter in str)
                 {
-                    if ((letter < 'A' || letter >'z') && (letter < '0' || letter > '9'))
-                    { 
+                    if ((!Char.IsLetter(letter)))
+                    {
+                        Console.WriteLine("The string type can hold only alphabetical values!");
                          isValid = false; 
                     }
                         
                 }
                 if (!isValid)
                 {
-                    Console.WriteLine("The string type can hold only alphabetical values! Try again");
+                    Console.WriteLine("Try again!");
                 }
                 else
                     return;
@@ -165,7 +167,6 @@ namespace ConsoleUI
                 }
             }
         }
-
 
         /// <summary>
         /// getting a string and check its existance in Priorities enum.
