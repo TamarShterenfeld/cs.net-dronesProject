@@ -12,7 +12,7 @@ namespace DalObject
     public partial class DalObject
     {
         /// <summary>
-        /// The function gives associate time to the parcel.
+        /// The function gives associate date to the parcel.
         /// </summary>
         /// <param name="parcelId">parcel id</param>
         /// <param name="droneId">drone id</param>
@@ -31,7 +31,7 @@ namespace DalObject
         }
 
         /// <summary>
-        /// The function gives pick up time to the parcel.
+        /// The function gives pick up date to the parcel.
         /// </summary>
         /// <param name="parcelId">parcel id</param>
         /// <param name="senderId">sender id</param>
@@ -45,7 +45,7 @@ namespace DalObject
         }
 
         /// <summary>
-        /// The function gives supply time to the parcel.
+        /// The function gives arrival date to the parcel.
         /// </summary>
         /// <param name="parcelId">parcel id</param>
         /// <param name="targetId">target id</param>

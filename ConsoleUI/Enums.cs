@@ -4,6 +4,9 @@ using System.Text;
 
 namespace ConsoleUI
 {
+    /// <summary>
+    /// all the different enums that were used in the project are collected here.
+    /// </summary>
     public enum Options
     {
         Add = 1, UpDate, Display, ShowingLists, Exit

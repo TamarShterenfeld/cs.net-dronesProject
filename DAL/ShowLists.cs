@@ -11,7 +11,7 @@ namespace DalObject
     public partial class DalObject
     {
         /// <summary>
-        /// The function shows all the base stations
+        /// The function shows all the base stations in the BaseStations' list
         /// </summary>
         public static void ShowBaseStationsList()
         {
@@ -23,7 +23,7 @@ namespace DalObject
         }
 
         /// <summary>
-        /// The function shows all the drones
+        /// The function shows all the drones in the drones' list
         /// </summary>
         public static void ShowDronesList()
         {
@@ -35,7 +35,7 @@ namespace DalObject
         }
 
         /// <summary>
-        /// The function shows all the customers
+        /// The function shows all the customers in the customers' list
         /// </summary>
         public static void ShowCustomersList()
         {
@@ -47,7 +47,7 @@ namespace DalObject
         }
 
         /// <summary>
-        /// The function shows all the parcels 
+        /// The function shows all the parcels in the parcels' list
         /// </summary>
         public static void ShowParcelsList()
         {
