@@ -148,9 +148,9 @@ namespace ConsoleUI
             while (isExist1 == false)
             {
                 maxWeight = Console.ReadLine();
-                for (int i = 0; i < Enum.GetNames(typeof(WeightCategories)).Length; i++)
+                for (int i = 1; i <= Enum.GetNames(typeof(WeightCategories)).Length; i++)
                 {
-                    currentEnum = (string)Enum.GetNames(typeof(WeightCategories)).GetValue(i);
+                    currentEnum = (string)Enum.GetNames(typeof(WeightCategories)).GetValue(i-1);
                     if (currentEnum == maxWeight || currentEnum.ToLower() == maxWeight)
                     {
                         //category is assigned to hold the numeric indx of the enum type.
@@ -166,34 +166,6 @@ namespace ConsoleUI
             }
         }
 
-        /// <summary>
-        /// getting a string and check its existance in DronesStatuses enum.
-        /// </summary>
-        /// <param name="status">DronesStatuses: status</param>
-        private static void inputDroneStatus(ref string status)
-        {
-            bool isExist2 = false;
-            string currentEnum;
-            while (isExist2 == false)
-            {
-                status = Console.ReadLine();
-                for (int i = 0; i < Enum.GetNames(typeof(DroneStatuses)).Length; i++)
-                {
-                    currentEnum = (string)Enum.GetNames(typeof(DroneStatuses)).GetValue(i);
-                    if (currentEnum == status || currentEnum.ToLower() == status)
-                    {
-                        //status is assigned to hold the numeic index of the enum type.
-                        status = i.ToString();
-                        isExist2 = true;
-                        break;
-                    }
-                }
-                if (isExist2 == false)
-                {
-                    Console.WriteLine("The entered status doesn't exist\nPlease enter another status");
-                }
-            }
-        }
 
         /// <summary>
         /// getting a string and check its existance in Priorities enum.
@@ -206,9 +178,9 @@ namespace ConsoleUI
             while (isExist3 == false)
             {
                 priority = Console.ReadLine();
-                for (int i = 0; i < Enum.GetNames(typeof(Priorities)).Length; i++)
+                for (int i = 1; i <= Enum.GetNames(typeof(Priorities)).Length; i++)
                 {
-                    currentEnum = (string)Enum.GetNames(typeof(Priorities)).GetValue(i);
+                    currentEnum = (string)Enum.GetNames(typeof(Priorities)).GetValue(i-1);
                     if (currentEnum == priority || currentEnum.ToLower() == priority)
                     {
                         //priority is assigned to hold the numeic index of the enum type.
