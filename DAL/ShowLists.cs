@@ -63,12 +63,12 @@ namespace DalObject
         /// </summary>
         public static void ShowNotAssociatedParcelsList()
         {
-            Parcel[] notAssociatedParcelsList = GettingNotAssociatedParcels();
+            List<Parcel> notAssociatedParcelsList = GettingNotAssociatedParcels();
             foreach (Parcel item in notAssociatedParcelsList)
             {
                 DisplayParcel(item.Id);
             }
-            if (notAssociatedParcelsList.Length == 0) Console.WriteLine("There are no not associated parcels to show");
+            if (notAssociatedParcelsList.Count == 0) Console.WriteLine("There are no not associated parcels to show");
         }
 
         /// <summary>
@@ -76,12 +76,12 @@ namespace DalObject
         /// </summary>
         public static void AvailableChargeSlots()
         {
-            BaseStation[] availableChargeSlots = GettingAvailableChargeSlots();
+           List<BaseStation> availableChargeSlots = GettingAvailableChargeSlots();
             foreach (BaseStation item in availableChargeSlots)
             {
                 DisplayBaseStation(item.Id);
             }
-            if (availableChargeSlots.Length == 0) Console.WriteLine("There are no not available charge slots to show");
+            if (availableChargeSlots.Count == 0) Console.WriteLine("There are no not available charge slots to show");
 
         }
     }

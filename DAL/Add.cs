@@ -26,12 +26,11 @@ namespace DalObject
             {
                 //the Base Station List is full totally.
 
-                if (IndexOfBaseStation >= BASESTATIONSBASEAMOUNT)
+                if (BaseStationsList.Count == BaseStationsList.Capacity)
                 {
                     throw new Exception("The amount of base stations objects arrived to its maximum limit");
                 }
                 BaseStation baseStation = new BaseStation(id, name, longitude, latitude, chrgeSlots);          
-                ++IndexOfBaseStation;
                 BaseStationsList.Add(baseStation);
             }
             else
@@ -50,7 +49,7 @@ namespace DalObject
         public static void AddDrone(int id, string model, string maxWeight, double battery)
         {
             //drones list is fulll already.
-            if (IndexOfDrone  >= DRONESBASEAMOUNT)
+            if (DronesList.Count  == DronesList.Capacity)
             {
                 throw new Exception("The amount of drones objects arrived to its maximum limit");
             }
@@ -60,8 +59,6 @@ namespace DalObject
                 //the enum type variables were defined to hold the numerical index of the enum category.
                 DroneStatuses droneStatuses = DroneStatuses.Available;
                 WeightCategories weightCategory = (WeightCategories)int.Parse(maxWeight);
-               
-                ++IndexOfDrone;
                 Drone drone = new Drone(id, battery, model, droneStatuses, weightCategory);
                 DronesList.Add(drone);
             }
@@ -82,14 +79,13 @@ namespace DalObject
         public static void AddCustomer(string id, string name, string phone, double longitude, double latitude)
         {
             //customers list is full already.
-            if (IndexOfCustomer >= CUSTOMERSBASEAMOUNT)
+            if (CustomersList.Count >= CustomersList.Capacity)
             {
                 throw new Exception("The amount of customers objects arrived to its maximum limit");
             }
             //can add the customer just if the input id stil doesn't exist in the customers' list.
             if (CustomersList.FindIndex(item => item.Id == id) == -1){               
                 Customer customer = new Customer(id, name, phone, longitude, latitude);
-                ++IndexOfCustomer;
                 CustomersList.Add(customer);
             }
             else
@@ -110,7 +106,7 @@ namespace DalObject
         public static void AddParcel(int id, string senderId, string targetId, int droneId, string weight, string priority)
         {
 
-            if (IndexOfParcel >= PARCELBASEAMOUNT)
+            if (ParcelsList.Count == ParcelsList.Capacity)
             {
                 Console.WriteLine("The amount of base station objects arrived to its maximum limit");
                 return;

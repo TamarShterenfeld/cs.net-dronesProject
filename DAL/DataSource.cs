@@ -63,11 +63,7 @@ namespace DalObject
         /// in addition, it contains ParcelId
         /// </summary>
         internal class Config
-        {
-            internal static int IndexOfDrone = 0;
-            internal static int IndexOfBaseStation = 0;
-            internal static int IndexOfCustomer = 0;
-            internal static int IndexOfParcel = 0;
+        { 
             public static int ParcelId = 0;
         }
 
@@ -81,7 +77,7 @@ namespace DalObject
             for (int i = 0; i < size; i++)
             {
                 BaseStation baseStation = new BaseStation();
-                baseStation.Id = IndexOfBaseStation++;
+                baseStation.Id = i;
                 baseStation.Name = randomName();
                 baseStation.ChargeSlots =randomChargeSlot();
                 //the latitude & longitude values are displayed in degrees.
@@ -103,7 +99,7 @@ namespace DalObject
             for (int i = 0; i < size; i++)
             {
                 Drone drone = new Drone();
-                drone.Id = IndexOfDrone++;
+                drone.Id = i;
                 drone.Status = DroneStatuses.Available;
                 drone.Model = randomModel();
                 drone.MaxWeight = randomWeight();
@@ -128,7 +124,6 @@ namespace DalObject
                 //the latitude & longitude values are displayed in degrees.
                 customer.Latitude = randomLatitudeOrLongitude();
                 customer.Longitude = randomLatitudeOrLongitude();
-                IndexOfCustomer++;
                 CustomersList.Add(customer);
             }
 
@@ -256,7 +251,7 @@ namespace DalObject
         /// <returns></returns>
         private static string randomCustomerId()
         {
-           return  CustomersList[rand.Next(0, IndexOfCustomer - 1)].Id;
+           return  CustomersList[rand.Next(0, CustomersList.Count-1)].Id;
         }
 
         /// <summary>
