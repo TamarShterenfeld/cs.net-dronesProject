@@ -63,7 +63,7 @@ namespace DalObject
         /// </summary>
         public static void ShowNotAssociatedParcelsList()
         {
-            List<Parcel> notAssociatedParcelsList = GettingNotAssociatedParcels();
+            List<Parcel> notAssociatedParcelsList = (List<Parcel>)GettingNotAssociatedParcels();
             foreach (Parcel item in notAssociatedParcelsList)
             {
                 DisplayParcel(item.Id);
@@ -76,7 +76,7 @@ namespace DalObject
         /// </summary>
         public static void AvailableChargeSlots()
         {
-           List<BaseStation> availableChargeSlots = GettingAvailableChargeSlots();
+           List<BaseStation> availableChargeSlots = (List<BaseStation>)GettingAvailableChargeSlots();
             foreach (BaseStation item in availableChargeSlots)
             {
                 DisplayBaseStation(item.Id);

@@ -38,7 +38,7 @@ namespace DalObject
         /// this is done by checking the assoviation date - if it was changed from the default value.
         /// </summary>
         /// <returns></returns>
-        public static List<Parcel> GettingNotAssociatedParcels()
+        public static IEnumerable<Parcel> GettingNotAssociatedParcels()
         {
             List<Parcel> notAssociatedDronesList = new List<Parcel>();
             foreach (Parcel parcel in ParcelsList)
@@ -54,7 +54,7 @@ namespace DalObject
         /// The function creates a list of all the available charge solts
         /// </summary>
         /// <returns>a list of all the available charge solts</returns>
-        public static List<BaseStation> GettingAvailableChargeSlots()
+        public static IEnumerable<BaseStation> GettingAvailableChargeSlots()
         {
             List<BaseStation> AvailableChargeSlotsList = new List<BaseStation>(BaseStationsList.Count);
             foreach (BaseStation item in BaseStationsList)
