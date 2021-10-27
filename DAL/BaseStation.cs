@@ -127,8 +127,8 @@ namespace IDAL
                 {
                     return $"id: {Id} \n" +
                               $"name: {Name} \n" +
-                              $"longitude: { DalObject.DalObject.coordinate.CastDoubleToCoordinante(Longitude)}\n" +
-                              $"latitude:  {DalObject.DalObject.coordinate.CastDoubleToCoordinante(Latitude)}\n" +
+                              $"longitude: { DalObject.DataSource.coordinate.CastDoubleToCoordinante(Longitude)}\n" +
+                              $"latitude:  {DalObject.DataSource.coordinate.CastDoubleToCoordinante(Latitude)}\n" +
                               $"number of charge slots: {ChargeSlots}\n";
                 }
             }

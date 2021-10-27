@@ -141,8 +141,8 @@ namespace IDAL
                               $"name: {Name} \n" +
                               $"phone: {Phone}\n" +
                               $"longitude: { Longitude}\n" +
-                              $"longitude: {DalObject.DalObject.coordinate.CastDoubleToCoordinante(Longitude)}\n" +
-                              $"latitude:  {DalObject.DalObject.coordinate.CastDoubleToCoordinante(Latitude)}\n";
+                              $"longitude: {DalObject.DataSource.coordinate.CastDoubleToCoordinante(Longitude)}\n" +
+                              $"latitude:  {DalObject.DataSource.coordinate.CastDoubleToCoordinante(Latitude)}\n";
                 }
             }
         }
