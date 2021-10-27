@@ -189,7 +189,7 @@ namespace ConsoleUI
         private static void displayNav()
         {
             int innerChoice;
-            int parcelId = 0, droneId = 0, baseStationId = 0, id = 0;
+            int parcelId = 0, droneId = 0, baseStationId = 0;
             string customerId = "";
             Console.WriteLine("Please enter: \n1- For a base station\n2- For a drone\n3- For a customer\n4- For a parcel");
             if (int.TryParse(Console.ReadLine(), out innerChoice))
@@ -200,14 +200,14 @@ namespace ConsoleUI
                         {
                             Console.WriteLine("Please enter baseStationId");
                             inputIntValue(ref baseStationId);
-                            DisplayBaseStation(id);
+                            DisplayBaseStation(baseStationId);
                             break;
                         }
                     case (int)DisplayOptions.Drone:
                         {
                             Console.WriteLine("Please enter droneId");
                             inputIntValue(ref droneId);
-                            DisplayDrone(id);
+                            DisplayDrone(droneId);
                             break;
                         }
                     case (int)DisplayOptions.Customer:
