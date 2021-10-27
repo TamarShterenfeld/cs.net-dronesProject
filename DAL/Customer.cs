@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using static DalObject.DalObject;
+using static DAL.Locations;
 
 namespace IDAL
 {
@@ -95,7 +96,7 @@ namespace IDAL
                     {
                         if (value < -180 || value > 180)
                         {
-                            throw new FormatException("Longitude must be a positive number and in range of 360 degrees.");
+                            throw new FormatException("Longitude must be a positive number and in range of - 180º to 180º.");
                         }
 
                         longitude = value;
@@ -111,7 +112,7 @@ namespace IDAL
                     {
                         if (value < -180 || value > 180)
                         {
-                            throw new FormatException("Latitude must be a positive number and in range of 360 degrees.");
+                            throw new FormatException("Latitude must be a positive number and in range of - 180º to 180º.");
                         }
                         latitude = value;
                     }
@@ -140,9 +141,8 @@ namespace IDAL
                     return $"id: {Id} \n" +
                               $"name: {Name} \n" +
                               $"phone: {Phone}\n" +
-                              $"longitude: { Longitude}\n" +
-                              $"longitude: {DalObject.DataSource.coordinate.CastDoubleToCoordinante(Longitude)}\n" +
-                              $"latitude:  {DalObject.DataSource.coordinate.CastDoubleToCoordinante(Latitude)}\n";
+                              $"longitude: {DalObject.DataSource.coordinate.CastDoubleToCoordinante(Longitude, LONGITUDE)}\n" +
+                              $"latitude:  {DalObject.DataSource.coordinate.CastDoubleToCoordinante(Latitude, LATITUDE)}\n";
                 }
             }
         }

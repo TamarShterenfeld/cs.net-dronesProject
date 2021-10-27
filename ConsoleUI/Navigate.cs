@@ -213,7 +213,7 @@ namespace ConsoleUI
                     case (int)DisplayOptions.Customer:
                         {
                             Console.WriteLine("Please enter customerId");
-                            inputStringValue(ref customerId);
+                            inputStringId(ref customerId);
                             DisplayCustomer(customerId);
                             break;
                         }

@@ -36,7 +36,7 @@ namespace ConsoleUI
             Console.WriteLine("Enter drone's details :\n id, battery, model, category weight.");
             inputIntValue(ref id);
             inputDoubleValue(ref battery);
-            inputStringValue(ref model);
+            model = Console.ReadLine();
             inputWeightCategory(ref maxWeight);
         }
 
@@ -108,7 +108,7 @@ namespace ConsoleUI
         public static void InputArrivalDetails(ref int parcelId, ref string targetId)
         {
             inputIntValue(ref parcelId);
-            inputStringValue(ref targetId);
+            inputStringId(ref targetId);
         }
     }
 }

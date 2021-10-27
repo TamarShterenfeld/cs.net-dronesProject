@@ -6,9 +6,13 @@ using static IDAL.DO.IDAL;
 
 namespace DAL
 {
-    public enum PositionOfCoordinates
+    public enum Directions
     {
-        NORTH, EAST, SOUTH, WEST
+        NORTH, EAST, WEST, SOUTH
+    }
+    public enum Locations
+    {
+        LATITUDE, LONGITUDE
     }
     /// <summary>
     /// the class coordinate contains: degrees, minutes, seconds
@@ -21,45 +25,54 @@ namespace DAL
         public double Seconds { get; set; }
         
 
-        public PositionOfCoordinates Position { get; set; }
+        public Directions Direction { get; set; }
+        public Locations Location { set; get; }
 
         public Coordinate() { }
-        public Coordinate(double value, PositionOfCoordinates position = default)
+        public Coordinate(double value, Locations location = default)
         {
-            CastDoubleToCoordinante(value, position);
+            CastDoubleToCoordinante(value, location);
         }
 
         //a constructor with parameters.
-        public Coordinate(double degrees, double minutes, double seconds, PositionOfCoordinates position)
+        public Coordinate(double degrees, double minutes, double seconds, Directions direction, Locations location)
         {
             Degrees = degrees;
             Minutes = minutes;
             Seconds = seconds;
-            Position = position;
+            Direction = direction;
+            Location = location;
         }
 
         /// <summary>
-        /// convert double value of position to a longitude or latitude format
+        /// convert double num of position to a longitude or latitude format
         /// </summary>
         /// <param name="value"></param>
         /// <param name="position"></param>
         /// <returns>this</returns>
-        public Coordinate CastDoubleToCoordinante(double value, PositionOfCoordinates position = default)
+        public Coordinate CastDoubleToCoordinante(double value,Locations location)
         {
 
-            //sanity
-            if (position == PositionOfCoordinates.NORTH && value < 0 )
-                position = PositionOfCoordinates.SOUTH;
-            //sanity
-            if ( position == PositionOfCoordinates.EAST && value < 0)
-                position = PositionOfCoordinates.WEST;
-            //sanity
-            if (position == PositionOfCoordinates.SOUTH && value > 0)
-                position = PositionOfCoordinates.NORTH;
-            //sanity
-            if (position == PositionOfCoordinates.WEST && value > 0 )
-                position = PositionOfCoordinates.EAST;
-            //the absolute value of the decimal converted num.
+            if (value < 0 && location == Locations.LONGITUDE)
+                Direction = Directions.SOUTH;
+
+            if(value>0 && location == Locations.LONGITUDE)
+            {
+                Direction = Directions.NORTH;
+            }
+            if (value < 0 && location == Locations.LATITUDE)
+            {
+                Direction = Directions.WEST;
+            }
+            if(value > 0 && location == Locations.LATITUDE)
+            {
+                Direction = Directions.EAST;
+            }
+                    
+            
+            
+            
+            //the absolute num of the decimal converted num.
             var decimalNum = Math.Abs(Convert.ToDecimal(value));
           
             var degrees = Decimal.Truncate(decimalNum);
@@ -67,7 +80,6 @@ namespace DAL
 
             var minutes = Decimal.Truncate(decimalNum);
             var seconds = (decimalNum - minutes) * 60;
-            Position = position;
             Degrees = Convert.ToDouble(degrees);
             Minutes = Convert.ToDouble(minutes);
             Seconds = Convert.ToDouble(seconds);
@@ -81,7 +93,7 @@ namespace DAL
         public double ToDouble()
         {
             var result = (Degrees) + (Minutes) / 60 + (Seconds) / 3600;
-            return Position == PositionOfCoordinates.WEST || Position == PositionOfCoordinates.SOUTH ? -result : result;
+            return Direction == Directions.WEST || Direction == Directions.SOUTH ? -result : result;
         }
 
         /// <summary>
@@ -90,7 +102,7 @@ namespace DAL
         /// <returns>the string</returns>
         public override string ToString()
         {
-            return Degrees + "º " + Minutes + "' " + Seconds + "'' " + Position.ToString()[0];
+            return Degrees + "º " + Minutes + "' " + Seconds + "'' " + Direction.ToString()[0];
         }
     }
 }
