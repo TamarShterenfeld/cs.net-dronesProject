@@ -16,17 +16,17 @@ namespace DalObject
     public class DataSource
     {
         //const literals.
-        internal const int DRONESAMOUNT = 10;
-        internal const int BASESTATIONSAMOUNT = 5;
-        internal const int CUSTOMERSAMOUNT = 100;
-        internal const int PARCELAMOUNT = 1000;
-        internal const int INITALIZBASESTATIONSIZE = 10;
+        internal const int DRONESBASEAMOUNT = 10;
+        internal const int BASESTATIONSBASEAMOUNT = 5;
+        internal const int CUSTOMERSBASEAMOUNT = 100;
+        internal const int PARCELBASEAMOUNT = 1000;
+        internal const int BASESTATIONARRSIZE = 10;
 
         //internal lists of different entities.
-        internal static List<Drone> DronesList = new List<Drone>(DRONESAMOUNT);
-        internal static List<BaseStation> BaseStationsList = new List<BaseStation>(BASESTATIONSAMOUNT);
-        internal static List<Customer> CustomersList = new List<Customer>(CUSTOMERSAMOUNT);
-        internal static List<Parcel> ParcelsList = new List<Parcel>(PARCELAMOUNT);
+        internal static List<Drone> DronesList = new List<Drone>(DRONESBASEAMOUNT);
+        internal static List<BaseStation> BaseStationsList = new List<BaseStation>(BASESTATIONSBASEAMOUNT);
+        internal static List<Customer> CustomersList = new List<Customer>(CUSTOMERSBASEAMOUNT);
+        internal static List<Parcel> ParcelsList = new List<Parcel>(PARCELBASEAMOUNT);
         internal static List<DroneCharge> DroneChargeList = new List<DroneCharge>();
 
         //arrays of different data - for initalizing object of the structures.
@@ -37,106 +37,25 @@ namespace DalObject
 
         //a static random field - for general use.
         public static Random rand = new Random();
+        //a static field of class Coordinate - for displaying longitude & latitude in sexagesimal base. 
+        public static DAL.Coordinate coordinate = new DAL.Coordinate();
 
         /// <summary>
-        /// the method Initalize initalizes all the Config class fields.
+        /// the method Initalize initalizes all thedifferent lists (besides DroneChargeList).
         /// </summary>
         public static void Initialize()
         {
-            int size;
-            //initalize at least the two first item in BaseStationList.
-            size = rand.Next(2, BASESTATIONSAMOUNT);
-            for (int i = 0; i < size; i++)
-            {
-                BaseStation baseStation = new BaseStation();
-                baseStation.Id = IndexOfBaseStation++;
-                baseStation.Name = baseStationsNames[rand.Next(0, INITALIZBASESTATIONSIZE - 1)];
-                baseStation.ChargeSlots = rand.Next(0, 5);
-                //the latitude & longitude values are displayed in degrees.
-                baseStation.Latitude = 0.8 * rand.Next(1, 360);
-                baseStation.Longitude = 0.9 * rand.Next(1, 360);
-                BaseStationsList.Add(baseStation);
-            }
+            //initalize at least the two first item in BaseStationList.        
+            randomBaseStation();
 
             //initalize at least the first five drones in DronesList
-            size = rand.Next(5, DRONESAMOUNT);
-            int statusIndex, weightIndex;
-            for (int i = 0; i < size; i++)
-            {
-                Drone drone = new Drone();
-                drone.Id = IndexOfDrone++;
-                statusIndex = rand.Next(0, Enum.GetNames(typeof(DroneStatuses)).Length - 1);
-                drone.Status = DroneStatuses.Available;
-                drone.Model = droneModels[rand.Next(0, INITALIZBASESTATIONSIZE)];
-                weightIndex = rand.Next(0, Enum.GetNames(typeof(WeightCategories)).Length);
-                drone.MaxWeight = (WeightCategories)Enum.Parse(typeof(WeightCategories), (string)Enum.GetNames(typeof(WeightCategories)).GetValue(weightIndex), true);
-                drone.Battery = 0.6 * rand.Next(0, 100) + 0.4 * rand.Next(0, 100);
-                DronesList.Add(drone);
-            }
+            randomDrones();
 
-            //initalize at least the first tenth customers in CustomerList
-            size = rand.Next(10, CUSTOMERSAMOUNT);
-            for (int i = 0; i < size; i++)
-            {
-                Customer customer = new Customer();
-                customer.Id = rand.Next(100000000, 999999999).ToString();
-                customer.Name = customerName[rand.Next(0, INITALIZBASESTATIONSIZE)];
-                customer.Phone = "0" + (rand.Next(100000000, 999999999)).ToString();
-                //the latitude & longitude values are displayed in degrees.
-                customer.Latitude = 0.6 * rand.Next(1, 360);
-                customer.Longitude = 0.99 * rand.Next(1, 360);
-                IndexOfCustomer++;
-                CustomersList.Add(customer);
-            }
+            //initalize at least the first tenth customers in CustomerList        
+            randomCustomers();
 
-            //initalize at least the first tenth parcels in ParcelList.
-            size = rand.Next(10, PARCELAMOUNT);
-            int priorityIndex, senderIndex, targetIndex;
-            for (int i = 0; i < size; i++)
-            {
-               
-                Parcel parcel = new Parcel();
-                parcel.Id = AddParcelIndex();
-                senderIndex = rand.Next(0, IndexOfCustomer-1);
-                parcel.SenderId = CustomersList[senderIndex].Id;
-                targetIndex = rand.Next(0, IndexOfCustomer - 1);
-                //a man who sends the parcel can't also get it.
-                while (targetIndex == senderIndex) { targetIndex = rand.Next(0, IndexOfCustomer); }
-                parcel.TargetId = CustomersList[targetIndex].Id;
-                priorityIndex = rand.Next(0, Enum.GetNames(typeof(Priorities)).Length - 1);
-                parcel.Priority = (Priorities)Enum.Parse(typeof(Priorities),(string)Enum.GetNames(typeof(Priorities)).GetValue(priorityIndex), true);
-                weightIndex = rand.Next(0, Enum.GetNames(typeof(WeightCategories)).Length - 1);
-                parcel.Weight = (WeightCategories)Enum.Parse(typeof(WeightCategories), (string)Enum.GetNames(typeof(WeightCategories)).GetValue(weightIndex), true);
-                parcel.DroneId = -1;
-                for (int j = 0; j < DronesList.Count; j++)
-                {
-                    Drone currdrone =  DronesList[j];
-                    if (currdrone.Status == DroneStatuses.Available)
-                    {
-                        parcel.DroneId = currdrone.Id;
-                        currdrone.Status = DroneStatuses.Shipment;
-                        //from an unknown reason the changes aren't done - so that the changes will be kept we have to remove the object and add it again(including the changes)
-                        DronesList.RemoveAt(j);
-                        DronesList.Insert(j, currdrone);
-
-                        break;
-                    }
-                }
-
-                //initalize (random) a date of Production & the other DateTime fields are based on it.
-                //while assuming that each part of the shipment process maximum takes 14 business days.
-                parcel.Production = DateTime.Now;
-                parcel.Association = parcel.Production.AddDays(rand.Next(14)).AddHours(rand.Next(1, 24));
-                parcel.PickingUp = parcel.Association.AddDays(rand.Next(14)).AddHours(rand.Next(1, 24));
-                parcel.Arrival = parcel.PickingUp.AddDays(rand.Next(14)).AddHours(rand.Next(1, 24));
-                //there wasn't an available drone.
-                //the date: 01/ 01/ 0001 - is a sign for an unassociated parcel - a default value.
-                if (parcel.DroneId == -1)
-                {
-                    parcel.Association = new DateTime(01 / 01 / 0001)  ;
-                }
-                ParcelsList.Add(parcel);
-            }
+            //initalize at least the first tenth parcels in ParcelList.            
+            randomParcels();
         }
 
         /// <summary>
@@ -151,5 +70,205 @@ namespace DalObject
             internal static int IndexOfParcel = 0;
             public static int ParcelId = 0;
         }
+
+
+        /// <summary>
+        /// randoms at least the two first objects in the BaseStationList.
+        /// </summary>
+        private static void randomBaseStation()
+        {
+            int size = rand.Next(2, BASESTATIONSBASEAMOUNT);
+            for (int i = 0; i < size; i++)
+            {
+                BaseStation baseStation = new BaseStation();
+                baseStation.Id = IndexOfBaseStation++;
+                baseStation.Name = randomName();
+                baseStation.ChargeSlots =randomChargeSlot();
+                //the latitude & longitude values are displayed in degrees.
+                baseStation.Latitude = randomLatitudeOrLongitude();
+                baseStation.Longitude = randomLatitudeOrLongitude();
+                BaseStationsList.Add(baseStation);
+            }
+
+        }
+
+
+        /// <summary>
+        /// randoms at least the first five object in DronesList.
+        /// </summary>
+        private static void randomDrones()
+        {
+            int size = rand.Next(5, DRONESBASEAMOUNT);
+
+            for (int i = 0; i < size; i++)
+            {
+                Drone drone = new Drone();
+                drone.Id = IndexOfDrone++;
+                drone.Status = DroneStatuses.Available;
+                drone.Model = randomModel();
+                drone.MaxWeight = randomWeight();
+                drone.Battery = randomBattery();
+                DronesList.Add(drone);
+            }
+
+        }
+
+        /// <summary>
+        /// randoms at least the tenth first customers in CustomersList.
+        /// </summary>
+        private static void randomCustomers()
+        {
+            int size = rand.Next(10, CUSTOMERSBASEAMOUNT);
+            for (int i = 0; i < size; i++)
+            {
+                Customer customer = new Customer();
+                customer.Id = randomId();
+                customer.Name = randomName();
+                customer.Phone = randomPhone();
+                //the latitude & longitude values are displayed in degrees.
+                customer.Latitude = randomLatitudeOrLongitude();
+                customer.Longitude = randomLatitudeOrLongitude();
+                IndexOfCustomer++;
+                CustomersList.Add(customer);
+            }
+
+        }
+
+        //random at least the first tenth parcels in ParcelsList.
+        private static void randomParcels()
+        {
+            int size = rand.Next(10, PARCELBASEAMOUNT);
+            for (int i = 0; i < size; i++)
+            {
+                Parcel parcel = new Parcel();
+                parcel.Id = IncreaseParcelIndex();
+                parcel.SenderId = randomCustomerId();
+                parcel.TargetId = randomCustomerId();
+                parcel.Priority = randomPriority();
+                parcel.Weight = randomWeight();
+                parcel.DroneId = -1;
+                for (int j = 0; j < DronesList.Count; j++)
+                {
+                    Drone currdrone = DronesList[j];
+                    if (currdrone.Status == DroneStatuses.Available)
+                    {
+                        parcel.DroneId = currdrone.Id;
+                        currdrone.Status = DroneStatuses.Shipment;
+                        //from an unknown reason the changes aren't done - so that the changes will be kept we have to remove the object and add it again(including the changes)
+                        DronesList.RemoveAt(j);
+                        DronesList.Insert(j, currdrone);
+                        break;
+                    }
+                }
+                //initalize (random) a date of Production & the other DateTime fields are based on it.
+                //while assuming that each part of the shipment process maximum takes 14 business days.
+                parcel.Production = DateTime.Now;
+                parcel.Association = parcel.Production.AddDays(rand.Next(14)).AddHours(rand.Next(1, 24));
+                parcel.PickingUp = parcel.Association.AddDays(rand.Next(14)).AddHours(rand.Next(1, 24)); ;
+                parcel.Arrival = parcel.PickingUp.AddDays(rand.Next(14)).AddHours(rand.Next(1, 24)); ;
+                //there wasn't an available drone.
+                //the date: 01/ 01/ 0001 - is a sign for an unassociated parcel - a default value.
+                if (parcel.DroneId == -1)
+                {
+                    parcel.Association = new DateTime(01 / 01 / 0001);
+                }
+                ParcelsList.Add(parcel);
+            }
+        }
+
+        /// <summary>
+        /// random a double type latitude or longitude
+        /// </summary>
+        /// <returns></returns>
+        private static double randomLatitudeOrLongitude()
+        {
+            return 0.7* rand.Next(-180, 0) + 0.3 * rand.Next(0, 180);
+        }
+
+        /// <summary>
+        /// random a WeightCategory value.
+        /// </summary>
+        /// <returns></returns>
+        private static WeightCategories randomWeight()
+        {
+            int weightIndex = rand.Next(0, Enum.GetNames(typeof(WeightCategories)).Length);
+            return (WeightCategories)Enum.Parse(typeof(WeightCategories), (string)Enum.GetNames(typeof(WeightCategories)).GetValue(weightIndex), true);
+        }
+
+        /// <summary>
+        /// random a Priority value.
+        /// </summary>
+        /// <returns></returns>
+        private static Priorities randomPriority()
+        {
+            int priorityIndex = rand.Next(0, Enum.GetNames(typeof(WeightCategories)).Length);
+            return (Priorities)Enum.Parse(typeof(Priorities), (string)Enum.GetNames(typeof(Priorities)).GetValue(priorityIndex), true);
+        }
+
+        /// <summary>
+        /// random a double type of a battery.
+        /// </summary>
+        /// <returns></returns>
+        private static double randomBattery()
+        {
+            return 0.6 * rand.Next(0, 100) + 0.4 * rand.Next(0, 100);
+        }
+
+        /// <summary>
+        /// random a name from the names arr.
+        /// </summary>
+        /// <returns></returns>
+        private static string randomName()
+        {
+            return baseStationsNames[rand.Next(0, BASESTATIONARRSIZE - 1)];
+        }
+
+        /// <summary>
+        /// random a model from the models arr.
+        /// </summary>
+        /// <returns></returns>
+        private static string randomModel()
+        {
+            return droneModels[rand.Next(0, BASESTATIONARRSIZE)];
+        }
+
+        /// <summary>
+        /// random a valid phone number.
+        /// </summary>
+        /// <returns></returns>
+        private static string  randomPhone()
+        {
+            return "0" + (rand.Next(100000000, 999999999)).ToString();
+        }
+
+        /// <summary>
+        /// random a valid Id.
+        /// </summary>
+        /// <returns></returns>
+        private static string randomId()
+        {
+            return rand.Next(100000000, 999999999).ToString();
+        }
+
+        /// <summary>
+        /// random an Id of one of the customers in CustomersList.
+        /// </summary>
+        /// <returns></returns>
+        private static string randomCustomerId()
+        {
+           return  CustomersList[rand.Next(0, IndexOfCustomer - 1)].Id;
+        }
+
+        /// <summary>
+        /// random a chargeSlot value.
+        /// </summary>
+        /// <returns></returns>
+        private static int randomChargeSlot()
+        {
+            return rand.Next(0, 5);
+        }
     }
 }
+
+
+

@@ -46,14 +46,31 @@ namespace IDAL
 
                 public DO.DroneStatuses Status { set; get; }
                 public DO.WeightCategories MaxWeight { set; get; }
+
+                /// <summary>
+                /// a constructor with parameters
+                /// </summary>
+                /// <param name="id">modify id</param>
+                /// <param name="battery">modify battery</param>
+                /// <param name="model">modify model</param>
+                /// <param name="status">modify status</param>
+                /// <param name="maxWeight">modify maxWeight</param>
                 public Drone(int id, double battery, string model, DroneStatuses status, WeightCategories maxWeight)
                 {
                     this.id = id; this.battery = battery; Model = model; Status = status; MaxWeight = maxWeight;
                 }
 
+                /// <summary>
+                /// override ToString function.
+                /// </summary>
+                /// <returns></returns>
                 public override string ToString()
                 {
-                    return "This is a drone object, its id: "+Id+", model: "+ Model+", status: "+Status;
+                    return $"id: {Id} \n" +
+                              $"model: {Model} \n" +
+                              $"status: {Status}\n" +
+                              $"maxWeight:  {MaxWeight}\n" +
+                              $"battery: {Battery}\n";
                 }
             }
         }

@@ -21,12 +21,12 @@ namespace DalObject
         /// <param name="id">base station's id</param>
         public static void DisplayBaseStation(int id)
         {
+            if (BaseStationsList.FindIndex(item => item.Id == id) == -1)
+            {
+                throw new Exception("the inserted id wasn't found");
+            }
             BaseStation currBaseStation = BaseStationsList.First(item => item.Id == id);
-            Console.WriteLine($"id: {currBaseStation.Id} \n" +
-                              $"name: {currBaseStation.Name} \n" +
-                              $"longitude: {currBaseStation.Longitude}\n" +
-                              $"latitude:  {currBaseStation.Latitude}\n" +
-                              $"number of charge slots: {currBaseStation.ChargeSlots}\n");
+            Console.WriteLine(currBaseStation);
         }
 
         /// <summary>
@@ -35,12 +35,12 @@ namespace DalObject
         /// <param name="id">drone's id</param>
         public static void DisplayDrone(int id)
         {
+            if (DronesList.FindIndex(item => item.Id == id) == -1)
+            {
+                throw new Exception("the inserted id wasn't found");
+            }
             Drone currDrone = DronesList.First(item => item.Id == id);
-            Console.WriteLine($"id: {currDrone.Id} \n" +
-                              $"model: {currDrone.Model} \n" +
-                              $"status: {currDrone.Status}\n" +
-                              $"maxWeight:  {currDrone.MaxWeight}\n" +
-                              $"battery: {currDrone.Battery}\n");
+            Console.WriteLine(currDrone);
         }
 
         /// <summary>
@@ -49,12 +49,12 @@ namespace DalObject
         /// <param name="id">customer's id</param>
         public static void DisplayCustomer(string id)
         {
+            if(CustomersList.FindIndex(item=>item.Id == id) == -1)
+            {
+                throw new Exception("the inserted id wasn't found");
+            }
             Customer currCustomer = CustomersList.First(item => item.Id == id);
-            Console.WriteLine($"id: {currCustomer.Id} \n" +
-                              $"name: {currCustomer.Name} \n" +
-                              $"phone: {currCustomer.Phone}\n"+
-                              $"longitude: {currCustomer.Longitude}\n" +
-                              $"latitude:  {currCustomer.Latitude}\n");
+            Console.WriteLine(currCustomer);
         }
 
         /// <summary>
@@ -63,17 +63,12 @@ namespace DalObject
         /// <param name="id">parcel's id</param>
         public static void DisplayParcel(int id)
         {
+            if (ParcelsList.FindIndex(item => item.Id == id) == -1)
+            {
+                throw new Exception("the inserted id wasn't found");
+            }
             Parcel currParcel = ParcelsList.First(item => item.Id == id);
-            Console.WriteLine($"id: {currParcel.Id} \n" +
-                              $"senderId: {currParcel.SenderId} \n" +
-                              $"targetId: {currParcel.TargetId}\n" +
-                              $"droneId:  {currParcel.DroneId}\n" +
-                              $"weight:  {currParcel.Weight}\n" +
-                              $"priority:  {currParcel.Priority}\n" +
-                              $"production:  {currParcel.Production}\n" +
-                              $"association:  {currParcel.Association}\n" +
-                              $"pickingUp:  {currParcel.PickingUp}\n" +
-                              $"arrival: {currParcel.Arrival}\n");
+            Console.WriteLine(currParcel);
         }
     }
 }

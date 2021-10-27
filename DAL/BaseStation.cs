@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+
 using System.Text;
 
 namespace IDAL
@@ -61,7 +62,7 @@ namespace IDAL
                     }
                     set
                     {
-                        if (value < 0 || value > 360)
+                        if (value < -180 || value > 180)
                         {
                             throw (new FormatException("Longitude must be a positive number and in range of 360 degrees."));
                         }
@@ -78,7 +79,7 @@ namespace IDAL
                     }
                     set
                     {
-                        if (value < 0 || value >360 )
+                        if (value < -180 || value >180 )
                         {
                             throw (new FormatException("Latitude must be a positive number and in range of 360 degrees."));
                         }
@@ -104,15 +105,31 @@ namespace IDAL
                     }
                 }
 
+                /// <summary>
+                /// a constructor with parameters
+                /// </summary>
+                /// <param name="id">modify id</param>
+                /// <param name="name">modify name</param>
+                /// <param name="longitude">modify longitude</param>
+                /// <param name="latitude">modify latitude</param>
+                /// <param name="chargeSlots">modify chargeSlots</param>
                 public BaseStation(int id, string name, double longitude, double latitude, int chargeSlots)
                 {         
                     this.id = id; this.name = name; this.latitude = latitude; this.longitude = longitude;  this.chargeSlots = chargeSlots;
                     Id = id; Name = name; Latitude = latitude; Longitude = longitude; ChargeSlots = chargeSlots;
                 }
 
+                /// <summary>
+                /// ovveride ToString function.
+                /// </summary>
+                /// <returns></returns>
                 public override string ToString()
                 {
-                    return "This is a base station object, its id: "+Id+" ,name: "+Name;
+                    return $"id: {Id} \n" +
+                              $"name: {Name} \n" +
+                              $"longitude: { DalObject.DalObject.coordinate.CastDoubleToCoordinante(Longitude)}\n" +
+                              $"latitude:  {DalObject.DalObject.coordinate.CastDoubleToCoordinante(Latitude)}\n" +
+                              $"number of charge slots: {ChargeSlots}\n";
                 }
             }
         }

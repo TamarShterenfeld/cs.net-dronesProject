@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using static DalObject.DalObject;
 
 namespace IDAL
 {
@@ -92,7 +93,7 @@ namespace IDAL
                     }
                     set
                     {
-                        if (value < 0 || value > 360)
+                        if (value < -180 || value > 180)
                         {
                             throw new FormatException("Longitude must be a positive number and in range of 360 degrees.");
                         }
@@ -108,22 +109,40 @@ namespace IDAL
                     }
                     set
                     {
-                        if (value < 0 || value > 360)
+                        if (value < -180 || value > 180)
                         {
                             throw new FormatException("Latitude must be a positive number and in range of 360 degrees.");
                         }
                         latitude = value;
                     }
                 }
+
+                /// <summary>
+                /// a constructor with parameters
+                /// </summary>
+                /// <param name="id">modify id</param>
+                /// <param name="name">modify name</param>
+                /// <param name="phone">modify phone</param>
+                /// <param name="longitude">modify longitude</param>
+                /// <param name="latitude">modify latitude</param>
                 public Customer(string id, string name, string phone, double longitude, double latitude)
                 {
                     this.id = id; this.name = name; this.phone = phone; this.longitude = longitude; this.latitude = latitude;
                     Id = id;Name = name; Phone = phone; Longitude = longitude; Latitude = latitude;
                 }
 
+                /// <summary>
+                /// override ToString function.
+                /// </summary>
+                /// <returns></returns>
                 public override string ToString()
                 {
-                    return "This is a customer object, its id: "+Id+", name: "+Name;
+                    return $"id: {Id} \n" +
+                              $"name: {Name} \n" +
+                              $"phone: {Phone}\n" +
+                              $"longitude: { Longitude}\n" +
+                              $"longitude: {DalObject.DalObject.coordinate.CastDoubleToCoordinante(Longitude)}\n" +
+                              $"latitude:  {DalObject.DalObject.coordinate.CastDoubleToCoordinante(Latitude)}\n";
                 }
             }
         }

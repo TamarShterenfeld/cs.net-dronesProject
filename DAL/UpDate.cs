@@ -65,8 +65,12 @@ namespace DalObject
         public static void ChargingDrone(int droneId, int baseStationId)
         {
             inputIntValue(ref droneId);
+            if (DronesList.FindIndex(item => item.Id == droneId) == -1)
+                throw new Exception("drone's id doesn't exist in the drones' list.");
             Drone  drone = DronesList.First(item => item.Id == droneId);
             inputIntValue(ref baseStationId);
+            if (BaseStationsList.FindIndex(item => item.Id == baseStationId) == -1)
+                throw new Exception("drone's id doesn't exist in the drones' list.");
             BaseStation baseStation = BaseStationsList.First(item => item.Id == baseStationId);
             if(baseStation.ChargeSlots == 0)      
                 throw new Exception("The chosen base station isn't available to charge the drone.");
@@ -85,9 +89,15 @@ namespace DalObject
         {
             int baseStationId;
             inputIntValue(ref droneId);
+            if (DronesList.FindIndex(item => item.Id == droneId) == -1)
+                throw new Exception("drone's id doesn't exist in the drones' list.");
+            if (DroneChargeList.FindIndex(item => item.DroneId == droneId) == -1)
+                throw new Exception("drone's id doesn't exist in the dronecharge list.");
             Drone drone = DronesList.First(item => item.Id == droneId);
             DroneCharge droneCharge = DroneChargeList.First(item => item.DroneId == droneId);    
             baseStationId = droneCharge.StationId;
+            if (BaseStationsList.FindIndex(item => item.Id == baseStationId) == -1)
+                throw new Exception("drone's id doesn't exist in the drones' list.");
             BaseStation baseStation = BaseStationsList.First(item => item.Id == baseStationId);
             DroneChargeList.Remove(droneCharge);
             baseStation.ChargeSlots++;

@@ -42,15 +42,25 @@ namespace IDAL
                     }
                 }
 
+                /// <summary>
+                /// a constructor with parameters
+                /// </summary>
+                /// <param name="stationId">modify stationId</param>
+                /// <param name="droneId">modify droneId</param>
                 public DroneCharge(int stationId, int droneId)
                 {
                     this.stationId = stationId; this.droneId = droneId;
                     StationId = stationId; DroneId = droneId;
                 }
 
+                /// <summary>
+                /// override ToString function.
+                /// </summary>
+                /// <returns></returns>
                 public override string ToString()
                 {
-                    return "This is an object of drone charge, its drone's id: "+DroneId +", base station's id: "+StationId;
+                    return $"drone id:{DroneId }\n"+
+                        $"base station id:{StationId}";
                 }
             }
         }

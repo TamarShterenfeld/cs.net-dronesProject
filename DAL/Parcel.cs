@@ -98,16 +98,39 @@ namespace IDAL
                 public DateTime PickingUp { get; set; }
                 public DateTime Arrival { get; set; }
 
+                /// <summary>
+                /// a constructor with parameters.
+                /// </summary>
+                /// <param name="id">modify id</param>
+                /// <param name="senderId">modify senderId</param>
+                /// <param name="targetId">modify targetId</param>
+                /// <param name="weight">modify weight</param>
+                /// <param name="priority">modify priority</param>
+                /// <param name="droneId">modify droneId</param>
                 public Parcel (int id, string senderId, string targetId, WeightCategories weight, Priorities priority, int droneId = -1)
                 {
                     this.id = id; this.senderId = senderId; this.targetId = targetId; this.droneId = droneId; Weight = weight; Priority = priority;
+                    //a default value in the creation of the object.
                     Production = Association = PickingUp = Arrival = new DateTime(01/01/0001);
                 }
                 
 
+                /// <summary>
+                /// override ToString function.
+                /// </summary>
+                /// <returns></returns>
                 public override string ToString()
                 {
-                    return "This is a parcel object, its id: "+ Id+", sender id: "+ SenderId+", target id: "+ TargetId;
+                    return $"id: {Id} \n" +
+                                 $"senderId: {SenderId} \n" +
+                                 $"targetId: {TargetId}\n" +
+                                 $"droneId:  {DroneId}\n" +
+                                 $"weight:  {Weight}\n" +
+                                 $"priority:  {Priority}\n" +
+                                 $"production:  {Production}\n" +
+                                 $"association:  {Association}\n" +
+                                 $"pickingUp:  {PickingUp}\n" +
+                                 $"arrival: {Arrival}\n";
                 }
             }
         }

@@ -26,7 +26,7 @@ namespace DalObject
             {
                 //the Base Station List is full totally.
 
-                if (IndexOfBaseStation >= BASESTATIONSAMOUNT)
+                if (IndexOfBaseStation >= BASESTATIONSBASEAMOUNT)
                 {
                     throw new Exception("The amount of base stations objects arrived to its maximum limit");
                 }
@@ -50,7 +50,7 @@ namespace DalObject
         public static void AddDrone(int id, string model, string maxWeight, double battery)
         {
             //drones list is fulll already.
-            if (IndexOfDrone  >= DRONESAMOUNT)
+            if (IndexOfDrone  >= DRONESBASEAMOUNT)
             {
                 throw new Exception("The amount of drones objects arrived to its maximum limit");
             }
@@ -82,7 +82,7 @@ namespace DalObject
         public static void AddCustomer(string id, string name, string phone, double longitude, double latitude)
         {
             //customers list is full already.
-            if (IndexOfCustomer >= CUSTOMERSAMOUNT)
+            if (IndexOfCustomer >= CUSTOMERSBASEAMOUNT)
             {
                 throw new Exception("The amount of customers objects arrived to its maximum limit");
             }
@@ -91,6 +91,10 @@ namespace DalObject
                 Customer customer = new Customer(id, name, phone, longitude, latitude);
                 ++IndexOfCustomer;
                 CustomersList.Add(customer);
+            }
+            else
+            {
+                throw new Exception("Id already exists in drones list, it's not possible to add it!");
             }
         }
 
@@ -106,7 +110,7 @@ namespace DalObject
         public static void AddParcel(int id, string senderId, string targetId, int droneId, string weight, string priority)
         {
 
-            if (IndexOfParcel >= PARCELAMOUNT)
+            if (IndexOfParcel >= PARCELBASEAMOUNT)
             {
                 Console.WriteLine("The amount of base station objects arrived to its maximum limit");
                 return;
@@ -115,7 +119,7 @@ namespace DalObject
             WeightCategories weightCategories = (WeightCategories)int.Parse(weight);
             Priorities priorities = (Priorities)int.Parse(priority);
             Parcel parcel = new Parcel(id, senderId, targetId, weightCategories, priorities, droneId);
-            AddParcelIndex();
+            IncreaseParcelIndex();
             ParcelsList.Add(parcel);
         }
 
