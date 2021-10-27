@@ -20,14 +20,18 @@ namespace DalObject
         {
             if(ParcelsList.FindIndex(item => item.Id == parcelId) ==-1 || DronesList.FindIndex(item=>item.Id == droneId) == -1)
                 new Exception("parcelId or droneId don't exist!");
+            int parcelIndex = ParcelsList.FindIndex(item => item.Id == parcelId);
+            int droneIndex = DronesList.FindIndex(item => item.Id == droneId);
             Parcel parcel = ParcelsList.First(item => item.Id == parcelId);
-            Drone drone = DronesList.First(item => item.Id == droneId);
+            Drone drone = DronesList.First(item => item.Id == parcelId);
             if (drone.Status != DroneStatuses.Available)
                 new Exception("the requested drone isn't available!");
             parcel.Association = DateTime.Now;
             parcel.DroneId = droneId;
             //updating the associated drone's status to be as shipment.
             drone.Status = DroneStatuses.Shipment;
+            ParcelsList[parcelIndex] = parcel;
+            DronesList[droneIndex] = drone;
         }
 
         /// <summary>
@@ -38,10 +42,12 @@ namespace DalObject
         public static void PickUpParcel(int parcelId, string senderId)
         {
             if (ParcelsList.FindIndex(item => item.Id == parcelId) == -1 || CustomersList.FindIndex(item => item.Id == senderId) == -1)
-                throw new Exception("parcelId or senderId don't exist!");
+                throw new Exception("parcelId or senderId don't exist in the customers' list!");
             Parcel parcel = ParcelsList.First(item => item.Id == parcelId);
+            int parcelIndex = ParcelsList.FindIndex(item => item.Id == parcelId);
             parcel.SenderId = senderId;
             parcel.PickingUp = DateTime.Now;
+            ParcelsList[parcelIndex] = parcel;
         }
 
         /// <summary>
@@ -54,7 +60,9 @@ namespace DalObject
             if (ParcelsList.FindIndex(item => item.Id == parcelId) == -1 || CustomersList.FindIndex(item=>item.Id == targetId) == -1)
                 throw new Exception("parcelId or targetId don't exist!");
             Parcel parcel = ParcelsList.First(item => item.Id == parcelId);
+            int parcelIndex = ParcelsList.FindIndex(item => item.Id == parcelId);
             parcel.Arrival = DateTime.Now;
+            ParcelsList[parcelIndex] = parcel;
         }
 
         /// <summary>
@@ -68,17 +76,24 @@ namespace DalObject
             if (DronesList.FindIndex(item => item.Id == droneId) == -1)
                 throw new Exception("drone's id doesn't exist in the drones' list.");
             Drone  drone = DronesList.First(item => item.Id == droneId);
+            int droneIndex = DronesList.FindIndex(item => item.Id == droneId);
+
             inputIntValue(ref baseStationId);
             if (BaseStationsList.FindIndex(item => item.Id == baseStationId) == -1)
                 throw new Exception("drone's id doesn't exist in the drones' list.");
             BaseStation baseStation = BaseStationsList.First(item => item.Id == baseStationId);
+            int baseStationIndex = BaseStationsList.FindIndex(item => item.Id == baseStationId);
             if(baseStation.ChargeSlots == 0)      
                 throw new Exception("The chosen base station isn't available to charge the drone.");
+
             if(drone.Status == DroneStatuses.Maintenance)
-                Console.WriteLine("The chosen drone is already being charging now");
+                throw new Exception("The chosen drone is already being charging now");
             DroneCharge droneCharge = new DroneCharge(baseStationId, droneId);
             drone.Status = DroneStatuses.Maintenance;
-            DroneChargeList.Add(droneCharge);          
+            DroneChargeList.Add(droneCharge);
+
+            DronesList[droneIndex] = drone;
+            BaseStationsList[baseStationIndex] = baseStation;
         }
 
         /// <summary>
@@ -93,15 +108,20 @@ namespace DalObject
                 throw new Exception("drone's id doesn't exist in the drones' list.");
             if (DroneChargeList.FindIndex(item => item.DroneId == droneId) == -1)
                 throw new Exception("drone's id doesn't exist in the dronecharge list.");
+
             Drone drone = DronesList.First(item => item.Id == droneId);
+            int droneIndex = DronesList.FindIndex(item => item.Id == droneId);
             DroneCharge droneCharge = DroneChargeList.First(item => item.DroneId == droneId);    
             baseStationId = droneCharge.StationId;
-            if (BaseStationsList.FindIndex(item => item.Id == baseStationId) == -1)
-                throw new Exception("drone's id doesn't exist in the drones' list.");
+            int baseStationIndex = BaseStationsList.FindIndex(item => item.Id == baseStationId);
+            if (baseStationIndex  == -1)
+                throw new Exception("baseStation's id doesn't exist in the BaseStation's list.");
             BaseStation baseStation = BaseStationsList.First(item => item.Id == baseStationId);
             DroneChargeList.Remove(droneCharge);
             baseStation.ChargeSlots++;
             drone.Status = DroneStatuses.Available;
+            BaseStationsList[baseStationIndex] = baseStation;
+            DronesList[droneIndex] = drone;
         }
     }
 }

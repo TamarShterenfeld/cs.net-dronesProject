@@ -36,6 +36,7 @@ namespace ConsoleUI
             Console.WriteLine("Enter drone's details :\n id, battery, model, category weight.");
             inputIntValue(ref id);
             inputDoubleValue(ref battery);
+            //this field can hold also alphabtical value and also numerical value.
             model = Console.ReadLine();
             inputWeightCategory(ref maxWeight);
         }
