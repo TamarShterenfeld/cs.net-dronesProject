@@ -7,6 +7,7 @@ using static DalObject.DataSource.Config;
 using static DalObject.DataSource;
 using System.Linq;
 using static DAL.Coordinate;
+using DAL;
 
 namespace DalObject
 {
@@ -14,7 +15,7 @@ namespace DalObject
     ///the class DalObject contains all the needed methods 
     ///which are connected to the data (in DataSource class) of the program.
     /// </summary>
-    public partial class DalObject
+    public partial class DalObject: IDAL.IDAL
     {
         
         
