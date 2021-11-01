@@ -18,7 +18,7 @@ namespace ConsoleUI
         private static void navigateMenue()
         {
             int option;
-            DalObject.DalObject dalObject = new DalObject.DalObject();
+            IDAL.IDAL dalObject = new DalObject.DalObject();
             while (true)
             {
                 Console.WriteLine("Please enter : \n1- For add\n2- For update\n3- For display\n4- For showing the lists\n5- For exit");

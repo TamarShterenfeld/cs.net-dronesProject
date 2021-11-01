@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace DalObject
 {
-    public partial class DalObject : IDAL.IDal
+    public partial class DalObject : IDAL.IDAL
     {
         /// <summary>
         /// The function adds a base station to the Base Stations' list.

@@ -12,7 +12,7 @@ using IDAL.DO;
 
 namespace DalObject
 {
-    public partial class DalObject : IDAL.IDal
+    public partial class DalObject :IDAL.IDAL
     {
         //we didn't use the override function - ToString(),
         //for it doesn't include enough details for printing.
