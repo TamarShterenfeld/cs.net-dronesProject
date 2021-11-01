@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace DalObject
 {
-    public partial class DalObject
+    public partial class DalObject : IDAL.IDal
     {
 
         /// <summary>

@@ -8,7 +8,7 @@ using static DalObject.DataSource.Config;
 
 namespace DalObject
 {
-    public partial class DalObject
+    public partial class DalObject : IDAL.IDal
     {
         /// <summary>
         /// The function shows all the base stations in the BaseStations' list
@@ -76,7 +76,7 @@ namespace DalObject
         /// </summary>
         public static void AvailableChargeSlots()
         {
-           List<BaseStation> availableChargeSlots = (List<BaseStation>)GettingAvailableChargeSlots();
+            List<BaseStation> availableChargeSlots = (List<BaseStation>)GettingAvailableChargeSlots();
             foreach (BaseStation item in availableChargeSlots)
             {
                 DisplayBaseStation(item.Id);

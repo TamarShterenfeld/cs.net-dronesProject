@@ -13,10 +13,12 @@ namespace IDAL
             Light = 1, Average, Heavy
         }
 
-        public enum DroneStatuses
-        {
-            Available = 1, Maintenance, Shipment
-        }
+        //supposed to be in BL
+        //public enum DroneStatuses
+        //{
+        //    Available = 1, Maintenance, Shipment
+        //}
+
         public enum Priorities
         {
             Standard = 1, Fast, Emergency

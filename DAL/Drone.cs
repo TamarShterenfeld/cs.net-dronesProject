@@ -15,7 +15,6 @@ namespace IDAL
             public struct Drone
             {
                 int id;
-                double battery;
                 public int Id
                 {
                     set
@@ -31,20 +30,7 @@ namespace IDAL
 
                 //there's nothing to check for a model - it can hold chars and also digits.
                 public string Model { get; set; }
-                public double Battery
-                {
-                    get { return battery; }
-                    set
-                    {
-                        if (value < 0)
-                            throw new FormatException("Battery must hold a positive value.");
-                        if (value > 100)
-                            throw new FormatException("Battery can't hold a value more than 100% of charge.");
-                        battery = value;
-                    }
-                }
 
-                public DO.DroneStatuses Status { set; get; }
                 public DO.WeightCategories MaxWeight { set; get; }
 
                 /// <summary>
@@ -55,9 +41,9 @@ namespace IDAL
                 /// <param name="model">modify model</param>
                 /// <param name="status">modify status</param>
                 /// <param name="maxWeight">modify maxWeight</param>
-                public Drone(int id, double battery, string model, DroneStatuses status, WeightCategories maxWeight)
+                public Drone(int id, string model,  WeightCategories maxWeight)
                 {
-                    this.id = id; this.battery = battery; Model = model; Status = status; MaxWeight = maxWeight;
+                    this.id = id; Model = model;  MaxWeight = maxWeight;
                 }
 
                 /// <summary>
@@ -68,9 +54,7 @@ namespace IDAL
                 {
                     return $"id: {Id} \n" +
                               $"model: {Model} \n" +
-                              $"status: {Status}\n" +
-                              $"maxWeight:  {MaxWeight}\n" +
-                              $"battery: {Battery}\n";
+                              $"maxWeight:  {MaxWeight}\n";
                 }
             }
         }

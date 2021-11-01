@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace DalObject
 {
-    public partial class DalObject
+    public partial class DalObject : IDAL.IDal
     {
         /// <summary>
         /// The function adds a base station to the Base Stations' list.
@@ -57,9 +57,9 @@ namespace DalObject
             if (DronesList.FindIndex(item => item.Id == id) == -1)
             {
                 //the enum type variables were defined to hold the numerical index of the enum category.
-                DroneStatuses droneStatuses = DroneStatuses.Available;
+                
                 WeightCategories weightCategory = (WeightCategories)int.Parse(maxWeight);
-                Drone drone = new Drone(id, battery, model, droneStatuses, weightCategory);
+                Drone drone = new Drone(id, model, weightCategory);
                 DronesList.Add(drone);
             }
             else

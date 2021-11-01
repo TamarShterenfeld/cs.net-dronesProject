@@ -100,10 +100,8 @@ namespace DalObject
             {
                 Drone drone = new Drone();
                 drone.Id = i;
-                drone.Status = DroneStatuses.Available;
                 drone.Model = randomModel();
                 drone.MaxWeight = randomWeight();
-                drone.Battery = randomBattery();
                 DronesList.Add(drone);
             }
 
@@ -145,13 +143,10 @@ namespace DalObject
                 for (int j = 0; j < DronesList.Count; j++)
                 {
                     Drone currdrone = DronesList[j];
-                    if (currdrone.Status == DroneStatuses.Available)
-                    {
-                        parcel.DroneId = currdrone.Id;
-                        currdrone.Status = DroneStatuses.Shipment;
-                        DronesList[j] = currdrone;
-                        break;
-                    }
+                    parcel.DroneId = currdrone.Id;
+                    DronesList[j] = currdrone;
+                    break;
+                    
                 }
                 //initalize (random) a date of Production & the other DateTime fields are based on it.
                 //while assuming that each part of the shipment process maximum takes 14 business days.

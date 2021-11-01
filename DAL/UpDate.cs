@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace DalObject
 {
-    public partial class DalObject
+    public partial class DalObject : IDAL.IDal
     {
         /// <summary>
         /// The function gives associate date to the parcel.
@@ -24,12 +24,8 @@ namespace DalObject
             int droneIndex = DronesList.FindIndex(item => item.Id == droneId);
             Parcel parcel = ParcelsList.First(item => item.Id == parcelId);
             Drone drone = DronesList.First(item => item.Id == parcelId);
-            if (drone.Status != DroneStatuses.Available)
-                new Exception("the requested drone isn't available!");
             parcel.Association = DateTime.Now;
             parcel.DroneId = droneId;
-            //updating the associated drone's status to be as shipment.
-            drone.Status = DroneStatuses.Shipment;
             ParcelsList[parcelIndex] = parcel;
             DronesList[droneIndex] = drone;
         }
@@ -85,13 +81,8 @@ namespace DalObject
             int baseStationIndex = BaseStationsList.FindIndex(item => item.Id == baseStationId);
             if(baseStation.ChargeSlots == 0)      
                 throw new Exception("The chosen base station isn't available to charge the drone.");
-
-            if(drone.Status == DroneStatuses.Maintenance)
-                throw new Exception("The chosen drone is already being charging now");
             DroneCharge droneCharge = new DroneCharge(baseStationId, droneId);
-            drone.Status = DroneStatuses.Maintenance;
             DroneChargeList.Add(droneCharge);
-
             DronesList[droneIndex] = drone;
             BaseStationsList[baseStationIndex] = baseStation;
         }
@@ -119,7 +110,6 @@ namespace DalObject
             BaseStation baseStation = BaseStationsList.First(item => item.Id == baseStationId);
             DroneChargeList.Remove(droneCharge);
             baseStation.ChargeSlots++;
-            drone.Status = DroneStatuses.Available;
             BaseStationsList[baseStationIndex] = baseStation;
             DronesList[droneIndex] = drone;
         }

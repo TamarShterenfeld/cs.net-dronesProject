@@ -10,7 +10,7 @@ using System.Numerics;
 
 namespace DalObject
 {
-    public partial class DalObject
+    public partial class DalObject : IDAL.IDal
     {
         //we didn't use the override function - ToString(),
         //for it doesn't include enough details for printing.
