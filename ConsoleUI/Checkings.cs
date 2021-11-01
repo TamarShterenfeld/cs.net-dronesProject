@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using IDAL.DO;
+using static IDAL.DO.OverloadException;
 
 namespace ConsoleUI
 {

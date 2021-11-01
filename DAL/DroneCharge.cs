@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using static IDAL.DO.OverloadException;
 
 namespace IDAL
 {
@@ -23,7 +24,7 @@ namespace IDAL
                     {
                         if (value < 0)
                         {
-                            throw new FormatException("Id must hold a positive number.");
+                            throw new OverloadException("Id must hold a positive number.");
                         }
                         stationId = value;
                     }
@@ -36,7 +37,7 @@ namespace IDAL
                     {
                         if (value < 0)
                         {
-                            throw new FormatException("Id must hold a positive number.");
+                            throw new OverloadException("Id must hold a positive number.");
                         }
                         droneId = value;
                     }

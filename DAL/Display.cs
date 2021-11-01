@@ -5,8 +5,10 @@ using static DalObject.DalObject;
 using static DalObject.DataSource.Config;
 using static DalObject.DataSource;
 using static IDAL.DO.IDAL;
+using static IDAL.DO.OverloadException;
 using System.Linq;
 using System.Numerics;
+using IDAL.DO;
 
 namespace DalObject
 {
@@ -23,7 +25,7 @@ namespace DalObject
         {
             if (BaseStationsList.FindIndex(item => item.Id == id) == -1)
             {
-                throw new Exception("the inserted id wasn't found");
+                throw new OverloadException("the inserted id wasn't found");
             }
             BaseStation currBaseStation = BaseStationsList.First(item => item.Id == id);
             Console.WriteLine(currBaseStation);
@@ -37,7 +39,7 @@ namespace DalObject
         {
             if (DronesList.FindIndex(item => item.Id == id) == -1)
             {
-                throw new Exception("the inserted id wasn't found");
+                throw new OverloadException("the inserted id wasn't found");
             }
             Drone currDrone = DronesList.First(item => item.Id == id);
             Console.WriteLine(currDrone);
@@ -51,7 +53,7 @@ namespace DalObject
         {
             if(CustomersList.FindIndex(item=>item.Id == id) == -1)
             {
-                throw new Exception("the inserted id wasn't found");
+                throw new OverloadException("the inserted id wasn't found");
             }
             Customer currCustomer = CustomersList.First(item => item.Id == id);
             Console.WriteLine(currCustomer);
@@ -65,7 +67,7 @@ namespace DalObject
         {
             if (ParcelsList.FindIndex(item => item.Id == id) == -1)
             {
-                throw new Exception("the inserted id wasn't found");
+                throw new OverloadException("the inserted id wasn't found");
             }
             Parcel currParcel = ParcelsList.First(item => item.Id == id);
             Console.WriteLine(currParcel);

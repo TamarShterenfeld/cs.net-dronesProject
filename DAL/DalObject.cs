@@ -9,6 +9,7 @@ using System.Linq;
 using static DAL.Coordinate;
 using DAL;
 using IDAL;
+using static IDAL.DO.OverloadException;
 
 namespace DalObject
 {

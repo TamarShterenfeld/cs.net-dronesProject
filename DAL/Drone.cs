@@ -22,7 +22,7 @@ namespace IDAL
                     {
                         if (value < 0)
                         {
-                            throw new FormatException("Id must contain a positive number");
+                            throw new OverloadException("Id must contain a positive number");
                         }
                         id = value;
                     }
@@ -37,9 +37,9 @@ namespace IDAL
                     set
                     {
                         if (value < 0)
-                            throw new FormatException("Battery must hold a positive value.");
+                            throw new OverloadException("Battery must hold a positive value.");
                         if (value > 100)
-                            throw new FormatException("Battery can't hold a value more than 100% of charge.");
+                            throw new OverloadException("Battery can't hold a value more than 100% of charge.");
                         battery = value;
                     }
                 }
@@ -58,6 +58,7 @@ namespace IDAL
                 public Drone(int id, double battery, string model, DroneStatuses status, WeightCategories maxWeight)
                 {
                     this.id = id; this.battery = battery; Model = model; Status = status; MaxWeight = maxWeight;
+                    Id = id; Battery = battery;
                 }
 
                 /// <summary>

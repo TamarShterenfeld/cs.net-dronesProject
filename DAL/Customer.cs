@@ -31,13 +31,13 @@ namespace IDAL
                     {
                         if (value.Length != 9)
                         {
-                            throw new FormatException("Id must include exactly 9 digits");
+                            throw new OverloadException("Id must include exactly 9 digits");
                         }
                         foreach (char digit in value)
                         {
                             if (!Char.IsDigit(digit))
                             {
-                                throw new FormatException("Id must include only digits");
+                                throw new OverloadException("Id must include only digits");
 
                             }
                         }
@@ -58,7 +58,7 @@ namespace IDAL
                             {
                                 if (!Char.IsLetter(letter))
                                 {
-                                    throw new FormatException("Name can contain only letters.");
+                                    throw new OverloadException("Name can contain only letters.");
                                 }
                             }                           
                         }
@@ -74,12 +74,12 @@ namespace IDAL
                     set
                     {
                         if (value[0] != '0')
-                            throw new FormatException("The first digit of a phone number must be '0'");
+                            throw new OverloadException("The first digit of a phone number must be '0'");
                         foreach (char digit in value)
                         {
                             if (!Char.IsDigit(digit))
                             {
-                                throw new FormatException("Phone must include only digits");
+                                throw new OverloadException("Phone must include only digits");
 
                             }
                         }
@@ -96,7 +96,7 @@ namespace IDAL
                     {
                         if (value < -180 || value > 180)
                         {
-                            throw new FormatException("Longitude must be a positive number and in range of - 180º to 180º.");
+                            throw new OverloadException("Longitude must be a positive number and in range of - 180º to 180º.");
                         }
 
                         longitude = value;
@@ -112,7 +112,7 @@ namespace IDAL
                     {
                         if (value < -180 || value > 180)
                         {
-                            throw new FormatException("Latitude must be a positive number and in range of - 180º to 180º.");
+                            throw new OverloadException("Latitude must be a positive number and in range of - 180º to 180º.");
                         }
                         latitude = value;
                     }

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using static IDAL.DO.OverloadException;
 
 namespace IDAL
 {
@@ -26,7 +27,7 @@ namespace IDAL
                     {
                         if (value < 0)
                         {
-                            throw new FormatException("Id must contain a positive number");
+                            throw new OverloadException("Id must contain a positive number");
                         }
                         id = value;
                     }
@@ -41,13 +42,13 @@ namespace IDAL
                     {
                         if (value.Length != 9)
                         {
-                            throw new FormatException("Sender ID must include exactly 9 digits");
+                            throw new OverloadException("Sender ID must include exactly 9 digits");
                         }
                         foreach (char letter in value)
                         {
                             if (!Char.IsDigit(letter))
                             {
-                                throw new FormatException("Sender ID must include only digits");
+                                throw new OverloadException("Sender ID must include only digits");
                             }
                         }
                        senderId = value;
@@ -63,13 +64,13 @@ namespace IDAL
                     {
                         if (value.Length != 9)
                         {
-                            throw new FormatException("Target Id must include exactly 9 digits");
+                            throw new OverloadException("Target Id must include exactly 9 digits");
                         }
                         foreach (char letter in value)
                         {
                             if (!Char.IsDigit(letter))
                             {
-                                throw new FormatException("Target Id must include only digits");
+                                throw new OverloadException("Target Id must include only digits");
 
                             }
                         }
@@ -86,7 +87,7 @@ namespace IDAL
                         //-1 - is a sign for a not initalized droneId
                         if(value < -1)
                         {
-                            throw new FormatException("Id must hold a positive value");
+                            throw new OverloadException("Id must hold a positive value");
                         }
                         droneId = value;
                     }

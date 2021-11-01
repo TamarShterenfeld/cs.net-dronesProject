@@ -26,7 +26,7 @@ namespace IDAL
                     {
                         if (value < 0)
                         {
-                            throw new FormatException("Id must contain a positive number");
+                            throw new OverloadException("Id must contain a positive number");
                         }
                         id = value;
                     }
@@ -46,7 +46,7 @@ namespace IDAL
                             {
                                 if (!Char.IsLetter(letter))
                                 {
-                                    throw new FormatException("Name can contain only letters.");
+                                    throw new OverloadException("Name can contain only letters.");
                                 }
                             }
                         }
@@ -64,7 +64,7 @@ namespace IDAL
                     {
                         if (value < -180 || value > 180)
                         {
-                            throw (new FormatException("Longitude must be a positive number and in range of - 180º to 180º."));
+                            throw (new OverloadException("Longitude must be a positive number and in range of - 180º to 180º."));
                         }
 
                         longitude = value;
@@ -81,7 +81,7 @@ namespace IDAL
                     {
                         if (value < -180 || value >180 )
                         {
-                            throw (new FormatException("Latitude must be a positive number and in range of -180º to 180º."));
+                            throw (new OverloadException("Latitude must be a positive number and in range of -180º to 180º."));
                         }
 
                         latitude = value;
@@ -98,7 +98,7 @@ namespace IDAL
                     {
                         if (value < 0)
                         {
-                            throw (new FormatException("Not valid number of chargeSlots"));
+                            throw (new OverloadException("Not valid number of chargeSlots"));
                         }
 
                         chargeSlots = value;
