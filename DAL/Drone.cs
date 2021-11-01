@@ -21,7 +21,7 @@ namespace IDAL
                     {
                         if (value < 0)
                         {
-                            throw new FormatException("Id must contain a positive number");
+                            throw new OverloadException("Id must contain a positive number");
                         }
                         id = value;
                     }

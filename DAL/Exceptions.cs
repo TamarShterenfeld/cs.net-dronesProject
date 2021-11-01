@@ -16,6 +16,7 @@ namespace IDAL
             protected OverloadException(SerializationInfo info, StreamingContext context) : base(info, context) { }
 
             // special constructor for our custom exception
+            //will be develop in the next stages of the project.
             public OverloadException(int capacity, string message) : base(message)
             {
                
@@ -24,6 +25,8 @@ namespace IDAL
             {
                 return "OverloadCapacityException: DAL capacity of " + " overloaded\n" + Message;
             }
+
+
         }
     }
 }

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using static DalObject.DalObject;
 using static System.Environment;
+using static IDAL.DO.OverloadException;
+using IDAL.DO;
+
 
 namespace ConsoleUI
 {
@@ -12,7 +15,7 @@ namespace ConsoleUI
         /// <summary>
         /// naviget the first chice - the kind of action the customer want to do.
         /// </summary>
-        private static void navigateChoice()
+        private static void navigateMenue()
         {
             int option;
             DalObject.DalObject dalObject = new DalObject.DalObject();

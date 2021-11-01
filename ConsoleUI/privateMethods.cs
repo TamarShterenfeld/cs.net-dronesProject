@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using static IDAL.DO.OverloadException;
 
 namespace ConsoleUI
 {
@@ -51,7 +52,8 @@ namespace ConsoleUI
                     if ((!Char.IsLetter(letter)))
                     {
                         Console.WriteLine("The string type can hold only alphabetical values!");
-                         isValid = false; 
+                        isValid = false;
+                        break;
                     }
                         
                 }
@@ -77,7 +79,7 @@ namespace ConsoleUI
                 if(id.Length != 9)
                 {
                     isValid = false;
-                    Console.WriteLine("Id's length must be exactly nine! Try again!");
+                    Console.WriteLine("Id's length must be exactly nine!");
                 }
                 if (string.IsNullOrEmpty(id))
                 {
@@ -129,6 +131,7 @@ namespace ConsoleUI
                     {
                         Console.WriteLine("Phone number can contain only digits!");
                         isValid  = false;
+                        break;
                     }
                 }
                 if (!isValid)

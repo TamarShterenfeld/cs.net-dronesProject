@@ -6,6 +6,7 @@ using static IDAL.DO.IDAL;
 using static DalObject.DataSource.Config;
 using static DalObject.DalObject;
 using System.Linq;
+using static IDAL.DO.OverloadException;
 
 
 namespace DalObject
@@ -65,6 +66,11 @@ namespace DalObject
         internal class Config
         { 
             public static int ParcelId = 0;
+            public static double ElectricityConsumingOfAvailable;
+            public static double ElectricityConsumingOfLightWeight;
+            public static double ElectricityConsumingOfAverageWeight;
+            public static double ElectricityConsumingOfHeavyWeight;
+            public double ChargingRate;
         }
 
 

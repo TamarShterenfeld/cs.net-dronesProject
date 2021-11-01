@@ -6,6 +6,7 @@ using IDAL.DO;
 using static DalObject.DataSource;
 using static DalObject.DataSource.Config;
 using System.Linq;
+using static IDAL.DO.OverloadException;
 
 namespace DalObject
 {
@@ -19,7 +20,7 @@ namespace DalObject
         public static void AssociateParcel(int parcelId, int droneId)
         {
             if(ParcelsList.FindIndex(item => item.Id == parcelId) ==-1 || DronesList.FindIndex(item=>item.Id == droneId) == -1)
-                new Exception("parcelId or droneId don't exist!");
+                new OverloadException("parcelId or droneId don't exist!");
             int parcelIndex = ParcelsList.FindIndex(item => item.Id == parcelId);
             int droneIndex = DronesList.FindIndex(item => item.Id == droneId);
             Parcel parcel = ParcelsList.First(item => item.Id == parcelId);
@@ -38,7 +39,7 @@ namespace DalObject
         public static void PickUpParcel(int parcelId, string senderId)
         {
             if (ParcelsList.FindIndex(item => item.Id == parcelId) == -1 || CustomersList.FindIndex(item => item.Id == senderId) == -1)
-                throw new Exception("parcelId or senderId don't exist in the customers' list!");
+                throw new OverloadException("parcelId or senderId don't exist in the customers' list!");
             Parcel parcel = ParcelsList.First(item => item.Id == parcelId);
             int parcelIndex = ParcelsList.FindIndex(item => item.Id == parcelId);
             parcel.SenderId = senderId;
@@ -54,7 +55,7 @@ namespace DalObject
         public static void SupplyParcel(int parcelId, string targetId)
         {
             if (ParcelsList.FindIndex(item => item.Id == parcelId) == -1 || CustomersList.FindIndex(item=>item.Id == targetId) == -1)
-                throw new Exception("parcelId or targetId don't exist!");
+                throw new OverloadException("parcelId or targetId don't exist!");
             Parcel parcel = ParcelsList.First(item => item.Id == parcelId);
             int parcelIndex = ParcelsList.FindIndex(item => item.Id == parcelId);
             parcel.Arrival = DateTime.Now;
@@ -70,13 +71,13 @@ namespace DalObject
         {
             inputIntValue(ref droneId);
             if (DronesList.FindIndex(item => item.Id == droneId) == -1)
-                throw new Exception("drone's id doesn't exist in the drones' list.");
+                throw new OverloadException("drone's id doesn't exist in the drones' list.");
             Drone  drone = DronesList.First(item => item.Id == droneId);
             int droneIndex = DronesList.FindIndex(item => item.Id == droneId);
 
             inputIntValue(ref baseStationId);
             if (BaseStationsList.FindIndex(item => item.Id == baseStationId) == -1)
-                throw new Exception("drone's id doesn't exist in the drones' list.");
+                throw new OverloadException("drone's id doesn't exist in the drones' list.");
             BaseStation baseStation = BaseStationsList.First(item => item.Id == baseStationId);
             int baseStationIndex = BaseStationsList.FindIndex(item => item.Id == baseStationId);
             if(baseStation.ChargeSlots == 0)      
@@ -96,9 +97,9 @@ namespace DalObject
             int baseStationId;
             inputIntValue(ref droneId);
             if (DronesList.FindIndex(item => item.Id == droneId) == -1)
-                throw new Exception("drone's id doesn't exist in the drones' list.");
+                throw new OverloadException("drone's id doesn't exist in the drones' list.");
             if (DroneChargeList.FindIndex(item => item.DroneId == droneId) == -1)
-                throw new Exception("drone's id doesn't exist in the dronecharge list.");
+                throw new OverloadException("drone's id doesn't exist in the dronecharge list.");
 
             Drone drone = DronesList.First(item => item.Id == droneId);
             int droneIndex = DronesList.FindIndex(item => item.Id == droneId);
@@ -106,7 +107,7 @@ namespace DalObject
             baseStationId = droneCharge.StationId;
             int baseStationIndex = BaseStationsList.FindIndex(item => item.Id == baseStationId);
             if (baseStationIndex  == -1)
-                throw new Exception("baseStation's id doesn't exist in the BaseStation's list.");
+                throw new OverloadException("baseStation's id doesn't exist in the BaseStation's list.");
             BaseStation baseStation = BaseStationsList.First(item => item.Id == baseStationId);
             DroneChargeList.Remove(droneCharge);
             baseStation.ChargeSlots++;

@@ -6,6 +6,7 @@ using static DalObject.DataSource.Config;
 using static IDAL.DO.IDAL;
 using IDAL.DO;
 using System.Linq;
+using static IDAL.DO.OverloadException;
 
 namespace DalObject
 {
@@ -22,12 +23,12 @@ namespace DalObject
         private static void chackingIdentitiesOfParcel(int id, string senderId, string targetId, int droneId)
         {
             if (ParcelsList.FindIndex(item => item.Id == id) != -1)
-                throw new Exception("You try to add a parcel which is already exists!");
+                throw new OverloadException("You try to add a parcel which is already exists!");
             //check if the other ids really exist in the appropriate lists.
             if (CustomersList.FindIndex(item => item.Id == senderId) == -1 || CustomersList.FindIndex(item => item.Id == targetId) == -1)
-                throw new Exception("sender's id or target's id don't exist in the customers' list.");
+                throw new OverloadException("sender's id or target's id don't exist in the customers' list.");
             if (DronesList.FindIndex(item => item.Id == droneId) == -1)
-                throw new Exception("drone's id doesn't exist in the drones' List.");
+                throw new OverloadException("drone's id doesn't exist in the drones' List.");
         }
 
         /// <summary>

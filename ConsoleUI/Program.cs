@@ -1,6 +1,7 @@
 ﻿using System;
 using static DalObject.DalObject;
 using  IDAL.DO;
+using static IDAL.DO.OverloadException;
 
 
 
@@ -11,7 +12,7 @@ namespace ConsoleUI
     {
         static void Main()
         {
-            navigateChoice();
+            navigateMenue();
         }
     }
 }

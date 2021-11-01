@@ -28,14 +28,14 @@ namespace DalObject
 
                 if (BaseStationsList.Count == BaseStationsList.Capacity)
                 {
-                    throw new Exception("The amount of base stations objects arrived to its maximum limit");
+                    throw new OverloadException("The amount of base stations objects arrived to its maximum limit");
                 }
                 BaseStation baseStation = new BaseStation(id, name, longitude, latitude, chrgeSlots);          
                 BaseStationsList.Add(baseStation);
             }
             else
             {
-                throw new Exception("Id already exists in base station list, it's not possible to add it!");
+                throw new OverloadException("Id already exists in base station list, it's not possible to add it!");
             }
         }
 
@@ -51,7 +51,7 @@ namespace DalObject
             //drones list is fulll already.
             if (DronesList.Count  == DronesList.Capacity)
             {
-                throw new Exception("The amount of drones objects arrived to its maximum limit");
+                throw new OverloadException("The amount of drones objects arrived to its maximum limit");
             }
             //can add the drone just if the input id stil doesnt exist in the Drones' list.
             if (DronesList.FindIndex(item => item.Id == id) == -1)
@@ -64,7 +64,7 @@ namespace DalObject
             }
             else
             {
-                throw new Exception("Id already exists in drones list, it's not possible to add it!");
+                throw new OverloadException("Id already exists in drones list, it's not possible to add it!");
             }
         }
 
@@ -81,7 +81,7 @@ namespace DalObject
             //customers list is full already.
             if (CustomersList.Count >= CustomersList.Capacity)
             {
-                throw new Exception("The amount of customers objects arrived to its maximum limit");
+                throw new OverloadException("The amount of customers objects arrived to its maximum limit");
             }
             //can add the customer just if the input id stil doesn't exist in the customers' list.
             if (CustomersList.FindIndex(item => item.Id == id) == -1){               
@@ -90,7 +90,7 @@ namespace DalObject
             }
             else
             {
-                throw new Exception("Id already exists in drones list, it's not possible to add it!");
+                throw new OverloadException("Id already exists in drones list, it's not possible to add it!");
             }
         }
 

@@ -4,6 +4,7 @@ using System.Text;
 using static IDAL.DO.IDAL;
 using static DalObject.DataSource;
 using static DalObject.DataSource.Config;
+using static IDAL.DO.OverloadException;
 
 
 namespace DalObject
