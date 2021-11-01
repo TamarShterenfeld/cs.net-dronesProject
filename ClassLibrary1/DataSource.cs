@@ -183,7 +183,7 @@ namespace IBL
             /// <returns></returns>
             private static double randomLatitudeOrLongitude()
             {
-                return 0.7 * rand.Next(-180, 0) + 0.3 * rand.Next(0, 180);
+                return  0.7 * rand.Next(-180, 0) + 0.3 * rand.Next(0, 180);
             }
 
             /// <summary>
