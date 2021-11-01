@@ -16,17 +16,17 @@ namespace DalObject
     public class DataSource
     {
         //const literals.
-        internal const int DRONESBASEAMOUNT = 10;
-        internal const int BASESTATIONSBASEAMOUNT = 5;
-        internal const int CUSTOMERSBASEAMOUNT = 100;
-        internal const int PARCELBASEAMOUNT = 1000;
-        internal const int BASESTATIONARRSIZE = 10;
+        internal const int DRONES_BASE_AMOUNT = 10;
+        internal const int BASESTATIONS_BASE_AMOUNT = 5;
+        internal const int CUSTOMERS_BASE_AMOUNT = 100;
+        internal const int PARCELS_BASE_AMOUNT = 1000;
+
 
         //internal lists of different entities.
-        internal static List<Drone> DronesList = new List<Drone>(DRONESBASEAMOUNT);
-        internal static List<BaseStation> BaseStationsList = new List<BaseStation>(BASESTATIONSBASEAMOUNT);
-        internal static List<Customer> CustomersList = new List<Customer>(CUSTOMERSBASEAMOUNT);
-        internal static List<Parcel> ParcelsList = new List<Parcel>(PARCELBASEAMOUNT);
+        internal static List<Drone> DronesList = new List<Drone>(DRONES_BASE_AMOUNT);
+        internal static List<BaseStation> BaseStationsList = new List<BaseStation>(BASESTATIONS_BASE_AMOUNT);
+        internal static List<Customer> CustomersList = new List<Customer>(CUSTOMERS_BASE_AMOUNT);
+        internal static List<Parcel> ParcelsList = new List<Parcel>(PARCELS_BASE_AMOUNT);
         internal static List<DroneCharge> DroneChargeList = new List<DroneCharge>();
 
         //arrays of different data - for initalizing object of the structures.
@@ -73,12 +73,12 @@ namespace DalObject
         /// </summary>
         private static void randomBaseStation()
         {
-            int size = rand.Next(2, BASESTATIONSBASEAMOUNT);
+            int size = rand.Next(2, BASESTATIONS_BASE_AMOUNT);
             for (int i = 0; i < size; i++)
             {
                 BaseStation baseStation = new BaseStation();
                 baseStation.Id = i;
-                baseStation.Name = randomName();
+                baseStation.Name = randomBaseStationName();
                 baseStation.ChargeSlots =randomChargeSlot();
                 //the latitude & longitude values are displayed in degrees.
                 baseStation.Latitude = randomLatitudeOrLongitude();
@@ -94,7 +94,7 @@ namespace DalObject
         /// </summary>
         private static void randomDrones()
         {
-            int size = rand.Next(5, DRONESBASEAMOUNT);
+            int size = rand.Next(5, DRONES_BASE_AMOUNT);
 
             for (int i = 0; i < size; i++)
             {
@@ -114,12 +114,12 @@ namespace DalObject
         /// </summary>
         private static void randomCustomers()
         {
-            int size = rand.Next(10, CUSTOMERSBASEAMOUNT);
+            int size = rand.Next(10, CUSTOMERS_BASE_AMOUNT);
             for (int i = 0; i < size; i++)
             {
                 Customer customer = new Customer();
                 customer.Id = randomId();
-                customer.Name = randomName();
+                customer.Name = randomCustomerName();
                 customer.Phone = randomPhone();
                 //the latitude & longitude values are displayed in degrees.
                 customer.Latitude = randomLatitudeOrLongitude();
@@ -132,7 +132,7 @@ namespace DalObject
         //random at least the first tenth parcels in ParcelsList.
         private static void randomParcels()
         {
-            int size = rand.Next(10, PARCELBASEAMOUNT);
+            int size = rand.Next(10, PARCELS_BASE_AMOUNT);
             for (int i = 0; i < size; i++)
             {
                 Parcel parcel = new Parcel();
@@ -208,12 +208,22 @@ namespace DalObject
         }
 
         /// <summary>
-        /// random a name from the names arr.
+        /// random a name from the baseStations' names array.
         /// </summary>
         /// <returns></returns>
-        private static string randomName()
+        private static string randomBaseStationName()
         {
-            return baseStationsNames[rand.Next(0, BASESTATIONARRSIZE - 1)];
+            return baseStationsNames[rand.Next(0, baseStationsNames.Length-1)];
+        }
+
+
+        /// <summary>
+        /// random a customer's name from the customers' names array.
+        /// </summary>
+        /// <returns></returns>
+        private static string randomCustomerName()
+        {
+            return customerName[rand.Next(0, customerName.Length - 1)];
         }
 
         /// <summary>
@@ -222,7 +232,7 @@ namespace DalObject
         /// <returns></returns>
         private static string randomModel()
         {
-            return droneModels[rand.Next(0, BASESTATIONARRSIZE)];
+            return droneModels[rand.Next(0, droneModels.Length-1)];
         }
 
         /// <summary>

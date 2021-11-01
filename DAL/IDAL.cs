@@ -7,8 +7,8 @@ namespace IDAL
 {
     public interface IDAL
     {
-        static int IncreaseParcelIndex();
-       static  IEnumerable<Parcel> GettingNotAssociatedParcels(); 
+       static int IncreaseParcelIndex() { return 1; }
+       
 
 
     }
