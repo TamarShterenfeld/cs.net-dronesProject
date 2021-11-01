@@ -2,17 +2,16 @@
 using System.Collections.Generic;
 using System.Text;
 using static IDAL.DO.OverloadException;
+using IDAL.DO;
 
-namespace IDAL
+namespace IBL
 {
-    namespace DO
+    namespace BO
     {
-        public partial class IDAL
-        {
             /// <summary>
             /// the struct Drone contains the following details: station id, drone id.
             /// </summary>
-            public struct DroneCharge
+            public class DroneCharge
             {
                 int stationId;
                 int droneId;
@@ -64,6 +63,6 @@ namespace IDAL
                         $"base station id:{StationId}";
                 }
             }
-        }
+        
     }
 }

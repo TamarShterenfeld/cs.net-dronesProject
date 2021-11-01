@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using static DalObject.DataSource;
-using static DalObject.DataSource.Config;
-using static IDAL.DO.IDAL;
+using IBL.BO;
+using static IBL.BO.DataSource;
+using static IBL.BO.DalObject;
 using IDAL.DO;
 using System.Linq;
 using static IDAL.DO.OverloadException;

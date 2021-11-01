@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using static IDAL.DO.IDAL;
 using IDAL.DO;
-using static DalObject.DataSource;
-using static DalObject.DataSource.Config;
+using IBL.BO;
+using static IBL.BO.DataSource;
 using System.Linq;
 using static IDAL.DO.OverloadException;
+using static IBL.BO.DroneStatuses;
 
 namespace DalObject
 {
@@ -25,12 +25,12 @@ namespace DalObject
             int droneIndex = DronesList.FindIndex(item => item.Id == droneId);
             Parcel parcel = ParcelsList.First(item => item.Id == parcelId);
             Drone drone = DronesList.First(item => item.Id == parcelId);
-            if (drone.Status != DroneStatuses.Available)
+            if (drone.Status != IBL.BO.DroneStatuses.Available)
                 new OverloadException("the requested drone isn't available!");
             parcel.Association = DateTime.Now;
             parcel.DroneId = droneId;
             //updating the associated drone's status to be as shipment.
-            drone.Status = DroneStatuses.Shipment;
+            drone.Status = IBL.BO.DroneStatuses.Shipment;
             ParcelsList[parcelIndex] = parcel;
             DronesList[droneIndex] = drone;
         }
@@ -87,10 +87,10 @@ namespace DalObject
             if(baseStation.ChargeSlots == 0)      
                 throw new OverloadException("The chosen base station isn't available to charge the drone.");
 
-            if(drone.Status == DroneStatuses.Maintenance)
+            if(drone.Status == IBL.BO.DroneStatuses.Maintenance)
                 throw new OverloadException("The chosen drone is already being charging now");
             DroneCharge droneCharge = new DroneCharge(baseStationId, droneId);
-            drone.Status = DroneStatuses.Maintenance;
+            drone.Status = IBL.BO.DroneStatuses.Maintenance;
             DroneChargeList.Add(droneCharge);
 
             DronesList[droneIndex] = drone;
@@ -120,7 +120,7 @@ namespace DalObject
             BaseStation baseStation = BaseStationsList.First(item => item.Id == baseStationId);
             DroneChargeList.Remove(droneCharge);
             baseStation.ChargeSlots++;
-            drone.Status = DroneStatuses.Available;
+            drone.Status = IBL.BO.DroneStatuses.Available;
             BaseStationsList[baseStationIndex] = baseStation;
             DronesList[droneIndex] = drone;
         }

@@ -2,19 +2,20 @@
 using System.Collections.Generic;
 using System.Text;
 using static DalObject.DalObject;
-using static DAL.Locations;
+using static IBL.BO.Locations;
+using IBL.BO;
+using IDAL.DO;
+using static IDAL.DO.OverloadException;
 
-namespace IDAL
+namespace IBL
 {
-    namespace DO
+    namespace BO
     {
-        public partial class IDAL
-        {
+        
             /// <summary>
             /// the struct Customer contains the following details: id, name, phone, longitude, latitude.
             /// </summary>
-            
-            public struct Customer
+            public class Customer
             {
                 private string id;
                 private string name;
@@ -51,16 +52,16 @@ namespace IDAL
                         return name;
                     }
                     set
-                    { 
+                    {
                         foreach (char letter in value)
                         {
-                            if(letter != ' ')
+                            if (letter != ' ')
                             {
                                 if (!Char.IsLetter(letter))
                                 {
                                     throw new OverloadException("Name can contain only letters.");
                                 }
-                            }                           
+                            }
                         }
                         name = value;
                     }
@@ -129,9 +130,10 @@ namespace IDAL
                 public Customer(string id, string name, string phone, double longitude, double latitude)
                 {
                     this.id = id; this.name = name; this.phone = phone; this.longitude = longitude; this.latitude = latitude;
-                    Id = id;Name = name; Phone = phone; Longitude = longitude; Latitude = latitude;
+                    Id = id; Name = name; Phone = phone; Longitude = longitude; Latitude = latitude;
                 }
 
+            public Customer() { }
                 /// <summary>
                 /// override ToString function.
                 /// </summary>
@@ -141,10 +143,10 @@ namespace IDAL
                     return $"id: {Id} \n" +
                               $"name: {Name} \n" +
                               $"phone: {Phone}\n" +
-                              $"longitude: {DalObject.DataSource.coordinate.CastDoubleToCoordinante(Longitude, LONGITUDE)}\n" +
-                              $"latitude:  {DalObject.DataSource.coordinate.CastDoubleToCoordinante(Latitude, LATITUDE)}\n";
+                              $"longitude: {DataSource.coordinate.CastDoubleToCoordinante(Longitude, LONGITUDE)}\n" +
+                              $"latitude:  {DataSource.coordinate.CastDoubleToCoordinante(Latitude, LATITUDE)}\n";
                 }
             }
-        }
+        
     }
 }
