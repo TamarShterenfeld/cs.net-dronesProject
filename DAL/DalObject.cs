@@ -8,6 +8,7 @@ using static DalObject.DataSource;
 using System.Linq;
 using static DAL.Coordinate;
 using DAL;
+using IDAL;
 
 namespace DalObject
 {

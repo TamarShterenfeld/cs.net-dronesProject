@@ -5,5 +5,11 @@ using static IDAL.DO.IDAL;
 
 namespace IDAL
 {
-    public interface IDal {}
+    public interface IDAL
+    {
+       static int IncreaseParcelIndex() { return 1; }
+       
+
+
+    }
 }
