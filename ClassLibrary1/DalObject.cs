@@ -51,7 +51,7 @@ namespace IBL
             public static IEnumerable<Parcel> GettingNotAssociatedParcels()
             {
                 List<Parcel> notAssociatedDronesList = new List<Parcel>();
-                foreach (IBL.BO.Parcel parcel in ParcelsList)
+                foreach (Parcel parcel in ParcelsList)
                 {
                     //checking if the association value isn't initalized to another value than the default value.
                     if (parcel.Association == new DateTime(01 / 01 / 0001))

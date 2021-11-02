@@ -15,7 +15,7 @@ namespace IBL
     {
 
 
-        public partial class DalObject : IDAL.IDAL
+        public partial class DalObject : IDAL.IDal
         {
             //we didn't use the override function - ToString(),
             //for it doesn't include enough details for printing.

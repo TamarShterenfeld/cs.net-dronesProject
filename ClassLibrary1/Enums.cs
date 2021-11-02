@@ -21,6 +21,11 @@ namespace IBL
         {
             Standard = 1, Fast, Emergency
         }
+
+        public enum ParcelStatuses
+        {
+            Production, Associated, PickedUp, Supplied
+        }
     }
 
 }

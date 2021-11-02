@@ -9,7 +9,7 @@ namespace IBL
 {
     namespace BO
     {
-        public partial class DalObject : IDAL.IDAL
+        public partial class DalObject : IDAL.IDal
         {
             public static double[] Electricity()
             {

@@ -2,11 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using static DalObject.DalObject;
 using System.Linq;
 using static IDAL.DO.OverloadException;
 using static IBL.BO.DalObject;
 using IBL.BO;
+using static IBL.BO.DataSource;
 
 
 namespace IBL
@@ -42,7 +42,7 @@ namespace IBL
             //a static random field - for general use.
             public static Random rand = new Random();
             //a static field of class Coordinate - for displaying longitude & latitude in sexagesimal base. 
-            public static IBL.BO.DataSource.Coordinate coordinate = new IBL.BO.Coordinate();
+            public static Coordinate coordinate = new Coordinate();
 
             /// <summary>
             /// the method Initalize initalizes all thedifferent lists (besides DroneChargeList).
@@ -90,8 +90,8 @@ namespace IBL
                     baseStation.Name = randomBaseStationName();
                     baseStation.ChargeSlots = randomChargeSlot();
                     //the latitude & longitude values are displayed in degrees.
-                    baseStation.Latitude = randomLatitudeOrLongitude();
-                    baseStation.Longitude = randomLatitudeOrLongitude();
+                    baseStation.Latitude = randomLatitude();
+                    baseStation.Longitude = randomLongitude();
                     BaseStationsList.Add(baseStation);
                 }
 
@@ -129,8 +129,8 @@ namespace IBL
                     customer.Name = randomCustomerName();
                     customer.Phone = randomPhone();
                     //the latitude & longitude values are displayed in degrees.
-                    customer.Latitude = randomLatitudeOrLongitude();
-                    customer.Longitude = randomLatitudeOrLongitude();
+                    customer.Latitude = randomLatitude();
+                    customer.Longitude = randomLongitude();
                     CustomersList.Add(customer);
                 }
 
@@ -160,7 +160,7 @@ namespace IBL
                     parcel.Production = DateTime.Now;
                     parcel.Association = parcel.Production.AddDays(rand.Next(14)).AddHours(rand.Next(1, 24));
                     parcel.PickingUp = parcel.Association.AddDays(rand.Next(14)).AddHours(rand.Next(1, 24)); ;
-                    parcel.Arrival = parcel.PickingUp.AddDays(rand.Next(14)).AddHours(rand.Next(1, 24)); ;
+                    parcel.Supplied = parcel.PickingUp.AddDays(rand.Next(14)).AddHours(rand.Next(1, 24)); ;
                     //there wasn't an available drone.
                     //the date: 01/ 01/ 0001 - is a sign for an unassociated parcel - a default value.
                     if (parcel.DroneId == -1)
@@ -175,11 +175,18 @@ namespace IBL
             /// random a double type latitude or longitude
             /// </summary>
             /// <returns></returns>
-            private static double randomLatitudeOrLongitude()
+            private static Coordinate randomLatitude()
             {
-                return  0.7 * rand.Next(-180, 0) + 0.3 * rand.Next(0, 180);
+                Coordinate coordinante = new Coordinate(0.7 * rand.Next(-180, 0) + 0.3 * rand.Next(0, 180), Locations.Latitude);
+                return coordinante;
             }
 
+
+            private static Coordinate randomLongitude()
+            {
+                Coordinate coordinante = new Coordinate(0.7 * rand.Next(-180, 0) + 0.3 * rand.Next(0, 180), Locations.Longitude);
+                return coordinante;
+            }
             /// <summary>
             /// random a WeightCategory value.
             /// </summary>
