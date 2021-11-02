@@ -14,7 +14,7 @@ namespace IBL
         public class Drone
         {
             int id;
-            double battery;
+            
             public int Id
             {
                 set
@@ -30,20 +30,7 @@ namespace IBL
 
             //there's nothing to check for a model - it can hold chars and also digits.
             public string Model { get; set; }
-            public double Battery
-            {
-                get { return battery; }
-                set
-                {
-                    if (value < 0)
-                        throw new OverloadException("Battery must hold a positive value.");
-                    if (value > 100)
-                        throw new OverloadException("Battery can't hold a value more than 100% of charge.");
-                    battery = value;
-                }
-            }
 
-            public IBL.BO.DroneStatuses Status { set; get; }
             public IBL.BO.WeightCategories MaxWeight { set; get; }
 
             /// <summary>
@@ -56,8 +43,8 @@ namespace IBL
             /// <param name="maxWeight">modify maxWeight</param>
             public Drone(int id, double battery, string model, DroneStatuses status, WeightCategories maxWeight)
             {
-                this.id = id; this.battery = battery; Model = model; Status = status; MaxWeight = maxWeight;
-                Id = id; Battery = battery;
+                this.id = id;  Model = model; MaxWeight = maxWeight;
+                Id = id;
             }
 
             public Drone() { }
@@ -69,10 +56,8 @@ namespace IBL
             public override string ToString()
             {
                 return $"id: {Id} \n" +
-                          $"model: {Model} \n" +
-                          $"status: {Status}\n" +
-                          $"maxWeight:  {MaxWeight}\n" +
-                          $"battery: {Battery}\n";
+                       $"model: {Model} \n"+
+                       $"maxWeight:  {MaxWeight}\n";
             }
         }
     }
