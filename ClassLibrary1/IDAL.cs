@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-
+using IBL.BO;
 
 namespace IDAL
 {
-    public interface IDAL
+    public interface IDal
     {
         static int IncreaseParcelIndex() { return 1; }
         static void AddBaseStation(int id, string name, double longitude, double latitude, int chrgeSlots) { }

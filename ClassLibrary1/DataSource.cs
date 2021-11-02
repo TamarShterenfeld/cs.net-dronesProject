@@ -6,6 +6,7 @@ using static DalObject.DalObject;
 using System.Linq;
 using static IDAL.DO.OverloadException;
 using static IBL.BO.DalObject;
+using IBL.BO;
 
 
 namespace IBL
@@ -41,7 +42,7 @@ namespace IBL
             //a static random field - for general use.
             public static Random rand = new Random();
             //a static field of class Coordinate - for displaying longitude & latitude in sexagesimal base. 
-            public static IBL.BO.Coordinate coordinate = new IBL.BO.Coordinate();
+            public static IBL.BO.DataSource.Coordinate coordinate = new IBL.BO.Coordinate();
 
             /// <summary>
             /// the method Initalize initalizes all thedifferent lists (besides DroneChargeList).

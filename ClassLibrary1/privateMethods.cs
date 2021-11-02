@@ -10,7 +10,7 @@ using static IDAL.DO.OverloadException;
 
 namespace DalObject
 {
-    public partial class DalObject :IDAL.IDAL
+    public partial class DalObject :IDAL.IDal
     {
 
         /// <summary>
