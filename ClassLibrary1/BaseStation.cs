@@ -55,41 +55,20 @@ namespace IBL
                     name = value;
                 }
             }
-            private double longitude;
-            public double Longitude
+            private Location location;
+            public Location Loc
             {
                 get
                 {
-                    return longitude;
+                    return location;
                 }
                 set
                 {
-                    if (value < -180 || value > 180)
-                    {
-                        throw (new OverloadException("Longitude must be a positive number and in range of - 180º to 180º."));
-                    }
 
-                    longitude = value;
-                }
-            }
-            private double latitude;
-            public double Latitude
-            {
-                get
-                {
-                    return latitude;
-                }
-                set
-                {
-                    if (value < -180 || value > 180)
-                    {
-                        throw (new OverloadException("Latitude must be a positive number and in range of -180º to 180º."));
-                    }
-
-                    latitude = value;
                 }
             }
             private int chargeSlots;
+          
             public int ChargeSlots
             {
                 get
