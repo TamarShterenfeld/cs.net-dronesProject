@@ -13,7 +13,7 @@ namespace IBL
         }
         public enum Locations
         {
-            LATITUDE, LONGITUDE
+            Latitude, Longitude
         }
         /// <summary>
         /// the class coordinate contains: degrees, minutes, seconds
@@ -32,12 +32,21 @@ namespace IBL
             public Coordinate() { }
             public Coordinate(double value, Locations location = default)
             {
+                if (value < -180 || value > 180)
+                {
+                    throw new OverloadException("Coordinante value must be a positive number and in range of - 180º to 180º.");
+                }
                 CastDoubleToCoordinante(value, location);
             }
 
             //a constructor with parameters.
             public Coordinate(double degrees, double minutes, double seconds, Directions direction, Locations location)
             {
+
+                if (degrees < -180 || degrees > 180)
+                {
+                    throw new OverloadException("Coordinante value must be a positive number and in range of - 180º to 180º.");
+                }
                 Degrees = degrees;
                 Minutes = minutes;
                 Seconds = seconds;
@@ -53,19 +62,22 @@ namespace IBL
             /// <returns>this</returns>
             public Coordinate CastDoubleToCoordinante(double value, Locations location)
             {
-
-                if (value < 0 && location == Locations.LONGITUDE)
+                if (value < -180 || value > 180)
+                {
+                    throw new OverloadException("Coordinante value must be a positive number and in range of - 180º to 180º.");
+                }
+                if (value < 0 && location == Locations.Longitude)
                     Direction = Directions.SOUTH;
 
-                if (value > 0 && location == Locations.LONGITUDE)
+                if (value > 0 && location == Locations.Longitude)
                 {
                     Direction = Directions.NORTH;
                 }
-                if (value < 0 && location == Locations.LATITUDE)
+                if (value < 0 && location == Locations.Latitude)
                 {
                     Direction = Directions.WEST;
                 }
-                if (value > 0 && location == Locations.LATITUDE)
+                if (value > 0 && location == Locations.Latitude)
                 {
                     Direction = Directions.EAST;
                 }

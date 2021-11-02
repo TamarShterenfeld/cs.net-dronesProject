@@ -96,7 +96,7 @@ namespace IBL
             public DateTime Production { get; set; }
             public DateTime Association { get; set; }
             public DateTime PickingUp { get; set; }
-            public DateTime Arrival { get; set; }
+            public DateTime Supplied { get; set; }
 
             /// <summary>
             /// a constructor with parameters.
@@ -111,7 +111,7 @@ namespace IBL
             {
                 this.id = id; this.senderId = senderId; this.targetId = targetId; this.droneId = droneId; Weight = weight; Priority = priority;
                 //a default value in the creation of the object.
-                Production = Association = PickingUp = Arrival = new DateTime(01 / 01 / 0001);
+                Production = Association = PickingUp = Supplied = new DateTime(01 / 01 / 0001);
             }
 
             public Parcel() { }
@@ -131,7 +131,7 @@ namespace IBL
                              $"production:  {Production}\n" +
                              $"association:  {Association}\n" +
                              $"pickingUp:  {PickingUp}\n" +
-                             $"arrival: {Arrival}\n";
+                             $"arrival: {Supplied}\n";
             }
         }
     }

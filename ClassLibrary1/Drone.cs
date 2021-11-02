@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using static IDAL.DO.OverloadException;
 using IDAL.DO;
+using static IBL.BO.WeightCategories;
 
 namespace IBL
 {
@@ -31,8 +32,21 @@ namespace IBL
             //there's nothing to check for a model - it can hold chars and also digits.
             public string Model { get; set; }
 
-            public IBL.BO.WeightCategories MaxWeight { set; get; }
+            public WeightCategories MaxWeight { set; get; }
 
+            public double Battery { get; set; }
+
+            public DroneStatuses Status { set; get; }
+
+
+
+            //משלוח בהעברה
+
+
+            public Coordinate Longitude { get; set; }
+
+            public Coordinate Latitude { get; set; }
+            //
             /// <summary>
             /// a constructor with parameters
             /// </summary>

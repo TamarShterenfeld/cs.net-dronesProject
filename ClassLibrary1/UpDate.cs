@@ -58,7 +58,7 @@ namespace DalObject
                 throw new OverloadException("parcelId or targetId don't exist!");
             Parcel parcel = ParcelsList.First(item => item.Id == parcelId);
             int parcelIndex = ParcelsList.FindIndex(item => item.Id == parcelId);
-            parcel.Arrival = DateTime.Now;
+            parcel.Supplied = DateTime.Now;
             ParcelsList[parcelIndex] = parcel;
         }
 

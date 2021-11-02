@@ -20,8 +20,8 @@ namespace IBL
                 private string id;
                 private string name;
                 private string phone;
-                private double longitude;
-                private double latitude;
+                private Coordinate longitude;
+                private Coordinate latitude;
                 public string Id
                 {
                     get
@@ -87,47 +87,19 @@ namespace IBL
                         phone = value;
                     }
                 }
-                public double Longitude
-                {
-                    get
-                    {
-                        return longitude;
-                    }
-                    set
-                    {
-                        if (value < -180 || value > 180)
-                        {
-                            throw new OverloadException("Longitude must be a positive number and in range of - 180º to 180º.");
-                        }
 
-                        longitude = value;
-                    }
-                }
-                public double Latitude
-                {
-                    get
-                    {
-                        return latitude;
-                    }
-                    set
-                    {
-                        if (value < -180 || value > 180)
-                        {
-                            throw new OverloadException("Latitude must be a positive number and in range of - 180º to 180º.");
-                        }
-                        latitude = value;
-                    }
-                }
+            public Coordinate Latitude { get; set; }
 
-                /// <summary>
-                /// a constructor with parameters
-                /// </summary>
-                /// <param name="id">modify id</param>
-                /// <param name="name">modify name</param>
-                /// <param name="phone">modify phone</param>
-                /// <param name="longitude">modify longitude</param>
-                /// <param name="latitude">modify latitude</param>
-                public Customer(string id, string name, string phone, double longitude, double latitude)
+            public Coordinate Longitude { get; set; }
+            /// <summary>
+            /// a constructor with parameters
+            /// </summary>
+            /// <param name="id">modify id</param>
+            /// <param name="name">modify name</param>
+            /// <param name="phone">modify phone</param>
+            /// <param name="longitude">modify longitude</param>
+            /// <param name="latitude">modify latitude</param>
+            public Customer(string id, string name, string phone, Coordinate longitude, Coordinate latitude)
                 {
                     this.id = id; this.name = name; this.phone = phone; this.longitude = longitude; this.latitude = latitude;
                     Id = id; Name = name; Phone = phone; Longitude = longitude; Latitude = latitude;
@@ -143,8 +115,8 @@ namespace IBL
                     return $"id: {Id} \n" +
                               $"name: {Name} \n" +
                               $"phone: {Phone}\n" +
-                              $"longitude: {DataSource.coordinate.CastDoubleToCoordinante(Longitude, LONGITUDE)}\n" +
-                              $"latitude:  {DataSource.coordinate.CastDoubleToCoordinante(Latitude, LATITUDE)}\n";
+                              $"longitude: {Longitude}\n" +
+                              $"latitude:  {Latitude}\n";
                 }
             }
         
