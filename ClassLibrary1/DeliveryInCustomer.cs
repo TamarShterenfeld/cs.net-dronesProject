@@ -46,6 +46,9 @@ namespace IBL
                 Id = id; Weight = weight; Priority = priority; ParcelStatus = parcelStatus; SourceOrDest = sourceOrDest;
             }
 
+            // default constructor
+            public DeliveryInCustomer(){}
+
             /// <summary>
             /// override ToString function.
             /// </summary>

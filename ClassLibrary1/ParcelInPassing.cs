@@ -43,6 +43,9 @@ namespace IBL
                 Id = id; Priority = priority; Source = source; Destination = destination;
             }
 
+            // default constructor
+            public ParcelInPassing(){}
+
             /// <summary>
             /// override ToString function.
             /// </summary>

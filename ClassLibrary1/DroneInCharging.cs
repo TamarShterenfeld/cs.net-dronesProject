@@ -39,6 +39,9 @@ namespace IBL
                 Id = id; Battery = battery;
             }
 
+            // default constructor
+            public DroneInCharging(){}
+
             /// <summary>
             /// override ToString function.
             /// </summary>

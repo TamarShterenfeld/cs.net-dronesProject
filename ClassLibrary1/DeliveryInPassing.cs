@@ -51,6 +51,9 @@ namespace IBL
                 Id = id; Weight = weight; Priority = priority; ToDestination = toDestination; Collect = collect; Destination = destination;Far = far;
             }
 
+            // default constructor
+            public DeliveryInPassing(){}
+
             /// <summary>
             /// override ToString function.
             /// </summary>

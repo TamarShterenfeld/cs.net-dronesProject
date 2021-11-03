@@ -15,7 +15,7 @@ namespace IBL
     namespace BO
     {
 
-        class CustomerInShipment
+        public class CustomerInShipment
         {
             private string id;
             private string name;
@@ -75,6 +75,7 @@ namespace IBL
                 Id = id; Name = name; 
             }
 
+            // default constructor
             public CustomerInShipment() { }
 
             /// <summary>

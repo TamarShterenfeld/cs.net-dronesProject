@@ -28,6 +28,9 @@ namespace IBL
                 coorLatitude = latitude;
             }
 
+            // default constructor
+            public Location(){}
+
             /// <summary>
             /// ovveride ToString function.
             /// </summary>
