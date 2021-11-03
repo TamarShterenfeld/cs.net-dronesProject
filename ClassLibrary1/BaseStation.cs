@@ -55,19 +55,9 @@ namespace IBL
                     name = value;
                 }
             }
-            private Location location;
-            public Location Location
-            {
-                get
-                {
-                    return location;
-                }
-                set
-                {
-                    location.CoorLongitude = value.CoorLongitude;
-                    location.CoorLatitude = value.CoorLatitude;
-                }
-            }
+            
+            public Location Location { get; set; }
+
             private int chargeSlots;
           
             public int ChargeSlots
@@ -86,24 +76,39 @@ namespace IBL
                     chargeSlots = value;
                 }
             }
+            public List<DroneInCharging> DroneCharging { get; set; }
 
-            private List<DroneInCharging> DroneCharging { get; set; }
 
             /// <summary>
-            /// a constructor with parameters
+            /// constructor
             /// </summary>
-            /// <param name="id">modify id</param>
-            /// <param name="name">modify name</param>
-            /// <param name="longitude">modify longitude</param>
-            /// <param name="latitude">modify latitude</param>
-            /// <param name="chargeSlots">modify chargeSlots</param>
-            public BaseStation(int id, string name, Location location, int chargeSlots)
+            /// <param name="id"> BaseStation's id </param>
+            /// <param name="name"> BaseStation's name </param>
+            /// <param name="location"> BaseStation's location </param>
+            /// <param name="chargeSlots"> BaseStation's number of chargeSlots </param>
+            /// <param name="droneCharging"> BaseStation's droneInCharging </param>
+            public BaseStation(int id, string name, Location location, int chargeSlots, List<DroneInCharging> droneCharging)
             {
-                this.id = id; this.name = name;this.location = location; this.chargeSlots = chargeSlots;
-                Id = id; Name = name; Location = location; ChargeSlots = chargeSlots;
+                this.id = id; this.name = name; this.chargeSlots = chargeSlots;
+                Id = id; Name = name; Location = location; ChargeSlots = chargeSlots;DroneCharging = droneCharging;
             }
 
+            // default constructor
             public BaseStation() { }
+            /// <summary>
+            /// collect the details about the drones in charging
+            /// </summary>
+            /// <returns> the details about the drones in charging </returns>
+            private string droneInChargingDetails()
+            {
+                string dronesDetails = "";
+                foreach (DroneInCharging drone in DroneCharging)
+                {
+                    dronesDetails += drone.ToString();
+                }
+                return dronesDetails;
+            }
+
 
             /// <summary>
             /// override ToString function.
@@ -111,12 +116,14 @@ namespace IBL
             /// <returns>description of the BaseStation object</returns>
             public override string ToString()
             {
-                return $"id: {Id} \n" +
-                          $"name: {Name} \n" +
-                          $"location: { location }\n"+
-                          $"number of charge slots: {ChargeSlots}\n"+
-                          $"הדפסת הרשימה";
+                return  $"id: {Id} \n" +
+                        $"name: {Name} \n" +
+                        $"location: { Location }\n" +
+                        $"number of charge slots: {ChargeSlots}\n"
+                        + $"drones in charging: {droneInChargingDetails()}\n";
             }
+
+            
         }
 
     }

@@ -11,7 +11,7 @@ namespace IBL
 {
     namespace BO
     {
-        class DroneInCharging
+        public class DroneInCharging
         {
             int id;
             public int Id

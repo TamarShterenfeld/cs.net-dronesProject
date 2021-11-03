@@ -12,7 +12,7 @@ namespace IBL
 {
     namespace BO
     {
-        class DeliveryInCustomer
+        public class DeliveryInCustomer
         {
             int id;
             public int Id

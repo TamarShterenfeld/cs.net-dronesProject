@@ -20,7 +20,6 @@ namespace IBL
                 private string id;
                 private string name;
                 private string phone;
-            private Location location;
                 public string Id
                 {
                     get
@@ -87,36 +86,59 @@ namespace IBL
                     }
                 }
 
-            public Location Location { get; set; }
-            /// <summary>
-            /// a constructor with parameters
-            /// </summary>
-            /// <param name="id">modify id</param>
-            /// <param name="name">modify name</param>
-            /// <param name="phone">modify phone</param>
-            /// <param name="longitude">modify longitude</param>
-            /// <param name="latitude">modify latitude</param>
-            public Customer(string id, string name, string phone, Location location)
+                public Location Location { get; set; }
+
+                public List<DeliveryInCustomer> FromCustomer { get; set; }
+                public List<DeliveryInCustomer> ToCustomer { get; set; }
+
+
+
+                /// <summary>
+                /// constructor
+                /// </summary>
+                /// <param name="id"> Customer's id </param>
+                /// <param name="name"> Customer's name </param>
+                /// <param name="phone"> Customer's phone </param>
+                /// <param name="location"> Customer's location </param>
+                /// <param name="fromCustomer"> Customer's fromCustomer </param>
+                /// <param name="toCustomer"> Customer's toCustomer </param>
+                public Customer(string id, string name, string phone, Location location, List<DeliveryInCustomer> fromCustomer, List<DeliveryInCustomer> toCustomer)
                 {
-                    this.id = id; this.name = name; this.phone = phone; this.location = location;
-                    Id = id; Name = name; Phone = phone; Location = location;
+                        this.id = id; this.name = name; this.phone = phone; 
+                        Id = id; Name = name; Phone = phone; Location = location; FromCustomer = fromCustomer; ToCustomer = toCustomer;
                 }
 
-            public Customer() { }
+                //default constructor
+                public Customer() { }
+
+                /// <summary>
+                /// override ToString function.
+                /// </summary>
+                /// <returns>description of the Customer object</returns>
+                public override string ToString()
+                {
+                        return $"id: {Id} \n" +
+                               $"name: {Name} \n" +
+                               $"phone: {Phone}\n" +
+                               $"location: {Location}\n" +
+                               $"FromCustomer: {deliveryInCustomerDetails(FromCustomer)}\n" +
+                               $"ToCustomer: {deliveryInCustomerDetails(ToCustomer)}\n";
+                }
 
             /// <summary>
-            /// override ToString function.
+            /// collect the details about the delivery in customer
             /// </summary>
-            /// <returns>description of the Customer object</returns>
-            public override string ToString()
+            /// <returns> the details about the delivery in customer </returns>
+            private string deliveryInCustomerDetails(List<DeliveryInCustomer> DroneIC)
                 {
-                    return $"id: {Id} \n" +
-                           $"name: {Name} \n" +
-                           $"phone: {Phone}\n" +
-                           $"location: {location}\n" +
-                           $"להדפיס רשימות\n";
+                    string deliveryDetails = "";
+                    foreach (DeliveryInCustomer drone in DroneIC)
+                    {
+                        deliveryDetails += drone.ToString();
+                    }
+                    return deliveryDetails;
                 }
-            }
+        }
         
     }
 }
