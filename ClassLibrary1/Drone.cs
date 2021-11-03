@@ -50,12 +50,10 @@ namespace IBL
             /// <summary>
             /// a constructor with parameters
             /// </summary>
-            /// <param name="id">modify id</param>
-            /// <param name="battery">modify battery</param>
+            /// <param name="id">modify id</param
             /// <param name="model">modify model</param>
-            /// <param name="status">modify status</param>
             /// <param name="maxWeight">modify maxWeight</param>
-            public Drone(int id, double battery, string model, DroneStatuses status, WeightCategories maxWeight)
+            public Drone(int id, double battery, string model, WeightCategories maxWeight)
             {
                 this.id = id;  Model = model; MaxWeight = maxWeight;
                 Id = id;

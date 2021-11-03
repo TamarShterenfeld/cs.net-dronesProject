@@ -64,8 +64,8 @@ namespace IBL
                 }
                 set
                 {
-                    location.Long = value.Long;
-                    location.Lat = value.Lat;
+                    location.CoorLongitude = value.CoorLongitude;
+                    location.CoorLatitude = value.CoorLatitude;
                 }
             }
             private int chargeSlots;
@@ -106,7 +106,7 @@ namespace IBL
             public BaseStation() { }
 
             /// <summary>
-            /// ovveride ToString function.
+            /// override ToString function.
             /// </summary>
             /// <returns>description of the BaseStation object</returns>
             public override string ToString()

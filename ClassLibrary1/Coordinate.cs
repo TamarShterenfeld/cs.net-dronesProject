@@ -112,7 +112,7 @@ namespace IBL
             /// <summary>
             /// override ToString function.
             /// </summary>
-            /// <returns>the string</returns>
+            /// <returns>description of the Coordinate object</returns>
             public override string ToString()
             {
                 return Degrees + "º " + Minutes + "' " + Seconds + "'' " + Direction.ToString()[0];

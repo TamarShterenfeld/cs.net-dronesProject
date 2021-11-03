@@ -22,7 +22,7 @@ namespace IBL
             /// </summary>
             /// <param name="longitude">location's longitude</param>
             /// <param name="latitude">location's latitude</param>
-            public Location(Coordinate longitude, Coordinate latitude)
+            public Location(Coordinate longitude, Coordinate latitude) 
             {
                 coorLongitude = longitude;
                 coorLatitude = latitude;

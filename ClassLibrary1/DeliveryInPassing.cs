@@ -30,20 +30,63 @@ namespace IBL
             public Priorities Priority;
             public bool ToDestination { get; set; }
 
-            // לסדר set get
-            Location collect;
-            Location dest;
-            private double far;
-            public double Far
-            {
-                get
-                {
-                    return far;
+            private Location collect;
+            private Location destination;
+            public Location Collect 
+            { 
+                get 
+                { 
+                    return collect; 
                 }
                 set
                 {
-                    //לשים ערך 
+                    collect.CoorLongitude = value.CoorLongitude;
+                    collect.CoorLatitude = value.CoorLatitude;
                 }
+            }
+            public Location Destination
+            { 
+                get 
+                { 
+                    return destination; 
+                }
+                set
+                {
+                    destination.CoorLongitude = value.CoorLongitude;
+                    destination.CoorLatitude = value.CoorLatitude;
+                }
+            }
+            public double Far { get; set; }
+
+            /// <summary>
+            /// constructor
+            /// </summary>
+            /// <param name="id">DeliveryInPassing's id</param>
+            /// <param name="weight">DeliveryInPassing's weight</param>
+            /// <param name="priority">DeliveryInPassing's priority</param>
+            /// <param name="toDestination"> DeliveryInPassing's toDestination</param>
+            /// <param name="collect">DeliveryInPassing's collect location</param>
+            /// <param name="destination">DeliveryInPassing's destination location</param>
+            /// <param name="far">DeliveryInPassing's far</param>
+            public DeliveryInPassing(int id, WeightCategories weight, Priorities priority, bool toDestination, Location collect, Location destination, double far)
+            {
+                this.id = id;  this.collect = collect; this.destination = destination; 
+                Id = id; Weight = weight; Priority = priority; ToDestination = toDestination; Collect = collect; Destination = destination;Far = far;
+            }
+
+            /// <summary>
+            /// override ToString function.
+            /// </summary>
+            /// <returns>description of the DeliveryInPassing object</returns>
+            public override string ToString()
+            {
+                return $"id: {Id} \n" +
+                       $"weight: {Weight} \n" +
+                       $"priority: {Priority}\n" +
+                       $"toDestination: {ToDestination}\n" +
+                       $"collect location: {Collect}\n" +
+                       $"destination location: {Destination}\n" +
+                       $" far: {Far}\n";
             }
         }
     }

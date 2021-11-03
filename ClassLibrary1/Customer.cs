@@ -103,11 +103,12 @@ namespace IBL
                 }
 
             public Customer() { }
-                /// <summary>
-                /// override ToString function.
-                /// </summary>
-                /// <returns></returns>
-                public override string ToString()
+
+            /// <summary>
+            /// override ToString function.
+            /// </summary>
+            /// <returns>description of the Customer object</returns>
+            public override string ToString()
                 {
                     return $"id: {Id} \n" +
                            $"name: {Name} \n" +
