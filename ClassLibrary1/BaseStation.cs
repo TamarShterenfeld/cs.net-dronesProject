@@ -64,7 +64,8 @@ namespace IBL
                 }
                 set
                 {
-
+                    location.Long = value.Long;
+                    location.Lat = value.Lat;
                 }
             }
             private int chargeSlots;
@@ -86,6 +87,8 @@ namespace IBL
                 }
             }
 
+            private List<DroneInCharging> DroneCharging { get; set; }
+
             /// <summary>
             /// a constructor with parameters
             /// </summary>
@@ -96,8 +99,8 @@ namespace IBL
             /// <param name="chargeSlots">modify chargeSlots</param>
             public BaseStation(int id, string name, Coordinate longitude, Coordinate latitude, int chargeSlots)
             {
-                this.id = id; this.name = name; this.latitude = latitude; this.longitude = longitude; this.chargeSlots = chargeSlots;
-                Id = id; Name = name; Latitude = latitude; Longitude = longitude; ChargeSlots = chargeSlots;
+                this.id = id; this.name = name; this.location.Lat = latitude; this.location.Long = longitude; this.chargeSlots = chargeSlots;
+                Id = id; Name = name; ChargeSlots = chargeSlots;
             }
 
             public BaseStation() { }
@@ -110,9 +113,9 @@ namespace IBL
             {
                 return $"id: {Id} \n" +
                           $"name: {Name} \n" +
-                          $"longitude: { Longitude}\n" +
-                          $"latitude:  {Latitude}\n" +
-                          $"number of charge slots: {ChargeSlots}\n";
+                          $"location: { location }\n"+
+                          $"number of charge slots: {ChargeSlots}\n"+
+                          $"הדפסת הרשימה";
             }
         }
 

@@ -20,8 +20,7 @@ namespace IBL
                 private string id;
                 private string name;
                 private string phone;
-                private Coordinate longitude;
-                private Coordinate latitude;
+                Location location;
                 public string Id
                 {
                     get
@@ -88,21 +87,35 @@ namespace IBL
                     }
                 }
 
-            public Coordinate Latitude { get; set; }
+            private List<Parcel> toCustomer;
+            private List<Parcel> fromCustomer;
+            public List<Parcel> ToCustomer
+            {
+                get
+                {
+                    return toCustomer;
+                }
+                set
+                {
+                    toCustomer = value;
+                }
+            }
 
-            public Coordinate Longitude { get; set; }
-            /// <summary>
-            /// a constructor with parameters
-            /// </summary>
-            /// <param name="id">modify id</param>
-            /// <param name="name">modify name</param>
-            /// <param name="phone">modify phone</param>
-            /// <param name="longitude">modify longitude</param>
-            /// <param name="latitude">modify latitude</param>
+            public List<Parcel> FromCustomer
+            {
+                get
+                {
+                    return fromCustomer;
+                }
+                set
+                {
+                    fromCustomer = value;
+                }
+            }
             public Customer(string id, string name, string phone, Coordinate longitude, Coordinate latitude)
                 {
-                    this.id = id; this.name = name; this.phone = phone; this.longitude = longitude; this.latitude = latitude;
-                    Id = id; Name = name; Phone = phone; Longitude = longitude; Latitude = latitude;
+                    this.id = id; this.name = name; this.phone = phone; this.location.Long = longitude;this.location.Lat = latitude;
+                    Id = id; Name = name; Phone = phone; 
                 }
 
             public Customer() { }
@@ -113,10 +126,10 @@ namespace IBL
                 public override string ToString()
                 {
                     return $"id: {Id} \n" +
-                              $"name: {Name} \n" +
-                              $"phone: {Phone}\n" +
-                              $"longitude: {Longitude}\n" +
-                              $"latitude:  {Latitude}\n";
+                           $"name: {Name} \n" +
+                           $"phone: {Phone}\n" +
+                           $"location: {location}\n" +
+                           $"להדפיס רשימות\n";
                 }
             }
         
