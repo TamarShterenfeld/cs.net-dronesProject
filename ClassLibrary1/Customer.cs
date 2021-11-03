@@ -110,10 +110,10 @@ namespace IBL
                 public override string ToString()
                 {
                     return $"id: {Id} \n" +
-                              $"name: {Name} \n" +
-                              $"phone: {Phone}\n" +
-                              $"longitude: {Longitude}\n" +
-                              $"latitude:  {Latitude}\n";
+                           $"name: {Name} \n" +
+                           $"phone: {Phone}\n" +
+                           $"location: {location}\n" +
+                           $"להדפיס רשימות\n";
                 }
             }
         

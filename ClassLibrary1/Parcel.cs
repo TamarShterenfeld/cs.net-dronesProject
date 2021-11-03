@@ -78,6 +78,7 @@ namespace IBL
 
             public WeightCategories Weight { get; set; }
             public Priorities Priority;
+          
             public int DroneId
             {
                 get { return droneId; }
