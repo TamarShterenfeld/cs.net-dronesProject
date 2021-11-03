@@ -30,32 +30,9 @@ namespace IBL
             public Priorities Priority;
             public bool ToDestination { get; set; }
 
-            private Location collect;
-            private Location destination;
-            public Location Collect 
-            { 
-                get 
-                { 
-                    return collect; 
-                }
-                set
-                {
-                    collect.CoorLongitude = value.CoorLongitude;
-                    collect.CoorLatitude = value.CoorLatitude;
-                }
-            }
-            public Location Destination
-            { 
-                get 
-                { 
-                    return destination; 
-                }
-                set
-                {
-                    destination.CoorLongitude = value.CoorLongitude;
-                    destination.CoorLatitude = value.CoorLatitude;
-                }
-            }
+            public Location Collect { get; set; }
+            public Location Destination { get; set; }
+            
             public double Far { get; set; }
 
             /// <summary>
@@ -70,7 +47,7 @@ namespace IBL
             /// <param name="far">DeliveryInPassing's far</param>
             public DeliveryInPassing(int id, WeightCategories weight, Priorities priority, bool toDestination, Location collect, Location destination, double far)
             {
-                this.id = id;  this.collect = collect; this.destination = destination; 
+                this.id = id;  
                 Id = id; Weight = weight; Priority = priority; ToDestination = toDestination; Collect = collect; Destination = destination;Far = far;
             }
 
