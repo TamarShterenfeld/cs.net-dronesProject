@@ -39,7 +39,7 @@ namespace IBL
             /// The function calculates the parcel's id
             /// </summary>
             /// <returns>parcel's id</returns>
-            public static int IncreaseParcelIndex()
+            public int IncreaseParcelIndex()
             {
                 return DataSource.Config.ParcelId++;
             }
@@ -49,7 +49,7 @@ namespace IBL
             /// this is done by checking the assoviation date - if it was changed from the default value.
             /// </summary>
             /// <returns></returns>
-            public  static IEnumerable<Parcel> GettingNotAssociatedParcels()
+            public  IEnumerable<Parcel> GettingNotAssociatedParcels()
             {
                 List<Parcel> notAssociatedDronesList = new List<Parcel>();
                 foreach (Parcel parcel in ParcelsList)

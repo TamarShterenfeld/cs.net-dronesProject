@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace DalObject
 {
-    public partial class DalObject
+    public partial class DalObject : IDAL.IDal
     {
         /// <summary>
         /// The function adds a base station to the Base Stations' list.
@@ -19,7 +19,7 @@ namespace DalObject
         /// <param name="longitude">longitude of the base station</param>
         /// <param name="latitude">latitude of the base station</param>
         /// <param name="chargeSlots"> number of charge slots in the base station</param>
-        public static void AddBaseStation(int id, string name, double longitude, double latitude, int chrgeSlots)
+        public void AddBaseStation(int id, string name, double longitude, double latitude, int chrgeSlots)
         {
             //can add the base station just if the input id still doesn't exist in the Base Station's list.
             if(BaseStationsList.FindIndex(item => item.Id == id) == -1)
@@ -46,7 +46,7 @@ namespace DalObject
         /// <param name="battery">drone's battery</param>
         /// <param name="model">drone's model</param>
         /// <param name="maxWeight">drone's max weight</param>
-        public static void AddDrone(int id, string model, string maxWeight, double battery)
+        public void AddDrone(int id, string model, string maxWeight, double battery)
         {
             //drones list is fulll already.
             if (DronesList.Count  == DronesList.Capacity)
@@ -76,7 +76,7 @@ namespace DalObject
         /// <param name="phone">customer's phone</param>
         /// <param name="longitude">customer's longitude</param>
         /// <param name="latitude">customer's latitude</param>
-        public static void AddCustomer(string id, string name, string phone, double longitude, double latitude)
+        public void AddCustomer(string id, string name, string phone, double longitude, double latitude)
         {
             //customers list is full already.
             if (CustomersList.Count >= CustomersList.Capacity)
@@ -103,7 +103,7 @@ namespace DalObject
         /// <param name="droneId">parcel's drone id</param>
         /// <param name="weight">parcel's weight</param>
         /// <param name="priority">parcel's priority </param>
-        public static void AddParcel(int id, string senderId, string targetId, int droneId, string weight, string priority)
+        public void AddParcel(int id, string senderId, string targetId, int droneId, string weight, string priority)
         {
 
             if (ParcelsList.Count == ParcelsList.Capacity)

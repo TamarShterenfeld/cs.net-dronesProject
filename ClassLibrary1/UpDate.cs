@@ -10,14 +10,14 @@ using static IBL.BO.DroneStatuses;
 
 namespace DalObject
 {
-    public partial class DalObject
+    public partial class DalObject : IDAL.IDal
     {
         /// <summary>
         /// The function gives associate date to the parcel.
         /// </summary>
         /// <param name="parcelId">parcel id</param>
         /// <param name="droneId">drone id</param>
-        public static void AssociateParcel(int parcelId, int droneId)
+        public void AssociateParcel(int parcelId, int droneId)
         {
             if(ParcelsList.FindIndex(item => item.Id == parcelId) ==-1 || DronesList.FindIndex(item=>item.Id == droneId) == -1)
                 new OverloadException("parcelId or droneId don't exist!");
@@ -36,7 +36,7 @@ namespace DalObject
         /// </summary>
         /// <param name="parcelId">parcel id</param>
         /// <param name="senderId">sender id</param>
-        public static void PickUpParcel(int parcelId, string senderId)
+        public void PickUpParcel(int parcelId, string senderId)
         {
             if (ParcelsList.FindIndex(item => item.Id == parcelId) == -1 || CustomersList.FindIndex(item => item.Id == senderId) == -1)
                 throw new OverloadException("parcelId or senderId don't exist in the customers' list!");
@@ -52,7 +52,7 @@ namespace DalObject
         /// </summary>
         /// <param name="parcelId">parcel id</param>
         /// <param name="targetId">target id</param>
-        public static void SupplyParcel(int parcelId, string targetId)
+        public void SupplyParcel(int parcelId, string targetId)
         {
             if (ParcelsList.FindIndex(item => item.Id == parcelId) == -1 || CustomersList.FindIndex(item=>item.Id == targetId) == -1)
                 throw new OverloadException("parcelId or targetId don't exist!");
@@ -67,7 +67,7 @@ namespace DalObject
         /// </summary>
         /// <param name="droneId">drone's id</param>
         /// <param name="baseStationId">base station's id</param>
-        public static void ChargingDrone(int droneId, int baseStationId)
+        public void ChargingDrone(int droneId, int baseStationId)
         {
             inputIntValue(ref droneId);
             if (DronesList.FindIndex(item => item.Id == droneId) == -1)
@@ -94,7 +94,7 @@ namespace DalObject
         /// the function stops the drone from charging
         /// </summary>
         /// <param name="droneId">drone's id</param>
-        public static void StopDroneCharging(int droneId)
+        public void StopDroneCharging(int droneId)
         {
             int baseStationId;
             inputIntValue(ref droneId);

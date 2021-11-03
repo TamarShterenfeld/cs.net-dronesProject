@@ -20,7 +20,7 @@ namespace DalObject
         /// <param name="senderId">parcel's sender id</param>
         /// <param name="targetId">parcel target id</param>
         /// <param name="droneId">parcel drone id</param>
-        private static void chackingIdentitiesOfParcel(int id, string senderId, string targetId, int droneId)
+        private void chackingIdentitiesOfParcel(int id, string senderId, string targetId, int droneId)
         {
             if (ParcelsList.FindIndex(item => item.Id == id) != -1)
                 throw new OverloadException("You try to add a parcel which is already exists!");
@@ -35,7 +35,7 @@ namespace DalObject
         /// The function checks if the variable is int type.
         /// </summary>
         /// <param name="id">a int type variable</param>
-        private static void inputIntValue(ref int id)
+        private void inputIntValue(ref int id)
         {
             while (!int.TryParse(Console.ReadLine(), out id))
             {

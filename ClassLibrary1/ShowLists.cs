@@ -11,12 +11,12 @@ namespace IBL
 {
     namespace BO
     {
-        public partial class DalObject
+        public partial class DalObject :IDAL.IDal
         {
             /// <summary>
             /// The function shows all the base stations in the BaseStations' list
             /// </summary>
-            public static void ShowBaseStationsList()
+            public void ShowBaseStationsList()
             {
                 foreach (BaseStation item in BaseStationsList)
                 {
@@ -28,7 +28,7 @@ namespace IBL
             /// <summary>
             /// The function shows all the drones in the drones' list
             /// </summary>
-            public static void ShowDronesList()
+            public void ShowDronesList()
             {
                 foreach (Drone item in DronesList)
                 {
@@ -40,7 +40,7 @@ namespace IBL
             /// <summary>
             /// The function shows all the customers in the customers' list
             /// </summary>
-            public static void ShowCustomersList()
+            public void ShowCustomersList()
             {
                 foreach (Customer item in CustomersList)
                 {
@@ -52,7 +52,7 @@ namespace IBL
             /// <summary>
             /// The function shows all the parcels in the parcels' list
             /// </summary>
-            public static void ShowParcelsList()
+            public void ShowParcelsList()
             {
                 foreach (Parcel item in ParcelsList)
                 {
@@ -64,7 +64,7 @@ namespace IBL
             /// <summary>
             /// The function shows all the not associated parcels 
             /// </summary>
-            public static void ShowNotAssociatedParcelsList()
+            public void ShowNotAssociatedParcelsList()
             {
                 List<Parcel> notAssociatedParcelsList = (List<Parcel>)GettingNotAssociatedParcels();
                 foreach (Parcel item in notAssociatedParcelsList)

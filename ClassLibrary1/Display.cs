@@ -24,7 +24,7 @@ namespace IBL
             /// The function displays a base station according to the input id.
             /// </summary>
             /// <param name="id">base station's id</param>
-            public static void DisplayBaseStation(int id)
+            public void DisplayBaseStation(int id)
             {
                 if (BaseStationsList.FindIndex(item => item.Id == id) == -1)
                 {
@@ -38,7 +38,7 @@ namespace IBL
             /// The function displays a drone according to the input id.
             /// </summary>
             /// <param name="id">drone's id</param>
-            public static void DisplayDrone(int id)
+            public void DisplayDrone(int id)
             {
                 if (DronesList.FindIndex(item => item.Id == id) == -1)
                 {
@@ -52,7 +52,7 @@ namespace IBL
             /// The function displays a customer according to the input id.
             /// </summary>
             /// <param name="id">customer's id</param>
-            public static void DisplayCustomer(string id)
+            public void DisplayCustomer(string id)
             {
                 if (CustomersList.FindIndex(item => item.Id == id) == -1)
                 {
@@ -66,7 +66,7 @@ namespace IBL
             /// The function displays a parcel according to the input id.
             /// </summary>
             /// <param name="id">parcel's id</param>
-            public static void DisplayParcel(int id)
+            public void DisplayParcel(int id)
             {
                 if (ParcelsList.FindIndex(item => item.Id == id) == -1)
                 {
