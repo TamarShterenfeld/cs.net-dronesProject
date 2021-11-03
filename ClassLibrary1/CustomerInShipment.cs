@@ -64,7 +64,12 @@ namespace IBL
                 }
             }
 
-            public CustomerInShipment(string id, string name, string phone, Coordinate longitude, Coordinate latitude)
+            /// <summary>
+            /// constructor
+            /// </summary>
+            /// <param name="id">CustomerInShipment's id</param>
+            /// <param name="name">CustomerInShipment's name</param>
+            public CustomerInShipment(string id, string name)
             {
                 this.id = id; this.name = name;
                 Id = id; Name = name; 
@@ -75,7 +80,7 @@ namespace IBL
             /// <summary>
             /// override ToString function.
             /// </summary>
-            /// <returns>The description</returns>
+            /// <returns>description of CustomerInShipment objectreturns>
             public override string ToString()
             {
                 return $"id: {Id} \n" +

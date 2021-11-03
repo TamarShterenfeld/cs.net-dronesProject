@@ -108,7 +108,7 @@ namespace IBL
             /// <summary>
             /// ovveride ToString function.
             /// </summary>
-            /// <returns></returns>
+            /// <returns>description of the BaseStation object</returns>
             public override string ToString()
             {
                 return $"id: {Id} \n" +
