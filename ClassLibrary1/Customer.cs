@@ -20,8 +20,7 @@ namespace IBL
                 private string id;
                 private string name;
                 private string phone;
-                private Coordinate longitude;
-                private Coordinate latitude;
+            private Location location;
                 public string Id
                 {
                     get
@@ -88,9 +87,7 @@ namespace IBL
                     }
                 }
 
-            public Coordinate Latitude { get; set; }
-
-            public Coordinate Longitude { get; set; }
+            public Location Location { get; set; }
             /// <summary>
             /// a constructor with parameters
             /// </summary>
@@ -99,10 +96,10 @@ namespace IBL
             /// <param name="phone">modify phone</param>
             /// <param name="longitude">modify longitude</param>
             /// <param name="latitude">modify latitude</param>
-            public Customer(string id, string name, string phone, Coordinate longitude, Coordinate latitude)
+            public Customer(string id, string name, string phone, Location location)
                 {
-                    this.id = id; this.name = name; this.phone = phone; this.longitude = longitude; this.latitude = latitude;
-                    Id = id; Name = name; Phone = phone; Longitude = longitude; Latitude = latitude;
+                    this.id = id; this.name = name; this.phone = phone; this.location = location;
+                    Id = id; Name = name; Phone = phone; Location = location;
                 }
 
             public Customer() { }

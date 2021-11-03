@@ -19,6 +19,7 @@ namespace IBL
             public BL()
             {
                 IDAL.IDal dalObject;
+                
             }
         }
     }

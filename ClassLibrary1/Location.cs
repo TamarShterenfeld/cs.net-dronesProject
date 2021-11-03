@@ -10,8 +10,23 @@ namespace IBL
     {
         public class Location
         {
-            private Coordinate coorLong;
-            private Coordinate coorLat;
+            private Coordinate coorLongitude;
+            private Coordinate coorLatitude;
+
+            public Coordinate CoorLongitude { get; set; }
+
+            public Coordinate CoorLatitude { get; set; }
+
+            public Location(Coordinate longitude, Coordinate latitude)
+            {
+                coorLongitude = longitude;
+                coorLatitude = latitude;
+            }
+
+            public override string ToString()
+            {
+                return $"Longitude: {coorLongitude}\n"+ $"Latitude{coorLongitude}"; 
+            }
         }
     }
 }

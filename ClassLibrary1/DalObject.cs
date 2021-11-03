@@ -31,7 +31,8 @@ namespace IBL
             // constructor
             public DalObject()
             {
-                DataSource.Initialize();
+                DataSource dataSourse = new DataSource();
+                dataSourse.Initialize();
             }
 
             /// <summary>
@@ -48,7 +49,7 @@ namespace IBL
             /// this is done by checking the assoviation date - if it was changed from the default value.
             /// </summary>
             /// <returns></returns>
-            public static IEnumerable<Parcel> GettingNotAssociatedParcels()
+            public  static IEnumerable<Parcel> GettingNotAssociatedParcels()
             {
                 List<Parcel> notAssociatedDronesList = new List<Parcel>();
                 foreach (Parcel parcel in ParcelsList)
@@ -64,7 +65,7 @@ namespace IBL
             /// The function creates a list of all the available charge solts
             /// </summary>
             /// <returns>a list of all the available charge solts</returns>
-            public static IEnumerable<BaseStation> GettingAvailableChargeSlots()
+            public  IEnumerable<BaseStation> GettingAvailableChargeSlots()
             {
                 List<BaseStation> AvailableChargeSlotsList = new List<BaseStation>(BaseStationsList.Count);
                 foreach (BaseStation item in BaseStationsList)

@@ -56,7 +56,7 @@ namespace IBL
                 }
             }
             private Location location;
-            public Location Loc
+            public Location Location
             {
                 get
                 {
@@ -94,10 +94,10 @@ namespace IBL
             /// <param name="longitude">modify longitude</param>
             /// <param name="latitude">modify latitude</param>
             /// <param name="chargeSlots">modify chargeSlots</param>
-            public BaseStation(int id, string name, Coordinate longitude, Coordinate latitude, int chargeSlots)
+            public BaseStation(int id, string name, Location location, int chargeSlots)
             {
-                this.id = id; this.name = name; this.latitude = latitude; this.longitude = longitude; this.chargeSlots = chargeSlots;
-                Id = id; Name = name; Latitude = latitude; Longitude = longitude; ChargeSlots = chargeSlots;
+                this.id = id; this.name = name;this.location = location; this.chargeSlots = chargeSlots;
+                Id = id; Name = name; Location = location; ChargeSlots = chargeSlots;
             }
 
             public BaseStation() { }

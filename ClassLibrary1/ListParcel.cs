@@ -79,7 +79,7 @@ namespace IBL
 
             public WeightCategories Weight { get; set; }
             public Priorities Priority { set; get; }
-            public ParcelStatuses Status { set; get; }
+            public ParcelStatuses Status { set; get;}
 
         }
     }

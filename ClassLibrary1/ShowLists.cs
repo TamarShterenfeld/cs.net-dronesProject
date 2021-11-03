@@ -77,7 +77,7 @@ namespace IBL
             /// <summary>
             /// The function shows all the available charge slots
             /// </summary>
-            public static void AvailableChargeSlots()
+            public void AvailableChargeSlots()
             {
                 List<BaseStation> availableChargeSlots = (List<BaseStation>)GettingAvailableChargeSlots();
                 foreach (BaseStation item in availableChargeSlots)

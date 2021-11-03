@@ -41,13 +41,11 @@ namespace IBL
 
             //a static random field - for general use.
             public static Random rand = new Random();
-            //a static field of class Coordinate - for displaying longitude & latitude in sexagesimal base. 
-            public static Coordinate coordinate = new Coordinate();
 
             /// <summary>
             /// the method Initalize initalizes all thedifferent lists (besides DroneChargeList).
             /// </summary>
-            public static void Initialize()
+            public  void Initialize()
             {
                 //initalize at least the two first item in BaseStationList.        
                 randomBaseStation();
@@ -80,7 +78,7 @@ namespace IBL
             /// <summary>
             /// randoms at least the two first objects in the BaseStationList.
             /// </summary>
-            private static void randomBaseStation()
+            private void randomBaseStation()
             {
                 int size = rand.Next(2, BASESTATIONS_BASE_AMOUNT);
                 for (int i = 0; i < size; i++)
@@ -89,9 +87,7 @@ namespace IBL
                     baseStation.Id = i;
                     baseStation.Name = randomBaseStationName();
                     baseStation.ChargeSlots = randomChargeSlot();
-                    //the latitude & longitude values are displayed in degrees.
-                    baseStation.Latitude = randomLatitude();
-                    baseStation.Longitude = randomLongitude();
+                    baseStation.Location = randomLocation();
                     BaseStationsList.Add(baseStation);
                 }
 
@@ -101,7 +97,7 @@ namespace IBL
             /// <summary>
             /// randoms at least the first five object in DronesList.
             /// </summary>
-            private static void randomDrones()
+            private  void randomDrones()
             {
                 int size = rand.Next(5, DRONES_BASE_AMOUNT);
 
@@ -119,7 +115,7 @@ namespace IBL
             /// <summary>
             /// randoms at least the tenth first customers in CustomersList.
             /// </summary>
-            private static void randomCustomers()
+            private void randomCustomers()
             {
                 int size = rand.Next(10, CUSTOMERS_BASE_AMOUNT);
                 for (int i = 0; i < size; i++)
@@ -129,15 +125,14 @@ namespace IBL
                     customer.Name = randomCustomerName();
                     customer.Phone = randomPhone();
                     //the latitude & longitude values are displayed in degrees.
-                    customer.Latitude = randomLatitude();
-                    customer.Longitude = randomLongitude();
+                    customer.Location = randomLocation();
                     CustomersList.Add(customer);
                 }
 
             }
 
             //random at least the first tenth parcels in ParcelsList.
-            private static void randomParcels()
+            private void randomParcels()
             {
                 int size = rand.Next(10, PARCELS_BASE_AMOUNT);
                 for (int i = 0; i < size; i++)
@@ -172,26 +167,20 @@ namespace IBL
             }
 
             /// <summary>
-            /// random a double type latitude or longitude
+            /// random a location object
             /// </summary>
             /// <returns></returns>
-            private static Coordinate randomLatitude()
+            private Location randomLocation()
             {
-                Coordinate coordinante = new Coordinate(0.7 * rand.Next(-180, 0) + 0.3 * rand.Next(0, 180), Locations.Latitude);
-                return coordinante;
-            }
-
-
-            private static Coordinate randomLongitude()
-            {
-                Coordinate coordinante = new Coordinate(0.7 * rand.Next(-180, 0) + 0.3 * rand.Next(0, 180), Locations.Longitude);
-                return coordinante;
+                Coordinate Longitude = new Coordinate(0.7 * rand.Next(0, 180) + 0.3 * rand.Next(-180, 0), Locations.Longitude);
+                Coordinate Latitude = new Coordinate(0.3 * rand.Next(0, 180) + 0.7 * rand.Next(-180, 0), Locations.Latitude);
+                return new Location(Longitude, Latitude);
             }
             /// <summary>
             /// random a WeightCategory value.
             /// </summary>
             /// <returns></returns>
-            private static WeightCategories randomWeight()
+            private WeightCategories randomWeight()
             {
                 int weightIndex = rand.Next(0, Enum.GetNames(typeof(WeightCategories)).Length);
                 return (WeightCategories)Enum.Parse(typeof(WeightCategories), (string)Enum.GetNames(typeof(WeightCategories)).GetValue(weightIndex), true);
@@ -201,7 +190,7 @@ namespace IBL
             /// random a Priority value.
             /// </summary>
             /// <returns></returns>
-            private static Priorities randomPriority()
+            private Priorities randomPriority()
             {
                 int priorityIndex = rand.Next(0, Enum.GetNames(typeof(WeightCategories)).Length);
                 return (Priorities)Enum.Parse(typeof(Priorities), (string)Enum.GetNames(typeof(Priorities)).GetValue(priorityIndex), true);
@@ -211,7 +200,7 @@ namespace IBL
             /// random a double type of a battery.
             /// </summary>
             /// <returns></returns>
-            private static double randomBattery()
+            private double randomBattery()
             {
                 return 0.6 * rand.Next(0, 100) + 0.4 * rand.Next(0, 100);
             }
@@ -220,7 +209,7 @@ namespace IBL
             /// random a name from the baseStations' names array.
             /// </summary>
             /// <returns></returns>
-            private static string randomBaseStationName()
+            private string randomBaseStationName()
             {
                 return baseStationsNames[rand.Next(0, baseStationsNames.Length - 1)];
             }
@@ -230,7 +219,7 @@ namespace IBL
             /// random a customer's name from the customers' names array.
             /// </summary>
             /// <returns></returns>
-            private static string randomCustomerName()
+            private string randomCustomerName()
             {
                 return customerName[rand.Next(0, customerName.Length - 1)];
             }
@@ -239,7 +228,7 @@ namespace IBL
             /// random a model from the models arr.
             /// </summary>
             /// <returns></returns>
-            private static string randomModel()
+            private string randomModel()
             {
                 return droneModels[rand.Next(0, droneModels.Length - 1)];
             }
@@ -248,7 +237,7 @@ namespace IBL
             /// random a valid phone number.
             /// </summary>
             /// <returns></returns>
-            private static string randomPhone()
+            private string randomPhone()
             {
                 return "0" + (rand.Next(100000000, 999999999)).ToString();
             }
@@ -257,7 +246,7 @@ namespace IBL
             /// random a valid Id.
             /// </summary>
             /// <returns></returns>
-            private static string randomId()
+            private string randomId()
             {
                 return rand.Next(100000000, 999999999).ToString();
             }
@@ -266,7 +255,7 @@ namespace IBL
             /// random an Id of one of the customers in CustomersList.
             /// </summary>
             /// <returns></returns>
-            private static string randomCustomerId()
+            private string randomCustomerId()
             {
                 return CustomersList[rand.Next(0, CustomersList.Count - 1)].Id;
             }
@@ -275,7 +264,7 @@ namespace IBL
             /// random a chargeSlot value.
             /// </summary>
             /// <returns></returns>
-            private static int randomChargeSlot()
+            private int randomChargeSlot()
             {
                 return rand.Next(0, 5);
             }
