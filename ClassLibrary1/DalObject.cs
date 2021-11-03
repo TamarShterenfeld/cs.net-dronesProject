@@ -75,6 +75,29 @@ namespace IBL
                 }
                 return AvailableChargeSlotsList;
             }
+
+
+            //implementing the functions of IDal interface
+            public void AddBaseStation(int id, string name, double longitude, double latitude, int chrgeSlots) { }
+            void AddDrone(int id, string model, string maxWeight, double battery) { }
+            void AddCustomer(string id, string name, string phone, double longitude, double latitude) { }
+            void AddParcel(int id, string senderId, string targetId, int droneId, string weight, string priority) { }
+            void chackingIdentitiesOfParcel(int id, string senderId, string targetId, int droneId) { }
+            void inputIntValue(ref int id) { }
+            void ShowBaseStationsList() { }
+            void ShowDronesList() { }
+            void ShowCustomersList() { }
+            void ShowParcelsList() { }
+            void ShowNotAssociatedParcelsList() { }
+            void AvailableChargeSlots() { }
+            void AssociateParcel(int parcelId, int droneId) { }
+            void PickUpParcel(int parcelId, string senderId) { }
+            void SupplyParcel(int parcelId, string targetId) { }
+            void ChargingDrone(int droneId, int baseStationId) { }
+            void StopDroneCharging(int droneId) { }
+            //double[] Electricity() { double[] a = new[] { 1.8, 5.9 };
+            //    return a;
+            //}
         }
     }
 }

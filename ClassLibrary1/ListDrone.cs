@@ -11,9 +11,10 @@ namespace IBL
 
     namespace BO
     {
-        class ListDrone
+        public class ListDrone
         {
             int id;
+            int parcelId;
 
             public int Id
             {
@@ -37,12 +38,18 @@ namespace IBL
 
             public DroneStatuses Status { set; get; }
 
-            public Coordinate Longitude { get; set; }
-
-            public Coordinate Latitude { get; set; }
-
-
-            //o מספר חבילה מועברת(אם יש)
+            public Location Location { get; set; }
+            public int ParcelId {
+                set
+                {
+                    if (value < 0)
+                    {
+                        throw new OverloadException("Id must contain a positive number");
+                    }
+                    parcelId = value;
+                }
+                get { return parcelId; }
+            }
         }
     }
 }

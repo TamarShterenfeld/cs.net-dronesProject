@@ -2,9 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using static IDAL.DO.IDAL;
-using static DalObject.DataSource.Config;
-using static DalObject.DataSource;
+
 using System.Linq;
 
 namespace DalObject

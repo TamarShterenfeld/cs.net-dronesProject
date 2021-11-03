@@ -200,10 +200,6 @@ namespace IBL
             /// random a double type of a battery.
             /// </summary>
             /// <returns></returns>
-            private double randomBattery()
-            {
-                return 0.6 * rand.Next(0, 100) + 0.4 * rand.Next(0, 100);
-            }
 
             /// <summary>
             /// random a name from the baseStations' names array.
