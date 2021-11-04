@@ -11,7 +11,7 @@ namespace IBL
     namespace BO
     {
 
-        class ListCustomer
+        public class ListCustomer
         {
 
             private string id;

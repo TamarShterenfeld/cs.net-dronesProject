@@ -12,7 +12,7 @@ namespace IBL
     namespace BO
     {
 
-        class ListParcel
+        public class ListParcel
         {
 
             int id;

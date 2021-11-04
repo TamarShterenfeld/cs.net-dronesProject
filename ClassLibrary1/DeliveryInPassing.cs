@@ -11,7 +11,7 @@ namespace IBL
 {
     namespace BO
     {
-        class DeliveryInPassing
+        public class DeliveryInPassing
         {
             int id;
             public int Id
