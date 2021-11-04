@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace IBL
+namespace IDAL
 {
-    namespace BO
+    namespace DO
     {
         public enum Directions
         {

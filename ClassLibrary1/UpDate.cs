@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using IDAL.DO;
 using IBL.BO;
-using static IBL.BO.DataSource;
 using System.Linq;
 using static IDAL.DO.OverloadException;
 using static IBL.BO.DroneStatuses;

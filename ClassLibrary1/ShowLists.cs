@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 using static IDAL.DO.OverloadException;
-using static IBL.BO.DataSource;
-using static IBL.BO.DalObject;
+using static IDAL.DO.DataSource;
 using IDAL.DO;
 
 
-namespace IBL
+namespace IDAL
 {
-    namespace BO
+    namespace DO
     {
         public partial class DalObject :IDAL.IDal
         {

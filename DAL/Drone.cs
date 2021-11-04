@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Text;
 using static IDAL.DO.OverloadException;
 using IDAL.DO;
-using static IBL.BO.WeightCategories;
 
-namespace IBL
+namespace IDAL
 {
-    namespace BO
+    namespace DO
     {
         /// <summary>
         /// the struct Drone contains the following details: id, battery, model, status, maxWeight.

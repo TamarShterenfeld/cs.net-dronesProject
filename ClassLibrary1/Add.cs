@@ -2,8 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-
+using static DalObject.DataSource;
 using System.Linq;
+using  DalObject;
+
 
 namespace DalObject
 {
@@ -57,7 +59,7 @@ namespace DalObject
                 //the enum type variables were defined to hold the numerical index of the enum category.
                 DroneStatuses droneStatuses = DroneStatuses.Available;
                 WeightCategories weightCategory = (WeightCategories)int.Parse(maxWeight);
-                Drone drone = new Drone(id, battery, model, droneStatuses, weightCategory);
+                Drone drone = new Drone(id, battery, model, weightCategory);
                 DronesList.Add(drone);
             }
             else

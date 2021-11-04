@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using static DalObject.DalObject;
-using static IBL.BO.Locations;
-using IBL.BO;
+using static DalObject.DataSource;
 using IDAL.DO;
 using static IDAL.DO.OverloadException;
 
-namespace IBL
+namespace IDAL
 {
-    namespace BO
+    namespace DO
     {
         
             /// <summary>

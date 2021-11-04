@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Text;
 using static IDAL.DO.OverloadException;
 
-namespace IBL
+namespace IDAL
 {
-    namespace BO
+    namespace DO
     {
         /// <summary>
         /// the struct Parcel contains the following details: id, senderId, targetId, droneId, weight,

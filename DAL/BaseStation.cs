@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using static IBL.BO.Locations;
+using static IDAL.DO.Locations;
 using System.Text;
 using IDAL.DO;
 using static IDAL.DO.OverloadException;
-using static IBL.BO.DalObject;
+using static DalObject.DataSource;
 
-namespace IBL
+namespace IDAL
 {
-    namespace BO
+    namespace DO
     {
 
         /// <summary>
@@ -76,7 +76,7 @@ namespace IBL
                     chargeSlots = value;
                 }
             }
-            public List<DroneInCharging> DroneCharging { get; set; }
+            public List<DroneCharge> DroneCharging { get; set; }
 
 
             /// <summary>
@@ -102,7 +102,7 @@ namespace IBL
             private string droneInChargingDetails()
             {
                 string dronesDetails = "";
-                foreach (DroneInCharging drone in DroneCharging)
+                foreach (DroneCharge drone in DroneCharging)
                 {
                     dronesDetails += drone.ToString();
                 }
