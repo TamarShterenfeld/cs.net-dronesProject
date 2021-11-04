@@ -14,10 +14,10 @@ namespace IBL
             public static double[] Electricity()
             {
                 double[] elec = new double[] { ElectricityConsumingOfAvailable,
-                                           ElectricityConsumingOfLightWeight,
-                                           ElectricityConsumingOfAverageWeight,
-                                           ElectricityConsumingOfHeavyWeight,
-                                           //ChargingRate לשאול את גילי למה עושה בעיה
+                                               ElectricityConsumingOfLightWeight,
+                                               ElectricityConsumingOfAverageWeight,
+                                               ElectricityConsumingOfHeavyWeight,
+                                               //ChargingRate ;
                 };
                 return elec;
             }

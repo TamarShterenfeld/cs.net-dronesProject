@@ -12,7 +12,7 @@ namespace IBL
     namespace BO
     {
 
-        class DroneInPaecel 
+        public class DroneInPaecel 
         {
             int id;
             public int Id
