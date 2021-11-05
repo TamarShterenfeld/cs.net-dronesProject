@@ -84,11 +84,8 @@ namespace IDAL
                     }
                 }
 
-                public Location Location { get; set; }
-
-                public List<DeliveryInCustomer> FromCustomer { get; set; }
-                public List<DeliveryInCustomer> ToCustomer { get; set; }
-
+                public Coordinate Longitude { get; set; }
+                public Coordinate Latitude { get; set; }
 
 
                 /// <summary>
@@ -97,14 +94,13 @@ namespace IDAL
                 /// <param name="id"> Customer's id </param>
                 /// <param name="name"> Customer's name </param>
                 /// <param name="phone"> Customer's phone </param>
-                /// <param name="location"> Customer's location </param>
-                /// <param name="fromCustomer"> Customer's fromCustomer </param>
-                /// <param name="toCustomer"> Customer's toCustomer </param>
-                public Customer(string id, string name, string phone, Location location, List<DeliveryInCustomer> fromCustomer, List<DeliveryInCustomer> toCustomer)
+                /// <param name="longitude"> Customer's longitude </param>
+                /// <param name="latitude"> Customer's latitude </param>
+                public Customer(string id, string name, string phone, Coordinate longitude, Coordinate latitude)
                 {
                         this.id = id; this.name = name; this.phone = phone; 
-                        Id = id; Name = name; Phone = phone; Location = location; FromCustomer = fromCustomer; ToCustomer = toCustomer;
-                }
+                        Id = id; Name = name; Phone = phone; Longitude = longitude; Latitude = latitude;
+            }
 
                 //default constructor
                 public Customer() { }
@@ -117,26 +113,11 @@ namespace IDAL
                 {
                         return $"id: {Id} \n" +
                                $"name: {Name} \n" +
-                               $"phone: {Phone}\n" +
-                               $"location: {Location}\n" +
-                               $"FromCustomer: {deliveryInCustomerDetails(FromCustomer)}\n" +
-                               $"ToCustomer: {deliveryInCustomerDetails(ToCustomer)}\n";
+                               $"phone: {Phone}\n" + 
+                               $"longitude: {Longitude} \n" +
+                               $"latitude: {Latitude} \n";
                 }
-
-            /// <summary>
-            /// collect the details about the delivery in customer
-            /// </summary>
-            /// <returns> the details about the delivery in customer </returns>
-            private string deliveryInCustomerDetails(List<DeliveryInCustomer> DroneIC)
-                {
-                    string deliveryDetails = "";
-                    foreach (DeliveryInCustomer drone in DroneIC)
-                    {
-                        deliveryDetails += drone.ToString();
-                    }
-                    return deliveryDetails;
-                }
-        }
+            }
         
     }
 }

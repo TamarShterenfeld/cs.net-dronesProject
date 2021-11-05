@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IDAL
+namespace IBL
 {
-    namespace DO
-    {
+    namespace BO
+    { 
         public class Location
         {
             private Coordinate coorLongitude;
@@ -22,14 +22,14 @@ namespace IDAL
             /// </summary>
             /// <param name="longitude">location's longitude</param>
             /// <param name="latitude">location's latitude</param>
-            public Location(Coordinate longitude, Coordinate latitude) 
+            public Location(Coordinate longitude, Coordinate latitude)
             {
                 coorLongitude = longitude;
                 coorLatitude = latitude;
             }
 
             // default constructor
-            public Location(){}
+            public Location() { }
 
             /// <summary>
             /// ovveride ToString function.
@@ -37,7 +37,7 @@ namespace IDAL
             /// <returns>description of the Location object</returns>
             public override string ToString()
             {
-                return $"Longitude: {coorLongitude}\n"+ $"Latitude{coorLongitude}"; 
+                return $"Longitude: {coorLongitude}\n" + $"Latitude{coorLongitude}";
             }
         }
     }

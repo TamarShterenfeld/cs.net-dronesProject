@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using static System.Environment;
+using IBL.BO;
 
 namespace ConsoleUI_BL
 {
@@ -240,7 +241,7 @@ namespace ConsoleUI_BL
         private static void showListsNav()
         {
             int innerChoice;
-            Console.WriteLine("Please enter: \n1- For base stations list\n2- For drones list\n3- For customers list\n4- For parcels list\n5- For not associated parcels list\n6 - For available charge slots");
+            Console.WriteLine("Please enter: \n1- For base stations list\n2- For drones list\n3- For customers list\n4- For parcels list\n5- For not associated parcels list\n6 - For base stations with available charge slots");
             if (int.TryParse(Console.ReadLine(), out innerChoice))
             {
                 switch (innerChoice)

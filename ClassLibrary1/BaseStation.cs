@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using static IDAL.DO.Locations;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using IDAL.DO;
 using static IDAL.DO.OverloadException;
-using static DalObject.DataSource;
 
-namespace IDAL
+namespace IBL
 {
-    namespace DO
+    namespace BO
     {
-
         /// <summary>
         /// the struct BaseStation contains the following details: id, name, longitude, latitude,  number of chargeSlots.
         /// </summary>
@@ -56,11 +55,10 @@ namespace IDAL
                 }
             }
 
-            public Coordinate Longitude { get; set; }
-            public Coordinate Latitude { get; set; }
+            public Location Location { get; set; }
 
             private int chargeSlots;
-          
+
             public int ChargeSlots
             {
                 get
@@ -77,24 +75,39 @@ namespace IDAL
                     chargeSlots = value;
                 }
             }
+            public List<DroneCharge> DroneCharging { get; set; }
 
 
             /// <summary>
             /// constructor
             /// </summary>
             /// <param name="id"> BaseStation's id </param>
-            /// <param name="longitude"> BaseStation's longitude </param>
-            /// <param name="latitude"> BaseStation's latitude </param>
             /// <param name="name"> BaseStation's name </param>
+            /// <param name="location"> BaseStation's location </param>
             /// <param name="chargeSlots"> BaseStation's number of chargeSlots </param>
-            public BaseStation(int id, string name, Coordinate longitude, Coordinate latitude, int chargeSlots, List<DroneInCharging> droneCharging)
+            /// <param name="droneCharging"> BaseStation's droneInCharging </param>
+            public BaseStation(int id, string name, Location location, int chargeSlots, List<DroneInCharging> droneCharging)
             {
                 this.id = id; this.name = name; this.chargeSlots = chargeSlots;
-                Id = id; Name = name; Longitude =  longitude; Latitude = latitude; ChargeSlots = chargeSlots; 
+                Id = id; Name = name; Location = location; ChargeSlots = chargeSlots; DroneCharging = droneCharging;
             }
 
             // default constructor
             public BaseStation() { }
+            /// <summary>
+            /// collect the details about the drones in charging
+            /// </summary>
+            /// <returns> the details about the drones in charging </returns>
+            private string droneInChargingDetails()
+            {
+                string dronesDetails = "";
+                foreach (DroneCharge drone in DroneCharging)
+                {
+                    dronesDetails += drone.ToString();
+                }
+                return dronesDetails;
+            }
+
 
             /// <summary>
             /// override ToString function.
@@ -102,15 +115,14 @@ namespace IDAL
             /// <returns>description of the BaseStation object</returns>
             public override string ToString()
             {
-                return  $"id: {Id} \n" +
+                return $"id: {Id} \n" +
                         $"name: {Name} \n" +
-                        $"longitude: {Longitude} \n" +
-                        $"latitude: {Latitude} \n" +
-                        $"number of charge slots: {ChargeSlots}\n";
+                        $"location: { Location }\n" +
+                        $"number of charge slots: {ChargeSlots}\n"
+                        + $"drones in charging: {droneInChargingDetails()}\n";
             }
 
-            
-        }
 
+        }
     }
 }

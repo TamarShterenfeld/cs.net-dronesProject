@@ -45,7 +45,7 @@ namespace IDAL
             public Coordinate Longitude { get; set; }
 
             public Coordinate Latitude { get; set; }
-            //
+            
             /// <summary>
             /// a constructor with parameters
             /// </summary>
