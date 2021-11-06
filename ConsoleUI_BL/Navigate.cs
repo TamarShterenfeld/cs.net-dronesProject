@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using static System.Environment;
 using IBL.BO;
+using static IBL.BO.BL;
 
 namespace ConsoleUI_BL
 {
@@ -15,7 +16,7 @@ namespace ConsoleUI_BL
         private static void navigateMenue()
         {
             int option;
-            IDAL.IDal dalObject = new DalObject.DalObject();
+            IBL.BO.BL blObject = new IBL.BO.BL();
             while (true)
             {
                 Console.WriteLine("Please enter : \n1- For add\n2- For update\n3- For display\n4- For showing the lists\n5- For exit");
@@ -79,8 +80,9 @@ namespace ConsoleUI_BL
             int innerChoice;
             int id = 0, droneId = 0;
             string name = "", customerId = "", phone = "", model = "", senderId = "", targetId = "";
-            double longitude = 0, latitude = 0, battery = 0;
+            double  battery = 0;
             int chrgeSlots = 0;
+            Location location = new Location();
             //all the enum type litteral are entered as string type
             //and then checked if they contain an enum name.
             string maxWeight = "", weight = "", priority = "";
@@ -92,15 +94,16 @@ namespace ConsoleUI_BL
                 {
                     case (int)AddOptions.BaseStation:
                         {
-                            CheckBaseStationDetails(ref id, ref name, ref longitude, ref latitude, ref chrgeSlots);
-                            AddBaseStation(id, name, longitude, latitude, chrgeSlots);
+                            CheckBaseStationDetails(ref id, ref name, ref location, ref chrgeSlots);
+                            AddBaseStation(id, name, location, chrgeSlots);
                             break;
                         }
 
                     case (int)AddOptions.Drone:
                         {
-                            CheckDroneDetails(ref id, ref battery, ref model, ref maxWeight);
+                            CheckDroneDetails(ref id,  ref maxWeight);
                             AddDrone(id, model, maxWeight, battery);
+
                             break;
                         }
                     case (int)AddOptions.Customer:

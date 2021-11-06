@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using IDAL.DO;
+
 
 namespace ConsoleUI_BL
 {
@@ -12,16 +12,14 @@ namespace ConsoleUI_BL
         /// </summary>
         /// <param name="id">base station's id</param>
         /// <param name="name">base station's name</param>
-        /// <param name="longitude">longitude of the base station</param>
-        /// <param name="latitude">latitude of the base station</param>
+        /// <param name="location">base station's name</param>  
         /// <param name="chargeSlots"> number of charge slots in the base station</param>
-        public static void CheckBaseStationDetails(ref int id, ref string name, ref double longitude, ref double latitude, ref int chargeSlots)
+        public static void CheckBaseStationDetails(ref int id, ref string name, ref Location location, ref int chargeSlots)
         {
             Console.WriteLine("Enter base station's details : id, name, longitude, latitude, number of chargeSlots.");
             inputIntValue(ref id);
             inputStringValue(ref name);
-            inputDoubleValue(ref longitude);
-            inputDoubleValue(ref latitude);
+            inputLocationValue(location);
             inputIntValue(ref chargeSlots);
         }
         /// <summary>

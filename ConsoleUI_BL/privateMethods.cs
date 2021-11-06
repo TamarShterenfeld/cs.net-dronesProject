@@ -1,5 +1,4 @@
-﻿using IDAL.DO;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -7,6 +6,16 @@ namespace ConsoleUI_BL
 {
     public partial class Program 
     {
+
+        private static void inputLocationValue(ref Location location)
+        {
+            double lati = 0, longi = 0 ;
+            inputDoubleValue(ref lati);
+            inputDoubleValue(ref lati);
+            Coordinate latitude(lati);
+            Coordinate longitude(longi);
+            location(longitude, latitude);
+        }
         /// <summary>
         /// The function checks if the variable is double type.
         /// </summary>
