@@ -38,7 +38,7 @@ namespace IBL
 
             public DroneStatuses Status { set; get; }
 
-            public Location Location { get; set; }
+            public Locations Location { get; set; }
             public int ParcelId {
                 set
                 {

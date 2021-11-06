@@ -23,11 +23,11 @@ namespace DalObject
 
 
         //internal lists of different entities.
-        internal static List<Drone> DronesList = new List<Drone>(DRONES_BASE_AMOUNT);
-        internal static List<BaseStation> BaseStationsList = new List<BaseStation>(BASESTATIONS_BASE_AMOUNT);
-        internal static List<Customer> CustomersList = new List<Customer>(CUSTOMERS_BASE_AMOUNT);
-        internal static List<Parcel> ParcelsList = new List<Parcel>(PARCELS_BASE_AMOUNT);
-        internal static List<DroneCharge> DroneChargeList = new List<DroneCharge>();
+        public static List<Drone> DronesList = new List<Drone>(DRONES_BASE_AMOUNT);
+        public static List<BaseStation> BaseStationsList = new List<BaseStation>(BASESTATIONS_BASE_AMOUNT);
+        public static List<Customer> CustomersList = new List<Customer>(CUSTOMERS_BASE_AMOUNT);
+        public static List<Parcel> ParcelsList = new List<Parcel>(PARCELS_BASE_AMOUNT);
+        public static List<DroneCharge> DroneChargeList = new List<DroneCharge>();
 
         //arrays of different data - for initalizing object of the structures.
         static readonly string[] droneModels = { "FPV COMBO", "COMBO AIR", "MAVIC AIR", "DJI TELLO", "MAVIC MINI 2", "SWING", "PHANTOM", "MATRICE 200", "DJI AGRAS T16", "MAVIC 2 ENTERPRISE", "MATRICE 210 RTK" };

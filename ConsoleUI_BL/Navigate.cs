@@ -5,6 +5,8 @@ using static System.Environment;
 using IBL.BO;
 using static IBL.BO.BL;
 
+
+
 namespace ConsoleUI_BL
 {
     public partial class Program
@@ -16,7 +18,7 @@ namespace ConsoleUI_BL
         private static void navigateMenue()
         {
             int option;
-            IBL.BO.BL blObject = new IBL.BO.BL();
+            IBL blObject = new BL();
             while (true)
             {
                 Console.WriteLine("Please enter : \n1- For add\n2- For update\n3- For display\n4- For showing the lists\n5- For exit");
@@ -78,7 +80,7 @@ namespace ConsoleUI_BL
         private static void addNav()
         {
             int innerChoice;
-            int id = 0, droneId = 0;
+            int id = 0, droneId = 0, baseStationId = 0;
             string name = "", customerId = "", phone = "", model = "", senderId = "", targetId = "";
             double  battery = 0;
             int chrgeSlots = 0;
@@ -101,9 +103,8 @@ namespace ConsoleUI_BL
 
                     case (int)AddOptions.Drone:
                         {
-                            CheckDroneDetails(ref id,  ref maxWeight);
-                            AddDrone(id, model, maxWeight, battery);
-
+                            CheckDroneDetails(ref id,  ref maxWeight, ref baseStationId);
+                            AddDrone(id, maxWeight, baseStationId);
                             break;
                         }
                     case (int)AddOptions.Customer:

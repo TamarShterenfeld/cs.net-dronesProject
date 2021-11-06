@@ -58,6 +58,7 @@ namespace IDAL
                 Id = id;
             }
 
+            
             public Drone() { }
 
             /// <summary>

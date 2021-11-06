@@ -12,7 +12,7 @@ namespace IBL
     namespace BO
     {
 
-        public class DroneInPaecel 
+        public class DroneInParcel 
         {
             int id;
             public int Id
@@ -28,7 +28,7 @@ namespace IBL
                 get { return id; }
             }
             public double Battery { get; set; }
-            public Location Current { get; set; }
+            public Locations Current { get; set; }
 
             /// <summary>
             /// constructor
@@ -36,14 +36,14 @@ namespace IBL
             /// <param name="id"> DroneInPaecel's id </param>
             /// <param name="battery"> DroneInPaecel's battery </param>
             /// <param name="current"> DroneInPaecel's current location </param>
-            public DroneInPaecel(int id,double battery,Location current)
+            public DroneInParcel(int id,double battery,Locations current)
             {
                 this.id = id;
                 Id = id; Battery = battery; Current = current;
             }
 
             // default constructor
-            public DroneInPaecel(){}
+            public DroneInParcel(){}
 
             /// <summary>
             /// override ToString function.

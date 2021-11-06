@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static IDAL.DO.Coordinate;
+using IDAL.DO;
 
 namespace IBL
 {
@@ -10,8 +12,8 @@ namespace IBL
     { 
         public class Location
         {
-            private Coordinate coorLongitude;
-            private Coordinate coorLatitude;
+            Coordinate coorLongitude;
+            Coordinate coorLatitude;
 
             public Coordinate CoorLongitude { get; set; }
 
@@ -26,6 +28,14 @@ namespace IBL
             {
                 coorLongitude = longitude;
                 coorLatitude = latitude;
+            }
+
+            public Location(double longitude, double latitude)
+            {
+                Coordinate longi = new Coordinate(longitude, Locations.Longitude);
+                Coordinate lati = new Coordinate(latitude, Locations.Latitude);
+                coorLongitude = longi;
+                coorLatitude = lati;
             }
 
             // default constructor

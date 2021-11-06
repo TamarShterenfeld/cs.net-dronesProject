@@ -6,6 +6,7 @@ using IBL.BO;
 using System.Linq;
 using static IDAL.DO.OverloadException;
 using static IBL.BO.DroneStatuses;
+using static DalObject.DataSource;
 
 namespace DalObject
 {
@@ -66,7 +67,7 @@ namespace DalObject
         /// </summary>
         /// <param name="droneId">drone's id</param>
         /// <param name="baseStationId">base station's id</param>
-        public void ChargingDrone(int droneId, int baseStationId)
+        internal  void ChargingDrone(int droneId, int baseStationId)
         {
             inputIntValue(ref droneId);
             if (DronesList.FindIndex(item => item.Id == droneId) == -1)
@@ -77,7 +78,7 @@ namespace DalObject
             inputIntValue(ref baseStationId);
             if (BaseStationsList.FindIndex(item => item.Id == baseStationId) == -1)
                 throw new OverloadException("drone's id doesn't exist in the drones' list.");
-            BaseStation baseStation = BaseStationsList.First(item => item.Id == baseStationId);
+            IDAL.DO.BaseStation baseStation = BaseStationsList.First(item => item.Id == baseStationId);
             int baseStationIndex = BaseStationsList.FindIndex(item => item.Id == baseStationId);
             if(baseStation.ChargeSlots == 0)      
                 throw new OverloadException("The chosen base station isn't available to charge the drone.");
@@ -109,7 +110,7 @@ namespace DalObject
             int baseStationIndex = BaseStationsList.FindIndex(item => item.Id == baseStationId);
             if (baseStationIndex  == -1)
                 throw new OverloadException("baseStation's id doesn't exist in the BaseStation's list.");
-            BaseStation baseStation = BaseStationsList.First(item => item.Id == baseStationId);
+            IDAL.DO.BaseStation baseStation = BaseStationsList.First(item => item.Id == baseStationId);
             DroneChargeList.Remove(droneCharge);
             baseStation.ChargeSlots++;
             BaseStationsList[baseStationIndex] = baseStation;

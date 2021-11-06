@@ -55,7 +55,7 @@ namespace IBL
                 }
             }
 
-            public Location Location { get; set; }
+            public Locations Location { get; set; }
 
             private int chargeSlots;
 
@@ -86,10 +86,10 @@ namespace IBL
             /// <param name="location"> BaseStation's location </param>
             /// <param name="chargeSlots"> BaseStation's number of chargeSlots </param>
             /// <param name="droneCharging"> BaseStation's droneInCharging </param>
-            public BaseStation(int id, string name, Location location, int chargeSlots, List<DroneInCharging> droneCharging)
+            public BaseStation(int id, string name, Locations location, int chargeSlots, List<DroneInCharging> droneCharging)
             {
                 this.id = id; this.name = name; this.chargeSlots = chargeSlots;
-                Id = id; Name = name; Location = location; ChargeSlots = chargeSlots; DroneCharging = droneCharging;
+                Id = id; Name = name; Location = location; ChargeSlots = chargeSlots; BaseStation.DroneCharging = droneCharging;
             }
 
             // default constructor

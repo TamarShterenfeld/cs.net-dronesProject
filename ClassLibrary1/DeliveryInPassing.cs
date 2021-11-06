@@ -30,8 +30,8 @@ namespace IBL
             public Priorities Priority;
             public bool ToDestination { get; set; }
 
-            public Location Collect { get; set; }
-            public Location Destination { get; set; }
+            public Locations Collect { get; set; }
+            public Locations Destination { get; set; }
             
             public double Far { get; set; }
 
@@ -45,7 +45,7 @@ namespace IBL
             /// <param name="collect">DeliveryInPassing's collect location</param>
             /// <param name="destination">DeliveryInPassing's destination location</param>
             /// <param name="far">DeliveryInPassing's far</param>
-            public DeliveryInPassing(int id, WeightCategories weight, Priorities priority, bool toDestination, Location collect, Location destination, double far)
+            public DeliveryInPassing(int id, WeightCategories weight, Priorities priority, bool toDestination, Locations collect, Locations destination, double far)
             {
                 this.id = id;  
                 Id = id; Weight = weight; Priority = priority; ToDestination = toDestination; Collect = collect; Destination = destination;Far = far;

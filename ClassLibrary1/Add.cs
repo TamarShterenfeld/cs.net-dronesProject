@@ -19,7 +19,7 @@ namespace DalObject
         /// <param name="longitude">longitude of the base station</param>
         /// <param name="latitude">latitude of the base station</param>
         /// <param name="chargeSlots"> number of charge slots in the base station</param>
-        public void AddBaseStation(int id, string name, double longitude, double latitude, int chrgeSlots)
+        public void AddBaseStation(int id, string name, double longitude, double latitude)
         {
             //can add the base station just if the input id still doesn't exist in the Base Station's list.
             if(BaseStationsList.FindIndex(item => item.Id == id) == -1)
@@ -46,7 +46,7 @@ namespace DalObject
         /// <param name="battery">drone's battery</param>
         /// <param name="model">drone's model</param>
         /// <param name="maxWeight">drone's max weight</param>
-        public void AddDrone(int id, string model, string maxWeight, double battery)
+        public void AddDrone(int id, string maxWeight, int baseStationId)
         {
             //drones list is fulll already.
             if (DronesList.Count  == DronesList.Capacity)
@@ -57,9 +57,9 @@ namespace DalObject
             if (DronesList.FindIndex(item => item.Id == id) == -1)
             {
                 //the enum type variables were defined to hold the numerical index of the enum category.
-                DroneStatuses droneStatuses = DroneStatuses.Available;
+               
                 WeightCategories weightCategory = (WeightCategories)int.Parse(maxWeight);
-                Drone drone = new Drone(id, battery, model, weightCategory);
+                Drone drone = new Drone(id,weightCategory, baseStationId);
                 DronesList.Add(drone);
             }
             else
@@ -76,7 +76,7 @@ namespace DalObject
         /// <param name="phone">customer's phone</param>
         /// <param name="longitude">customer's longitude</param>
         /// <param name="latitude">customer's latitude</param>
-        public void AddCustomer(string id, string name, string phone, double longitude, double latitude)
+        public void AddCustomer(string id, string name, string phone, Locations location)
         {
             //customers list is full already.
             if (CustomersList.Count >= CustomersList.Capacity)
@@ -85,7 +85,7 @@ namespace DalObject
             }
             //can add the customer just if the input id stil doesn't exist in the customers' list.
             if (CustomersList.FindIndex(item => item.Id == id) == -1){               
-                Customer customer = new Customer(id, name, phone, longitude, latitude);
+                Customer customer = new Customer(id, name, phone, location);
                 CustomersList.Add(customer);
             }
             else

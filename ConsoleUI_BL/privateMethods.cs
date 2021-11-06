@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using IBL.BO;
+using static IBL.BO.Location;
+
 
 namespace ConsoleUI_BL
 {
@@ -9,12 +12,10 @@ namespace ConsoleUI_BL
 
         private static void inputLocationValue(ref Location location)
         {
-            double lati = 0, longi = 0 ;
+            double longi = 0, lati = 0;
             inputDoubleValue(ref lati);
             inputDoubleValue(ref lati);
-            Coordinate latitude(lati);
-            Coordinate longitude(longi);
-            location(longitude, latitude);
+            location(longi, lati);
         }
         /// <summary>
         /// The function checks if the variable is double type.

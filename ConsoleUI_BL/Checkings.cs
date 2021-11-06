@@ -29,13 +29,10 @@ namespace ConsoleUI_BL
         /// <param name="battery">drone's battery</param>
         /// <param name="model">drone's model</param>
         /// <param name="maxWeight">drone's max weight</param>
-        public static void CheckDroneDetails(ref int id, ref double battery, ref string model, ref string maxWeight)
+        public static void CheckDroneDetails(ref int id, ref string maxWeight, int baseStationId)
         {
             Console.WriteLine("Enter drone's details :\n id, battery, model, category weight.");
             inputIntValue(ref id);
-            inputDoubleValue(ref battery);
-            //this field can hold also alphabtical value and also numerical value.
-            model = Console.ReadLine();
             inputWeightCategory(ref maxWeight);
         }
 

@@ -1,13 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using static DalObject.DalObject;
-using static IDAL.DO.DataSource;
+using static DalObject.DataSource;
 using IBL.BO;
 using static IDAL.DO.OverloadException;
 using System.Linq;
 using System.Numerics;
 using IDAL.DO;
+using static IDAL.DO.BaseStation;
+using static IDAL.DO.Customer;
+using static IDAL.DO.DroneCharge;
+using static IDAL.DO.Drone;
+using static IDAL.DO.Locations;
+using static IDAL.DO.Parcel;
 
 
 namespace DalObject
@@ -29,7 +34,7 @@ namespace DalObject
             {
                 throw new OverloadException("the inserted id wasn't found");
             }
-            BaseStation currBaseStation = BaseStationsList.First(item => item.Id == id);
+            IBL.BO.BaseStation currBaseStation = BaseStationsList.First(item => item.Id == id);
             Console.WriteLine(currBaseStation);
         }
 
@@ -57,7 +62,7 @@ namespace DalObject
             {
                 throw new OverloadException("the inserted id wasn't found");
             }
-            Customer currCustomer = CustomersList.First(item => item.Id == id);
+            IDAL.DO.Customer currCustomer = CustomersList.First(item => item.Id == id);
             Console.WriteLine(currCustomer);
         }
 
