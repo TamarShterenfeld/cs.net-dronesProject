@@ -42,7 +42,7 @@ namespace DalObject
         /// The function displays a drone according to the input id.
         /// </summary>
         /// <param name="id">drone's id</param>
-        public void DisplayDrone(int id)
+        public void GetDrone(int id)
         {
             if (DronesList.FindIndex(item => item.Id == id) == -1)
             {

@@ -2,11 +2,12 @@
 
 namespace ConsoleUI_BL
 {
-    public partial class Program
+    public class Program
     {
         static void Main()
         {
-            navigateMenue();
+            Menu menu = new Menu();
+            
         }
     }
 }

@@ -32,7 +32,7 @@ namespace DalObject
         {
             foreach (Drone item in DronesList)
             {
-                DisplayDrone(item.Id);
+                GetDrone(item.Id);
             }
             if (DronesList.Count == 0) Console.WriteLine("There are no drones to show");
         }

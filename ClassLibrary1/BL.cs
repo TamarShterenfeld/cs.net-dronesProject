@@ -3,32 +3,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static IDAL.IDal;
+using IBL.BO;
 
 
 namespace IBL
 {
-    namespace BO
-    {
+   
         public partial class BL : IBL
         {
+            private IDAL.IDal dal;
+            private List<DroneToList> drones;
 
-            List<ListDrone> dronesMaintenance;
-
-            public List<ListDrone> DronesMaintenance { get; set; }
+            public List<DroneToList> Drones { get; set; }
 
             public BL()
             {
-                IDAL.IDal dalObject;
-                for (int i = 0; i < DronesMaintenance.Count; i++)
+                dal = new DalObject.DalObject();
+                drones = new List<DroneToList>();
+                for (int i = 0; i < Drones.Count; i++)
                 {
-                   if(ParcelsList.FindIndex(item=> item.Id == DronesMaintenance[i].ParcelId) != -1)
+                   if(ParcelsList.FindIndex(item=> item.Id == Drones[i].ParcelId) != -1)
                     {
-                        Parcel parcel = ParcelsList.First(item => item.Id == DronesMaintenance[i].ParcelId);
+                        Parcel parcel = ParcelsList.First(item => item.Id == Drones[i].ParcelId);
                       //the associated parcel wasn't supplied.
                         if(parcel.Association == new DateTime(01 / 01 / 0001))
                         {
-                            ListDrone listDrone = DronesMaintenance[i];
+                            DroneToList listDrone = Drones[i];
                             listDrone.Status = DroneStatuses.Shipment;
 
                             if(parcel.PickingUp != new DateTime(01/01/0001)&& parcel.Supplied == new DateTime(01 / 01 / 0001))
@@ -40,7 +40,12 @@ namespace IBL
                     }
                 }
             }
+
+        public void Add(BaseStation baseStation)
+        {
+            dal.Add(new IDAL.DO.BaseStation() { Name = baseStation.Name });
         }
     }
+    
 
 }

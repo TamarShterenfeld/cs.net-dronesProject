@@ -25,6 +25,8 @@ namespace IDAL
             public double Minutes { get; set; }
             public double Seconds { get; set; }
 
+            public double RegularCoor { get; set; }
+
 
             public Directions Direction { get; set; }
             public Locations Location { set; get; }
@@ -36,6 +38,8 @@ namespace IDAL
                 {
                     throw new OverloadException("Coordinante value must be a positive number and in range of - 180º to 180º.");
                 }
+
+                RegularCoor = value;
                 CastDoubleToCoordinante(value, location);
             }
 
