@@ -7,9 +7,9 @@ using System.Linq;
 using  DalObject;
 
 
-namespace DalObject
+namespace IBL
 {
-    public partial class DalObject : IDAL.IDal
+    public partial class BL :IBL
     {
         /// <summary>
         /// The function adds a base station to the Base Stations' list.

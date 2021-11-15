@@ -15,11 +15,9 @@ using static IDAL.DO.Locations;
 using static IDAL.DO.Parcel;
 
 
-namespace DalObject
+namespace IBL
 {
-
-
-    public partial class DalObject : IDAL.IDal
+    public partial class BL : IBL
     {
         //we didn't use the override function - ToString(),
         //for it doesn't include enough details for printing.

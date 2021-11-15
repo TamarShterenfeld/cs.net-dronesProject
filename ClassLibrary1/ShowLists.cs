@@ -8,10 +8,9 @@ using IDAL.DO;
 
 
 
-namespace DalObject
+namespace IBL
 {
-    
-    public partial class DalObject :IDAL.IDal
+    public partial class BL : IBL
     {
         /// <summary>
         /// The function shows all the base stations in the BaseStations' list
