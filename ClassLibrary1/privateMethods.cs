@@ -6,9 +6,9 @@ using IDAL.DO;
 using System.Linq;
 using static IDAL.DO.OverloadException;
 
-namespace DalObject
+namespace IBL
 {
-    public partial class DalObject :IDAL.IDal
+    public partial class BL : IBL
     {
 
         /// <summary>

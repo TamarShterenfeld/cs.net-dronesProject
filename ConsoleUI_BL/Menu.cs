@@ -112,7 +112,7 @@ namespace ConsoleUI_BL
                     case (int)AddOptions.Drone:
                         {
                             CheckDroneDetails(ref id, ref maxWeight, ref baseStationId);
-                            AddDrone(id, maxWeight, baseStationId);
+                            bl.AddDrone(id, maxWeight, baseStationId);
                             break;
                         }
                     case (int)AddOptions.Customer:

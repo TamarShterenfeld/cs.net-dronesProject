@@ -8,9 +8,9 @@ using static IDAL.DO.OverloadException;
 using static IBL.BO.DroneStatuses;
 using static DalObject.DataSource;
 
-namespace DalObject
+namespace IBL
 {
-    public partial class DalObject : IDAL.IDal
+    public partial class BL : IBL
     {
         /// <summary>
         /// The function gives associate date to the parcel.
