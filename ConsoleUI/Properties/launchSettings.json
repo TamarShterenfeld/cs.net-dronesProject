@@ -1,1 +1,7 @@
-{}
+{
+  "profiles": {
+    "ConsoleUi_Bl": {
+      "commandName": "Executable"
+    }
+  }
+}

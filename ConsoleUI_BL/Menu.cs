@@ -10,13 +10,17 @@ namespace ConsoleUI_BL
     public class Menu 
     {
         IBL bl;
+        AddOption add;
+        UpDateOption upDate;
+        DisplayOption display;
+        ShowListOption show;
         public Menu()
         {
             bl = new BL();
-            AddOption add = new AddOption(ref bl);
-            UpDateOption upDate = new UpDateOption(ref bl);
-            DisplayOption display = new DisplayOption(ref bl);
-            ShowListOption show = new ShowListOption(ref bl);
+            add = new AddOption();
+            upDate = new UpDateOption();
+            display = new DisplayOption();
+            show = new ShowListOption();
             Navigate();
         }
         /// <summary>
@@ -38,7 +42,7 @@ namespace ConsoleUI_BL
                     {
                         case (int)Options.Add:
                             {
-                                add.options();
+                                this.add.options();
                                 break;
                             }
 
@@ -94,7 +98,7 @@ namespace ConsoleUI_BL
         //all the enum type litteral are entered as string type
         //and then checked if they contain an enum name.
         string maxWeight = "", weight = "", priority = "";     
-        public void options(ref IBL bl)
+        public void options(ref IBL.BO obj)
         {
 
             Console.WriteLine("Please enter : \n1- For Base Station \n2- For Drone\n3- For Customer\n4- For Parcel ");
@@ -105,7 +109,7 @@ namespace ConsoleUI_BL
                     case (int)AddOptions.BaseStation:
                         {
                             CheckBaseStationDetails(ref id, ref name, ref location, ref chrgeSlots);
-                            bl. baseStation = new bl.BaseStation();
+                           
                             bl.AddBaseStation(id, name, location, chrgeSlots);
                             break;
                         }
@@ -147,7 +151,7 @@ namespace ConsoleUI_BL
         int innerChoice;
         int parcelId = 0, droneId = 0, baseStationId = 0;
         string senderId = "", targetId = "";
-        public void options(ref IBL bl)
+        public void options(ref IBL.BO obj)
         {
             Console.WriteLine("Please enter : \n1- For associating parcel\n2- For picking up parcel\n3- For supply parcel\n4- For charging drone\n5- For stop drone charging ");
             if (int.TryParse(Console.ReadLine(), out innerChoice))
@@ -208,7 +212,7 @@ namespace ConsoleUI_BL
         int innerChoice;
         int parcelId = 0, droneId = 0, baseStationId = 0;
         string customerId = "";
-        public void options(ref IBL bl)
+        public void options(ref IBL.BO obj)
         {
             Console.WriteLine("Please enter: \n1- For a base station\n2- For a drone\n3- For a customer\n4- For a parcel");
             if (int.TryParse(Console.ReadLine(), out innerChoice))
@@ -261,7 +265,7 @@ namespace ConsoleUI_BL
     public class ShowListOption : ISubNavigate
     {
         int innerChoice;
-        public void options(ref IBL bl) 
+        public void options(ref IBL.BO obj) 
         { 
             Console.WriteLine("Please enter: \n1- For base stations list\n2- For drones list\n3- For customers list\n4- For parcels list\n5- For not associated parcels list\n6 - For base stations with available charge slots");
             if (int.TryParse(Console.ReadLine(), out innerChoice))
