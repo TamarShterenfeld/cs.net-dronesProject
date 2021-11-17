@@ -25,16 +25,16 @@ namespace IBL
             /// <param name="latitude">location's latitude</param>
             public Location(Coordinate longitude, Coordinate latitude)
             {
-                coorLongitude = longitude;
-                coorLatitude = latitude;
+                CoorLongitude = longitude;
+                CoorLatitude = latitude;
             }
 
             public Location(double longitude, double latitude)
             {
                 Coordinate longi = new Coordinate(longitude, Locations.Longitude);
                 Coordinate lati = new Coordinate(latitude, Locations.Latitude);
-                coorLongitude = longi;
-                coorLatitude = lati;
+                CoorLongitude = longi;
+                CoorLatitude = lati;
             }
 
             // default constructor
@@ -46,7 +46,7 @@ namespace IBL
             /// <returns>description of the Location object</returns>
             public override string ToString()
             {
-                return $"Longitude: {coorLongitude}\n" + $"Latitude{coorLongitude}";
+                return $"Longitude: {CoorLongitude}\n" + $"Latitude{CoorLatitude}";
             }
         }
     }

@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using static IDAL.DO.OverloadException;
 using static DalObject.DalObject;
-using static IBL.BO.Locations;
 using IBL.BO;
 using IDAL.DO;
 

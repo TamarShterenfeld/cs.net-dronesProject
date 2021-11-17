@@ -26,9 +26,18 @@ namespace IBL
                     id = value;
                 }
             }
-            public Priorities Priority;
-            public CustomerInParcel Source { get; set; }
-            public CustomerInParcel Destination { get; set; }
+            public bool ToDestination { get; set; }
+
+            public Priorities Priority { get; set; }
+            public WeightCategories Weight { get; set; }
+
+            public CustomerInParcel Sender { get; set; }
+            public CustomerInParcel Target { get; set; }
+
+            public Locations Collect { get; set; }
+            public Locations Destination { get; set; }
+
+            public double Far { get; set; }
 
             /// <summary>
             /// constructor
