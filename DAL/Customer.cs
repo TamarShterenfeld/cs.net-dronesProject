@@ -84,22 +84,9 @@ namespace IDAL
                 }
             }
 
-            public Locations Location { set; get; }
+            public Coordinate Longitude { get; set; }
+            public Coordinate Latitude { get; set; }
 
-
-            /// <summary>
-            /// constructor
-            /// </summary>
-            /// <param name="id"> Customer's id </param>
-            /// <param name="name"> Customer's name </param>
-            /// <param name="phone"> Customer's phone </param>
-            /// <param name="longitude"> Customer's longitude </param>
-            /// <param name="latitude"> Customer's latitude </param>
-            public Customer(string id, string name, string phone, Locations location)
-            {
-                this.id = id; this.name = name; this.phone = phone;
-                Id = id; Name = name; Phone = phone; Location = location;
-            }
 
             //default constructor
             public Customer() { }
