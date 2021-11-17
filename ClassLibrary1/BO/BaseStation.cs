@@ -55,7 +55,7 @@ namespace IBL
                 }
             }
 
-            public Locations Location { get; set; }
+            public Location Location { get; set; }
 
             private int chargeSlots;
 
@@ -75,7 +75,7 @@ namespace IBL
                     chargeSlots = value;
                 }
             }
-            public List<DroneCharge> DroneCharging { get; set; }
+            public List<DroneInCharging> DroneCharging { get; set; }
 
 
             /// <summary>
@@ -89,7 +89,7 @@ namespace IBL
             public BaseStation(int id, string name, Locations location, int chargeSlots, List<DroneInCharging> droneCharging)
             {
                 this.id = id; this.name = name; this.chargeSlots = chargeSlots;
-                Id = id; Name = name; Location = location; ChargeSlots = chargeSlots; BaseStation.DroneCharging = droneCharging;
+                Id = id; Name = name; Location = location; ChargeSlots = chargeSlots; DroneCharging = droneCharging;
             }
 
             // default constructor
@@ -101,7 +101,7 @@ namespace IBL
             private string droneInChargingDetails()
             {
                 string dronesDetails = "";
-                foreach (DroneCharge drone in DroneCharging)
+                foreach (DroneInCharging drone in DroneCharging)
                 {
                     dronesDetails += drone.ToString();
                 }

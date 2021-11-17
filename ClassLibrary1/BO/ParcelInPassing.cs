@@ -26,9 +26,18 @@ namespace IBL
                     id = value;
                 }
             }
-            public Priorities Priority;
-            public CustomerInShipment Source { get; set; }
-            public CustomerInShipment Destination { get; set; }
+            public bool ToDestination { get; set; }
+
+            public Priorities Priority { get; set; }
+            public WeightCategories Weight { get; set; }
+
+            public CustomerInParcel Sender { get; set; }
+            public CustomerInParcel Target { get; set; }
+
+            public Locations Collect { get; set; }
+            public Locations Destination { get; set; }
+
+            public double Far { get; set; }
 
             /// <summary>
             /// constructor
@@ -37,7 +46,7 @@ namespace IBL
             /// <param name="priority"> ParcelInPassing's priority </param>
             /// <param name="source"> ParcelInPassing's source </param>
             /// <param name="destination"> ParcelInPassing's destination </param>
-            public ParcelInPassing(int id, Priorities priority, CustomerInShipment source, CustomerInShipment destination)
+            public ParcelInPassing(int id, Priorities priority, CustomerInParcel source, CustomerInParcel destination)
             {
                 this.id = id;
                 Id = id; Priority = priority; Source = source; Destination = destination;

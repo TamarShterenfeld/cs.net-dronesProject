@@ -23,7 +23,7 @@ namespace IBL
                 new OverloadException("parcelId or droneId don't exist!");
             int parcelIndex = ParcelsList.FindIndex(item => item.Id == parcelId);
             int droneIndex = DronesList.FindIndex(item => item.Id == droneId);
-            Parcel parcel = ParcelsList.First(item => item.Id == parcelId);
+            IDAL.DO.Parcel parcel = ParcelsList.First(item => item.Id == parcelId);
             Drone drone = DronesList.First(item => item.Id == parcelId);
             parcel.AssociationDate = DateTime.Now;
             parcel.DroneId = droneId;
@@ -40,7 +40,7 @@ namespace IBL
         {
             if (ParcelsList.FindIndex(item => item.Id == parcelId) == -1 || CustomersList.FindIndex(item => item.Id == senderId) == -1)
                 throw new OverloadException("parcelId or senderId don't exist in the customers' list!");
-            Parcel parcel = ParcelsList.First(item => item.Id == parcelId);
+            IDAL.DO.Parcel parcel = ParcelsList.First(item => item.Id == parcelId);
             int parcelIndex = ParcelsList.FindIndex(item => item.Id == parcelId);
             parcel.SenderId = senderId;
             parcel.PickUpDate = DateTime.Now;
@@ -56,7 +56,7 @@ namespace IBL
         {
             if (ParcelsList.FindIndex(item => item.Id == parcelId) == -1 || CustomersList.FindIndex(item=>item.Id == targetId) == -1)
                 throw new OverloadException("parcelId or targetId don't exist!");
-            Parcel parcel = ParcelsList.First(item => item.Id == parcelId);
+            IDAL.DO.Parcel parcel = ParcelsList.First(item => item.Id == parcelId);
             int parcelIndex = ParcelsList.FindIndex(item => item.Id == parcelId);
             parcel.SupplyDate = DateTime.Now;
             ParcelsList[parcelIndex] = parcel;

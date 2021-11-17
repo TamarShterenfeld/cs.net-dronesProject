@@ -5,6 +5,7 @@ using IDAL.DO;
 using static IDAL.IDal;
 using static DalObject.DataSource;
 using static IDAL.DO.OverloadException;
+using System.Linq;
 
 namespace DalObject
 {
@@ -22,7 +23,7 @@ namespace DalObject
 
         //public int AddBaseStation(string stationName, int positions)
         //{
-           
+
         //}
 
         public BaseStation GetBaseStation(int baseStationId)
@@ -103,43 +104,43 @@ namespace DalObject
 
         public void SendDroneToRecharge(int droneId, int baseStationId)
         {
-            DronesChargeList.Add(new DroneCharge() { DroneId = droneId, StationId = baseStationId, ProductionDate = DateTime.Now });
+            DronesChargeList.Add(new DroneCharge() { DroneId = droneId, StationId = baseStationId, EntryTime = DateTime.Now });
         }
 
         public void ReleaseDroneFromRecharge(int droneId)
         {
-            DataSource.droneCharges.RemoveAll(dc => dc.DroneId == droneId);
+            DronesChargeList.RemoveAll(dc => dc.DroneId == droneId);
         }
 
         public IEnumerable<BaseStation> AvailableChargingStations()
         {
-            BaseStation[] baseStations = new BaseStation[DataSource.Config.newBaseStationId];
-            for (int i = 0; i < DataSource.Config.newBaseStationId; i++)
+            List<BaseStation> availableChargingSlotsList = new List<BaseStation>();
+            for (int i = 0; i < BaseStationsList.Count; i++)
             {
-                baseStations[i] = DataSource.baseStations[i];
-                baseStations[i].ChargingPorts -= DataSource.droneCharges.Count(dc => dc.StationId == i);
+                availableChargingSlotsList[i] = BaseStationsList[i];
+                availableChargingSlotsList[i].ChargeSlots -= (DronesChargeList.ToArray()).Count(dc => dc.StationId == i);
             }
-            return baseStations;
+            return availableChargingSlotsList;
         }
 
-        public int AvailableChargingPorts(int baseStationId)
+        public int AvailableChargingSlots(int baseStationId)
         {
-            return DataSource.BaseStationsList[baseStationId].ChargingPorts - DataSource.droneCharges.Count(dc => dc.StationId == baseStationId);
+            return BaseStationsList[baseStationId].ChargeSlots - (DronesChargeList.ToArray()).Count(dc => dc.StationId == baseStationId);
         }
 
         public IEnumerable<int> GetDronesIdInBaseStation(int requestedId)
         {
-            return DataSource.droneCharges.FindAll(dc => dc.StationId == requestedId).ConvertAll(dc => dc.DroneId);
+            return DronesChargeList.FindAll(dc => dc.StationId == requestedId).ConvertAll(dc => dc.DroneId);
         }
 
-        public IEnumerable<Parcel> UnAssignmentParcels()
+        public IEnumerable<Parcel> NotAssociatedParcels()
         {
             List<Parcel> parcels = new List<Parcel>();
-            for (int i = 0; i < DataSource.Config.newParcelId; i++)
+            for (int i = 0; i < ParcelsList.Count; i++)
             {
-                if (DataSource.parcels[i].DroneId == 0)
+                if (ParcelsList[i].DroneId == -1)
                 {
-                    parcels.Add(DataSource.parcels[i]);
+                    parcels.Add(ParcelsList[i]);
                 }
             }
             return parcels;
@@ -149,7 +150,7 @@ namespace DalObject
     //    {
 
     //    }
-    }
 }
+
 
 

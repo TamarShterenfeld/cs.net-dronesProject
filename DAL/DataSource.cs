@@ -134,7 +134,7 @@ namespace DalObject
             for (int i = 0; i < size; i++)
             {
                 Parcel parcel = new Parcel();
-                parcel.Id = DalObject.IncreaseParcelIndex();
+               // parcel.Id = DalObject.IncreaseParcelIndex();
                 parcel.SenderId = randomCustomerId();
                 parcel.TargetId = randomCustomerId();
                 parcel.Priority = randomPriority();

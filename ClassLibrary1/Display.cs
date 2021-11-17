@@ -74,7 +74,7 @@ namespace IBL
             {
                 throw new OverloadException("the inserted id wasn't found");
             }
-            Parcel currParcel = ParcelsList.First(item => item.Id == id);
+            IDAL.DO.Parcel currParcel = ParcelsList.First(item => item.Id == id);
             Console.WriteLine(currParcel);
         }
     }

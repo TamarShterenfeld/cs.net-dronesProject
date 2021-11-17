@@ -15,20 +15,20 @@ namespace IBL
 
     interface ICustomerBL
     {
-        //void Add(BO.BaseStation baseStation);
+        void Add(BO.Customer baseStation);
         //void Update(int id, BO.BaseStation baseStation);
         //BO.BaseStation Get(int id);
     }
 
     interface IDroneBL
     {
-        //void Add(BO.BaseStation baseStation);
+        void Add(BO.Drone baseStation);
         //void Update(int id, BO.BaseStation baseStation);
         //BO.BaseStation Get(int id);
     }
     interface IParcelBL
     {
-        //void Add(BO.BaseStation baseStation);
+        void Add(BO.Parcel baseStation);
         //void Update(int id, BO.BaseStation baseStation);
         //BO.BaseStation Get(int id);
     }

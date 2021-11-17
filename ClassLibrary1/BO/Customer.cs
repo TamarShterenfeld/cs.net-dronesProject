@@ -86,8 +86,8 @@ namespace IBL
 
             public Locations Location { get; set; }
 
-            public List<DeliveryInCustomer> FromCustomer { get; set; }
-            public List<DeliveryInCustomer> ToCustomer { get; set; }
+            public List<ParcelnCustomer> FromCustomer { get; set; }
+            public List<ParcelnCustomer> ToCustomer { get; set; }
 
 
 
@@ -100,7 +100,7 @@ namespace IBL
             /// <param name="location"> Customer's location </param>
             /// <param name="fromCustomer"> Customer's fromCustomer </param>
             /// <param name="toCustomer"> Customer's toCustomer </param>
-            public Customer(string id, string name, string phone, Locations location, List<DeliveryInCustomer> fromCustomer, List<DeliveryInCustomer> toCustomer)
+            public Customer(string id, string name, string phone, Locations location, List<ParcelnCustomer> fromCustomer, List<ParcelnCustomer> toCustomer)
             {
                 this.id = id; this.name = name; this.phone = phone;
                 Id = id; Name = name; Phone = phone; Location = location; FromCustomer = fromCustomer; ToCustomer = toCustomer;
@@ -127,10 +127,10 @@ namespace IBL
             /// collect the details about the delivery in customer
             /// </summary>
             /// <returns> the details about the delivery in customer </returns>
-            private string deliveryInCustomerDetails(List<DeliveryInCustomer> DroneIC)
+            private string deliveryInCustomerDetails(List<ParcelnCustomer> DroneIC)
             {
                 string deliveryDetails = "";
-                foreach (DeliveryInCustomer drone in DroneIC)
+                foreach (ParcelnCustomer drone in DroneIC)
                 {
                     deliveryDetails += drone.ToString();
                 }
