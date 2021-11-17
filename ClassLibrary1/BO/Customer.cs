@@ -84,7 +84,7 @@ namespace IBL
                 }
             }
 
-            public Locations Location { get; set; }
+            public Location Location { get; set; }
 
             public List<ParcelnCustomer> FromCustomer { get; set; }
             public List<ParcelnCustomer> ToCustomer { get; set; }

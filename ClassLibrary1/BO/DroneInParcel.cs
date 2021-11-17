@@ -28,7 +28,7 @@ namespace IBL
                 get { return id; }
             }
             public double Battery { get; set; }
-            public Locations Current { get; set; }
+            public Location Current { get; set; }
 
             /// <summary>
             /// constructor
@@ -36,7 +36,7 @@ namespace IBL
             /// <param name="id"> DroneInPaecel's id </param>
             /// <param name="battery"> DroneInPaecel's battery </param>
             /// <param name="current"> DroneInPaecel's current location </param>
-            public DroneInParcel(int id,double battery,Locations current)
+            public DroneInParcel(int id,double battery,Location current)
             {
                 this.id = id;
                 Id = id; Battery = battery; Current = current;
