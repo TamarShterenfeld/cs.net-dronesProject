@@ -120,7 +120,8 @@ namespace DalObject
                 customer.Name = randomCustomerName();
                 customer.Phone = randomPhone();
                 //the latitude & longitude values are displayed in degrees.
-                customer.Location = randomLocation();
+                customer.Longitude = randomLongitude();
+                customer.Longitude = randomLatitude();
                 CustomersList.Add(customer);
             }
 
@@ -165,11 +166,16 @@ namespace DalObject
         /// random a location object
         /// </summary>
         /// <returns></returns>
-        private static Location randomLocation()
+        private static Coordinate randomLongitude()
         {
-            Coordinate Longitude = new Coordinate(0.7 * rand.Next(0, 180) + 0.3 * rand.Next(-180, 0), Locations.Longitude);
-            Coordinate Latitude = new Coordinate(0.3 * rand.Next(0, 180) + 0.7 * rand.Next(-180, 0), Locations.Latitude);
-            return new Location(Longitude, Latitude);
+            Coordinate longitude = new Coordinate(0.7 * rand.Next(0, 180) + 0.3 * rand.Next(-180, 0), Locations.Longitude);
+            return longitude;
+        }
+
+        private static Coordinate randomLatitude()
+        {
+            Coordinate latitude = new Coordinate(0.3 * rand.Next(0, 180) + 0.7 * rand.Next(-180, 0), Locations.Longitude);
+            return latitude;
         }
         /// <summary>
         /// random a WeightCategory value.

@@ -45,21 +45,6 @@ namespace IDAL
             public Coordinate Longitude { get; set; }
 
             public Coordinate Latitude { get; set; }
-            
-            /// <summary>
-            /// a constructor with parameters
-            /// </summary>
-            /// <param name="id">modify id</param
-            /// <param name="model">modify model</param>
-            /// <param name="maxWeight">modify maxWeight</param>
-            public Drone(int id, double battery, string model, WeightCategories maxWeight)
-            {
-                this.id = id;  Model = model; MaxWeight = maxWeight;
-                Id = id;
-            }
-
-            
-            public Drone() { }
 
             /// <summary>
             /// override ToString function.

@@ -100,24 +100,6 @@ namespace IDAL
             public DateTime SupplyDate { get; set; }
 
             /// <summary>
-            /// a constructor with parameters.
-            /// </summary>
-            /// <param name="id">modify id</param>
-            /// <param name="senderId">modify senderId</param>
-            /// <param name="targetId">modify targetId</param>
-            /// <param name="weight">modify weight</param>
-            /// <param name="priority">modify priority</param>
-            /// <param name="droneId">modify droneId</param>
-            public Parcel(int id, string senderId, string targetId, WeightCategories weight, Priorities priority, int droneId = -1)
-            {
-                this.id = id; this.senderId = senderId; this.targetId = targetId; this.droneId = droneId; Weight = weight; Priority = priority;
-                //a default value in the creation of the object.
-                ProductionDate = AssociationDate = PickUpDate = SupplyDate = new DateTime(01 / 01 / 0001);
-            }
-
-            public Parcel() { }
-
-            /// <summary>
             /// override ToString function.
             /// </summary>
             /// <returns></returns>

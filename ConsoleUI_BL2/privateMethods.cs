@@ -12,10 +12,10 @@ namespace ConsoleUI_BL
 
         private static void inputLocationValue(out Location location)
         {
-            Coordinate longi , lati ;
-            inputDoubleValue(out longi);
-            inputDoubleValue(out lati);
-            location(longi, lati);
+            Coordinate longi = 0, lati = 0;
+            inputDoubleValue(ref lati);
+            inputDoubleValue(ref lati);
+            location = new Location(longi, lati);
         }
 
         /// <summary>

@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using System.Text;
 using static System.Environment;
+using IBL;
 using IBL.BO;
-using static IBL.BO.BL;
+
 
 namespace ConsoleUI_BL
 {
     public class Menu 
     {
-        IBL bl;
+        BL bl = new BL();
         AddOption add;
         UpDateOption upDate;
         DisplayOption display;
@@ -28,7 +29,7 @@ namespace ConsoleUI_BL
         /// </summary>
         private void Navigate()
         {
-            Options options;
+            int options;
             while (true)
             {
                 Console.WriteLine("Please enter : \n1- For add\n2- For update\n3- For display\n4- For showing the lists\n5- For exit");
@@ -40,28 +41,28 @@ namespace ConsoleUI_BL
                 {
                     switch (options)
                     {
-                        case options.Add:
+                        case (int)Options.Add:
                             {
-                                add.options();
+                                add.options(ref bl);
                                 break;
                             }
 
-                        case options.UpDate:
+                        case (int)Options.UpDate:
                             {
-                                upDate.options();
+                                upDate.options(ref bl);
                                 break;
                             }
-                        case options.Display:
+                        case (int)Options.Display:
                             {
-                                display.options();
+                                display.options(ref bl);
                                 break;
                             }
-                        case options.ShowingLists:
+                        case (int)Options.ShowingLists:
                             {
-                                show.options();
+                                show.options(ref bl);
                                 break;
                             }
-                        case options.Exit:
+                        case (int)Options.Exit:
                             {
                                 Exit(0);
                                 break;
@@ -69,7 +70,7 @@ namespace ConsoleUI_BL
                         default:
                             {
                                 Console.WriteLine("ERROR! \nAn unknown option, Please try again.");
-                                inputIntValue(ref option);
+                                inputIntValue(ref options);
                                 break;
                             }
                     }
@@ -98,7 +99,7 @@ namespace ConsoleUI_BL
         //all the enum type litteral are entered as string type
         //and then checked if they contain an enum name.
         string maxWeight = "", weight = "", priority = "";     
-        public void options(ref IBL.BO bl)
+        public void options(ref IBL.BL bl)
         {
 
             Console.WriteLine("Please enter : \n1- For Base Station \n2- For Drone\n3- For Customer\n4- For Parcel ");
@@ -109,7 +110,7 @@ namespace ConsoleUI_BL
                     case (int)AddOptions.BaseStation:
                         {
                             CheckBaseStationDetails(out id, out name, out location, out chrgeSlots);
-                            BO.BaseStation baseStation = new BO.BaseStation(id, name, location, chrgeSlots, null);
+                            bl.BaseStation baseStation = new BO.BaseStation(id, name, location, chrgeSlots, null);
                             bl.Add(baseStation);
                             break;
                         }
@@ -151,7 +152,7 @@ namespace ConsoleUI_BL
         int innerChoice;
         int parcelId = 0, droneId = 0, baseStationId = 0;
         string senderId = "", targetId = "";
-        public void options(ref IBL.BO obj)
+        public void options(ref IBL.BL bl)
         {
             Console.WriteLine("Please enter : \n1- For associating parcel\n2- For picking up parcel\n3- For supply parcel\n4- For charging drone\n5- For stop drone charging ");
             if (int.TryParse(Console.ReadLine(), out innerChoice))
@@ -212,7 +213,7 @@ namespace ConsoleUI_BL
         int innerChoice;
         int parcelId = 0, droneId = 0, baseStationId = 0;
         string customerId = "";
-        public void options(ref IBL.BO obj)
+        public void options(ref IBL.BL bl)
         {
             Console.WriteLine("Please enter: \n1- For a base station\n2- For a drone\n3- For a customer\n4- For a parcel");
             if (int.TryParse(Console.ReadLine(), out innerChoice))
@@ -265,7 +266,7 @@ namespace ConsoleUI_BL
     public class ShowListOption : ISubNavigate
     {
         int innerChoice;
-        public void options(ref IBL.BO obj) 
+        public void options(ref IBL.BL bl) 
         { 
             Console.WriteLine("Please enter: \n1- For base stations list\n2- For drones list\n3- For customers list\n4- For parcels list\n5- For not associated parcels list\n6 - For base stations with available charge slots");
             if (int.TryParse(Console.ReadLine(), out innerChoice))
