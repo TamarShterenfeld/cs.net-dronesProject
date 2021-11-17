@@ -28,40 +28,40 @@ namespace ConsoleUI_BL
         /// </summary>
         private void Navigate()
         {
-            int option;
+            Options options;
             while (true)
             {
                 Console.WriteLine("Please enter : \n1- For add\n2- For update\n3- For display\n4- For showing the lists\n5- For exit");
-                while (!int.TryParse(Console.ReadLine(), out option))
+                while (!int.TryParse(Console.ReadLine(), out options))
                 {
                     Console.WriteLine("Please enter only a digit! Try again!");
                 }
                 try
                 {
-                    switch (option)
+                    switch (options)
                     {
-                        case (int)Options.Add:
+                        case options.Add:
                             {
                                 this.add.options();
                                 break;
                             }
 
-                        case (int)Options.UpDate:
+                        case options.UpDate:
                             {
                                 upDate.options();
                                 break;
                             }
-                        case (int)Options.Display:
+                        case options.Display:
                             {
                                 display.options();
                                 break;
                             }
-                        case (int)Options.ShowingLists:
+                        case options.ShowingLists:
                             {
                                 show.options();
                                 break;
                             }
-                        case (int)Options.Exit:
+                        case options.Exit:
                             {
                                 Exit(0);
                                 break;

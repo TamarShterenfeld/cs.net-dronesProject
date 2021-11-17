@@ -25,7 +25,7 @@ namespace IBL
             int droneIndex = DronesList.FindIndex(item => item.Id == droneId);
             Parcel parcel = ParcelsList.First(item => item.Id == parcelId);
             Drone drone = DronesList.First(item => item.Id == parcelId);
-            parcel.Association = DateTime.Now;
+            parcel.AssociationDate = DateTime.Now;
             parcel.DroneId = droneId;
             ParcelsList[parcelIndex] = parcel;
             DronesList[droneIndex] = drone;
@@ -43,7 +43,7 @@ namespace IBL
             Parcel parcel = ParcelsList.First(item => item.Id == parcelId);
             int parcelIndex = ParcelsList.FindIndex(item => item.Id == parcelId);
             parcel.SenderId = senderId;
-            parcel.PickingUp = DateTime.Now;
+            parcel.PickUpDate = DateTime.Now;
             ParcelsList[parcelIndex] = parcel;
         }
 
@@ -58,7 +58,7 @@ namespace IBL
                 throw new OverloadException("parcelId or targetId don't exist!");
             Parcel parcel = ParcelsList.First(item => item.Id == parcelId);
             int parcelIndex = ParcelsList.FindIndex(item => item.Id == parcelId);
-            parcel.Supplied = DateTime.Now;
+            parcel.SupplyDate = DateTime.Now;
             ParcelsList[parcelIndex] = parcel;
         }
 

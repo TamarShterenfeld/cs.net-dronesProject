@@ -17,53 +17,138 @@ namespace DalObject
         // constructor
         public DalObject()
         {
-            DataSource dataSourse = new DataSource();
-            dataSourse.Initialize();
+            Initialize();
         }
 
-        /// <summary>
-        /// The function calculates the parcel's id
-        /// </summary>
-        /// <returns>parcel's id</returns>
-        public static int IncreaseParcelIndex()
+        //public int AddBaseStation(string stationName, int positions)
+        //{
+           
+        //}
+
+        public BaseStation GetBaseStation(int baseStationId)
         {
-            return DataSource.Config.ParcelId++;
+            return BaseStationsList[baseStationId];
         }
 
-        /// <summary>
-        /// returns a list of the not associated parcels
-        /// this is done by checking the assoviation date - if it was changed from the default value.
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<Parcel> GettingNotAssociatedParcels()
+        public Drone GetDrone(int droneId)
         {
-            List<Parcel> notAssociatedDronesList = new List<Parcel>();
-            foreach (Parcel parcel in ParcelsList)
+            return DronesList[droneId];
+        }
+
+        public Customer GetCustomer(int customerId)
+        {
+            return CustomersList[customerId];
+        }
+
+        public Parcel GetParcel(int parcelId)
+        {
+            return ParcelsList[parcelId];
+
+        }
+
+        //public int AddDrone(Drone drone)
+        //{
+        //    Drone drone = drone;
+        //    DronesList.Add(drone);
+        //    return DronesList.Count - 1;
+        //}
+
+        public void AssociateParcel(int parcelId, int droneId)
+        {
+            for (int i = 0; i < ParcelsList.Count; i++)
             {
-                //checking if the association value isn't initalized to another value than the default value.
-                if (parcel.Association == new DateTime(01 / 01 / 0001))
-                    notAssociatedDronesList.Add(parcel);
+                if (ParcelsList[i].Id == parcelId)
+                {
+                    Parcel parcel = ParcelsList[i];
+                    parcel.DroneId = droneId;
+                    ParcelsList[i] = parcel;
+                    break;
+                }
             }
-            return notAssociatedDronesList;
         }
 
-        /// <summary>
-        /// The function creates a list of all the available charge solts
-        /// </summary>
-        /// <returns>a list of all the available charge solts</returns>
-        public IEnumerable<BaseStation> GettingAvailableChargeSlots()
+        public void PickedupParcel(int parcelId)
         {
-            List<BaseStation> AvailableChargeSlotsList = new List<BaseStation>(BaseStationsList.Count);
-            foreach (BaseStation item in BaseStationsList)
+            for (int i = 0; i < ParcelsList.Count; i++)
             {
-                if (item.ChargeSlots > 0)
-                    AvailableChargeSlotsList.Add(item);
+                if (ParcelsList[i].Id == parcelId)
+                {
+                    Parcel parcel = ParcelsList[i];
+                    parcel.PickUpDate = DateTime.Now;
+                    ParcelsList[i] = parcel;
+                    break;
+                }
             }
-            return AvailableChargeSlotsList;
         }
 
+        public IEnumerable<BaseStation> GetBaseStations()
+        {
+            return BaseStationsList;
+        }
 
+        public IEnumerable<Drone> GetDrones()
+        {
+            return DronesList;
+        }
 
+        public IEnumerable<Customer> GetCustomers()
+        {
+            return CustomersList;
+        }
+
+        public IEnumerable<Parcel> GetParcels()
+        {
+            return ParcelsList;
+        }
+
+        public void SendDroneToRecharge(int droneId, int baseStationId)
+        {
+            DronesChargeList.Add(new DroneCharge() { DroneId = droneId, StationId = baseStationId, ProductionDate = DateTime.Now });
+        }
+
+        public void ReleaseDroneFromRecharge(int droneId)
+        {
+            DataSource.droneCharges.RemoveAll(dc => dc.DroneId == droneId);
+        }
+
+        public IEnumerable<BaseStation> AvailableChargingStations()
+        {
+            BaseStation[] baseStations = new BaseStation[DataSource.Config.newBaseStationId];
+            for (int i = 0; i < DataSource.Config.newBaseStationId; i++)
+            {
+                baseStations[i] = DataSource.baseStations[i];
+                baseStations[i].ChargingPorts -= DataSource.droneCharges.Count(dc => dc.StationId == i);
+            }
+            return baseStations;
+        }
+
+        public int AvailableChargingPorts(int baseStationId)
+        {
+            return DataSource.BaseStationsList[baseStationId].ChargingPorts - DataSource.droneCharges.Count(dc => dc.StationId == baseStationId);
+        }
+
+        public IEnumerable<int> GetDronesIdInBaseStation(int requestedId)
+        {
+            return DataSource.droneCharges.FindAll(dc => dc.StationId == requestedId).ConvertAll(dc => dc.DroneId);
+        }
+
+        public IEnumerable<Parcel> UnAssignmentParcels()
+        {
+            List<Parcel> parcels = new List<Parcel>();
+            for (int i = 0; i < DataSource.Config.newParcelId; i++)
+            {
+                if (DataSource.parcels[i].DroneId == 0)
+                {
+                    parcels.Add(DataSource.parcels[i]);
+                }
+            }
+            return parcels;
+        }
+    }
+    //double[] Electricity()
+    //    {
+
+    //    }
     }
 }
 

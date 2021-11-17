@@ -42,15 +42,20 @@ namespace IDAL
                     }
                 }
 
+            public DateTime EntryTime
+            {
+                set; get;
+            }
+
                 /// <summary>
                 /// a constructor with parameters
                 /// </summary>
                 /// <param name="stationId">modify stationId</param>
                 /// <param name="droneId">modify droneId</param>
-                public DroneCharge(int stationId, int droneId)
+                public DroneCharge(int stationId, int droneId, DateTime entryTime)
                 {
                     this.stationId = stationId; this.droneId = droneId;
-                    StationId = stationId; DroneId = droneId;
+                    StationId = stationId; DroneId = droneId; EntryTime = entryTime;
                 }
 
                 /// <summary>

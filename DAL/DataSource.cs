@@ -23,11 +23,11 @@ namespace DalObject
 
 
         //internal lists of different entities.
-        public static List<Drone> DronesList = new List<Drone>(DRONES_BASE_AMOUNT);
-        public static List<BaseStation> BaseStationsList = new List<BaseStation>(BASESTATIONS_BASE_AMOUNT);
-        public static List<Customer> CustomersList = new List<Customer>(CUSTOMERS_BASE_AMOUNT);
-        public static List<Parcel> ParcelsList = new List<Parcel>(PARCELS_BASE_AMOUNT);
-        public static List<DroneCharge> DroneChargeList = new List<DroneCharge>();
+        internal static List<Drone> DronesList = new List<Drone>(DRONES_BASE_AMOUNT);
+        internal static List<BaseStation> BaseStationsList = new List<BaseStation>(BASESTATIONS_BASE_AMOUNT);
+        internal static List<Customer> CustomersList = new List<Customer>(CUSTOMERS_BASE_AMOUNT);
+        internal static List<Parcel> ParcelsList = new List<Parcel>(PARCELS_BASE_AMOUNT);
+        internal static List<DroneCharge> DronesChargeList = new List<DroneCharge>();
 
         //arrays of different data - for initalizing object of the structures.
         static readonly string[] droneModels = { "FPV COMBO", "COMBO AIR", "MAVIC AIR", "DJI TELLO", "MAVIC MINI 2", "SWING", "PHANTOM", "MATRICE 200", "DJI AGRAS T16", "MAVIC 2 ENTERPRISE", "MATRICE 210 RTK" };
@@ -39,9 +39,9 @@ namespace DalObject
         public static Random rand = new Random();
 
         /// <summary>
-        /// the method Initalize initalizes all thedifferent lists (besides DroneChargeList).
+        /// the method Initalize initalizes all thedifferent lists (besides DronesChargeList).
         /// </summary>
-        public void Initialize()
+        public static void Initialize()
         {
             //initalize at least the two first item in BaseStationList.        
             randomBaseStation();
@@ -74,7 +74,7 @@ namespace DalObject
         /// <summary>
         /// randoms at least the two first objects in the BaseStationList.
         /// </summary>
-        private void randomBaseStation()
+        private static void randomBaseStation()
         {
             int size = rand.Next(2, BASESTATIONS_BASE_AMOUNT);
             for (int i = 0; i < size; i++)
@@ -93,7 +93,7 @@ namespace DalObject
         /// <summary>
         /// randoms at least the first five object in DronesList.
         /// </summary>
-        private void randomDrones()
+        private static void randomDrones()
         {
             int size = rand.Next(5, DRONES_BASE_AMOUNT);
 
@@ -111,7 +111,7 @@ namespace DalObject
         /// <summary>
         /// randoms at least the tenth first customers in CustomersList.
         /// </summary>
-        private void randomCustomers()
+        private static void randomCustomers()
         {
             int size = rand.Next(10, CUSTOMERS_BASE_AMOUNT);
             for (int i = 0; i < size; i++)
@@ -128,7 +128,7 @@ namespace DalObject
         }
 
         //random at least the first tenth parcels in ParcelsList.
-        private void randomParcels()
+        private static void randomParcels()
         {
             int size = rand.Next(10, PARCELS_BASE_AMOUNT);
             for (int i = 0; i < size; i++)
@@ -146,17 +146,17 @@ namespace DalObject
                     parcel.DroneId = currdrone.Id;
                     DronesList[j] = currdrone;
                 }
-                //initalize (random) a date of Production & the other DateTime fields are based on it.
+                //initalize (random) a date of ProductionDate & the other DateTime fields are based on it.
                 //while assuming that each part of the shipment process maximum takes 14 business days.
-                parcel.Production = DateTime.Now;
-                parcel.Association = parcel.Production.AddDays(rand.Next(14)).AddHours(rand.Next(1, 24));
-                parcel.PickingUp = parcel.Association.AddDays(rand.Next(14)).AddHours(rand.Next(1, 24)); ;
-                parcel.Supplied = parcel.PickingUp.AddDays(rand.Next(14)).AddHours(rand.Next(1, 24)); ;
+                parcel.ProductionDate = DateTime.Now;
+                parcel.AssociationDate = parcel.ProductionDate.AddDays(rand.Next(14)).AddHours(rand.Next(1, 24));
+                parcel.PickUpDate = parcel.AssociationDate.AddDays(rand.Next(14)).AddHours(rand.Next(1, 24)); ;
+                parcel.SupplyDate = parcel.PickUpDate.AddDays(rand.Next(14)).AddHours(rand.Next(1, 24)); ;
                 //there wasn't an available drone.
                 //the date: 01/ 01/ 0001 - is a sign for an unassociated parcel - a default value.
                 if (parcel.DroneId == -1)
                 {
-                    parcel.Association = new DateTime(01 / 01 / 0001);
+                    parcel.AssociationDate = new DateTime(01 / 01 / 0001);
                 }
                 ParcelsList.Add(parcel);
             }
@@ -166,7 +166,7 @@ namespace DalObject
         /// random a location object
         /// </summary>
         /// <returns></returns>
-        private Location randomLocation()
+        private static Location randomLocation()
         {
             Coordinate Longitude = new Coordinate(0.7 * rand.Next(0, 180) + 0.3 * rand.Next(-180, 0), Locations.Longitude);
             Coordinate Latitude = new Coordinate(0.3 * rand.Next(0, 180) + 0.7 * rand.Next(-180, 0), Locations.Latitude);
@@ -176,7 +176,7 @@ namespace DalObject
         /// random a WeightCategory value.
         /// </summary>
         /// <returns></returns>
-        private WeightCategories randomWeight()
+        private static WeightCategories randomWeight()
         {
             int weightIndex = rand.Next(0, Enum.GetNames(typeof(WeightCategories)).Length);
             return (WeightCategories)Enum.Parse(typeof(WeightCategories), (string)Enum.GetNames(typeof(WeightCategories)).GetValue(weightIndex), true);
@@ -186,7 +186,7 @@ namespace DalObject
         /// random a Priority value.
         /// </summary>
         /// <returns></returns>
-        private Priorities randomPriority()
+        private static Priorities randomPriority()
         {
             int priorityIndex = rand.Next(0, Enum.GetNames(typeof(WeightCategories)).Length);
             return (Priorities)Enum.Parse(typeof(Priorities), (string)Enum.GetNames(typeof(Priorities)).GetValue(priorityIndex), true);
@@ -201,7 +201,7 @@ namespace DalObject
         /// random a name from the baseStations' names array.
         /// </summary>
         /// <returns></returns>
-        private string randomBaseStationName()
+        private static string randomBaseStationName()
         {
             return baseStationsNames[rand.Next(0, baseStationsNames.Length - 1)];
         }
@@ -211,7 +211,7 @@ namespace DalObject
         /// random a customer's name from the customers' names array.
         /// </summary>
         /// <returns></returns>
-        private string randomCustomerName()
+        private static string randomCustomerName()
         {
             return customerName[rand.Next(0, customerName.Length - 1)];
         }
@@ -220,7 +220,7 @@ namespace DalObject
         /// random a model from the models arr.
         /// </summary>
         /// <returns></returns>
-        private string randomModel()
+        private static string randomModel()
         {
             return droneModels[rand.Next(0, droneModels.Length - 1)];
         }
@@ -229,7 +229,7 @@ namespace DalObject
         /// random a valid phone number.
         /// </summary>
         /// <returns></returns>
-        private string randomPhone()
+        private static string randomPhone()
         {
             return "0" + (rand.Next(100000000, 999999999)).ToString();
         }
@@ -238,7 +238,7 @@ namespace DalObject
         /// random a valid Id.
         /// </summary>
         /// <returns></returns>
-        private string randomId()
+        private static string randomId()
         {
             return rand.Next(100000000, 999999999).ToString();
         }
@@ -247,7 +247,7 @@ namespace DalObject
         /// random an Id of one of the customers in CustomersList.
         /// </summary>
         /// <returns></returns>
-        private string randomCustomerId()
+        private static string randomCustomerId()
         {
             return CustomersList[rand.Next(0, CustomersList.Count - 1)].Id;
         }
@@ -256,7 +256,7 @@ namespace DalObject
         /// random a chargeSlot value.
         /// </summary>
         /// <returns></returns>
-        private int randomChargeSlot()
+        private static int randomChargeSlot()
         {
             return rand.Next(0, 5);
         }

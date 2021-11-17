@@ -94,10 +94,10 @@ namespace IDAL
 
             }
 
-            public DateTime Production { get; set; }
-            public DateTime Association { get; set; }
-            public DateTime PickingUp { get; set; }
-            public DateTime Supplied { get; set; }
+            public DateTime ProductionDate { get; set; }
+            public DateTime AssociationDate { get; set; }
+            public DateTime PickUpDate { get; set; }
+            public DateTime SupplyDate { get; set; }
 
             /// <summary>
             /// a constructor with parameters.
@@ -112,7 +112,7 @@ namespace IDAL
             {
                 this.id = id; this.senderId = senderId; this.targetId = targetId; this.droneId = droneId; Weight = weight; Priority = priority;
                 //a default value in the creation of the object.
-                Production = Association = PickingUp = Supplied = new DateTime(01 / 01 / 0001);
+                ProductionDate = AssociationDate = PickUpDate = SupplyDate = new DateTime(01 / 01 / 0001);
             }
 
             public Parcel() { }
@@ -129,10 +129,10 @@ namespace IDAL
                              $"droneId:  {DroneId}\n" +
                              $"weight:  {Weight}\n" +
                              $"priority:  {Priority}\n" +
-                             $"production:  {Production}\n" +
-                             $"association:  {Association}\n" +
-                             $"pickingUp:  {PickingUp}\n" +
-                             $"arrival: {Supplied}\n";
+                             $"production:  {ProductionDate}\n" +
+                             $"association:  {AssociationDate}\n" +
+                             $"pickingUp:  {PickUpDate}\n" +
+                             $"arrival: {SupplyDate}\n";
             }
         }
     }
