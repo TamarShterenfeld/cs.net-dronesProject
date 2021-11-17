@@ -17,7 +17,7 @@ namespace IDAL
 
         public class BaseStation
         {
-            private int id;
+            private int id;  
             public int Id
             {
                 get
