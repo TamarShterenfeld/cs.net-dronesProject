@@ -30,8 +30,8 @@ namespace IBL
             public Priorities Priority;
             public bool ToDestination { get; set; }
 
-            public Locations Collect { get; set; }
-            public Locations Destination { get; set; }
+            public Location Collect { get; set; }
+            public Location Destination { get; set; }
             
             public double Far { get; set; }
 

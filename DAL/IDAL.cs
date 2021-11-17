@@ -7,13 +7,10 @@ namespace IDAL
 {
     public interface IDal
     {
-        //void Add(DO.BaseStation baseStation);
-        //void AddBaseStation(BaseStation baseStation);
-        //void AddDrone(Drone drone);
-        //void AddCustomer(Customer customer);
-        //void AddParcel(Parcel parcel);
-        //int AddBaseStation(string stationName, int positions);
-        //int AddDrone();
+        void Add(IDAL.DO.BaseStation baseStation);
+        void Add(IDAL.DO.Drone drone);
+        void Add(IDAL.DO.Customer customer);
+        void Add(IDAL.DO.Parcel parcel);
         void AssociateParcel(int parcelId, int droneId);
         void PickupParcel(int parcelId);
         void SendDroneToRecharge(int droneId, int baseStationId);

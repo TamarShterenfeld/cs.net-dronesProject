@@ -34,8 +34,8 @@ namespace IBL
             public CustomerInParcel Sender { get; set; }
             public CustomerInParcel Target { get; set; }
 
-            public Locations Collect { get; set; }
-            public Locations Destination { get; set; }
+            public Location Collect { get; set; }
+            public Location Destination { get; set; }
 
             public double Far { get; set; }
 
