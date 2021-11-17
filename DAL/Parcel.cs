@@ -77,8 +77,8 @@ namespace IDAL
             }
 
             public WeightCategories Weight { get; set; }
-            public Priorities Priority;
-          
+            public Priorities Priority { get; set; }
+
             public int DroneId
             {
                 get { return droneId; }

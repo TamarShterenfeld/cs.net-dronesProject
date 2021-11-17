@@ -6,7 +6,7 @@ using IDAL.DO;
 
 namespace IDAL
 {
-    namespace DO
+    namespace DO 
     {
         /// <summary>
         /// the struct Drone contains the following details: id, battery, model, status, maxWeight.
@@ -14,7 +14,7 @@ namespace IDAL
         public class Drone
         {
             int id;
-            
+            //
             public int Id
             {
                 set
