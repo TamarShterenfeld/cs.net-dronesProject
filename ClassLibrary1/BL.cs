@@ -35,16 +35,13 @@ namespace IBL
                             {
                                 Customer customer = CustomersList.First(item => item.Id == parcel.SenderId);
                                 listDrone.Location = customer.Location;
-                            }
+                            } 
                         }
                     }
                 }
             }
 
-        public void Add(BaseStation baseStation)
-        {
-            dal.Add(new IDAL.DO.BaseStation() { Name = baseStation.Name });
-        }
+        //
     }
     
 

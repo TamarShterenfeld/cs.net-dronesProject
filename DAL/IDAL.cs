@@ -5,13 +5,16 @@ using IDAL.DO;
 
 namespace IDAL
 {
-    public interface IDal
-    {
-        void Add(DO.BaseStation baseStation);
-        void AddBaseStation(BaseStation baseStation);
-        void AddDrone(Drone drone);
-        void AddCustomer(Customer customer);
-        void AddParcel(Parcel parcel);
+    public interface IDal 
+    {//
+        void Add(IDAL.DO.BaseStation baseStation);
+        void Add(IDAL.DO.Customer customer);
+        void Add(IDAL.DO.Drone drone);
+        void Add(IDAL.DO.Parcel parcel);
+        //void AddBaseStation(BaseStation baseStation);
+        //void AddDrone(Drone drone);
+        //void AddCustomer(Customer customer);
+        //void AddParcel(Parcel parcel);
         IEnumerable<Parcel> GettingNotAssociatedParcels();
         IEnumerable<BaseStation> GettingAvailableChargeSlots();
         void GetDrone(int id);
