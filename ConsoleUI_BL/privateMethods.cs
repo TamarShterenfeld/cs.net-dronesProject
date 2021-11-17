@@ -10,18 +10,19 @@ namespace ConsoleUI_BL
     public partial class Program 
     {
 
-        private static void inputLocationValue(ref Location location)
+        private static void inputLocationValue(out Location location)
         {
-            double longi = 0, lati = 0;
-            inputDoubleValue(ref lati);
-            inputDoubleValue(ref lati);
+            Coordinate longi , lati ;
+            inputDoubleValue(out longi);
+            inputDoubleValue(out lati);
             location(longi, lati);
         }
+
         /// <summary>
         /// The function checks if the variable is double type.
         /// </summary>
         /// <param name="numericalValue">a double type variable</param>
-        private static void inputDoubleValue(ref double numericalValue)
+        private static void inputDoubleValue(out double numericalValue)
         {
             while (!double.TryParse(Console.ReadLine(), out numericalValue))
             {
@@ -33,9 +34,9 @@ namespace ConsoleUI_BL
         /// The function checks if the variable is int type.
         /// </summary>
         /// <param name="numericalValue">a int type variable</param>
-        private static void inputIntValue(ref int numericalValue)
+        private static void inputIntValue(out int numericalValue)
         {
-            while (!int.TryParse(Console.ReadLine(), out numericalValue))
+            while (!int.TryParse(Console.ReadLine(), out numericalValue) )
             {
                 Console.WriteLine("This field can input only numerical value! Please try again!");
             }
@@ -45,7 +46,7 @@ namespace ConsoleUI_BL
         /// The function checks if the variable is string type.
         /// </summary>
         /// <param name="str">a string type variable</param>
-        private static void inputStringValue(ref string str)
+        private static void inputStringValue(out string str)
         {
             while (true)
             {
@@ -154,7 +155,7 @@ namespace ConsoleUI_BL
         /// getting a string and check its existance in WeightCategories enum.
         /// </summary>
         /// <param name="maxWeight">WeightCategory: maxWeight</param>
-        private static void inputWeightCategory(ref string maxWeight)
+        private static void inputWeightCategory(out string maxWeight)
         {
             bool isExist1 = false;
             string currentEnum;

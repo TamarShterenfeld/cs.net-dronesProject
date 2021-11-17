@@ -116,7 +116,7 @@ namespace ConsoleUI_BL
 
                     case (int)AddOptions.Drone:
                         {
-                            CheckDroneDetails(out id, out maxWeight, out baseStationId);
+                            CheckDroneDetails(out id, out model, out maxWeight, out baseStationId);
                             bl.AddDrone(id, maxWeight, baseStationId);
                             break;
                         }
