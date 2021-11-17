@@ -90,11 +90,11 @@ namespace ConsoleUI_BL
     public class AddOption : ISubNavigate
     {
         int innerChoice;
-        int id = 0, droneId = 0, baseStationId = 0;
-        string name = "", customerId = "", phone = "", model = "", senderId = "", targetId = "";
-        double battery = 0;
-        int chrgeSlots = 0;
-        Location location = new Location();
+        int id , droneId , baseStationId;
+        string name , customerId , phone, model , senderId, targetId ;
+        double battery ;
+        int chrgeSlots;
+        Location location;
         //all the enum type litteral are entered as string type
         //and then checked if they contain an enum name.
         string maxWeight = "", weight = "", priority = "";     
@@ -116,19 +116,19 @@ namespace ConsoleUI_BL
 
                     case (int)AddOptions.Drone:
                         {
-                            CheckDroneDetails(ref id, ref maxWeight, ref baseStationId);
+                            CheckDroneDetails(out id, out maxWeight, out baseStationId);
                             bl.AddDrone(id, maxWeight, baseStationId);
                             break;
                         }
                     case (int)AddOptions.Customer:
                         {
-                            CheckCustomerDetails(ref customerId, ref name, ref phone, ref longitude, ref latitude);
+                            CheckCustomerDetails(out customerId, out name, out phone, out longitude, out latitude);
                             AddCustomer(customerId, name, phone, longitude, latitude);
                             break;
                         }
                     case (int)AddOptions.Parcel:
                         {
-                            CheckParcelDetails(ref id, ref senderId, ref targetId, ref weight, ref priority);
+                            CheckParcelDetails(out id, out senderId, out targetId, out weight, out priority);
                             AddParcel(id, senderId, targetId, droneId, weight, priority);
                             break;
                         }
