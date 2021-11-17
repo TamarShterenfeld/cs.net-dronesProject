@@ -75,7 +75,7 @@ namespace IBL
                     chargeSlots = value;
                 }
             }
-            public List<DroneCharge> DroneCharging { get; set; }
+            public List<DroneInCharging> DroneCharging { get; set; }
 
 
             /// <summary>

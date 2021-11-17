@@ -42,7 +42,7 @@ namespace ConsoleUI_BL
                     {
                         case (int)Options.Add:
                             {
-                                this.add.options();
+                                add.options();
                                 break;
                             }
 
@@ -98,7 +98,7 @@ namespace ConsoleUI_BL
         //all the enum type litteral are entered as string type
         //and then checked if they contain an enum name.
         string maxWeight = "", weight = "", priority = "";     
-        public void options(ref IBL.BO obj)
+        public void options()
         {
 
             Console.WriteLine("Please enter : \n1- For Base Station \n2- For Drone\n3- For Customer\n4- For Parcel ");
@@ -108,8 +108,9 @@ namespace ConsoleUI_BL
                 {
                     case (int)AddOptions.BaseStation:
                         {
-                            CheckBaseStationDetails(ref id, ref name, ref location, ref chrgeSlots);
-                           
+                            CheckBaseStationDetails(out id, out name, out location, out chrgeSlots);
+                            List<DroneCharge> droneCharging = 
+                            BO.BaseStation baseStation = new BO.BaseStation(id, name, location, chrgeSlots,)
                             bl.AddBaseStation(id, name, location, chrgeSlots);
                             break;
                         }

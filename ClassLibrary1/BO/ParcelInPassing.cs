@@ -27,8 +27,8 @@ namespace IBL
                 }
             }
             public Priorities Priority;
-            public CustomerInShipment Source { get; set; }
-            public CustomerInShipment Destination { get; set; }
+            public CustomerInParcel Source { get; set; }
+            public CustomerInParcel Destination { get; set; }
 
             /// <summary>
             /// constructor
@@ -37,7 +37,7 @@ namespace IBL
             /// <param name="priority"> ParcelInPassing's priority </param>
             /// <param name="source"> ParcelInPassing's source </param>
             /// <param name="destination"> ParcelInPassing's destination </param>
-            public ParcelInPassing(int id, Priorities priority, CustomerInShipment source, CustomerInShipment destination)
+            public ParcelInPassing(int id, Priorities priority, CustomerInParcel source, CustomerInParcel destination)
             {
                 this.id = id;
                 Id = id; Priority = priority; Source = source; Destination = destination;

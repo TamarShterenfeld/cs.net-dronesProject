@@ -15,7 +15,7 @@ namespace IBL
     namespace BO
     {
 
-        public class CustomerInShipment
+        public class CustomerInParcel
         {
             private string id;
             private string name;
@@ -69,14 +69,14 @@ namespace IBL
             /// </summary>
             /// <param name="id">CustomerInShipment's id</param>
             /// <param name="name">CustomerInShipment's name</param>
-            public CustomerInShipment(string id, string name)
+            public CustomerInParcel(string id, string name)
             {
                 this.id = id; this.name = name;
                 Id = id; Name = name; 
             }
 
             // default constructor
-            public CustomerInShipment() { }
+            public CustomerInParcel() { }
 
             /// <summary>
             /// override ToString function.

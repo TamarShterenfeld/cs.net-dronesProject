@@ -12,7 +12,7 @@ namespace IBL
 {
     namespace BO
     {
-        public class DeliveryInCustomer
+        public class ParcelnCustomer
         {
             int id;
             public int Id
@@ -30,7 +30,7 @@ namespace IBL
             public WeightCategories Weight { get; set; }
             public Priorities Priority;
             public ParcelStatuses ParcelStatus;
-            public CustomerInShipment SourceOrDest { get; set; }
+            public CustomerInParcel SourceOrDest { get; set; }
 
             /// <summary>
             /// constructor
@@ -40,14 +40,14 @@ namespace IBL
             /// <param name="priority"> DeliveryInCustomer's priority </param>
             /// <param name="parcelStatus"> DeliveryInCustomer's parcelStatus </param>
             /// <param name="sourceOrDest"> DeliveryInCustomer's sourceOrDest </param>
-            public DeliveryInCustomer(int id, WeightCategories weight, Priorities priority, ParcelStatuses parcelStatus, CustomerInShipment sourceOrDest)
+            public ParcelnCustomer(int id, WeightCategories weight, Priorities priority, ParcelStatuses parcelStatus, CustomerInParcel sourceOrDest)
             {
                 this.id = id;
                 Id = id; Weight = weight; Priority = priority; ParcelStatus = parcelStatus; SourceOrDest = sourceOrDest;
             }
 
             // default constructor
-            public DeliveryInCustomer(){}
+            public ParcelnCustomer(){}
 
             /// <summary>
             /// override ToString function.
