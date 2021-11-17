@@ -17,11 +17,12 @@ namespace IBL
         /// </summary>
         public void ShowBaseStationsList()
         {
-            foreach (BaseStation item in BaseStationsList)
+            List<BaseStation> baseStationsList = (List<BaseStation>)dal.GetBaseStationsList();
+            foreach (BaseStation item in baseStationsList)
             {
                 DisplayBaseStation(item.Id);
             }
-            if (BaseStationsList.Count == 0) Console.WriteLine("There are no base stations to show");
+            if (baseStationsList.Count == 0) Console.WriteLine("There are no base stations to show");
         }
 
         /// <summary>
@@ -29,11 +30,12 @@ namespace IBL
         /// </summary>
         public void ShowDronesList()
         {
-            foreach (Drone item in DronesList)
+            List<Drone> dronesList = (List<Drone>)dal.GetBaseStationsList();
+            foreach (Drone item in dronesList)
             {
                 GetDrone(item.Id);
             }
-            if (DronesList.Count == 0) Console.WriteLine("There are no drones to show");
+            if (dronesList.Count == 0) Console.WriteLine("There are no drones to show");
         }
 
         /// <summary>
@@ -41,11 +43,12 @@ namespace IBL
         /// </summary>
         public void ShowCustomersList()
         {
-            foreach (Customer item in CustomersList)
+            List<Customer> customersList = (List<Customer>)dal.GetCustomersList();
+            foreach (Customer item in customersList)
             {
                 DisplayCustomer(item.Id);
             }
-            if (CustomersList.Count == 0) Console.WriteLine("There are no customers to show");
+            if (customersList.Count == 0) Console.WriteLine("There are no customers to show");
         }
 
         /// <summary>
@@ -53,11 +56,12 @@ namespace IBL
         /// </summary>
         public void ShowParcelsList()
         {
-            foreach (Parcel item in ParcelsList)
+            List<Parcel> parcelsList = (List<Parcel>)dal.GetParcelsList();
+            foreach (Parcel item in parcelsList)
             {
                 DisplayParcel(item.Id);
             }
-            if (ParcelsList.Count == 0) Console.WriteLine("There are no parcels to show");
+            if (parcelsList.Count == 0) Console.WriteLine("There are no parcels to show");
         }
 
         /// <summary>
@@ -65,7 +69,7 @@ namespace IBL
         /// </summary>
         public void ShowNotAssociatedParcelsList()
         {
-            List<Parcel> notAssociatedParcelsList = (List<Parcel>)GettingNotAssociatedParcels();
+            List<Parcel> notAssociatedParcelsList = (List<Parcel>)dal.NotAssociatedParcels();
             foreach (Parcel item in notAssociatedParcelsList)
             {
                 DisplayParcel(item.Id);
@@ -76,9 +80,9 @@ namespace IBL
         /// <summary>
         /// The function shows all the available charge slots
         /// </summary>
-        public void AvailableChargeSlots()
+        public void AvailableChargeSlots(int baseStationId)
         {
-            List<BaseStation> availableChargeSlots = (List<BaseStation>)GettingAvailableChargeSlots();
+            List<BaseStation> availableChargeSlots = (List<BaseStation>)dal.AvailableChargingSlots(baseStationId);
             foreach (BaseStation item in availableChargeSlots)
             {
                 DisplayBaseStation(item.Id);

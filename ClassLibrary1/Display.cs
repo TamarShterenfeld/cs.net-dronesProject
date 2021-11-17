@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using static DalObject.DataSource;
 using IBL.BO;
-using static IDAL.DO.OverloadException;
 using System.Linq;
 using System.Numerics;
-using IDAL.DO;
 
 
 namespace IBL
@@ -22,11 +20,12 @@ namespace IBL
         /// <param name="id">base station's id</param>
         public void DisplayBaseStation(int id)
         {
-            if (BaseStationsList.FindIndex(item => item.Id == id) == -1)
+            List<BaseStation> bseStationsList = (List<BaseStation>)dal.GetBaseStationsList();
+            if (bseStationsList.FindIndex(item => item.Id == id) == -1)
             {
                 throw new OverloadException("the inserted id wasn't found");
             }
-            IBL.BO.BaseStation currBaseStation = BaseStationsList.First(item => item.Id == id);
+            BaseStation currBaseStation = bseStationsList.First(item => item.Id == id);
             Console.WriteLine(currBaseStation);
         }
 
@@ -36,11 +35,12 @@ namespace IBL
         /// <param name="id">drone's id</param>
         public void GetDrone(int id)
         {
-            if (DronesList.FindIndex(item => item.Id == id) == -1)
+            List<Drone> donesList = (List<Drone>)dal.GetDronesList();
+            if (donesList.FindIndex(item => item.Id == id) == -1)
             {
                 throw new OverloadException("the inserted id wasn't found");
             }
-            Drone currDrone = DronesList.First(item => item.Id == id);
+            Drone currDrone = donesList.First(item => item.Id == id);
             Console.WriteLine(currDrone);
         }
 
@@ -50,11 +50,12 @@ namespace IBL
         /// <param name="id">customer's id</param>
         public void DisplayCustomer(string id)
         {
-            if (CustomersList.FindIndex(item => item.Id == id) == -1)
+            List<Customer> customersList = (List<Customer>)dal.GetCustomersList();
+            if (customersList.FindIndex(item => item.Id == id) == -1)
             {
                 throw new OverloadException("the inserted id wasn't found");
             }
-            IDAL.DO.Customer currCustomer = CustomersList.First(item => item.Id == id);
+            Customer currCustomer = customersList.First(item => item.Id == id);
             Console.WriteLine(currCustomer);
         }
 
@@ -64,11 +65,12 @@ namespace IBL
         /// <param name="id">parcel's id</param>
         public void DisplayParcel(int id)
         {
-            if (ParcelsList.FindIndex(item => item.Id == id) == -1)
+            List<Parcel> parcelsList = (List<Parcel>)dal.GetParcelsList();
+            if (parcelsList.FindIndex(item => item.Id == id) == -1)
             {
                 throw new OverloadException("the inserted id wasn't found");
             }
-            IDAL.DO.Parcel currParcel = ParcelsList.First(item => item.Id == id);
+            Parcel currParcel = parcelsList.First(item => item.Id == id);
             Console.WriteLine(currParcel);
         }
     }

@@ -8,18 +8,18 @@ namespace IBL
 {
     namespace BO
     {
-        public partial class DalObject : IDAL.IDal
+        public partial class BalObject 
         {
-            public static double[] Electricity()
-            {
-                double[] elec = new double[] { ElectricityConsumingOfAvailable,
-                                               ElectricityConsumingOfLightWeight,
-                                               ElectricityConsumingOfAverageWeight,
-                                               ElectricityConsumingOfHeavyWeight,
-                                               //ChargingRate ;
-                };
-                return elec;
-            }
+            //public static double[] Electricity()
+            //{
+            //    //double[] elec = new double[] { ElectricityConsumingOfAvailable,
+            //    //                               ElectricityConsumingOfLightWeight,
+            //    //                               ElectricityConsumingOfAverageWeight,
+            //    //                               ElectricityConsumingOfHeavyWeight,
+            //                                   //ChargingRate ;
+            //    };
+            //    return elec;
+            //}
 
         }
     } }

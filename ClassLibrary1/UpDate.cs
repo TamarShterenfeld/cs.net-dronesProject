@@ -36,14 +36,15 @@ namespace IBL
         /// <param name="senderId">sender id</param>
         public void PickUpParcel(int parcelId, string senderId)
         {
-            List<Parcel> ParcelsList = (List<Parcel>)dal.GetParcelsList();
-            if (ParcelsList.FindIndex(item => item.Id == parcelId) == -1 || CustomersList.FindIndex(item => item.Id == senderId) == -1)
+            List<Parcel> parcelsList = (List<Parcel>)dal.GetParcelsList();
+            List<Customer> customersList = (List<Customer>)dal.GetCustomersList();
+            if (parcelsList.FindIndex(item => item.Id == parcelId) == -1 || customersList.FindIndex(item => item.Id == senderId) == -1)
                 throw new OverloadException("parcelId or senderId don't exist in the customers' list!");
-            Parcel parcel = ParcelsList.First(item => item.Id == parcelId);
-            int parcelIndex = ParcelsList.FindIndex(item => item.Id == parcelId);
+            Parcel parcel = parcelsList.First(item => item.Id == parcelId);
+            int parcelIndex = parcelsList.FindIndex(item => item.Id == parcelId);
             parcel.Sender = new CustomerInParcel{ Id = senderId};
             parcel.PickUpDate = DateTime.Now;
-            ParcelsList[parcelIndex] = parcel;
+            parcelsList[parcelIndex] = parcel;
         }
 
         /// <summary>
@@ -87,8 +88,8 @@ namespace IBL
                 throw new OverloadException("The chosen base station isn't available to charge the drone.");
 
             DroneInCharging droneCharge = new DroneInCharging(baseStationId, droneId);
-            List<DroneInCharging> DronesChargeListidal = dal.GetDronesChargeList();
-            DroneChargeList.Add(droneCharge);
+            List<DroneInCharging> dronesChargeList = (List<DroneInCharging>)dal.GetDronesCharges();
+            dronesChargeList.Add(droneCharge);
 
             DronesList[droneIndex] = drone;
             BaseStationsList[baseStationIndex] = baseStation;
