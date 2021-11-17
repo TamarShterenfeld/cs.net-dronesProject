@@ -9,7 +9,6 @@ using static IDAL.DO.OverloadException;
 
 namespace DalObject
 {
-
     /// <summary>
     /// a class which contains all the data of program.
     /// </summary>

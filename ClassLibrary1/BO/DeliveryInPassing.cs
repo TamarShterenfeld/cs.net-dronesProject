@@ -45,10 +45,10 @@ namespace IBL
             /// <param name="collect">DeliveryInPassing's collect location</param>
             /// <param name="destination">DeliveryInPassing's destination location</param>
             /// <param name="far">DeliveryInPassing's far</param>
-            public DeliveryInPassing(int id, WeightCategories weight, Priorities priority, bool toDestination, Locations collect, Locations destination, double far)
+            public DeliveryInPassing(int id, WeightCategories weight, Priorities priority, bool toDestination, Location collect, Location destination, double far)
             {
                 this.id = id;  
-                Id = id; Weight = weight; Priority = priority; ToDestination = toDestination; Collect = collect; Destination = destination;Far = far;
+                Id = id; Weight = weight; Priority = priority; ToDestination = toDestination; Collect = collect; Destination = destination; Far = far;
             }
 
             // default constructor

@@ -100,7 +100,7 @@ namespace IBL
             /// <param name="location"> Customer's location </param>
             /// <param name="fromCustomer"> Customer's fromCustomer </param>
             /// <param name="toCustomer"> Customer's toCustomer </param>
-            public Customer(string id, string name, string phone, Locations location, List<ParcelnCustomer> fromCustomer, List<ParcelnCustomer> toCustomer)
+            public Customer(string id, string name, string phone, Location location, List<ParcelnCustomer> fromCustomer, List<ParcelnCustomer> toCustomer)
             {
                 this.id = id; this.name = name; this.phone = phone;
                 Id = id; Name = name; Phone = phone; Location = location; FromCustomer = fromCustomer; ToCustomer = toCustomer;
