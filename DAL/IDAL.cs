@@ -23,7 +23,7 @@ namespace IDAL
         IEnumerable<Drone> GetDronesList();
         IEnumerable<Customer> GetCustomersList();
         IEnumerable<Parcel> GetParcelsList();
-        IEnumerable<DroneCharge> GetDronesCharges();
+        IEnumerable<DroneCharge> GetDronesCharge();
         IEnumerable<Parcel> NotAssociatedParcels();
         IEnumerable<BaseStation> AvailableChargingStations();
         IEnumerable<BaseStation> AvailableChargingSlots();

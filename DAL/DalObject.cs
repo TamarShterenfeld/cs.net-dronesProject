@@ -102,7 +102,7 @@ namespace DalObject
             return ParcelsList;
         }
 
-        public IEnumerable<DroneCharge> GetDronesCharges()
+        public IEnumerable<DroneCharge> GetDronesCharge()
         {
             return DronesChargeList;
         }
