@@ -7,12 +7,6 @@ using static IDAL.DO.OverloadException;
 using System.Linq;
 using System.Numerics;
 using IDAL.DO;
-using static IDAL.DO.BaseStation;
-using static IDAL.DO.Customer;
-using static IDAL.DO.DroneCharge;
-using static IDAL.DO.Drone;
-using static IDAL.DO.Locations;
-using static IDAL.DO.Parcel;
 
 
 namespace IBL

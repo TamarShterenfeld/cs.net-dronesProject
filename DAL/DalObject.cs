@@ -68,7 +68,7 @@ namespace DalObject
             }
         }
 
-        public void PickedupParcel(int parcelId)
+        public void PickupParcel(int parcelId)
         {
             for (int i = 0; i < ParcelsList.Count; i++)
             {
@@ -82,26 +82,30 @@ namespace DalObject
             }
         }
 
-        public IEnumerable<BaseStation> GetBaseStations()
+        public IEnumerable<BaseStation> GetBaseStationsList()
         {
             return BaseStationsList;
         }
 
-        public IEnumerable<Drone> GetDrones()
+        public IEnumerable<Drone> GetDronesList()
         {
             return DronesList;
         }
 
-        public IEnumerable<Customer> GetCustomers()
+        public IEnumerable<Customer> GetCustomersList()
         {
             return CustomersList;
         }
 
-        public IEnumerable<Parcel> GetParcels()
+        public IEnumerable<Parcel> GetParcelsList()
         {
             return ParcelsList;
         }
 
+        public IEnumerable<DroneCharge> GetDronesCharges()
+        {
+            return DronesChargeList;
+        }
         public void SendDroneToRecharge(int droneId, int baseStationId)
         {
             DronesChargeList.Add(new DroneCharge() { DroneId = droneId, StationId = baseStationId, EntryTime = DateTime.Now });

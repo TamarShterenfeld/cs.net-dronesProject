@@ -22,10 +22,11 @@ namespace IDAL
         Drone GetDrone(int requestedId);
         Customer GetCustomer(int requestedId);
         Parcel GetParcel(int requestedId);
-        IEnumerable<BaseStation> GetBaseStations();
-        IEnumerable<Drone> GetDrones();
-        IEnumerable<Customer> GetCustomers();
-        IEnumerable<Parcel> GetParcels();
+        IEnumerable<BaseStation> GetBaseStationsList();
+        IEnumerable<Drone> GetDronesList();
+        IEnumerable<Customer> GetCustomersList();
+        IEnumerable<Parcel> GetParcelsList();
+        IEnumerable<DroneCharge> GetDronesCharges();
         IEnumerable<Parcel> NotAssociatedParcels();
         IEnumerable<BaseStation> AvailableChargingStations();
         int AvailableChargingSlots(int baseStationId);

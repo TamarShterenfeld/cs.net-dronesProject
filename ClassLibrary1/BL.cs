@@ -8,41 +8,45 @@ using IBL.BO;
 
 namespace IBL
 {
-   
-        public partial class BL : IBL
+
+    public partial class BL : IBL
+    {
+        private IDAL.IDal dal;
+        private List<DroneToList> drones;
+
+        public List<DroneToList> Drones { get; set; }
+
+        public BL()
         {
-            private IDAL.IDal dal;
-            private List<DroneToList> drones;
+            dal = new DalObject.DalObject();
+            drones = new List<DroneToList>();
+            List<Drone> DronesList = (List<Drone>)dal.GetDronesList();
+            List<Parcel> ParcelsList = (List<Parcel>)dal.GetParcelsList();
+            List<Customer> CustomersList = (List<Customer>)dal.GetCustomersList();
 
-            public List<DroneToList> Drones { get; set; }
-
-            public BL()
+            for (int i = 0; i < Drones.Count; i++)
             {
-                dal = new DalObject.DalObject();
-                drones = new List<DroneToList>();
-                for (int i = 0; i < Drones.Count; i++)
+                if (DronesList.FindIndex(item => item.Id == Drones[i].ParcelId) != -1)
                 {
-                   if(ParcelsList.FindIndex(item=> item.Id == Drones[i].ParcelId) != -1)
+                    Parcel parcel = ParcelsList.First(item => item.Id == Drones[i].ParcelId);
+                    //the associated parcel wasn't supplied.
+                    if (parcel.AssociationDate == new DateTime(01 / 01 / 0001))
                     {
-                        Parcel parcel = ParcelsList.First(item => item.Id == Drones[i].ParcelId);
-                      //the associated parcel wasn't supplied.
-                        if(parcel.Association == new DateTime(01 / 01 / 0001))
-                        {
-                            DroneToList listDrone = Drones[i];
-                            listDrone.Status = DroneStatuses.Shipment;
+                        DroneToList listDrone = Drones[i];
+                        listDrone.Status = DroneStatuses.Shipment;
 
-                            if(parcel.PickingUp != new DateTime(01/01/0001)&& parcel.Supplied == new DateTime(01 / 01 / 0001))
-                            {
-                                Customer customer = CustomersList.First(item => item.Id == parcel.SenderId);
-                                listDrone.Location = customer.Location;
-                            } 
-                        }
+                        //if (parcel.PickUpDate != new DateTime(01 / 01 / 0001) && parcel.SupplyDate == new DateTime(01 / 01 / 0001))
+                        //{
+                        //    Customer customer = CustomersList.First(item => item.Id == parcel.Sender);
+                        //    listDrone.Location = customer.Location;
+                        //}
                     }
                 }
             }
+        }
 
         //
     }
-    
+
 
 }
