@@ -15,7 +15,7 @@ namespace ConsoleUI_BL
             double longi = 0, lati = 0;
             inputDoubleValue(ref lati);
             inputDoubleValue(ref lati);
-            location(longi, lati);
+            location = new Location(longi, lati);
         }
         /// <summary>
         /// The function checks if the variable is double type.

@@ -14,12 +14,12 @@ namespace ConsoleUI_BL
         /// <param name="name">base station's name</param>
         /// <param name="location">base station's name</param>  
         /// <param name="chargeSlots"> number of charge slots in the base station</param>
-        public static void CheckBaseStationDetails(ref int id, ref string name, ref Location location, ref int chargeSlots)
+        public static void CheckBaseStationDetails(ref int id, ref string name,  ref int chargeSlots)
         {
             Console.WriteLine("Enter base station's details : id, name, longitude, latitude, number of chargeSlots.");
             inputIntValue(ref id);
             inputStringValue(ref name);
-            inputLocationValue(location);
+           // inputLocationValue(location);
             inputIntValue(ref chargeSlots);
         }
         /// <summary>
