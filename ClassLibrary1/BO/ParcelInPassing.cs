@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IDAL.DO;
-using static IDAL.DO.OverloadException;
-using static IBL.BO.DalObject;
+
+
 
 namespace IBL
 {
@@ -46,10 +45,10 @@ namespace IBL
             /// <param name="priority"> ParcelInPassing's priority </param>
             /// <param name="source"> ParcelInPassing's source </param>
             /// <param name="destination"> ParcelInPassing's destination </param>
-            public ParcelInPassing(int id, Priorities priority, CustomerInParcel source, CustomerInParcel destination)
+            public ParcelInPassing(int id, Priorities priority, CustomerInParcel sender, CustomerInParcel target)
             {
                 this.id = id;
-                Id = id; Priority = priority; Source = source; Destination = destination;
+                Id = id; Priority = priority; Sender = sender; Target = target;
             }
 
             // default constructor
@@ -63,8 +62,8 @@ namespace IBL
             {
                 return $"id: {Id} \n" +
                        $"priority: {Priority}\n" +
-                       $"source: {Source}\n" +
-                       $"destination: {Destination}\n";
+                       $"source: {Sender}\n" +
+                       $"destination: {Target}\n";
             }
         }
 

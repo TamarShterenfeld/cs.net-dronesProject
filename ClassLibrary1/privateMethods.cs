@@ -4,7 +4,6 @@ using System.Text;
 using static DalObject.DataSource;
 using IDAL.DO;
 using System.Linq;
-using static IDAL.DO.OverloadException;
 
 namespace IBL
 {

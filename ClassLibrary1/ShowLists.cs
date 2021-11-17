@@ -5,9 +5,6 @@ using static IDAL.DO.OverloadException;
 using static DalObject.DataSource;
 using IDAL.DO;
 
-
-
-
 namespace IBL
 {
     public partial class BL : IBL
@@ -82,7 +79,7 @@ namespace IBL
         /// </summary>
         public void AvailableChargeSlots(int baseStationId)
         {
-            List<BaseStation> availableChargeSlots = (List<BaseStation>)dal.AvailableChargingSlots(baseStationId);
+            List<BaseStation> availableChargeSlots = (List<BaseStation>)dal.AvailableChargingSlots();
             foreach (BaseStation item in availableChargeSlots)
             {
                 DisplayBaseStation(item.Id);

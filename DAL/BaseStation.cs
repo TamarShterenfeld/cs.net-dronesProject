@@ -78,24 +78,6 @@ namespace IDAL
                 }
             }
 
-
-            /// <summary>
-            /// constructor
-            /// </summary>
-            /// <param name="id"> BaseStation's id </param>
-            /// <param name="longitude"> BaseStation's longitude </param>
-            /// <param name="latitude"> BaseStation's latitude </param>
-            /// <param name="name"> BaseStation's name </param>
-            /// <param name="chargeSlots"> BaseStation's number of chargeSlots </param>
-            public BaseStation(int id, string name, Coordinate longitude, Coordinate latitude, int chargeSlots, List<DroneInCharging> droneCharging)
-            {
-                this.id = id; this.name = name; this.chargeSlots = chargeSlots;
-                Id = id; Name = name; Longitude =  longitude; Latitude = latitude; ChargeSlots = chargeSlots; 
-            }
-
-            // default constructor
-            public BaseStation() { }
-
             /// <summary>
             /// override ToString function.
             /// </summary>

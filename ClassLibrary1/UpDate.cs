@@ -88,7 +88,7 @@ namespace IBL
                 throw new OverloadException("The chosen base station isn't available to charge the drone.");
 
             DroneInCharging droneCharge = new DroneInCharging(baseStationId, droneId);
-            List<DroneInCharging> dronesChargeList = (List<DroneInCharging>)dal.GetDronesCharges();
+            List<DroneInCharging> dronesChargeList = (List<DroneInCharging>)dal.GetDronesCharge();
             dronesChargeList.Add(droneCharge);
 
             DronesList[droneIndex] = drone;
@@ -101,25 +101,28 @@ namespace IBL
         /// <param name="droneId">drone's id</param>
         public void StopDroneCharging(int droneId)
         {
+            List<Drone> dronesList = (List<Drone>)dal.GetDronesList();
+            List<DroneInCharging> DroneChargeList = (List<DroneInCharging>)dal.GetDronesCharge();
+            List<BaseStation> baseStationsList = (List<BaseStation>)dal.GetBaseStationsList();
             int baseStationId;
             inputIntValue(ref droneId);
-            if (DronesList.FindIndex(item => item.Id == droneId) == -1)
+            if (dronesList.FindIndex(item => item.Id == droneId) == -1)
                 throw new OverloadException("drone's id doesn't exist in the drones' list.");
-            if (DroneChargeList.FindIndex(item => item.DroneId == droneId) == -1)
+            if (DroneChargeList.FindIndex(item => item.Id == droneId) == -1)
                 throw new OverloadException("drone's id doesn't exist in the dronecharge list.");
 
-            Drone drone = DronesList.First(item => item.Id == droneId);
-            int droneIndex = DronesList.FindIndex(item => item.Id == droneId);
-            DroneCharge droneCharge = DroneChargeList.First(item => item.DroneId == droneId);    
-            baseStationId = droneCharge.StationId;
-            int baseStationIndex = BaseStationsList.FindIndex(item => item.Id == baseStationId);
-            if (baseStationIndex  == -1)
-                throw new OverloadException("baseStation's id doesn't exist in the BaseStation's list.");
-            IDAL.DO.BaseStation baseStation = BaseStationsList.First(item => item.Id == baseStationId);
-            DroneChargeList.Remove(droneCharge);
-            baseStation.ChargeSlots++;
-            BaseStationsList[baseStationIndex] = baseStation;
-            DronesList[droneIndex] = drone;
+            Drone drone = dronesList.First(item => item.Id == droneId);
+            int droneIndex = dronesList.FindIndex(item => item.Id == droneId);
+            DroneInCharging droneCharge = DroneChargeList.First(item => item.Id == droneId);    
+            //baseStationId =baseStationsList.First(item=>item. droneCharge.;
+            //int baseStationIndex = baseStationsList.FindIndex(item => item.Id == baseStationId);
+            //if (baseStationIndex  == -1)
+            //    throw new OverloadException("baseStation's id doesn't exist in the BaseStation's list.");
+            //BaseStation baseStation = baseStationsList.First(item => item.Id == baseStationId);
+            //DroneChargeList.Remove(droneCharge);
+            //baseStation.ChargeSlots++;
+            //baseStationsList[baseStationIndex] = baseStation;
+            //dronesList[droneIndex] = drone;
         }
     }
 }
