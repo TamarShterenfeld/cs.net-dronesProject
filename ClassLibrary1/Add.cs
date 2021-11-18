@@ -5,6 +5,7 @@ using System.Text;
 using static DalObject.DataSource;
 using System.Linq;
 using  DalObject;
+using IBL.BO;
 
 
 namespace IBL
@@ -17,7 +18,8 @@ namespace IBL
         /// <param name="baseStation">base station</param>
         public void Add(BO.BaseStation baseStation)
         {
-            dal.Add(new IDAL.DO.BaseStation() { Id = baseStation.Id, Name = baseStation.Name, Longitude = baseStation.Location.CoorLongitude, Latitude = baseStation.Location.CoorLatitude, ChargeSlots = baseStation.ChargeSlots}); 
+            IDAL.DO.BaseStation currbaseStation = new IDAL.DO.BaseStation { Id = baseStation.Id, Name = baseStation.Name, Longitude = (IDAL.DO.Coordinate)baseStation.MyLocation.CoorLongitude, ChargeSlots = baseStation.ChargeSlots }
+            dal.Add(currbaseStation);
         }
 
         /// <summary>
