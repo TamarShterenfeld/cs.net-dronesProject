@@ -17,7 +17,7 @@ namespace IDAL
         void ReleaseDroneFromRecharge(int droneId);
         BaseStation GetBaseStation(int requestedId);
         Drone GetDrone(int requestedId);
-        Customer GetCustomer(int requestedId);
+        Customer GetCustomer(string requestedId);
         Parcel GetParcel(int requestedId);
         IEnumerable<BaseStation> GetBaseStationsList();
         IEnumerable<Drone> GetDronesList();

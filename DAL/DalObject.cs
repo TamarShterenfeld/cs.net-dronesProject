@@ -25,23 +25,28 @@ namespace DalObject
 
         public BaseStation GetBaseStation(int baseStationId)
         {
-            return BaseStationsList[baseStationId];
+            BaseStation baseStation = BaseStationsList.First(item => item.Id == baseStationId);
+            return baseStation;
         }
 
         public Drone GetDrone(int droneId)
         {
-            return DronesList[droneId];
+            Drone drone = DronesList.First(item => item.Id == droneId);
+            return drone;
         }
 
-        public Customer GetCustomer(int customerId)
+        public Customer GetCustomer(string customerId)
         {
-            return CustomersList[customerId];
+            Customer customer = CustomersList.First(item => item.Id == customerId);
+            return customer;
         }
+
+        
 
         public Parcel GetParcel(int parcelId)
         {
-            return ParcelsList[parcelId];
-
+            Parcel parcel = ParcelsList.First(item => item.Id == parcelId);
+            return parcel;
         }
 
         //public int AddDrone(Drone drone)
