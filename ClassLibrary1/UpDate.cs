@@ -24,7 +24,7 @@ namespace IBL
             Parcel parcel = ParcelsList.First(item => item.Id == parcelId);
             Drone drone = DronesList.First(item => item.Id == parcelId);
             parcel.AssociationDate = DateTime.Now;
-            parcel.Drone = new DroneInParcel { Id = droneId };
+            parcel.MyDrone = new DroneInParcel { Id = droneId };
             ParcelsList[parcelIndex] = parcel;
             DronesList[droneIndex] = drone;
         }

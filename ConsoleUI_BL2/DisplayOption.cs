@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static ConsoleUI_BL.Program;
 
 namespace ConsoleUI_BL
 {
@@ -39,14 +40,14 @@ namespace ConsoleUI_BL
                         {
                             Console.WriteLine("Please enter customerId");
                             inputStringId(ref customerId);
-                            DisplayCustomer(customerId);
+                            bl.DisplayCustomer(customerId);
                             break;
                         }
                     case (int)DisplayOptions.Parcel:
                         {
                             Console.WriteLine("Please enter parcelId");
                             inputIntValue(ref parcelId);
-                            DisplayParcel(parcelId);
+                            bl.DisplayParcel(parcelId);
                             break;
                         }
                     default:

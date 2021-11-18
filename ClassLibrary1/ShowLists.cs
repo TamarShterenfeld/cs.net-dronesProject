@@ -79,7 +79,7 @@ namespace IBL
         /// </summary>
         public void AvailableChargeSlots()
         {
-            List<BaseStation> availableChargeSlots = (List<BaseStation>)dal.AvailableChargingSlots();
+            List<BaseStation> availableChargeSlots = (List<BaseStation>)dal.AvailableChargingStations();
             foreach (BaseStation item in availableChargeSlots)
             {
                 DisplayBaseStation(item.Id);

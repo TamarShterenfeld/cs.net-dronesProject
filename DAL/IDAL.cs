@@ -7,10 +7,10 @@ namespace IDAL
 {
     public interface IDal
     {
-        void Add(IDAL.DO.BaseStation baseStation);
-        void Add(IDAL.DO.Drone drone);
-        void Add(IDAL.DO.Customer customer);
-        void Add(IDAL.DO.Parcel parcel);
+        void Add(BaseStation baseStation);
+        void Add(Drone drone);
+        void Add(Customer customer);
+        void Add(Parcel parcel);
         void AssociateParcel(int parcelId, int droneId);
         void PickupParcel(int parcelId);
         void SendDroneToRecharge(int droneId, int baseStationId);
@@ -26,7 +26,7 @@ namespace IDAL
         IEnumerable<DroneCharge> GetDronesCharge();
         IEnumerable<Parcel> NotAssociatedParcels();
         IEnumerable<BaseStation> AvailableChargingStations();
-        IEnumerable<BaseStation> AvailableChargingSlots();
+        int AvailableChargingSlots(int baseStationId);
         IEnumerable<int> GetDronesIdInBaseStation(int requestedId);
     }
 }
