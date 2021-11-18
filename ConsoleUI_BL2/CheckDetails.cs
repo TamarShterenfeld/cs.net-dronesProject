@@ -47,9 +47,9 @@ namespace ConsoleUI_BL
         /// <param name="targetId">parcel's target id</param>
         /// <param name="weight">parcel's weight</param>
         /// <param name="priority">parcel's priority </param>
-        internal static void CheckParcelDetails(ref int id, ref string senderId, ref string targetId, ref string weight, ref string priority)
+        internal static void CheckParcelDetails(ref string senderId, ref string targetId, ref string weight, ref string priority)
         {
-            Console.WriteLine("Please enter :\n sender id, getter id, category weight and the priority of the drone.");
+            Console.WriteLine("Please enter :\n sender id,getter id, category weight and the priority of the drone.");
             //the checkings of the different (string) id are implemented within the struct Parcel and another function named "chackingIdentitiesOfParcel"
             inputStringId(ref senderId);
             inputStringId(ref targetId);

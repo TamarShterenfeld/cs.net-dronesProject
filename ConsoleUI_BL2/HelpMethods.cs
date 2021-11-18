@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using IBL.BO;
 using static IBL.BO.Location;
-using static IBL.BO.Coordinate;
-
-
 
 namespace ConsoleUI_BL
 {
