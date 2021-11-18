@@ -13,15 +13,14 @@ namespace ConsoleUI_BL
         internal static void inputLocationValue(double longi, double lati)
         {
             inputDoubleValue(ref lati);
-            inputDoubleValue(ref lati);
-            
+            inputDoubleValue(ref longi);            
         }
 
         /// <summary>
         /// The function checks if the variable is double type.
         /// </summary>
         /// <param name="numericalValue">a double type variable</param>
-        private static void inputDoubleValue(ref double numericalValue)
+        internal static void inputDoubleValue(ref double numericalValue)
         {
             while (!double.TryParse(Console.ReadLine(), out numericalValue))
             {
