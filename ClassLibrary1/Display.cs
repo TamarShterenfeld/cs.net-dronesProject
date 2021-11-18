@@ -18,15 +18,9 @@ namespace IBL
         /// The function displays a base station according to the input id.
         /// </summary>
         /// <param name="id">base station's id</param>
-        public void DisplayBaseStation(int id)
+        public BO.BaseStation GetBLBaseStation(int id)
         {
-            List<BaseStation> bseStationsList = (List<BaseStation>)dal.GetBaseStationsList();
-            if (bseStationsList.FindIndex(item => item.Id == id) == -1)
-            {
-                throw new OverloadException("the inserted id wasn't found");
-            }
-            BaseStation currBaseStation = bseStationsList.First(item => item.Id == id);
-            Console.WriteLine(currBaseStation);
+            BO.BaseStation baseStation = new dal.GetBaseStation(int id);
         }
 
         /// <summary>
@@ -87,6 +81,12 @@ namespace IBL
             }
             Drone currDrone = dronesList.First(item => item.Id == id);
             Console.WriteLine(currDrone);
+        }
+
+        public int caughtChargeSlots(int stationId)
+        {
+            int caught = dal.AvailableChargingSlots(stationId);
+            return caught;
         }
     }
 }
