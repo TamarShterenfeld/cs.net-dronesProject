@@ -13,7 +13,7 @@ namespace DalObject
     /// </summary>
     public partial class DalObject : IDAL.IDal
     {
-        void Add(IDAL.DO.BaseStation baseStation)
+        public void Add(BaseStation baseStation)
         {
             //can add the base station just if the input id still doesn't exist in the Base Station's list.
             if (BaseStationsList.FindIndex(item => item.Id == baseStation.Id) == -1)
@@ -25,7 +25,7 @@ namespace DalObject
                 throw new OverloadException("Id already exists in base station list, it's not possible to add it!");//לטפל בהערות
             }
         }
-        void Add(IDAL.DO.Customer customer)
+        public void Add(Customer customer)
         {
             //can add the customer just if the input id stil doesn't exist in the customers' list.
             if (CustomersList.FindIndex(item => item.Id == customer.Id) == -1)
@@ -37,7 +37,7 @@ namespace DalObject
                 throw new OverloadException("Id already exists in drones list, it's not possible to add it!");//לטפל בזריקות
             }
         }
-        void Add(IDAL.DO.Drone drone)
+        public void Add(Drone drone)
         {
             //can add the drone just if the input id stil doesnt exist in the Drones' list.
             if (DronesList.FindIndex(item => item.Id == drone.Id) == -1)
@@ -49,7 +49,7 @@ namespace DalObject
                 throw new OverloadException("Id already exists in drones list, it's not possible to add it!");//לטפל בהערות
             }
         }
-        void Add(IDAL.DO.Parcel parcel)
+        public void Add(Parcel parcel)
         {
             if(ParcelsList.FindIndex(item => item.Id == parcel.Id) != -1)
                 throw new OverloadException("You try to add a parcel which is already exists!");
