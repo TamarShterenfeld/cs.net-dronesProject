@@ -64,15 +64,14 @@ namespace ConsoleUI_BL
         /// <param name="phone">customer's phone</param>
         /// <param name="longitude">customer's longitude</param>
         /// <param name="latitude">customer's latitude</param>
-        public static void CheckCustomerDetails(ref string id, ref string name, ref string phone, ref double longitude, ref double latitude)
+        public static void CheckCustomerDetails(ref string id, ref string name, ref string phone, ref Location location)
         {
             Console.WriteLine("Enter base customer's details : id, name, phone,  longitude, latitude.");
             //the needed checkings are implemented within the struct Customer or in DalObject.
             inputStringId(ref id);
             inputStringValue(ref name);
             inputPhone(ref phone);
-            inputDoubleValue(ref longitude);
-            inputDoubleValue(ref latitude);
+            inputLocationValue(ref location);
         }
 
         /// <summary>

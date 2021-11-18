@@ -53,7 +53,7 @@ namespace IBL
                 }
             }
 
-            public Location Location { get; set; }
+            public Location MyLocation { get; set; }
 
             private int chargeSlots;
 
@@ -76,22 +76,22 @@ namespace IBL
             public List<DroneInCharging> DroneCharging { get; set; }
 
 
-            /// <summary>
-            /// constructor
-            /// </summary>
-            /// <param name="id"> BaseStation's id </param>
-            /// <param name="name"> BaseStation's name </param>
-            /// <param name="location"> BaseStation's location </param>
-            /// <param name="chargeSlots"> BaseStation's number of chargeSlots </param>
-            /// <param name="droneCharging"> BaseStation's droneInCharging </param>
-            public BaseStation(int id, string name, Location location, int chargeSlots, List<DroneInCharging> droneCharging)
-            {
-                this.id = id; this.name = name; this.chargeSlots = chargeSlots;
-                Id = id; Name = name; Location = location; ChargeSlots = chargeSlots; DroneCharging = droneCharging;
-            }
+            ///// <summary>
+            ///// constructor
+            ///// </summary>
+            ///// <param name="id"> BaseStation's id </param>
+            ///// <param name="name"> BaseStation's name </param>
+            ///// <param name="location"> BaseStation's location </param>
+            ///// <param name="chargeSlots"> BaseStation's number of chargeSlots </param>
+            ///// <param name="droneCharging"> BaseStation's droneInCharging </param>
+            //public BaseStation(int id, string name, Location location, int chargeSlots, List<DroneInCharging> droneCharging)
+            //{
+            //    this.id = id; this.name = name; this.chargeSlots = chargeSlots;
+            //    Id = id; Name = name; MyLocation = location; ChargeSlots = chargeSlots; DroneCharging = droneCharging;
+            //}
 
-            // default constructor
-            public BaseStation() { }
+            //// default constructor
+            //public BaseStation() { }
             /// <summary>
             /// collect the details about the drones in charging
             /// </summary>
@@ -115,7 +115,7 @@ namespace IBL
             {
                 return $"id: {Id} \n" +
                         $"name: {Name} \n" +
-                        $"location: { Location }\n" +
+                        $"location: { MyLocation }\n" +
                         $"number of charge slots: {ChargeSlots}\n"
                         + $"drones in charging: {droneInChargingDetails()}\n";
             }
