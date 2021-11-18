@@ -49,13 +49,6 @@ namespace DalObject
             return parcel;
         }
 
-        //public int AddDrone(Drone drone)
-        //{
-        //    Drone drone = drone;
-        //    DronesList.Add(drone);
-        //    return DronesList.Count - 1;
-        //}
-
         public void AssociateParcel(int parcelId, int droneId)
         {
             for (int i = 0; i < ParcelsList.Count; i++)
