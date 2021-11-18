@@ -10,12 +10,11 @@ namespace ConsoleUI_BL
     public partial class Program 
     {
 
-        private static void inputLocationValue(out Location location)
+        internal static void inputLocationValue(double longi, double lati)
         {
-            Coordinate longi = 0, lati = 0;
-            inputDoubleValue(ref lati);
-            inputDoubleValue(ref lati);
-            location = new Location(longi, lati);
+            inputDoubleValue(out lati);
+            inputDoubleValue(out lati);
+            
         }
 
         /// <summary>
@@ -34,7 +33,7 @@ namespace ConsoleUI_BL
         /// The function checks if the variable is int type.
         /// </summary>
         /// <param name="numericalValue">a int type variable</param>
-        private static void inputIntValue(out int numericalValue)
+        internal static void inputIntValue(out int numericalValue)
         {
             while (!int.TryParse(Console.ReadLine(), out numericalValue) )
             {
@@ -46,7 +45,7 @@ namespace ConsoleUI_BL
         /// The function checks if the variable is string type.
         /// </summary>
         /// <param name="str">a string type variable</param>
-        private static void inputStringValue(out string str)
+        internal static void inputStringValue(out string str)
         {
             while (true)
             {
@@ -80,7 +79,7 @@ namespace ConsoleUI_BL
         /// The function checks if the id is string type. 
         /// </summary>
         /// <param name="id">string type id</param>
-        public static void inputStringId(ref string id)
+        internal static void inputStringId(ref string id)
         {
             while (true)
             {
@@ -119,7 +118,7 @@ namespace ConsoleUI_BL
         /// The function checks if the phone is valid. 
         /// </summary>
         /// <param name="phone">phone</param>
-        public static void inputPhone(ref string phone)
+        internal static void inputPhone(ref string phone)
         {
             bool isValid = true;
             while (true)
@@ -155,7 +154,7 @@ namespace ConsoleUI_BL
         /// getting a string and check its existance in WeightCategories enum.
         /// </summary>
         /// <param name="maxWeight">WeightCategory: maxWeight</param>
-        private static void inputWeightCategory(out string maxWeight)
+        internal static void inputWeightCategory(ref string maxWeight)
         {
             bool isExist1 = false;
             string currentEnum;
@@ -185,7 +184,7 @@ namespace ConsoleUI_BL
         /// getting a string and check its existance in Priorities enum.
         /// </summary>
         /// <param name="priority">priority</param>
-        private static void inputPriority(ref string priority)
+        internal static void inputPriority(ref string priority)
         {
             bool isExist3 = false;
             string currentEnum;
