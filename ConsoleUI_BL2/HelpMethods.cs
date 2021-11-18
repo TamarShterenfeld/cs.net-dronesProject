@@ -21,7 +21,7 @@ namespace ConsoleUI_BL
         /// The function checks if the variable is double type.
         /// </summary>
         /// <param name="numericalValue">a double type variable</param>
-        private static void inputDoubleValue(out double numericalValue)
+        private static void inputDoubleValue(ref double numericalValue)
         {
             while (!double.TryParse(Console.ReadLine(), out numericalValue))
             {
