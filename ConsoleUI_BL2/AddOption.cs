@@ -14,9 +14,8 @@ namespace ConsoleUI_BL
         int innerChoice;
         int id, droneId, baseStationId;
         string name, customerId, phone, model, senderId, targetId;
-        double battery;
+        double battery, lati, longi;
         int chrgeSlots;
-        Location location;
         //all the enum type litteral are entered as string type
         //and then checked if they contain an enum name.
         string maxWeight = "", weight = "", priority = "";

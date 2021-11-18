@@ -12,8 +12,8 @@ namespace ConsoleUI_BL
 
         internal static void inputLocationValue(double longi, double lati)
         {
-            inputDoubleValue(out lati);
-            inputDoubleValue(out lati);
+            inputDoubleValue(ref lati);
+            inputDoubleValue(ref lati);
             
         }
 

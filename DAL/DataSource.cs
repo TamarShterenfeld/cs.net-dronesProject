@@ -82,7 +82,8 @@ namespace DalObject
                 baseStation.Id = i;
                 baseStation.Name = randomBaseStationName();
                 baseStation.ChargeSlots = randomChargeSlot();
-                baseStation.Location = randomLocation();
+                baseStation.Longitude = randomLongitude();
+                baseStation.Latitude = randomLatitude();
                 BaseStationsList.Add(baseStation);
             }
 
