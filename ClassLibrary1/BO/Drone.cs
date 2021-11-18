@@ -38,7 +38,6 @@ namespace IBL.BO
 
         public Location MyLocation { get; set; }
 
-        public Drone() { }
 
         /// <summary>
         /// override ToString function.

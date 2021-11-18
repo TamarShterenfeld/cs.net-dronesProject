@@ -15,7 +15,7 @@ namespace ConsoleUI_BL
         /// <param name="name">base station's name</param>
         /// <param name="location">base station's name</param>  
         /// <param name="chargeSlots"> number of charge slots in the base station</param>
-        public static void CheckBaseStationDetails(ref int id, ref string name,ref Location location, ref int chargeSlots)
+        internal static void CheckBaseStationDetails(ref int id, ref string name,ref Location location, ref int chargeSlots)
         {
             Console.WriteLine("Enter base station's details : id, name, longitude, latitude, number of chargeSlots.");
             inputIntValue(ref id);
@@ -30,7 +30,7 @@ namespace ConsoleUI_BL
         /// <param name="battery">drone's battery</param>
         /// <param name="model">drone's model</param>
         /// <param name="maxWeight">drone's max weight</param>
-        public static void CheckDroneDetails(ref int id, ref string model, ref string maxWeight, ref int baseStationId)
+        internal static void CheckDroneDetails(ref int id, ref string model, ref string maxWeight, ref int baseStationId)
         {
             Console.WriteLine("Enter drone's details :\n id, model, category weight and base station's id.");
             inputIntValue(ref id);
@@ -47,7 +47,7 @@ namespace ConsoleUI_BL
         /// <param name="targetId">parcel's target id</param>
         /// <param name="weight">parcel's weight</param>
         /// <param name="priority">parcel's priority </param>
-        public static void CheckParcelDetails(ref string senderId, ref string targetId, ref string weight, ref string priority)
+        internal static void CheckParcelDetails(ref int id, ref string senderId, ref string targetId, ref string weight, ref string priority)
         {
             Console.WriteLine("Please enter :\n sender id, getter id, category weight and the priority of the drone.");
             //the checkings of the different (string) id are implemented within the struct Parcel and another function named "chackingIdentitiesOfParcel"
@@ -65,7 +65,7 @@ namespace ConsoleUI_BL
         /// <param name="phone">customer's phone</param>
         /// <param name="longitude">customer's longitude</param>
         /// <param name="latitude">customer's latitude</param>
-        public static void CheckCustomerDetails(ref string id, ref string name, ref string phone, ref Location location)
+        internal static void CheckCustomerDetails(ref string id, ref string name, ref string phone, ref Location location)
         {
             Console.WriteLine("Enter base customer's details : id, name, phone,  longitude, latitude.");
             //the needed checkings are implemented within the struct Customer or in DalObject.
@@ -80,7 +80,7 @@ namespace ConsoleUI_BL
         /// </summary>
         /// <param name="parcelId">associated parcel's parcel id</param>
         /// <param name="droneId">associated parcel's drone id</param>
-        public static void InputAssociatedParcelDetails(ref int parcelId, ref int droneId)
+        internal static void InputAssociatedParcelDetails(ref int parcelId, ref int droneId)
         {
             inputIntValue(ref parcelId);
             inputIntValue(ref droneId);
@@ -91,7 +91,7 @@ namespace ConsoleUI_BL
         /// </summary>
         /// <param name="parcelId">pick up parcel's parcel id</param>
         /// <param name="senderId">pick up parcel's sender id</param>
-        public static void InputPickUpParcelDetails(ref int parcelId, ref string senderId)
+        internal static void InputPickUpParcelDetails(ref int parcelId, ref string senderId)
         {
             inputIntValue(ref parcelId);
             inputStringId(ref senderId);
@@ -102,7 +102,7 @@ namespace ConsoleUI_BL
         /// </summary>
         /// <param name="parcelId">arrival parcel's parcel id</param>
         /// <param name="targetId">arrival parcel's target id</param>
-        public static void InputArrivalDetails(ref int parcelId, ref string targetId)
+        internal static void InputArrivalDetails(ref int parcelId, ref string targetId)
         {
             inputIntValue(ref parcelId);
             inputStringId(ref targetId);

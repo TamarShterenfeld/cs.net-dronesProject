@@ -25,14 +25,14 @@ namespace ConsoleUI_BL
                         {
                             Console.WriteLine("Please enter baseStationId");
                             inputIntValue(ref baseStationId);
-                            DisplayBaseStation(baseStationId);
+                            bl.DisplayBaseStation(baseStationId);
                             break;
                         }
                     case (int)DisplayOptions.Drone:
                         {
                             Console.WriteLine("Please enter droneId");
                             inputIntValue(ref droneId);
-                            DisplayDrone(droneId);
+                            bl.DisplayDrone(droneId);
                             break;
                         }
                     case (int)DisplayOptions.Customer:

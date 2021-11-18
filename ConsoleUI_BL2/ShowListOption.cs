@@ -20,32 +20,32 @@ namespace ConsoleUI_BL
                 {
                     case (int)ShowingListsOptions.BaseStations:
                         {
-                            ShowBaseStationsList();
+                            bl.ShowBaseStationsList();
                             break;
                         }
                     case (int)ShowingListsOptions.Drones:
                         {
-                            ShowDronesList();
+                            bl.ShowDronesList();
                             break;
                         }
                     case (int)ShowingListsOptions.Customers:
                         {
-                            ShowCustomersList();
+                            bl.ShowCustomersList();
                             break;
                         }
                     case (int)ShowingListsOptions.Parcels:
                         {
-                            ShowParcelsList();
+                            bl.ShowParcelsList();
                             break;
                         }
                     case (int)ShowingListsOptions.NotAssociatedParcels:
                         {
-                            ShowNotAssociatedParcelsList();
+                            bl.ShowNotAssociatedParcelsList();
                             break;
                         }
                     case (int)ShowingListsOptions.AvailableChargeSlots:
                         {
-                            AvailableChargeSlots();
+                            bl.AvailableChargeSlots();
                             break;
                         }
                     default:

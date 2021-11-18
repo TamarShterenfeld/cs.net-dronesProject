@@ -77,7 +77,7 @@ namespace IBL
         /// <summary>
         /// The function shows all the available charge slots
         /// </summary>
-        public void AvailableChargeSlots(int baseStationId)
+        public void AvailableChargeSlots()
         {
             List<BaseStation> availableChargeSlots = (List<BaseStation>)dal.AvailableChargingSlots();
             foreach (BaseStation item in availableChargeSlots)
