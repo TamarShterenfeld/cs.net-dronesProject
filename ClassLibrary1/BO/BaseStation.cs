@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static IDAL.DO.BaseStation;
+using IDAL.DO;
+using IDAL;
+using static DalObject.DalObject;
 
 namespace IBL
 {
@@ -90,8 +94,16 @@ namespace IBL
             //    Id = id; Name = name; MyLocation = location; ChargeSlots = chargeSlots; DroneCharging = droneCharging;
             //}
 
-            //// default constructor
-            //public BaseStation() { }
+            // default constructor
+            public BaseStation() { }
+
+            public BaseStation(IDAL.DO.BaseStation baseStation)
+            {
+                this.Id = baseStation.Id;
+                this.Name = baseStation.Name;
+                this.MyLocation = new Location(this.MyLocation.CoorLongitude, this.MyLocation.CoorLatitude);
+                this.ChargeSlots = baseStation.ChargeSlots - AvailableChargingSlots(this.Id);
+            }
             /// <summary>
             /// collect the details about the drones in charging
             /// </summary>

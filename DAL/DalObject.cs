@@ -117,14 +117,22 @@ namespace DalObject
             for (int i = 0; i < BaseStationsList.Count; i++)
             {
                 availableChargingSlotsList[i] = BaseStationsList[i];
-                availableChargingSlotsList[i].ChargeSlots -= (DronesChargeList.ToArray()).Count(dc => dc.StationId == i);
+                availableChargingSlotsList[i].ChargeSlots -= (DronesChargeList.ToArray()).Count(dc => dc.StationId == availableChargingSlotsList[i].Id);
             }
             return availableChargingSlotsList;
         }
 
-        public int AvailableChargingSlots(int baseStationId)
+        public static int AvailableChargingSlots(int baseStationId)
         {
-            return BaseStationsList[baseStationId].ChargeSlots - (DronesChargeList.ToArray()).Count(dc => dc.StationId == baseStationId);
+            int caught = 0;
+            foreach (DroneCharge droneCharge in DronesChargeList)
+            {
+                if(droneCharge.StationId == baseStationId)
+                {
+                    ++caught;
+                }
+            }
+            return caught;
         }
 
         public IEnumerable<int> GetDronesIdInBaseStation(int requestedId)
