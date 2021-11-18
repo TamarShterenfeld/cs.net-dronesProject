@@ -28,5 +28,6 @@ namespace IDAL
         IEnumerable<BaseStation> AvailableChargingStations();
         int AvailableChargingSlots(int baseStationId);
         IEnumerable<int> GetDronesIdInBaseStation(int requestedId);
+        IEnumerable<DroneCharge> DronesChargingInMe(int stationId);
     }
 }

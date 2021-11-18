@@ -135,6 +135,19 @@ namespace DalObject
             return caught;
         }
 
+        public  IEnumerable<DroneCharge> DronesChargingInMe(int stationId)
+        {
+            List<DroneCharge> dronesCharge = null;
+            foreach (DroneCharge droneCharge in DronesChargeList)
+            {
+                if (droneCharge.StationId == stationId)
+                {
+                    dronesCharge.Add(droneCharge);
+                }
+            }
+            return dronesCharge;
+        }
+
         public IEnumerable<int> GetDronesIdInBaseStation(int requestedId)
         {
             return DronesChargeList.FindAll(dc => dc.StationId == requestedId).ConvertAll(dc => dc.DroneId);

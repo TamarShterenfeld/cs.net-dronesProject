@@ -103,6 +103,7 @@ namespace IBL
                 this.Name = baseStation.Name;
                 this.MyLocation = new Location(this.MyLocation.CoorLongitude, this.MyLocation.CoorLatitude);
                 this.ChargeSlots = baseStation.ChargeSlots - AvailableChargingSlots(this.Id);
+                this.DroneCharging = 
             }
             /// <summary>
             /// collect the details about the drones in charging

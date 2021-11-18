@@ -5,6 +5,9 @@ using static DalObject.DataSource;
 using IBL.BO;
 using System.Linq;
 using System.Numerics;
+using IDAL.DO;
+using IDAL;
+using static DalObject.DalObject;
 
 
 namespace IBL
@@ -87,6 +90,11 @@ namespace IBL
         {
             int caught = dal.AvailableChargingSlots(stationId);
             return caught;
+        }
+
+        public IEnumerable<DroneInCharging> GetDronesInMe(int stationId)
+        {
+            dal.DronesChargingInMe(stationId);
         }
     }
 }
