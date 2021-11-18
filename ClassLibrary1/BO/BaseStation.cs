@@ -7,6 +7,8 @@ using static IDAL.DO.BaseStation;
 using IDAL.DO;
 using IDAL;
 using static DalObject.DalObject;
+using static IBL.BL;
+
 
 namespace IBL
 {
@@ -103,6 +105,7 @@ namespace IBL
                 this.Name = baseStation.Name;
                 this.MyLocation = new Location(this.MyLocation.CoorLongitude, this.MyLocation.CoorLatitude);
                 this.ChargeSlots = baseStation.ChargeSlots - AvailableChargingSlots(this.Id);
+                this.DroneCharging = (List<DroneInCharging>)bl.GetDronesInMe(this.Id);
             }
             /// <summary>
             /// collect the details about the drones in charging

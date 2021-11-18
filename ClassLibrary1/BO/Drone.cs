@@ -32,10 +32,11 @@ namespace IBL.BO
 
         private static Random rand = new Random();
 
-        private double battery = rand.NextDouble()*20 + 20;        
+        private double battery = rand.NextDouble()*20 + 20;  
+
+        private DroneStatuses status = DroneStatuses.Available;
         public double Battery { get { return battery; } set { battery = value; } }
 
-        private DroneStatuses status { get; set; }
         public DroneStatuses Status { get; set; }
 
         public ParcelInPassing Parcel { set; get; }
