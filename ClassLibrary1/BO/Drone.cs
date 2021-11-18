@@ -30,9 +30,13 @@ namespace IBL.BO
 
         public WeightCategories MaxWeight { set; get; }
 
-        public double Battery { get; set; }
+        private static Random rand = new Random();
 
-        public DroneStatuses Status { set; get; }
+        private double battery = rand.NextDouble()*20 + 20;        
+        public double Battery { get { return battery; } set { battery = value; } }
+
+        private DroneStatuses status { get; set; }
+        public DroneStatuses Status { get; set; }
 
         public ParcelInPassing Parcel { set; get; }
 

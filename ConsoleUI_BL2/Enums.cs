@@ -5,10 +5,10 @@ using System.Text;
 
 namespace ConsoleUI_BL
 {
-    ///// <summary>
-    ///// all the different enums that were used in the project
-    ///// are collected here - just because they may belong to more than one structure.
-    ///// </summary>
+    /// <summary>
+    /// all the different enums that were used in the project
+    /// are collected here - just because they may belong to more than one structure.
+    /// </summary>
     //public enum WeightCategories
     //{
     //    Light = 1, Average, Heavy
@@ -23,7 +23,7 @@ namespace ConsoleUI_BL
     //    Standard = 1, Fast, Emergency
     //}
 
-    //{
+    
     /// <summary>
     /// all the different enums that were used in the project are collected here.
     /// </summary>
