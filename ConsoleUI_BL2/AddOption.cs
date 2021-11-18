@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using IBL.BO;
 
 namespace ConsoleUI_BL
 {
@@ -11,11 +12,12 @@ namespace ConsoleUI_BL
     /// </summary>
     public class AddOption : ISubNavigate
     {
-        int innerChoice;
-        int id, droneId, baseStationId;
-        string name, customerId, phone, model, senderId, targetId;
-        double battery, lati, longi;
-        int chrgeSlots;
+        int innerChoice = 0;
+        int id = 0, droneId = 0, baseStationId = 0;
+        string name =" ", customerId = " ", phone = " ", model =" ", senderId=" ", targetId=" ";
+        double battery =0, lati= 0, longi=0;
+        int chrgeSlots = 0;
+        Location location = new Location();
         //all the enum type litteral are entered as string type
         //and then checked if they contain an enum name.
         string maxWeight = "", weight = "", priority = "";
@@ -29,27 +31,27 @@ namespace ConsoleUI_BL
                 {
                     case (int)AddOptions.BaseStation:
                         {
-                            CheckBaseStationDetails(out id, out name, out location, out chrgeSlots);
-                            bl.BaseStation baseStation = new BO.BaseStation(id, name, location, chrgeSlots, null);
+                            CheckBaseStationDetails(ref id, ref name, ref location, ref chrgeSlots);
+                            BaseStation baseStation = new BaseStation(id, name, location, chrgeSlots, null);
                             bl.Add(baseStation);
                             break;
                         }
 
                     case (int)AddOptions.Drone:
                         {
-                            CheckDroneDetails(out id, out model, out maxWeight, out baseStationId);
+                            CheckDroneDetails(ref id, ref model, ref maxWeight, ref baseStationId);
                             bl.AddDrone(id, maxWeight, baseStationId);
                             break;
                         }
                     case (int)AddOptions.Customer:
                         {
-                            CheckCustomerDetails(out customerId, out name, out phone, out longitude, out latitude);
+                            CheckCustomerDetails(ref customerId, ref name, ref phone, ref longitude, ref latitude);
                             AddCustomer(customerId, name, phone, longitude, latitude);
                             break;
                         }
                     case (int)AddOptions.Parcel:
                         {
-                            CheckParcelDetails(out id, out senderId, out targetId, out weight, out priority);
+                            CheckParcelDetails(ref id, ref senderId, ref targetId, ref weight, ref priority);
                             AddParcel(id, senderId, targetId, droneId, weight, priority);
                             break;
                         }

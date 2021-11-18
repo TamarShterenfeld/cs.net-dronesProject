@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using IBL.BO;
 using static IBL.BO.Location;
+using static IBL.BO.Coordinate;
+
 
 
 namespace ConsoleUI_BL
@@ -10,10 +12,11 @@ namespace ConsoleUI_BL
     public partial class Program 
     {
 
-        internal static void inputLocationValue(double longi, double lati)
+        internal static void inputLocationValue(ref Location location)
         {
-            inputDoubleValue(ref lati);
-            inputDoubleValue(ref lati);
+            double longitude = location.CoorLongitude.RegularCoor, latitude = location.CoorLatitude.RegularCoor;
+            inputDoubleValue(ref longitude);
+            inputDoubleValue(ref latitude);
             
         }
 
@@ -21,7 +24,7 @@ namespace ConsoleUI_BL
         /// The function checks if the variable is double type.
         /// </summary>
         /// <param name="numericalValue">a double type variable</param>
-        private static void inputDoubleValue(ref double numericalValue)
+        internal static void inputDoubleValue(ref double numericalValue)
         {
             while (!double.TryParse(Console.ReadLine(), out numericalValue))
             {
@@ -33,7 +36,7 @@ namespace ConsoleUI_BL
         /// The function checks if the variable is int type.
         /// </summary>
         /// <param name="numericalValue">a int type variable</param>
-        internal static void inputIntValue(out int numericalValue)
+        internal static void inputIntValue(ref int numericalValue)
         {
             while (!int.TryParse(Console.ReadLine(), out numericalValue) )
             {
@@ -45,7 +48,7 @@ namespace ConsoleUI_BL
         /// The function checks if the variable is string type.
         /// </summary>
         /// <param name="str">a string type variable</param>
-        internal static void inputStringValue(out string str)
+        internal static void inputStringValue(ref string str)
         {
             while (true)
             {
