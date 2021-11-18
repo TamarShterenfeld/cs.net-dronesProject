@@ -73,6 +73,21 @@ namespace IBL
             Parcel currParcel = parcelsList.First(item => item.Id == id);
             Console.WriteLine(currParcel);
         }
+
+        /// <summary>
+        /// The function displays a parcel according to the input id.
+        /// </summary>
+        /// <param name="id">parcel's id</param>
+        public void DisplayDrone(int id)
+        {
+            List<Drone> dronesList = (List<Drone>)dal.GetDronesList();
+            if (dronesList.FindIndex(item => item.Id == id) == -1)
+            {
+                throw new OverloadException("the inserted id wasn't found");
+            }
+            Drone currDrone = dronesList.First(item => item.Id == id);
+            Console.WriteLine(currDrone);
+        }
     }
 }
 
