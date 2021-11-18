@@ -102,10 +102,9 @@ namespace ConsoleUI_BL
         /// </summary>
         /// <param name="parcelId">arrival parcel's parcel id</param>
         /// <param name="targetId">arrival parcel's target id</param>
-        internal static void InputArrivalDetails(ref int parcelId, ref string targetId)
+        internal static void InputArrivalDetails(ref int droneId)
         {
-            inputIntValue(ref parcelId);
-            inputStringId(ref targetId);
+            inputIntValue(ref droneId);
         }
     }
 }

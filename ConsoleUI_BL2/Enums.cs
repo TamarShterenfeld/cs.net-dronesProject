@@ -39,7 +39,7 @@ namespace ConsoleUI_BL
 
     public enum UpDateOptions
     {
-        AssociatingParcel = 1, PickingUpParcel, SupplyingParcel, ChargingDrone, StopDroneCharging,
+        AssociationParcel = 1, PickUpParcel, SupplyParcel, ChargeDrone, StopDroneCharge,
     }
 
     public enum DisplayOptions

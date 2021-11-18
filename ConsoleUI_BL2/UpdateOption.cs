@@ -21,34 +21,34 @@ namespace ConsoleUI_BL
             {
                 switch (innerChoice)
                 {
-                    case (int)UpDateOptions.AssociatingParcel:
+                    case (int)UpDateOptions.AssociationParcel:
                         {
-                            Console.WriteLine("Please enter the parcel's id and the drone's id");
+                            Console.WriteLine("Please enter the drone id");
                             InputAssociatedParcelDetails(ref parcelId, ref droneId);
-                            bl.AssociateParcel(parcelId, droneId);
+                            bl.AssociateParcel(droneId);
                             break;
                         }
-                    case (int)UpDateOptions.PickingUpParcel:
+                    case (int)UpDateOptions.PickUpParcel:
                         {
-                            Console.WriteLine("Please enter the parcel's id and the sender's id");
+                            Console.WriteLine("Please enter the drone id");
                             InputPickUpParcelDetails(ref parcelId, ref senderId);
-                            bl.PickUpParcel(parcelId, senderId);
+                            bl.PickUpParcel(droneId);
                             break;
                         }
-                    case (int)UpDateOptions.SupplyingParcel:
+                    case (int)UpDateOptions.SupplyParcel:
                         {
-                            Console.WriteLine("Please enter the parcel's id and the target's id");
-                            InputArrivalDetails(ref parcelId, ref targetId);
-                            bl.SupplyParcel(parcelId, targetId);
+                            Console.WriteLine("Please enter the drone id");
+                            InputArrivalDetails(ref droneId);
+                            bl.SupplyParcel(droneId );
                             break;
                         }
-                    case (int)UpDateOptions.ChargingDrone:
+                    case (int)UpDateOptions.ChargeDrone:
                         {
-                            Console.WriteLine("Please enter droneId and baseStationId");
-                            bl.ChargingDrone(droneId, baseStationId);
+                            Console.WriteLine("Please enter droneId ");
+                          //  bl.(dronId);
                             break;
                         }
-                    case (int)UpDateOptions.StopDroneCharging:
+                    case (int)UpDateOptions.StopDroneCharge:
                         {
                             Console.WriteLine("Please enter droneId and baseStationId");
                             bl.ReleaseDroneCharging(droneId);
