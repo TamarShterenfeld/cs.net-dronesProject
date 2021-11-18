@@ -41,7 +41,8 @@ namespace ConsoleUI_BL
                     case (int)AddOptions.Drone:
                         {
                             CheckDroneDetails(ref id, ref model, ref maxWeight, ref baseStationId);
-                            bl.AddDrone(id, maxWeight, baseStationId);
+                            Drone drone = new Drone();
+                            bl.Add(drone);
                             break;
                         }
                     case (int)AddOptions.Customer:
@@ -53,8 +54,11 @@ namespace ConsoleUI_BL
                         }
                     case (int)AddOptions.Parcel:
                         {
-                            CheckParcelDetails(ref id, ref senderId, ref targetId, ref weight, ref priority);
-                            AddParcel(id, senderId, targetId, droneId, weight, priority);
+                            CheckParcelDetails(ref senderId, ref targetId, ref weight, ref priority);
+                            CustomerInParcel sender = new CustomerInParcel() { Id = senderId, Name = "" };
+                            CustomerInParcel target = new CustomerInParcel() { Id = targetId, Name = "" };
+                            Parcel parcel = new Parcel() { Id = 123, Sender = sender, Target = target, Weight = weight, Priority = priority };
+                            bl.Add(parcel);
                             break;
                         }
                     default:

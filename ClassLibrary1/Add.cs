@@ -5,11 +5,13 @@ using System.Text;
 using static DalObject.DataSource;
 using System.Linq;
 using  DalObject;
+using IBL.BO;
+
 
 
 namespace IBL
 {
-    public partial class BL :IBL
+    public partial class BL : IBL
     {
         /// <summary>
         /// The function adds a base station 
@@ -17,7 +19,7 @@ namespace IBL
         /// <param name="baseStation">base station</param>
         public void Add(BO.BaseStation baseStation)
         {
-            dal.Add(new IDAL.DO.BaseStation() { Id = baseStation.Id, Name = baseStation.Name, Longitude = baseStation.Location.CoorLongitude, Latitude = baseStation.Location.CoorLatitude, ChargeSlots = baseStation.ChargeSlots}); 
+            dal.Add(new IDAL.DO.BaseStation() { Id = baseStation.Id, Name = baseStation.Name, Longitude = baseStation.MyLocation.CoorLongitude , Latitude = baseStation.MyLocation.CoorLatitude, ChargeSlots = baseStation.ChargeSlots}); 
         }
 
         /// <summary>

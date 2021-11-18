@@ -44,6 +44,17 @@ namespace ConsoleUI_BL
             }
         }
 
+        internal static void inputIsNotNull(ref string str)
+        {
+            str = Console.ReadLine();
+
+            while (string.IsNullOrEmpty(str))
+            {
+                Console.WriteLine("String must hold a value!");
+                str = Console.ReadLine();
+            }
+        }
+
         /// <summary>
         /// The function checks if the variable is string type.
         /// </summary>

@@ -26,23 +26,27 @@ namespace IBL.BO
         public CustomerInParcel Sender { get; set; }
         public CustomerInParcel Target { get; set; }
         public WeightCategories Weight { get; set; }
-
         public Priorities Priority { get; set; }
-        public DroneInParcel Drone { get; set; }
 
-        public DateTime ProductionDate { get; set; }
-        public DateTime AssociationDate { get; set; }
-        public DateTime PickUpDate { get; set; }
-        public DateTime SupplyDate { get; set; }
+        private DroneInParcel drone = null;
+        public DroneInParcel MyDrone { get { return drone; } set { drone = value; } }
+        public  DateTime ProductionDate { get { return ProductionDate; } init { ProductionDate = DateTime.Now; } }
 
-        public Parcel(int id, CustomerInParcel sender, CustomerInParcel target, WeightCategories weight, Priorities priority, DroneInParcel drone)
-        {
-            this.id = id; Sender = sender;Target = target ; Weight = weight; Priority = priority; Drone = Drone;
-            //a default value in the creation of the object.
-            ProductionDate = AssociationDate = PickUpDate = SupplyDate = new DateTime(01 / 01 / 0001);
-        }
+        private DateTime associationDate = new DateTime();
+        public DateTime AssociationDate { get { return associationDate; } set { associationDate = value; } }
+        private DateTime pickUpDate = new DateTime();
+        public DateTime PickUpDate { get { return pickUpDate; } set { pickUpDate = value; } }
+        public DateTime supplyDate = new DateTime();
+        public DateTime SupplyDate { get { return supplyDate; } set { supplyDate = value; } }
 
-        public Parcel(){}
+        //public Parcel(int id, CustomerInParcel sender, CustomerInParcel target, WeightCategories weight, Priorities priority, DroneInParcel drone)
+        //{
+        //    this.id = id; Sender = sender;Target = target ; Weight = weight; Priority = priority; Drone = Drone;
+        //    //a default value in the creation of the object.
+        //    ProductionDate = AssociationDate = PickUpDate = SupplyDate = new DateTime(01 / 01 / 0001);
+        //}
+
+        //public Parcel(){}
     }
 
     
