@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using IBL.BO;
+
 
 namespace IBL
 {
@@ -9,6 +13,7 @@ namespace IBL
     interface IBaseStationBL
     {
         void Add(BO.BaseStation baseStation);
+        //IEnumerable <DroneInCharging> GetDronesInMe(int stationId); 
         //void Update(int id, BO.BaseStation baseStation);
         //BO.BaseStation Get(int id);
     }

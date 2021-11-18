@@ -94,7 +94,14 @@ namespace IBL
 
         public IEnumerable<DroneInCharging> GetDronesInMe(int stationId)
         {
-            dal.DronesChargingInMe(stationId);
+            List<DroneInCharging> droneInCharging = null;
+            foreach(DroneCharge droneCharge in dal.DronesChargingInMe(stationId))
+            {
+                DroneInCharging drone = new DroneInCharging() { Id = droneCharge.DroneId, Battery = 100 };
+                // לבדוק שבאמת הבטריה נהית 100
+                droneInCharging.Add(drone);
+            }
+            return droneInCharging;
         }
     }
 }
