@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using IBL.BO;
+using static ConsoleUI_BL.Program;
 
 namespace ConsoleUI_BL
 {
@@ -16,7 +17,7 @@ namespace ConsoleUI_BL
         int id = 0, droneId = 0, baseStationId = 0;
         string name =" ", customerId = " ", phone = " ", model =" ", senderId=" ", targetId=" ";
         double battery =0, lati= 0, longi=0;
-        int chrgeSlots = 0;
+        int chargeSlots = 0;
         Location location = new Location();
         //all the enum type litteral are entered as string type
         //and then checked if they contain an enum name.
@@ -31,8 +32,8 @@ namespace ConsoleUI_BL
                 {
                     case (int)AddOptions.BaseStation:
                         {
-                            CheckBaseStationDetails(ref id, ref name, ref location, ref chrgeSlots);
-                            BaseStation baseStation = new BaseStation(id, name, location, chrgeSlots, null);
+                            CheckBaseStationDetails(ref id, ref name, ref location, ref chargeSlots);
+                            BaseStation baseStation = new BaseStation() { Id = id, Name = name, MyLocation = location, ChargeSlots = chargeSlots,DroneCharging = null };
                             bl.Add(baseStation);
                             break;
                         }
@@ -45,8 +46,9 @@ namespace ConsoleUI_BL
                         }
                     case (int)AddOptions.Customer:
                         {
-                            CheckCustomerDetails(ref customerId, ref name, ref phone, ref longitude, ref latitude);
-                            AddCustomer(customerId, name, phone, longitude, latitude);
+                            CheckCustomerDetails(ref customerId, ref name, ref phone, ref location);
+                            Customer customer = new Customer() { Id = customerId, Name = name, Phone = phone, MyLocation = location, FromCustomer = null, ToCustomer = null}
+                            bl.Add(customer);
                             break;
                         }
                     case (int)AddOptions.Parcel:

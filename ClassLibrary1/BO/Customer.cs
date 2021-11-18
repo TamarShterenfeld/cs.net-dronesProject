@@ -83,30 +83,30 @@ namespace IBL
                 }
             }
 
-            public Location Location { get; set; }
+            public Location MyLocation { get; set; }
 
             public List<ParcelnCustomer> FromCustomer { get; set; }
             public List<ParcelnCustomer> ToCustomer { get; set; }
 
 
 
-            /// <summary>
-            /// constructor
-            /// </summary>
-            /// <param name="id"> Customer's id </param>
-            /// <param name="name"> Customer's name </param>
-            /// <param name="phone"> Customer's phone </param>
-            /// <param name="location"> Customer's location </param>
-            /// <param name="fromCustomer"> Customer's fromCustomer </param>
-            /// <param name="toCustomer"> Customer's toCustomer </param>
-            public Customer(string id, string name, string phone, Location location, List<ParcelnCustomer> fromCustomer, List<ParcelnCustomer> toCustomer)
-            {
-                this.id = id; this.name = name; this.phone = phone;
-                Id = id; Name = name; Phone = phone; Location = location; FromCustomer = fromCustomer; ToCustomer = toCustomer;
-            }
+            ///// <summary>
+            ///// constructor
+            ///// </summary>
+            ///// <param name="id"> Customer's id </param>
+            ///// <param name="name"> Customer's name </param>
+            ///// <param name="phone"> Customer's phone </param>
+            ///// <param name="location"> Customer's location </param>
+            ///// <param name="fromCustomer"> Customer's fromCustomer </param>
+            ///// <param name="toCustomer"> Customer's toCustomer </param>
+            //public Customer(string id, string name, string phone, Location location, List<ParcelnCustomer> fromCustomer, List<ParcelnCustomer> toCustomer)
+            //{
+            //    this.id = id; this.name = name; this.phone = phone;
+            //    Id = id; Name = name; Phone = phone; MyLocation = location; FromCustomer = fromCustomer; ToCustomer = toCustomer;
+            //}
 
-            //default constructor
-            public Customer() { }
+            ////default constructor
+            //public Customer() { }
 
             /// <summary>
             /// override ToString function.
@@ -117,7 +117,7 @@ namespace IBL
                 return $"id: {Id} \n" +
                        $"name: {Name} \n" +
                        $"phone: {Phone}\n" +
-                       $"location: {Location}\n" +
+                       $"location: {MyLocation}\n" +
                        $"FromCustomer: {deliveryInCustomerDetails(FromCustomer)}\n" +
                        $"ToCustomer: {deliveryInCustomerDetails(ToCustomer)}\n";
             }
