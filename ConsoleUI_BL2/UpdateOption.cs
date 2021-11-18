@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static ConsoleUI_BL.Program;
 
 namespace ConsoleUI_BL
 {/// <summary>
@@ -24,33 +25,33 @@ namespace ConsoleUI_BL
                         {
                             Console.WriteLine("Please enter the parcel's id and the drone's id");
                             InputAssociatedParcelDetails(ref parcelId, ref droneId);
-                            AssociateParcel(parcelId, droneId);
+                            bl.AssociateParcel(parcelId, droneId);
                             break;
                         }
                     case (int)UpDateOptions.PickingUpParcel:
                         {
                             Console.WriteLine("Please enter the parcel's id and the sender's id");
                             InputPickUpParcelDetails(ref parcelId, ref senderId);
-                            PickUpParcel(parcelId, senderId);
+                            bl.PickUpParcel(parcelId, senderId);
                             break;
                         }
                     case (int)UpDateOptions.SupplyingParcel:
                         {
                             Console.WriteLine("Please enter the parcel's id and the target's id");
                             InputArrivalDetails(ref parcelId, ref targetId);
-                            SupplyParcel(parcelId, targetId);
+                            bl.SupplyParcel(parcelId, targetId);
                             break;
                         }
                     case (int)UpDateOptions.ChargingDrone:
                         {
                             Console.WriteLine("Please enter droneId and baseStationId");
-                            ChargingDrone(droneId, baseStationId);
+                            bl.ChargingDrone(droneId, baseStationId);
                             break;
                         }
                     case (int)UpDateOptions.StopDroneCharging:
                         {
                             Console.WriteLine("Please enter droneId and baseStationId");
-                            StopDroneCharging(droneId);
+                            bl.ReleaseDroneCharging(droneId);
                             break;
                         }
                     default:

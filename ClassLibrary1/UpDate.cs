@@ -69,7 +69,7 @@ namespace IBL
         /// </summary>
         /// <param name="droneId">drone's id</param>
         /// <param name="baseStationId">base station's id</param>
-        internal  void ChargingDrone(int droneId, int baseStationId)
+        public  void ChargingDrone(int droneId, int baseStationId)
         {
             inputIntValue(ref droneId);
             List<Drone> DronesList = (List<Drone>)dal.GetDronesList();
@@ -99,7 +99,7 @@ namespace IBL
         /// the function stops the drone from charging
         /// </summary>
         /// <param name="droneId">drone's id</param>
-        public void StopDroneCharging(int droneId)
+        public void ReleaseDroneCharging(int droneId)
         {
             List<Drone> dronesList = (List<Drone>)dal.GetDronesList();
             List<DroneInCharging> DroneChargeList = (List<DroneInCharging>)dal.GetDronesCharge();
