@@ -52,7 +52,22 @@ namespace IBL
                 throw new OverloadException("drone id doesn't exist in the dronesList");
             else
             {
-
+                List<Parcel> parcelsList = (List<Parcel>)dal.GetParcelsList();
+                Drone currDrone = dronesList[droneIndex];
+                int parcelId = currDrone.Parcel.Id;
+                Parcel parcel = parcelsList.First(item => item.Id == parcelId);
+                if(parcel.PickUpDate != new DateTime(01 / 01 / 0001))
+                {
+                    List<Customer> customersList = (List<Customer>)dal.GetCustomersList();
+                    string senderId = parcel.Sender.Id;
+                    Customer senderCustomer = customersList.First(item => item.Id == senderId);
+                    currDrone.MyLocation = senderCustomer.MyLocation;
+                    parcel.PickUpDate = DateTime.Now;
+                }
+                else
+                {
+                    throw new OverloadException("the parcel has been picked up already");
+                }
             }
         }
         /// <summary>
