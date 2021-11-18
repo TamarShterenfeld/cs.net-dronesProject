@@ -4,13 +4,15 @@ using System.Text;
 using static System.Environment;
 using IBL;
 using IBL.BO;
+using static ConsoleUI_BL.Program;
+
 
 
 namespace ConsoleUI_BL
 {
     public class Menu 
     {
-        BL bl = new BL();
+        BL bl;
         AddOption add;
         UpDateOption upDate;
         DisplayOption display;
@@ -90,12 +92,12 @@ namespace ConsoleUI_BL
     /// </summary>
     public class AddOption : ISubNavigate
     {
-        int innerChoice;
-        int id , droneId , baseStationId;
-        string name , customerId , phone, model , senderId, targetId ;
-        double battery ;
-        int chrgeSlots;
-        Location location;
+        int innerChoice = 0;
+        int id=0 , droneId = 0, baseStationId = 0;
+        string name = " " , customerId = " ", phone = " ", model = " ", senderId = " ", targetId = " ";
+        double battery = 0, longitude = 0, latitude = 0;
+        int chrgeSlots = 0;
+        Location location = null;
         //all the enum type litteral are entered as string type
         //and then checked if they contain an enum name.
         string maxWeight = "", weight = "", priority = "";     
@@ -109,27 +111,30 @@ namespace ConsoleUI_BL
                 {
                     case (int)AddOptions.BaseStation:
                         {
-                            CheckBaseStationDetails(out id, out name, out location, out chrgeSlots);
-                            bl.BaseStation baseStation = new BO.BaseStation(id, name, location, chrgeSlots, null);
+                            CheckBaseStationDetails(ref id, ref name, ref location, ref chrgeSlots);
+                            BaseStation baseStation = new BaseStation(id, name, location, chrgeSlots, null);
                             bl.Add(baseStation);
                             break;
                         }
 
                     case (int)AddOptions.Drone:
                         {
-                            CheckDroneDetails(out id, out model, out maxWeight, out baseStationId);
+                            CheckDroneDetails(ref id, ref model, ref maxWeight, ref baseStationId);
+                            Drone drone = new Drone();
                             bl.AddDrone(id, maxWeight, baseStationId);
                             break;
                         }
                     case (int)AddOptions.Customer:
                         {
-                            CheckCustomerDetails(out customerId, out name, out phone, out longitude, out latitude);
-                            AddCustomer(customerId, name, phone, longitude, latitude);
+                            CheckCustomerDetails(ref customerId, ref name,ref phone, ref location);
+                            Customer customer = new Customer(customerId, name,  phone,  location,null,null);
+                            bl.Add(customer);
                             break;
                         }
                     case (int)AddOptions.Parcel:
                         {
-                            CheckParcelDetails(out id, out senderId, out targetId, out weight, out priority);
+                            CheckParcelDetails(ref senderId, ref targetId, ref weight, ref priority);
+                            Parcel parcel = new Parcel()
                             AddParcel(id, senderId, targetId, droneId, weight, priority);
                             break;
                         }
@@ -224,28 +229,28 @@ namespace ConsoleUI_BL
                         {
                             Console.WriteLine("Please enter baseStationId");
                             inputIntValue(ref baseStationId);
-                            DisplayBaseStation(baseStationId);
+                            DisplayBaseStation(ref baseStationId);
                             break;
                         }
                     case (int)DisplayOptions.Drone:
                         {
                             Console.WriteLine("Please enter droneId");
                             inputIntValue(ref droneId);
-                            DisplayDrone(droneId);
+                            DisplayDrone(ref droneId);
                             break;
                         }
                     case (int)DisplayOptions.Customer:
                         {
                             Console.WriteLine("Please enter customerId");
                             inputStringId(ref customerId);
-                            DisplayCustomer(customerId);
+                            DisplayCustomer(ref customerId);
                             break;
                         }
                     case (int)DisplayOptions.Parcel:
                         {
                             Console.WriteLine("Please enter parcelId");
                             inputIntValue(ref parcelId);
-                            DisplayParcel(parcelId);
+                            DisplayParcel(ref parcelId);
                             break;
                         }
                     default:
@@ -275,32 +280,32 @@ namespace ConsoleUI_BL
                 {
                     case (int)ShowingListsOptions.BaseStations:
                         {
-                            ShowBaseStationsList();
+                            //ShowBaseStationsList();
                             break;
                         }
                     case (int)ShowingListsOptions.Drones:
                         {
-                            ShowDronesList();
+                            //ShowDronesList();
                             break;
                         }
                     case (int)ShowingListsOptions.Customers:
                         {
-                            ShowCustomersList();
+                            //ShowCustomersList();
                             break;
                         }
                     case (int)ShowingListsOptions.Parcels:
                         {
-                            ShowParcelsList();
+                            //ShowParcelsList();
                             break;
                         }
                     case (int)ShowingListsOptions.NotAssociatedParcels:
                         {
-                            ShowNotAssociatedParcelsList();
+                            //ShowNotAssociatedParcelsList();
                             break;
                         }
                     case (int)ShowingListsOptions.AvailableChargeSlots:
                         {
-                            AvailableChargeSlots();
+                            //AvailableChargeSlots();
                             break;
                         }
                     default:
