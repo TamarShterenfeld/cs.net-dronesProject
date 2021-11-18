@@ -26,7 +26,6 @@ namespace ConsoleUI_BL
         string maxWeight = "", weight = "", priority = "";
         public void options(ref IBL.BL bl)
         {
-
             Console.WriteLine("Please enter : \n1- For Base Station \n2- For Drone\n3- For Customer\n4- For Parcel ");
             if (int.TryParse(Console.ReadLine(), out innerChoice))
             {
