@@ -21,10 +21,7 @@ namespace DalObject
             Initialize();
         }
 
-        //public int AddBaseStation(string stationName, int positions)
-        //{
-
-        //}
+        
 
         public BaseStation GetBaseStation(int baseStationId)
         {
@@ -143,10 +140,7 @@ namespace DalObject
             return parcels;
         }
     }
-    //double[] Electricity()
-    //    {
-
-    //    }
+    
 }
 
 

@@ -4,6 +4,8 @@ using System.Text;
 using IBL.BO;
 using static IBL.BO.Location;
 
+
+
 namespace ConsoleUI_BL
 {
     public partial class Program 
