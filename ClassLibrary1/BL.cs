@@ -11,7 +11,7 @@ namespace IBL
 
     public partial class BL : IBL
     {
-        private IDAL.IDal dal;
+        private IDal.IDal dal;
         private List<DroneToList> drones;
 
         public List<DroneToList> Drones { get; set; }

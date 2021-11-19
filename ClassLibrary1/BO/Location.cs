@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static IDAL.DO.Coordinate;
-using IDAL.DO;
+using static IDal.DO.Coordinate;
+using IDal.DO;
 
 namespace IBL
 {

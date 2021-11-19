@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using static IDAL.DO.OverloadException;
+using static IDal.DO.OverloadException;
 using static DalObject.DataSource;
-using IDAL.DO;
+using IDal.DO;
 
 namespace IBL
 {
@@ -17,7 +17,7 @@ namespace IBL
             List<BaseStation> baseStationsList = (List<BaseStation>)dal.GetBaseStationsList();
             foreach (BaseStation item in baseStationsList)
             {
-                DisplayBaseStation(item.Id);
+                 DisplayBaseStation(item.Id);
             }
             if (baseStationsList.Count == 0) Console.WriteLine("There are no base stations to show");
         }
@@ -79,7 +79,7 @@ namespace IBL
         /// </summary>
         public void AvailableChargeSlots()
         {
-            List<BaseStation> availableChargeSlots = (List<BaseStation>)dal.AvailableChargingStations();
+            List<BaseStation> availableChargeSlots = (List<BaseStation>)dal.AvailableChargeStations();
             foreach (BaseStation item in availableChargeSlots)
             {
                 DisplayBaseStation(item.Id);

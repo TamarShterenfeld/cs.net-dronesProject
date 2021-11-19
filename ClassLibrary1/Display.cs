@@ -5,8 +5,8 @@ using static DalObject.DataSource;
 using IBL.BO;
 using System.Linq;
 using System.Numerics;
-using IDAL.DO;
-using IDAL;
+using IDal.DO;
+using IDal;
 using static DalObject.DalObject;
 
 
@@ -33,12 +33,12 @@ namespace IBL
         /// <param name="id">drone's id</param>
         public void GetDrone(int id)
         {
-            List<Drone> donesList = (List<Drone>)dal.GetDronesList();
+            List<BO.Drone> donesList = (List<BO.Drone>)dal.GetDronesList();
             if (donesList.FindIndex(item => item.Id == id) == -1)
             {
-                throw new OverloadException("the inserted id wasn't found");
+                throw new BO.OverloadException("the inserted id wasn't found");
             }
-            Drone currDrone = donesList.First(item => item.Id == id);
+            BO.Drone currDrone = donesList.First(item => item.Id == id);
             Console.WriteLine(currDrone);
         }
 
@@ -48,12 +48,12 @@ namespace IBL
         /// <param name="id">customer's id</param>
         public void DisplayCustomer(string id)
         {
-            List<Customer> customersList = (List<Customer>)dal.GetCustomersList();
+            List<BO.Customer> customersList = (List<BO.Customer>)dal.GetCustomersList();
             if (customersList.FindIndex(item => item.Id == id) == -1)
             {
-                throw new OverloadException("the inserted id wasn't found");
+                throw new BO.OverloadException("the inserted id wasn't found");
             }
-            Customer currCustomer = customersList.First(item => item.Id == id);
+            BO.Customer currCustomer = customersList.First(item => item.Id == id);
             Console.WriteLine(currCustomer);
         }
 
@@ -63,13 +63,28 @@ namespace IBL
         /// <param name="id">parcel's id</param>
         public void DisplayParcel(int id)
         {
-            List<Parcel> parcelsList = (List<Parcel>)dal.GetParcelsList();
+            List<BO.Parcel> parcelsList = (List<BO.Parcel>)dal.GetParcelsList();
             if (parcelsList.FindIndex(item => item.Id == id) == -1)
             {
-                throw new OverloadException("the inserted id wasn't found");
+                throw new BO.OverloadException("the inserted id wasn't found");
             }
-            Parcel currParcel = parcelsList.First(item => item.Id == id);
+            BO.Parcel currParcel = parcelsList.First(item => item.Id == id);
             Console.WriteLine(currParcel);
+        }
+
+        /// <summary>
+        /// The function displays a parcel according to the input id.
+        /// </summary>
+        /// <param name="id">parcel's id</param>
+        public void DisplayBaseStation (int id)
+        {
+            List<BO.BaseStation> baseStationsList = (List<BO.BaseStation>)dal.GetParcelsList();
+            if (baseStationsList.FindIndex(item => item.Id == id) == -1)
+            {
+                throw new BO.OverloadException("the inserted id wasn't found");
+            }
+            BO.BaseStation currBaseStation = baseStationsList.First(item => item.Id == id);
+            Console.WriteLine(currBaseStation);
         }
 
         /// <summary>
@@ -78,25 +93,25 @@ namespace IBL
         /// <param name="id">parcel's id</param>
         public void DisplayDrone(int id)
         {
-            List<Drone> dronesList = (List<Drone>)dal.GetDronesList();
+            List<BO.Drone> dronesList = (List<BO.Drone>)dal.GetDronesList();
             if (dronesList.FindIndex(item => item.Id == id) == -1)
             {
-                throw new OverloadException("the inserted id wasn't found");
+                throw new BO.OverloadException("the inserted id wasn't found");
             }
-            Drone currDrone = dronesList.First(item => item.Id == id);
+            BO.Drone currDrone = dronesList.First(item => item.Id == id);
             Console.WriteLine(currDrone);
         }
 
         public int caughtChargeSlots(int stationId)
         {
-            int caught = dal.AvailableChargingSlots(stationId);
+            int caught = dal.AvailableChargeSlots(stationId);
             return caught;
         }
 
-        public static IEnumerable<DroneInCharging> GetDronesInMe(int stationId)
+        public IEnumerable<DroneInCharging> GetDronesInMe(int stationId)
         {
             List<DroneInCharging> droneInCharging = null;
-            foreach(DroneCharge droneCharge in DronesChargingInMe(stationId))// לשאול על סטטי
+            foreach(DroneCharge droneCharge in dal.DronesChargingInMe(stationId))
             {
                 DroneInCharging drone = new DroneInCharging() { Id = droneCharge.DroneId, Battery = 100 };
                 // לבדוק שבאמת הבטריה נהית 100

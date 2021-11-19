@@ -18,10 +18,10 @@ namespace ConsoleUI_BL
         internal static void CheckBaseStationDetails(ref int id, ref string name,ref Location location, ref int chargeSlots)
         {
             Console.WriteLine("Enter base station's details : id, name, longitude, latitude, number of chargeSlots.");
-            inputIntValue(ref id);
-            inputStringValue(ref name);
-            inputLocationValue(ref location);
-            inputIntValue(ref chargeSlots);
+            InputIntValue(ref id);
+            InputStringValue(ref name);
+            InputLocationValue(ref location);
+            InputIntValue(ref chargeSlots);
         }
         /// <summary>
         /// The function checks if the drone's details are valid
@@ -30,13 +30,12 @@ namespace ConsoleUI_BL
         /// <param name="battery">drone's battery</param>
         /// <param name="model">drone's model</param>
         /// <param name="maxWeight">drone's max weight</param>
-        internal static void CheckDroneDetails(ref int id, ref string model, ref string maxWeight, ref int baseStationId)
+        internal static void CheckDroneDetails(ref int id, ref string maxWeight, ref int baseStationId)
         {
             Console.WriteLine("Enter drone's details :\n id, model, category weight and base station's id.");
-            inputIntValue(ref id);
-            inputIsNotNull(ref model);
-            inputWeightCategory(ref maxWeight);
-            inputIntValue(ref baseStationId);
+            InputIntValue(ref id);
+            InputWeightCategory(ref maxWeight);
+            InputIntValue(ref baseStationId);
         }
 
         /// <summary>
@@ -51,10 +50,10 @@ namespace ConsoleUI_BL
         {
             Console.WriteLine("Please enter :\n sender id,getter id, category weight and the priority of the drone.");
             //the checkings of the different (string) id are implemented within the struct Parcel and another function named "chackingIdentitiesOfParcel"
-            inputStringId(ref senderId);
-            inputStringId(ref targetId);
-            inputWeightCategory(ref weight);
-            inputPriority(ref priority);
+            InputStringId(ref senderId);
+            InputStringId(ref targetId);
+            InputWeightCategory(ref weight);
+            InputPriority(ref priority);
         }
 
         /// <summary>
@@ -69,32 +68,10 @@ namespace ConsoleUI_BL
         {
             Console.WriteLine("Enter base customer's details : id, name, phone,  longitude, latitude.");
             //the needed checkings are implemented within the struct Customer or in DalObject.
-            inputStringId(ref id);
-            inputStringValue(ref name);
-            inputPhone(ref phone);
-            inputLocationValue(ref location);
-        }
-
-        /// <summary>
-        /// The function checks if the associated parcel's details are valid
-        /// </summary>
-        /// <param name="parcelId">associated parcel's parcel id</param>
-        /// <param name="droneId">associated parcel's drone id</param>
-        internal static void InputAssociatedParcelDetails(ref int parcelId, ref int droneId)
-        {
-            inputIntValue(ref parcelId);
-            inputIntValue(ref droneId);
-        }
-
-        /// <summary>
-        /// The function checks if the pick up parcel's details are valid
-        /// </summary>
-        /// <param name="parcelId">pick up parcel's parcel id</param>
-        /// <param name="senderId">pick up parcel's sender id</param>
-        internal static void InputPickUpParcelDetails(ref int parcelId, ref string senderId)
-        {
-            inputIntValue(ref parcelId);
-            inputStringId(ref senderId);
+            InputStringId(ref id);
+            InputStringValue(ref name);
+            InputPhone(ref phone);
+            InputLocationValue(ref location);
         }
 
         /// <summary>
@@ -104,7 +81,7 @@ namespace ConsoleUI_BL
         /// <param name="targetId">arrival parcel's target id</param>
         internal static void InputArrivalDetails(ref int droneId)
         {
-            inputIntValue(ref droneId);
+            InputIntValue(ref droneId);
         }
     }
 }

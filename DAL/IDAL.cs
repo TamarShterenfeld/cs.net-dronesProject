@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using IDAL.DO;
+using IDal.DO;
 
-namespace IDAL
+namespace IDal
 {
     public interface IDal
     {
@@ -27,8 +27,8 @@ namespace IDAL
         IEnumerable<Parcel> GetParcelsList();
         IEnumerable<DroneCharge> GetDronesCharge();
         IEnumerable<Parcel> NotAssociatedParcels();
-        IEnumerable<BaseStation> AvailableChargingStations();
-        int AvailableChargingSlots(int baseStationId);
+        IEnumerable<BaseStation> AvailableChargeStations();
+        int AvailableChargeSlots(int baseStationId);
         IEnumerable<int> GetDronesIdInBaseStation(int requestedId);
         IEnumerable<DroneCharge> DronesChargingInMe(int stationId);
     }

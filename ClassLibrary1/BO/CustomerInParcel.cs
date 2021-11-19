@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static IDAL.DO.OverloadException;
+using static IDal.DO.OverloadException;
 using static DalObject.DalObject;
 using IBL.BO;
 

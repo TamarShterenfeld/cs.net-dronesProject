@@ -1,4 +1,4 @@
-﻿using IDAL.DO;
+﻿using IDal.DO;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -19,7 +19,7 @@ namespace IBL
         /// <param name="baseStation">base station</param>
         public void Add(BO.BaseStation baseStation)
         {
-            dal.Add(new IDAL.DO.BaseStation() { Id = baseStation.Id, Name = baseStation.Name, Longitude = baseStation.MyLocation.CoorLongitude , Latitude = baseStation.MyLocation.CoorLatitude, ChargeSlots = baseStation.ChargeSlots}); 
+            dal.Add(new IDal.DO.BaseStation() { Id = baseStation.Id, Name = baseStation.Name, Longitude = baseStation.MyLocation.CoorLongitude , Latitude = baseStation.MyLocation.CoorLatitude, ChargeSlots = baseStation.ChargeSlots}); 
         }
 
         /// <summary>
@@ -28,7 +28,9 @@ namespace IBL
         /// <param name="drone">drone</param>
         public void Add(BO.Drone drone)
         {
-            dal.Add(new IDAL.DO.Drone());
+            //מה עם התחנה?
+            IDal.DO.WeightCategories weight = (IDal.DO.WeightCategories)drone.MaxWeight;
+            dal.Add(new IDal.DO.Drone() { Id = drone.Id, MaxWeight = weight } );
         }
 
         /// <summary>
@@ -37,7 +39,7 @@ namespace IBL
         /// <param name="customer">customer</param>
         public void Add(BO.Customer customer)
         {
-            dal.Add(new IDAL.DO.Customer()); 
+            dal.Add(new IDal.DO.Customer() { Id = customer.Id, Name = customer.Name, Phone = customer.Phone}); 
         }
 
         /// <summary>
@@ -46,7 +48,7 @@ namespace IBL
         /// <param name="parcel">parcel</param>
         public void Add(BO.Parcel parcel)
         {
-            dal.Add(new IDAL.DO.Parcel());
+            dal.Add(new IDal.DO.Parcel());
         }
     }
 }

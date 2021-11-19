@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using static IDAL.DO.Locations;
+using static IDal.DO.Locations;
 using System.Text;
-using IDAL.DO;
-using static IDAL.DO.OverloadException;
+using IDal.DO;
+using static IDal.DO.OverloadException;
 using static DalObject.DataSource;
 
-namespace IDAL
+namespace IDal
 {
     namespace DO
     {
