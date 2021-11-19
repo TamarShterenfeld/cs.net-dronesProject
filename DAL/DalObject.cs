@@ -135,7 +135,7 @@ namespace DalObject
             return caught;
         }
 
-        public  IEnumerable<DroneCharge> DronesChargingInMe(int stationId)
+        public static IEnumerable<DroneCharge> DronesChargingInMe(int stationId)
         {
             List<DroneCharge> dronesCharge = null;
             foreach (DroneCharge droneCharge in DronesChargeList)
@@ -164,6 +164,10 @@ namespace DalObject
                 }
             }
             return parcels;
+        }
+        public static int increaseParcelIndex()
+        {
+            return ++DataSource.Config.ParcelId;
         }
     }
     

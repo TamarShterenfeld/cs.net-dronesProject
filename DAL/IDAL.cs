@@ -15,6 +15,8 @@ namespace IDAL
         void PickupParcel(int parcelId);
         void SendDroneToRecharge(int droneId, int baseStationId);
         void ReleaseDroneFromRecharge(int droneId);
+
+        static int increaseParcelIndex() { return 0; }
         BaseStation GetBaseStation(int requestedId);
         Drone GetDrone(int requestedId);
         Customer GetCustomer(string requestedId);

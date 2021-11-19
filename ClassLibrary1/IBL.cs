@@ -13,6 +13,7 @@ namespace IBL
     interface IBaseStationBL
     {
         void Add(BO.BaseStation baseStation);
+        BO.BaseStation GetBLBaseStation(int id);
         //IEnumerable <DroneInCharging> GetDronesInMe(int stationId); 
         //void Update(int id, BO.BaseStation baseStation);
         //BO.BaseStation Get(int id);

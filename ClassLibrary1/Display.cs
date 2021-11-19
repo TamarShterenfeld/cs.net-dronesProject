@@ -23,7 +23,8 @@ namespace IBL
         /// <param name="id">base station's id</param>
         public BO.BaseStation GetBLBaseStation(int id)
         {
-            BO.BaseStation baseStation = new dal.GetBaseStation(int id);
+            BO.BaseStation baseStation = new BO.BaseStation(dal.GetBaseStation(id));
+            return baseStation;
         }
 
         /// <summary>
@@ -92,10 +93,10 @@ namespace IBL
             return caught;
         }
 
-        public IEnumerable<DroneInCharging> GetDronesInMe(int stationId)
+        public static IEnumerable<DroneInCharging> GetDronesInMe(int stationId)
         {
             List<DroneInCharging> droneInCharging = null;
-            foreach(DroneCharge droneCharge in dal.DronesChargingInMe(stationId))
+            foreach(DroneCharge droneCharge in DronesChargingInMe(stationId))// לשאול על סטטי
             {
                 DroneInCharging drone = new DroneInCharging() { Id = droneCharge.DroneId, Battery = 100 };
                 // לבדוק שבאמת הבטריה נהית 100

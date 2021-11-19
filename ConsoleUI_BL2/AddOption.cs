@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using IBL.BO;
 using static ConsoleUI_BL.Program;
 using static IBL.BO.WeightCategories;
+using static IBL.BL;
 
 
 namespace ConsoleUI_BL
@@ -42,7 +43,7 @@ namespace ConsoleUI_BL
                     case (int)AddOptions.Drone:
                         {
                             CheckDroneDetails(ref id, ref model, ref maxWeight, ref baseStationId);
-                            Drone drone = new Drone();
+                            Drone drone = new Drone() { Id = id, Model = model , MaxWeight = (WeightCategories)Enum.GetNames(typeof(WeightCategories)).GetValue(int.Parse(maxWeight)),MyLocation = bl.GetBLBaseStation(id).MyLocation,Parcel = null};
                             bl.Add(drone);
                             break;
                         }
