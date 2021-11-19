@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace IBL.BO
 {
-    public class Drone
+    public class Drone:ILocatable
     {
         int id;
 
@@ -41,7 +41,7 @@ namespace IBL.BO
 
         public ParcelInPassing Parcel { set; get; }
 
-        public Location MyLocation { get; set; }
+        public Location Location { get; set; }
 
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace IBL.BO
                    $"battery: {Battery} \n" +
                    $"status: {Status} \n" +
                    $"parcel: {Parcel} \n" +
-                   $"myLocation: {MyLocation} \n";
+                   $"myLocation: {Location} \n";
         }
     }
 }

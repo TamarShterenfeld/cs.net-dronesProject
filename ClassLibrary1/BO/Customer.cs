@@ -12,7 +12,7 @@ namespace IBL
         /// <summary>
         /// the struct Customer contains the following details: id, name, phone, longitude, latitude.
         /// </summary>
-        public class Customer
+        public class Customer:ILocatable
         {
             private string id;
             private string name;
@@ -83,10 +83,11 @@ namespace IBL
                 }
             }
 
-            public Location MyLocation { get; set; }
+            //public Location MyLocation { get; set; }
 
             public List<ParcelnCustomer> FromCustomer { get; set; }
             public List<ParcelnCustomer> ToCustomer { get; set; }
+            public Location Location { get; set; }
 
 
 
@@ -117,7 +118,7 @@ namespace IBL
                 return $"id: {Id} \n" +
                        $"name: {Name} \n" +
                        $"phone: {Phone}\n" +
-                       $"location: {MyLocation}\n" +
+                       $"location: {Location}\n" +
                        $"FromCustomer: {deliveryInCustomerDetails(FromCustomer)}\n" +
                        $"ToCustomer: {deliveryInCustomerDetails(ToCustomer)}\n";
             }
