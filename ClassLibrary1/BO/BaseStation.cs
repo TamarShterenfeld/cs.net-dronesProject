@@ -104,7 +104,7 @@ namespace IBL
                 this.Id = baseStation.Id;
                 this.Name = baseStation.Name;
                 this.MyLocation = new Location(this.MyLocation.CoorLongitude, this.MyLocation.CoorLatitude);
-                this.ChargeSlots = baseStation.ChargeSlots - AvailableChargeSlots(this.Id);
+            //    this.ChargeSlots = baseStation.ChargeSlots - .AvailableChargeSlots(this.Id);
                 //this.DroneCharging = (List<DroneInCharging>)new DroneCharge droneInChargings(this.Id);
             }
             /// <summary>

@@ -26,6 +26,11 @@ namespace IBL
         {
             Production, Associated, PickedUp, Supplied
         }
+
+        public enum ParcelConditions
+        {
+            Priority, WeightCategory, Location
+        }
     }
 
 }

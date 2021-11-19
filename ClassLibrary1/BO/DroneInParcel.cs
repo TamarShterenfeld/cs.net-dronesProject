@@ -26,7 +26,7 @@ namespace IBL
                 get { return id; }
             }
             public double Battery { get; set; }
-            public Location Current { get; set; }
+            public Location CurrentLocation { get; set; }
 
             /// <summary>
             /// constructor
@@ -37,7 +37,7 @@ namespace IBL
             public DroneInParcel(int id,double battery,Location current)
             {
                 this.id = id;
-                Id = id; Battery = battery; Current = current;
+                Id = id; Battery = battery; CurrentLocation = current;
             }
 
             // default constructor
@@ -51,7 +51,7 @@ namespace IBL
             {
                 return $"id: { Id } \n" +
                        $"name: { Battery } \n" +
-                       $"current location: { Current } \n" ;
+                       $"current location: { CurrentLocation } \n" ;
             }
         }
     }
