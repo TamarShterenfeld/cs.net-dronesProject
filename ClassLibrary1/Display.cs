@@ -23,8 +23,10 @@ namespace IBL
         /// <param name="id">base station's id</param>
         public BO.BaseStation GetBLBaseStation(int id)
         {
-            //IDAL.DO.BaseStation baseStation1 = dal.GetBaseStation(id);
-            //BO.BaseStation baseStation = new BO.BaseStation { Id = baseStation1.Id };
+            IDAL.DO.BaseStation baseStation1 = dal.GetBaseStation(id);
+            Location location = new Location(baseStation1.Longitude, baseStation1.Latitude);
+            BO.BaseStation baseStation = new BO.BaseStation { Id = baseStation1.Id, ChargeSlots =  baseStation1.ChargeSlots, MyLocation= location, Name = baseStation1.Name};
+            return baseStation;
         }
 
         /// <summary>
@@ -48,7 +50,7 @@ namespace IBL
         /// <param name="id">customer's id</param>
         public void DisplayCustomer(string id)
         {
-            List<BO.Customer> customersList = (List<BO.Customer.>)dal.GetCustomersList();
+            List<BO.Customer> customersList = (List<BO.Customer>)dal.GetCustomersList();
             if (customersList.FindIndex(item => item.Id == id) == -1)
             {
                 throw new BO.OverloadException("the inserted id wasn't found");
@@ -76,6 +78,21 @@ namespace IBL
         /// The function displays a parcel according to the input id.
         /// </summary>
         /// <param name="id">parcel's id</param>
+        public void DisplayBaseStation (int id)
+        {
+            List<BO.BaseStation> baseStationsList = (List<BO.BaseStation>)dal.GetParcelsList();
+            if (baseStationsList.FindIndex(item => item.Id == id) == -1)
+            {
+                throw new BO.OverloadException("the inserted id wasn't found");
+            }
+            BO.BaseStation currBaseStation = baseStationsList.First(item => item.Id == id);
+            Console.WriteLine(currBaseStation);
+        }
+
+        /// <summary>
+        /// The function displays a parcel according to the input id.
+        /// </summary>
+        /// <param name="id">parcel's id</param>
         public void DisplayDrone(int id)
         {
             List<BO.Drone> dronesList = (List<BO.Drone>)dal.GetDronesList();
@@ -89,7 +106,7 @@ namespace IBL
 
         public int caughtChargeSlots(int stationId)
         {
-            int caught = dal.AvailableChargingSlots(stationId);
+            int caught = dal.AvailableChargeSlots(stationId);
             return caught;
         }
 

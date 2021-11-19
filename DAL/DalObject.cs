@@ -111,7 +111,7 @@ namespace DalObject
             DronesChargeList.RemoveAll(dc => dc.DroneId == droneId);
         }
 
-        public IEnumerable<BaseStation> AvailableChargingStations()
+        public IEnumerable<BaseStation> AvailableChargeStations()
         {
             List<BaseStation> availableChargingSlotsList = new List<BaseStation>();
             for (int i = 0; i < BaseStationsList.Count; i++)
@@ -122,7 +122,7 @@ namespace DalObject
             return availableChargingSlotsList;
         }
 
-        public static int AvailableChargingSlots(int baseStationId)
+        public int AvailableChargeSlots(int baseStationId)
         {
             int caught = 0;
             foreach (DroneCharge droneCharge in DronesChargeList)

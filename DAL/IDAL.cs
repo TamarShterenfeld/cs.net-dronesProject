@@ -25,8 +25,8 @@ namespace IDAL
         IEnumerable<Parcel> GetParcelsList();
         IEnumerable<DroneCharge> GetDronesCharge();
         IEnumerable<Parcel> NotAssociatedParcels();
-        IEnumerable<BaseStation> AvailableChargingStations();
-        int AvailableChargingSlots(int baseStationId);
+        IEnumerable<BaseStation> AvailableChargeStations();
+        int AvailableChargeSlots(int baseStationId);
         IEnumerable<int> GetDronesIdInBaseStation(int requestedId);
         IEnumerable<DroneCharge> DronesChargingInMe(int stationId);
     }
