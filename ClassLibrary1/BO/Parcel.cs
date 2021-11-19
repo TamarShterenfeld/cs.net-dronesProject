@@ -36,7 +36,7 @@ namespace IBL.BO
         public DateTime AssociationDate { get { return associationDate; } set { associationDate = value; } }
         private DateTime pickUpDate = new DateTime();
         public DateTime PickUpDate { get { return pickUpDate; } set { pickUpDate = value; } }
-        public DateTime supplyDate = new DateTime();
+        private DateTime supplyDate = new DateTime();
         public DateTime SupplyDate { get { return supplyDate; } set { supplyDate = value; } }
 
         //public Parcel(int id, CustomerInParcel sender, CustomerInParcel target, WeightCategories weight, Priorities priority, DroneInParcel drone)
