@@ -21,34 +21,6 @@ namespace DalObject
             Initialize();
         }
 
-        
-
-        public BaseStation GetBaseStation(int baseStationId)
-        {
-            BaseStation baseStation = BaseStationsList.First(item => item.Id == baseStationId);
-            return baseStation;
-        }
-
-        public Drone GetDrone(int droneId)
-        {
-            Drone drone = DronesList.First(item => item.Id == droneId);
-            return drone;
-        }
-
-        public Customer GetCustomer(string customerId)
-        {
-            Customer customer = CustomersList.First(item => item.Id == customerId);
-            return customer;
-        }
-
-        
-
-        public Parcel GetParcel(int parcelId)
-        {
-            Parcel parcel = ParcelsList.First(item => item.Id == parcelId);
-            return parcel;
-        }
-
         public void AssociateParcel(int parcelId, int droneId)
         {
             for (int i = 0; i < ParcelsList.Count; i++)
@@ -135,19 +107,6 @@ namespace DalObject
             return caught;
         }
 
-        public static IEnumerable<DroneCharge> DronesChargingInMe(int stationId)
-        {
-            List<DroneCharge> dronesCharge = null;
-            foreach (DroneCharge droneCharge in DronesChargeList)
-            {
-                if (droneCharge.StationId == stationId)
-                {
-                    dronesCharge.Add(droneCharge);
-                }
-            }
-            return dronesCharge;
-        }
-
         public IEnumerable<int> GetDronesIdInBaseStation(int requestedId)
         {
             return DronesChargeList.FindAll(dc => dc.StationId == requestedId).ConvertAll(dc => dc.DroneId);
@@ -165,7 +124,7 @@ namespace DalObject
             }
             return parcels;
         }
-        public static int increaseParcelIndex()
+        public static int IncreaseParcelIndex()
         {
             return ++DataSource.Config.ParcelId;
         }
