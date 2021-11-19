@@ -1,10 +1,10 @@
-﻿using IDAL.DO;
+﻿using IDal.DO;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using static IDAL.DO.OverloadException;
+using static IDal.DO.OverloadException;
 
-namespace IDAL
+namespace IDal
 {
     namespace DO
     {

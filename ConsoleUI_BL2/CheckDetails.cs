@@ -30,11 +30,10 @@ namespace ConsoleUI_BL
         /// <param name="battery">drone's battery</param>
         /// <param name="model">drone's model</param>
         /// <param name="maxWeight">drone's max weight</param>
-        internal static void CheckDroneDetails(ref int id, ref string model, ref string maxWeight, ref int baseStationId)
+        internal static void CheckDroneDetails(ref int id, ref string maxWeight, ref int baseStationId)
         {
             Console.WriteLine("Enter drone's details :\n id, model, category weight and base station's id.");
             InputIntValue(ref id);
-            InputIsNotNull(ref model);
             InputWeightCategory(ref maxWeight);
             InputIntValue(ref baseStationId);
         }

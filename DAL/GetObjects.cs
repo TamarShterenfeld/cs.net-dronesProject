@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 using static DalObject.DataSource;
-using IDAL.DO;
+using IDal.DO;
 using System.Linq;
 
 namespace DalObject
 {
-  public partial class DalObject :IDAL.IDal
+  public partial class DalObject :IDal.IDal
     {
         public BaseStation GetBaseStation(int baseStationId)
         {

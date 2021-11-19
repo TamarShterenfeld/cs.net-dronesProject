@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 using static DalObject.DataSource;
-using IDAL.DO;
+using IDal.DO;
 
 namespace DalObject
 {
-    public partial class DalObject : IDAL.IDal
+    public partial class DalObject : IDal.IDal
     {
         public int AvailableChargeSlots(int baseStationId)
         {

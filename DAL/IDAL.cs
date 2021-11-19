@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using IDAL.DO;
+using IDal.DO;
 
-namespace IDAL
+namespace IDal
 {
     public interface IDal
     {

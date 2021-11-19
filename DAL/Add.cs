@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using IDAL.DO;
-using static IDAL.IDal;
+using IDal.DO;
+using static IDal.IDal;
 using static DalObject.DataSource;
 
 namespace DalObject
@@ -11,7 +11,7 @@ namespace DalObject
     ///the class DalObject contains all the needed methods 
     ///which are connected to the data (in DataSource class) of the program.
     /// </summary>
-    public partial class DalObject : IDAL.IDal
+    public partial class DalObject : IDal.IDal
     {
         public void Add(BaseStation baseStation)
         {

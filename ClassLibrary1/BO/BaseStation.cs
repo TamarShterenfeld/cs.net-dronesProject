@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static IDAL.DO.BaseStation;
-using IDAL.DO;
-using IDAL;
+using static IDal.DO.BaseStation;
+using IDal.DO;
+using IDal;
 using static DalObject.DalObject;
 using static IBL.BL;
 
@@ -99,7 +99,7 @@ namespace IBL
             // default constructor
             public BaseStation() { }
 
-            public BaseStation(IDAL.DO.BaseStation baseStation)
+            public BaseStation(IDal.DO.BaseStation baseStation)
             {
                 this.Id = baseStation.Id;
                 this.Name = baseStation.Name;

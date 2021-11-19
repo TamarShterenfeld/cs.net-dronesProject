@@ -5,8 +5,8 @@ using static DalObject.DataSource;
 using IBL.BO;
 using System.Linq;
 using System.Numerics;
-using IDAL.DO;
-using IDAL;
+using IDal.DO;
+using IDal;
 using static DalObject.DalObject;
 
 
@@ -23,7 +23,7 @@ namespace IBL
         /// <param name="id">base station's id</param>
         public BO.BaseStation GetBLBaseStation(int id)
         {
-            IDAL.DO.BaseStation baseStation1 = dal.GetBaseStation(id);
+            IDal.DO.BaseStation baseStation1 = dal.GetBaseStation(id);
             Location location = new Location(baseStation1.Longitude, baseStation1.Latitude);
             BO.BaseStation baseStation = new BO.BaseStation { Id = baseStation1.Id, ChargeSlots =  baseStation1.ChargeSlots, MyLocation= location, Name = baseStation1.Name};
             return baseStation;
