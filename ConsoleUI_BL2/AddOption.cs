@@ -59,7 +59,7 @@ namespace ConsoleUI_BL
                             CheckParcelDetails(ref senderId, ref targetId, ref weight, ref priority);
                             CustomerInParcel sender = new CustomerInParcel() { Id = senderId, Name = "" };
                             CustomerInParcel target = new CustomerInParcel() { Id = targetId, Name = "" };
-                            Parcel parcel = new Parcel() { Id = 123, Sender = sender, Target = target, Weight = (WeightCategories)Enum.GetNames(typeof(WeightCategories)).GetValue(int.Parse(weight)) , Priority = (Priorities)Enum.GetNames(typeof(Priorities)).GetValue(int.Parse(priority)) };
+                            Parcel parcel = new Parcel() { Id = bl.getParcelIndex(), Sender = sender, Target = target, Weight = (WeightCategories)Enum.GetNames(typeof(WeightCategories)).GetValue(int.Parse(weight)) , Priority = (Priorities)Enum.GetNames(typeof(Priorities)).GetValue(int.Parse(priority)) };
                             bl.Add(parcel);
                             break;
                         }

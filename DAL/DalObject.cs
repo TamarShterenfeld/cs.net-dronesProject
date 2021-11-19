@@ -124,7 +124,7 @@ namespace DalObject
             }
             return parcels;
         }
-        public static int IncreaseParcelIndex()
+        public int IncreaseParcelIndex()
         {
             return ++DataSource.Config.ParcelId;
         }
