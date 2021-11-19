@@ -72,7 +72,7 @@ namespace ConsoleUI_BL
                         default:
                             {
                                 Console.WriteLine("ERROR! \nAn unknown option, Please try again.");
-                                Program.inputIntValue(ref options);
+                                Program.InputIntValue(ref options);
                                 break;
                             }
                     }

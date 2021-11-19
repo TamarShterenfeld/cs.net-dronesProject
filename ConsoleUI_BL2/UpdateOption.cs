@@ -24,21 +24,21 @@ namespace ConsoleUI_BL
                     case (int)UpDateOptions.AssociationParcel:
                         {
                             Console.WriteLine("Please enter the drone id");
-                            InputAssociatedParcelDetails(ref parcelId, ref droneId);
+                            InputIntValue(ref droneId);
                             bl.AssociateParcel(droneId);
                             break;
                         }
                     case (int)UpDateOptions.PickUpParcel:
                         {
                             Console.WriteLine("Please enter the drone id");
-                            InputPickUpParcelDetails(ref parcelId, ref senderId);
+                            InputIntValue(ref droneId);
                             bl.PickUpParcel(droneId);
                             break;
                         }
                     case (int)UpDateOptions.SupplyParcel:
                         {
                             Console.WriteLine("Please enter the drone id");
-                            InputArrivalDetails(ref droneId);
+                            InputIntValue(ref droneId);
                             bl.SupplyParcel(droneId );
                             break;
                         }
@@ -51,7 +51,7 @@ namespace ConsoleUI_BL
                     case (int)UpDateOptions.StopDroneCharge:
                         {
                             Console.WriteLine("Please enter droneId and baseStationId");
-                            bl.ReleaseDroneCharging(droneId);
+                            bl.ReleaseDroneFromRecharge(droneId);
                             break;
                         }
                     default:
