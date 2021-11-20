@@ -28,9 +28,7 @@ namespace IBL
         /// <param name="drone">drone</param>
         public void Add(BO.Drone drone)
         {
-            //מה עם התחנה?
-            IDal.DO.WeightCategories weight = (IDal.DO.WeightCategories)drone.MaxWeight;
-            dal.Add(new IDal.DO.Drone() { Id = drone.Id, MaxWeight = weight } );
+            dal.Add(new IDal.DO.Drone() { Id = drone.Id, MaxWeight = (IDal.DO.WeightCategories)drone.MaxWeight } );
         }
 
         /// <summary>
@@ -48,7 +46,7 @@ namespace IBL
         /// <param name="parcel">parcel</param>
         public void Add(BO.Parcel parcel)
         {
-            dal.Add(new IDal.DO.Parcel());
+            dal.Add(new IDal.DO.Parcel() { Id = parcel.Id, SenderId = parcel.Sender.Id, TargetId = parcel.Target.Name, DroneId = 0 , Weight = (IDal.DO.WeightCategories)parcel.Weight, Priority = (IDal.DO.Priorities)parcel.Priority, ProductionDate = parcel.ProductionDate, AssociationDate = parcel.AssociationDate, PickUpDate = parcel.PickUpDate, SupplyDate = parcel.SupplyDate});
         }
     }
 }
