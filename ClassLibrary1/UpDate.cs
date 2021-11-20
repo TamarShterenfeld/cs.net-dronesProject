@@ -16,6 +16,8 @@ namespace IBL
         public void AssociateParcel(int droneId)
         {
             List<Drone> dronesList = (List<Drone>)dal.GetDronesList();
+            List<double> distances = new List<double>();
+            List<Customer> customersList = (List<Customer>)dal.GetCustomersList();
             int droneIndex = dronesList.FindIndex(item => item.Id == droneId);
             if (droneIndex == -1)
                 throw new OverloadException("drone id doesn't exist in the dronesList");
@@ -24,75 +26,16 @@ namespace IBL
                 Drone currDrone = dronesList[droneIndex];
                 if (currDrone.Status != DroneStatuses.Available)
                 {
-                    //objListOrder.Sort((x, y) => x.OrderDate.CompareTo(y.OrderDate));
-                    List<Parcel> parcelsList = (List<Parcel>)dal.GetParcelsList();
-                    List<Customer> customersList = (List<Customer>)dal.GetCustomersList();
-                    List<Parcel> PrioritiesList = new List<Parcel>((List<Parcel>)dal.GetParcelsList());
-                    List<Parcel> WeightsList = new List<Parcel>((List<Parcel>)dal.GetParcelsList());
-                    List<Parcel> LocationList = new List<Parcel>((List<Parcel>)dal.GetParcelsList());
-                    List<Location> locations = new List<Location>();
-                    List<List<Parcel>> parcelsConditions = new List<List<Parcel>>(3){ PrioritiesList, WeightsList, LocationList };
-                 
-                    //the counterArray counts for each parcel in the suitable index -
-                    //the sum of all the indexes it has appeared in the above three arraies.
-                    List<int> counterList = new List<int>();
-                    //sorting the three different lists
-                    for (int i = 0; i < parcelsConditions.Count; i++)
+         
+                    foreach (var item in customersList)
                     {
-                        switch (i)
-                        {
-                            case 0:
-                                {
-                                    parcelsConditions[i].Sort((x, y) => x.Priority.CompareTo(y.Priority));
-                                    break;
-                                }
-                            case 1:
-                                {
-                                    parcelsConditions[i].Sort((x, y) => x.Weight.CompareTo(y.Weight));
-                                    break;
-                                }
-                            case 2:
-                                {
-                                    foreach (var item in parcelsConditions[i])
-                                    {
-                                        Customer currCustomer = customersList.First(item1 => item1.Id == item.Sender.Id);
-                                        locations.Add(currCustomer.MyLocation);
-                                    }
-                                  // locations.Sort((x,y)=>x.CoorLatitude.Comp
-                                    break;
-                                }
-                            default:
-                                throw new OverloadException("there are no more than three lists to sort.");
-                        }
-
-                        foreach (var item1 in parcelsConditions[i])
-                        {
-                            counterList[i] += parcelsConditions[i].FindIndex(item => item.Id == item1.Id);
-                        }
+                        distances.Add(item.Distance(currDrone));
                     }
-                    //the parcel which appeared in the first indexes of the sorted lists - 
-                    //it means it was one of the most optimal parcels for the current drone.
-                    int indexOfOptimalParcel = counterList.Min();
-                    //לבדוק בדיוק כמה סוללה הוא צריך על מנת להגיע ליעד
-                    while(currDrone.Battery < 50 && counterList.Count != 0)
-                    {
-                        //if the currDrone can't arrive to the optimal parcel's destination
-                        //another parcel will be chosen again.
-                        counterList.RemoveAt(indexOfOptimalParcel);
-                        indexOfOptimalParcel = counterList.Min();
-                    }
-                    if(counterList.Count == 0)
-                    {
-                        throw new OverloadException("there's no parcel that can be associated to this drone.");
-                    }
-                    Parcel optimalParcel = parcelsList[indexOfOptimalParcel];
-                    optimalParcel.MyDrone = new DroneInParcel { Battery = currDrone.Battery, Id = currDrone.Id, CurrentLocation = currDrone.MyLocation };
-                    optimalParcel.AssociationDate = DateTime.Now;
-                    currDrone.Status = DroneStatuses.Shipment;
-                }
-                else
-                {
-                    throw new OverloadException("the drone status isn't available - can't be associated to any parcel!");
+                    var parcels = dal.GetParcelsList()
+                        .OrderByDescending(parcel => (int)parcel.Priority)
+                        .ThenByDescending(parcel => (int)parcel.Weight)
+                        .ThenBy(parcel => customersList.First(customer => customer.Id == parcel.SenderId).Distance(currDrone));
+                  
                 }
             }
         }
@@ -119,7 +62,7 @@ namespace IBL
                     List<Customer> customersList = (List<Customer>)dal.GetCustomersList();
                     string senderId = parcel.Sender.Id;
                     Customer senderCustomer = customersList.First(item => item.Id == senderId);
-                    currDrone.MyLocation = senderCustomer.MyLocation;
+                    currDrone.Location = senderCustomer.Location;
                     parcel.PickUpDate = DateTime.Now;
                 }
                 else
@@ -153,7 +96,7 @@ namespace IBL
                     {
                         Customer targetCustomer = customersList.First(item => item.Id == parcel.Target.Id);
                         currDrone.Status = DroneStatuses.Available;
-                        currDrone.MyLocation = targetCustomer.MyLocation;
+                        currDrone.Location = targetCustomer.Location;
                     }
                     else
                     {

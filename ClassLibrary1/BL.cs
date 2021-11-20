@@ -20,27 +20,34 @@ namespace IBL
         {
             dal = new DalObject.DalObject();
             drones = new List<DroneToList>();
-            List<Drone> DronesList = (List<Drone>)dal.GetDronesList();
-            List<Parcel> ParcelsList = (List<Parcel>)dal.GetParcelsList();
-            List<Customer> CustomersList = (List<Customer>)dal.GetCustomersList();
+            var dalDrones = dal.GetDronesList();
+            var parcelsList = dal.GetParcelsList();
+            var  CustomersList = dal.GetCustomersList();
 
+            foreach (var dalDrone in dalDrones)
+            {
+                var drone = new DroneToList();
+                drone.Id = dalDrone.Id;
+
+                drones.Add(drone);
+            }
             for (int i = 0; i < Drones.Count; i++)
             {
-                if (DronesList.FindIndex(item => item.Id == Drones[i].ParcelId) != -1)
+                if (dalDrones.Any(item => item.Id == Drones[i].ParcelId))
                 {
-                    Parcel parcel = ParcelsList.First(item => item.Id == Drones[i].ParcelId);
-                    //the associated parcel wasn't supplied.
-                    if (parcel.AssociationDate == new DateTime(01 / 01 / 0001))
-                    {
-                        DroneToList listDrone = Drones[i];
-                        listDrone.Status = DroneStatuses.Shipment;
+                    //Parcel parcel = parcelsList.First(item => item.Id == Drones[i].ParcelId);
+                    ////the associated parcel wasn't supplied.
+                    //if (parcel.AssociationDate == new DateTime(01 / 01 / 0001))
+                    //{
+                    //    DroneToList listDrone = Drones[i];
+                    //    listDrone.Status = DroneStatuses.Shipment;
 
-                        //if (parcel.PickUpDate != new DateTime(01 / 01 / 0001) && parcel.SupplyDate == new DateTime(01 / 01 / 0001))
-                        //{
-                        //    Customer customer = CustomersList.First(item => item.Id == parcel.Sender);
-                        //    listDrone.Location = customer.Location;
-                        //}
-                    }
+                    //    //if (parcel.PickUpDate != new DateTime(01 / 01 / 0001) && parcel.SupplyDate == new DateTime(01 / 01 / 0001))
+                    //    //{
+                    //    //    Customer customer = CustomersList.First(item => item.Id == parcel.Sender);
+                    //    //    listDrone.Location = customer.Location;
+                    //    //}
+                    //}
                 }
             }
         }

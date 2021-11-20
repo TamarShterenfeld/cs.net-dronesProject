@@ -50,7 +50,7 @@ namespace ConsoleUI_BL
                     case (int)AddOptions.Customer:
                         {
                             CheckCustomerDetails(ref customerId, ref name, ref phone, ref location);
-                            Customer customer = new Customer() { Id = customerId, Name = name, Phone = phone, MyLocation = location, FromCustomer = null, ToCustomer = null };
+                            Customer customer = new Customer() { Id = customerId, Name = name, Phone = phone, Location = location, FromCustomer = null, ToCustomer = null };
                             bl.Add(customer);
                             break;
                         }

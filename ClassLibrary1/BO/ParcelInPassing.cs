@@ -36,7 +36,7 @@ namespace IBL
             public Location Collect { get; set; }
             public Location Destination { get; set; }
 
-            public double Far { get; set; }
+            public double Distatnce { get; set; }
 
             /// <summary>
             /// constructor

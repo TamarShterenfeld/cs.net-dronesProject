@@ -77,6 +77,7 @@ namespace ConsoleUI_BL
                             }
                     }
                 }
+                //לתפוס שגיאות ספיצפיות על כל סוג
                 catch (Exception exe)
                 {
                     Console.WriteLine(exe.Message + "\nTry again from the beginning!");
