@@ -57,7 +57,7 @@ namespace IBL
                 Model = drone.Model,
                 MaxWeight = (BO.WeightCategories)drone.MaxWeight,
                 //Battery = 0,
-                //Status = 0,
+                Status = (BO.DroneStatuses)drone.Status,
                 //Parcel = 
                 Location = new Location(drone.Longitude, drone.Latitude),
             };
@@ -123,7 +123,6 @@ namespace IBL
         public CustomerInParcel GetBLCustomrInParcel(string id)
         {
             return CustomrInParcelDOtOBO(dal.GetCustomer(id));
-
         }
 
         private CustomerInParcel CustomrInParcelDOtOBO(IDal.DO.Customer customer)
