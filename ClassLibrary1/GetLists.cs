@@ -100,6 +100,26 @@ namespace IBL
         }
 
         /// <summary>
+        /// The function returns List of ParcelInCustomer items for sender or target
+        /// </summary>
+        /// <param name="fromOrTo"> sender or target </param>
+        /// <returns> List of ParcelInCustomer items </returns>
+        public IEnumerable<ParcelInCustomer> GetParcelInCustomerList(FromOrTo fromOrTo , string id)
+        {
+            List<ParcelInCustomer> parcelInCustomer = new List<ParcelInCustomer>();
+            List<IDal.DO.Parcel> ParcelList = (List<IDal.DO.Parcel>)dal.GetParcelsList();
+            foreach (IDal.DO.Parcel parcel in ParcelList)
+            {
+                if((fromOrTo == FromOrTo.From && parcel.SenderId == id)  || (fromOrTo == FromOrTo.To && parcel.TargetId == id))
+                {
+                    parcelInCustomer.Add(ParcelInCustomerDOtOBO(parcel, fromOrTo));
+                }
+            }
+            return parcelInCustomer;
+        }
+
+
+        /// <summary>
         /// The function shows all the available charge slots
         /// </summary>
         public IEnumerable<BO.BaseStation> GetAvailableChargeSlots()
@@ -113,6 +133,8 @@ namespace IBL
 
             return boAvailableChargeSlots;
         }
+
+
     }
 }
 

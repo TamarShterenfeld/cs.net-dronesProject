@@ -27,6 +27,10 @@ namespace IBL
             Production, Associated, PickedUp, Supplied
         }
 
+        public enum FromOrTo
+        {
+            From, To
+        }
     }
 
 }

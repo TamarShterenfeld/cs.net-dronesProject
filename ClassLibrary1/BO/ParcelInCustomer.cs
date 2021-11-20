@@ -8,7 +8,7 @@ namespace IBL
 {
     namespace BO
     {
-        public class ParcelnCustomer
+        public class ParcelInCustomer
         {
             int id;
             public int Id
@@ -36,14 +36,14 @@ namespace IBL
             /// <param name="priority"> DeliveryInCustomer's priority </param>
             /// <param name="parcelStatus"> DeliveryInCustomer's parcelStatus </param>
             /// <param name="sourceOrDest"> DeliveryInCustomer's sourceOrDest </param>
-            public ParcelnCustomer(int id, WeightCategories weight, Priorities priority, ParcelStatuses parcelStatus, CustomerInParcel sourceOrDest)
+            public ParcelInCustomer(int id, WeightCategories weight, Priorities priority, ParcelStatuses parcelStatus, CustomerInParcel sourceOrDest)
             {
                 this.id = id;
                 Id = id; Weight = weight; Priority = priority; ParcelStatus = parcelStatus; SourceOrDest = sourceOrDest;
             }
 
             // default constructor
-            public ParcelnCustomer(){}
+            public ParcelInCustomer(){}
 
             /// <summary>
             /// override ToString function.

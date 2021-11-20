@@ -57,12 +57,14 @@ namespace IBL
                 Model = drone.Model,
                 MaxWeight = (BO.WeightCategories)drone.MaxWeight,
                 //Battery = 0,
-                //Status = 0,
+                Status = (BO.DroneStatuses)drone.Status,
                 //Parcel = 
                 Location = new Location(drone.Longitude, drone.Latitude),
             };
             return BODrone;
         }
+
+
 
         /// <summary>
         /// The function displays a customer according to id.
@@ -81,9 +83,9 @@ namespace IBL
                 Id = customer.Id,
                 Name = customer.Name,
                 Phone = customer.Phone,
-                Location = new Location(customer.Longitude, customer.Latitude)
-                //FromCustomer = null;
-                //ToCustomer = null;
+                Location = new Location(customer.Longitude, customer.Latitude),
+                FromCustomer = (List<ParcelInCustomer>)GetParcelInCustomerList(FromOrTo.From, customer.Id),
+                ToCustomer = (List<ParcelInCustomer>)GetParcelInCustomerList(FromOrTo.To, customer.Id),
             };
             return BOCustomer;
         }
@@ -123,7 +125,6 @@ namespace IBL
         public CustomerInParcel GetBLCustomrInParcel(string id)
         {
             return CustomrInParcelDOtOBO(dal.GetCustomer(id));
-
         }
 
         private CustomerInParcel CustomrInParcelDOtOBO(IDal.DO.Customer customer)
@@ -136,8 +137,11 @@ namespace IBL
             return BOCustomrInParcel;
         }
 
-        
 
+        /// <summary>
+        /// The function displays a drone in parcel according to id.
+        /// </summary>
+        /// <param name="id">drone's id</param>
         public DroneInParcel GetBLDroneInParcel(int id)
         {
             return DroneInParcelDOtOBO(dal.GetDrone(id));
@@ -153,6 +157,38 @@ namespace IBL
                 CurrentLocation = new Location(drone.Longitude, drone.Latitude),
             };
             return BOCustomerInParcel;
+        }
+
+        /// <summary>
+        /// The function displays a parcel in customer according to id.
+        /// </summary>
+        /// <param name="id">parcel's id</param>
+
+        //public ParcelInCustomer GetBLParcelInCustomer(int id, FromOrTo fromOrTo)
+        //{
+        //    return ParcelInCustomerDOtOBO(dal.GetParcel(id),fromOrTo);
+
+        //}
+
+        private ParcelInCustomer ParcelInCustomerDOtOBO(IDal.DO.Parcel parcel, FromOrTo fromOrTo)
+        {
+            ParcelInCustomer BOCustomerInParcel = new ParcelInCustomer()
+            {
+                Id = parcel.Id,
+                Weight = (BO.WeightCategories)parcel.Weight,
+                Priority = (BO.Priorities)parcel.Priority,
+                ParcelStatus = ParcelStatus(parcel),
+                SourceOrDest = fromOrTo == FromOrTo.From ? GetBLCustomrInParcel(parcel.SenderId) : GetBLCustomrInParcel(parcel.TargetId)
+            };
+            return BOCustomerInParcel;
+        }
+
+        private ParcelStatuses ParcelStatus(IDal.DO.Parcel parcel)
+        {
+            DateTime time = new DateTime();
+            return parcel.AssociationDate == time ? ParcelStatuses.Production :
+                    parcel.PickUpDate == time ? ParcelStatuses.Associated :
+                    parcel.SupplyDate == time ? ParcelStatuses.PickedUp : ParcelStatuses.Supplied;
         }
 
         public int catchAvailableChargeSlots(int stationId)
