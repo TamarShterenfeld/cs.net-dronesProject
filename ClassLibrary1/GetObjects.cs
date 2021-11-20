@@ -83,9 +83,9 @@ namespace IBL
                 Id = customer.Id,
                 Name = customer.Name,
                 Phone = customer.Phone,
-                Location = new Location(customer.Longitude, customer.Latitude)
-                //FromCustomer = null;  רשימה של כל החבילות ששלח
-                //ToCustomer = null; רשימת כל החבילות שנישלחו אליו
+                Location = new Location(customer.Longitude, customer.Latitude),
+                FromCustomer = (List<ParcelInCustomer>)GetParcelInCustomerList(FromOrTo.From, customer.Id),
+                ToCustomer = (List<ParcelInCustomer>)GetParcelInCustomerList(FromOrTo.To, customer.Id),
             };
             return BOCustomer;
         }
@@ -164,11 +164,11 @@ namespace IBL
         /// </summary>
         /// <param name="id">parcel's id</param>
 
-        public ParcelInCustomer GetBLParcelInCustomer(int id, FromOrTo fromOrTo)
-        {
-            return ParcelInCustomerDOtOBO(dal.GetParcel(id),fromOrTo);
+        //public ParcelInCustomer GetBLParcelInCustomer(int id, FromOrTo fromOrTo)
+        //{
+        //    return ParcelInCustomerDOtOBO(dal.GetParcel(id),fromOrTo);
 
-        }
+        //}
 
         private ParcelInCustomer ParcelInCustomerDOtOBO(IDal.DO.Parcel parcel, FromOrTo fromOrTo)
         {
