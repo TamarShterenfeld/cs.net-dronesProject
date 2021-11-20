@@ -12,17 +12,17 @@ namespace IBL
     public partial class BL : IBL
     {
         private IDal.IDal dal;
-        private List<DroneToList> drones;
+        private List<DroneToList> dronesToList;
 
         public List<DroneToList> Drones { get; set; }
 
         public BL()
         {
             dal = new DalObject.DalObject();
-            drones = new List<DroneToList>();
+            dronesToList = new List<DroneToList>();
             var dalDrones = dal.GetDronesList();
             var parcelsList = dal.GetParcelsList();
-            var  CustomersList = dal.GetCustomersList();
+            var CustomersList = dal.GetCustomersList();
 
             foreach (var dalDrone in dalDrones)
             {
