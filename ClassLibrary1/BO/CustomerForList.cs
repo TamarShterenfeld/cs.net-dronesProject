@@ -9,7 +9,7 @@ namespace IBL
     namespace BO
     {
 
-        public class CustomerToList
+        public class CustomerForList
         {
 
             private string id;

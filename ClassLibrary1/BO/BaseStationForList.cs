@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace IBL.BO
 {
-    class BaseStationToList
+    class BaseStationForList
     {
         private int id;
         public int Id
@@ -86,7 +86,7 @@ namespace IBL.BO
             }
         }
 
-        public BaseStationToList(int id, string name,int freeChargeSlots, int caughtChargeSlots)
+        public BaseStationForList(int id, string name,int freeChargeSlots, int caughtChargeSlots)
         {
             this.id = id; this.name = name; this.freeChargeSlots = freeChargeSlots; this.caughtChargeSlots = caughtChargeSlots;
             Id = id; Name = name; FreeChargeSlots = freeChargeSlots; CaughtChargeSlots = freeChargeSlots;

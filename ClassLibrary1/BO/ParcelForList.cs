@@ -10,7 +10,7 @@ namespace IBL
     namespace BO
     {
 
-        public class ParcelToList
+        public class ParcelForList
         {
 
             int id;
