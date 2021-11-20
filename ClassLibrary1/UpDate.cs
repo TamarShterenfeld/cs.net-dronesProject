@@ -26,7 +26,6 @@ namespace IBL
                 Drone currDrone = dronesList[droneIndex];
                 if (currDrone.Status != DroneStatuses.Available)
                 {
-         
                     foreach (var item in customersList)
                     {
                         distances.Add(item.Distance(currDrone));
@@ -34,8 +33,7 @@ namespace IBL
                     var parcels = dal.GetParcelsList()
                         .OrderByDescending(parcel => (int)parcel.Priority)
                         .ThenByDescending(parcel => (int)parcel.Weight)
-                        .ThenBy(parcel => customersList.First(customer => customer.Id == parcel.SenderId).Distance(currDrone));
-                  
+                        .ThenBy(parcel => customersList.First(customer => customer.Id == parcel.SenderId).Distance(currDrone));                
                 }
             }
         }
