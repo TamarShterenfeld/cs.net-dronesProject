@@ -117,7 +117,7 @@ namespace IBL
         /// <param name="baseStationId">base station's id</param>
         public void ChargeDrone(int droneId)
         {
-            inputIntValue(ref droneId);
+            InputIntValue(ref droneId);
             List<Drone> DronesList = (List<Drone>)dal.GetDronesList();
             if (DronesList.FindIndex(item => item.Id == droneId) == -1)
                 throw new OverloadException("drone's id doesn't exist in the drones' list.");
@@ -152,7 +152,7 @@ namespace IBL
             List<DroneInCharging> DroneChargeList = (List<DroneInCharging>)dal.GetDronesCharge();
             List<BaseStation> baseStationsList = (List<BaseStation>)dal.GetBaseStationsList();
             int baseStationId;
-            inputIntValue(ref droneId);
+            InputIntValue(ref droneId);
             if (dronesList.FindIndex(item => item.Id == droneId) == -1)
                 throw new OverloadException("drone's id doesn't exist in the drones' list.");
             if (DroneChargeList.FindIndex(item => item.Id == droneId) == -1)

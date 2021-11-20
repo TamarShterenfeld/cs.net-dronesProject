@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using IBL.BO;
 
 namespace ConsoleUI_BL
 {/// <summary>
@@ -20,32 +21,32 @@ namespace ConsoleUI_BL
                 {
                     case (int)ShowingListsOptions.BaseStations:
                         {
-                            bl.ShowBaseStationsList();
+                            ShowList(bl.GetBaseStationsList());
                             break;
                         }
                     case (int)ShowingListsOptions.Drones:
                         {
-                            bl.ShowDronesList();
+                            ShowList(bl.GetDronesList());
                             break;
                         }
                     case (int)ShowingListsOptions.Customers:
                         {
-                            bl.ShowCustomersList();
+                            ShowList(bl.GetCustomersList());
                             break;
                         }
                     case (int)ShowingListsOptions.Parcels:
                         {
-                            bl.ShowParcelsList();
+                            ShowList(bl.GetParcelsList());
                             break;
                         }
                     case (int)ShowingListsOptions.NotAssociatedParcels:
                         {
-                            bl.ShowNotAssociatedParcelsList();
+                            ShowList(bl.GetNotAssociatedParcelsList());
                             break;
                         }
                     case (int)ShowingListsOptions.AvailableChargeSlots:
                         {
-                            bl.AvailableChargeSlots();
+                            ShowList(bl.GetAvailableChargeSlots());
                             break;
                         }
                     default:
@@ -56,6 +57,38 @@ namespace ConsoleUI_BL
                 }
             }
             else Console.WriteLine("The show list option must hold a numeric value!");
+        }
+
+        public void ShowList(IEnumerable<IBL.BO.BaseStation> baseStations)
+        {
+            foreach (var item in baseStations)
+            {
+                Console.WriteLine(item);
+            }
+        }
+
+        public void ShowList(IEnumerable<IBL.BO.Drone> drones)
+        {
+            foreach (var item in drones)
+            {
+                Console.WriteLine(item);
+            }
+        }
+
+        public void ShowList(IEnumerable<IBL.BO.Parcel> parcels)
+        {
+            foreach (var item in parcels)
+            {
+                Console.WriteLine(item);
+            }
+        }
+
+        public void ShowList(IEnumerable<IBL.BO.Customer> customers)
+        {
+            foreach (var item in customers)
+            {
+                Console.WriteLine(item);
+            }
         }
     }
 }
