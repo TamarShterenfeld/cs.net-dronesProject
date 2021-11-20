@@ -31,6 +31,6 @@ namespace IDal
         int AvailableChargeSlots(int baseStationId);
         IEnumerable<int> GetDronesIdInBaseStation(int requestedId);
         IEnumerable<DroneCharge> DronesChargingInMe(int stationId);
-        int IncreaseParcelIndex();
+        double[] ElectricityConsuming();
     }
 }

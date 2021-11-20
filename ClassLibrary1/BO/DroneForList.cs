@@ -9,7 +9,7 @@ namespace IBL
 
     namespace BO
     {
-        public class DroneToList
+        public class DroneForList
         {
             int id;
             int parcelId;

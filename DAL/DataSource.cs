@@ -66,7 +66,7 @@ namespace DalObject
             public static double ElectricityConsumingOfLightWeight = 0;
             public static double ElectricityConsumingOfAverageWeight = 0;
             public static double ElectricityConsumingOfHeavyWeight = 0;
-            public double ChargingRate = 0;
+            public double ChargeRate = 0;
         }
 
 
