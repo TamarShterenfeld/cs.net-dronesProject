@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using IBL.BO;
+using IDal.DO;
 
 
 namespace IBL
@@ -12,47 +13,37 @@ namespace IBL
     public partial class BL : IBL
     {
         private IDal.IDal dal;
-        private List<DroneToList> dronesToList;
+        private List<DroneForList> dronesForList;
 
-        public List<DroneToList> Drones { get; set; }
+        public List<DroneForList> DronesForList 
+        { get
+            {
+                return dronesForList;
+            }
+            set
+            {
+                dronesForList = value;
+            }
+
+        }
 
         public BL()
         {
             dal = new DalObject.DalObject();
-            dronesToList = new List<DroneToList>();
-            var dalDrones = dal.GetDronesList();
-            var parcelsList = dal.GetParcelsList();
-            var CustomersList = dal.GetCustomersList();
-
-            foreach (var dalDrone in dalDrones)
+            double[] droneElectricityInfo = dal.ElectricityConsuming();
+            double electricityConsumingOfAvailable = droneElectricityInfo[0];
+            double electricityConsumingOfLightWeight = droneElectricityInfo[0];
+            double electricityConsumingOfHeavyWeight = droneElectricityInfo[0];
+            double electricityConsumingOfAverageWeight = droneElectricityInfo[0];
+            double chargeRate = droneElectricityInfo[0];
+            List <BO.Drone> drones =( List<BO.Drone>)GetDronesList();
+            for (int i = 0; i < drones.Count; i++)
             {
-                var drone = new DroneToList();
-                drone.Id = dalDrone.Id;
-
-                drones.Add(drone);
+                if(drones[i].Parcel.)
             }
-            for (int i = 0; i < Drones.Count; i++)
-            {
-                if (dalDrones.Any(item => item.Id == Drones[i].ParcelId))
-                {
-                    //Parcel parcel = parcelsList.First(item => item.Id == Drones[i].ParcelId);
-                    ////the associated parcel wasn't supplied.
-                    //if (parcel.AssociationDate == new DateTime(01 / 01 / 0001))
-                    //{
-                    //    DroneToList listDrone = Drones[i];
-                    //    listDrone.Status = DroneStatuses.Shipment;
-
-                    //    //if (parcel.PickUpDate != new DateTime(01 / 01 / 0001) && parcel.SupplyDate == new DateTime(01 / 01 / 0001))
-                    //    //{
-                    //    //    Customer customer = CustomersList.First(item => item.Id == parcel.Sender);
-                    //    //    listDrone.Location = customer.Location;
-                    //    //}
-                    //}
-                }
-            }
+            
         }
 
+
     }
-
-
 }

@@ -6,6 +6,8 @@ using static IDal.IDal;
 using static DalObject.DataSource;
 using static IDal.DO.OverloadException;
 using System.Linq;
+using System.Reflection;
+
 
 namespace DalObject
 {
@@ -48,7 +50,26 @@ namespace DalObject
         {
             return ++DataSource.Config.ParcelId;
         }
+
+        public double[] ElectricityConsuming()
+        {
+           // p in type.GetFields(System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic))
+            List<double> electricitiesConsuming = new List<double>(5);
+            //initalizing a value for comparing the type
+            Type type = typeof(Config);
+            foreach (var prop in type.GetFields(BindingFlags.Static))
+            {
+                if (prop != typeof(double))
+                {
+                    var currValue = prop.GetValue(null);
+                    electricitiesConsuming.Add(((double)(currValue)));
+                }
+            }
+            return electricitiesConsuming.ToArray();
+        }
+        
     }
+
     
 }
 
