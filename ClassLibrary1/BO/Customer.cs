@@ -83,7 +83,7 @@ namespace IBL
                 }
             }
 
-            //public Location MyLocation { get; set; }
+            public Location MyLocation { get; set; }
 
             public List<ParcelInCustomer> FromCustomer { get; set; }
             public List<ParcelInCustomer> ToCustomer { get; set; }

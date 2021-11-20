@@ -14,7 +14,6 @@ namespace IDal
         public class Drone
         {
             int id;
-            //
             public int Id
             {
                 set
@@ -27,8 +26,6 @@ namespace IDal
                 }
                 get { return id; }
             }
-
-            //there's nothing to check for a model - it can hold chars and also digits.
             public string Model { get; set; }
 
             public WeightCategories MaxWeight { set; get; }
@@ -38,14 +35,6 @@ namespace IDal
             public DroneStatuses Status { set; get; }
 
 
-
-            //משלוח בהעברה
-
-
-            public Coordinate Longitude { get; set; }
-
-            public Coordinate Latitude { get; set; }
-
             /// <summary>
             /// override ToString function.
             /// </summary>
@@ -54,7 +43,10 @@ namespace IDal
             {
                 return $"id: {Id} \n" +
                        $"model: {Model} \n"+
-                       $"maxWeight:  {MaxWeight}\n";
+                       $"maxWeight:  {MaxWeight}\n"+
+                       $"battery:  {Battery}\n"+
+                       $"status:  {Status}\n";
+
             }
         }
     }

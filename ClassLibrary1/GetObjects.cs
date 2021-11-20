@@ -8,6 +8,7 @@ using System.Numerics;
 using IDal.DO;
 using IDal;
 using static DalObject.DalObject;
+using static IBL.BO.Locatable;
 
 
 
@@ -56,15 +57,46 @@ namespace IBL
                 Id = drone.Id,
                 Model = drone.Model,
                 MaxWeight = (BO.WeightCategories)drone.MaxWeight,
-                //Battery = 0,
+                Battery = getDroneBattery(drone.Id),
                 Status = (BO.DroneStatuses)drone.Status,
-                //Parcel = 
-                Location = new Location(drone.Longitude, drone.Latitude),
+                Parcel = (getDroneParcelId(drone.Id) !=  0)? GetParcelInPassing(getDroneParcelId(drone.Id)) : null,
+                Location = getDroneLocation(drone.Id)
             };
             return BODrone;
         }
 
+        private double getDroneBattery(int droneId)
+        {
+            return dronesForList.Find(drone => drone.Id == droneId).Battery;
+        }
 
+        private Location getDroneLocation(int droneId)
+        {
+            return dronesForList.Find(drone => drone.Id == droneId).Location;
+        }
+
+        private int getDroneParcelId(int droneId)
+        {
+            return dronesForList.Find(drone => drone.Id == droneId).ParcelId;
+        }
+
+        private ParcelInPassing GetParcelInPassing(int id)
+        {
+            BO.Parcel parcel = GetBLParcel(id);
+            ParcelInPassing parcelInPassing = new ParcelInPassing()
+            {
+                Id = parcel.Id,
+                Weight = parcel.Weight,
+                Priority = parcel.Priority,
+                ToDestination = parcel.PickUpDate == new DateTime() ? false : true,
+                Sender = parcel.Sender,
+                Target = parcel.Target,
+                Collect = GetBLCustomer(parcel.Sender.Id).Location,
+                Destination = GetBLCustomer(parcel.Target.Id).Location,
+                Distatnce = Locatable.Distance((ILocatable)parcel.Sender, (ILocatable)parcel.Target)
+            };
+            return parcelInPassing;
+        }
 
         /// <summary>
         /// The function displays a customer according to id.
@@ -154,7 +186,7 @@ namespace IBL
             {
                 Id = drone.Id,
                 Battery = drone.Battery,
-                CurrentLocation = new Location(drone.Longitude, drone.Latitude),
+                //CurrentLocation =,
             };
             return BOCustomerInParcel;
         }

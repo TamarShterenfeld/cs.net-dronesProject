@@ -28,6 +28,7 @@ namespace IBL
         /// <param name="drone">drone</param>
         public void Add(BO.Drone drone)
         {
+
             dal.Add(new IDal.DO.Drone() { Id = drone.Id, MaxWeight = (IDal.DO.WeightCategories)drone.MaxWeight } );
         }
 
