@@ -127,7 +127,6 @@ namespace IBL
                         + $"drones in charging: {droneInChargingDetails()}\n";
             }
 
-
         }
     }
 }

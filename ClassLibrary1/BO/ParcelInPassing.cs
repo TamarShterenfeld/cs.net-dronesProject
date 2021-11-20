@@ -25,6 +25,8 @@ namespace IBL
                     id = value;
                 }
             }
+
+            // if the parcel waits to be picked up: false, else, if the parcel in the way: true.
             public bool ToDestination { get; set; }
 
             public Priorities Priority { get; set; }
