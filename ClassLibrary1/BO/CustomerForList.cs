@@ -9,7 +9,7 @@ namespace IBL
     namespace BO
     {
 
-        public class CustomerToList
+        public class CustomerForList
         {
 
             private string id;
@@ -84,11 +84,10 @@ namespace IBL
                 }
             }
 
-            //o	מספר חבילות ששלח וסופקו
-            //  o מספר חבילות ששלח אך עוד לא סופקו
-            //o מספר חבילות שקיבל
-            //o מספר חבילות שבדרך אל הלקוח
-
+            public int AmountOfSendAndSuppliedParcels { set; get; }
+            public int AmountOfSendAndNotSuppliedParcels { set; get; }
+            public int AmountOfGetParcels { set; get; }
+            public int AmountOfInPassingParcels { set; get; }
         }
     }
 }

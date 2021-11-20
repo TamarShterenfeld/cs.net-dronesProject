@@ -18,7 +18,7 @@ namespace IBL
         /// the struct BaseStation contains the following details: id, name, longitude, latitude,  number of chargeSlots.
         /// </summary>
 
-        public class BaseStation
+        public class BaseStation : ILocatable
         {
             private int id;
             public int Id
@@ -59,7 +59,7 @@ namespace IBL
                 }
             }
 
-            public Location MyLocation { get; set; }
+            public Location Location { get; set; }
 
             private int chargeSlots;
 
