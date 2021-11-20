@@ -12,14 +12,14 @@ namespace ConsoleUI_BL
 
     public class Menu
     {
-        BL bl = new BL();
+        IBL.BL bl;
         AddOption add;
         UpDateOption upDate;
         DisplayOption display;
         ShowListOption show;
         public Menu()
         {
-            bl = new BL();
+            bl = new IBL.BL();
             add = new AddOption();
             upDate = new UpDateOption();
             display = new DisplayOption();
@@ -59,7 +59,7 @@ namespace ConsoleUI_BL
                                 display.options(ref bl);
                                 break;
                             }
-                        case (int)Options.ShowingLists:
+                        case (int)Options.ShowLists:
                             {
                                 show.options(ref bl);
                                 break;

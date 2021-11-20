@@ -58,7 +58,7 @@ namespace IBL
         /// The function returns all the CustomersLIst items 
         /// (by converting the IDal.DO CustomersLIst to BO CustomersLIst)
         /// </summary>
-        public IEnumerable<BO.Customer> GetList()
+        public IEnumerable<BO.Customer> GetCustomersList()
         {
             List<BO.Customer> boCustomerList = new List<BO.Customer>();
             List<IDal.DO.Customer> doCustomerList = (List<IDal.DO.Customer>)dal.GetBaseStationsList();
@@ -88,31 +88,33 @@ namespace IBL
         /// <summary>
         /// The function shows all the not associated parcels 
         /// </summary>
-        public void GetNotAssociatedParcelsList()
+        public IEnumerable<BO.Parcel> GetNotAssociatedParcelsList()
         {
-            List<BO.Parcel> notAssociatedParcelsList = new List<BO.Parcel>();
-            foreach (Parcel item in notAssociatedParcelsList)
+            List<BO.Parcel> boNotAssociatedParcelsList = new List<BO.Parcel>();
+            List<IDal.DO.Parcel> doNotAccosiatedParcelsList = (List<IDal.DO.Parcel>)dal.NotAssociatedParcels();
+            foreach (IDal.DO.Parcel item in doNotAccosiatedParcelsList)
             {
-                DisplayParcel(item.Id);
+                boNotAssociatedParcelsList.Add(GetBLParcel(item.Id));
             }
-            if (notAssociatedParcelsList.Count == 0) Console.WriteLine("There are no not associated parcels to show");
+            return boNotAssociatedParcelsList;
         }
 
         /// <summary>
         /// The function shows all the available charge slots
         /// </summary>
-        public void AvailableChargeSlots()
+        public IEnumerable<BO.BaseStation> GetAvailableChargeSlots()
         {
-            List<BaseStation> availableChargeSlots = (List<BaseStation>)dal.AvailableChargeStations();
-            foreach (BaseStation item in availableChargeSlots)
+            List<IDal.DO.BaseStation> doAvailableChargeSlots = (List<IDal.DO.BaseStation>)dal.AvailableChargeStations();
+            List<BO.BaseStation> boAvailableChargeSlots = new List<BO.BaseStation>();
+            foreach (IDal.DO.BaseStation item in doAvailableChargeSlots)
             {
-                DisplayBaseStation(item.Id);
+                boAvailableChargeSlots.Add(GetBLBaseStation(item.Id));
             }
-            if (availableChargeSlots.Count == 0) Console.WriteLine("There are no not available charge slots to show");
 
+            return boAvailableChargeSlots;
         }
     }
 }
 
     
-}
+

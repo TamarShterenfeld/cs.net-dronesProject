@@ -17,7 +17,7 @@ namespace IBL
         /// <param name="senderId">parcel's sender id</param>
         /// <param name="targetId">parcel target id</param>
         /// <param name="droneId">parcel drone id</param>
-        private void chackingIdentitiesOfParcel(int id, string senderId, string targetId, int droneId)
+        private void ChackingIdentitiesOfParcel(int id, string senderId, string targetId, int droneId)
         {
             List<Parcel> parcelsList = (List<Parcel>)dal.GetParcelsList();
             List<Customer> customersList = (List<Customer>)dal.GetCustomersList();
@@ -34,7 +34,7 @@ namespace IBL
         /// The function checks if the variable is int type.
         /// </summary>
         /// <param name="id">a int type variable</param>
-        private void inputIntValue(ref int id)
+        private void InputIntValue(ref int id)
         {
             while (!int.TryParse(Console.ReadLine(), out id))
             {
@@ -42,7 +42,7 @@ namespace IBL
             }
         }
 
-        public int getParcelIndex() 
+        public int GetParcelIndex() 
         {
             return dal.IncreaseParcelIndex();
         }
