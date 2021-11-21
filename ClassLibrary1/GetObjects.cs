@@ -250,6 +250,11 @@ namespace IBL
             return CustomrInParcelDOtOBO(dal.GetCustomer(id));
         }
 
+        /// <summary>
+        /// the function converts a DO,Customer obj to a customerInParcel obsj
+        /// </summary>
+        /// <param name="customer"></param>
+        /// <returns></returns>
         public CustomerInParcel CustomrInParcelDOtOBO(IDal.DO.Customer customer)
         {
             CustomerInParcel BOCustomrInParcel = new CustomerInParcel()
