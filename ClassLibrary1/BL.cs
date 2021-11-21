@@ -146,6 +146,7 @@ namespace IBL
 
             if (drone.Status == BO.DroneStatuses.Available)
             {
+               
                 return distance * electricityConsumingOfAvailable;
             }
             else

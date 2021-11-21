@@ -11,6 +11,9 @@ namespace IBL.BO
     public class Drone:ILocatable
     {
         int id;
+        private static Random rand = new Random();
+        private double battery = rand.NextDouble() * 20 + 20;
+        private DroneStatuses status = DroneStatuses.Available;
 
         public int Id
         {
@@ -27,23 +30,18 @@ namespace IBL.BO
 
         //there's nothing to check for a model - it can hold chars and also digits.
         public string Model { get; set; }
-
-        public WeightCategories MaxWeight { set; get; }
-
-        private static Random rand = new Random();
-
-        private double battery = rand.NextDouble()*20 + 20;  
-
-        private DroneStatuses status = DroneStatuses.Available;
+        public WeightCategories MaxWeight { set; get; } 
         public double Battery { get { return battery; } set { battery = value; } }
-
         public DroneStatuses Status { get; set; }
-
         public ParcelInPassing Parcel { set; get; }
-
         public Location Location { get; set; }
 
+        public Drone() { }
 
+        public Drone(int id, string model, WeightCategories weight, double battery, DroneStatuses status, ParcelInPassing parcel, Location location)
+        {
+            Id = id; Model = model; MaxWeight = weight; Battery = battery; Status = status; Parcel = parcel; Location = location;
+        }
         /// <summary>
         /// override ToString function.
         /// </summary>

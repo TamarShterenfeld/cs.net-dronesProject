@@ -92,7 +92,7 @@ namespace IBL
             /// <param name="droneCharging"> BaseStation's droneInCharging </param>
             public BaseStation(int id, string name, Location location, int chargeSlots, List<DroneInCharging> droneCharging)
             {
-                Id = id; Name = name; MyLocation = location; ChargeSlots = chargeSlots; DroneCharging = droneCharging;
+                Id = id; Name = name; Location = location; ChargeSlots = chargeSlots; DroneCharging = droneCharging;
             }
 
             // default constructor
@@ -122,7 +122,7 @@ namespace IBL
             {
                 return $"id: {Id} \n" +
                         $"name: {Name} \n" +
-                        $"location: { MyLocation }\n" +
+                        $"location: { Location }\n" +
                         $"number of charge slots: {ChargeSlots}\n"
                         + $"drones in charging: {droneInChargingDetails()}\n";
             }

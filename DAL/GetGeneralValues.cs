@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using static DalObject.DataSource;
 using IDal.DO;
+using System.Reflection;
 
 namespace DalObject
 {
@@ -21,5 +22,21 @@ namespace DalObject
             return caught;
         }
 
+        public double[] ElectricityConsuming()
+        {
+            // p in type.GetFields(System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic))
+            List<double> electricitiesConsuming = new List<double>(5);
+            //initalizing a value for comparing the type
+            Type type = typeof(Config);
+            foreach (var prop in type.GetFields(BindingFlags.Static))
+            {
+                if (prop != typeof(double))
+                {
+                    var currValue = prop.GetValue(null);
+                    electricitiesConsuming.Add(((double)(currValue)));
+                }
+            }
+            return electricitiesConsuming.ToArray();
+        }
     }
 }

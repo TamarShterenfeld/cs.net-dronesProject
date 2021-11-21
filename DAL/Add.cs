@@ -4,6 +4,7 @@ using System.Text;
 using IDal.DO;
 using static IDal.IDal;
 using static DalObject.DataSource;
+using System.Linq;
 
 namespace DalObject
 {
@@ -47,6 +48,22 @@ namespace DalObject
             else
             {
                 throw new OverloadException("Id already exists in drones list, it's not possible to add it!");//לטפל בהערות
+            }
+           
+        }
+
+        public void Add(int droneId, int baseStationId)
+        {
+            if (BaseStationsList.FindIndex(item => item.Id == baseStationId) == -1)
+                throw new OverloadException("baseStation Id doesn't exist!");
+            if( BaseStationsList.First(item => item.Id == baseStationId).ChargeSlots > 0)
+            {
+                DroneCharge droneCharge = new DroneCharge { DroneId = droneId, StationId = baseStationId, EntryTime = DateTime.Now };
+                DronesChargeList.Add(droneCharge);
+            }
+            else
+            {
+                throw new OverloadException("the chosen baseStation doesn't have enough chargeSlots for charging this drone.");
             }
         }
         public void Add(Parcel parcel)

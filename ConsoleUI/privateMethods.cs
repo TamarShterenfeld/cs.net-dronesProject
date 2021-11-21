@@ -6,7 +6,7 @@
 
 //namespace ConsoleUI
 //{
-//    public partial class Program 
+//    public partial class Program
 //    {
 //        /// <summary>
 //        /// The function checks if the variable is double type.
@@ -55,7 +55,7 @@
 //                        isValid = false;
 //                        break;
 //                    }
-                        
+
 //                }
 //                if (!isValid)
 //                {
@@ -76,7 +76,7 @@
 //            {
 //                bool isValid = true;
 //                id = Console.ReadLine();
-//                if(id.Length != 9)
+//                if (id.Length != 9)
 //                {
 //                    isValid = false;
 //                    Console.WriteLine("Id's length must be exactly nine!");
@@ -102,7 +102,7 @@
 //                else
 //                    return;
 //            }
-            
+
 //        }
 
 //        /// <summary>
@@ -115,22 +115,22 @@
 //            while (true)
 //            {
 //                phone = Console.ReadLine();
-//                if (phone.Length != 10 )
+//                if (phone.Length != 10)
 //                {
 //                    Console.WriteLine("The phone length must be of 10 digits!");
 //                    isValid = false;
 //                }
-//                if(phone[0] != '0')
+//                if (phone[0] != '0')
 //                {
 //                    Console.WriteLine("The phone number must begin with the digit '0'");
 //                    isValid = false;
 //                }
 //                foreach (char digit in phone)
 //                {
-//                    if(!Char.IsDigit(digit))
+//                    if (!Char.IsDigit(digit))
 //                    {
 //                        Console.WriteLine("Phone number can contain only digits!");
-//                        isValid  = false;
+//                        isValid = false;
 //                        break;
 //                    }
 //                }
@@ -155,7 +155,7 @@
 //                maxWeight = Console.ReadLine();
 //                for (int i = 1; i <= Enum.GetNames(typeof(WeightCategories)).Length; i++)
 //                {
-//                    currentEnum = (string)Enum.GetNames(typeof(WeightCategories)).GetValue(i-1);
+//                    currentEnum = (string)Enum.GetNames(typeof(WeightCategories)).GetValue(i - 1);
 //                    if (currentEnum == maxWeight || currentEnum.ToLower() == maxWeight)
 //                    {
 //                        //category is assigned to hold the numeric indx of the enum type.
@@ -184,7 +184,8 @@
 //                priority = Console.ReadLine();
 //                for (int i = 1; i <= Enum.GetNames(typeof(Priorities)).Length; i++)
 //                {
-//                    currentEnum = (string)Enum.GetNames(typeof(Priorities)).GetValue(i-1);
+                    
+//                    currentEnum = (string)Enum.GetNames(typeof(Priorities)).GetValue(i - 1);
 //                    if (currentEnum == priority || currentEnum.ToLower() == priority)
 //                    {
 //                        //priority is assigned to hold the numeic index of the enum type.

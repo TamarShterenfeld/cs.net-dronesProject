@@ -28,7 +28,7 @@ namespace IBL
 
     interface IDroneBL
     {
-        void Add(BO.Drone baseStation);
+        void Add(BO.Drone baseStation , int baseStationId);
         //void Update(int id, BO.BaseStation baseStation);
         //BO.BaseStation Get(int id);
     }

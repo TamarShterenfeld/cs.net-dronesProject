@@ -9,14 +9,13 @@ namespace IDal
     {
         void Add(BaseStation baseStation);
         void Add(Drone drone);
+        void Add(int droneCharge, int baseStationId);
         void Add(Customer customer);
         void Add(Parcel parcel);
         void AssociateParcel(int parcelId, int droneId);
         void PickupParcel(int parcelId);
         void SendDroneToRecharge(int droneId, int baseStationId);
         void ReleaseDroneFromRecharge(int droneId);
-
-        static int increaseParcelIndex() { return 0; }
         BaseStation GetBaseStation(int requestedId);
         Drone GetDrone(int requestedId);
         Customer GetCustomer(string requestedId);

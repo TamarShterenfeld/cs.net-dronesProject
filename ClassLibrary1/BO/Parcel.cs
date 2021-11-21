@@ -39,7 +39,7 @@ namespace IBL.BO
 
         public Parcel(int id, CustomerInParcel sender, CustomerInParcel target, WeightCategories weight, Priorities priority, DroneInParcel drone)
         {
-            this.id = id; Sender = sender; Target = target; Weight = weight; Priority = priority; Drone = Drone;
+            this.id = id; Sender = sender; Target = target; Weight = weight; Priority = priority; MyDrone = drone;
             //a default value in the creation of the object.
             ProductionDate = AssociationDate = PickUpDate = SupplyDate = new DateTime(01 / 01 / 0001);
         }

@@ -35,6 +35,7 @@ namespace IDal
             public DroneStatuses Status { set; get; }
 
 
+            
             /// <summary>
             /// override ToString function.
             /// </summary>

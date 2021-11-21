@@ -35,7 +35,7 @@ namespace ConsoleUI_BL
                     case (int)AddOptions.BaseStation:
                         {
                             CheckBaseStationDetails(ref id, ref name, ref location, ref chargeSlots);
-                            BaseStation baseStation = new BaseStation() { Id = id, Name = name, MyLocation = location, ChargeSlots = chargeSlots,DroneCharging = null };
+                            BaseStation baseStation = new BaseStation() { Id = id, Name = name, Location = location, ChargeSlots = chargeSlots,DroneCharging = null };
                             bl.Add(baseStation);
                             break;
                         }
@@ -43,8 +43,8 @@ namespace ConsoleUI_BL
                     case (int)AddOptions.Drone:
                         {
                             CheckDroneDetails(ref id, ref model, ref maxWeight, ref baseStationId);
-                            Drone drone = new Drone() { Id = id, Model = model , MaxWeight = (WeightCategories)Enum.GetNames(typeof(WeightCategories)).GetValue(int.Parse(maxWeight)),Location = bl.GetBLBaseStation(id).MyLocation,Parcel = null};
-                            bl.Add(drone);
+                            Drone drone = new Drone() { Id = id, Model = model , MaxWeight = (WeightCategories)Enum.GetNames(typeof(WeightCategories)).GetValue(int.Parse(maxWeight)),Location = bl.GetBLBaseStation(id).Location,Parcel = null};
+                            bl.Add(drone, baseStationId);
                             break;
                         }
                     case (int)AddOptions.Customer:

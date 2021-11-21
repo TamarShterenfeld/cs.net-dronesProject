@@ -27,17 +27,8 @@ namespace IBL
                 get { return id; }
             }
 
-            //there's nothing to check for a model - it can hold chars and also digits.
-            public string Model { get; set; }
-
-            public WeightCategories MaxWeight { set; get; }
-
-            public double Battery { get; set; }
-
-            public DroneStatuses Status { set; get; }
-
-            public Location Location { get; set; }
-            public int ParcelId {
+            public int ParcelId
+            {
                 set
                 {
                     if (value < 0)
@@ -48,6 +39,25 @@ namespace IBL
                 }
                 get { return parcelId; }
             }
+
+            //there's nothing to check for a model - it can hold chars and also digits.
+            public string Model { get; set; }
+
+            public WeightCategories MaxWeight { set; get; }
+
+            public double Battery { get; set; }
+
+            public DroneStatuses Status { set; get; }
+
+            public Location Location { get; set; }
+
+            public DroneForList() { }
+
+            public DroneForList(int id, int parcelId, string model, WeightCategories weight, double battery, DroneStatuses status, Location location)
+            {
+                Id = id; ParcelId = parcelId; Model = model; MaxWeight = weight; Battery = battery; Status = status; Location = location;
+            }
+            
         }
     }
 }

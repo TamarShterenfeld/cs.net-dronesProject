@@ -78,6 +78,13 @@ namespace IDal
                 }
             }
 
+            public BaseStation() { }
+            public BaseStation(int id, string name, Coordinate longitude, Coordinate latitude, int chargeSlots)
+            {
+                Id = id; Name = name; Longitude = longitude; Latitude = latitude; ChargeSlots = chargeSlots;
+
+            }
+
             /// <summary>
             /// override ToString function.
             /// </summary>

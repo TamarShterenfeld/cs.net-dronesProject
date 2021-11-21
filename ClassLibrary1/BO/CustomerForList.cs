@@ -88,6 +88,15 @@ namespace IBL
             public int AmountOfSendAndNotSuppliedParcels { set; get; }
             public int AmountOfGetParcels { set; get; }
             public int AmountOfInPassingParcels { set; get; }
+
+            public CustomerForList() { }
+
+            public CustomerForList(string id, string name, string phone, int amountOfSendAndSuppliedParcels, int amountOfSendAndNotSuppliedParcels, int amountOfGetParcels, int amountOfInPassingParcels)
+            {
+                Id = id; Name = name; Phone = phone; AmountOfSendAndNotSuppliedParcels = amountOfSendAndSuppliedParcels;
+                AmountOfSendAndNotSuppliedParcels = amountOfSendAndNotSuppliedParcels; AmountOfGetParcels = amountOfGetParcels;
+                AmountOfInPassingParcels = amountOfInPassingParcels;
+            }
         }
     }
 }

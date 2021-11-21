@@ -19,17 +19,18 @@ namespace IBL
         /// <param name="baseStation">base station</param>
         public void Add(BO.BaseStation baseStation)
         {
-            dal.Add(new IDal.DO.BaseStation() { Id = baseStation.Id, Name = baseStation.Name, Longitude = baseStation.MyLocation.CoorLongitude , Latitude = baseStation.MyLocation.CoorLatitude, ChargeSlots = baseStation.ChargeSlots}); 
+            dal.Add(new IDal.DO.BaseStation() { Id = baseStation.Id, Name = baseStation.Name, Longitude = baseStation.Location.CoorLongitude , Latitude = baseStation.Location.CoorLatitude, ChargeSlots = baseStation.ChargeSlots}); 
         }
 
         /// <summary>
         /// The function adds a drone 
         /// </summary>
         /// <param name="drone">drone</param>
-        public void Add(BO.Drone drone)
+        public void Add(BO.Drone drone, int baseStationId)
         {
-
-            dal.Add(new IDal.DO.Drone() { Id = drone.Id, MaxWeight = (IDal.DO.WeightCategories)drone.MaxWeight } );
+            IDal.DO.Drone drone1 = new IDal.DO.Drone() { Id = drone.Id, MaxWeight = (IDal.DO.WeightCategories)drone.MaxWeight };
+            dal.Add(drone1);
+            dal.Add(drone1.Id, baseStationId);
         }
 
         /// <summary>

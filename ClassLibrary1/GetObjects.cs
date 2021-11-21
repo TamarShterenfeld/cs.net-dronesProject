@@ -32,8 +32,8 @@ namespace IBL
             {
                 Id = baseStation.Id,
                 Name = baseStation.Name,
-                MyLocation = new Location(baseStation.Longitude, baseStation.Latitude),
-                ChargeSlots = baseStation.ChargeSlots - AvailableChargingSlots(baseStation.Id),
+                Location = new Location(baseStation.Longitude, baseStation.Latitude),
+                ChargeSlots = baseStation.ChargeSlots - catchAvailableChargeSlots(baseStation.Id),
                 DroneCharging = (List<DroneInCharging>)GetDronesInMe(baseStation.Id)
             };
             return BOBaseStation;

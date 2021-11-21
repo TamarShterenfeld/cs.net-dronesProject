@@ -22,51 +22,13 @@ namespace DalObject
         {
             Initialize();
         }
-        public IEnumerable<BaseStation> AvailableChargingStations()
+  
+        public static int IncreaseParcelIndex()
         {
-            List<BaseStation> availableChargingSlotsList = new List<BaseStation>();
-            for (int i = 0; i < BaseStationsList.Count; i++)
-            {
-                availableChargingSlotsList[i] = BaseStationsList[i];
-                availableChargingSlotsList[i].ChargeSlots -= (DronesChargeList.ToArray()).Count(dc => dc.StationId == availableChargingSlotsList[i].Id);
-            }
-            return availableChargingSlotsList;
+            return ++Config.ParcelId;
         }
 
-        public static int AvailableChargingSlots(int baseStationId)
-        {
-            int caught = 0;
-            foreach (DroneCharge droneCharge in DronesChargeList)
-            {
-                if(droneCharge.StationId == baseStationId)
-                {
-                    ++caught;
-                }
-            }
-            return caught;
-        }
-
-        public int IncreaseParcelIndex()
-        {
-            return ++DataSource.Config.ParcelId;
-        }
-
-        public double[] ElectricityConsuming()
-        {
-           // p in type.GetFields(System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic))
-            List<double> electricitiesConsuming = new List<double>(5);
-            //initalizing a value for comparing the type
-            Type type = typeof(Config);
-            foreach (var prop in type.GetFields(BindingFlags.Static))
-            {
-                if (prop != typeof(double))
-                {
-                    var currValue = prop.GetValue(null);
-                    electricitiesConsuming.Add(((double)(currValue)));
-                }
-            }
-            return electricitiesConsuming.ToArray();
-        }
+       
         
     }
 

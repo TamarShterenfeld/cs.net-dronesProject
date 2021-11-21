@@ -13,20 +13,33 @@ namespace IBL
         public class ParcelForList
         {
 
-            int id;
+            int parcelId;
             string senderId;
             string targetId;
             int droneId;
-            public int Id
+            public int DroneId
             {
-                get { return id; }
+                get { return droneId; }
                 set
                 {
                     if (value < 0)
                     {
                         throw new OverloadException("Id must contain a positive number");
                     }
-                    id = value;
+                    droneId = value;
+                }
+            }
+
+            public int ParcelId
+            {
+                get { return parcelId; }
+                set
+                {
+                    if (value < 0)
+                    {
+                        throw new OverloadException("Id must contain a positive number");
+                    }
+                    parcelId = value;
                 }
             }
             public string SenderId
@@ -79,6 +92,12 @@ namespace IBL
             public Priorities Priority { set; get; }
             public ParcelStatuses Status { set; get;}
 
+            public ParcelForList() { }
+
+            public ParcelForList(int droneId, int parcelId, string senderId, string targetId, WeightCategories weight, Priorities priority, ParcelStatuses status)
+            {
+                DroneId = droneId; ParcelId = parcelId; SenderId = senderId; TargetId = targetId; Weight = weight; Priority = priority; Status = status;
+            }
         }
     }
 
