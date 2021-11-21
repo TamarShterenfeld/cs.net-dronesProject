@@ -17,7 +17,7 @@ namespace IBL
         /// <param name="senderId">parcel's sender id</param>
         /// <param name="targetId">parcel target id</param>
         /// <param name="droneId">parcel drone id</param>
-        private void ChackingIdentitiesOfParcel(int id, string senderId, string targetId, int droneId)
+        private void ChackIdentitiesOfParcel(int id, string senderId, string targetId, int droneId)
         {
             List<Parcel> parcelsList = (List<Parcel>)dal.GetParcelsList();
             List<Customer> customersList = (List<Customer>)dal.GetCustomersList();

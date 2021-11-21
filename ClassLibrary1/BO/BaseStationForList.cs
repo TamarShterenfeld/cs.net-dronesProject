@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace IBL.BO
 {
-    class BaseStationForList
+   public  class BaseStationForList
     {
         private int id;
         public int Id
@@ -92,6 +92,7 @@ namespace IBL.BO
             Id = id; Name = name; FreeChargeSlots = freeChargeSlots; CaughtChargeSlots = freeChargeSlots;
         }
 
+        public BaseStationForList() { }
         /// <summary>
         /// override ToString function.
         /// </summary>

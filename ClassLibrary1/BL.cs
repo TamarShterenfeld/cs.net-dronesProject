@@ -49,7 +49,7 @@ namespace IBL
             electricityConsumingOfAverageWeight = droneElectricityInfo[2];
             electricityConsumingOfHeavyWeight = droneElectricityInfo[3];
             chargeRate = droneElectricityInfo[0];
-            List<BO.Drone> drones = (List<BO.Drone>)GetDronesList();
+            List<BO.Drone> drones = (List<BO.Drone>)GetBODronesList();
             Random rand = new Random();
 
             for (int i = 0; i < drones.Count; i++)
@@ -72,7 +72,7 @@ namespace IBL
                     //the parcel has been picked hasn't been supplied - (in the general condition)
                     else
                     {
-                        drones[i].Location = GetCustomersList().First(item => drones[i].Parcel.Sender.Id == item.Id).Location;
+                        drones[i].Location = GetBOCustomersList().First(item => drones[i].Parcel.Sender.Id == item.Id).Location;
                     }
 
                     double minBattery = ComputeMinBatteryNeeded(drones[i], GetBLCustomer(drones[i].Parcel.Target.Id));
@@ -84,8 +84,8 @@ namespace IBL
                 else
                 {
                     drones[i].Status = (BO.DroneStatuses)rand.Next(1, 3);
-                    List<BO.BaseStation> baseStationList = (List<BO.BaseStation>)GetBaseStationsList();
-                    List<BO.Customer> customersList = (List<BO.Customer>)GetCustomersList();
+                    List<BO.BaseStation> baseStationList = (List<BO.BaseStation>)GetBOBaseStationsList();
+                    List<BO.Customer> customersList = (List<BO.Customer>)GetBOCustomersList();
                     switch (drones[i].Status)
                     {
                         case BO.DroneStatuses.Available:
@@ -127,7 +127,7 @@ namespace IBL
         {
             double minDistance = int.MaxValue;
             BO.BaseStation nearestBaseStation =
-                       GetBaseStationsList().Last
+                       GetBOBaseStationsList().Last
                        (item => Min(item.Distance(drone), minDistance) == item.Distance(drone));
             return nearestBaseStation;
         }
@@ -196,7 +196,7 @@ namespace IBL
         /// <returns></returns>
         private IEnumerable<BO.CustomerForList> CustomersWithSuppliedParcels()
         {
-            List<BO.CustomerForList> customers = (List<BO.CustomerForList>)GetCustomersList();
+            List<BO.CustomerForList> customers = (List<BO.CustomerForList>)GetBOCustomersList();
             List<BO.CustomerForList> customerWithSuppliedParcels = new List<BO.CustomerForList>();
             foreach (BO.CustomerForList item in customers)
             {

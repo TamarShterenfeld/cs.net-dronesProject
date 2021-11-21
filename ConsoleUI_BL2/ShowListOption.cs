@@ -21,22 +21,22 @@ namespace ConsoleUI_BL
                 {
                     case (int)ShowingListsOptions.BaseStations:
                         {
-                            ShowList(bl.GetBaseStationsList());
+                            ShowList(bl.GetBOBaseStationsList());
                             break;
                         }
                     case (int)ShowingListsOptions.Drones:
                         {
-                            ShowList(bl.GetDronesList());
+                            ShowList(bl.GetBODronesList());
                             break;
                         }
                     case (int)ShowingListsOptions.Customers:
                         {
-                            ShowList(bl.GetCustomersList());
+                            ShowList(bl.GetBOCustomersList());
                             break;
                         }
                     case (int)ShowingListsOptions.Parcels:
                         {
-                            ShowList(bl.GetParcelsList());
+                            ShowList(bl.GetBOParcelsList());
                             break;
                         }
                     case (int)ShowingListsOptions.NotAssociatedParcels:

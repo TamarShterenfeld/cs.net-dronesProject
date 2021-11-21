@@ -59,14 +59,14 @@ namespace DalObject
         /// the class Config contains the indexes of the first free place in the different lists.
         /// in addition, it contains ParcelId
         /// </summary>
-        internal class Config
+        internal static class Config
         {
             public static int ParcelId = 0;
             public static double ElectricityConsumingOfAvailable = 0;
             public static double ElectricityConsumingOfLightWeight = 0;
             public static double ElectricityConsumingOfAverageWeight = 0;
             public static double ElectricityConsumingOfHeavyWeight = 0;
-            public double ChargeRate = 0;
+            public static double ChargeRate = 0;
         }
 
 

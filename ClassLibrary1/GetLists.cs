@@ -12,6 +12,57 @@ namespace IBL
 {
     public partial class BL: IBL
     {
+        //---------------------------------BaseStation GetList methods------------------------------------------------
+       
+        /// <summary>
+        /// The function returns all the baseStationList items 
+        /// (by converting the IDal.DO BaseStationList to BO baseStationList)
+        /// </summary>
+        public IEnumerable<BO.BaseStation> GetBOBaseStationsList()
+        {
+            List<BO.BaseStation> boBaseStationList = new List<BO.BaseStation>();
+            List<IDal.DO.BaseStation> doBaseStationList = (List<IDal.DO.BaseStation>)dal.GetBaseStationsList();
+            foreach (IDal.DO.BaseStation item in doBaseStationList)
+            {
+                boBaseStationList.Add(GetBLBaseStation(item.Id));
+            }
+            return boBaseStationList;
+        }
+
+        /// <summary>
+        /// The function shows all the available charge slots
+        /// </summary>
+        public IEnumerable<BO.BaseStation> GetAvailableChargeSlots()
+        {
+            List<IDal.DO.BaseStation> doAvailableChargeSlots = (List<IDal.DO.BaseStation>)dal.AvailableChargeStations();
+            List<BO.BaseStation> boAvailableChargeSlots = new List<BO.BaseStation>();
+            foreach (IDal.DO.BaseStation item in doAvailableChargeSlots)
+            {
+                boAvailableChargeSlots.Add(GetBLBaseStation(item.Id));
+            }
+
+            return boAvailableChargeSlots;
+        }
+
+
+        /// <summary>
+        /// the function returns a baseStationForList list
+        /// by converting the BO.baseStation list to BaseStationForList type.
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<BaseStationForList> GetBaseStationList()
+        {
+            List<BaseStationForList> baseStationForLists = new List<BaseStationForList>();
+            List<BO.BaseStation> baseStations = (List<BO.BaseStation>)GetBOBaseStationsList();
+            foreach (BO.BaseStation item in baseStations)
+            {
+                baseStationForLists.Add(GetBaseStationForList(item.Id));
+            }
+            return baseStationForLists;
+        }
+
+        //---------------------------------Drones GetList Methods------------------------------------------------
+
         public IEnumerable<DroneInCharging> GetDronesInMe(int stationId)
         {
             List<DroneInCharging> droneInCharging = null;
@@ -25,25 +76,47 @@ namespace IBL
         }
 
         /// <summary>
-        /// The function returns all the baseStationList items 
-        /// (by converting the IDal.DO BaseStationList to BO baseStationList)
+        /// The function returns all the DronesLIst items 
+        /// (by converting the IDal.DO DronesLIst to BO DronesLIst)
         /// </summary>
-        public IEnumerable<BO.BaseStation> GetBaseStationsList()
+        public IEnumerable<BO.Drone> GetBODronesList()
         {
-            List<BO.BaseStation> boBaseStationList = new List<BO.BaseStation>();
-            List<IDal.DO.BaseStation> doBaseStationList = (List<IDal.DO.BaseStation>)dal.GetBaseStationsList();
-            foreach (IDal.DO.BaseStation item in doBaseStationList)
+            List<BO.Drone> boDronesList = new List<BO.Drone>();
+            List<IDal.DO.Drone> doDronseList = (List<IDal.DO.Drone>)dal.GetBaseStationsList();
+            foreach (IDal.DO.Drone item in doDronseList)
             {
-                boBaseStationList.Add(GetBLBaseStation(item.Id));
+                boDronesList.Add(GetBLDrone(item.Id));
             }
-            return boBaseStationList;
+            return boDronesList;
         }
+
+
+        /// <summary>
+        /// the function returns a droneForList
+        /// by converting the BO.Drone to DroneForList type.
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<DroneForList> GetDronesList()
+        {
+            List<DroneForList> droneForLists = new List<DroneForList>();
+            List<BO.Drone> drones = (List<BO.Drone>)GetBOCustomersList();
+
+            foreach (BO.Drone item in drones)
+            {
+
+                droneForLists.Add(GetDroneForList(item.Id));
+            }
+            return droneForLists;
+        }
+
+
+        // ---------------------------------Parcels GetList Methods------------------------------------------------
 
         /// <summary>
         /// The function returns all the ParcelsLIst items 
         /// (by converting the IDal.DO ParcelsLIst to BO ParcelsLIst)
         /// </summary>
-        public IEnumerable<BO.Parcel> GetParcelsList()
+        public IEnumerable<BO.Parcel> GetBOParcelsList()
         {
             List<BO.Parcel> boParcelList = new List<BO.Parcel>();
             List<IDal.DO.Parcel> doParcelList = (List<IDal.DO.Parcel>)dal.GetBaseStationsList();
@@ -55,33 +128,20 @@ namespace IBL
         }
 
         /// <summary>
-        /// The function returns all the CustomersLIst items 
-        /// (by converting the IDal.DO CustomersLIst to BO CustomersLIst)
+        /// the function returns a ParcelForList list
+        /// by converting the BO.Parcel PArcelForList  type.
         /// </summary>
-        public IEnumerable<BO.Customer> GetCustomersList()
+        /// <returns></returns>
+        public IEnumerable<ParcelForList> GetParcelsList()
         {
-            List<BO.Customer> boCustomerList = new List<BO.Customer>();
-            List<IDal.DO.Customer> doCustomerList = (List<IDal.DO.Customer>)dal.GetBaseStationsList();
-            foreach (IDal.DO.Customer item in doCustomerList)
-            {
-                boCustomerList.Add(GetBLCustomer(item.Id));
-            }
-            return boCustomerList;
-        }
+            List<ParcelForList> parcelsForList = new List<ParcelForList>();
+            List<BO.Parcel> parcels = (List<BO.Parcel>)GetBOParcelsList();
 
-        /// <summary>
-        /// The function returns all the DronesLIst items 
-        /// (by converting the IDal.DO DronesLIst to BO DronesLIst)
-        /// </summary>
-        public IEnumerable<BO.Drone> GetDronesList()
-        {
-            List<BO.Drone> boDronesList = new List<BO.Drone>();
-            List<IDal.DO.Drone> doDronseList = (List<IDal.DO.Drone>)dal.GetBaseStationsList();
-            foreach (IDal.DO.Drone item in doDronseList)
+            foreach (BO.Parcel item in parcels)
             {
-                boDronesList.Add(GetBLDrone(item.Id));
+                parcelsForList.Add(GetParcelForList(item.Id));
             }
-            return boDronesList;
+            return parcelsForList;
         }
 
 
@@ -99,6 +159,24 @@ namespace IBL
             return boNotAssociatedParcelsList;
         }
 
+
+        //---------------------------------Customers GetList Methods------------------------------------------------
+
+        /// <summary>
+        /// The function returns all the CustomersLIst items 
+        /// (by converting the IDal.DO CustomersLIst to BO CustomersLIst)
+        /// </summary>
+        public IEnumerable<BO.Customer> GetBOCustomersList()
+        {
+            List<BO.Customer> boCustomerList = new List<BO.Customer>();
+            List<IDal.DO.Customer> doCustomerList = (List<IDal.DO.Customer>)dal.GetBaseStationsList();
+            foreach (IDal.DO.Customer item in doCustomerList)
+            {
+                boCustomerList.Add(GetBLCustomer(item.Id));
+            }
+            return boCustomerList;
+        }
+       
         /// <summary>
         /// The function returns List of ParcelInCustomer items for sender or target
         /// </summary>
@@ -118,23 +196,24 @@ namespace IBL
             return parcelInCustomer;
         }
 
-
         /// <summary>
-        /// The function shows all the available charge slots
+        /// the function returns a customerForLIst list
+        /// by converting the BO.customero customerForLIst type.
         /// </summary>
-        public IEnumerable<BO.BaseStation> GetAvailableChargeSlots()
+        /// <returns></returns>
+        public IEnumerable<CustomerForList> GetCustomersList()
         {
-            List<IDal.DO.BaseStation> doAvailableChargeSlots = (List<IDal.DO.BaseStation>)dal.AvailableChargeStations();
-            List<BO.BaseStation> boAvailableChargeSlots = new List<BO.BaseStation>();
-            foreach (IDal.DO.BaseStation item in doAvailableChargeSlots)
-            {
-                boAvailableChargeSlots.Add(GetBLBaseStation(item.Id));
+            List<CustomerForList> customersForList = new List<CustomerForList>();
+            List<BO.Customer> customers = (List<BO.Customer>)GetBOCustomersList();
+            foreach (BO.Customer item in customers)
+            {      
+                customersForList.Add(GetCustomerForList(item.Id));
             }
-
-            return boAvailableChargeSlots;
+            return customersForList;
         }
 
-
+        
+       
     }
 }
 
