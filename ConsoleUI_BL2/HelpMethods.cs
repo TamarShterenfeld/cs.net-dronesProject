@@ -135,9 +135,10 @@ namespace ConsoleUI_BL
         /// The function checks if the phone is valid. 
         /// </summary>
         /// <param name="phone">phone</param>
-        internal static string InputPhone(string phone)
+        internal static string InputPhone()
         {
             bool isValid = true;
+            string phone;
             while (true)
             {
                 phone = Console.ReadLine();

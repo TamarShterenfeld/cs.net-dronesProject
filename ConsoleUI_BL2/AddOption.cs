@@ -16,19 +16,20 @@ namespace ConsoleUI_BL
     /// </summary>
     public class AddOption : ISubNavigate
     {
-        int innerChoice = 0;
-        int id = 0,  baseStationId = 0;
-        string name =" ", customerId = " ", phone = " ", model =" ", senderId=" ", targetId=" ";
-        int chargeSlots = 0;
-        
-        Location location = new Location();
-        //all the enum type litteral are entered as string type
-        //and then checked if they contain an enum name.
-        string maxWeight = "", weight = "", priority = "";
-        WeightCategories weightCategory;
-        Priorities priorities;
         public void options(ref IBL.BL bl)
         {
+            int innerChoice ;
+            int id = 0, baseStationId = 0;
+            string name = " ", customerId = " ", phone = " ", model = " ", senderId = " ", targetId = " ";
+            int chargeSlots = 0;
+
+            Location location = new Location();
+            //all the enum type litteral are entered as string type
+            //and then checked if they contain an enum name.
+            string maxWeight = "", weight = "", priority = "";
+            WeightCategories weightCategory = WeightCategories.Average;
+            Priorities priorities = Priorities.Emergency;
+
             Console.WriteLine("Please enter : \n1- For Base Station \n2- For Drone\n3- For Customer\n4- For Parcel ");
             if (int.TryParse(Console.ReadLine(), out innerChoice))
             {
@@ -61,7 +62,7 @@ namespace ConsoleUI_BL
                             CheckParcelDetails(ref senderId, ref targetId,  weight, ref weightCategory,  priority, ref priorities);
                             CustomerInParcel sender = new CustomerInParcel() { Id = senderId, Name = "" };
                             CustomerInParcel target = new CustomerInParcel() { Id = targetId, Name = "" };
-                            Parcel parcel = new Parcel() { Id = bl.GetParcelIndex(), Sender = sender, Target = target, Weight = weightCategory , Priority = priorities };
+                            Parcel parcel = new Parcel() { Id = GetParcelIndex(), Sender = sender, Target = target, Weight = weightCategory , Priority = priorities };
                             bl.Add(parcel);
                             break;
                         }

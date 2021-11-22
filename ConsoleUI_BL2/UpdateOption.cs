@@ -11,11 +11,11 @@ namespace ConsoleUI_BL
  /// </summary>
     public class UpDateOption : ISubNavigate
     {
-        int innerChoice;
-        int parcelId = 0, droneId = 0, baseStationId = 0;
-        string senderId = "", targetId = "";
+        
         public void options(ref IBL.BL bl)
         {
+            int innerChoice;
+            int droneId = 0;
             Console.WriteLine("Please enter : \n1- For associating parcel\n2- For picking up parcel\n3- For supply parcel\n4- For charging drone\n5- For stop drone charging ");
             if (int.TryParse(Console.ReadLine(), out innerChoice))
             {

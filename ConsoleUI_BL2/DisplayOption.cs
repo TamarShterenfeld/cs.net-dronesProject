@@ -12,11 +12,11 @@ namespace ConsoleUI_BL
     /// </summary>
     public class DisplayOption : ISubNavigate
     {
-        int innerChoice;
-        int parcelId = 0, droneId = 0, baseStationId = 0;
-        string customerId = "";
         public void options(ref IBL.BL bl)
         {
+            int innerChoice;
+            int parcelId = 0, droneId = 0, baseStationId = 0;
+            string customerId = "";
             Console.WriteLine("Please enter: \n1- For a base station\n2- For a drone\n3- For a customer\n4- For a parcel");
             if (int.TryParse(Console.ReadLine(), out innerChoice))
             {

@@ -42,7 +42,7 @@ namespace IBL
             }
         }
 
-        public int GetParcelIndex() 
+        public static int GetParcelIndex() 
         {
             return DalObject.DalObject.IncreaseParcelIndex();
         }

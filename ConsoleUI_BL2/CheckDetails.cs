@@ -71,7 +71,7 @@ namespace ConsoleUI_BL
             //the needed checkings are implemented within the struct Customer or in DalObject.
             id = InputStringId(id);
             name = InputStringValue(name);
-            phone = InputPhone(phone);
+            phone = InputPhone();
             location = InputLocationValue(location);
         }
     }
