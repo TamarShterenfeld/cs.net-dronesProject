@@ -24,28 +24,29 @@ namespace ConsoleUI_BL
                     case (int)UpDateOptions.AssociationParcel:
                         {
                             Console.WriteLine("Please enter the drone id");
-                            InputIntValue(ref droneId);
+                            droneId = InputIntValue( droneId);
                             bl.AssociateParcel(droneId);
                             break;
                         }
                     case (int)UpDateOptions.PickUpParcel:
                         {
                             Console.WriteLine("Please enter the drone id");
-                            InputIntValue(ref droneId);
+                            droneId = InputIntValue( droneId);
                             bl.PickUpParcel(droneId);
                             break;
                         }
                     case (int)UpDateOptions.SupplyParcel:
                         {
                             Console.WriteLine("Please enter the drone id");
-                            InputIntValue(ref droneId);
+                            droneId = InputIntValue( droneId);
                             bl.SupplyParcel(droneId );
                             break;
                         }
                     case (int)UpDateOptions.ChargeDrone:
                         {
                             Console.WriteLine("Please enter droneId ");
-                          //  bl.(dronId);
+                            droneId = InputIntValue(droneId);
+                            bl.ChargeDrone(droneId);
                             break;
                         }
                     case (int)UpDateOptions.StopDroneCharge:

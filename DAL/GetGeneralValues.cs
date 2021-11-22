@@ -28,7 +28,7 @@ namespace DalObject
             List<double> electricitiesConsuming = new List<double>(5);
             //initalizing a value for comparing the type
             Type type = typeof(Config);
-            foreach (var prop in type.GetFields(BindingFlags.NonPublic))
+            foreach (var prop in type.GetFields(BindingFlags.Static | BindingFlags.Public))
             {
                 if (prop != typeof(double))
                 {

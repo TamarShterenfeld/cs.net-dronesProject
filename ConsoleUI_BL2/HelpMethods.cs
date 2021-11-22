@@ -11,39 +11,42 @@ namespace ConsoleUI_BL
     public partial class Program 
     {
 
-        internal static void InputLocationValue(ref Location location)
+        internal static Location InputLocationValue(Location location)
         {
             double longitude = location.CoorLongitude.RegularCoor, latitude = location.CoorLatitude.RegularCoor;
-            InputDoubleValue(ref longitude);
-            InputDoubleValue(ref latitude);
-            
+            longitude = InputDoubleValue(longitude);
+            latitude = InputDoubleValue(latitude);
+            Location location1 = new Location(longitude, latitude);
+            return location1;
         }
 
         /// <summary>
         /// The function checks if the variable is double type.
         /// </summary>
         /// <param name="numericalValue">a double type variable</param>
-        internal static void InputDoubleValue(ref double numericalValue)
+        internal static double InputDoubleValue( double numericalValue)
         {
             while (!double.TryParse(Console.ReadLine(), out numericalValue))
             {
                 Console.WriteLine("This field can input only numerical value! Please try again!");
             }
+            return numericalValue;
         }
 
         /// <summary>
         /// The function checks if the variable is int type.
         /// </summary>
         /// <param name="numericalValue">a int type variable</param>
-        internal static void InputIntValue(ref int numericalValue)
+        internal static int InputIntValue( int numericalValue)
         {
             while (!int.TryParse(Console.ReadLine(), out numericalValue) )
             {
                 Console.WriteLine("This field can input only numerical value! Please try again!");
             }
+            return numericalValue;
         }
 
-        internal static void InputIsNotNull(ref string str)
+        internal static string InputIsNotNull( string str)
         {
             str = Console.ReadLine();
 
@@ -52,13 +55,14 @@ namespace ConsoleUI_BL
                 Console.WriteLine("String must hold a value!");
                 str = Console.ReadLine();
             }
+            return str;
         }
 
         /// <summary>
         /// The function checks if the variable is string type.
         /// </summary>
         /// <param name="str">a string type variable</param>
-        internal static void InputStringValue(ref string str)
+        internal static string InputStringValue( string str)
         {
             while (true)
             {
@@ -84,7 +88,7 @@ namespace ConsoleUI_BL
                     Console.WriteLine("Try again!");
                 }
                 else
-                    return;
+                    return str;
             }
         }
 
@@ -92,7 +96,7 @@ namespace ConsoleUI_BL
         /// The function checks if the id is string type. 
         /// </summary>
         /// <param name="id">string type id</param>
-        internal static void InputStringId(ref string id)
+        internal static string InputStringId( string id)
         {
             while (true)
             {
@@ -122,7 +126,7 @@ namespace ConsoleUI_BL
                     Console.WriteLine("Try again!");
                 }
                 else
-                    return;
+                    return id;
             }
             
         }
@@ -131,7 +135,7 @@ namespace ConsoleUI_BL
         /// The function checks if the phone is valid. 
         /// </summary>
         /// <param name="phone">phone</param>
-        internal static void InputPhone(ref string phone)
+        internal static string InputPhone(string phone)
         {
             bool isValid = true;
             while (true)
@@ -159,7 +163,7 @@ namespace ConsoleUI_BL
                 if (!isValid)
                     Console.WriteLine("Try again!");
                 else
-                    return;
+                    return phone;
             }
         }
 
@@ -167,10 +171,11 @@ namespace ConsoleUI_BL
         /// getting a string and check its existance in WeightCategories enum.
         /// </summary>
         /// <param name="maxWeight">WeightCategory: maxWeight</param>
-        internal static void InputWeightCategory(ref string maxWeight)
+        internal static WeightCategories InputWeightCategory(string maxWeight)
         {
             bool isExist1 = false;
             string currentEnum;
+            WeightCategories weight = WeightCategories.Average;
             //checking if the inputed category (string) exists in WeightCategories enum
             while (isExist1 == false)
             {
@@ -180,8 +185,7 @@ namespace ConsoleUI_BL
                     currentEnum = (string)Enum.GetNames(typeof(WeightCategories)).GetValue(i-1);
                     if (currentEnum == maxWeight || currentEnum.ToLower() == maxWeight)
                     {
-                        //category is assigned to hold the numeric indx of the enum type.
-                        maxWeight = i.ToString();
+                        weight = (WeightCategories)i;
                         isExist1 = true;
                         break;
                     }
@@ -191,16 +195,18 @@ namespace ConsoleUI_BL
                     Console.WriteLine("The entered weight category doesn't exist\nPlease enter another weight category");
                 }
             }
+            return weight;
         }
 
         /// <summary>
         /// getting a string and check its existance in Priorities enum.
         /// </summary>
         /// <param name="priority">priority</param>
-        internal static void InputPriority(ref string priority)
+        internal static Priorities InputPriority(string priority)
         {
             bool isExist3 = false;
             string currentEnum;
+            Priorities priorities = Priorities.Emergency;
             while (isExist3 == false)
             {
                 priority = Console.ReadLine();
@@ -209,8 +215,7 @@ namespace ConsoleUI_BL
                     currentEnum = (string)Enum.GetNames(typeof(Priorities)).GetValue(i-1);
                     if (currentEnum == priority || currentEnum.ToLower() == priority)
                     {
-                        //priority is assigned to hold the numeic index of the enum type.
-                        priority = i.ToString();
+                        priorities = (Priorities)i;
                         isExist3 = true;
                         break;
                     }
@@ -220,6 +225,7 @@ namespace ConsoleUI_BL
                     Console.WriteLine("The entered priority doesn't exist\nPlease enter another priority");
                 }
             }
+            return priorities;
         }
 
     }
