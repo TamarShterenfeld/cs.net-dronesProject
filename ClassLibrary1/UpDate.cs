@@ -16,7 +16,7 @@ namespace IBL
         public void AssociateParcel(int droneId)
         {
             List<Drone> dronesList = (List<Drone>)dal.GetDronesList();
-            List<double> distances = new List<double>();
+            List<double> distances = new();
             List<Customer> customersList = (List<Customer>)dal.GetCustomersList();
             int droneIndex = dronesList.FindIndex(item => item.Id == droneId);
             if (droneIndex == -1)
@@ -151,7 +151,6 @@ namespace IBL
             List<Drone> dronesList = (List<Drone>)dal.GetDronesList();
             List<DroneInCharging> DroneChargeList = (List<DroneInCharging>)dal.GetDronesCharge();
             List<BaseStation> baseStationsList = (List<BaseStation>)dal.GetBaseStationsList();
-            int baseStationId;
             InputIntValue(ref droneId);
             if (dronesList.FindIndex(item => item.Id == droneId) == -1)
                 throw new OverloadException("drone's id doesn't exist in the drones' list.");

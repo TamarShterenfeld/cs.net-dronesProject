@@ -12,27 +12,26 @@ namespace ConsoleUI_BL
     /// </summary>
     public class DisplayOption : ISubNavigate
     {
-        public void options(ref IBL.BL bl)
+        public void Options(ref IBL.BL bl)
         {
-            int innerChoice;
-            int parcelId = 0, droneId = 0, baseStationId = 0;
+            int parcelId, droneId, baseStationId;
             string customerId = "";
             Console.WriteLine("Please enter: \n1- For a base station\n2- For a drone\n3- For a customer\n4- For a parcel");
-            if (int.TryParse(Console.ReadLine(), out innerChoice))
+            if (int.TryParse(Console.ReadLine(), out int innerChoice ))
             {
                 switch (innerChoice)
                 {
                     case (int)DisplayOptions.BaseStation:
                         {
                             Console.WriteLine("Please enter baseStationId");
-                            baseStationId =  InputIntValue(baseStationId);    
+                            baseStationId =  InputIntValue();    
                             Console.WriteLine(bl.GetBLBaseStation(baseStationId));
                             break;
                         }
                     case (int)DisplayOptions.Drone:
                         {
                             Console.WriteLine("Please enter droneId");
-                            droneId = InputIntValue(droneId);
+                            droneId = InputIntValue();
                             Console.WriteLine(bl.GetBLDrone(droneId));
                             break;
                         }
@@ -46,7 +45,7 @@ namespace ConsoleUI_BL
                     case (int)DisplayOptions.Parcel:
                         {
                             Console.WriteLine("Please enter parcelId");
-                            parcelId = InputIntValue(parcelId);
+                            parcelId = InputIntValue();
                             Console.WriteLine(bl.GetBLParcel(parcelId));
                             break;
                         }

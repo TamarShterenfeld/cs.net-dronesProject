@@ -18,13 +18,13 @@ namespace IBL
     /// </summary>
     public partial class BL : IBL
     {
-        private IDal.IDal dal;
-        private List<DroneForList> dronesForList;
-        double electricityConsumingOfAvailable;
-        double electricityConsumingOfLightWeight;
-        double electricityConsumingOfHeavyWeight;
-        double electricityConsumingOfAverageWeight;
-        double chargeRate;
+        readonly IDal.IDal dal;
+        List<DroneForList> dronesForList;
+        readonly double electricityConsumingOfAvailable;
+        readonly double electricityConsumingOfLightWeight;
+        readonly double electricityConsumingOfHeavyWeight;
+        readonly double electricityConsumingOfAverageWeight;
+        readonly double chargeRate;
 
 
         public List<DroneForList> DronesForList
@@ -50,7 +50,7 @@ namespace IBL
             electricityConsumingOfHeavyWeight = droneElectricityInfo[3];
             chargeRate = droneElectricityInfo[0];
             List<BO.Drone> drones = (List<BO.Drone>)GetBODronesList();
-            Random rand = new Random();
+            Random rand = new();
 
             for (int i = 0; i < drones.Count; i++)
             {
@@ -66,7 +66,7 @@ namespace IBL
                     if (parcelOfDrone.AssociationDate == new DateTime(01 / 01 / 0001) &&
                         parcelOfDrone.PickUpDate != new DateTime(01 / 01 / 0001))
                     {
-                        drones[i].Location = nearestBaseStation(drones[i]).Location;
+                        drones[i].Location = NearestBaseStation(drones[i]).Location;
                     }
 
                     //the parcel has been picked hasn't been supplied - (in the general condition)
@@ -123,7 +123,7 @@ namespace IBL
         /// <param name="drone"></param>
         /// <returns></returns>
 
-        private BO.BaseStation nearestBaseStation(BO.Drone drone)
+        private BO.BaseStation NearestBaseStation(BO.Drone drone)
         {
             double minDistance = int.MaxValue;
             BO.BaseStation nearestBaseStation =
@@ -178,9 +178,9 @@ namespace IBL
         /// </summary>
         /// <param name="minBattery"></param>
         /// <returns></returns>
-        int RandomBattery(double minBattery)
+        static int RandomBattery(double minBattery)
         {
-            Random rand = new Random();
+            Random rand = new();
             //check if the minBattery holds a real double value
             //for it's not possible to random a double number - we will increase the minBattery in one.
             if ((int)minBattery != minBattery)
@@ -197,7 +197,7 @@ namespace IBL
         private IEnumerable<BO.CustomerForList> CustomersWithSuppliedParcels()
         {
             List<BO.CustomerForList> customers = (List<BO.CustomerForList>)GetBOCustomersList();
-            List<BO.CustomerForList> customerWithSuppliedParcels = new List<BO.CustomerForList>();
+            List<BO.CustomerForList> customerWithSuppliedParcels = new();
             foreach (BO.CustomerForList item in customers)
             {
                 if (item.AmountOfSendAndSuppliedParcels > 0)

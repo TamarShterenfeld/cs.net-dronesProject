@@ -99,7 +99,7 @@ namespace DalObject
 
             for (int i = 0; i < size; i++)
             {
-                Drone drone = new Drone();
+                Drone drone = new();
                 drone.Id = i;
                 drone.Model = randomModel();
                 drone.MaxWeight = randomWeight();

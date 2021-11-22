@@ -12,40 +12,39 @@ namespace ConsoleUI_BL
     public class UpDateOption : ISubNavigate
     {
         
-        public void options(ref IBL.BL bl)
+        public void Options(ref IBL.BL bl)
         {
-            int innerChoice;
             int droneId = 0;
             Console.WriteLine("Please enter : \n1- For associating parcel\n2- For picking up parcel\n3- For supply parcel\n4- For charging drone\n5- For stop drone charging ");
-            if (int.TryParse(Console.ReadLine(), out innerChoice))
+            if (int.TryParse(Console.ReadLine(), out int innerChoice))
             {
                 switch (innerChoice)
                 {
                     case (int)UpDateOptions.AssociationParcel:
                         {
                             Console.WriteLine("Please enter the drone id");
-                            droneId = InputIntValue( droneId);
+                            droneId = InputIntValue( );
                             bl.AssociateParcel(droneId);
                             break;
                         }
                     case (int)UpDateOptions.PickUpParcel:
                         {
                             Console.WriteLine("Please enter the drone id");
-                            droneId = InputIntValue( droneId);
+                            droneId = InputIntValue( );
                             bl.PickUpParcel(droneId);
                             break;
                         }
                     case (int)UpDateOptions.SupplyParcel:
                         {
                             Console.WriteLine("Please enter the drone id");
-                            droneId = InputIntValue( droneId);
+                            droneId = InputIntValue( );
                             bl.SupplyParcel(droneId );
                             break;
                         }
                     case (int)UpDateOptions.ChargeDrone:
                         {
                             Console.WriteLine("Please enter droneId ");
-                            droneId = InputIntValue(droneId);
+                            droneId = InputIntValue();
                             bl.ChargeDrone(droneId);
                             break;
                         }

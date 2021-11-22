@@ -31,8 +31,8 @@ namespace IBL
 
             public Location(double longitude, double latitude)
             {
-                Coordinate longi = new Coordinate(longitude, Locations.Longitude);
-                Coordinate lati = new Coordinate(latitude, Locations.Latitude);
+                Coordinate longi = new(longitude, Locations.Longitude);
+                Coordinate lati = new(latitude, Locations.Latitude);
                 CoorLongitude = longi;
                 CoorLatitude = lati;
             }

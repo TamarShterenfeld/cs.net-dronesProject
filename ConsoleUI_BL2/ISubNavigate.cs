@@ -6,6 +6,6 @@ namespace ConsoleUI_BL
 {
     public interface ISubNavigate
     {
-        public void options(ref IBL.BL bl);
+        public void Options(ref IBL.BL bl);
     }
 }

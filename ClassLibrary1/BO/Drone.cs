@@ -11,10 +11,8 @@ namespace IBL.BO
     public class Drone:ILocatable
     {
         int id;
-        private static Random rand = new Random();
+        private readonly static Random rand = new();
         private double battery = rand.NextDouble() * 20 + 20;
-        private DroneStatuses status = DroneStatuses.Available;
-
         public int Id
         {
             set

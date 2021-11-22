@@ -13,10 +13,10 @@ namespace ConsoleUI_BL
     public class Menu
     {
         IBL.BL bl;
-        AddOption add;
-        UpDateOption upDate;
-        DisplayOption display;
-        ShowListOption show;
+        readonly AddOption add;
+        readonly UpDateOption upDate;
+        readonly DisplayOption display;
+        readonly ShowListOption show;
         public Menu()
         {
             bl = new IBL.BL();
@@ -45,23 +45,23 @@ namespace ConsoleUI_BL
                     {
                         case (int)Options.Add:
                             {
-                                add.options(ref bl);
+                                add.Options(ref bl);
                                 break;
                             }
 
                         case (int)Options.UpDate:
                             {
-                                upDate.options(ref bl);
+                                upDate.Options(ref bl);
                                 break;
                             }
                         case (int)Options.Display:
                             {
-                                display.options(ref bl);
+                                display.Options(ref bl);
                                 break;
                             }
                         case (int)Options.ShowLists:
                             {
-                                show.options(ref bl);
+                                show.Options(ref bl);
                                 break;
                             }
                         case (int)Options.Exit:
@@ -72,7 +72,7 @@ namespace ConsoleUI_BL
                         default:
                             {
                                 Console.WriteLine("ERROR! \nAn unknown option, Please try again.");
-                               options = Program.InputIntValue(options);
+                               options = Program.InputIntValue();
                                 break;
                             }
                     }

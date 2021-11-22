@@ -12,17 +12,17 @@ namespace IBL
     public partial class BL 
     {
         //----------------------------------Other GetObject Methods---------------------------------
-        private double getDroneBattery(int droneId)
+        private double GetDroneBattery(int droneId)
         {
             return dronesForList.Find(drone => drone.Id == droneId).Battery;
         }
 
-        private Location getDroneLocation(int droneId)
+        private Location GetDroneLocation(int droneId)
         {
             return dronesForList.Find(drone => drone.Id == droneId).Location;
         }
 
-        private int getDroneParcelId(int droneId)
+        private int GetDroneParcelId(int droneId)
         {
             return dronesForList.Find(drone => drone.Id == droneId).ParcelId;
         }
@@ -30,7 +30,7 @@ namespace IBL
 
         private BO.Parcel ParcelDOtOBO(IDal.DO.Parcel parcel)
         {
-            BO.Parcel BOParcel = new BO.Parcel()
+            BO.Parcel BOParcel = new()
             {
                 Id = parcel.Id,
                 Sender = GetBLCustomrInParcel(parcel.SenderId),
@@ -46,7 +46,7 @@ namespace IBL
             return BOParcel;
         }
 
-        public int catchAvailableChargeSlots(int stationId)
+        int CatchAvailableChargeSlots(int stationId)
         {
             int caught = dal.AvailableChargeSlots(stationId);
             return caught;

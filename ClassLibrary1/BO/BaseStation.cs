@@ -103,7 +103,7 @@ namespace IBL
             /// collect the details about the drones in charging
             /// </summary>
             /// <returns> the details about the drones in charging </returns>
-            private string droneInChargingDetails()
+            private string DroneInChargingDetails()
             {
                 string dronesDetails = "";
                 foreach (DroneInCharging drone in DroneCharging)
@@ -124,7 +124,7 @@ namespace IBL
                         $"name: {Name} \n" +
                         $"location: { Location }\n" +
                         $"number of charge slots: {ChargeSlots}\n"
-                        + $"drones in charging: {droneInChargingDetails()}\n";
+                        + $"drones in charging: {DroneInChargingDetails()}\n";
             }
 
         }

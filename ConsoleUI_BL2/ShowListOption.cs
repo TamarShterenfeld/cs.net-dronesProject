@@ -12,7 +12,7 @@ namespace ConsoleUI_BL
     public class ShowListOption : ISubNavigate
     {
         int innerChoice;
-        public void options(ref IBL.BL bl)
+        public void Options(ref IBL.BL bl)
         {
             Console.WriteLine("Please enter: \n1- For base stations list\n2- For drones list\n3- For customers list\n4- For parcels list\n5- For not associated parcels list\n6 - For base stations with available charge slots");
             if (int.TryParse(Console.ReadLine(), out innerChoice))
@@ -59,7 +59,7 @@ namespace ConsoleUI_BL
             else Console.WriteLine("The show list option must hold a numeric value!");
         }
 
-        public void ShowList(IEnumerable<IBL.BO.BaseStation> baseStations)
+        public static void ShowList(IEnumerable<IBL.BO.BaseStation> baseStations)
         {
             foreach (var item in baseStations)
             {
@@ -67,7 +67,7 @@ namespace ConsoleUI_BL
             }
         }
 
-        public void ShowList(IEnumerable<IBL.BO.Drone> drones)
+        public static void ShowList(IEnumerable<IBL.BO.Drone> drones)
         {
             foreach (var item in drones)
             {
@@ -75,7 +75,7 @@ namespace ConsoleUI_BL
             }
         }
 
-        public void ShowList(IEnumerable<IBL.BO.Parcel> parcels)
+        public static void ShowList(IEnumerable<IBL.BO.Parcel> parcels)
         {
             foreach (var item in parcels)
             {
@@ -83,7 +83,7 @@ namespace ConsoleUI_BL
             }
         }
 
-        public void ShowList(IEnumerable<IBL.BO.Customer> customers)
+        public static void ShowList(IEnumerable<IBL.BO.Customer> customers)
         {
             foreach (var item in customers)
             {

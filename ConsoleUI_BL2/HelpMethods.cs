@@ -11,12 +11,11 @@ namespace ConsoleUI_BL
     public partial class Program 
     {
 
-        internal static Location InputLocationValue(Location location)
+        internal static Location InputLocationValue()
         {
-            double longitude = location.CoorLongitude.RegularCoor, latitude = location.CoorLatitude.RegularCoor;
-            longitude = InputDoubleValue(longitude);
-            latitude = InputDoubleValue(latitude);
-            Location location1 = new Location(longitude, latitude);
+            double longitude = InputDoubleValue();
+            double latitude = InputDoubleValue();
+            Location location1 = new(longitude, latitude);
             return location1;
         }
 
@@ -24,8 +23,9 @@ namespace ConsoleUI_BL
         /// The function checks if the variable is double type.
         /// </summary>
         /// <param name="numericalValue">a double type variable</param>
-        internal static double InputDoubleValue( double numericalValue)
+        internal static double InputDoubleValue( )
         {
+            double numericalValue;
             while (!double.TryParse(Console.ReadLine(), out numericalValue))
             {
                 Console.WriteLine("This field can input only numerical value! Please try again!");
@@ -37,8 +37,9 @@ namespace ConsoleUI_BL
         /// The function checks if the variable is int type.
         /// </summary>
         /// <param name="numericalValue">a int type variable</param>
-        internal static int InputIntValue( int numericalValue)
+        internal static int InputIntValue()
         {
+            int numericalValue;
             while (!int.TryParse(Console.ReadLine(), out numericalValue) )
             {
                 Console.WriteLine("This field can input only numerical value! Please try again!");
@@ -46,9 +47,9 @@ namespace ConsoleUI_BL
             return numericalValue;
         }
 
-        internal static string InputIsNotNull( string str)
+        internal static string InputIsNotNull()
         {
-            str = Console.ReadLine();
+            string str = Console.ReadLine();
 
             while (string.IsNullOrEmpty(str))
             {
@@ -62,8 +63,9 @@ namespace ConsoleUI_BL
         /// The function checks if the variable is string type.
         /// </summary>
         /// <param name="str">a string type variable</param>
-        internal static string InputStringValue( string str)
+        internal static string InputStringValue()
         {
+            string str;
             while (true)
             {
                 bool isValid = true;
@@ -203,14 +205,14 @@ namespace ConsoleUI_BL
         /// getting a string and check its existance in Priorities enum.
         /// </summary>
         /// <param name="priority">priority</param>
-        internal static Priorities InputPriority(string priority)
+        internal static Priorities InputPriority()
         {
             bool isExist3 = false;
             string currentEnum;
             Priorities priorities = Priorities.Emergency;
             while (isExist3 == false)
             {
-                priority = Console.ReadLine();
+                string priority = Console.ReadLine();
                 for (int i = 1; i <= Enum.GetNames(typeof(Priorities)).Length; i++)
                 {
                     currentEnum = (string)Enum.GetNames(typeof(Priorities)).GetValue(i-1);

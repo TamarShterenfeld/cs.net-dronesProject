@@ -9,9 +9,11 @@ namespace IBL.BO
     public class Parcel
     {
         int id;
-        DateTime associationDate = new DateTime();
-        DateTime pickUpDate = new DateTime();
-        DateTime supplyDate = new DateTime();
+        DateTime productionDate = new();
+        DateTime associationDate = new();
+        DateTime pickUpDate = new();
+        DateTime supplyDate = new();
+        
         DroneInParcel drone = null;
         public int Id
         {
@@ -31,7 +33,7 @@ namespace IBL.BO
         public WeightCategories Weight { get; set; }
         public Priorities Priority { get; set; } 
         public DroneInParcel MyDrone { get { return drone; } set { drone = value; } }
-        public  DateTime ProductionDate { get { return ProductionDate; } init { ProductionDate = DateTime.Now; } }
+        public  DateTime ProductionDate { get { return productionDate ; } init { productionDate = DateTime.Now; } }
         public DateTime AssociationDate { get { return associationDate; } set { associationDate = value; } }  
         public DateTime PickUpDate { get { return pickUpDate; } set { pickUpDate = value; } }
        

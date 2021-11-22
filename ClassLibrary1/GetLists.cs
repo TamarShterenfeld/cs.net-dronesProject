@@ -20,7 +20,7 @@ namespace IBL
         /// </summary>
         public IEnumerable<BO.BaseStation> GetBOBaseStationsList()
         {
-            List<BO.BaseStation> boBaseStationList = new List<BO.BaseStation>();
+            List<BO.BaseStation> boBaseStationList = new();
             List<IDal.DO.BaseStation> doBaseStationList = (List<IDal.DO.BaseStation>)dal.GetBaseStationsList();
             foreach (IDal.DO.BaseStation item in doBaseStationList)
             {
@@ -35,7 +35,7 @@ namespace IBL
         public IEnumerable<BO.BaseStation> GetAvailableChargeSlots()
         {
             List<IDal.DO.BaseStation> doAvailableChargeSlots = (List<IDal.DO.BaseStation>)dal.AvailableChargeStations();
-            List<BO.BaseStation> boAvailableChargeSlots = new List<BO.BaseStation>();
+            List<BO.BaseStation> boAvailableChargeSlots = new();
             foreach (IDal.DO.BaseStation item in doAvailableChargeSlots)
             {
                 boAvailableChargeSlots.Add(GetBLBaseStation(item.Id));
@@ -52,7 +52,7 @@ namespace IBL
         /// <returns></returns>
         public IEnumerable<BaseStationForList> GetBaseStationList()
         {
-            List<BaseStationForList> baseStationForLists = new List<BaseStationForList>();
+            List<BaseStationForList> baseStationForLists = new();
             List<BO.BaseStation> baseStations = (List<BO.BaseStation>)GetBOBaseStationsList();
             foreach (BO.BaseStation item in baseStations)
             {
@@ -68,7 +68,7 @@ namespace IBL
             List<DroneInCharging> droneInCharging = null;
             foreach (DroneCharge droneCharge in dal.DronesChargingInMe(stationId))
             {
-                DroneInCharging drone = new DroneInCharging(droneCharge.DroneId, 100);
+                DroneInCharging drone = new (droneCharge.DroneId, 100);
                 // לבדוק שבאמת הבטריה נהית 100
                 droneInCharging.Add(drone);
             }
@@ -81,7 +81,7 @@ namespace IBL
         /// </summary>
         public IEnumerable<BO.Drone> GetBODronesList()
         {
-            List<BO.Drone> boDronesList = new List<BO.Drone>();
+            List<BO.Drone> boDronesList = new();
             List<IDal.DO.Drone> doDronseList = (List<IDal.DO.Drone>)dal.GetBaseStationsList();
             foreach (IDal.DO.Drone item in doDronseList)
             {
@@ -98,7 +98,7 @@ namespace IBL
         /// <returns></returns>
         public IEnumerable<DroneForList> GetDronesList()
         {
-            List<DroneForList> droneForLists = new List<DroneForList>();
+            List<DroneForList> droneForLists = new();
             List<BO.Drone> drones = (List<BO.Drone>)GetBOCustomersList();
 
             foreach (BO.Drone item in drones)
@@ -118,7 +118,7 @@ namespace IBL
         /// </summary>
         public IEnumerable<BO.Parcel> GetBOParcelsList()
         {
-            List<BO.Parcel> boParcelList = new List<BO.Parcel>();
+            List<BO.Parcel> boParcelList = new ();
             List<IDal.DO.Parcel> doParcelList = (List<IDal.DO.Parcel>)dal.GetBaseStationsList();
             foreach (IDal.DO.Parcel item in doParcelList)
             {
@@ -134,7 +134,7 @@ namespace IBL
         /// <returns></returns>
         public IEnumerable<ParcelForList> GetParcelsList()
         {
-            List<ParcelForList> parcelsForList = new List<ParcelForList>();
+            List<ParcelForList> parcelsForList = new();
             List<BO.Parcel> parcels = (List<BO.Parcel>)GetBOParcelsList();
 
             foreach (BO.Parcel item in parcels)
@@ -150,7 +150,7 @@ namespace IBL
         /// </summary>
         public IEnumerable<BO.Parcel> GetNotAssociatedParcelsList()
         {
-            List<BO.Parcel> boNotAssociatedParcelsList = new List<BO.Parcel>();
+            List<BO.Parcel> boNotAssociatedParcelsList = new ();
             List<IDal.DO.Parcel> doNotAccosiatedParcelsList = (List<IDal.DO.Parcel>)dal.NotAssociatedParcels();
             foreach (IDal.DO.Parcel item in doNotAccosiatedParcelsList)
             {
@@ -168,7 +168,7 @@ namespace IBL
         /// </summary>
         public IEnumerable<BO.Customer> GetBOCustomersList()
         {
-            List<BO.Customer> boCustomerList = new List<BO.Customer>();
+            List<BO.Customer> boCustomerList = new ();
             List<IDal.DO.Customer> doCustomerList = (List<IDal.DO.Customer>)dal.GetBaseStationsList();
             foreach (IDal.DO.Customer item in doCustomerList)
             {
@@ -184,7 +184,7 @@ namespace IBL
         /// <returns> List of ParcelInCustomer items </returns>
         public IEnumerable<ParcelInCustomer> GetParcelInCustomerList(FromOrTo fromOrTo , string id)
         {
-            List<ParcelInCustomer> parcelInCustomer = new List<ParcelInCustomer>();
+            List<ParcelInCustomer> parcelInCustomer = new ();
             List<IDal.DO.Parcel> ParcelList = (List<IDal.DO.Parcel>)dal.GetParcelsList();
             foreach (IDal.DO.Parcel parcel in ParcelList)
             {
@@ -203,7 +203,7 @@ namespace IBL
         /// <returns></returns>
         public IEnumerable<CustomerForList> GetCustomersList()
         {
-            List<CustomerForList> customersForList = new List<CustomerForList>();
+            List<CustomerForList> customersForList = new();
             List<BO.Customer> customers = (List<BO.Customer>)GetBOCustomersList();
             foreach (BO.Customer item in customers)
             {      

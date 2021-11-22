@@ -14,9 +14,9 @@ namespace IBL
         /// </summary>
         public class Customer:ILocatable
         {
-            private string id;
-            private string name;
-            private string phone;
+            string id;
+            string name;
+            string phone;
             public string Id
             {
                 get
@@ -119,15 +119,15 @@ namespace IBL
                        $"name: {Name} \n" +
                        $"phone: {Phone}\n" +
                        $"location: {Location}\n" +
-                       $"FromCustomer: {deliveryInCustomerDetails(FromCustomer)}\n" +
-                       $"ToCustomer: {deliveryInCustomerDetails(ToCustomer)}\n";
+                       $"FromCustomer: {DeliveryInCustomerDetails(FromCustomer)}\n" +
+                       $"ToCustomer: {DeliveryInCustomerDetails(ToCustomer)}\n";
             }
 
             /// <summary>
             /// collect the details about the delivery in customer
             /// </summary>
             /// <returns> the details about the delivery in customer </returns>
-            private string deliveryInCustomerDetails(List<ParcelInCustomer> DroneIC)
+            private static string DeliveryInCustomerDetails(List<ParcelInCustomer> DroneIC)
             {
                 string deliveryDetails = "";
                 foreach (ParcelInCustomer drone in DroneIC)

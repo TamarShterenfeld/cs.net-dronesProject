@@ -21,12 +21,12 @@ namespace IBL
         public BaseStationForList GetBaseStationForList(int id)
         {
             BO.BaseStation item = GetBLBaseStation(id);
-            BaseStationForList current = new BaseStationForList
+            BaseStationForList current = new()
             {
                 Id = item.Id,
-                CaughtChargeSlots = item.ChargeSlots - catchAvailableChargeSlots(item.Id),
+                CaughtChargeSlots = item.ChargeSlots - CatchAvailableChargeSlots(item.Id),
                 Name = item.Name,
-                FreeChargeSlots = catchAvailableChargeSlots(item.Id)
+                FreeChargeSlots = CatchAvailableChargeSlots(item.Id)
             };
             return current;
         }
@@ -42,12 +42,12 @@ namespace IBL
 
         public BO.BaseStation BaseStationDOtOBO(IDal.DO.BaseStation baseStation)
         {
-            BO.BaseStation BOBaseStation = new BO.BaseStation()
+            BO.BaseStation BOBaseStation = new()
             {
                 Id = baseStation.Id,
                 Name = baseStation.Name,
                 Location = new Location(baseStation.Longitude, baseStation.Latitude),
-                ChargeSlots = baseStation.ChargeSlots - catchAvailableChargeSlots(baseStation.Id),
+                ChargeSlots = baseStation.ChargeSlots - CatchAvailableChargeSlots(baseStation.Id),
                 DroneCharging = (List<DroneInCharging>)GetDronesInMe(baseStation.Id)
             };
             return BOBaseStation;
@@ -61,7 +61,7 @@ namespace IBL
         public DroneForList GetDroneForList(int id)
         {
             BO.Drone item = GetBLDrone(id);
-            DroneForList current = new DroneForList
+            DroneForList current = new()
             {
                 Id = item.Id,
                 Battery = item.Battery,
@@ -86,15 +86,15 @@ namespace IBL
 
         public BO.Drone DroneDOtOBO(IDal.DO.Drone drone)
         {
-            BO.Drone BODrone = new BO.Drone()
+            BO.Drone BODrone = new ()
             {
                 Id = drone.Id,
                 Model = drone.Model,
                 MaxWeight = (BO.WeightCategories)drone.MaxWeight,
-                Battery = getDroneBattery(drone.Id),
+                Battery = GetDroneBattery(drone.Id),
                 Status = (BO.DroneStatuses)drone.Status,
-                Parcel = (getDroneParcelId(drone.Id) != 0) ? GetParcelInPassing(getDroneParcelId(drone.Id)) : null,
-                Location = getDroneLocation(drone.Id)
+                Parcel = (GetDroneParcelId(drone.Id) != 0) ? GetParcelInPassing(GetDroneParcelId(drone.Id)) : null,
+                Location = GetDroneLocation(drone.Id)
             };
             return BODrone;
         }
@@ -111,7 +111,7 @@ namespace IBL
 
         public DroneInParcel DroneInParcelDOtOBO(IDal.DO.Drone drone)
         {
-            DroneInParcel BOCustomerInParcel = new DroneInParcel()
+            DroneInParcel BOCustomerInParcel = new()
             {
                 Id = drone.Id,
                 Battery = drone.Battery,
@@ -126,7 +126,7 @@ namespace IBL
         public ParcelForList GetParcelForList(int id)
         {
             BO.Parcel item = GetBLParcel(id);
-            ParcelForList current = new ParcelForList
+            ParcelForList current = new()
             {
                 DroneId = item.MyDrone.Id,
                 ParcelId = item.Id,
@@ -142,12 +142,12 @@ namespace IBL
         public ParcelInPassing GetParcelInPassing(int id)
         {
             BO.Parcel parcel = GetBLParcel(id);
-            ParcelInPassing parcelInPassing = new ParcelInPassing()
+            ParcelInPassing parcelInPassing = new()
             {
                 Id = parcel.Id,
                 Weight = parcel.Weight,
                 Priority = parcel.Priority,
-                ToDestination = parcel.PickUpDate == new DateTime() ? false : true,
+                ToDestination = parcel.PickUpDate == new DateTime(),
                 Sender = parcel.Sender,
                 Target = parcel.Target,
                 Collect = GetBLCustomer(parcel.Sender.Id).Location,
@@ -180,7 +180,7 @@ namespace IBL
 
         public ParcelInCustomer ParcelInCustomerDOtOBO(IDal.DO.Parcel parcel, FromOrTo fromOrTo)
         {
-            ParcelInCustomer BOCustomerInParcel = new ParcelInCustomer()
+            ParcelInCustomer BOCustomerInParcel = new()
             {
                 Id = parcel.Id,
                 Weight = (BO.WeightCategories)parcel.Weight,
@@ -193,7 +193,7 @@ namespace IBL
 
         public ParcelStatuses ParcelStatus(IDal.DO.Parcel parcel)
         {
-            DateTime time = new DateTime();
+            DateTime time = new();
             return parcel.AssociationDate == time ? ParcelStatuses.Production :
                     parcel.PickUpDate == time ? ParcelStatuses.Associated :
                     parcel.SupplyDate == time ? ParcelStatuses.PickedUp : ParcelStatuses.Supplied;
@@ -205,7 +205,7 @@ namespace IBL
         public CustomerForList GetCustomerForList(string id)
         {
             BO.Customer item = GetBLCustomer(id);
-            CustomerForList current = new CustomerForList
+            CustomerForList current = new()
             {
                 Id = item.Id,
                 Name = item.Name,
@@ -228,7 +228,7 @@ namespace IBL
 
         public BO.Customer CustomerDOtOBO(IDal.DO.Customer customer)
         {
-            BO.Customer BOCustomer = new BO.Customer()
+            BO.Customer BOCustomer = new()
             {
                 Id = customer.Id,
                 Name = customer.Name,
@@ -257,7 +257,7 @@ namespace IBL
         /// <returns></returns>
         public CustomerInParcel CustomrInParcelDOtOBO(IDal.DO.Customer customer)
         {
-            CustomerInParcel BOCustomrInParcel = new CustomerInParcel()
+            CustomerInParcel BOCustomrInParcel = new()
             {
                 Id = customer.Id,
                 Name = customer.Name

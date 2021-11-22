@@ -10,7 +10,7 @@ namespace ConsoleUI_BL
     {
        public static  void Main()
         {
-            Menu menue = new Menu();
+            Menu menu = new();
         }
         
     }
