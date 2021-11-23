@@ -11,7 +11,8 @@ namespace ConsoleUI_BL
  /// </summary>
     public class UpDateOption : ISubNavigate
     {
-        
+
+        /// <inheritdoc />
         public void Options(ref IBL.BL bl)
         {
             int droneId = 0;

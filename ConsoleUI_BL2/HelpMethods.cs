@@ -8,9 +8,13 @@ using static IBL.BO.Location;
 
 namespace ConsoleUI_BL
 {
-    public partial class Program 
+    public static partial class Program 
     {
-
+        //------------------------------Help Methods------------------------------
+        /// <summary>
+        /// the function inputs valid values into a Location variable.
+        /// </summary>
+        /// <returns>the inputed Location value</returns>
         internal static Location InputLocationValue()
         {
             double longitude = InputDoubleValue();
@@ -20,10 +24,10 @@ namespace ConsoleUI_BL
         }
 
         /// <summary>
-        /// The function checks if the variable is double type.
+        /// The function inputs a variable while checking if its type is double .
         /// </summary>
-        /// <param name="numericalValue">a double type variable</param>
-        internal static double InputDoubleValue( )
+        /// <returns>the double type inputed variable</returns>
+        internal static double InputDoubleValue()
         {
             double numericalValue;
             while (!double.TryParse(Console.ReadLine(), out numericalValue))
@@ -34,9 +38,9 @@ namespace ConsoleUI_BL
         }
 
         /// <summary>
-        /// The function checks if the variable is int type.
+        /// The function inputs a variable while checking if its type is int .
         /// </summary>
-        /// <param name="numericalValue">a int type variable</param>
+        /// <returns>the inputed int variable</returns>>
         internal static int InputIntValue()
         {
             int numericalValue;
@@ -47,6 +51,10 @@ namespace ConsoleUI_BL
             return numericalValue;
         }
 
+        /// <summary>
+        /// The function inputs a variable while checking its value isn't null.
+        /// </summary>
+        /// <returns>the inputed str</returns>
         internal static string InputIsNotNull()
         {
             string str = Console.ReadLine();
@@ -60,9 +68,10 @@ namespace ConsoleUI_BL
         }
 
         /// <summary>
-        /// The function checks if the variable is string type.
+        /// The function inputs a variable 
+        /// while checking it contains only chars and not null value.
         /// </summary>
-        /// <param name="str">a string type variable</param>
+        /// <param name="str">the inputed str</param>
         internal static string InputStringValue()
         {
             string str;
@@ -95,11 +104,13 @@ namespace ConsoleUI_BL
         }
 
         /// <summary>
-        /// The function checks if the id is string type. 
+        /// The function inputs an id 
+        /// while checking its contains only valid values of id.
         /// </summary>
-        /// <param name="id">string type id</param>
-        internal static string InputStringId( string id)
+        /// <returns>the inputed string id</returns>
+        internal static string InputStringId()
         {
+            string id;
             while (true)
             {
                 bool isValid = true;
@@ -133,10 +144,11 @@ namespace ConsoleUI_BL
             
         }
 
-        /// <summary>
-        /// The function checks if the phone is valid. 
+        ///<summary>
+        /// The function inputs a phone number 
+        /// while checking its contains only valid values of a phone number.
         /// </summary>
-        /// <param name="phone">phone</param>
+        /// <returns>the inputed string id</returns>
         internal static string InputPhone()
         {
             bool isValid = true;
@@ -173,11 +185,11 @@ namespace ConsoleUI_BL
         /// <summary>
         /// getting a string and check its existance in WeightCategories enum.
         /// </summary>
-        /// <param name="maxWeight">WeightCategory: maxWeight</param>
-        internal static WeightCategories InputWeightCategory(string maxWeight)
+        ///<returns>an appropriate WeightCategory variable to the inputed string variable</returns>
+        internal static WeightCategories InputWeightCategory()
         {
             bool isExist1 = false;
-            string currentEnum;
+            string currentEnum, maxWeight;
             WeightCategories weight = WeightCategories.Average;
             //checking if the inputed category (string) exists in WeightCategories enum
             while (isExist1 == false)
@@ -204,7 +216,7 @@ namespace ConsoleUI_BL
         /// <summary>
         /// getting a string and check its existance in Priorities enum.
         /// </summary>
-        /// <param name="priority">priority</param>
+        ///<returns>an appropriate Priorities variable to the inputed string variable</returns>
         internal static Priorities InputPriority()
         {
             bool isExist3 = false;

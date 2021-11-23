@@ -7,15 +7,17 @@ using static ConsoleUI_BL.Program;
 
 namespace ConsoleUI_BL
 {
+
     /// <summary>
-    /// Navigates the display choice appropriate to the customer's choice.
+    /// Navigates the display choice appropriate to the user's choice.
     /// </summary>
     public class DisplayOption : ISubNavigate
     {
+        /// <inheritdoc />
         public void Options(ref IBL.BL bl)
         {
             int parcelId, droneId, baseStationId;
-            string customerId = "";
+            string customerId;
             Console.WriteLine("Please enter: \n1- For a base station\n2- For a drone\n3- For a customer\n4- For a parcel");
             if (int.TryParse(Console.ReadLine(), out int innerChoice ))
             {
@@ -38,7 +40,7 @@ namespace ConsoleUI_BL
                     case (int)DisplayOptions.Customer:
                         {
                             Console.WriteLine("Please enter customerId");
-                            customerId = InputStringId(customerId);
+                            customerId = InputStringId();
                             Console.WriteLine(bl.GetBLCustomer(customerId));
                             break;
                         }

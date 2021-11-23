@@ -9,7 +9,14 @@ using IBL.BO;
 namespace ConsoleUI_BL
 {
 
-
+    /// <summary>
+    /// the class has four different fields .
+    /// each field is an object of a different class.
+    /// each class takes care of the needed actions it has to provide.
+    /// those objects are initialized in the constructor.
+    /// in the constuctor also the function Navigate() is called -
+    /// which naviates the first choice of the customer.
+    /// </summary>
     public class Menu
     {
         IBL.BL bl;
@@ -27,7 +34,8 @@ namespace ConsoleUI_BL
             Navigate();
         }
         /// <summary>
-        /// naviget the first chice - the kind of action the customer want to do.
+        /// naviget the first chice - the kind of action the customer wants to do.
+        /// for each option there's a special object which navigates the customer's inner choice.
         /// </summary>
         private void Navigate()
         {
@@ -77,7 +85,7 @@ namespace ConsoleUI_BL
                             }
                     }
                 }
-                //לתפוס שגיאות ספיצפיות על כל סוג
+               
                 catch (Exception exe)
                 {
                     Console.WriteLine(exe.Message + "\nTry again from the beginning!");

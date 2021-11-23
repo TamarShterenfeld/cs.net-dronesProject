@@ -6,10 +6,12 @@ using IBL.BO;
 
 namespace ConsoleUI_BL
 {
-    public partial class Program
+    public static partial class Program
     {
+        //----------------------------------------Check Methods------------------------------------------------------
+
         /// <summary>
-        /// The function checks if the base station's details are valid
+        /// The function input baseStation's details while checking their validation.
         /// </summary>
         /// <param name="id">base station's id</param>
         /// <param name="name">base station's name</param>
@@ -23,42 +25,43 @@ namespace ConsoleUI_BL
             location = InputLocationValue();
             chargeSlots = InputIntValue();
         }
+
         /// <summary>
-        /// The function checks if the drone's details are valid
+        /// The function input drone''s details while checking their validation.
         /// </summary>
         /// <param name="id">drone's id</param>
         /// <param name="battery">drone's battery</param>
         /// <param name="model">drone's model</param>
         /// <param name="maxWeight">drone's max weight</param>
-        internal static void CheckDroneDetails(ref int id, ref string model, string maxWeight, ref WeightCategories weight, ref int baseStationId)
+        internal static void CheckDroneDetails(ref int id, ref string model, ref WeightCategories weight, ref int baseStationId)
         {
             Console.WriteLine("Enter drone's details :\n id, model, category weight and base station's id.");
             id = InputIntValue();
             model = InputIsNotNull();
-            weight = InputWeightCategory(maxWeight);
+            weight = InputWeightCategory();
             baseStationId = InputIntValue();
         }
 
         /// <summary>
-        /// The function checks if the parcel's details are valid
+        // The function input parcel's details while checking their validation.
         /// </summary>
         /// <param name="id">parcel's id</param>
         /// <param name="senderId">parcel's sender id</param>
         /// <param name="targetId">parcel's target id</param>
         /// <param name="weight">parcel's weight</param>
         /// <param name="priority">parcel's priority </param>
-        internal static void CheckParcelDetails(ref string senderId, ref string targetId, string weight,ref WeightCategories weightCategory,ref Priorities priority1)
+        internal static void CheckParcelDetails(ref string senderId, ref string targetId,ref WeightCategories weightCategory,ref Priorities priority1)
         {
             Console.WriteLine("Please enter :\n sender id,getter id, category weight and the priority of the drone.");
             //the checkings of the different (string) id are implemented within the struct Parcel and another function named "chackingIdentitiesOfParcel"
-            senderId = InputStringId(senderId);
-            targetId = InputStringId( targetId);
-            weightCategory = InputWeightCategory(weight);
+            senderId = InputStringId();
+            targetId = InputStringId();
+            weightCategory = InputWeightCategory();
             priority1 = InputPriority();
         }
 
         /// <summary>
-        /// The function checks if the customer's details are valid
+       // The function input customer's details while checking their validation.
         /// </summary>
         /// <param name="id">customer's id</param>
         /// <param name="name">customer's name</param>
@@ -69,7 +72,7 @@ namespace ConsoleUI_BL
         {
             Console.WriteLine("Enter base customer's details : id, name, phone,  longitude, latitude.");
             //the needed checkings are implemented within the struct Customer or in DalObject.
-            id = InputStringId(id);
+            id = InputStringId();
             name = InputStringValue();
             phone = InputPhone();
             location = InputLocationValue();

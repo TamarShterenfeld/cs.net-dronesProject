@@ -16,14 +16,12 @@ namespace ConsoleUI_BL
     /// </summary>
     public class AddOption : ISubNavigate
     {
+        /// <inheritdoc />
         public void Options(ref IBL.BL bl)
         {
             int id = 0, baseStationId = 0, chargeSlots = 0;
             string name = " ", customerId = " ", phone = " ", model = " ", senderId = " ", targetId = " ";
             Location location = new();
-            //all the enum type litteral are entered as string type
-            //and then checked if they contain an enum name.
-            string maxWeight = "", weight = "";
             WeightCategories weightCategory = WeightCategories.Average;
             Priorities priorities = Priorities.Emergency;
             Console.WriteLine("Please enter : \n1- For Base Station \n2- For Drone\n3- For Customer\n4- For Parcel ");
@@ -41,7 +39,7 @@ namespace ConsoleUI_BL
 
                     case (int)AddOptions.Drone:
                         {
-                            CheckDroneDetails(ref id, ref model, maxWeight,ref weightCategory, ref baseStationId);
+                            CheckDroneDetails(ref id, ref model,ref weightCategory, ref baseStationId);
                             Drone drone = new() { Id = id, Model = model , MaxWeight = weightCategory ,Location = bl.GetBLBaseStation(id).Location, Parcel = null};
                             bl.Add(drone, baseStationId);
                             break;
@@ -55,7 +53,7 @@ namespace ConsoleUI_BL
                         }
                     case (int)AddOptions.Parcel:
                         {
-                            CheckParcelDetails(ref senderId, ref targetId,  weight, ref weightCategory, ref priorities);
+                            CheckParcelDetails(ref senderId, ref targetId, ref weightCategory, ref priorities);
                             CustomerInParcel sender = new() { Id = senderId, Name = "" };
                             CustomerInParcel target = new() { Id = targetId, Name = "" };
                             Parcel parcel = new() { Id = GetParcelIndex(), Sender = sender, Target = target, Weight = weightCategory , Priority = priorities };
