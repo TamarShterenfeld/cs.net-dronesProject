@@ -24,7 +24,7 @@ namespace IBL
         BaseStationForList GetBaseStationForList(int id);
         BO.BaseStation GetBLBaseStation(int id);
         BO.BaseStation BaseStationDOtOBO(IDal.DO.BaseStation baseStation);
-       
+        public void UpdateBaseStation(int id, string name, string num);
 
     }
 
@@ -67,7 +67,7 @@ namespace IBL
         BO.Customer CustomerDOtOBO(IDal.DO.Customer customer);
         CustomerInParcel GetBLCustomrInParcel(string id);
         CustomerInParcel CustomrInParcelDOtOBO(IDal.DO.Customer customer);
-
+        public void UpdateBaseStation(string id, string name, string num);
 
 
     }

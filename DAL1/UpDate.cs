@@ -7,7 +7,7 @@ using IDal.DO;
 
 namespace DalObject
 {
-    public partial class DalObject:IDal.IDal
+    public partial class DalObject: IDal.IDal
     {
         public void UpdateDrone(Drone drone, int id)
         {

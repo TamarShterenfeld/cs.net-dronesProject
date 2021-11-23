@@ -25,6 +25,13 @@ namespace IBL
             dal.UpdateBaseStation(station, id);
         }
 
+        public void UpdateCustomer(string id, string name, string phone)
+        {
+            IDal.DO.Customer station = dal.GetCustomer(id);
+            if (name != null) { station.Name = name; }
+            if (phone != null) { station.Phone = phone; }
+            dal.UpdateCustomer(station,id);
+        }
 
         /// <summary>
         /// The function gives associate date to the parcel.
