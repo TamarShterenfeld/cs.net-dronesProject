@@ -11,7 +11,7 @@ namespace IDal
         /// <summary>
         /// the struct Drone contains the following details: station id, drone id.
         /// </summary>
-        public class DroneCharge
+        public struct DroneCharge
         {
             int stationId;
             int droneId;

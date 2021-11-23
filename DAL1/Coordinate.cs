@@ -19,7 +19,7 @@ namespace IDal
         /// the class coordinate contains: degrees, minutes, seconds
         /// and methods which describe th base 60 - sexagesimal.
         /// </summary>
-        public class Coordinate
+        public struct Coordinate
         {
             public double Degrees { get; set; }
             public double Minutes { get; set; }

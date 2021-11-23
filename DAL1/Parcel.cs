@@ -12,7 +12,7 @@ namespace IDal
         /// the struct Parcel contains the following details: id, senderId, targetId, droneId, weight,
         /// priority, producton, association, picing up, arrival.
         /// </summary>
-        public class Parcel
+        public struct Parcel
         {
             int id;
             string senderId;

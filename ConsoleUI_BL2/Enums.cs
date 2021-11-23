@@ -28,7 +28,7 @@ namespace ConsoleUI_BL
     /// </summary>
     public enum UpDateOptions
     {
-        AssociationParcel = 1, PickUpParcel, SupplyParcel, ChargeDrone, StopDroneCharge,
+        UpdateDrone = 1, UpdateBaseStation, UpdateCustomer,  ChargeDrone, StopDroneCharge, AssociationParcel, PickUpParcel, SupplyParcel, 
     }
 
     /// <summary>

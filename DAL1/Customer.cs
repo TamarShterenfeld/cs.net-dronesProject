@@ -13,7 +13,7 @@ namespace IDal
         /// <summary>
         /// the struct Customer contains the following details: id, name, phone, longitude, latitude.
         /// </summary>
-        public class Customer
+        public struct Customer
         {
             private string id;
             private string name;

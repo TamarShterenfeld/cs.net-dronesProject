@@ -8,6 +8,12 @@ namespace IBL
 {
     public partial class BL : IBL
     {
+
+        public void UpdateDrone(int id,string name)
+        {
+
+        }
+
         /// <summary>
         /// The function gives associate date to the parcel.
         /// </summary>
