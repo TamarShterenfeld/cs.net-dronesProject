@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 using IBL.BO;
 using static ConsoleUI_BL.Program;
 using static IBL.BO.WeightCategories;
-using static IBL.BL;
-
+using IBL;
 
 namespace ConsoleUI_BL
 {
@@ -17,12 +16,12 @@ namespace ConsoleUI_BL
     public class AddOption : ISubNavigate
     {
         /// <inheritdoc />
-        public void Options(ref IBL.BL bl)
+        public void Options(ref BL bl)
         {
             int id = 0, baseStationId = 0, chargeSlots = 0;
             string name = " ", customerId = " ", phone = " ", model = " ", senderId = " ", targetId = " ";
             Location location = new();
-            WeightCategories weightCategory = WeightCategories.Average;
+            WeightCategories weightCategory = Average;
             Priorities priorities = Priorities.Emergency;
             Console.WriteLine("Please enter : \n1- For Base Station \n2- For Drone\n3- For Customer\n4- For Parcel ");
             if (int.TryParse(Console.ReadLine(), out int innerChoice))
@@ -56,7 +55,7 @@ namespace ConsoleUI_BL
                             CheckParcelDetails(ref senderId, ref targetId, ref weightCategory, ref priorities);
                             CustomerInParcel sender = new() { Id = senderId, Name = "" };
                             CustomerInParcel target = new() { Id = targetId, Name = "" };
-                            Parcel parcel = new() { Id = GetParcelIndex(), Sender = sender, Target = target, Weight = weightCategory , Priority = priorities };
+                            Parcel parcel = new() { Id = BL.GetParcelIndex(), Sender = sender, Target = target, Weight = weightCategory , Priority = priorities };
                             bl.Add(parcel);
                             break;
                         }

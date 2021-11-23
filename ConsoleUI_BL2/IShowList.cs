@@ -7,6 +7,9 @@ using IBL.BO;
 
 namespace ConsoleUI_BL
 {
+   /// <summary>
+   /// this interface declares of some functions which are implemented by ShowList class.
+   /// </summary>
     public interface IShowList
     {
         /// <summary>

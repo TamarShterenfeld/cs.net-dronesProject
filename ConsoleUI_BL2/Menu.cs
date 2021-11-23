@@ -19,7 +19,7 @@ namespace ConsoleUI_BL
     /// </summary>
     public class Menu
     {
-        IBL.BL bl;
+        BL bl;
         readonly AddOption add;
         readonly UpDateOption upDate;
         readonly DisplayOption display;
@@ -27,10 +27,10 @@ namespace ConsoleUI_BL
         public Menu()
         {
             bl = new IBL.BL();
-            add = new AddOption();
-            upDate = new UpDateOption();
-            display = new DisplayOption();
-            show = new ShowListOption();
+            add = new();
+            upDate = new();
+            display = new();
+            show = new();
             Navigate();
         }
         /// <summary>

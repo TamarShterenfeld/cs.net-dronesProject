@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static ConsoleUI_BL.Program;
+using IBL;
 
 namespace ConsoleUI_BL
 {/// <summary>
@@ -13,7 +14,7 @@ namespace ConsoleUI_BL
     {
 
         /// <inheritdoc />
-        public void Options(ref IBL.BL bl)
+        public void Options(ref BL bl)
         {
             int droneId = 0;
             Console.WriteLine("Please enter : \n1- For associating parcel\n2- For picking up parcel\n3- For supply parcel\n4- For charging drone\n5- For stop drone charging ");

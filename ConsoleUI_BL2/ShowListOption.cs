@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using IBL.BO;
+using IBL;
 
 namespace ConsoleUI_BL
 {/// <summary>
@@ -13,7 +14,7 @@ namespace ConsoleUI_BL
     {
 
         /// <inheritdoc />
-        public void Options(ref IBL.BL bl)
+        public void Options(ref BL bl)
         {
             Console.WriteLine("Please enter: \n1- For base stations list\n2- For drones list\n3- For customers list\n4- For parcels list\n5- For not associated parcels list\n6 - For base stations with available charge slots");
             if (int.TryParse(Console.ReadLine(), out int innerChoice))
@@ -62,7 +63,7 @@ namespace ConsoleUI_BL
 
 
         /// <inheritdoc />
-        public static void ShowList(IEnumerable<IBL.BO.BaseStation> baseStations)
+        public static void ShowList(IEnumerable<BaseStation> baseStations)
         {
             foreach (var item in baseStations)
             {
@@ -71,7 +72,7 @@ namespace ConsoleUI_BL
         }
 
         /// <inheritdoc />
-        public static void ShowList(IEnumerable<IBL.BO.Drone> drones)
+        public static void ShowList(IEnumerable<Drone> drones)
         {
             foreach (var item in drones)
             {
@@ -80,7 +81,7 @@ namespace ConsoleUI_BL
         }
 
         /// <inheritdoc />
-        public static void ShowList(IEnumerable<IBL.BO.Parcel> parcels)
+        public static void ShowList(IEnumerable<Parcel> parcels)
         {
             foreach (var item in parcels)
             {
@@ -89,7 +90,7 @@ namespace ConsoleUI_BL
         }
 
         /// <inheritdoc />
-        public static void ShowList(IEnumerable<IBL.BO.Customer> customers)
+        public static void ShowList(IEnumerable<Customer> customers)
         {
             foreach (var item in customers)
             {
