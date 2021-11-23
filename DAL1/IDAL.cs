@@ -12,6 +12,9 @@ namespace IDal
         void Add(int droneCharge, int baseStationId);
         void Add(Customer customer);
         void Add(Parcel parcel);
+        public void UpdateDrone(Drone drone, int id);
+        public void UpdateBaseStation(BaseStation baseStation, int id);
+        public void UpdateCustomer(Customer customer, string id);
         void AssociateParcel(int parcelId, int droneId);
         void PickupParcel(int parcelId);
         void SendDroneToRecharge(int droneId, int baseStationId);

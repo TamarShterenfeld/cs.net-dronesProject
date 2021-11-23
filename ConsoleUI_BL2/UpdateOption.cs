@@ -16,8 +16,8 @@ namespace ConsoleUI_BL
         /// <inheritdoc />
         public void Options(ref BL bl)
         {
-            int droneId = 0;
-            string name;
+            int id = 0;
+            string name, num;
             Console.WriteLine("Please enter : \n1- For updating a drone \n2- For updating a basetation \n3- For updating a customer \n4- For charging drone \n5- For stop drone charging \n6- For associating parcel \n7- For picking up parcel \n8- For supply parcel \n");
             if (int.TryParse(Console.ReadLine(), out int innerChoice))
             {
@@ -25,57 +25,62 @@ namespace ConsoleUI_BL
                 {
                     case (int)UpDateOptions.UpdateDrone:
                         {
-                            Console.WriteLine("Please enter droneId and a new name for the drone");
-                            droneId = InputIntValue();
+                            Console.WriteLine("Please enter droneId and a new model for the drone");
+                            id = InputIntValue();
                             name = InputIsNotNull();
-                            bl.
+                            bl.UpdateDrone(id, name);
                             break;
                         }
                     case (int)UpDateOptions.UpdateBaseStation:
                         {
-                            Console.WriteLine("Please enter droneId and baseStationId");
-                            bl.ReleaseDroneFromRecharge(droneId);
+                            Console.WriteLine("Please enter baseStationId and one or more of the following details: name, number of charge slots");
+                            id = InputIntValue();
+                            name = InputOptionalStringValue();
+                            num = InputOptionalIntValue();
+                            bl.UpdateBaseStation(id, name, num);
                             break;
                         }
                     case (int)UpDateOptions.UpdateCustomer:
                         {
-                            Console.WriteLine("Please enter droneId ");
-                            droneId = InputIntValue();
-                            bl.ChargeDrone(droneId);
+                            Console.WriteLine("Please enter customerId and one or more of the following details: name, phone");
+                            id = InputIntValue();
+                            name = InputOptionalStringValue();
+                            num = InputOptionalIntValue();
+                            bl.UpdateCustomer(id,name,num);
                             break;
                         }
                    case (int)UpDateOptions.ChargeDrone:
                         {
                             Console.WriteLine("Please enter droneId ");
-                            droneId = InputIntValue();
-                            bl.ChargeDrone(droneId);
+                            id = InputIntValue();
+                            bl.ChargeDrone(id);
                             break;
                         }
                     case (int)UpDateOptions.StopDroneCharge:
                         {
                             Console.WriteLine("Please enter droneId and baseStationId");
-                            bl.ReleaseDroneFromRecharge(droneId);
+                            bl.ReleaseDroneFromRecharge(id);
                             break;
                         }
                     case (int)UpDateOptions.AssociationParcel:
                         {
                             Console.WriteLine("Please enter the drone id");
-                            droneId = InputIntValue( );
-                            bl.AssociateParcel(droneId);
+                            id = InputIntValue( );
+                            bl.AssociateParcel(id);
                             break;
                         }
                     case (int)UpDateOptions.PickUpParcel:
                         {
                             Console.WriteLine("Please enter the drone id");
-                            droneId = InputIntValue( );
-                            bl.PickUpParcel(droneId);
+                            id = InputIntValue( );
+                            bl.PickUpParcel(id);
                             break;
                         }
                     case (int)UpDateOptions.SupplyParcel:
                         {
                             Console.WriteLine("Please enter the drone id");
-                            droneId = InputIntValue( );
-                            bl.SupplyParcel(droneId );
+                            id = InputIntValue( );
+                            bl.SupplyParcel(id );
                             break;
                         }
                     default:
