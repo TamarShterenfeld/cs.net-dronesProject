@@ -24,6 +24,7 @@ namespace IBL
         BaseStationForList GetBaseStationForList(int id);
         BO.BaseStation GetBLBaseStation(int id);
         BO.BaseStation BaseStationDOtOBO(IDal.DO.BaseStation baseStation);
+        public void UpdateBaseStation(int id, string name, string num);
 
     }
 
@@ -38,7 +39,7 @@ namespace IBL
         BO.Drone DroneDOtOBO(IDal.DO.Drone drone);
         DroneInParcel GetBLDroneInParcel(int id);
         DroneInParcel DroneInParcelDOtOBO(IDal.DO.Drone drone);
-
+        public void UpdateDrone(int id, string model);
     }
 
     interface IParcelBL
@@ -66,7 +67,7 @@ namespace IBL
         BO.Customer CustomerDOtOBO(IDal.DO.Customer customer);
         CustomerInParcel GetBLCustomrInParcel(string id);
         CustomerInParcel CustomrInParcelDOtOBO(IDal.DO.Customer customer);
-
+        public void UpdateBaseStation(string id, string name, string num);
 
 
     }

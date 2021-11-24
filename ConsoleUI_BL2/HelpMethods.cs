@@ -103,6 +103,68 @@ namespace ConsoleUI_BL
             }
         }
 
+
+        internal static string InputOptionalStringValue()
+        {
+            while (true)
+            {
+                string str;
+                bool isValid = true;
+                str = Console.ReadLine();
+                if (string.IsNullOrEmpty(str))
+                {
+                    return null;
+                }
+                foreach (char letter in str)
+                {
+                    if ((!Char.IsLetter(letter)))
+                    {
+                        Console.WriteLine("The string type can hold only alphabetical values!");
+                        isValid = false;
+                        break;
+                    }
+
+                }
+                if (!isValid)
+                {
+                    Console.WriteLine("Try again!");
+                }
+                else
+                    return str;
+            }
+        }
+
+        internal static string InputOptionalIntValue()
+        {
+            while (true)
+            {
+                string str;
+                bool isValid = true;
+                str = Console.ReadLine();
+                if (string.IsNullOrEmpty(str))
+                {
+                    return null;
+                }
+                foreach (char digit in str)
+                {
+                    if ((!Char.IsDigit(digit)) || digit<0)
+                    {
+                        Console.WriteLine("The string type can hold only numerical possitivel values!");
+                        isValid = false;
+                        break;
+                    }
+
+                }
+                if (!isValid)
+                {
+                    Console.WriteLine("Try again!");
+                }
+                else
+                    return str;
+            }
+        }
+
+
         /// <summary>
         /// The function inputs an id 
         /// while checking its contains only valid values of id.

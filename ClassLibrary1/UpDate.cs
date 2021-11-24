@@ -9,9 +9,28 @@ namespace IBL
     public partial class BL : IBL
     {
 
-        public void UpdateDrone(int id,string name)
+        public void UpdateDrone(int id,string model)
         {
+            IDal.DO.Drone drone = dal.GetDrone(id);
+            drone.Model = model;
+            //dronesForList. לעדכן ברשימת הרחפנים בב.ל
+            dal.UpdateDrone(drone, id);
+        }
 
+        public void UpdateBaseStation(int id, string name, string num)
+        {
+            IDal.DO.BaseStation station = dal.GetBaseStation(id);
+            if (name != null) { station.Name = name; }
+            if (num != null) { station.ChargeSlots = int.Parse(num); }
+            dal.UpdateBaseStation(station, id);
+        }
+
+        public void UpdateCustomer(string id, string name, string phone)
+        {
+            IDal.DO.Customer station = dal.GetCustomer(id);
+            if (name != null) { station.Name = name; }
+            if (phone != null) { station.Phone = phone; }
+            dal.UpdateCustomer(station,id);
         }
 
         /// <summary>

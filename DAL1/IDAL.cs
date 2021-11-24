@@ -46,6 +46,9 @@ namespace IDal
         /// </summary>
         /// <param name="parcelId">like that, it's possible to identity the requested parcel </param>
         /// <param name="droneId">like that, it's possible to identity the requested drone </param>
+        public void UpdateDrone(Drone drone, int id);
+        public void UpdateBaseStation(BaseStation baseStation, int id);
+        public void UpdateCustomer(Customer customer, string id);
         void AssociateParcel(int parcelId, int droneId);
 
         /// <summary>

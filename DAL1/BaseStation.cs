@@ -82,7 +82,7 @@ namespace IDal
             /// <summary>
             /// override ToString function.
             /// </summary>
-            /// <returns>description of the BaseStation object</returns>
+            /// <returns>description of the BaseStation  object</returns>
             public override string ToString()
             {
                 return  $"id: {Id} \n" +
