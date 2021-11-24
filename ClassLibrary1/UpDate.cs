@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using IBL.BO;
 using System.Linq;
+using DAL.DO;
 
 namespace IBL
 {
@@ -45,7 +46,7 @@ namespace IBL
             List<Customer> customersList = (List<Customer>)dal.GetCustomersList();
             int droneIndex = dronesList.FindIndex(item => item.Id == droneId);
             if (droneIndex == -1)
-                throw new OverloadException("drone id doesn't exist in the dronesList");
+                throw new IntIndexException(droneIndex);
             else
             {
                 Drone currDrone = dronesList[droneIndex];
@@ -73,7 +74,7 @@ namespace IBL
             List<Drone> dronesList = (List<Drone>)dal.GetDronesList();
             int droneIndex = dronesList.FindIndex(item => item.Id == droneId);
             if (droneIndex == -1)
-                throw new OverloadException("drone id doesn't exist in the dronesList");
+                throw new IntIndexException(droneIndex);
             else
             {
                 List<Parcel> parcelsList = (List<Parcel>)dal.GetParcelsList();
@@ -90,7 +91,7 @@ namespace IBL
                 }
                 else
                 {
-                    throw new OverloadException("the parcel has been picked up already");
+                    throw new DateTimeException(parcel.PickUpDate);
                 }
             }
         }
@@ -104,7 +105,7 @@ namespace IBL
             List<Drone> dronesList = (List<Drone>)dal.GetDronesList();
             int droneIndex = dronesList.FindIndex(item => item.Id == droneId);
             if (droneIndex == -1)
-                throw new OverloadException("drone id doesn't exist in the dronesList");
+                throw new IntIdException(droneIndex);
             else
             {
                 Drone currDrone = dronesList[droneIndex];
@@ -123,12 +124,12 @@ namespace IBL
                     }
                     else
                     {
-                        throw new OverloadException("the hasn't still picked up - it can't be supllied by now.");
+                        throw new DateTimeException(parcel.SupplyDate);
                     }
                 }
                 else
                 {
-                    throw new OverloadException("the parcel hasn't been already picked up - it can't be supllied by now.");
+                    throw new DateTimeException(parcel.SupplyDate);
                 }
             }
 
@@ -144,8 +145,9 @@ namespace IBL
         {
             InputIntValue(ref droneId);
             List<Drone> DronesList = (List<Drone>)dal.GetDronesList();
-            if (DronesList.FindIndex(item => item.Id == droneId) == -1)
-                throw new OverloadException("drone's id doesn't exist in the drones' list.");
+            int findIndex = DronesList.FindIndex(item => item.Id == droneId);
+            if ( findIndex == -1)
+                throw new IntIdException(findIndex);
             Drone drone = DronesList.First(item => item.Id == droneId);
             int droneIndex = DronesList.FindIndex(item => item.Id == droneId);
 
@@ -176,12 +178,12 @@ namespace IBL
             List<Drone> dronesList = (List<Drone>)dal.GetDronesList();
             List<DroneInCharging> DroneChargeList = (List<DroneInCharging>)dal.GetDronesCharge();
             List<BaseStation> baseStationsList = (List<BaseStation>)dal.GetBaseStationsList();
-            InputIntValue(ref droneId);
-            if (dronesList.FindIndex(item => item.Id == droneId) == -1)
-                throw new OverloadException("drone's id doesn't exist in the drones' list.");
-            if (DroneChargeList.FindIndex(item => item.Id == droneId) == -1)
-                throw new OverloadException("drone's id doesn't exist in the dronecharge list.");
-
+            int findIndex = dronesList.FindIndex(item => item.Id == droneId);
+            if ( findIndex == -1)
+                throw new IntIdException(findIndex);
+            findIndex = DroneChargeList.FindIndex(item => item.Id == droneId);
+            if (findIndex == -1)
+                throw new IntIdException(findIndex);
             Drone drone = dronesList.First(item => item.Id == droneId);
             int droneIndex = dronesList.FindIndex(item => item.Id == droneId);
             DroneInCharging droneCharge = DroneChargeList.First(item => item.Id == droneId);

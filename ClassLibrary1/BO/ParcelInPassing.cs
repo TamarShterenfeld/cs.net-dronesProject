@@ -20,7 +20,7 @@ namespace IBL
                 {
                     if (value < 0)
                     {
-                        throw new OverloadException("Id must contain a positive number");
+                        throw new DateTimeException("Id must contain a positive number");
                     }
                     id = value;
                 }
