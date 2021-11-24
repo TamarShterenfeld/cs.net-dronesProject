@@ -5,6 +5,7 @@ using IDal.DO;
 using static IDal.IDal;
 using static DalObject.DataSource;
 using System.Linq;
+using DAL.DO;
 
 namespace DalObject
 {
@@ -14,67 +15,72 @@ namespace DalObject
     /// </summary>
     public partial class DalObject : IDal.IDal
     {
+        /// <inheritdoc />
         public void Add(BaseStation baseStation)
         {
             //can add the base station just if the input id still doesn't exist in the Base Station's list.
-            if (BaseStationsList.FindIndex(item => item.Id == baseStation.Id) == -1)
-            {
+            int findIndex = BaseStationsList.FindIndex(item => item.Id == baseStation.Id);
+            if (findIndex == -1)
                 BaseStationsList.Add(baseStation);
-            }
             else
-            {
-                throw new OverloadException("Id already exists in base station list, it's not possible to add it!");//לטפל בהערות
-            }
+                throw new IntIdException(BaseStationsList[findIndex].Id);
         }
+
+        /// <inheritdoc />
         public void Add(Customer customer)
         {
             //can add the customer just if the input id stil doesn't exist in the customers' list.
-            if (CustomersList.FindIndex(item => item.Id == customer.Id) == -1)
-            {
+            int findIndex = CustomersList.FindIndex(item => item.Id == customer.Id);
+            if (findIndex == -1)
                 CustomersList.Add(customer);
-            }
             else
-            {
-                throw new OverloadException("Id already exists in drones list, it's not possible to add it!");//לטפל בזריקות
-            }
+                throw new IntIdException(CustomersList[findIndex].Id);
         }
+
+        /// <inheritdoc />
         public void Add(Drone drone)
         {
             //can add the drone just if the input id stil doesnt exist in the Drones' list.
-            if (DronesList.FindIndex(item => item.Id == drone.Id) == -1)
-            {
+            int findIndex = DronesList.FindIndex(item => item.Id == drone.Id);
+            if (findIndex  == -1)
                 DronesList.Add(drone);
-            }
             else
-            {
-                throw new OverloadException("Id already exists in drones list, it's not possible to add it!");//לטפל בהערות
-            }
+                throw new IntIdException(DronesList[findIndex].Id);
            
         }
 
+        /// <inheritdoc />
         public void Add(int droneId, int baseStationId)
         {
-            if (BaseStationsList.FindIndex(item => item.Id == baseStationId) == -1)
-                throw new OverloadException("baseStation Id doesn't exist!");
-            if( BaseStationsList.First(item => item.Id == baseStationId).ChargeSlots > 0)
+            int findIndex = BaseStationsList.FindIndex(item => item.Id == baseStationId);
+            if (findIndex  == -1)
+                throw new IntIdException(findIndex);
+            int chargeSlots = BaseStationsList.First(item => item.Id == baseStationId).ChargeSlots;
+            if (chargeSlots > 0)
             {
-                DroneCharge droneCharge = new DroneCharge { DroneId = droneId, StationId = baseStationId, EntryTime = DateTime.Now };
+                DroneCharge droneCharge = new () { DroneId = droneId, StationId = baseStationId, EntryTime = DateTime.Now };
                 DronesChargeList.Add(droneCharge);
             }
             else
-            {
-                throw new OverloadException("the chosen baseStation doesn't have enough chargeSlots for charging this drone.");
-            }
+                throw new IntChargeSlotsException(chargeSlots);
         }
+
+        /// <inheritdoc />
         public void Add(Parcel parcel)
         {
-            if(ParcelsList.FindIndex(item => item.Id == parcel.Id) != -1)
-                throw new OverloadException("You try to add a parcel which is already exists!");
+            int findIndex = ParcelsList.FindIndex(item => item.Id == parcel.Id);
+            if (findIndex != -1)
+                throw new IntIdException(ParcelsList[findIndex].Id);
             //check if the other ids really exist in the appropriate lists.
-            if (CustomersList.FindIndex(item => item.Id == parcel.SenderId) == -1 || CustomersList.FindIndex(item => item.Id == parcel.TargetId) == -1)
-                throw new OverloadException("sender's id or target's id don't exist in the customers' list.");
-            if (DronesList.FindIndex(item => item.Id == parcel.DroneId) == -1)
-                throw new OverloadException("drone's id doesn't exist in the drones' List.");
+            int findIndex1 = CustomersList.FindIndex(item => item.Id == parcel.SenderId);
+            int findIndex2 = CustomersList.FindIndex(item => item.Id == parcel.TargetId);
+            if ( findIndex1 == -1 )
+                throw new IntIdException(findIndex1);
+            if(findIndex2 == -1)
+                throw new IntIdException(findIndex2);
+            int findIndex3 = DronesList.FindIndex(item => item.Id == parcel.DroneId);
+            if (findIndex3  == -1)
+                throw new IntIdException(findIndex3);
             ParcelsList.Add(parcel);
         }
 

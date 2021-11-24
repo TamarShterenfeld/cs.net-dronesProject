@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using static IDal.DO.OverloadException;
+using DAL.DO;
 
 namespace IDal
 {
@@ -11,6 +11,7 @@ namespace IDal
         /// <summary>
         /// the struct Parcel contains the following details: id, senderId, targetId, droneId, weight,
         /// priority, producton, association, picing up, arrival.
+        /// actually, these are all the basic details for creating a baseStation.
         /// </summary>
         public struct Parcel
         {
@@ -25,7 +26,7 @@ namespace IDal
                 {
                     if (value < 0)
                     {
-                        throw new OverloadException("Id must contain a positive number");
+                        throw new IntIdException(value);
                     }
                     id = value;
                 }
@@ -40,13 +41,13 @@ namespace IDal
                 {
                     if (value.Length != 9)
                     {
-                        throw new OverloadException("Sender ID must include exactly 9 digits");
+                        throw new StringException(value);
                     }
                     foreach (char letter in value)
                     {
                         if (!Char.IsDigit(letter))
                         {
-                            throw new OverloadException("Sender ID must include only digits");
+                            throw new StringException(value);
                         }
                     }
                     senderId = value;
@@ -62,14 +63,13 @@ namespace IDal
                 {
                     if (value.Length != 9)
                     {
-                        throw new OverloadException("Target Id must include exactly 9 digits");
+                        throw new StringException(value);
                     }
                     foreach (char letter in value)
                     {
                         if (!Char.IsDigit(letter))
                         {
-                            throw new OverloadException("Target Id must include only digits");
-
+                            throw new StringException(value);
                         }
                     }
                     targetId = value;
@@ -87,7 +87,7 @@ namespace IDal
                     //-1 - is a sign for a not initalized droneId
                     if (value < -1)
                     {
-                        throw new OverloadException("Id must hold a positive value");
+                        throw new IntIdException(value);
                     }
                     droneId = value;
                 }

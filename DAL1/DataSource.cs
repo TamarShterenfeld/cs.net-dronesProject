@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
-using static IDal.DO.OverloadException;
 
 
 
@@ -11,6 +10,7 @@ namespace DalObject
 {
     /// <summary>
     /// a class which contains all the data of program.
+    /// most of them are randomaled by healthy logic.
     /// </summary>
     public class DataSource
     {
@@ -22,11 +22,11 @@ namespace DalObject
 
 
         //internal lists of different entities.
-        internal static List<Drone> DronesList = new List<Drone>(DRONES_BASE_AMOUNT);
-        internal static List<BaseStation> BaseStationsList = new List<BaseStation>(BASESTATIONS_BASE_AMOUNT);
-        internal static List<Customer> CustomersList = new List<Customer>(CUSTOMERS_BASE_AMOUNT);
-        internal static List<Parcel> ParcelsList = new List<Parcel>(PARCELS_BASE_AMOUNT);
-        internal static List<DroneCharge> DronesChargeList = new List<DroneCharge>();
+        internal static List<Drone> DronesList = new(DRONES_BASE_AMOUNT);
+        internal static List<BaseStation> BaseStationsList = new (BASESTATIONS_BASE_AMOUNT);
+        internal static List<Customer> CustomersList = new (CUSTOMERS_BASE_AMOUNT);
+        internal static List<Parcel> ParcelsList = new (PARCELS_BASE_AMOUNT);
+        internal static List<DroneCharge> DronesChargeList = new();
 
         //arrays of different data - for initalizing object of the structures.
         static readonly string[] droneModels = { "FPV COMBO", "COMBO AIR", "MAVIC AIR", "DJI TELLO", "MAVIC MINI 2", "SWING", "PHANTOM", "MATRICE 200", "DJI AGRAS T16", "MAVIC 2 ENTERPRISE", "MATRICE 210 RTK" };
@@ -35,7 +35,7 @@ namespace DalObject
 
 
         //a static random field - for general use.
-        public static Random rand = new Random();
+        public static readonly Random rand = new();
 
         /// <summary>
         /// the method Initalize initalizes all thedifferent lists (besides DronesChargeList).
@@ -43,16 +43,16 @@ namespace DalObject
         public static void Initialize()
         {
             //initalize at least the two first item in BaseStationList.        
-            randomBaseStation();
+            RandomBaseStation();
 
             //initalize at least the first five drones in DronesList
-            randomDrones();
+            RandomDrones();
 
             //initalize at least the first tenth customers in CustomerList        
-            randomCustomers();
+            RandomCustomers();
 
             //initalize at least the first tenth parcels in ParcelList.            
-            randomParcels();
+            RandomParcels();
         }
 
         /// <summary>
@@ -73,27 +73,26 @@ namespace DalObject
         /// <summary>
         /// randoms at least the two first objects in the BaseStationList.
         /// </summary>
-        private static void randomBaseStation()
+        private static void RandomBaseStation()
         {
             int size = rand.Next(2, BASESTATIONS_BASE_AMOUNT);
             for (int i = 0; i < size; i++)
             {
-                BaseStation baseStation = new BaseStation();
+                BaseStation baseStation = new ();
                 baseStation.Id = i;
-                baseStation.Name = randomBaseStationName();
-                baseStation.ChargeSlots = randomChargeSlot();
-                baseStation.Longitude = randomLongitude();
-                baseStation.Latitude = randomLatitude();
+                baseStation.Name = RandomBaseStationName();
+                baseStation.ChargeSlots = RandomChargeSlot();
+                baseStation.Longitude = RandomLongitude();
+                baseStation.Latitude = RandomLatitude();
                 BaseStationsList.Add(baseStation);
             }
 
         }
 
-
         /// <summary>
         /// randoms at least the first five object in DronesList.
         /// </summary>
-        private static void randomDrones()
+        private static void RandomDrones()
         {
             int size = rand.Next(5, DRONES_BASE_AMOUNT);
 
@@ -101,8 +100,8 @@ namespace DalObject
             {
                 Drone drone = new();
                 drone.Id = i;
-                drone.Model = randomModel();
-                drone.MaxWeight = randomWeight();
+                drone.Model = RandomModel();
+                drone.MaxWeight = RandomWeight();
                 DronesList.Add(drone);
             }
 
@@ -111,35 +110,35 @@ namespace DalObject
         /// <summary>
         /// randoms at least the tenth first customers in CustomersList.
         /// </summary>
-        private static void randomCustomers()
+        private static void RandomCustomers()
         {
             int size = rand.Next(10, CUSTOMERS_BASE_AMOUNT);
             for (int i = 0; i < size; i++)
             {
-                Customer customer = new Customer();
-                customer.Id = randomId();
-                customer.Name = randomCustomerName();
-                customer.Phone = randomPhone();
+                Customer customer = new();
+                customer.Id = RandomId();
+                customer.Name = RandomCustomerName();
+                customer.Phone = RandomPhone();
                 //the latitude & longitude values are displayed in degrees.
-                customer.Longitude = randomLongitude();
-                customer.Longitude = randomLatitude();
+                customer.Longitude = RandomLongitude();
+                customer.Longitude = RandomLatitude();
                 CustomersList.Add(customer);
             }
 
         }
 
         //random at least the first tenth parcels in ParcelsList.
-        private static void randomParcels()
+        private static void RandomParcels()
         {
             int size = rand.Next(10, PARCELS_BASE_AMOUNT);
             for (int i = 0; i < size; i++)
             {
-                Parcel parcel = new Parcel();
+                Parcel parcel = new();
                // parcel.Id = DalObject.IncreaseParcelIndex();
-                parcel.SenderId = randomCustomerId();
-                parcel.TargetId = randomCustomerId();
-                parcel.Priority = randomPriority();
-                parcel.Weight = randomWeight();
+                parcel.SenderId = RandomCustomerId();
+                parcel.TargetId = RandomCustomerId();
+                parcel.Priority = RandomPriority();
+                parcel.Weight = RandomWeight();
                 parcel.DroneId = -1;
                 for (int j = 0; j < DronesList.Count; j++)
                 {
@@ -164,107 +163,109 @@ namespace DalObject
         }
 
         /// <summary>
-        /// random a location object
+        /// randoms a longitude value of a Coordinate object.
         /// </summary>
-        /// <returns></returns>
-        private static Coordinate randomLongitude()
+        /// <returns>a coordinate object which stores a random longitude .</returns>
+        private static Coordinate RandomLongitude()
         {
-            Coordinate longitude = new Coordinate(0.7 * rand.Next(0, 180) + 0.3 * rand.Next(-180, 0), Locations.Longitude);
+            double longitude1 = 0.3 * rand.Next(0, 180) + 0.7 * rand.Next(-180, 0);
+            Coordinate longitude = new() { InputCoorValue = longitude1, Location = Locations.Longitude };
             return longitude;
         }
 
-        private static Coordinate randomLatitude()
+        /// <summary>
+        /// randoms a latitude value of a Coordinate object.
+        /// </summary>
+        /// <returns>a coordinate object which stores a random latitude.</returns>
+        private static Coordinate RandomLatitude()
         {
-            Coordinate latitude = new Coordinate(0.3 * rand.Next(0, 180) + 0.7 * rand.Next(-180, 0), Locations.Longitude);
+            double latitude1 = 0.3 * rand.Next(0, 180) + 0.7 * rand.Next(-180, 0);
+            Coordinate latitude = new () { InputCoorValue = latitude1, Location = Locations.Longitude };
             return latitude;
         }
+
         /// <summary>
         /// random a WeightCategory value.
         /// </summary>
-        /// <returns></returns>
-        private static WeightCategories randomWeight()
+        /// <returns>a randomaled WeightCategory value.</returns>
+        private static WeightCategories RandomWeight()
         {
-            int weightIndex = rand.Next(0, Enum.GetNames(typeof(WeightCategories)).Length);
-            return (WeightCategories)Enum.Parse(typeof(WeightCategories), (string)Enum.GetNames(typeof(WeightCategories)).GetValue(weightIndex), true);
+            WeightCategories weightIndex = (WeightCategories)rand.Next(0, Enum.GetNames(typeof(WeightCategories)).Length-1);
+            return weightIndex;
         }
 
         /// <summary>
         /// random a Priority value.
         /// </summary>
-        /// <returns></returns>
-        private static Priorities randomPriority()
+        /// <returns>a randomaled Priority value.</returns>
+        private static Priorities RandomPriority()
         {
-            int priorityIndex = rand.Next(0, Enum.GetNames(typeof(WeightCategories)).Length);
-            return (Priorities)Enum.Parse(typeof(Priorities), (string)Enum.GetNames(typeof(Priorities)).GetValue(priorityIndex), true);
+            Priorities priority = (Priorities)rand.Next(0, Enum.GetNames(typeof(Priorities)).Length-1);
+            return priority;
         }
-
-        /// <summary>
-        /// random a double type of a battery.
-        /// </summary>
-        /// <returns></returns>
 
         /// <summary>
         /// random a name from the baseStations' names array.
         /// </summary>
-        /// <returns></returns>
-        private static string randomBaseStationName()
+        /// <returns>a random baseStation's name.</returns>
+        private static string RandomBaseStationName()
         {
             return baseStationsNames[rand.Next(0, baseStationsNames.Length - 1)];
         }
 
 
         /// <summary>
-        /// random a customer's name from the customers' names array.
+        /// randoms a customer's name from the customers' names array.
         /// </summary>
-        /// <returns></returns>
-        private static string randomCustomerName()
+        /// <returns>a random customer's name.</returns>
+        private static string RandomCustomerName()
         {
             return customerName[rand.Next(0, customerName.Length - 1)];
         }
 
         /// <summary>
-        /// random a model from the models arr.
+        /// randoms a model from the models arr.
         /// </summary>
-        /// <returns></returns>
-        private static string randomModel()
+        /// <returns>a random drone's model name.</returns>
+        private static string RandomModel()
         {
             return droneModels[rand.Next(0, droneModels.Length - 1)];
         }
 
         /// <summary>
-        /// random a valid phone number.
+        /// randoms a valid phone number.
         /// </summary>
-        /// <returns></returns>
-        private static string randomPhone()
+        /// <returns>a random string of a phone number.</returns>
+        private static string RandomPhone()
         {
             return "0" + (rand.Next(100000000, 999999999)).ToString();
         }
 
         /// <summary>
-        /// random a valid Id.
+        /// randoms a valid Id.
         /// </summary>
-        /// <returns></returns>
-        private static string randomId()
+        /// <returns>a random string id</returns>
+        private static string RandomId()
         {
             return rand.Next(100000000, 999999999).ToString();
         }
 
         /// <summary>
-        /// random an Id of one of the customers in CustomersList.
+        /// randoms an Id of one of the customers in CustomersList.
         /// </summary>
-        /// <returns></returns>
-        private static string randomCustomerId()
+        /// <returns>a random customer id - from the customersList's names</returns>
+        private static string RandomCustomerId()
         {
             return CustomersList[rand.Next(0, CustomersList.Count - 1)].Id;
         }
 
         /// <summary>
-        /// random a chargeSlot value.
+        /// randoms a chargeSlot value.
         /// </summary>
-        /// <returns></returns>
-        private static int randomChargeSlot()
+        /// <returns>a randomal chargeSlots in range of (0,10)</returns>
+        private static int RandomChargeSlot()
         {
-            return rand.Next(0, 5);
+            return rand.Next(0, 10);
         }
     }
 }

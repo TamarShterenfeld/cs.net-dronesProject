@@ -4,19 +4,25 @@ namespace IDal
 {
     namespace DO
     {
+
         /// <summary>
-        /// all the different enums that were used in the project
-        /// are collected here - just because they may belong to more than one structure.
+        /// an enum which contains the different weight types of parcels.
         /// </summary>
         public enum WeightCategories
         {
             Light = 1, Average, Heavy
         }
 
+        /// <summary>
+        /// an enum which contains the different statuses types of drones.
+        /// </summary>
         public enum DroneStatuses
         {
             Available = 1, Maintenance, Shipment
         }
+        /// <summary>
+        /// an enum which contains the different priorities types of parcels. 
+        /// </summary>
         public enum Priorities
         {
             Standard = 1, Fast, Emergency

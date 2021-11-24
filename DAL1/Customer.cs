@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using static DalObject.DataSource;
 using IDal.DO;
-using static IDal.DO.OverloadException;
+using DAL.DO;
 
 namespace IDal
 {
@@ -12,6 +12,7 @@ namespace IDal
 
         /// <summary>
         /// the struct Customer contains the following details: id, name, phone, longitude, latitude.
+        /// actually, these are all the basic details for creating a customer.
         /// </summary>
         public struct Customer
         {
@@ -28,13 +29,13 @@ namespace IDal
                 {
                     if (value.Length != 9)
                     {
-                        throw new OverloadException("Id must include exactly 9 digits");
+                        throw new IntIdException(value);
                     }
                     foreach (char digit in value)
                     {
                         if (!Char.IsDigit(digit))
                         {
-                            throw new OverloadException("Id must include only digits");
+                            throw new StringException(value);
 
                         }
                     }
@@ -55,7 +56,7 @@ namespace IDal
                         {
                             if (!Char.IsLetter(letter))
                             {
-                                throw new OverloadException("Name can contain only letters.");
+                                throw new StringException(value);
                             }
                         }
                     }
@@ -71,12 +72,12 @@ namespace IDal
                 set
                 {
                     if (value[0] != '0')
-                        throw new OverloadException("The first digit of a phone number must be '0'");
+                        throw new StringException(value);
                     foreach (char digit in value)
                     {
                         if (!Char.IsDigit(digit))
                         {
-                            throw new OverloadException("Phone must include only digits");
+                            throw new StringException(value);
 
                         }
                     }
@@ -86,10 +87,6 @@ namespace IDal
 
             public Coordinate Longitude { get; set; }
             public Coordinate Latitude { get; set; }
-
-
-            //default constructor
-            public Customer() { }
 
             /// <summary>
             /// override ToString function.

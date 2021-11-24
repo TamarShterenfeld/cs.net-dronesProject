@@ -10,7 +10,6 @@ using static System.Math;
 
 namespace IBL
 {
-
     /// <summary>
     /// The class BL is the business logic level 
     /// which has the responsibility of pull & calaulating lists, object etc. from the DAL logic level
@@ -138,11 +137,11 @@ namespace IBL
         /// the calculation is depended the distance + the drone's status.
         /// </summary>
         /// <param name="drone"></param>
-        /// <param name="Ilocatable"></param>
+        /// <param name="ilocatable"></param>
         /// <returns></returns>
-        private double ComputeMinBatteryNeeded(BO.Drone drone, ILocatable Ilocatable)
+        private double ComputeMinBatteryNeeded(BO.Drone drone, ILocatable ilocatable)
         {
-            double distance = drone.Distance(Ilocatable);
+            double distance = drone.Distance(ilocatable);
 
             if (drone.Status == BO.DroneStatuses.Available)
             {
