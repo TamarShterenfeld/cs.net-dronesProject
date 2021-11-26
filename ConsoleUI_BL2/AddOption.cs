@@ -18,7 +18,7 @@ namespace ConsoleUI_BL
         /// <inheritdoc />
         public void Options(ref BL bl)
         {
-            int id = 0, baseStationId = 0, chargeSlots = 0;
+            int id = 0, baseStationId , chargeSlots = 0;
             string name = " ", customerId = " ", phone = " ", model = " ", senderId = " ", targetId = " ";
             Location location = new();
             WeightCategories weightCategory = Average;
@@ -30,35 +30,37 @@ namespace ConsoleUI_BL
                 {
                     case (int)AddOptions.BaseStation:
                         {
-                            CheckBaseStationDetails(ref id, ref name, ref location, ref chargeSlots);
-                            BaseStation baseStation = new() { Id = id, Name = name, Location = location, ChargeSlots = chargeSlots,DroneCharging = null };
+                            BaseStation baseStation = new();
+                           (baseStation.Id, baseStation.Name, baseStation.Location, baseStation.ChargeSlots) = CheckBaseStationDetails(id, name, location, chargeSlots);
                             bl.Add(baseStation);
                             break;
                         }
 
                     case (int)AddOptions.Drone:
                         {
-                            CheckDroneDetails(ref id, ref model,ref weightCategory, ref baseStationId);
-                            Drone drone = new() { Id = id, Model = model , MaxWeight = weightCategory ,Location = bl.GetBLBaseStation(id).Location, Parcel = null};
+                           
+                            Drone drone = new();
+                            (drone.Id, drone.Model, drone.MaxWeight) = CheckDroneDetails(id, model, weightCategory);
+                            baseStationId = InputIntValue();
                             bl.Add(drone, baseStationId);
                             break;
                         }
                     case (int)AddOptions.Customer:
-                        {
-                            CheckCustomerDetails(ref customerId, ref name, ref phone, ref location);
-                            Customer customer = new() { Id = customerId, Name = name, Phone = phone, Location = location, FromCustomer = null, ToCustomer = null };
+                        {          
+                            Customer customer = new();
+                            (customer.Id, customer.Name, customer.Phone, customer.Location) = CheckCustomerDetails(customerId, name, phone, location);
                             bl.Add(customer);
                             break;
                         }
                     case (int)AddOptions.Parcel:
                         {
-                            CheckParcelDetails(ref senderId, ref targetId, ref weightCategory, ref priorities);
-                            CustomerInParcel sender = new() { Id = senderId, Name = "" };
-                            CustomerInParcel target = new() { Id = targetId, Name = "" };
-                            Parcel parcel = new() { Id = BL.GetParcelIndex(), Sender = sender, Target = target, Weight = weightCategory , Priority = priorities };
+                            Parcel parcel = new();
+                            CustomerInParcel sender = new();
+                            CustomerInParcel target = new();
+                            (sender.Id, target.Id, parcel.Weight, parcel.Priority)=CheckParcelDetails(senderId, targetId, weightCategory, priorities);
                             bl.Add(parcel);
                             break;
-                        }
+                     }
                     default:
                         {
                             Console.WriteLine("ERROR! \nan unknown option");

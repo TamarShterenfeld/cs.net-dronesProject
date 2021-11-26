@@ -47,7 +47,7 @@ namespace IBL
             electricityConsumingOfLightWeight = droneElectricityInfo[1];
             electricityConsumingOfAverageWeight = droneElectricityInfo[2];
             electricityConsumingOfHeavyWeight = droneElectricityInfo[3];
-            chargeRate = droneElectricityInfo[0];
+            chargeRate = droneElectricityInfo[4];
             List<BO.Drone> drones = (List<BO.Drone>)GetBODronesList();
             Random rand = new();
 
@@ -75,7 +75,7 @@ namespace IBL
                     }
 
                     double minBattery = ComputeMinBatteryNeeded(drones[i], GetBLCustomer(drones[i].Parcel.Target.Id));
-                    if(minBattery != -1)
+                    if (minBattery != -1)
                     {
                         drones[i].Battery = RandomBattery(minBattery);
                     }
@@ -145,7 +145,7 @@ namespace IBL
 
             if (drone.Status == BO.DroneStatuses.Available)
             {
-               
+
                 return distance * electricityConsumingOfAvailable;
             }
             else
@@ -177,16 +177,20 @@ namespace IBL
         /// </summary>
         /// <param name="minBattery"></param>
         /// <returns></returns>
-        static int RandomBattery(double minBattery)
+        static double RandomBattery(double minBattery)
         {
             Random rand = new();
+            double randBattery = rand.Next((int)minBattery, 100);
             //check if the minBattery holds a real double value
-            //for it's not possible to random a double number - we will increase the minBattery in one.
-            if ((int)minBattery != minBattery)
+            double fractionalPart = minBattery - (int)minBattery;
+            if (fractionalPart > 0)
             {
-                minBattery++;
+                double randomFraction = rand.NextDouble();
+                //adds the highest fractional value
+                //between the original fractional part to the random fraction.
+                randBattery += Max(randomFraction, fractionalPart);
             }
-            return rand.Next((int)minBattery, 100);
+            return randBattery;
         }
 
         /// <summary>

@@ -212,8 +212,10 @@ namespace IBL
             return customersForList;
         }
 
-        
-       
+        public void UpdateBaseStation(string id, string name, string num)
+        {
+           // throw new NotImplementedException();
+        }
     }
 }
 

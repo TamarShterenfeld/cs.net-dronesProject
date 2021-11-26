@@ -17,7 +17,7 @@ namespace ConsoleUI_BL
         public void Options(ref BL bl)
         {
             int id = 0;
-            string name, num, customerId;
+            string name, num, customerId, model;
             Console.WriteLine("Please enter : \n1- For updating a drone \n2- For updating a basetation \n3- For updating a customer \n4- For charging drone \n5- For stop drone charging \n6- For associating parcel \n7- For picking up parcel \n8- For supply parcel \n");
             if (int.TryParse(Console.ReadLine(), out int innerChoice))
             {
@@ -27,8 +27,8 @@ namespace ConsoleUI_BL
                         {
                             Console.WriteLine("Please enter droneId and a new model for the drone");
                             id = InputIntValue();
-                            name = InputIsNotNull();
-                            bl.UpdateDrone(id, name);
+                            model = InputOptionalStringValue();
+                            bl.UpdateDrone(id, model);
                             break;
                         }
                     case (int)UpDateOptions.UpdateBaseStation:

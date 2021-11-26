@@ -33,7 +33,7 @@ namespace DalObject
         /// <inheritdoc />
         public IEnumerable<Parcel> NotAssociatedParcels()
         {
-            List<Parcel> parcels = new List<Parcel>();
+            List<Parcel> parcels = new ();
             for (int i = 0; i < ParcelsList.Count; i++)
             {
                 if (ParcelsList[i].DroneId == -1)
@@ -78,7 +78,7 @@ namespace DalObject
         /// <inheritdoc />
         public IEnumerable<BaseStation> AvailableChargeStations()
         {
-            List<BaseStation> availableChargingSlotsList = new List<BaseStation>();
+            List<BaseStation> availableChargingSlotsList = new ();
             for (int i = 0; i < BaseStationsList.Count; i++)
             {
                 availableChargingSlotsList[i] = BaseStationsList[i];

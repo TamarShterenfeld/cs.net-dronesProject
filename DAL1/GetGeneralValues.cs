@@ -10,6 +10,8 @@ namespace DalObject
     /// <inheritdoc />
     public partial class DalObject : IDal.IDal
     {
+
+
         /// <summary>
         ///a static method which increases the static field - 'ParcelId' in each time it is called. 
         /// </summary>
@@ -36,21 +38,15 @@ namespace DalObject
         /// <inheritdoc />
         public double[] ElectricityConsuming()
         {
-            // p in type.GetFields(System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic))
-            List<object> electricitiesConsuming = new (5);
-            //initalizing a value for comparing the type
-            Type type = typeof(Config);
-            foreach (var prop in type.GetFields(BindingFlags.Static | BindingFlags.Public))
-            {
-                if (prop != typeof(double))
-                {
-                    var currValue =  prop.GetValue(null);
-                    
-                    electricitiesConsuming.Add(currValue);
-                }
-            }
-            List<double> electricities = electricitiesConsuming.ConvertAll(item => (double)item);
-            return electricities.ToArray();
+            const int DOUBLE_VARIABLES_IN_CONFIG_CLASS = 5;
+            //copies all the needed values from Config class.
+            double[] electricitiesConsuming = new double[DOUBLE_VARIABLES_IN_CONFIG_CLASS];
+            electricitiesConsuming[0] = Config.ElectricityConsumingOfAvailable;
+            electricitiesConsuming[1] = Config.ElectricityConsumingOfLightWeight;
+            electricitiesConsuming[2] = Config.ElectricityConsumingOfAverageWeight;
+            electricitiesConsuming[3] = Config.ElectricityConsumingOfHeavyWeight;
+            electricitiesConsuming[4] = Config.ChargeRate;
+            return electricitiesConsuming;
         }
     }
 }
