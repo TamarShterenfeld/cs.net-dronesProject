@@ -9,7 +9,7 @@ namespace IBL
 
     namespace BO
     {
-        public class DroneForList
+        public class DroneForList:ILocatable
         {
             int id;
             int parcelId;
