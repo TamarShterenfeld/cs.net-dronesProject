@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using IBL.BO;
+using static IBL.BL;
+using DAL.DO;
+using DalObject;
 
 
 namespace IBL
@@ -17,9 +20,27 @@ namespace IBL
     }
     interface IBaseStationBL
     {
+        /// <summary>
+        /// The function adds a base station 
+        /// </summary>
+        /// <param name="baseStation">base station</param>
+        /// 
         void Add(BO.BaseStation baseStation);
+
+        /// <summary>
+        /// The function returns all the baseStationList items 
+        /// (by converting the IDal.DO BaseStationList to BO baseStationList)
+        /// </summary>
         IEnumerable<BO.BaseStation> GetBOBaseStationsList();
+
+        /// /// <summary>
+        /// the function returns a baseStationForList list
+        /// by converting the BO.baseStation list to BaseStationForList type.
+        /// </summary>
+        /// <returns></returns>
         IEnumerable<BO.BaseStation> GetAvailableChargeSlots();
+
+
         IEnumerable<BaseStationForList> GetBaseStationList();
         BaseStationForList GetBaseStationForList(int id);
         BO.BaseStation GetBLBaseStation(int id);
@@ -30,7 +51,15 @@ namespace IBL
 
     interface IDroneBL
     {
-        void Add(BO.Drone baseStation, int baseStationId);
+        /// <summary>
+ /// <summary>
+        /// The function adds a base station 
+        /// </summary>
+        /// <param name="baseStation">base station</param>
+        /// 
+        void Add(BO.BaseStation baseStation);
+
+       
         IEnumerable<DroneInCharging> GetDronesInMe(int stationId);
         IEnumerable<BO.Drone> GetBODronesList();
         IEnumerable<DroneForList> GetDronesList();
@@ -58,7 +87,19 @@ namespace IBL
 
     interface ICustomerBL
     {
+        /// <summary>
+        /// The function adds a customer 
+        /// </summary>
+        /// <param name="customer">customer</param>
         void Add(BO.Customer baseStation);
+
+        /// <summary>
+        /// The function adds a parcel 
+        /// </summary>
+        /// <param name="parcel">parcel</param>
+        void Add(BO.Parcel parcel);
+
+
         IEnumerable<BO.Customer> GetBOCustomersList();
         IEnumerable<ParcelInCustomer> GetParcelInCustomerList(FromOrTo fromOrTo, string id);
         IEnumerable<CustomerForList> GetCustomersList();

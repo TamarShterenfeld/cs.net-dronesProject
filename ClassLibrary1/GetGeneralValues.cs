@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using IBL.BO;
 using IDal.DO;
+using IDal;
+
 
 
 namespace IBL
@@ -14,12 +16,12 @@ namespace IBL
         //----------------------------------Other GetObject Methods---------------------------------
         private double GetDroneBattery(int droneId)
         {
-            return dronesForList.Find(drone => drone.Id == droneId).Battery;
+            return GetBLDrone(droneId).Battery;
         }
 
         private Location GetDroneLocation(int droneId)
         {
-            return dronesForList.Find(drone => drone.Id == droneId).Location;
+            return GetBLDrone(droneId).Location;
         }
 
         private int GetDroneParcelId(int droneId)

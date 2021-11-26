@@ -17,7 +17,7 @@ namespace IBL
     /// </summary>
     public partial class BL : IBL
     {
-        readonly IDal.IDal dal;
+        internal IDal.IDal dal;
         List<DroneForList> dronesForList;
         readonly double electricityConsumingOfAvailable;
         readonly double electricityConsumingOfLightWeight;

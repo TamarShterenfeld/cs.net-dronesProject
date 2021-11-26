@@ -14,10 +14,7 @@ namespace IBL
     {
         //---------------------------------BaseStation GetList methods------------------------------------------------
        
-        /// <summary>
-        /// The function returns all the baseStationList items 
-        /// (by converting the IDal.DO BaseStationList to BO baseStationList)
-        /// </summary>
+        
         public IEnumerable<BO.BaseStation> GetBOBaseStationsList()
         {
             List<BO.BaseStation> boBaseStationList = new();
@@ -45,11 +42,7 @@ namespace IBL
         }
 
 
-        /// <summary>
-        /// the function returns a baseStationForList list
-        /// by converting the BO.baseStation list to BaseStationForList type.
-        /// </summary>
-        /// <returns></returns>
+        
         public IEnumerable<BaseStationForList> GetBaseStationList()
         {
             List<BaseStationForList> baseStationForLists = new();
@@ -82,7 +75,7 @@ namespace IBL
         public IEnumerable<BO.Drone> GetBODronesList()
         {
             List<BO.Drone> boDronesList = new();
-            List<IDal.DO.Drone> doDronseList = (List<IDal.DO.Drone>)dal.GetBaseStationsList();
+            List<IDal.DO.Drone> doDronseList = (List<IDal.DO.Drone>)dal.GetDronesList();
             foreach (IDal.DO.Drone item in doDronseList)
             {
                 boDronesList.Add(GetBLDrone(item.Id));
