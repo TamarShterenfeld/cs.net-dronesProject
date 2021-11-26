@@ -13,7 +13,7 @@ namespace IBL
     {
         //----------------------------------Other GetObject Methods---------------------------------
         private double GetDroneBattery(int droneId)
-        {
+        { 
             return dronesForList.Find(drone => drone.Id == droneId).Battery;
         }
 
