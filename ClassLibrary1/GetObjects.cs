@@ -46,7 +46,7 @@ namespace IBL
             {
                 Id = baseStation.Id,
                 Name = baseStation.Name,
-                Location = new Location(baseStation.Longitude, baseStation.Latitude),
+                Location = new Location(CoordinateDoToBo(baseStation.Longitude), CoordinateDoToBo(baseStation.Latitude)),
                 ChargeSlots = baseStation.ChargeSlots - CatchAvailableChargeSlots(baseStation.Id),
                 DroneCharging = (List<DroneInCharging>)GetDronesInMe(baseStation.Id)
             };
@@ -233,7 +233,7 @@ namespace IBL
                 Id = customer.Id,
                 Name = customer.Name,
                 Phone = customer.Phone,
-                Location = new Location(customer.Longitude, customer.Latitude),
+                Location = new Location(CoordinateDoToBo(customer.Longitude), CoordinateDoToBo(customer.Latitude)),
                 FromCustomer = (List<ParcelInCustomer>)GetParcelInCustomerList(FromOrTo.From, customer.Id),
                 ToCustomer = (List<ParcelInCustomer>)GetParcelInCustomerList(FromOrTo.To, customer.Id),
             };

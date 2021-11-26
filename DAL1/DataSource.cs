@@ -169,7 +169,7 @@ namespace DalObject
         private static Coordinate RandomLongitude()
         {
             double longitude1 = 0.3 * rand.Next(0, 180) + 0.7 * rand.Next(-180, 0);
-            Coordinate longitude = new() { InputCoorValue = longitude1, Location = Locations.Longitude };
+            Coordinate longitude = new() { InputCoorValue = longitude1, MyLocation = Locations.Longitude };
             return longitude;
         }
 
@@ -180,7 +180,7 @@ namespace DalObject
         private static Coordinate RandomLatitude()
         {
             double latitude1 = 0.3 * rand.Next(0, 180) + 0.7 * rand.Next(-180, 0);
-            Coordinate latitude = new () { InputCoorValue = latitude1, Location = Locations.Longitude };
+            Coordinate latitude = new () { InputCoorValue = latitude1, MyLocation = Locations.Longitude };
             return latitude;
         }
 

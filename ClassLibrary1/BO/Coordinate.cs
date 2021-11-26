@@ -82,11 +82,21 @@ namespace IBL.BO
             Seconds = Convert.ToDouble(seconds);
             return this;
         }
-
+        /// <summary>
+        /// constructor which gets degree and direction (longitude ot latitude)
+        /// </summary>
+        /// <param name="degree">place in degrees</param>
+        /// <param name="longOrLat">longitude ot latitude</param>
         public Coordinate(double degree, Locations longOrLat)
         {
-            InputCoorValue = degree; 
+            InputCoorValue = degree;
+            MyLocation = longOrLat;
         }
+
+        /// <summary>
+        /// default constructor
+        /// </summary>
+        public Coordinate(){}
 
         /// <summary>
         /// convert longitude / latitude from coordinante to a double number

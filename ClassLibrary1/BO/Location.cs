@@ -17,7 +17,6 @@ namespace IBL
             public Coordinate CoorLongitude { get; set; }
 
             public Coordinate CoorLatitude { get; set; }
-
             /// <summary>
             /// constructor
             /// </summary>
@@ -29,13 +28,13 @@ namespace IBL
                 CoorLatitude = latitude;
             }
 
-            public Location(double longitude, double latitude)
-            {
-                Coordinate longi = new(longitude, Locations.Longitude);
-                Coordinate lati = new(latitude, Locations.Latitude);
-                CoorLongitude = longi;
-                CoorLatitude = lati;
-            }
+            //public Location(double longitude, double latitude)
+            //{
+            //    Coordinate longi = new(longitude, Locations.Longitude);
+            //    Coordinate lati = new(latitude, Locations.Latitude);
+            //    CoorLongitude = longi;
+            //    CoorLatitude = lati;
+            //}
 
             // default constructor
             public Location() { }

@@ -51,5 +51,15 @@ namespace IBL
             int caught = dal.AvailableChargeSlots(stationId);
             return caught;
         }
+
+        private IDal.DO.Coordinate CoordinateBoToDo(BO.Coordinate coor)
+        {
+            return new IDal.DO.Coordinate() { InputCoorValue = coor.InputCoorValue, Degrees = coor.Degrees, Direction = (IDal.DO.Directions)coor.Direction, MyLocation = (IDal.DO.Locations)coor.MyLocation , Minutes = coor.Minutes, Seconds = coor.Seconds};
+        }
+
+        private BO.Coordinate CoordinateDoToBo(IDal.DO.Coordinate coor)
+        {
+            return new BO.Coordinate() { InputCoorValue = coor.InputCoorValue, Degrees = coor.Degrees, Direction = (BO.Directions)coor.Direction, MyLocation = (BO.Locations)coor.MyLocation, Minutes = coor.Minutes, Seconds = coor.Seconds };
+        }
     }
 }

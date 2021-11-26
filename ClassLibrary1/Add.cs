@@ -19,7 +19,8 @@ namespace IBL
         /// <param name="baseStation">base station</param>
         public void Add(BO.BaseStation baseStation)
         {
-            dal.Add(new IDal.DO.BaseStation() { Id = baseStation.Id, Name = baseStation.Name, Longitude = baseStation.Location.CoorLongitude , Latitude = baseStation.Location.CoorLatitude, ChargeSlots = baseStation.ChargeSlots}); 
+            dal.Add(new IDal.DO.BaseStation() { Id = baseStation.Id, Name = baseStation.Name, Longitude = CoordinateBoToDo(baseStation.Location.CoorLongitude), Latitude = CoordinateBoToDo(baseStation.Location.CoorLatitude), ChargeSlots = baseStation.ChargeSlots });
+
         }
 
         /// <summary>
