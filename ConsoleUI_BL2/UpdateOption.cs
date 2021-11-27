@@ -17,7 +17,7 @@ namespace ConsoleUI_BL
         public void Options(ref BL bl)
         {
             int id = 0;
-            string name = null, num = null, customerId;
+            string model = null, num = null, customerId;
             Console.WriteLine("Please enter : \n1- For updating a drone \n2- For updating a basetation \n3- For updating a customer \n4- For charging drone \n5- For stop drone charging \n6- For associating parcel \n7- For picking up parcel \n8- For supply parcel \n");
             if (int.TryParse(Console.ReadLine(), out int innerChoice))
             {
@@ -35,24 +35,24 @@ namespace ConsoleUI_BL
                         {
                             Console.WriteLine("Please enter baseStationId and one or more of the following details: name, number of charge slots");
                             id = InputIntValue();
-                            while (name == null && num == null)
+                            while (model == null && num == null)
                             {
-                                name = InputOptionalStringValue();
+                                model = InputOptionalStringValue();
                                 num = InputOptionalIntValue();
                             }
-                            bl.UpdateBaseStation(id, name, num);
+                            bl.UpdateBaseStation(id, model, num);
                             break;
                         }
                     case (int)UpDateOptions.UpdateCustomer:
                         {
                             Console.WriteLine("Please enter customerId and one or more of the following details: name, phone");
                             customerId = InputStringId();
-                            while (name == null && num == null)
+                            while (model == null && num == null)
                             {
-                                name = InputOptionalStringValue();
+                                model = InputOptionalStringValue();
                                 num = InputOptionalIntValue();
                             }
-                            bl.UpdateCustomer(customerId, name,num);
+                            bl.UpdateCustomer(customerId, model, num);
                             break;
                         }
                    case (int)UpDateOptions.ChargeDrone:
