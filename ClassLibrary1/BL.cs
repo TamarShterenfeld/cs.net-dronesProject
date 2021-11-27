@@ -113,10 +113,6 @@ namespace IBL
         }
 
 
-
-
-
-
         /// <summary>
         /// the function returns the nearest BaseStation to the input drone.
         /// </summary>

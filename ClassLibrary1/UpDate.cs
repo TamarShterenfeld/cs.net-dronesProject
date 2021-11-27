@@ -34,6 +34,10 @@ namespace IBL
             dal.UpdateCustomer(station, id);
         }
 
+
+
+
+
         /// <summary>
         /// The function gives associate date to the parcel.
         /// </summary>
@@ -56,7 +60,6 @@ namespace IBL
                         .OrderByDescending(parcel => (int)parcel.Priority)
                         .ThenByDescending(parcel => (int)parcel.Weight)
                         .ThenBy(parcel => customersList.First(customer => customer.Id == parcel.SenderId).Distance(currDrone));
-
                     foreach (var item in parcels)
                     {
                         DroneForList currentDrone = GetDroneForList(currDrone.Id);
@@ -70,6 +73,7 @@ namespace IBL
                             double minBattery2 = ComputeMinBatteryNeeded(currentDrone, target);
                             if (currentDrone.Battery - minBattery2 >= 0)
                             {
+                                //לקצר בפונקציה שתעשה את החישוב.
                                 currentDrone.Battery -= minBattery2;
                                 currentDrone.Location = target.Location;
                                 BaseStation nearestBaseStation = NearestBaseStation(currentDrone);
@@ -111,6 +115,8 @@ namespace IBL
                 Drone currDrone = dronesList[droneIndex];
                 int parcelId = currDrone.Parcel.Id;
                 Parcel parcel = parcelsList.First(item => item.Id == parcelId);
+                int parcelIndex = parcelsList.FindIndex(item => item.Id == parcelId);
+                             
                 if (parcel.PickUpDate != new DateTime(01 / 01 / 0001))
                 {
                     List<Customer> customersList = (List<Customer>)dal.GetCustomersList();
@@ -118,6 +124,13 @@ namespace IBL
                     Customer senderCustomer = customersList.First(item => item.Id == senderId);
                     currDrone.Location = senderCustomer.Location;
                     parcel.PickUpDate = DateTime.Now;
+                    //update data in the DAL logic level.
+                    dronesList[droneIndex] = currDrone;
+                    parcelsList[parcelIndex] = parcel;
+                    //update the data in the dronesforlist.
+                    DroneForList drone = GetDroneForList(currDrone.Id);
+                    int droneForListIndex = dronesForList.FindIndex(item => item.Id == currDrone.Id);
+                    dronesForList[droneForListIndex] = drone;
                 }
                 else
                 {
@@ -125,6 +138,7 @@ namespace IBL
                 }
             }
         }
+
         /// <summary>
         /// The function gives arrival date to the parcel.
         /// </summary>
@@ -142,15 +156,27 @@ namespace IBL
                 int parcelId = currDrone.Parcel.Id;
                 List<Parcel> parcelsList = (List<Parcel>)dal.GetParcelsList();
                 Parcel parcel = parcelsList.First(item => item.Id == parcelId);
+                int parcelIndex = parcelsList.FindIndex(item => item.Id == parcel.Id);
                 //check if the associated parcel has been picked up and still wasn't supplied.
                 if (parcel.PickUpDate != new DateTime(01 / 01 / 0001))
                 {
                     List<Customer> customersList = (List<Customer>)dal.GetCustomersList();
                     if (parcel.SupplyDate == new DateTime(01 / 01 / 0001))
                     {
+                        DroneForList drone = GetOneDroneForList(currDrone);
                         Customer targetCustomer = customersList.First(item => item.Id == parcel.Target.Id);
                         currDrone.Status = DroneStatuses.Available;
+                        currDrone.Battery = ComputeMinBatteryNeeded(drone, targetCustomer);
                         currDrone.Location = targetCustomer.Location;
+                        parcel.SupplyDate = DateTime.Now;    
+                        //update the data in the DAL logic level.
+                        dronesList[droneIndex] = currDrone;
+                        parcelsList[parcelIndex] = parcel;
+                        //update the data in the object of the BL logic level.
+                        drone = GetOneDroneForList(currDrone);
+                        int droneForListIndex = dronesForList.FindIndex(item => item.Id == drone.Id);
+                        //update the data in the dronesForList.
+                        dronesForList[droneForListIndex] = drone;
                     }
                     else
                     {
