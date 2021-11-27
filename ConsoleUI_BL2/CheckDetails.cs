@@ -18,8 +18,11 @@ namespace ConsoleUI_BL
         /// <param name="name">base station's name</param>
         /// <param name="location">base station's name</param>  
         /// <param name="chargeSlots"> number of charge slots in the base station</param>
-        internal static (int, string, Location, int) CheckBaseStationDetails( int id,  string name, Location location,  int chargeSlots)
+        internal static (int, string, Location, int) InputBaseStationDetails()
         {
+            int id, chargeSlots;
+            string name;
+            Location location;
             Console.WriteLine("Enter base station's details : id, name, longitude, latitude, number of chargeSlots.");
             id = InputIntValue( );
             name = InputStringValue();
@@ -35,8 +38,11 @@ namespace ConsoleUI_BL
         /// <param name="battery">drone's battery</param>
         /// <param name="model">drone's model</param>
         /// <param name="maxWeight">drone's max weight</param>
-        internal static (int, string, WeightCategories) CheckDroneDetails(int id, string model, WeightCategories weight)
+        internal static (int, string, WeightCategories) InputDroneDetails()
         {
+            int id;
+            string model;
+            WeightCategories weight;
             Console.WriteLine("Enter drone's details :\n id, model, category weight and base station's id.");
             id = InputIntValue();
             model = InputIsNotNull();
@@ -52,8 +58,11 @@ namespace ConsoleUI_BL
         /// <param name="targetId">parcel's target id</param>
         /// <param name="weight">parcel's weight</param>
         /// <param name="priority">parcel's priority </param>
-        internal static (string, string, WeightCategories, Priorities) CheckParcelDetails( string senderId,  string targetId, WeightCategories weightCategory, Priorities priority1)
+        internal static (string, string, WeightCategories, Priorities) InputParcelDetails()
         {
+            string senderId, targetId;
+            WeightCategories weightCategory;
+            Priorities priority1;
             Console.WriteLine("Please enter :\n sender id,getter id, category weight and the priority of the drone.");
             //the checkings of the different (string) id are implemented within the struct Parcel and another function named "chackingIdentitiesOfParcel"
             senderId = InputStringId();
@@ -71,8 +80,10 @@ namespace ConsoleUI_BL
         /// <param name="phone">customer's phone</param>
         /// <param name="longitude">customer's longitude</param>
         /// <param name="latitude">customer's latitude</param>
-        internal static (string, string,string, Location) CheckCustomerDetails( string id,  string name,  string phone,  Location location)
+        internal static (string, string,string, Location) InputCustomerDetails()
         {
+            string id, name, phone;
+            Location location;
             Console.WriteLine("Enter base customer's details : id, name, phone,  longitude, latitude.");
             //the needed checkings are implemented within the struct Customer or in DalObject.
             id = InputStringId();

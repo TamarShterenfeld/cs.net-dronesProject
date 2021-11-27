@@ -18,11 +18,6 @@ namespace ConsoleUI_BL
         /// <inheritdoc />
         public void Options(ref BL bl)
         {
-            int id = 0, baseStationId , chargeSlots = 0;
-            string name = " ", customerId = " ", phone = " ", model = " ", senderId = " ", targetId = " ";
-            Location location = new();
-            WeightCategories weightCategory = Average;
-            Priorities priorities = Priorities.Emergency;
             Console.WriteLine("Please enter : \n1- For Base Station \n2- For Drone\n3- For Customer\n4- For Parcel ");
             if (int.TryParse(Console.ReadLine(), out int innerChoice))
             {
@@ -31,16 +26,16 @@ namespace ConsoleUI_BL
                     case (int)AddOptions.BaseStation:
                         {
                             BaseStation baseStation = new();
-                           (baseStation.Id, baseStation.Name, baseStation.Location, baseStation.ChargeSlots) = CheckBaseStationDetails(id, name, location, chargeSlots);
+                           (baseStation.Id, baseStation.Name, baseStation.Location, baseStation.ChargeSlots) = InputBaseStationDetails();
                             bl.Add(baseStation);
                             break;
                         }
 
                     case (int)AddOptions.Drone:
                         {
-                           
+                            int baseStationId;
                             Drone drone = new();
-                            (drone.Id, drone.Model, drone.MaxWeight) = CheckDroneDetails(id, model, weightCategory);
+                            (drone.Id, drone.Model, drone.MaxWeight) = InputDroneDetails();
                             baseStationId = InputIntValue();
                             bl.Add(drone, baseStationId);
                             break;
@@ -48,7 +43,7 @@ namespace ConsoleUI_BL
                     case (int)AddOptions.Customer:
                         {          
                             Customer customer = new();
-                            (customer.Id, customer.Name, customer.Phone, customer.Location) = CheckCustomerDetails(customerId, name, phone, location);
+                            (customer.Id, customer.Name, customer.Phone, customer.Location) = InputCustomerDetails();
                             bl.Add(customer);
                             break;
                         }
@@ -57,7 +52,7 @@ namespace ConsoleUI_BL
                             Parcel parcel = new();
                             CustomerInParcel sender = new();
                             CustomerInParcel target = new();
-                            (sender.Id, target.Id, parcel.Weight, parcel.Priority)=CheckParcelDetails(senderId, targetId, weightCategory, priorities);
+                            (sender.Id, target.Id, parcel.Weight, parcel.Priority)=InputParcelDetails();
                             bl.Add(parcel);
                             break;
                      }

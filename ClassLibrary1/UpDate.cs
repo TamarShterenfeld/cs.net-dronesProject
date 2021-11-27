@@ -59,7 +59,7 @@ namespace IBL
 
                     foreach (var item in parcels)
                     {
-                        Drone currentDrone = currDrone;
+                        DroneForList currentDrone = GetDroneForList(currDrone.Id);
                         BO.Customer sender = GetBOCustomersList().First(item1 => item1.Id == item.Sender.Id);
                         BO.Customer target = GetBOCustomersList().First(item1 => item1.Id == item.Target.Id);
                         double minBattery1 = ComputeMinBatteryNeeded(currentDrone, sender);
