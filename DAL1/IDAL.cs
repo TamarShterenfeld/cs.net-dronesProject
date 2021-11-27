@@ -41,6 +41,12 @@ namespace IDal
         void Add(Parcel parcel);
 
         /// <summary>
+        /// the function adds a drone to the DronesChargeList.
+        /// </summary>
+        /// <param name="droneCharge">an object of a parcel - for adding to the ParcelsList</param> 
+        void Add(DroneCharge droneCharge);
+
+        /// <summary>
         /// the function updates drone's model
         /// </summary>
         /// <param name="drone">the updated drone</param>

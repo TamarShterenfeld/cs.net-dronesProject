@@ -10,94 +10,95 @@ namespace IBL
     public partial class BL : IBL
     {
 
-        public void UpdateDrone(int id, string model)
+        public void UpdateDrone(int droneId, string model)
         {
-            IDal.DO.Drone drone = dal.GetDrone(id);
+            IDal.DO.Drone drone = dal.GetDrone(droneId);
             drone.Model = model;
-            int index = dronesForList.FindIndex(item => item.Id == id);
-            DroneForList droneForList = dronesForList.First(item => item.Id == id);
-            dronesForList[index] = droneForList;
-            dal.UpdateDrone(drone, id);
+            dal.UpdateDrone(drone, droneId);
+            DroneForList droneForList = GetDroneForList(droneId);
+            UpdateDroneForList(droneForList, droneId);
         }
 
-        public void UpdateBaseStation(int id, string name, string num)
+        public void UpdateBaseStation(int baseStationId, string name, string chargeSlots)
         {
-            IDal.DO.BaseStation station = dal.GetBaseStation(id);
+            IDal.DO.BaseStation station = dal.GetBaseStation(baseStationId);
             if (name != null) { station.Name = name; }
-            if (num != null) { station.ChargeSlots = int.Parse(num); }
-            dal.UpdateBaseStation(station, id);
+            if (chargeSlots != null) { station.ChargeSlots = int.Parse(chargeSlots); }
+            dal.UpdateBaseStation(station, baseStationId);
         }
 
-        public void UpdateCustomer(string id, string name, string phone)
+        public void UpdateCustomer(string customerId, string name, string phone)
         {
-            IDal.DO.Customer station = dal.GetCustomer(id);
+            IDal.DO.Customer station = dal.GetCustomer(customerId);
             if (name != null) { station.Name = name; }
             if (phone != null) { station.Phone = phone; }
-            dal.UpdateCustomer(station, id);
+            dal.UpdateCustomer(station, customerId);
+        }
+
+        void UpdateDrone(DroneForList droneForList)
+        {
+            IDal.DO.Drone drone = dal.GetDrone(droneForList.Id);
+            dal.UpdateDrone(drone, drone.Id);
         }
 
 
-
-
-
-        /// <summary>
-        /// The function gives associate date to the parcel.
-        /// </summary>
-        /// <param name="parcelId">parcel id</param>
-        /// <param name="droneId">drone id</param>
         public void AssociateParcel(int droneId)
         {
-            List<Drone> dronesList = (List<Drone>)dal.GetDronesList();
-
-            List<Customer> customersList = (List<Customer>)dal.GetCustomersList();
-            int droneIndex = dronesList.FindIndex(item => item.Id == droneId);
-            if (droneIndex == -1)
-                throw new IntIndexException(droneIndex);
-            else
+            DroneForList currentDrone = GetDroneForList(droneId);
+            List<Customer> customersList = (List<Customer>)GetBOCustomersList();
+            bool isAssociate = false;
+            if (currentDrone.Status == DroneStatuses.Available)
             {
-                Drone currDrone = dronesList[droneIndex];
-                if (currDrone.Status == DroneStatuses.Available)
-                {
-                    List<Parcel> parcels = (List<Parcel>)dal.GetParcelsList()
-                        .OrderByDescending(parcel => (int)parcel.Priority)
-                        .ThenByDescending(parcel => (int)parcel.Weight)
-                        .ThenBy(parcel => customersList.First(customer => customer.Id == parcel.SenderId).Distance(currDrone));
-                    foreach (var item in parcels)
-                    {
-                        DroneForList currentDrone = GetDroneForList(currDrone.Id);
-                        BO.Customer sender = GetBOCustomersList().First(item1 => item1.Id == item.Sender.Id);
-                        BO.Customer target = GetBOCustomersList().First(item1 => item1.Id == item.Target.Id);
-                        double minBattery1 = ComputeMinBatteryNeeded(currentDrone, sender);
-                        if (currDrone.Battery -  minBattery1 > 0)
-                        {
-                            currentDrone.Battery -= minBattery1;
-                            currentDrone.Location = sender.Location;
-                            double minBattery2 = ComputeMinBatteryNeeded(currentDrone, target);
-                            if (currentDrone.Battery - minBattery2 >= 0)
-                            {
-                                //לקצר בפונקציה שתעשה את החישוב.
-                                currentDrone.Battery -= minBattery2;
-                                currentDrone.Location = target.Location;
-                                BaseStation nearestBaseStation = NearestBaseStation(currentDrone);
-                                double minBattery3 = ComputeMinBatteryNeeded(currentDrone, nearestBaseStation);
-                                if ((currentDrone.Battery - minBattery3) >= 0)
-                                {
-                                    currDrone.Parcel = GetParcelInPassing(item.Id);
-                                    //if(currentDrone.Battery - minBattery3 == 0)
-                                    //{
-                                        
-                                    //    nearestBaseStation.DroneCharging.Add(GetDr)
-                                    //}
+                List<Parcel> parcels = (List<Parcel>)dal.GetParcelsList()
+                    .OrderByDescending(parcel => (int)parcel.Priority)
+                    .ThenByDescending(parcel => (int)parcel.Weight)
+                    .ThenBy(parcel => customersList.First(customer => customer.Id == parcel.SenderId).Distance(currentDrone));
 
-                                    
-                                        
+                foreach (var item in parcels)
+                {
+                    Customer sender = GetBOCustomersList().First(item1 => item1.Id == item.Sender.Id);
+                    Customer target = GetBOCustomersList().First(item1 => item1.Id == item.Target.Id);
+                    if (DroneReachLocation(currentDrone, sender))
+                    {
+                        currentDrone.Battery = ComputeBatteryRemaining(currentDrone, sender);
+                        currentDrone.Location = sender.Location;
+                        if (DroneReachLocation(currentDrone, target))
+                        {
+                            currentDrone.Battery = ComputeBatteryRemaining(currentDrone, target);
+                            currentDrone.Location = target.Location;
+                            BaseStation nearestBaseStation = NearestBaseStation(currentDrone);
+                            if (DroneReachLocation(currentDrone, nearestBaseStation))
+                            {
+                                isAssociate = true;
+                                currentDrone.Battery = ComputeBatteryRemaining(currentDrone, nearestBaseStation);
+                                currentDrone.Status = DroneStatuses.Shipment;
+                                currentDrone.ParcelId = item.Id;
+                                //there's a need to charge the drone in the nearest baseStation.
+                                if (currentDrone.Battery == 0)
+                                {
+                                    if (nearestBaseStation.ChargeSlots > 0)
+                                    {
+                                        currentDrone.Status = DroneStatuses.Maintenance;
+                                        IDal.DO.DroneCharge droneCharge = new() { DroneId = currentDrone.Id, StationId = nearestBaseStation.Id, EntryTime = DateTime.Now };
+                                        dal.Add(droneCharge);
+                                    }
+                                    else
+                                        throw new ChargeSlotsException(nearestBaseStation.ChargeSlots);
                                 }
+                                int droneIndex = dronesForList.FindIndex(item => item.Id == currentDrone.Id);
+                                UpdateDroneForList(currentDrone, droneIndex);
+                                UpdateDrone(currentDrone);
+                                item.AssociationDate = DateTime.Now;
+                                item.MyDrone = GetBLDroneInParcel(droneId);
                             }
                         }
                     }
                 }
-
+                if (isAssociate == false)
+                    throw new ActionException(Actions.Associate);
             }
+            else
+                throw new DroneStatusException(currentDrone.Status);
         }
 
         /// <summary>
@@ -118,7 +119,7 @@ namespace IBL
                 int parcelId = currDrone.Parcel.Id;
                 Parcel parcel = parcelsList.First(item => item.Id == parcelId);
                 int parcelIndex = parcelsList.FindIndex(item => item.Id == parcelId);
-                             
+
                 if (parcel.PickUpDate != new DateTime(01 / 01 / 0001))
                 {
                     List<Customer> customersList = (List<Customer>)dal.GetCustomersList();
@@ -151,7 +152,7 @@ namespace IBL
             List<Drone> dronesList = (List<Drone>)dal.GetDronesList();
             int droneIndex = dronesList.FindIndex(item => item.Id == droneId);
             if (droneIndex == -1)
-                throw new IntIdException(droneIndex);
+                throw new IntIdException(droneId);
             else
             {
                 Drone currDrone = dronesList[droneIndex];
@@ -170,7 +171,7 @@ namespace IBL
                         currDrone.Status = DroneStatuses.Available;
                         currDrone.Battery = ComputeMinBatteryNeeded(drone, targetCustomer);
                         currDrone.Location = targetCustomer.Location;
-                        parcel.SupplyDate = DateTime.Now;    
+                        parcel.SupplyDate = DateTime.Now;
                         //update the data in the DAL logic level.
                         dronesList[droneIndex] = currDrone;
                         parcelsList[parcelIndex] = parcel;
@@ -201,37 +202,13 @@ namespace IBL
         /// <param name="baseStationId">base station's id</param>
         public void ChargeDrone(int droneId)
         {
-
-            DroneForList drone = GetOneDroneForList(GetBLDrone(droneId));
-            if (drone.Status != DroneStatuses.Available) { throw new Exception(); }
-            BO.BaseStation baseStation =  NearestBaseStation(drone);
-            ComputeMinBatteryNeeded(drone, baseStation);
-
-
+            DroneForList drone = GetDroneForList(droneId);
+            if (drone.Status != DroneStatuses.Available) { throw new DroneStatusException(drone.Status); }
+            BaseStation baseStation = NearestBaseStation(drone);
+            drone.Battery = ComputeMinBatteryNeeded(drone, baseStation);
+            //there's a need to continue the function.
         }
-        //InputIntValue(ref droneId);
-        //List<Drone> DronesList = (List<Drone>)dal.GetDronesList();
-        //if (DronesList.FindIndex(item => item.Id == droneId) == -1)
-        //    throw new OverloadException("drone's id doesn't exist in the drones' list.");
-        //Drone drone = DronesList.First(item => item.Id == droneId);
-        //int droneIndex = DronesList.FindIndex(item => item.Id == droneId);
-
-        //    inputIntValue(ref baseStationId);
-        //    List<BaseStation> BaseStationsList = (List<BaseStation>)dal.GetBaseStationsList();
-        //    if (BaseStationsList.FindIndex(item => item.Id == baseStationId) == -1)
-        //        throw new OverloadException("drone's id doesn't exist in the drones' list.");
-        //    BaseStation baseStation = BaseStationsList.First(item => item.Id == baseStationId);
-        //    int baseStationIndex = BaseStationsList.FindIndex(item => item.Id == baseStationId);
-        //    if (baseStation.ChargeSlots == 0)
-        //        throw new OverloadException("The chosen base station isn't available to charge the drone.");
-
-        //    DroneInCharging droneCharge = new DroneInCharging(baseStationId, droneId);
-        //    List<DroneInCharging> dronesChargeList = (List<DroneInCharging>)dal.GetDronesCharge();
-        //    dronesChargeList.Add(droneCharge);
-
-        //    DronesList[droneIndex] = drone;
-        //    BaseStationsList[baseStationIndex] = baseStation;
-        //}
+       
 
         /// <summary>
         /// the function stops the drone from charging
@@ -245,14 +222,22 @@ namespace IBL
             List<BaseStation> baseStationsList = (List<BaseStation>)dal.GetBaseStationsList();
             int findIndex = dronesList.FindIndex(item => item.Id == droneId);
             if (findIndex == -1)
-                throw new IntIdException(findIndex);
+                throw new IntIdException(droneId);
             findIndex = DroneChargeList.FindIndex(item => item.Id == droneId);
             if (findIndex == -1)
-                throw new IntIdException(findIndex);
+                throw new IntIdException(droneId);
             Drone drone = dronesList.First(item => item.Id == droneId);
             int droneIndex = dronesList.FindIndex(item => item.Id == droneId);
             DroneInCharging droneCharge = DroneChargeList.First(item => item.Id == droneId);
         }
+
+        void UpdateDroneForList(DroneForList droneForList, int id)
+        {
+            int index = dronesForList.FindIndex(item => item.Id == id);
+            dronesForList[index] = droneForList;
+        }
+
+
     }
 }
 

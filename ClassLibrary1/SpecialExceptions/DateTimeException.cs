@@ -8,14 +8,14 @@ namespace IBL
     namespace BO
     {
         [Serializable]
-        public class DateTimeException : Exception
+        public class DroneStatusException : Exception
         {
-            public DateTimeException() : base() { }
-            public DateTimeException(string message) : base(message) { }
-            public DateTimeException(string message, Exception inner) : base(message, inner) { }
-            protected DateTimeException(SerializationInfo info, StreamingContext context) : base(info, context) { }
+            public DroneStatusException() : base() { }
+            public DroneStatusException(string message) : base(message) { }
+            public DroneStatusException(string message, Exception inner) : base(message, inner) { }
+            protected DroneStatusException(SerializationInfo info, StreamingContext context) : base(info, context) { }
 
-            public DateTimeException(DateTime dateTime) { }
+            public DroneStatusException(DroneStatuses droneStatuses) { }
             override public string ToString()
             {
                 return "OverloadCapacityException: DAL capacity of " + " overloaded\n" + Message;
