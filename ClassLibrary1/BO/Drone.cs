@@ -34,12 +34,12 @@ namespace IBL.BO
         public ParcelInPassing Parcel { set; get; }
         public Location Location { get; set; }
 
-        public Drone() { }
+        //public Drone() { }
 
-        public Drone(int id, string model, WeightCategories weight, double battery, DroneStatuses status, ParcelInPassing parcel, Location location)
-        {
-            Id = id; Model = model; MaxWeight = weight; Battery = battery; Status = status; Parcel = parcel; Location = location;
-        }
+        //public Drone(int id, string model, WeightCategories weight, double battery, DroneStatuses status, ParcelInPassing parcel, Location location)
+        //{
+        //    Id = id; Model = model; MaxWeight = weight; Battery = battery; Status = status; Parcel = parcel; Location = location;
+        //}
         /// <summary>
         /// override ToString function.
         /// </summary>

@@ -62,8 +62,8 @@ namespace IBL
        
         IEnumerable<DroneInCharging> GetDronesInMe(int stationId);
         IEnumerable<BO.Drone> GetBODronesList();
-        IEnumerable<DroneForList> GetDronesList();
-        DroneForList GetDroneForList(int id);
+        IEnumerable<DroneForList> InitDroneForList();
+        DroneForList GetDroneForList(IDal.DO.Drone drone);
         BO.Drone GetBLDrone(int id);
         BO.Drone DroneDOtOBO(IDal.DO.Drone drone);
         DroneInParcel GetBLDroneInParcel(int id);

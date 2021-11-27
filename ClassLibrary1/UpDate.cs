@@ -202,7 +202,7 @@ namespace IBL
         public void ChargeDrone(int droneId)
         {
 
-            BO.Drone drone= GetBLDrone(droneId);
+            DroneForList drone = GetOneDroneForList(GetBLDrone(droneId));
             if (drone.Status != DroneStatuses.Available) { throw new Exception(); }
             BO.BaseStation baseStation =  NearestBaseStation(drone);
             ComputeMinBatteryNeeded(drone, baseStation);

@@ -8,6 +8,8 @@ using System.Linq;
 
 namespace DalObject
 {
+
+
     /// <summary>
     /// a class which contains all the data of program.
     /// most of them are randomaled by healthy logic.
@@ -76,7 +78,7 @@ namespace DalObject
         private static void RandomBaseStation()
         {
             int size = rand.Next(2, BASESTATIONS_BASE_AMOUNT);
-            for (int i = 0; i < size; i++)
+            for (int i = 1; i < size+1; i++)
             {
                 BaseStation baseStation = new ();
                 baseStation.Id = i;
@@ -85,10 +87,12 @@ namespace DalObject
                 baseStation.Longitude = RandomLongitude();
                 baseStation.Latitude = RandomLatitude();
                 BaseStationsList.Add(baseStation);
+                Console.WriteLine("baseStation\n"+ baseStation);///////////
             }
 
         }
 
+        //public delegate void Action(Drone drone);
         /// <summary>
         /// randoms at least the first five object in DronesList.
         /// </summary>
@@ -96,13 +100,16 @@ namespace DalObject
         {
             int size = rand.Next(5, DRONES_BASE_AMOUNT);
 
-            for (int i = 0; i < size; i++)
+            for (int i = 1; i < size+1; i++)
             {
                 Drone drone = new();
                 drone.Id = i;
                 drone.Model = RandomModel();
                 drone.MaxWeight = RandomWeight();
                 DronesList.Add(drone);
+
+                Console.WriteLine("drone\n"+drone);///////////
+
             }
 
         }
@@ -123,6 +130,8 @@ namespace DalObject
                 customer.Longitude = RandomLongitude();
                 customer.Longitude = RandomLatitude();
                 CustomersList.Add(customer);
+                Console.WriteLine("customer\n"+customer);///////////
+
             }
 
         }
@@ -134,7 +143,7 @@ namespace DalObject
             for (int i = 0; i < size; i++)
             {
                 Parcel parcel = new();
-               // parcel.Id = DalObject.IncreaseParcelIndex();
+                parcel.Id = DalObject.IncreaseParcelIndex();
                 parcel.SenderId = RandomCustomerId();
                 parcel.TargetId = RandomCustomerId();
                 parcel.Priority = RandomPriority();
@@ -159,6 +168,8 @@ namespace DalObject
                     parcel.AssociationDate = new DateTime(01 / 01 / 0001);
                 }
                 ParcelsList.Add(parcel);
+                Console.WriteLine("parcels\n"+parcel);///////////
+
             }
         }
 
@@ -190,7 +201,7 @@ namespace DalObject
         /// <returns>a randomaled WeightCategory value.</returns>
         private static WeightCategories RandomWeight()
         {
-            WeightCategories weightIndex = (WeightCategories)rand.Next(0, Enum.GetNames(typeof(WeightCategories)).Length-1);
+            WeightCategories weightIndex = (WeightCategories)rand.Next(1, Enum.GetNames(typeof(WeightCategories)).Length);
             return weightIndex;
         }
 
@@ -200,7 +211,7 @@ namespace DalObject
         /// <returns>a randomaled Priority value.</returns>
         private static Priorities RandomPriority()
         {
-            Priorities priority = (Priorities)rand.Next(0, Enum.GetNames(typeof(Priorities)).Length-1);
+            Priorities priority = (Priorities)rand.Next(1, Enum.GetNames(typeof(Priorities)).Length);
             return priority;
         }
 

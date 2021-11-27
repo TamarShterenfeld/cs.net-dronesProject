@@ -14,13 +14,6 @@ namespace IDal
         }
 
         /// <summary>
-        /// an enum which contains the different statuses types of drones.
-        /// </summary>
-        public enum DroneStatuses
-        {
-            Available = 1, Maintenance, Shipment
-        }
-        /// <summary>
         /// an enum which contains the different priorities types of parcels. 
         /// </summary>
         public enum Priorities

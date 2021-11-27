@@ -18,18 +18,6 @@ namespace IBL
     {
 
         //----------------------------------BaseStation GetObject Methods---------------------------------
-        public BaseStationForList GetBaseStationForList(int id)
-        {
-            BO.BaseStation item = GetBLBaseStation(id);
-            BaseStationForList current = new()
-            {
-                Id = item.Id,
-                CaughtChargeSlots = item.ChargeSlots - CatchAvailableChargeSlots(item.Id),
-                Name = item.Name,
-                FreeChargeSlots = CatchAvailableChargeSlots(item.Id)
-            };
-            return current;
-        }
 
         /// <summary>
         /// The function displays a base station according to id.
@@ -53,10 +41,47 @@ namespace IBL
             return BOBaseStation;
         }
 
+        public BaseStationForList GetBaseStationForList(int id)
+        {
+            BO.BaseStation item = GetBLBaseStation(id);
+            BaseStationForList current = new()
+            {
+                Id = item.Id,
+                CaughtChargeSlots = item.ChargeSlots - CatchAvailableChargeSlots(item.Id),
+                Name = item.Name,
+                FreeChargeSlots = CatchAvailableChargeSlots(item.Id)
+            };
+            return current;
+        }
 
-        
+
 
         //----------------------------------Drone GetObject Methods---------------------------------
+        
+        /// <summary>
+        /// The function displays a drone according to the id.
+        /// </summary>
+        /// <param name="id">drone's id</param>
+        public BO.Drone GetBLDrone(int id)
+        {
+            return DroneDOtOBO(dal.GetDrone(id));
+
+        }
+
+        public BO.Drone DroneDOtOBO(IDal.DO.Drone drone)
+        {
+            BO.Drone BODrone = new()
+            {
+                Id = drone.Id,
+                Model = drone.Model,
+                MaxWeight = (BO.WeightCategories)drone.MaxWeight,
+                Battery = GetDroneBattery(drone.Id),
+                Status = GetDroneStatus(drone.Id),
+                Parcel = GetDroneParcelId(drone.Id) != 0 ? GetParcelInPassing(GetDroneParcelId(drone.Id)) : null,
+                Location = GetDroneLocation(drone.Id)
+            };
+            return BODrone;
+        }
 
         public DroneForList GetDroneForList(int id)
         {
@@ -74,30 +99,18 @@ namespace IBL
             return current;
         }
 
-        /// <summary>
-        /// The function displays a drone according to the id.
-        /// </summary>
-        /// <param name="id">drone's id</param>
-        public BO.Drone GetBLDrone(int id)
+        public DroneForList GetDroneForList(IDal.DO.Drone drone)
         {
-            return DroneDOtOBO(dal.GetDrone(id));
-
-        }
-
-        public BO.Drone DroneDOtOBO(IDal.DO.Drone drone)
-        {
-            BO.Drone BODrone = new ()
+            DroneForList current = new()
             {
                 Id = drone.Id,
-                Model = drone.Model,
                 MaxWeight = (BO.WeightCategories)drone.MaxWeight,
-                Battery = GetDroneBattery(drone.Id),
-                Status = (BO.DroneStatuses)drone.Status,
-                Parcel = (GetDroneParcelId(drone.Id) != 0) ? GetParcelInPassing(GetDroneParcelId(drone.Id)) : null,
-                Location = GetDroneLocation(drone.Id)
+                Model = drone.Model,
+           
             };
-            return BODrone;
+            return current;
         }
+
 
         /// <summary>
         /// The function displays a drone in parcel according to id.
@@ -111,13 +124,13 @@ namespace IBL
 
         public DroneInParcel DroneInParcelDOtOBO(IDal.DO.Drone drone)
         {
-            DroneInParcel BOCustomerInParcel = new()
+            DroneInParcel droneInPrcel = new()
             {
                 Id = drone.Id,
-                Battery = drone.Battery,
+                Battery = GetDroneBattery(drone.Id),
                 //CurrentLocation =,
             };
-            return BOCustomerInParcel;
+            return droneInPrcel;
         }
 
         //----------------------------------DroneForList GetObject Methods---------------------------------

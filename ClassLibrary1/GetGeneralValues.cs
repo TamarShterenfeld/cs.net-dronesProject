@@ -16,17 +16,24 @@ namespace IBL
         //----------------------------------Other GetObject Methods---------------------------------
         private double GetDroneBattery(int droneId)
         {
-            return GetBLDrone(droneId).Battery;
+            return dronesForList.Find(drone => drone.Id == droneId).Battery;
+        }
+
+        private DroneStatuses GetDroneStatus(int droneId)
+        {
+            return dronesForList.Find(drone => drone.Id == droneId).Status;
         }
 
         private Location GetDroneLocation(int droneId)
         {
-            return GetBLDrone(droneId).Location;
+            return dronesForList.Find(drone => drone.Id == droneId).Location;
         }
 
         private int GetDroneParcelId(int droneId)
         {
-            return dronesForList.Find(drone => drone.Id == droneId).ParcelId;
+            
+            ParcelForList parcelForList = ((List<ParcelForList>)GetParcelsList()).First(parcel=>parcel.DroneId == droneId);
+            return parcelForList == null ? 0 : parcelForList.ParcelId;
         }
 
 

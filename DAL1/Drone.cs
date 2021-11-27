@@ -31,9 +31,6 @@ namespace IDal
 
             public WeightCategories MaxWeight { set; get; }
 
-            public double Battery { get; set; }
-
-            public DroneStatuses Status { set; get; }
 
 
             
@@ -44,10 +41,8 @@ namespace IDal
             public override string ToString()
             {
                 return $"id: {Id} \n" +
-                       $"model: {Model} \n"+
-                       $"maxWeight:  {MaxWeight}\n"+
-                       $"battery:  {Battery}\n"+
-                       $"status:  {Status}\n";
+                       $"model: {Model} \n" +
+                       $"maxWeight:  {MaxWeight}\n";
 
             }
         }

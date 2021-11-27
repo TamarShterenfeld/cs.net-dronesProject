@@ -12,9 +12,11 @@ namespace IBL
 {
     public partial class BL: IBL
     {
+        //a static random field - for general use.
+        public static readonly Random rand = new();
         //---------------------------------BaseStation GetList methods------------------------------------------------
-       
-        
+
+
         public IEnumerable<BO.BaseStation> GetBOBaseStationsList()
         {
             List<BO.BaseStation> boBaseStationList = new();
@@ -76,8 +78,10 @@ namespace IBL
         {
             List<BO.Drone> boDronesList = new();
             List<IDal.DO.Drone> doDronseList = (List<IDal.DO.Drone>)dal.GetDronesList();
+            int i = 0;
             foreach (IDal.DO.Drone item in doDronseList)
             {
+                i++;
                 boDronesList.Add(GetBLDrone(item.Id));
             }
             return boDronesList;
@@ -89,29 +93,75 @@ namespace IBL
         /// by converting the BO.Drone to DroneForList type.
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<DroneForList> GetDronesList()
-        {
-            List<DroneForList> droneForLists = new();
-            List<BO.Drone> drones = (List<BO.Drone>)GetBOCustomersList();
+        //public IEnumerable<DroneForList> GetDronesList()
+        //{
+        //    List<DroneForList> droneForLists = new();
+        //    List<BO.Drone> drones = (List<BO.Drone>)GetBOCustomersList();
 
-            foreach (BO.Drone item in drones)
-            {
+        //    foreach (BO.Drone item in drones)
+        //    {
 
-                droneForLists.Add(GetDroneForList(item.Id));
-            }
-            return droneForLists;
-        }
+        //        droneForLists.Add(GetDroneForList(item.Id));
+        //    }
+        //    return droneForLists;
+        //}
 
         //---------------------------------DronesForList GetList Methods------------------------------------------------
 
-        public List<DroneForList> GetDroneForList(List<BO.Drone> drones)
+        //public List<DroneForList> GetDroneForList(List<BO.Drone> drones)
+        //{
+        //    List<DroneForList> droneForLists = new();
+        //    foreach (var drone in drones)
+        //    {
+        //        droneForLists.Add(GetOneDroneForList(drone));
+        //    }
+        //    return droneForLists;
+        //}
+
+
+        public IEnumerable<DroneForList> InitDroneForList()
         {
-            List<DroneForList> droneForLists = new();
-            foreach (var drone in drones)
+            List<DroneForList> droneForList = new();
+            DroneForList singleDrone;
+            foreach (var drone in dal.GetDronesList())
             {
-                droneForLists.Add(GetOneDroneForList(drone));
+                singleDrone = GetDroneForList(drone);
+                singleDrone.Status = RandomPriority();
+                singleDrone.Location = new Location(RandomLongitude(), RandomLatitude());
+                singleDrone.Battery = rand.NextDouble() * 20 + 20;
+                singleDrone.ParcelId = 0;////לטפל בשורה זו, איזה פרסל אי די לשים? 
+                droneForList.Add(singleDrone);
+
             }
-            return droneForLists;
+            return droneForList;
+        }
+
+        private DroneStatuses RandomPriority()
+        {
+            DroneStatuses status = (DroneStatuses)rand.Next(1, Enum.GetNames(typeof(DroneStatuses)).Length);
+            return status;
+        }
+
+        /// <summary>
+        /// randoms a longitude value of a Coordinate object.
+        /// </summary>
+        /// <returns>a coordinate object which stores a random longitude .</returns>
+        private BO.Coordinate RandomLongitude()
+        {
+            double longitude1 = 0.3 * rand.Next(0, 180) + 0.7 * rand.Next(-180, 0);
+            BO.Coordinate longitude = new BO.Coordinate( longitude1,BO.Locations.Longitude );
+            return longitude;
+        }
+
+        /// <summary>
+        /// randoms a latitude value of a Coordinate object.
+        /// </summary>
+        /// <returns>a coordinate object which stores a random latitude.</returns>
+        private BO.Coordinate RandomLatitude()
+        {
+            double latitude1 = 0.3 * rand.Next(0, 180) + 0.7 * rand.Next(-180, 0);
+            BO.Coordinate latitude = new BO.Coordinate( latitude1, BO.Locations.Longitude);
+            return latitude;
         }
 
         // ---------------------------------Parcels GetList Methods------------------------------------------------
@@ -123,7 +173,7 @@ namespace IBL
         public IEnumerable<BO.Parcel> GetBOParcelsList()
         {
             List<BO.Parcel> boParcelList = new ();
-            List<IDal.DO.Parcel> doParcelList = (List<IDal.DO.Parcel>)dal.GetBaseStationsList();
+            List<IDal.DO.Parcel> doParcelList = (List<IDal.DO.Parcel>)dal.GetParcelsList();
             foreach (IDal.DO.Parcel item in doParcelList)
             {
                 boParcelList.Add(GetBLParcel(item.Id));

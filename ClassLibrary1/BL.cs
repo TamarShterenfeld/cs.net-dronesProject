@@ -25,24 +25,10 @@ namespace IBL
         readonly double electricityConsumingOfAverageWeight;
         readonly double chargeRate;
 
-
-        public List<DroneForList> DronesForList
-        {
-            get
-            {
-                return dronesForList;
-            }
-            set
-            {
-                dronesForList = value;
-            }
-
-        }
-
         public BL()
         {
             dal = new DalObject.DalObject();
-            dronesForList = GetDroneForList((List<BO.Drone>)GetBODronesList());
+            dronesForList = (List<DroneForList>)InitDroneForList();
             double[] droneElectricityInfo = dal.ElectricityConsuming();
             electricityConsumingOfAvailable = droneElectricityInfo[0];
             electricityConsumingOfLightWeight = droneElectricityInfo[1];
