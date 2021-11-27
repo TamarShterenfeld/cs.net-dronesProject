@@ -13,7 +13,9 @@ namespace IBL
         {
             IDal.DO.Drone drone = dal.GetDrone(id);
             drone.Model = model;
-            //dronesForList. לעדכן ברשימת הרחפנים בב.ל
+            int index = dronesForList.FindIndex(item => item.Id == id);
+            DroneForList droneForList = dronesForList.First(item => item.Id == id);
+            dronesForList[index] = droneForList;
             dal.UpdateDrone(drone, id);
         }
 
@@ -142,35 +144,43 @@ namespace IBL
         /// <param name="baseStationId">base station's id</param>
         public void ChargeDrone(int droneId)
         {
-            InputIntValue(ref droneId);
-            List<Drone> DronesList = (List<Drone>)dal.GetDronesList();
-            if (DronesList.FindIndex(item => item.Id == droneId) == -1)
-                throw new OverloadException("drone's id doesn't exist in the drones' list.");
-            Drone drone = DronesList.First(item => item.Id == droneId);
-            int droneIndex = DronesList.FindIndex(item => item.Id == droneId);
 
-            //    inputIntValue(ref baseStationId);
-            //    List<BaseStation> BaseStationsList = (List<BaseStation>)dal.GetBaseStationsList();
-            //    if (BaseStationsList.FindIndex(item => item.Id == baseStationId) == -1)
-            //        throw new OverloadException("drone's id doesn't exist in the drones' list.");
-            //    BaseStation baseStation = BaseStationsList.First(item => item.Id == baseStationId);
-            //    int baseStationIndex = BaseStationsList.FindIndex(item => item.Id == baseStationId);
-            //    if (baseStation.ChargeSlots == 0)
-            //        throw new OverloadException("The chosen base station isn't available to charge the drone.");
+            BO.Drone drone= GetBLDrone(droneId);
+            if (drone.Status != DroneStatuses.Available) { throw new Exception(); }
+            BO.BaseStation baseStation =  NearestBaseStation(drone);
+            ComputeMinBatteryNeeded(drone, baseStation);
 
-            //    DroneInCharging droneCharge = new DroneInCharging(baseStationId, droneId);
-            //    List<DroneInCharging> dronesChargeList = (List<DroneInCharging>)dal.GetDronesCharge();
-            //    dronesChargeList.Add(droneCharge);
 
-            //    DronesList[droneIndex] = drone;
-            //    BaseStationsList[baseStationIndex] = baseStation;
-            //}
-
-            /// <summary>
-            /// the function stops the drone from charging
-            /// </summary>
-            /// <param name="droneId">drone's id</param>
         }
+        //InputIntValue(ref droneId);
+        //List<Drone> DronesList = (List<Drone>)dal.GetDronesList();
+        //if (DronesList.FindIndex(item => item.Id == droneId) == -1)
+        //    throw new OverloadException("drone's id doesn't exist in the drones' list.");
+        //Drone drone = DronesList.First(item => item.Id == droneId);
+        //int droneIndex = DronesList.FindIndex(item => item.Id == droneId);
+
+        //    inputIntValue(ref baseStationId);
+        //    List<BaseStation> BaseStationsList = (List<BaseStation>)dal.GetBaseStationsList();
+        //    if (BaseStationsList.FindIndex(item => item.Id == baseStationId) == -1)
+        //        throw new OverloadException("drone's id doesn't exist in the drones' list.");
+        //    BaseStation baseStation = BaseStationsList.First(item => item.Id == baseStationId);
+        //    int baseStationIndex = BaseStationsList.FindIndex(item => item.Id == baseStationId);
+        //    if (baseStation.ChargeSlots == 0)
+        //        throw new OverloadException("The chosen base station isn't available to charge the drone.");
+
+        //    DroneInCharging droneCharge = new DroneInCharging(baseStationId, droneId);
+        //    List<DroneInCharging> dronesChargeList = (List<DroneInCharging>)dal.GetDronesCharge();
+        //    dronesChargeList.Add(droneCharge);
+
+        //    DronesList[droneIndex] = drone;
+        //    BaseStationsList[baseStationIndex] = baseStation;
+        //}
+
+        /// <summary>
+        /// the function stops the drone from charging
+        /// </summary>
+        /// <param name="droneId">drone's id</param>
+
         public void ReleaseDroneFromRecharge(int droneId)
         {
             List<Drone> dronesList = (List<Drone>)dal.GetDronesList();
