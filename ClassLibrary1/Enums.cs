@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace IBL
 {
-    enum Actions
+    public enum Actions
     { 
-        Associate
+        Associate, PickUp, Supply, SendDroneForCharging, ReleaseDroneFromCharging,
     }
 
 }

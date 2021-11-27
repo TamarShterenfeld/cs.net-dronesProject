@@ -15,7 +15,7 @@ namespace IBL
             public ActionException(string message, Exception inner) : base(message, inner) { }
             protected ActionException(SerializationInfo info, StreamingContext context) : base(info, context) { }
 
-            public ActionException(DroneStatuses droneStatuses) { }
+            public ActionException(Actions action) { }
             override public string ToString()
             {
                 return "OverloadCapacityException: DAL capacity of " + " overloaded\n" + Message;

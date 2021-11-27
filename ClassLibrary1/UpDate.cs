@@ -46,6 +46,7 @@ namespace IBL
         {
             DroneForList currentDrone = GetDroneForList(droneId);
             List<Customer> customersList = (List<Customer>)GetBOCustomersList();
+            bool isAssociate = false;
             if (currentDrone.Status == DroneStatuses.Available)
             {
                 List<Parcel> parcels = (List<Parcel>)dal.GetParcelsList()
@@ -68,8 +69,10 @@ namespace IBL
                             BaseStation nearestBaseStation = NearestBaseStation(currentDrone);
                             if (DroneReachLocation(currentDrone, nearestBaseStation))
                             {
+                                isAssociate = true;
                                 currentDrone.Battery = ComputeBatteryRemaining(currentDrone, nearestBaseStation);
                                 currentDrone.Status = DroneStatuses.Shipment;
+                                currentDrone.ParcelId = item.Id;
                                 //there's a need to charge the drone in the nearest baseStation.
                                 if (currentDrone.Battery == 0)
                                 {
@@ -91,6 +94,8 @@ namespace IBL
                         }
                     }
                 }
+                if (isAssociate == false)
+                    throw new ActionException(Actions.Associate);
             }
             else
                 throw new DroneStatusException(currentDrone.Status);
