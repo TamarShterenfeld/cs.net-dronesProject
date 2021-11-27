@@ -35,7 +35,6 @@ namespace IBL
             electricityConsumingOfAverageWeight = droneElectricityInfo[2];
             electricityConsumingOfHeavyWeight = droneElectricityInfo[3];
             chargeRate = droneElectricityInfo[4];
-           // List<BO.Drone> drones = (List<BO.Drone>)GetBODronesList();
             Random rand = new();
 
             for (int i = 0; i < dronesForList.Count; i++)

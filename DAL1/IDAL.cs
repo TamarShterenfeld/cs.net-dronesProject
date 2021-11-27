@@ -191,5 +191,11 @@ namespace IDal
         /// </summary>
         /// <returns></returns>
         double[] ElectricityConsuming();
+
+        /// <summary>
+        /// returns the highest parcel's id
+        /// </summary>
+        /// <returns>the highest parcel's id</returns>
+        int getLastParcelId();
     }
 }

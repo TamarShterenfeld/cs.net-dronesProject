@@ -111,6 +111,21 @@ namespace IBL
             return current;
         }
 
+        public DroneForList GetDroneForList(BO.Drone drone)
+        {
+            DroneForList current = new()
+            {
+                Id = drone.Id,
+                MaxWeight = drone.MaxWeight,
+                Model = drone.Model,
+                Battery = drone.Battery,
+                Status = drone.Status,
+                Location = drone.Location,
+                ParcelId = drone.Parcel != null ? drone.Parcel.Id : 0,
+            };
+            return current;
+        }
+
 
         /// <summary>
         /// The function displays a drone in parcel according to id.

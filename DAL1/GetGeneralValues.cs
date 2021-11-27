@@ -48,5 +48,10 @@ namespace DalObject
             electricitiesConsuming[4] = Config.ChargeRate;
             return electricitiesConsuming;
         }
+
+        public int getLastParcelId()
+        {
+            return ParcelsList.Count;
+        }
     }
 }

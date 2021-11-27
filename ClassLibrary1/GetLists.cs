@@ -123,13 +123,14 @@ namespace IBL
         {
             List<DroneForList> droneForList = new();
             DroneForList singleDrone;
+            int parcelId = 0;
             foreach (var drone in dal.GetDronesList())
             {
                 singleDrone = GetDroneForList(drone);
-                singleDrone.Status = RandomPriority();
-                singleDrone.Location = new Location(RandomLongitude(), RandomLatitude());
-                singleDrone.Battery = rand.NextDouble() * 20 + 20;
-                singleDrone.ParcelId = 0;////לטפל בשורה זו, איזה פרסל אי די לשים? 
+                //singleDrone.Status = RandomPriority();
+                //singleDrone.Location = new Location(RandomLongitude(), RandomLatitude());
+                //singleDrone.Battery = rand.NextDouble() * 20 + 20;
+                singleDrone.ParcelId = ++parcelId <= dal.getLastParcelId()? parcelId:0;
                 droneForList.Add(singleDrone);
 
             }
