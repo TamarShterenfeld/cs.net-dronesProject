@@ -54,7 +54,7 @@ namespace DalObject
         {
             int findIndex = BaseStationsList.FindIndex(item => item.Id == baseStationId);
             if (findIndex  == -1)
-                throw new IntIdException(findIndex);
+                throw new IntIdException(baseStationId);
             int chargeSlots = BaseStationsList.First(item => item.Id == baseStationId).ChargeSlots;
             if (chargeSlots > 0)
             {
@@ -75,12 +75,12 @@ namespace DalObject
             int findIndex1 = CustomersList.FindIndex(item => item.Id == parcel.SenderId);
             int findIndex2 = CustomersList.FindIndex(item => item.Id == parcel.TargetId);
             if ( findIndex1 == -1 )
-                throw new IntIdException(findIndex1);
+                throw new StringException(parcel.SenderId);
             if(findIndex2 == -1)
-                throw new IntIdException(findIndex2);
+                throw new IntIdException(parcel.TargetId);
             int findIndex3 = DronesList.FindIndex(item => item.Id == parcel.DroneId);
             if (findIndex3  == -1)
-                throw new IntIdException(findIndex3);
+                throw new IntIdException(parcel.DroneId);
             ParcelsList.Add(parcel);
         }
 

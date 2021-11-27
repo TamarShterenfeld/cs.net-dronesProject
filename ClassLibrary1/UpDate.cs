@@ -151,7 +151,7 @@ namespace IBL
             List<Drone> dronesList = (List<Drone>)dal.GetDronesList();
             int droneIndex = dronesList.FindIndex(item => item.Id == droneId);
             if (droneIndex == -1)
-                throw new IntIdException(droneIndex);
+                throw new IntIdException(droneId);
             else
             {
                 Drone currDrone = dronesList[droneIndex];
@@ -201,13 +201,10 @@ namespace IBL
         /// <param name="baseStationId">base station's id</param>
         public void ChargeDrone(int droneId)
         {
-
-            BO.Drone drone= GetBLDrone(droneId);
+            BO.DroneForList drone= GetDroneForList(droneId);
             if (drone.Status != DroneStatuses.Available) { throw new Exception(); }
             BO.BaseStation baseStation =  NearestBaseStation(drone);
             ComputeMinBatteryNeeded(drone, baseStation);
-
-
         }
         //InputIntValue(ref droneId);
         //List<Drone> DronesList = (List<Drone>)dal.GetDronesList();
@@ -245,10 +242,10 @@ namespace IBL
             List<BaseStation> baseStationsList = (List<BaseStation>)dal.GetBaseStationsList();
             int findIndex = dronesList.FindIndex(item => item.Id == droneId);
             if (findIndex == -1)
-                throw new IntIdException(findIndex);
+                throw new IntIdException(droneId);
             findIndex = DroneChargeList.FindIndex(item => item.Id == droneId);
             if (findIndex == -1)
-                throw new IntIdException(findIndex);
+                throw new IntIdException(droneId);
             Drone drone = dronesList.First(item => item.Id == droneId);
             int droneIndex = dronesList.FindIndex(item => item.Id == droneId);
             DroneInCharging droneCharge = DroneChargeList.First(item => item.Id == droneId);
