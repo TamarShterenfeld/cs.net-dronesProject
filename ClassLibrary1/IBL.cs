@@ -11,6 +11,11 @@ namespace IBL
 {
     interface IBL : IBaseStationBL, ICustomerBL, IDroneBL, IParcelBL
     {
+        /// <summary>
+        /// The function gives associate date to the parcel.
+        /// </summary>
+        /// <param name="parcelId">parcel id</param>
+        /// <param name="droneId">drone id</param>
         void AssociateParcel(int droneId);
         void PickUpParcel(int droneId);
         void SupplyParcel(int droneId);
@@ -39,7 +44,6 @@ namespace IBL
         /// </summary>
         /// <returns></returns>
         IEnumerable<BO.BaseStation> GetAvailableChargeSlots();
-
 
         IEnumerable<BaseStationForList> GetBaseStationList();
         BaseStationForList GetBaseStationForList(int id);
@@ -109,7 +113,6 @@ namespace IBL
         CustomerInParcel GetBLCustomrInParcel(string id);
         CustomerInParcel CustomrInParcelDOtOBO(IDal.DO.Customer customer);
         public void UpdateBaseStation(string id, string name, string num);
-
 
     }
 

@@ -72,7 +72,7 @@ namespace IDal
                 {
                     if (value < 0)
                     {
-                        throw new IntChargeSlotsException(value);
+                        throw new ChargeSlotsException(value);
                     }
 
                     chargeSlots = value;
