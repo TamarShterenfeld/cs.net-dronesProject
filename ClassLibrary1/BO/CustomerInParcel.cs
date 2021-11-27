@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static IDal.DO.OverloadException;
+using static IBL.BO.DateTimeException;
 using static DalObject.DalObject;
 using IBL.BO;
 
@@ -27,13 +27,13 @@ namespace IBL
                 {
                     if (value.Length != 9)
                     {
-                        throw new OverloadException("Id must include exactly 9 digits");
+                        throw new DateTimeException("Id must include exactly 9 digits");
                     }
                     foreach (char digit in value)
                     {
                         if (!Char.IsDigit(digit))
                         {
-                            throw new OverloadException("Id must include only digits");
+                            throw new DateTimeException("Id must include only digits");
 
                         }
                     }
@@ -54,7 +54,7 @@ namespace IBL
                         {
                             if (!Char.IsLetter(letter))
                             {
-                                throw new OverloadException("Name can contain only letters.");
+                                throw new DateTimeException("Name can contain only letters.");
                             }
                         }
                     }

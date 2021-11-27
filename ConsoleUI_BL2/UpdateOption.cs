@@ -27,8 +27,8 @@ namespace ConsoleUI_BL
                         {
                             Console.WriteLine("Please enter droneId and a new model for the drone");
                             id = InputIntValue();
-                            name = InputIsNotNull();
-                            bl.UpdateDrone(id, name);
+                            model = InputOptionalStringValue();
+                            bl.UpdateDrone(id, model);
                             break;
                         }
                     case (int)UpDateOptions.UpdateBaseStation:

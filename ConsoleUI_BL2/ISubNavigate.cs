@@ -11,6 +11,10 @@ namespace ConsoleUI_BL
     /// </summary>
     public interface ISubNavigate
     {
+        /// <summary>
+        /// a function that navigates the user into his innerChoice
+        /// </summary>
+        /// <param name="bl"></param>
         public void Options(ref IBL.BL bl);
     }
 }

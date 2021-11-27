@@ -1,7 +1,7 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.Text;
-using static IDal.DO.OverloadException;
+using DAL.DO;
 using IDal.DO;
 
 namespace IDal
@@ -10,6 +10,7 @@ namespace IDal
     {
         /// <summary>
         /// the struct Drone contains the following details: id, battery, model, status, maxWeight.
+        /// actually, these are all the basic details for creating a drone.
         /// </summary>
         public struct Drone
         {
@@ -20,7 +21,7 @@ namespace IDal
                 {
                     if (value < 0)
                     {
-                        throw new OverloadException("Id must contain a positive number");
+                        throw new IntIdException(value);
                     }
                     id = value;
                 }

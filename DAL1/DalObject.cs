@@ -4,7 +4,6 @@ using System.Text;
 using IDal.DO;
 using static IDal.IDal;
 using static DalObject.DataSource;
-using static IDal.DO.OverloadException;
 using System.Linq;
 using System.Reflection;
 
@@ -21,15 +20,10 @@ namespace DalObject
         public DalObject()
         {
             Initialize();
-        }
-  
-        public static int IncreaseParcelIndex()
-        {
-            return ++Config.ParcelId;
-        }
-
-       
+        }  
         
+        
+  
     }
 
     

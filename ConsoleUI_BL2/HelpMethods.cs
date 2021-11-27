@@ -19,7 +19,7 @@ namespace ConsoleUI_BL
         {
             double longitude = InputDoubleValue();
             double latitude = InputDoubleValue();
-            Location location1 = new(longitude, latitude);
+            Location location1 = new(new Coordinate(longitude, Locations.Longitude), new Coordinate(latitude, Locations.Latitude));
             return location1;
         }
 

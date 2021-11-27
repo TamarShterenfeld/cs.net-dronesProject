@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using IBL.BO;
 using IDal.DO;
+using IDal;
+
 
 
 namespace IBL
@@ -14,12 +16,12 @@ namespace IBL
         //----------------------------------Other GetObject Methods---------------------------------
         private double GetDroneBattery(int droneId)
         {
-            return dronesForList.Find(drone => drone.Id == droneId).Battery;
+            return GetBLDrone(droneId).Battery;
         }
 
         private Location GetDroneLocation(int droneId)
         {
-            return dronesForList.Find(drone => drone.Id == droneId).Location;
+            return GetBLDrone(droneId).Location;
         }
 
         private int GetDroneParcelId(int droneId)
@@ -50,6 +52,16 @@ namespace IBL
         {
             int caught = dal.AvailableChargeSlots(stationId);
             return caught;
+        }
+
+        private IDal.DO.Coordinate CoordinateBoToDo(BO.Coordinate coor)
+        {
+            return new IDal.DO.Coordinate() { InputCoorValue = coor.InputCoorValue, Degrees = coor.Degrees, Direction = (IDal.DO.Directions)coor.Direction, MyLocation = (IDal.DO.Locations)coor.MyLocation , Minutes = coor.Minutes, Seconds = coor.Seconds};
+        }
+
+        private BO.Coordinate CoordinateDoToBo(IDal.DO.Coordinate coor)
+        {
+            return new BO.Coordinate() { InputCoorValue = coor.InputCoorValue, Degrees = coor.Degrees, Direction = (BO.Directions)coor.Direction, MyLocation = (BO.Locations)coor.MyLocation, Minutes = coor.Minutes, Seconds = coor.Seconds };
         }
     }
 }

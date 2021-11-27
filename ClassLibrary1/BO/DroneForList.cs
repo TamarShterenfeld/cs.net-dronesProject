@@ -9,7 +9,7 @@ namespace IBL
 
     namespace BO
     {
-        public class DroneForList
+        public class DroneForList:ILocatable
         {
             int id;
             int parcelId;
@@ -20,7 +20,7 @@ namespace IBL
                 {
                     if (value < 0)
                     {
-                        throw new OverloadException("Id must contain a positive number");
+                        throw new DateTimeException("Id must contain a positive number");
                     }
                     id = value;
                 }
@@ -33,7 +33,7 @@ namespace IBL
                 {
                     if (value < 0)
                     {
-                        throw new OverloadException("Id must contain a positive number");
+                        throw new DateTimeException("Id must contain a positive number");
                     }
                     parcelId = value;
                 }

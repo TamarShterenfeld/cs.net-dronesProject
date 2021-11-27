@@ -24,7 +24,7 @@ namespace IBL
                 {
                     if (value < 0)
                     {
-                        throw new OverloadException("Id must contain a positive number");
+                        throw new DateTimeException("Id must contain a positive number");
                     }
                     droneId = value;
                 }
@@ -37,7 +37,7 @@ namespace IBL
                 {
                     if (value < 0)
                     {
-                        throw new OverloadException("Id must contain a positive number");
+                        throw new DateTimeException("Id must contain a positive number");
                     }
                     parcelId = value;
                 }
@@ -52,13 +52,13 @@ namespace IBL
                 {
                     if (value.Length != 9)
                     {
-                        throw new OverloadException("Sender ID must include exactly 9 digits");
+                        throw new DateTimeException("Sender ID must include exactly 9 digits");
                     }
                     foreach (char letter in value)
                     {
                         if (!Char.IsDigit(letter))
                         {
-                            throw new OverloadException("Sender ID must include only digits");
+                            throw new DateTimeException("Sender ID must include only digits");
                         }
                     }
                     senderId = value;
@@ -74,13 +74,13 @@ namespace IBL
                 {
                     if (value.Length != 9)
                     {
-                        throw new OverloadException("Target Id must include exactly 9 digits");
+                        throw new DateTimeException("Target Id must include exactly 9 digits");
                     }
                     foreach (char letter in value)
                     {
                         if (!Char.IsDigit(letter))
                         {
-                            throw new OverloadException("Target Id must include only digits");
+                            throw new DateTimeException("Target Id must include only digits");
 
                         }
                     }

@@ -27,13 +27,13 @@ namespace IBL
                 {
                     if (value.Length != 9)
                     {
-                        throw new OverloadException("Id must include exactly 9 digits");
+                        throw new DateTimeException("Id must include exactly 9 digits");
                     }
                     foreach (char digit in value)
                     {
                         if (!Char.IsDigit(digit))
                         {
-                            throw new OverloadException("Id must include only digits");
+                            throw new DateTimeException("Id must include only digits");
 
                         }
                     }
@@ -54,7 +54,7 @@ namespace IBL
                         {
                             if (!Char.IsLetter(letter))
                             {
-                                throw new OverloadException("Name can contain only letters.");
+                                throw new DateTimeException("Name can contain only letters.");
                             }
                         }
                     }
@@ -70,12 +70,12 @@ namespace IBL
                 set
                 {
                     if (value[0] != '0')
-                        throw new OverloadException("The first digit of a phone number must be '0'");
+                        throw new DateTimeException("The first digit of a phone number must be '0'");
                     foreach (char digit in value)
                     {
                         if (!Char.IsDigit(digit))
                         {
-                            throw new OverloadException("Phone must include only digits");
+                            throw new DateTimeException("Phone must include only digits");
 
                         }
                     }

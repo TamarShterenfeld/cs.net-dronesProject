@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Text;
 using IBL.BO;
 using System.Linq;
+using DAL.DO;
 
 namespace IBL
 {
     public partial class BL : IBL
     {
 
-        public void UpdateDrone(int id,string model)
+        public void UpdateDrone(int id, string model)
         {
             IDal.DO.Drone drone = dal.GetDrone(id);
             drone.Model = model;
@@ -32,7 +33,7 @@ namespace IBL
             IDal.DO.Customer station = dal.GetCustomer(id);
             if (name != null) { station.Name = name; }
             if (phone != null) { station.Phone = phone; }
-            dal.UpdateCustomer(station,id);
+            dal.UpdateCustomer(station, id);
         }
 
         /// <summary>
@@ -43,25 +44,55 @@ namespace IBL
         public void AssociateParcel(int droneId)
         {
             List<Drone> dronesList = (List<Drone>)dal.GetDronesList();
-            List<double> distances = new();
+
             List<Customer> customersList = (List<Customer>)dal.GetCustomersList();
             int droneIndex = dronesList.FindIndex(item => item.Id == droneId);
             if (droneIndex == -1)
-                throw new OverloadException("drone id doesn't exist in the dronesList");
+                throw new IntIndexException(droneIndex);
             else
             {
                 Drone currDrone = dronesList[droneIndex];
-                if (currDrone.Status != DroneStatuses.Available)
+                if (currDrone.Status == DroneStatuses.Available)
                 {
-                    foreach (var item in customersList)
-                    {
-                        distances.Add(item.Distance(currDrone));
-                    }
-                    var parcels = dal.GetParcelsList()
+                    List<Parcel> parcels = (List<Parcel>)dal.GetParcelsList()
                         .OrderByDescending(parcel => (int)parcel.Priority)
                         .ThenByDescending(parcel => (int)parcel.Weight)
-                        .ThenBy(parcel => customersList.First(customer => customer.Id == parcel.SenderId).Distance(currDrone));                
+                        .ThenBy(parcel => customersList.First(customer => customer.Id == parcel.SenderId).Distance(currDrone));
+
+                    foreach (var item in parcels)
+                    {
+                        DroneForList currentDrone = GetDroneForList(currDrone.Id);
+                        BO.Customer sender = GetBOCustomersList().First(item1 => item1.Id == item.Sender.Id);
+                        BO.Customer target = GetBOCustomersList().First(item1 => item1.Id == item.Target.Id);
+                        double minBattery1 = ComputeMinBatteryNeeded(currentDrone, sender);
+                        if (currDrone.Battery -  minBattery1 > 0)
+                        {
+                            currentDrone.Battery -= minBattery1;
+                            currentDrone.Location = sender.Location;
+                            double minBattery2 = ComputeMinBatteryNeeded(currentDrone, target);
+                            if (currentDrone.Battery - minBattery2 >= 0)
+                            {
+                                currentDrone.Battery -= minBattery2;
+                                currentDrone.Location = target.Location;
+                                BaseStation nearestBaseStation = NearestBaseStation(currentDrone);
+                                double minBattery3 = ComputeMinBatteryNeeded(currentDrone, nearestBaseStation);
+                                if ((currentDrone.Battery - minBattery3) >= 0)
+                                {
+                                    currDrone.Parcel = GetParcelInPassing(item.Id);
+                                    //if(currentDrone.Battery - minBattery3 == 0)
+                                    //{
+                                        
+                                    //    nearestBaseStation.DroneCharging.Add(GetDr)
+                                    //}
+
+                                    
+                                        
+                                }
+                            }
+                        }
+                    }
                 }
+
             }
         }
 
@@ -75,7 +106,7 @@ namespace IBL
             List<Drone> dronesList = (List<Drone>)dal.GetDronesList();
             int droneIndex = dronesList.FindIndex(item => item.Id == droneId);
             if (droneIndex == -1)
-                throw new OverloadException("drone id doesn't exist in the dronesList");
+                throw new IntIndexException(droneIndex);
             else
             {
                 List<Parcel> parcelsList = (List<Parcel>)dal.GetParcelsList();
@@ -92,7 +123,7 @@ namespace IBL
                 }
                 else
                 {
-                    throw new OverloadException("the parcel has been picked up already");
+                    throw new DateTimeException(parcel.PickUpDate);
                 }
             }
         }
@@ -106,7 +137,7 @@ namespace IBL
             List<Drone> dronesList = (List<Drone>)dal.GetDronesList();
             int droneIndex = dronesList.FindIndex(item => item.Id == droneId);
             if (droneIndex == -1)
-                throw new OverloadException("drone id doesn't exist in the dronesList");
+                throw new IntIdException(droneIndex);
             else
             {
                 Drone currDrone = dronesList[droneIndex];
@@ -125,12 +156,12 @@ namespace IBL
                     }
                     else
                     {
-                        throw new OverloadException("the hasn't still picked up - it can't be supllied by now.");
+                        throw new DateTimeException(parcel.SupplyDate);
                     }
                 }
                 else
                 {
-                    throw new OverloadException("the parcel hasn't been already picked up - it can't be supllied by now.");
+                    throw new DateTimeException(parcel.SupplyDate);
                 }
             }
 
@@ -186,24 +217,15 @@ namespace IBL
             List<Drone> dronesList = (List<Drone>)dal.GetDronesList();
             List<DroneInCharging> DroneChargeList = (List<DroneInCharging>)dal.GetDronesCharge();
             List<BaseStation> baseStationsList = (List<BaseStation>)dal.GetBaseStationsList();
-            InputIntValue(ref droneId);
-            if (dronesList.FindIndex(item => item.Id == droneId) == -1)
-                throw new OverloadException("drone's id doesn't exist in the drones' list.");
-            if (DroneChargeList.FindIndex(item => item.Id == droneId) == -1)
-                throw new OverloadException("drone's id doesn't exist in the dronecharge list.");
-
+            int findIndex = dronesList.FindIndex(item => item.Id == droneId);
+            if (findIndex == -1)
+                throw new IntIdException(findIndex);
+            findIndex = DroneChargeList.FindIndex(item => item.Id == droneId);
+            if (findIndex == -1)
+                throw new IntIdException(findIndex);
             Drone drone = dronesList.First(item => item.Id == droneId);
             int droneIndex = dronesList.FindIndex(item => item.Id == droneId);
             DroneInCharging droneCharge = DroneChargeList.First(item => item.Id == droneId);
-            //baseStationId =baseStationsList.First(item=>item. droneCharge.;
-            //int baseStationIndex = baseStationsList.FindIndex(item => item.Id == baseStationId);
-            //if (baseStationIndex  == -1)
-            //    throw new OverloadException("baseStation's id doesn't exist in the BaseStation's list.");
-            //BaseStation baseStation = baseStationsList.First(item => item.Id == baseStationId);
-            //DroneChargeList.Remove(droneCharge);
-            //baseStation.ChargeSlots++;
-            //baseStationsList[baseStationIndex] = baseStation;
-            //dronesList[droneIndex] = drone;
         }
     }
 }

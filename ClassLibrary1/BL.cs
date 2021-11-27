@@ -10,7 +10,6 @@ using static System.Math;
 
 namespace IBL
 {
-
     /// <summary>
     /// The class BL is the business logic level 
     /// which has the responsibility of pull & calaulating lists, object etc. from the DAL logic level
@@ -18,7 +17,7 @@ namespace IBL
     /// </summary>
     public partial class BL : IBL
     {
-        readonly IDal.IDal dal;
+        internal IDal.IDal dal;
         List<DroneForList> dronesForList;
         readonly double electricityConsumingOfAvailable;
         readonly double electricityConsumingOfLightWeight;
@@ -43,50 +42,51 @@ namespace IBL
         public BL()
         {
             dal = new DalObject.DalObject();
+            dronesForList = GetDroneForList((List<BO.Drone>)GetBODronesList());
             double[] droneElectricityInfo = dal.ElectricityConsuming();
             electricityConsumingOfAvailable = droneElectricityInfo[0];
             electricityConsumingOfLightWeight = droneElectricityInfo[1];
             electricityConsumingOfAverageWeight = droneElectricityInfo[2];
             electricityConsumingOfHeavyWeight = droneElectricityInfo[3];
-            chargeRate = droneElectricityInfo[0];
-            List<BO.Drone> drones = (List<BO.Drone>)GetBODronesList();
+            chargeRate = droneElectricityInfo[4];
+           // List<BO.Drone> drones = (List<BO.Drone>)GetBODronesList();
             Random rand = new();
 
-            for (int i = 0; i < drones.Count; i++)
+            for (int i = 0; i < dronesForList.Count; i++)
             {
 
-                BO.Parcel parcelOfDrone = GetBLParcel(drones[i].Parcel.Id);
+                BO.Parcel parcelOfDrone = GetBLParcel(dronesForList[i].ParcelId);
                 //the parcel hasn't been supplied.
                 if (parcelOfDrone.SupplyDate == new DateTime(01 / 01 / 0001) &&
-                    drones[i].Status == BO.DroneStatuses.Shipment)
+                    dronesForList[i].Status == BO.DroneStatuses.Shipment)
                 {
-                    drones[i].Status = BO.DroneStatuses.Shipment;
+                    dronesForList[i].Status = BO.DroneStatuses.Shipment;
 
                     //the parcel has been accosiated and hasn't been picked up.
                     if (parcelOfDrone.AssociationDate == new DateTime(01 / 01 / 0001) &&
                         parcelOfDrone.PickUpDate != new DateTime(01 / 01 / 0001))
                     {
-                        drones[i].Location = NearestBaseStation(drones[i]).Location;
+                        dronesForList[i].Location = NearestBaseStation(dronesForList[i]).Location;
                     }
 
                     //the parcel has been picked hasn't been supplied - (in the general condition)
                     else
                     {
-                        drones[i].Location = GetBOCustomersList().First(item => drones[i].Parcel.Sender.Id == item.Id).Location;
+                        dronesForList[i].Location = GetBOCustomersList().First(item => GetBLParcel(dronesForList[i].ParcelId).Sender.Id == item.Id).Location;
                     }
 
-                    double minBattery = ComputeMinBatteryNeeded(drones[i], GetBLCustomer(drones[i].Parcel.Target.Id));
-                    if(minBattery != -1)
+                    double minBattery = ComputeMinBatteryNeeded(dronesForList[i], GetBLCustomer(GetBLParcel(dronesForList[i].ParcelId).Target.Id));
+                    if (minBattery != -1)
                     {
-                        drones[i].Battery = RandomBattery(minBattery);
+                        dronesForList[i].Battery = RandomBattery(minBattery);
                     }
                 }
                 else
                 {
-                    drones[i].Status = (BO.DroneStatuses)rand.Next(1, 3);
+                    dronesForList[i].Status = (BO.DroneStatuses)rand.Next(1, 3);
                     List<BO.BaseStation> baseStationList = (List<BO.BaseStation>)GetBOBaseStationsList();
                     List<BO.Customer> customersList = (List<BO.Customer>)GetBOCustomersList();
-                    switch (drones[i].Status)
+                    switch (dronesForList[i].Status)
                     {
                         case BO.DroneStatuses.Available:
                             {
@@ -94,17 +94,17 @@ namespace IBL
                                 if (customerForLists.Count != 0)
                                 {
                                     BO.Customer chosenCustomer = customersList.First(item => item.Id == customerForLists[rand.Next(0, customerForLists.Count - 1)].Id);
-                                    drones[i].Location = chosenCustomer.Location;
-                                    double minBattery = ComputeMinBatteryNeeded(drones[i], chosenCustomer);
-                                    drones[i].Battery = RandomBattery(minBattery);
+                                    dronesForList[i].Location = chosenCustomer.Location;
+                                    double minBattery = ComputeMinBatteryNeeded(dronesForList[i], chosenCustomer);
+                                    dronesForList[i].Battery = RandomBattery(minBattery);
                                 }
                                 break;
                             }
 
                         case BO.DroneStatuses.Maintenance:
                             {
-                                drones[i].Location = baseStationList[rand.Next(0, baseStationList.Count - 1)].Location;
-                                drones[i].Battery = rand.Next(0, 20);
+                                dronesForList[i].Location = baseStationList[rand.Next(0, baseStationList.Count - 1)].Location;
+                                dronesForList[i].Battery = rand.Next(0, 20);
                                 break;
                             }
                     }
@@ -123,7 +123,7 @@ namespace IBL
         /// <param name="drone"></param>
         /// <returns></returns>
 
-        private BO.BaseStation NearestBaseStation(BO.Drone drone)
+        private BO.BaseStation NearestBaseStation(DroneForList drone)
         {
             double minDistance = int.MaxValue;
             BO.BaseStation nearestBaseStation =
@@ -138,15 +138,15 @@ namespace IBL
         /// the calculation is depended the distance + the drone's status.
         /// </summary>
         /// <param name="drone"></param>
-        /// <param name="Ilocatable"></param>
+        /// <param name="ilocatable"></param>
         /// <returns></returns>
-        private double ComputeMinBatteryNeeded(BO.Drone drone, ILocatable Ilocatable)
+        private double ComputeMinBatteryNeeded(DroneForList drone, ILocatable ilocatable)
         {
-            double distance = drone.Distance(Ilocatable);
+            double distance = drone.Distance(ilocatable);
 
             if (drone.Status == BO.DroneStatuses.Available)
             {
-               
+
                 return distance * electricityConsumingOfAvailable;
             }
             else
@@ -178,16 +178,20 @@ namespace IBL
         /// </summary>
         /// <param name="minBattery"></param>
         /// <returns></returns>
-        static int RandomBattery(double minBattery)
+        static double RandomBattery(double minBattery)
         {
             Random rand = new();
+            double randBattery = rand.Next((int)minBattery, 100);
             //check if the minBattery holds a real double value
-            //for it's not possible to random a double number - we will increase the minBattery in one.
-            if ((int)minBattery != minBattery)
+            double fractionalPart = minBattery - (int)minBattery;
+            if (fractionalPart > 0)
             {
-                minBattery++;
+                double randomFraction = rand.NextDouble();
+                //adds the highest fractional value
+                //between the original fractional part to the random fraction.
+                randBattery += Max(randomFraction, fractionalPart);
             }
-            return rand.Next((int)minBattery, 100);
+            return randBattery;
         }
 
         /// <summary>

@@ -9,6 +9,8 @@ namespace DalObject
 {
     public partial class DalObject
     {
+
+        /// <inheritdoc />
         public IEnumerable<DroneCharge> DronesChargingInMe(int stationId)
         {
             List<DroneCharge> dronesCharge = null;
@@ -22,14 +24,16 @@ namespace DalObject
             return dronesCharge;
         }
 
-        public IEnumerable<int> GetDronesIdInBaseStation(int requestedId)
+        /// <inheritdoc />
+        public IEnumerable<int> GetDronesIdInBaseStation(int stationId)
         {
-            return DronesChargeList.FindAll(dc => dc.StationId == requestedId).ConvertAll(dc => dc.DroneId);
+            return DronesChargeList.FindAll(dc => dc.StationId == stationId).ConvertAll(dc => dc.DroneId);
         }
 
+        /// <inheritdoc />
         public IEnumerable<Parcel> NotAssociatedParcels()
         {
-            List<Parcel> parcels = new List<Parcel>();
+            List<Parcel> parcels = new ();
             for (int i = 0; i < ParcelsList.Count; i++)
             {
                 if (ParcelsList[i].DroneId == -1)
@@ -39,39 +43,47 @@ namespace DalObject
             }
             return parcels;
         }
+
+        /// <inheritdoc />
         public IEnumerable<BaseStation> GetBaseStationsList()
         {
             return BaseStationsList;
         }
 
+        /// <inheritdoc />
         public IEnumerable<Drone> GetDronesList()
         {
             return DronesList;
         }
 
+        /// <inheritdoc />
         public IEnumerable<Customer> GetCustomersList()
         {
             return CustomersList;
         }
 
+        /// <inheritdoc />
         public IEnumerable<Parcel> GetParcelsList()
         {
             return ParcelsList;
         }
 
+        /// <inheritdoc />
         public IEnumerable<DroneCharge> GetDronesCharge()
         {
             return DronesChargeList;
         }
 
 
+        /// <inheritdoc />
         public IEnumerable<BaseStation> AvailableChargeStations()
         {
-            List<BaseStation> availableChargingSlotsList = new List<BaseStation>();
+            List<BaseStation> availableChargingSlotsList = new ();
             for (int i = 0; i < BaseStationsList.Count; i++)
             {
                 availableChargingSlotsList[i] = BaseStationsList[i];
-                availableChargingSlotsList[i].ChargeSlots -= DronesChargeList.ToArray().Count(dc => dc.StationId == availableChargingSlotsList[i].Id);
+                BaseStation currBaseStation = availableChargingSlotsList[i];
+                currBaseStation.ChargeSlots -= DronesChargeList.ToArray().Count(dc => dc.StationId == availableChargingSlotsList[i].Id);
             }
             return availableChargingSlotsList;
         }

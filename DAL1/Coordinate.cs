@@ -1,74 +1,59 @@
 ﻿using IDal.DO;
 using System;
 using System.Collections.Generic;
+using DAL.DO;
 using System.Text;
 
 namespace IDal
 {
     namespace DO
     {
+        /// <summary>
+        /// an enum which contains all the different directions.
+        /// </summary>
         public enum Directions
         {
             NORTH, EAST, WEST, SOUTH
         }
+
+        /// <summary>
+        /// 
+        /// an enum which contains the two oprtions for a location - longitude / latitude.
+        /// </summary>
         public enum Locations
         {
             Latitude, Longitude
         }
+
         /// <summary>
         /// the class coordinate contains: degrees, minutes, seconds
-        /// and methods which describe th base 60 - sexagesimal.
+        /// and methods which describe the base 60 - sexagesimal.
+        /// this class creats objects with location in base 60.
         /// </summary>
         public struct Coordinate
         {
             public double Degrees { get; set; }
             public double Minutes { get; set; }
             public double Seconds { get; set; }
-
-            public double RegularCoor { get; set; }
-
+            public double InputCoorValue { get; set; }
 
             public Directions Direction { get; set; }
-            public Locations Location { set; get; }
+            public Locations MyLocation { set; get; }
 
-            public Coordinate() { }
-            public Coordinate(double value, Locations location = default)
-            {
-                if (value < -180 || value > 180)
-                {
-                    throw new OverloadException("Coordinante value must be a positive number and in range of - 180º to 180º.");
-                }
-
-                RegularCoor = value;
-                CastDoubleToCoordinante(value, location);
-            }
-
-            //a constructor with parameters.
-            public Coordinate(double degrees, double minutes, double seconds, Directions direction, Locations location)
-            {
-
-                if (degrees < -180 || degrees > 180)
-                {
-                    throw new OverloadException("Coordinante value must be a positive number and in range of - 180º to 180º.");
-                }
-                Degrees = degrees;
-                Minutes = minutes;
-                Seconds = seconds;
-                Direction = direction;
-                Location = location;
-            }
 
             /// <summary>
-            /// convert double num of position to a longitude or latitude format
+            /// converts a double value of position to a Coordinate object.
+            /// it contains a progress of calaulatios based on the location parameter value.
             /// </summary>
             /// <param name="value"></param>
             /// <param name="position"></param>
-            /// <returns>this</returns>
+            /// <returns>a coordinate object which calculated based on the double value parameter.</returns>
             public Coordinate CastDoubleToCoordinante(double value, Locations location)
             {
                 if (value < -180 || value > 180)
                 {
-                    throw new OverloadException("Coordinante value must be a positive number and in range of - 180º to 180º.");
+                    throw new LocationException(value);
+                    //---print in the catch function---Console.WriteLine("Coordinante value must be a positive number and in range of - 180º to 180º.");
                 }
                 if (value < 0 && location == Locations.Longitude)
                     Direction = Directions.SOUTH;
@@ -85,9 +70,6 @@ namespace IDal
                 {
                     Direction = Directions.EAST;
                 }
-
-
-
 
                 //the absolute num of the decimal converted num.
                 var decimalNum = Math.Abs(Convert.ToDecimal(value));

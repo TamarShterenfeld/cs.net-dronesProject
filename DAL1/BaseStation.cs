@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using static IDal.DO.Locations;
 using System.Text;
 using IDal.DO;
-using static IDal.DO.OverloadException;
 using static DalObject.DataSource;
+using DAL.DO;
 
 namespace IDal
 {
@@ -13,6 +13,7 @@ namespace IDal
 
         /// <summary>
         /// the struct BaseStation contains the following details: id, name, longitude, latitude,  number of chargeSlots.
+        /// actually, these are all the basic details for creating a baseStation.
         /// </summary>
 
         public struct BaseStation
@@ -28,7 +29,7 @@ namespace IDal
                 {
                     if (value < 0)
                     {
-                        throw new OverloadException("Id must contain a positive number");
+                        throw new IntIdException(value);
                     }
                     id = value;
                 }
@@ -48,7 +49,7 @@ namespace IDal
                         {
                             if (!Char.IsLetter(letter))
                             {
-                                throw new OverloadException("Name can contain only letters.");
+                                throw new StringException(value);
                             }
                         }
                     }
@@ -71,7 +72,7 @@ namespace IDal
                 {
                     if (value < 0)
                     {
-                        throw (new OverloadException("Not valid number of chargeSlots"));
+                        throw new IntChargeSlotsException(value);
                     }
 
                     chargeSlots = value;
@@ -81,7 +82,7 @@ namespace IDal
             /// <summary>
             /// override ToString function.
             /// </summary>
-            /// <returns>description of the BaseStation object</returns>
+            /// <returns>description of the BaseStation  object</returns>
             public override string ToString()
             {
                 return  $"id: {Id} \n" +

@@ -31,7 +31,7 @@ namespace IBL
                 {
                     if (value < 0)
                     {
-                        throw new OverloadException("Id must contain a positive number");
+                        throw new DateTimeException("Id must contain a positive number");
                     }
                     id = value;
                 }
@@ -51,7 +51,7 @@ namespace IBL
                         {
                             if (!Char.IsLetter(letter))
                             {
-                                throw new OverloadException("Name can contain only letters.");
+                                throw new DateTimeException("Name can contain only letters.");
                             }
                         }
                     }
@@ -73,7 +73,7 @@ namespace IBL
                 {
                     if (value < 0)
                     {
-                        throw (new OverloadException("Not valid number of chargeSlots"));
+                        throw (new DateTimeException("Not valid number of chargeSlots"));
                     }
 
                     chargeSlots = value;

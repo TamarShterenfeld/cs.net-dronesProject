@@ -46,7 +46,7 @@ namespace IBL
             {
                 Id = baseStation.Id,
                 Name = baseStation.Name,
-                Location = new Location(baseStation.Longitude, baseStation.Latitude),
+                Location = new Location(CoordinateDoToBo(baseStation.Longitude), CoordinateDoToBo(baseStation.Latitude)),
                 ChargeSlots = baseStation.ChargeSlots - CatchAvailableChargeSlots(baseStation.Id),
                 DroneCharging = (List<DroneInCharging>)GetDronesInMe(baseStation.Id)
             };
@@ -120,6 +120,22 @@ namespace IBL
             return BOCustomerInParcel;
         }
 
+        //----------------------------------DroneForList GetObject Methods---------------------------------
+
+        private DroneForList GetOneDroneForList(BO.Drone drone)
+        {
+            DroneForList droneForList = new()
+            {
+                Id = drone.Id,
+                Model = drone.Model,
+                MaxWeight = drone.MaxWeight,
+                Status = drone.Status,
+                ParcelId = drone.Parcel != null ? drone.Parcel.Id : 0,
+                Location = drone.Location,
+                Battery = drone.Battery
+            };
+            return droneForList;
+        }
 
         //----------------------------------Parcel GetObject Methods---------------------------------
 
@@ -233,7 +249,7 @@ namespace IBL
                 Id = customer.Id,
                 Name = customer.Name,
                 Phone = customer.Phone,
-                Location = new Location(customer.Longitude, customer.Latitude),
+                Location = new Location(CoordinateDoToBo(customer.Longitude), CoordinateDoToBo(customer.Latitude)),
                 FromCustomer = (List<ParcelInCustomer>)GetParcelInCustomerList(FromOrTo.From, customer.Id),
                 ToCustomer = (List<ParcelInCustomer>)GetParcelInCustomerList(FromOrTo.To, customer.Id),
             };
