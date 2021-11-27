@@ -102,6 +102,17 @@ namespace IBL
             return droneForLists;
         }
 
+        //---------------------------------DronesForList GetList Methods------------------------------------------------
+
+        public List<DroneForList> GetDroneForList(List<BO.Drone> drones)
+        {
+            List<DroneForList> droneForLists = new();
+            foreach (var drone in drones)
+            {
+                droneForLists.Add(GetOneDroneForList(drone));
+            }
+            return droneForLists;
+        }
 
         // ---------------------------------Parcels GetList Methods------------------------------------------------
 

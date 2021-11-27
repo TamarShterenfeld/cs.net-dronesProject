@@ -17,7 +17,6 @@ namespace IBL
             public Coordinate CoorLongitude { get; set; }
 
             public Coordinate CoorLatitude { get; set; }
-
             /// <summary>
             /// constructor
             /// </summary>

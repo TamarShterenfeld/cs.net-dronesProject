@@ -38,7 +38,7 @@ namespace IDal
             public double InputCoorValue { get; set; }
 
             public Directions Direction { get; set; }
-            public Locations Location { set; get; }
+            public Locations MyLocation { set; get; }
 
 
             /// <summary>
