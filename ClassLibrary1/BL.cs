@@ -181,7 +181,7 @@ namespace IBL
         /// <returns></returns>
         private IEnumerable<BO.CustomerForList> CustomersWithSuppliedParcels()
         {
-            List<BO.CustomerForList> customers = (List<BO.CustomerForList>)GetBOCustomersList();
+            List<BO.CustomerForList> customers = (List<BO.CustomerForList>)GetCustomersList();
             List<BO.CustomerForList> customerWithSuppliedParcels = new();
             foreach (BO.CustomerForList item in customers)
             {

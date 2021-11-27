@@ -106,9 +106,12 @@ namespace IBL
             private string DroneInChargingDetails()
             {
                 string dronesDetails = "";
-                foreach (DroneInCharging drone in DroneCharging)
+                if (DroneCharging != null)
                 {
-                    dronesDetails += drone.ToString();
+                    foreach (DroneInCharging drone in DroneCharging)
+                    {
+                        dronesDetails += drone.ToString();
+                    }
                 }
                 return dronesDetails;
             }
