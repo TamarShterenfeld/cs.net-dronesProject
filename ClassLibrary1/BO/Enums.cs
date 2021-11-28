@@ -31,9 +31,9 @@ namespace IBL
         {
             From, To
         }
-        public enum Actions
+        public enum ParcelActions
         {
-            Associate, PickUp, Supply, SendDroneForCharging, ReleaseDroneFromCharging,
+            Associate, PickUp, Supply, 
         }
     }
 

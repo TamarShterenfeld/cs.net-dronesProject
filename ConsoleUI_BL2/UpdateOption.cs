@@ -19,8 +19,8 @@ namespace ConsoleUI_BL
         /// <inheritdoc />
         public void Options(ref BL bl)
         {
-            int id = 0;
-            double timeCharge = 0;
+            int id;
+            double timeCharge;
             string model = null, num = null, customerId;
             Console.WriteLine("Please enter : \n1- For updating a drone \n2- For updating a basetation \n3- For updating a customer \n4- For charging drone \n5- For stop drone charging \n6- For associating parcel \n7- For picking up parcel \n8- For supply parcel \n");
             if (int.TryParse(Console.ReadLine(), out int innerChoice))
@@ -106,37 +106,37 @@ namespace ConsoleUI_BL
                 }
                 catch (DateTimeException exe)
                 {
-                    Console.WriteLine("the DateTime: "+ exe.MyDateTime+" isn't valid!");
+                    Console.WriteLine("the DateTime: " + exe.MyDateTime + " isn't valid!");
                 }
 
-                catch (ActionException exe)
+                catch (ParcelActionsException exe)
                 {
                     Console.WriteLine("the Action: " + exe.Action + " wasn't succeeded!");
                 }
-                catch(BatteryException exe)
+                catch (BatteryException exe)
                 {
-                    Console.WriteLine("the Battery: "+ exe.Battery+ " isn't valid!");
+                    Console.WriteLine("the Battery: " + exe.Battery + " isn't valid!");
                 }
-                catch(DroneStatusException exe)
+                catch (DroneStatusException exe)
                 {
                     Console.WriteLine("the Status: " + exe.Status + " isn't valid!");
                 }
-                catch(ParcelStatusException exe)
+                catch (ParcelStatusException exe)
                 {
-                    Console.WriteLine("the Status: "+ exe.ParcelStatus+" isn't valid");
+                    Console.WriteLine("the Status: " + exe.ParcelStatus + " isn't valid");
                 }
 
-                catch(ChargeSlotsException exe)
+                catch (ChargeSlotsException exe)
                 {
-                    Console.WriteLine("The ChargeSlots: "+exe.ChargeSlots+" isn't available!");
+                    Console.WriteLine("The ChargeSlots: " + exe.ChargeSlots + " isn't available!");
                 }
-                catch(IntIdException exe)
+                catch (IntIdException exe)
                 {
-                    Console.WriteLine("The id: "+ exe.Id+" isn't valid!");
+                    Console.WriteLine("The id: " + exe.Id + " isn't valid!");
                 }
                 catch (LocationException exe)
                 {
-                    Console.WriteLine("The Location: " + exe.Location + " isn't valid!");
+                    Console.WriteLine("The Location: " + exe.Location + "isn't valid" + "\nCoordinante value must be a positive number and in range of - 180º to 180º");
                 }
                 catch (StringException exe)
                 {

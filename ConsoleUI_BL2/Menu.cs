@@ -47,51 +47,41 @@ namespace ConsoleUI_BL
                 {
                     Console.WriteLine("Please enter only a digit! Try again!");
                 }
-                try
+                switch (options)
                 {
-                    switch (options)
-                    {
-                        case (int)Options.Add:
-                            {
-                                add.Options(ref bl);
-                                break;
-                            }
+                    case (int)Options.Add:
+                        {
+                            add.Options(ref bl);
+                            break;
+                        }
 
-                        case (int)Options.UpDate:
-                            {
-                                upDate.Options(ref bl);
-                                break;
-                            }
-                        case (int)Options.Display:
-                            {
-                                display.Options(ref bl);
-                                break;
-                            }
-                        case (int)Options.ShowLists:
-                            {
-                                show.Options(ref bl);
-                                break;
-                            }
-                        case (int)Options.Exit:
-                            {
-                                Exit(0);
-                                break;
-                            }
-                        default:
-                            {
-                                Console.WriteLine("ERROR! \nAn unknown option, Please try again.");
-                               options = Program.InputIntValue();
-                                break;
-                            }
-                    }
+                    case (int)Options.UpDate:
+                        {
+                            upDate.Options(ref bl);
+                            break;
+                        }
+                    case (int)Options.Display:
+                        {
+                            display.Options(ref bl);
+                            break;
+                        }
+                    case (int)Options.ShowLists:
+                        {
+                            show.Options(ref bl);
+                            break;
+                        }
+                    case (int)Options.Exit:
+                        {
+                            Exit(0);
+                            break;
+                        }
+                    default:
+                        {
+                            Console.WriteLine("ERROR! \nAn unknown option, Please try again.");
+                            options = Program.InputIntValue();
+                            break;
+                        }
                 }
-               
-                catch (Exception exe)
-                {
-                    Console.WriteLine(exe.Message + "\nTry again from the beginning!");
-                }
-
-
             }
         }
 
