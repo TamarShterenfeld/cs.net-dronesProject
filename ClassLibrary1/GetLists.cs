@@ -42,19 +42,6 @@ namespace IBL
 
             return BoAvailableChargeSlots;
         }
-        //public IEnumerable<BO.BaseStation> GetAvailableChargeSlots()
-        //{
-        //    List<IDal.DO.BaseStation> DoAvailableChargeSlots = (List<IDal.DO.BaseStation>)dal.AvailableChargeStations();
-        //    List<BO.BaseStation> BoAvailableChargeSlots = new();
-        //    foreach (IDal.DO.BaseStation item in DoAvailableChargeSlots)
-        //    {
-        //        BoAvailableChargeSlots.Add(GetBLBaseStation(item.Id));
-        //    }
-
-        //    return BoAvailableChargeSlots;
-        //}
-
-
         
         public IEnumerable<BaseStationForList> GetBaseStationList()
         {
@@ -73,10 +60,10 @@ namespace IBL
         {
             List<DroneInCharging> droneInCharging = null;
             if (dal.DronesChargingInMe(stationId) != null)
-            {       foreach (DroneCharge droneCharge in dal.DronesChargingInMe(stationId))
+            {   
+                foreach (DroneCharge droneCharge in dal.DronesChargingInMe(stationId))
                 {
-                    DroneInCharging drone = new(droneCharge.DroneId, 100);
-                    // לבדוק שבאמת הבטריה נהית 100
+                    DroneInCharging drone = new(droneCharge.DroneId, rand.NextDouble()*40+60);
                     droneInCharging.Add(drone);
                 }    
             }
