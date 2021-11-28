@@ -19,7 +19,7 @@ namespace IBL
         void AssociateParcel(int droneId);
         void PickUpParcel(int droneId);
         void SupplyParcel(int droneId);
-        void ChargeDrone(int droneId);
+        //void ChargeDrone(int droneId);
         void ReleaseDroneFromRecharge(int droneId);
 
     }

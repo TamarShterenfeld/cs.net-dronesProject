@@ -177,6 +177,7 @@ namespace DalObject
         {
             double longitude1 = 0.3 * rand.Next(0, 180) + 0.7 * rand.Next(-180, 0);
             Coordinate longitude = new() { InputCoorValue = longitude1, MyLocation = Locations.Longitude };
+            longitude = longitude.CastDoubleToCoordinante(longitude.InputCoorValue, longitude.MyLocation);
             return longitude;
         }
 
@@ -188,6 +189,7 @@ namespace DalObject
         {
             double latitude1 = 0.3 * rand.Next(0, 180) + 0.7 * rand.Next(-180, 0);
             Coordinate latitude = new () { InputCoorValue = latitude1, MyLocation = Locations.Longitude };
+            latitude = latitude.CastDoubleToCoordinante(latitude.InputCoorValue, latitude.MyLocation);
             return latitude;
         }
 

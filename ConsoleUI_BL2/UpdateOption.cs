@@ -59,7 +59,7 @@ namespace ConsoleUI_BL
                         {
                             Console.WriteLine("Please enter droneId ");
                             id = InputIntValue();
-                            bl.ChargeDrone(id);
+                           // bl.ChargeDrone(id);
                             break;
                         }
                     case (int)UpDateOptions.StopDroneCharge:

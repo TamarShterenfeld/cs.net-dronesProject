@@ -23,9 +23,9 @@ namespace IBL
         // < inheritdoc  />
         public void Add(BO.Drone drone, int baseStationId)
         {
-            IDal.DO.Drone drone1 = new() { Id = drone.Id, MaxWeight = (IDal.DO.WeightCategories)drone.MaxWeight };
-            //dal.Add(drone1);
-            //dal.Add(drone1.Id, baseStationId);
+            IDal.DO.Drone drone1 = new() { Id = drone.Id, MaxWeight = (IDal.DO.WeightCategories)drone.MaxWeight , Model = drone.Model};
+            dal.Add(drone1);
+            dal.Add(drone1.Id, baseStationId);
             dronesForList.Add(GetDroneForList(drone));
         }
 
