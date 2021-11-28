@@ -75,10 +75,11 @@ namespace IBL
                     {
                         case BO.DroneStatuses.Available:
                             {
-                                List<BO.CustomerForList> customerForLists = (List<CustomerForList>)CustomersWithSuppliedParcels();
+                                List<CustomerForList> customerForLists = (List<CustomerForList>)CustomersWithSuppliedParcels();
                                 if (customerForLists.Count != 0)
                                 {
-                                    BO.Customer chosenCustomer = customersList.First(item => item.Id == customerForLists[rand.Next(0, customerForLists.Count - 1)].Id);
+                                    int index = rand.Next(0, customerForLists.Count - 1);
+                                    BO.Customer chosenCustomer = customersList.First(item => item.Id == customerForLists[index].Id);
                                     dronesForList[i].Location = chosenCustomer.Location;
                                     double minBattery = ComputeMinBatteryNeeded(dronesForList[i], chosenCustomer);
                                     dronesForList[i].Battery = RandomBattery(minBattery);

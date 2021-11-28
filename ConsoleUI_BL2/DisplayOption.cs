@@ -33,28 +33,28 @@ namespace ConsoleUI_BL
                             {
                                 Console.WriteLine("Please enter baseStationId");
                                 baseStationId = InputIntValue();
-                                Console.WriteLine(bl.GetBLBaseStation(baseStationId));
+                                Console.WriteLine(bl.GetBaseStationForList(baseStationId));
                                 break;
                             }
                         case (int)DisplayOptions.Drone:
                             {
                                 Console.WriteLine("Please enter droneId");
                                 droneId = InputIntValue();
-                                Console.WriteLine(bl.GetBLDroneFromBL(droneId));
+                                Console.WriteLine(bl.GetDroneForList(droneId));
                                 break;
                             }
                         case (int)DisplayOptions.Customer:
                             {
                                 Console.WriteLine("Please enter customerId");
                                 customerId = InputStringId();
-                                Console.WriteLine(bl.GetBLCustomer(customerId));
+                                Console.WriteLine(bl.GetCustomerForList(customerId));
                                 break;
                             }
                         case (int)DisplayOptions.Parcel:
                             {
                                 Console.WriteLine("Please enter parcelId");
                                 parcelId = InputIntValue();
-                                Console.WriteLine(bl.GetBLParcel(parcelId));
+                                Console.WriteLine(bl.GetParcelForList(parcelId));
                                 break;
                             }
                         default:
@@ -75,6 +75,10 @@ namespace ConsoleUI_BL
                 catch (StringIdException exe)
                 {
                     Console.WriteLine("The Id : " + exe.Id + " isn't valid!");
+                }
+                catch (StringException exe)
+                {
+                    Console.WriteLine("The string : " + exe.Str + " isn't valid!");
                 }
             }
             else Console.WriteLine("The display option must hold a numeric value!");
