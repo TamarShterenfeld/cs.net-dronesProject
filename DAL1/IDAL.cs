@@ -177,7 +177,7 @@ namespace IDal
         /// </summary>
         /// <param name="baseStationId">the id of the base sattion we want to check.</param>
         /// <returns></returns>
-        int AvailableChargeSlots(int baseStationId);
+        int CaughtChargeSlots(int baseStationId);
 
         /// <summary>
         /// creats a list which contains all the drones that are charged in the current baseStation,

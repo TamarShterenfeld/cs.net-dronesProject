@@ -46,7 +46,7 @@ namespace ConsoleUI_BL
                             }
                         case (int)ShowingListsOptions.NotAssociatedParcels:
                             {
-                               // ShowList(bl.GetNotAssociatedParcelsList());
+                                ShowList(bl.GetNotAssociatedParcelsList());
                                 break;
                             }
                         case (int)ShowingListsOptions.AvailableChargeSlots:

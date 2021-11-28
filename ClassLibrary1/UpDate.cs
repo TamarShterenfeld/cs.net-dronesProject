@@ -29,7 +29,7 @@ namespace IBL
                 int chargeSlots1 = int.Parse(chargeSlots);
                 //the amount of drones thet charged in this baseStation
                 //is bigger than its available chargeSLots.
-                if (CatchAvailableChargeSlots(baseStationId) > chargeSlots1)
+                if (dal.CaughtChargeSlots(baseStationId) > chargeSlots1)
                     throw new ChargeSlotsException(chargeSlots1);
                 station.ChargeSlots = chargeSlots1;
             }

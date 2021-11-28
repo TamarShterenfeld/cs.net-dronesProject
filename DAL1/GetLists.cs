@@ -33,12 +33,13 @@ namespace DalObject
         /// <inheritdoc />
         public IEnumerable<Parcel> NotAssociatedParcels()
         {
+            DateTime date = new DateTime();
             List<Parcel> parcels = new ();
-            for (int i = 0; i < ParcelsList.Count; i++)
+            foreach (var parcel in ParcelsList)
             {
-                if (ParcelsList[i].DroneId == -1)
+                if (parcel.AssociationDate == date)
                 {
-                    parcels.Add(ParcelsList[i]);
+                    parcels.Add(parcel);
                 }
             }
             return parcels;
@@ -81,7 +82,7 @@ namespace DalObject
             List<BaseStation> availableChargingSlotsList = new ();
             foreach(var item in BaseStationsList)
             {
-                int caught = AvailableChargeSlots(item.Id);
+                int caught = CaughtChargeSlots(item.Id);
                 if (item.ChargeSlots - caught > 0) { availableChargingSlotsList.Add(item); }
             }
             return availableChargingSlotsList;

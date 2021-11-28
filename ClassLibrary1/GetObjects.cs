@@ -47,9 +47,9 @@ namespace IBL
             BaseStationForList current = new()
             {
                 Id = item.Id,
-                CaughtChargeSlots = CatchAvailableChargeSlots(item.Id),
+                CaughtChargeSlots = dal.CaughtChargeSlots(item.Id),
                 Name = item.Name,
-                FreeChargeSlots = item.ChargeSlots - CatchAvailableChargeSlots(item.Id),
+                AvailableChargeSlots = item.ChargeSlots - dal.CaughtChargeSlots(item.Id),
             };
             return current;
         }
@@ -192,7 +192,7 @@ namespace IBL
             BO.Parcel item = GetBLParcel(id);
             ParcelForList current = new()
             {
-                DroneId = item.MyDrone.Id,
+                DroneId = item.MyDrone!= null? item.MyDrone.Id : 0,
                 ParcelId = item.Id,
                 Priority = item.Priority,
                 SenderId = item.Sender.Id,

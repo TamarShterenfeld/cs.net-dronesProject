@@ -58,7 +58,7 @@ namespace ConsoleUI_BL
                                 string sender , target ;
                                 (sender, target, parcel.Weight, parcel.Priority) = InputParcelDetails();
                                 parcel.Sender = bl.GetBLCustomrInParcel(sender);
-                                parcel.Target = bl.GetBLCustomrInParcel(sender);
+                                parcel.Target = bl.GetBLCustomrInParcel(target);
                                 parcel.MyDrone = null;
                                 bl.Add(parcel);
                                 break;

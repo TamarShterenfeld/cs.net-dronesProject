@@ -65,7 +65,7 @@ namespace IBL
         /// <returns>the number of caught charge slots</returns>
         int CatchAvailableChargeSlots(int stationId)
         {
-            int caught = dal.AvailableChargeSlots(stationId);
+            int caught = dal.CaughtChargeSlots(stationId);
             return caught;
         }
 

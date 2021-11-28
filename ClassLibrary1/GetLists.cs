@@ -190,9 +190,9 @@ namespace IBL
         /// <summary>
         /// The function shows all the not associated parcels 
         /// </summary>
-        public IEnumerable<BO.ParcelForList> GetNotAssociatedParcelsList()
+        public IEnumerable<ParcelForList> GetNotAssociatedParcelsList()
         {
-            List<BO.ParcelForList> boNotAssociatedParcelsList = new ();
+            List<ParcelForList> boNotAssociatedParcelsList = new ();
             List<IDal.DO.Parcel> doNotAccosiatedParcelsList = (List<IDal.DO.Parcel>)dal.NotAssociatedParcels();
             foreach (IDal.DO.Parcel item in doNotAccosiatedParcelsList)
             {
