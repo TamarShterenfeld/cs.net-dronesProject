@@ -13,7 +13,7 @@ namespace IBL.BO
     public class Parcel
     {
         int id;
-        DateTime productionDate = new();
+        DateTime productionDate = DateTime.Now;
         DateTime associationDate = new();
         DateTime pickUpDate = new();
         DateTime supplyDate = new();
@@ -41,15 +41,7 @@ namespace IBL.BO
         public DateTime AssociationDate { get { return associationDate; } set { associationDate = value; } }  
         public DateTime PickUpDate { get { return pickUpDate; } set { pickUpDate = value; } }       
         public DateTime SupplyDate { get { return supplyDate; } set { supplyDate = value; } }
-        /// <summary>
-        /// a constructor
-        /// </summary>
-        /// <param name="id">parcel's id</param>
-        /// <param name="sender">parcel's sender</param>
-        /// <param name="target">parcel's target</param>
-        /// <param name="weight">parcel's weight</param>
-        /// <param name="priority">parcel's priority</param>
-        /// <param name="drone">parcel's drone</param>
+
         public Parcel(int id, CustomerInParcel sender, CustomerInParcel target, WeightCategories weight, Priorities priority, DroneInParcel drone)
         {
             this.id = id; Sender = sender; Target = target; Weight = weight; Priority = priority; MyDrone = drone;
@@ -57,12 +49,15 @@ namespace IBL.BO
             ProductionDate = AssociationDate = PickUpDate = SupplyDate = new DateTime(01 / 01 / 0001);
         }
 
+        /// <summary>
+        /// default constructor
+        /// </summary>
         public Parcel() { }
 
         /// <summary>
         /// override ToString function.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>description of the Parcel object</returns>
         public override string ToString()
         {
             return $"id: {Id} \n" +

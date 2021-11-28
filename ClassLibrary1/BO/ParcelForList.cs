@@ -95,6 +95,9 @@ namespace IBL
             public Priorities Priority { set; get; }
             public ParcelStatuses Status { set; get; }
 
+            /// <summary>
+            /// default constructor
+            /// </summary>
             public ParcelForList() { }
 
             public ParcelForList(int droneId, int parcelId, string senderId, string targetId, WeightCategories weight, Priorities priority, ParcelStatuses status)
@@ -102,12 +105,16 @@ namespace IBL
                 DroneId = droneId; ParcelId = parcelId; SenderId = senderId; TargetId = targetId; Weight = weight; Priority = priority; Status = status;
             }
 
+            /// <summary>
+            /// override ToString function.
+            /// </summary>
+            /// <returns>description of the ParcelForList object</returns>
             public override string ToString()
             {
-                return $"parcel id: {ParcelId} \n" +
-                       $"drone id: {DroneId} \n" +
-                       $"sender id: {SenderId} \n" +
-                       $"target id: {TargetId} \n" +
+                return $"parcelId: {parcelId} \n" +
+                       $"senderId: {SenderId} \n" +
+                       $"targetId:  {TargetId}\n" +
+                       $"droneId: {DroneId} \n" +
                        $"weight: {Weight} \n" +
                        $"priority: {Priority} \n" +
                        $"status: {Status} \n";

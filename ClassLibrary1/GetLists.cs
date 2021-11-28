@@ -31,10 +31,10 @@ namespace IBL
         /// <summary>
         /// The function shows all the available charge slots
         /// </summary>
-        public IEnumerable<BO.BaseStationForList> GetAvailableChargeSlots()
+        public IEnumerable<BaseStationForList> GetAvailableChargeSlots()
         {
             List<IDal.DO.BaseStation> DoAvailableChargeSlots = (List<IDal.DO.BaseStation>)dal.AvailableChargeStations();
-            List<BO.BaseStationForList> BoAvailableChargeSlots = new();
+            List<BaseStationForList> BoAvailableChargeSlots = new();
             foreach (IDal.DO.BaseStation item in DoAvailableChargeSlots)
             {
                 BoAvailableChargeSlots.Add(GetBaseStationForList(item.Id));
@@ -42,8 +42,6 @@ namespace IBL
 
             return BoAvailableChargeSlots;
         }
-
-
         
         public IEnumerable<BaseStationForList> GetBaseStationList()
         {
@@ -62,10 +60,10 @@ namespace IBL
         {
             List<DroneInCharging> droneInCharging = null;
             if (dal.DronesChargingInMe(stationId) != null)
-            {       foreach (DroneCharge droneCharge in dal.DronesChargingInMe(stationId))
+            {   
+                foreach (DroneCharge droneCharge in dal.DronesChargingInMe(stationId))
                 {
-                    DroneInCharging drone = new(droneCharge.DroneId, 100);
-                    // לבדוק שבאמת הבטריה נהית 100
+                    DroneInCharging drone = new(droneCharge.DroneId, rand.NextDouble()*40+60);
                     droneInCharging.Add(drone);
                 }    
             }
@@ -127,9 +125,6 @@ namespace IBL
             foreach (var drone in dal.GetDronesList())
             {
                 singleDrone = GetDroneForList(drone);
-                //singleDrone.Status = RandomPriority();
-                //singleDrone.Location = new Location(RandomLongitude(), RandomLatitude());
-                //singleDrone.Battery = rand.NextDouble() * 20 + 20;
                 singleDrone.ParcelId = ++parcelId <= dal.getLastParcelId()? parcelId:0;
                 droneForList.Add(singleDrone);
 
@@ -182,9 +177,9 @@ namespace IBL
         /// <summary>
         /// The function shows all the not associated parcels 
         /// </summary>
-        public IEnumerable<BO.ParcelForList> GetNotAssociatedParcelsList()
+        public IEnumerable<ParcelForList> GetNotAssociatedParcelsList()
         {
-            List<BO.ParcelForList> boNotAssociatedParcelsList = new ();
+            List<ParcelForList> boNotAssociatedParcelsList = new ();
             List<IDal.DO.Parcel> doNotAccosiatedParcelsList = (List<IDal.DO.Parcel>)dal.NotAssociatedParcels();
             foreach (IDal.DO.Parcel item in doNotAccosiatedParcelsList)
             {

@@ -35,7 +35,7 @@ namespace IBL
                 Id = baseStation.Id,
                 Name = baseStation.Name,
                 Location = new Location(CoordinateDoToBo(baseStation.Longitude), CoordinateDoToBo(baseStation.Latitude)),
-                ChargeSlots = baseStation.ChargeSlots - CatchAvailableChargeSlots(baseStation.Id),
+                ChargeSlots = baseStation.ChargeSlots - dal.CaughtChargeSlots(baseStation.Id),
                 DroneCharging = (List<DroneInCharging>)GetDronesInMe(baseStation.Id)
             };
             return BOBaseStation;
@@ -47,9 +47,9 @@ namespace IBL
             BaseStationForList current = new()
             {
                 Id = item.Id,
-                CaughtChargeSlots = item.ChargeSlots - CatchAvailableChargeSlots(item.Id),
+                CaughtChargeSlots = dal.CaughtChargeSlots(item.Id),
                 Name = item.Name,
-                AvailableChargeSlots = CatchAvailableChargeSlots(item.Id)
+                AvailableChargeSlots = item.ChargeSlots - dal.CaughtChargeSlots(item.Id),
             };
             return current;
         }
@@ -150,8 +150,11 @@ namespace IBL
         /// <param name="id">drone's id</param>
         public DroneInParcel GetBLDroneInParcel(int id)
         {
+            if (id == 0)
+            {
+                return null;
+            }
             return DroneInParcelDOtOBO(dal.GetDrone(id));
-
         }
 
         public DroneInParcel DroneInParcelDOtOBO(IDal.DO.Drone drone)
@@ -189,7 +192,7 @@ namespace IBL
             BO.Parcel item = GetBLParcel(id);
             ParcelForList current = new()
             {
-                DroneId = item.MyDrone.Id,
+                DroneId = item.MyDrone!= null? item.MyDrone.Id : 0,
                 ParcelId = item.Id,
                 Priority = item.Priority,
                 SenderId = item.Sender.Id,
@@ -213,7 +216,7 @@ namespace IBL
                 Target = parcel.Target,
                 Collect = GetBLCustomer(parcel.Sender.Id).Location,
                 Destination = GetBLCustomer(parcel.Target.Id).Location,
-                Distatnce = Locatable.Distance((ILocatable)parcel.Sender, (ILocatable)parcel.Target)
+                Distatnce = Locatable.Distance((ILocatable)(parcel.Sender), (ILocatable)(parcel.Target))
             };
             return parcelInPassing;
         }
@@ -270,7 +273,11 @@ namespace IBL
             {
                 Id = item.Id,
                 Name = item.Name,
-                Phone = item.Phone
+                Phone = item.Phone,
+                AmountOfGetParcels = GetAndSupplied(item),
+                AmountOfInPassingParcels = GetAndNotSupplied(item),
+                AmountOfSendAndNotSuppliedParcels = SendAndNotSupplied(item),
+                AmountOfSendAndSuppliedParcels = SendAndSupplied(item)
             };
             return current;
 

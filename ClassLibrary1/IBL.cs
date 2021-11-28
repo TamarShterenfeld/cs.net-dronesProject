@@ -44,7 +44,7 @@ namespace IBL
         /// by converting the BO.baseStation list to BaseStationForList type.
         /// </summary>
         /// <returns></returns>
-        IEnumerable<BO.BaseStationForList> GetAvailableChargeSlots();
+        IEnumerable<BaseStationForList> GetAvailableChargeSlots();
 
         IEnumerable<BaseStationForList> GetBaseStationList();
         BaseStationForList GetBaseStationForList(int id);
@@ -80,7 +80,7 @@ namespace IBL
     {
         IEnumerable<BO.Parcel> GetBOParcelsList();
         IEnumerable<ParcelForList> GetParcelsList();
-        IEnumerable<BO.ParcelForList> GetNotAssociatedParcelsList();
+        IEnumerable<ParcelForList> GetNotAssociatedParcelsList();
         void Add(BO.Parcel baseStation);
         ParcelForList GetParcelForList(int id);
         ParcelInPassing GetParcelInPassing(int id);

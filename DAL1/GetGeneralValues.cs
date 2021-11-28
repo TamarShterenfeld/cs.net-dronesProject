@@ -22,7 +22,7 @@ namespace DalObject
         }
 
         /// <inheritdoc /> 
-        public int AvailableChargeSlots(int baseStationId)
+        public int CaughtChargeSlots(int baseStationId)
         {
             int caught = 0;
             foreach (DroneCharge droneCharge in DronesChargeList)

@@ -63,9 +63,15 @@ namespace IBL
             public override string ToString()
             {
                 return $"id: {Id} \n" +
+                       $"ToDestination: {ToDestination}\n"+
                        $"priority: {Priority}\n" +
                        $"source: {Sender}\n" +
-                       $"destination: {Target}\n";
+                       $"weight: {Weight}\n"+
+                       $"destination: {Target}\n"+
+                       $"collect's location: {Collect}\n"+
+                       $"destination's location: {Destination}\n"+
+                       $"distatnce: {Distatnce}\n";
+
             }
         }
 
