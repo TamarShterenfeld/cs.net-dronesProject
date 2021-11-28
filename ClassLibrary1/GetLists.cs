@@ -61,14 +61,16 @@ namespace IBL
         public IEnumerable<DroneInCharging> GetDronesInMe(int stationId)
         {
             List<DroneInCharging> droneInCharging = null;
-            foreach (DroneCharge droneCharge in dal.DronesChargingInMe(stationId))
-            {
-                DroneInCharging drone = new (droneCharge.DroneId, 100);
-                // לבדוק שבאמת הבטריה נהית 100
-                droneInCharging.Add(drone);
+            if (dal.DronesChargingInMe(stationId) != null)
+            {       foreach (DroneCharge droneCharge in dal.DronesChargingInMe(stationId))
+                {
+                    DroneInCharging drone = new(droneCharge.DroneId, 100);
+                    // לבדוק שבאמת הבטריה נהית 100
+                    droneInCharging.Add(drone);
+                }    
             }
             return droneInCharging;
-        }
+        } 
 
         /// <summary>
         /// The function returns all the DronesLIst items 
@@ -137,33 +139,33 @@ namespace IBL
             return droneForList;
         }
 
-        private DroneStatuses RandomPriority()
-        {
-            DroneStatuses status = (DroneStatuses)rand.Next(1, Enum.GetNames(typeof(DroneStatuses)).Length);
-            return status;
-        }
+        //private DroneStatuses RandomPriority()
+        //{
+        //    DroneStatuses status = (DroneStatuses)rand.Next(1, Enum.GetNames(typeof(DroneStatuses)).Length);
+        //    return status;
+        //}
 
-        /// <summary>
-        /// randoms a longitude value of a Coordinate object.
-        /// </summary>
-        /// <returns>a coordinate object which stores a random longitude .</returns>
-        private BO.Coordinate RandomLongitude()
-        {
-            double longitude1 = 0.3 * rand.Next(0, 180) + 0.7 * rand.Next(-180, 0);
-            BO.Coordinate longitude = new BO.Coordinate( longitude1,BO.Locations.Longitude );
-            return longitude;
-        }
+        ///// <summary>
+        ///// randoms a longitude value of a Coordinate object.
+        ///// </summary>
+        ///// <returns>a coordinate object which stores a random longitude .</returns>
+        //private BO.Coordinate RandomLongitude()
+        //{
+        //    double longitude1 = 0.3 * rand.Next(0, 180) + 0.7 * rand.Next(-180, 0);
+        //    BO.Coordinate longitude = new BO.Coordinate( longitude1,BO.Locations.Longitude );
+        //    return longitude;
+        //}
 
-        /// <summary>
-        /// randoms a latitude value of a Coordinate object.
-        /// </summary>
-        /// <returns>a coordinate object which stores a random latitude.</returns>
-        private BO.Coordinate RandomLatitude()
-        {
-            double latitude1 = 0.3 * rand.Next(0, 180) + 0.7 * rand.Next(-180, 0);
-            BO.Coordinate latitude = new BO.Coordinate( latitude1, BO.Locations.Longitude);
-            return latitude;
-        }
+        ///// <summary>
+        ///// randoms a latitude value of a Coordinate object.
+        ///// </summary>
+        ///// <returns>a coordinate object which stores a random latitude.</returns>
+        //private BO.Coordinate RandomLatitude()
+        //{
+        //    double latitude1 = 0.3 * rand.Next(0, 180) + 0.7 * rand.Next(-180, 0);
+        //    BO.Coordinate latitude = new BO.Coordinate( latitude1, BO.Locations.Longitude);
+        //    return latitude;
+        //}
 
         // ---------------------------------Parcels GetList Methods------------------------------------------------
 
@@ -224,7 +226,7 @@ namespace IBL
         public IEnumerable<BO.Customer> GetBOCustomersList()
         {
             List<BO.Customer> boCustomerList = new ();
-            List<IDal.DO.Customer> doCustomerList = (List<IDal.DO.Customer>)dal.GetBaseStationsList();
+            List<IDal.DO.Customer> doCustomerList = (List<IDal.DO.Customer>)dal.GetCustomersList();
             foreach (IDal.DO.Customer item in doCustomerList)
             {
                 boCustomerList.Add(GetBLCustomer(item.Id));

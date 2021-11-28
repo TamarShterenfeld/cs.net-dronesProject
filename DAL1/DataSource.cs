@@ -87,7 +87,6 @@ namespace DalObject
                 baseStation.Longitude = RandomLongitude();
                 baseStation.Latitude = RandomLatitude();
                 BaseStationsList.Add(baseStation);
-                Console.WriteLine("baseStation\n"+ baseStation);///////////
             }
 
         }
@@ -108,7 +107,6 @@ namespace DalObject
                 drone.MaxWeight = RandomWeight();
                 DronesList.Add(drone);
 
-                Console.WriteLine("drone\n"+drone);///////////
 
             }
 
@@ -130,7 +128,6 @@ namespace DalObject
                 customer.Longitude = RandomLongitude();
                 customer.Longitude = RandomLatitude();
                 CustomersList.Add(customer);
-                Console.WriteLine("customer\n"+customer);///////////
 
             }
 
@@ -168,7 +165,6 @@ namespace DalObject
                     parcel.AssociationDate = new DateTime(01 / 01 / 0001);
                 }
                 ParcelsList.Add(parcel);
-                Console.WriteLine("parcels\n"+parcel);///////////
 
             }
         }

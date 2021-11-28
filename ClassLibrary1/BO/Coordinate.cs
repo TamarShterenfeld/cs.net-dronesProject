@@ -96,7 +96,7 @@ namespace IBL.BO
         /// <summary>
         /// default constructor
         /// </summary>
-        public Coordinate(){}
+        public Coordinate(){ }
 
         /// <summary>
         /// convert longitude / latitude from coordinante to a double number
