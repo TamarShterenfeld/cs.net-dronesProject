@@ -60,9 +60,7 @@ namespace IBL
                     .ThenBy(parcel => customersList.First(customer => customer.Id == parcel.SenderId).Distance(currentDrone));
                 foreach (var item in parcels)
                 {
-                    Customer sender = GetBOCustomersList().First(item1 => item1.Id == item.Sender.Id);
-                    Customer target = GetBOCustomersList().First(item1 => item1.Id == item.Target.Id);
-                    if (DroneReachLastDestination(currentDrone, sender, target))
+                    if (DroneReachLastDestination(currentDrone, item))
                     {
                         isAssociate = true;
                         currentDrone.Status = DroneStatuses.Shipment;
@@ -111,7 +109,7 @@ namespace IBL
             //the drone is in shipment status' but the parcel still wasn't picked up.
             if (currDrone.Status == DroneStatuses.Shipment)
             {
-                if (parcelForList.Status != ParcelStatuses.PickedUp)
+                if (parcelForList.Status == ParcelStatuses.Associated)
                 {
                     currDrone.Battery = ComputeMinBatteryNeeded(currDrone, sender);
                     currDrone.Location = sender.Location;
@@ -132,7 +130,21 @@ namespace IBL
         /// <param name="targetId">target id</param>
         public void SupplyParcel(int droneId)
         {
-
+            DroneForList drone = GetDroneForList(droneId);
+            ParcelForList parcelForList = GetParcelForList(drone.ParcelId);
+            Customer target = GetBLCustomer(parcelForList.TargetId);
+            if (parcelForList.Status != ParcelStatuses.PickedUp)
+            {
+                drone.Battery = ComputeMinBatteryNeeded(drone, target);
+                drone.Location = target.Location;
+                drone.Status = DroneStatuses.Available;
+                Parcel parcel = GetBLParcel(parcelForList.ParcelId);
+                parcel.SupplyDate = DateTime.Now;
+                UpdateParcel(parcel);
+                UpdateDrone(drone);
+            }
+            else
+                throw new ParcelStatusException(parcelForList.Status);
         }
 
 
@@ -178,8 +190,10 @@ namespace IBL
             dronesForList[index] = droneForList;
         }
 
-        bool DroneReachLastDestination(DroneForList drone, Customer sender, Customer target)
+        bool DroneReachLastDestination(DroneForList drone, Parcel item)
         {
+            Customer sender = GetBOCustomersList().First(item1 => item1.Id == item.Sender.Id);
+            Customer target = GetBOCustomersList().First(item1 => item1.Id == item.Target.Id);
             if (DroneReachLocation(drone, sender))
             {
                 drone.Battery = ComputeBatteryRemaining(drone, sender);
