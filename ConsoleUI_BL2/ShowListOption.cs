@@ -26,22 +26,22 @@ namespace ConsoleUI_BL
                     {
                         case (int)ShowingListsOptions.BaseStations:
                             {
-                                ShowList(bl.GetBOBaseStationsList());
+                                ShowList(bl.GetBaseStationList());
                                 break;
                             }
                         case (int)ShowingListsOptions.Drones:
                             {
-                                ShowList(bl.GetBODronesList());
+                                ShowList(bl.GetDronesList());
                                 break;
                             }
                         case (int)ShowingListsOptions.Customers:
                             {
-                                ShowList(bl.GetBOCustomersList());
+                                ShowList(bl.GetCustomersList());
                                 break;
                             }
                         case (int)ShowingListsOptions.Parcels:
                             {
-                                ShowList(bl.GetBOParcelsList());
+                                ShowList(bl.GetParcelsList());
                                 break;
                             }
                         case (int)ShowingListsOptions.NotAssociatedParcels:
@@ -69,9 +69,9 @@ namespace ConsoleUI_BL
                 {
                     Console.WriteLine("The Location: " + exe.Location + "isn't valid" + "\nCoordinante value must be a positive number and in range of - 180º to 180º");
                 }
-                catch (StringException exe)
+                catch (StringIdException exe)
                 {
-                    Console.WriteLine("The string : " + exe.Str + " isn't valid!");
+                    Console.WriteLine("The Id : " + exe.Id + " isn't valid!");
                 }
             }
             else Console.WriteLine("The show list option must hold a numeric value!");
@@ -79,7 +79,7 @@ namespace ConsoleUI_BL
 
 
         /// <inheritdoc />
-        public static void ShowList(IEnumerable<BaseStation> baseStations)
+        public static void ShowList(IEnumerable<BaseStationForList> baseStations)
         {
             foreach (var item in baseStations)
             {
@@ -88,7 +88,7 @@ namespace ConsoleUI_BL
         }
 
         /// <inheritdoc />
-        public static void ShowList(IEnumerable<Drone> drones)
+        public static void ShowList(IEnumerable<DroneForList> drones)
         {
             foreach (var item in drones)
             {
@@ -97,7 +97,7 @@ namespace ConsoleUI_BL
         }
 
         /// <inheritdoc />
-        public static void ShowList(IEnumerable<Parcel> parcels)
+        public static void ShowList(IEnumerable<ParcelForList> parcels)
         {
             foreach (var item in parcels)
             {
@@ -106,7 +106,7 @@ namespace ConsoleUI_BL
         }
 
         /// <inheritdoc />
-        public static void ShowList(IEnumerable<Customer> customers)
+        public static void ShowList(IEnumerable<CustomerForList> customers)
         {
             foreach (var item in customers)
             {

@@ -22,36 +22,34 @@ namespace DalObject
             BaseStationsList.Add(baseStation);
         }
 
-        /// <inheritdoc />
         public void Add(Customer customer)
         {
             CheckNotExistenceOfCustomer(customer.Id);
             CustomersList.Add(customer);
         }
 
-        /// <inheritdoc />
+
         public void Add(Drone drone)
         {
             CheckNotExistenceOfDrone(drone.Id);
             DronesList.Add(drone);
         }
 
-        /// <inheritdoc />
         public void Add(int droneId, int baseStationId)
         {
             CheckExistenceOfBaseStation(baseStationId);
             int chargeSlots = BaseStationsList.First(item => item.Id == baseStationId).ChargeSlots;
             if (chargeSlots > 0)
             {
-                CheckNotExistenceOfDroneCharge(droneId);
+                CheckExistenceOfDroneCharge(droneId);
                 DroneCharge droneCharge = new() { DroneId = droneId, StationId = baseStationId, EntryTime = DateTime.Now };
-                DronesChargeList.Add(droneCharge);
+                Add(droneCharge);
             }
             else
                 throw new ChargeSlotsException(chargeSlots);
         }
 
-        /// <inheritdoc />
+
         public void Add(Parcel parcel)
         {
             CheckNotExistenceOfParcel(parcel.Id);

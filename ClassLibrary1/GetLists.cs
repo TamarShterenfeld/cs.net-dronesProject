@@ -31,13 +31,13 @@ namespace IBL
         /// <summary>
         /// The function shows all the available charge slots
         /// </summary>
-        public IEnumerable<BO.BaseStation> GetAvailableChargeSlots()
+        public IEnumerable<BO.BaseStationForList> GetAvailableChargeSlots()
         {
             List<IDal.DO.BaseStation> DoAvailableChargeSlots = (List<IDal.DO.BaseStation>)dal.AvailableChargeStations();
-            List<BO.BaseStation> BoAvailableChargeSlots = new();
+            List<BO.BaseStationForList> BoAvailableChargeSlots = new();
             foreach (IDal.DO.BaseStation item in DoAvailableChargeSlots)
             {
-                BoAvailableChargeSlots.Add(GetBLBaseStation(item.Id));
+                BoAvailableChargeSlots.Add(GetBaseStationForList(item.Id));
             }
 
             return BoAvailableChargeSlots;
@@ -95,18 +95,18 @@ namespace IBL
         /// by converting the BO.Drone to DroneForList type.
         /// </summary>
         /// <returns></returns>
-        //public IEnumerable<DroneForList> GetDronesList()
-        //{
-        //    List<DroneForList> droneForLists = new();
-        //    List<BO.Drone> drones = (List<BO.Drone>)GetBOCustomersList();
+        public IEnumerable<DroneForList> GetDronesList()
+        {
+            List<DroneForList> droneForLists = new();
+            List<BO.Drone> drones = (List<BO.Drone>)GetBOCustomersList();
 
-        //    foreach (BO.Drone item in drones)
-        //    {
+            foreach (BO.Drone item in drones)
+            {
 
-        //        droneForLists.Add(GetDroneForList(item.Id));
-        //    }
-        //    return droneForLists;
-        //}
+                droneForLists.Add(GetDroneForList(item.Id));
+            }
+            return droneForLists;
+        }
 
         //---------------------------------DronesForList GetList Methods------------------------------------------------
 
@@ -205,13 +205,13 @@ namespace IBL
         /// <summary>
         /// The function shows all the not associated parcels 
         /// </summary>
-        public IEnumerable<BO.Parcel> GetNotAssociatedParcelsList()
+        public IEnumerable<BO.ParcelForList> GetNotAssociatedParcelsList()
         {
-            List<BO.Parcel> boNotAssociatedParcelsList = new ();
+            List<BO.ParcelForList> boNotAssociatedParcelsList = new ();
             List<IDal.DO.Parcel> doNotAccosiatedParcelsList = (List<IDal.DO.Parcel>)dal.NotAssociatedParcels();
             foreach (IDal.DO.Parcel item in doNotAccosiatedParcelsList)
             {
-                boNotAssociatedParcelsList.Add(GetBLParcel(item.Id));
+                boNotAssociatedParcelsList.Add(GetParcelForList(item.Id));
             }
             return boNotAssociatedParcelsList;
         }
@@ -225,7 +225,7 @@ namespace IBL
         /// </summary>
         public IEnumerable<BO.Customer> GetBOCustomersList()
         {
-            List<BO.Customer> boCustomerList = new ();
+            List<BO.Customer> boCustomerList = new();
             List<IDal.DO.Customer> doCustomerList = (List<IDal.DO.Customer>)dal.GetCustomersList();
             foreach (IDal.DO.Customer item in doCustomerList)
             {

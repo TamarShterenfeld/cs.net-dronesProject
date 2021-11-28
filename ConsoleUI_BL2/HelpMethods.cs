@@ -216,10 +216,11 @@ namespace ConsoleUI_BL
         /// <returns>the inputed string id</returns>
         internal static string InputPhone()
         {
-            bool isValid = true;
+           
             string phone;
             while (true)
             {
+                bool isValid = true;
                 phone = Console.ReadLine();
                 if (phone.Length != 10 )
                 {

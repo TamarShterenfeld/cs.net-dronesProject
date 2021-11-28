@@ -97,6 +97,18 @@ namespace IBL
                 AmountOfSendAndNotSuppliedParcels = amountOfSendAndNotSuppliedParcels; AmountOfGetParcels = amountOfGetParcels;
                 AmountOfInPassingParcels = amountOfInPassingParcels;
             }
+
+            public override string ToString()
+            {
+                return $"id: {Id} \n" +
+                       $"name: {Name} \n" +
+                       $"phone:  {Phone}\n" +
+                       $"amount of 'send & supplied' parcels: {AmountOfSendAndSuppliedParcels}\n" +
+                       $"amount of 'send & not supplied' parcels: {AmountOfSendAndNotSuppliedParcels}\n" +
+                       $"amount of 'get' parcels: { AmountOfGetParcels}\n" +
+                       $"amount of 'In Passing' parcels: {AmountOfInPassingParcels}\n";
+            }
+
         }
     }
 }

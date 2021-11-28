@@ -98,6 +98,18 @@ namespace IBL
             {
                 DroneId = droneId; ParcelId = parcelId; SenderId = senderId; TargetId = targetId; Weight = weight; Priority = priority; Status = status;
             }
+
+            public override string ToString()
+            {
+                return $"parcel id: {ParcelId} \n" +
+                       $"drone id: {DroneId} \n" +
+                       $"sender id: {SenderId} \n" +
+                       $"target id: {TargetId} \n" +
+                       $"weight: {Weight} \n" +
+                       $"priority: {Priority} \n" +
+                       $"status: {Status} \n";
+
+            }
         }
     }
 

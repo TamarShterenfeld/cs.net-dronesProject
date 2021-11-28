@@ -72,9 +72,9 @@ namespace ConsoleUI_BL
                 {
                     Console.WriteLine("The Location: " + exe.Location + "isn't valid" + "\nCoordinante value must be a positive number and in range of - 180º to 180º");
                 }
-                catch (StringException exe)
+                catch (StringIdException exe)
                 {
-                    Console.WriteLine("The string : " + exe.Str + " isn't valid!");
+                    Console.WriteLine("The Id : " + exe.Id + " isn't valid!");
                 }
             }
             else Console.WriteLine("The display option must hold a numeric value!");

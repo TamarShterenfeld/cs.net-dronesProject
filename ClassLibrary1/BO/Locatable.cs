@@ -9,6 +9,7 @@ namespace IBL.BO
     
     internal static class Locatable
     {
+        //assuming that the returned value is measured by kilometers.
         public static double Distance(this ILocatable from, ILocatable to)
         {
             int R = 6371 * 1000; // metres
