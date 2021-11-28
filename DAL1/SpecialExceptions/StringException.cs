@@ -14,8 +14,6 @@ namespace DAL
         {
             public string Id { get; set; }
             public StringException() : base() { }
-
-          //  public StringIdExceptioin(string message) : base(message) { }
             public StringException(string message, Exception inner) : base(message, inner) { }
             protected StringException(SerializationInfo info, StreamingContext context) : base(info, context) { }
             public StringException(string str) { Id = str; }

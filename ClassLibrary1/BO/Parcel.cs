@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace IBL.BO
 {
+   /// <summary>
+   /// the class contains all the parcel's needed  details.
+   /// </summary>
     public class Parcel
     {
         int id;
@@ -36,10 +39,17 @@ namespace IBL.BO
         public DroneInParcel MyDrone { get { return drone; } set { drone = value; } }
         public  DateTime ProductionDate { get { return productionDate ; } init { productionDate = DateTime.Now; } }
         public DateTime AssociationDate { get { return associationDate; } set { associationDate = value; } }  
-        public DateTime PickUpDate { get { return pickUpDate; } set { pickUpDate = value; } }
-       
+        public DateTime PickUpDate { get { return pickUpDate; } set { pickUpDate = value; } }       
         public DateTime SupplyDate { get { return supplyDate; } set { supplyDate = value; } }
-
+        /// <summary>
+        /// a constructor
+        /// </summary>
+        /// <param name="id">parcel's id</param>
+        /// <param name="sender">parcel's sender</param>
+        /// <param name="target">parcel's target</param>
+        /// <param name="weight">parcel's weight</param>
+        /// <param name="priority">parcel's priority</param>
+        /// <param name="drone">parcel's drone</param>
         public Parcel(int id, CustomerInParcel sender, CustomerInParcel target, WeightCategories weight, Priorities priority, DroneInParcel drone)
         {
             this.id = id; Sender = sender; Target = target; Weight = weight; Priority = priority; MyDrone = drone;
@@ -49,6 +59,10 @@ namespace IBL.BO
 
         public Parcel() { }
 
+        /// <summary>
+        /// override ToString function.
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             return $"id: {Id} \n" +

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DAL.DO;
+using IDal.DO;
 
 
 namespace IBL
@@ -10,7 +12,7 @@ namespace IBL
     namespace BO
     {
         /// <summary>
-        /// the struct Customer contains the following details: id, name, phone, longitude, latitude.
+        /// the class Customer contains the following details: id, name, phone, longitude, latitude.
         /// </summary>
         public class Customer:ILocatable
         {
@@ -25,18 +27,6 @@ namespace IBL
                 }
                 set
                 {
-                    if (value.Length != 9)
-                    {
-                        throw new DateTimeException("Id must include exactly 9 digits");
-                    }
-                    foreach (char digit in value)
-                    {
-                        if (!Char.IsDigit(digit))
-                        {
-                            throw new DateTimeException("Id must include only digits");
-
-                        }
-                    }
                     id = value;
                 }
             }
@@ -48,16 +38,6 @@ namespace IBL
                 }
                 set
                 {
-                    foreach (char letter in value)
-                    {
-                        if (letter != ' ')
-                        {
-                            if (!Char.IsLetter(letter))
-                            {
-                                throw new DateTimeException("Name can contain only letters.");
-                            }
-                        }
-                    }
                     name = value;
                 }
             }
@@ -69,16 +49,6 @@ namespace IBL
                 }
                 set
                 {
-                    if (value[0] != '0')
-                        throw new DateTimeException("The first digit of a phone number must be '0'");
-                    foreach (char digit in value)
-                    {
-                        if (!Char.IsDigit(digit))
-                        {
-                            throw new DateTimeException("Phone must include only digits");
-
-                        }
-                    }
                     phone = value;
                 }
             }
@@ -124,7 +94,7 @@ namespace IBL
             }
 
             /// <summary>
-            /// collect the details about the delivery in customer
+            /// collect all the details about the delivery in customer
             /// </summary>
             /// <returns> the details about the delivery in customer </returns>
             private static string DeliveryInCustomerDetails(List<ParcelInCustomer> DroneIC)

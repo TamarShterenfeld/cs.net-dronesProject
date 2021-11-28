@@ -9,10 +9,13 @@ namespace IBL
 {
     namespace BO
     {
-
+        /// <summary>
+        /// the class contains all the DroneInParcel's needed details.
+        /// </summary>
         public class DroneInParcel 
         {
             int id;
+            double battery;
             public int Id
             {
                 set
@@ -25,7 +28,19 @@ namespace IBL
                 }
                 get { return id; }
             }
-            public double Battery { get; set; }
+            public double Battery
+            {
+                set
+                {
+                    if (value < 0)
+                        throw new BatteryException(value);
+                    battery = value;
+                }
+                get
+                {
+                    return battery;
+                }
+            }
             public Location CurrentLocation { get; set; }
 
             /// <summary>

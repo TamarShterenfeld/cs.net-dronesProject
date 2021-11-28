@@ -49,22 +49,22 @@ namespace IBL.BO
         /// <param name="value"></param>
         /// <param name="position"></param>
         /// <returns>a coordinate object which calculated based on the double value parameter.</returns>
-        public Coordinate CastDoubleToCoordinante(double value, Locations location)
+        public void CastDoubleToCoordinante()
         {
-            if (value < -180 || value > 180)
-                throw new LocationException(value);
-            if (value < 0 && location == Locations.Longitude)
+            if (InputCoorValue < -180 || InputCoorValue > 180)
+                throw new LocationException(InputCoorValue);
+            if (InputCoorValue < 0 && MyLocation == Locations.Longitude)
                 Direction = Directions.SOUTH;
 
-            if (value > 0 && location == Locations.Longitude)
+            if (InputCoorValue > 0 && MyLocation == Locations.Longitude)
                 Direction = Directions.NORTH;
-            if (value < 0 && location == Locations.Latitude)
+            if (InputCoorValue < 0 && MyLocation == Locations.Latitude)
                 Direction = Directions.WEST;
-            if (value > 0 && location == Locations.Latitude)
+            if (InputCoorValue > 0 && MyLocation == Locations.Latitude)
                 Direction = Directions.EAST;
 
             //the absolute num of the decimal converted num.
-            var decimalNum = Math.Abs(Convert.ToDecimal(value));
+            var decimalNum = Math.Abs(Convert.ToDecimal(InputCoorValue));
             var degrees = Decimal.Truncate(decimalNum);
             decimalNum = (decimalNum - degrees) * 60;
             var minutes = Decimal.Truncate(decimalNum);
@@ -72,7 +72,6 @@ namespace IBL.BO
             Degrees = Convert.ToDouble(degrees);
             Minutes = Convert.ToDouble(minutes);
             Seconds = Convert.ToDouble(seconds);
-            return this;
         }
 
         /// <summary>
@@ -84,7 +83,7 @@ namespace IBL.BO
         {
             InputCoorValue = degree;
             MyLocation = longOrLat;
-            CastDoubleToCoordinante(degree, longOrLat);
+            CastDoubleToCoordinante();
         }
 
         /// <summary>

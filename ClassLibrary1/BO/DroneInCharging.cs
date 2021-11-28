@@ -8,6 +8,9 @@ namespace IBL
 {
     namespace BO
     {
+        /// <summary>
+        /// the class contains all the DroneInCharging's needed details.
+        /// </summary>
         public class DroneInCharging
         {
             int id;
@@ -23,7 +26,19 @@ namespace IBL
                 }
                 get { return id; }
             }
-            public double Battery { get; set; }
+            public double Battery
+            {
+                set
+                {
+                    if (value < 0)
+                        throw new BatteryException(value);
+                    Battery = value;
+                }
+                get
+                {
+                    return Battery;
+                }
+            }
 
             /// <summary>
             /// constructor

@@ -49,7 +49,7 @@ namespace IBL
                 Id = item.Id,
                 CaughtChargeSlots = item.ChargeSlots - CatchAvailableChargeSlots(item.Id),
                 Name = item.Name,
-                FreeChargeSlots = CatchAvailableChargeSlots(item.Id)
+                AvailableChargeSlots = CatchAvailableChargeSlots(item.Id)
             };
             return current;
         }

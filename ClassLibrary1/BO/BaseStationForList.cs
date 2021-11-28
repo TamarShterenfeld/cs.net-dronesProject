@@ -3,10 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DAL.DO;
 
 
 namespace IBL.BO
 {
+    /// <summary>
+    /// the class BaseStationForList contains all the baseStation's details
+    /// that we want to show to the client.
+    /// </summary>
    public  class BaseStationForList
     {
         private int id;
@@ -20,7 +25,7 @@ namespace IBL.BO
             {
                 if (value < 0)
                 {
-                    throw new DateTimeException("Id must contain a positive number");
+                    throw new IntIdException(value);
                 }
                 id = value;
             }
@@ -40,7 +45,7 @@ namespace IBL.BO
                     {
                         if (!Char.IsLetter(letter))
                         {
-                            throw new DateTimeException("Name can contain only letters.");
+                            throw new StringException(value);
                         }
                     }
                 }
@@ -48,22 +53,22 @@ namespace IBL.BO
             }
         }
 
-        private int freeChargeSlots;
+        private int availableChargeSlots;
 
-        public int FreeChargeSlots
+        public int AvailableChargeSlots
         {
             get
             {
-                return freeChargeSlots;
+                return availableChargeSlots;
             }
             set
             {
                 if (value < 0)
                 {
-                    throw (new DateTimeException("Not valid number of chargeSlots"));
+                    throw (new ChargeSlotsException(value));
                 }
 
-                freeChargeSlots = value;
+                availableChargeSlots = value;
             }
         }
 
@@ -79,20 +84,28 @@ namespace IBL.BO
             {
                 if (value < 0)
                 {
-                    throw (new DateTimeException("Not valid number of chargeSlots"));
+                    throw (new ChargeSlotsException(value));
                 }
 
                 caughtChargeSlots = value;
             }
         }
 
-        public BaseStationForList(int id, string name,int freeChargeSlots, int caughtChargeSlots)
+        /// <summary>
+        /// a constructor
+        /// </summary>
+        /// <param name="id">base station's id</param>
+        /// <param name="name">base station's name</param>
+        /// <param name="availableChargeSlots">available charge slots in the base station</param>
+        /// <param name="caughtChargeSlots">caught charge slots in the base station</param>
+        public BaseStationForList(int id, string name,int availableChargeSlots, int caughtChargeSlots)
         {
-            this.id = id; this.name = name; this.freeChargeSlots = freeChargeSlots; this.caughtChargeSlots = caughtChargeSlots;
-            Id = id; Name = name; FreeChargeSlots = freeChargeSlots; CaughtChargeSlots = freeChargeSlots;
+            this.id = id; this.name = name; this.availableChargeSlots = availableChargeSlots; this.caughtChargeSlots = caughtChargeSlots;
+            Id = id; Name = name; AvailableChargeSlots = availableChargeSlots; CaughtChargeSlots = availableChargeSlots;
         }
 
         public BaseStationForList() { }
+
         /// <summary>
         /// override ToString function.
         /// </summary>
@@ -101,7 +114,7 @@ namespace IBL.BO
         {
             return $"id: {Id} \n" +
                    $"name: {Name} \n" +
-                   $"number of free charge slots: {freeChargeSlots}\n"+
+                   $"number of free charge slots: {availableChargeSlots}\n"+
                    $"number of caught charge slots: {caughtChargeSlots}\n";
         }
     }

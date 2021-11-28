@@ -12,7 +12,9 @@ namespace IBL
 {
     namespace BO
     {
-
+        /// <summary>
+        /// the class CustomerInParcel contains all the customerInParcel's needed details
+        /// </summary>
         public class CustomerInParcel
         {
             private string id;

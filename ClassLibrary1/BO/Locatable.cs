@@ -9,7 +9,14 @@ namespace IBL.BO
     
     internal static class Locatable
     {
-        //assuming that the returned value is measured by kilometers.
+
+        /// <summary>
+        /// an extension function that computes the distance between two ILocatable objects.
+        /// assuming that the returned value is measured by kilometers.
+        /// </summary>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <returns></returns>
         public static double Distance(this ILocatable from, ILocatable to)
         {
             int R = 6371 * 1000; // metres
