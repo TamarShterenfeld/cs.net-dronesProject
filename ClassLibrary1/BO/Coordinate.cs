@@ -47,41 +47,81 @@ namespace IBL.BO
         /// <param name="value"></param>
         /// <param name="position"></param>
         /// <returns>a coordinate object which calculated based on the double value parameter.</returns>
-        public Coordinate CastDoubleToCoordinante(double value, Locations location)
+        //public Coordinate CastDoubleToCoordinante(double value, Locations location)
+        //{
+        //    if (value < -180 || value > 180)
+        //    {
+        //        throw new LocationException(value);
+        //        //---print in the catch function---Console.WriteLine("Coordinante value must be a positive number and in range of - 180º to 180º.");
+        //    }
+        //    if (value < 0 && location == Locations.Longitude)
+        //        Direction = Directions.SOUTH;
+
+        //    if (value > 0 && location == Locations.Longitude)
+        //    {
+        //        Direction = Directions.NORTH;
+        //    }
+        //    if (value < 0 && location == Locations.Latitude)
+        //    {
+        //        Direction = Directions.WEST;
+        //    }
+        //    if (value > 0 && location == Locations.Latitude)
+        //    {
+        //        Direction = Directions.EAST;
+        //    }
+
+        //    //the absolute num of the decimal converted num.
+        //    var decimalNum = Math.Abs(Convert.ToDecimal(value));
+
+        //    var degrees = Decimal.Truncate(decimalNum);
+        //    decimalNum = (decimalNum - degrees) * 60;
+
+        //    var minutes = Decimal.Truncate(decimalNum);
+        //    var seconds = (decimalNum - minutes) * 60;
+        //    Degrees = Convert.ToDouble(degrees);
+        //    Minutes = Convert.ToDouble(minutes);
+        //    Seconds = Convert.ToDouble(seconds);
+        //    return this;
+        //}
+
+        ///////////////
+        
+        public void CastDoubleToCoordinante()
         {
-            if (value < -180 || value > 180)
+            if (InputCoorValue < -180 || InputCoorValue > 180)
             {
-                throw new LocationException(value);
+                throw new LocationException(InputCoorValue);
                 //---print in the catch function---Console.WriteLine("Coordinante value must be a positive number and in range of - 180º to 180º.");
             }
-            if (value < 0 && location == Locations.Longitude)
-                Direction = Directions.SOUTH;
+            if (InputCoorValue < 0 && MyLocation == Locations.Longitude)
+                this.Direction = Directions.SOUTH;
 
-            if (value > 0 && location == Locations.Longitude)
+            if (InputCoorValue > 0 && MyLocation == Locations.Longitude)
             {
-                Direction = Directions.NORTH;
+                this.Direction = Directions.NORTH;
             }
-            if (value < 0 && location == Locations.Latitude)
+            if (InputCoorValue < 0 && MyLocation == Locations.Latitude)
             {
-                Direction = Directions.WEST;
+                this.Direction = Directions.WEST;
             }
-            if (value > 0 && location == Locations.Latitude)
+            if (InputCoorValue > 0 && MyLocation == Locations.Latitude)
             {
-                Direction = Directions.EAST;
+                this.Direction = Directions.EAST;
             }
 
             //the absolute num of the decimal converted num.
-            var decimalNum = Math.Abs(Convert.ToDecimal(value));
+            var decimalNum = Math.Abs(Convert.ToDecimal(InputCoorValue));
 
             var degrees = Decimal.Truncate(decimalNum);
             decimalNum = (decimalNum - degrees) * 60;
 
             var minutes = Decimal.Truncate(decimalNum);
             var seconds = (decimalNum - minutes) * 60;
-            Degrees = Convert.ToDouble(degrees);
-            Minutes = Convert.ToDouble(minutes);
-            Seconds = Convert.ToDouble(seconds);
-            return this;
+            this.Degrees = Convert.ToDouble(degrees);
+            this.Minutes = Convert.ToDouble(minutes);
+            this.Seconds = Convert.ToDouble(seconds);
+            
+           
         }
         /// <summary>
         /// constructor which gets degree and direction (longitude ot latitude)
@@ -92,6 +132,7 @@ namespace IBL.BO
         {
             InputCoorValue = degree;
             MyLocation = longOrLat;
+            CastDoubleToCoordinante();
         }
 
         /// <summary>

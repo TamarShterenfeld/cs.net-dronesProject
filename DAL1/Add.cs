@@ -39,7 +39,7 @@ namespace DalObject
         /// <inheritdoc />
         public void Add(int droneId, int baseStationId)
         {
-            CheckNotExistenceOfBaseStation(baseStationId);
+            CheckExistenceOfBaseStation(baseStationId);
             int chargeSlots = BaseStationsList.First(item => item.Id == baseStationId).ChargeSlots;
             if (chargeSlots > 0)
             {

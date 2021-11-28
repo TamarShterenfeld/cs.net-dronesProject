@@ -48,7 +48,24 @@ namespace IBL.BO
         }
 
         public Parcel() { }
+
+        public override string ToString()
+        {
+            return $"id: {Id} \n" +
+                   $"productionDate: {ProductionDate} \n" +
+                   $"associationDate:  {AssociationDate}\n" +
+                   $"pickUpDate: {PickUpDate} \n" +
+                   $"supplyDate: {SupplyDate} \n" +
+                   $"sender: {Sender} \n" +
+                   $"target: {Target} \n" +
+                   $"weight: {Weight} \n" +
+                   $"priority: {Priority} \n" +
+                   MyDrone != null ? $"drone: {MyDrone} \n" : ""; 
+
+        }
     }
 
     
 }
+
+
