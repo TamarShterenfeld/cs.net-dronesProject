@@ -33,14 +33,14 @@ namespace IBL
         /// </summary>
         public IEnumerable<BO.BaseStation> GetAvailableChargeSlots()
         {
-            List<IDal.DO.BaseStation> doAvailableChargeSlots = (List<IDal.DO.BaseStation>)dal.AvailableChargeStations();
-            List<BO.BaseStation> boAvailableChargeSlots = new();
-            foreach (IDal.DO.BaseStation item in doAvailableChargeSlots)
+            List<IDal.DO.BaseStation> DoAvailableChargeSlots = (List<IDal.DO.BaseStation>)dal.AvailableChargeStations();
+            List<BO.BaseStation> BoAvailableChargeSlots = new();
+            foreach (IDal.DO.BaseStation item in DoAvailableChargeSlots)
             {
-                boAvailableChargeSlots.Add(GetBLBaseStation(item.Id));
+                BoAvailableChargeSlots.Add(GetBLBaseStation(item.Id));
             }
 
-            return boAvailableChargeSlots;
+            return BoAvailableChargeSlots;
         }
 
 

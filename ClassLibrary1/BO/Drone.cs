@@ -30,20 +30,13 @@ namespace IBL.BO
         public string Model { get; set; }
         public WeightCategories MaxWeight { set; get; } 
         public double Battery { get { return battery; } set { battery = value; } }
-        public DroneStatuses Status { get; set; }
-        public ParcelInPassing Parcel { set; get; }
-        public Location Location { get; set; }
 
-        //public Drone() { }
+        private DroneStatuses status = DroneStatuses.Maintenance;
+        public DroneStatuses Status { get { return status; } set { status = value; } }
+        private ParcelInPassing parcel = null;
+        public ParcelInPassing Parcel { set { parcel = value; } get { return parcel; } }
+        public Location Location { set; get; }
 
-        //public Drone(int id, string model, WeightCategories weight, double battery, DroneStatuses status, ParcelInPassing parcel, Location location)
-        //{
-        //    Id = id; Model = model; MaxWeight = weight; Battery = battery; Status = status; Parcel = parcel; Location = location;
-        //}
-        /// <summary>
-        /// override ToString function.
-        /// </summary>
-        /// <returns></returns>
         public override string ToString()
         {
             return $"id: {Id} \n" +
@@ -51,7 +44,7 @@ namespace IBL.BO
                    $"maxWeight:  {MaxWeight}\n" +
                    $"battery: {Battery} \n" +
                    $"status: {Status} \n" +
-                   $"parcel: {Parcel} \n" +
+                   Parcel != null? $"parcel: {Parcel} \n":"\n" +
                    $"myLocation: {Location} \n";
         }
     }

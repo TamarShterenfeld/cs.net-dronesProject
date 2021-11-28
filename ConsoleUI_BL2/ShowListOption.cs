@@ -17,7 +17,7 @@ namespace ConsoleUI_BL
         /// <inheritdoc />
         public void Options(ref BL bl)
         {
-            Console.WriteLine("Please enter: \n1- For base stations list\n2- For drones list\n3- For customers list\n4- For parcels list\n5- For not associated parcels list\n6 - For base stations with available charge slots");
+            Console.WriteLine("Please enter: \n1- For base stations list\n2- For drones list\n3- For customers list\n4- For parcels list\n5- For not associated parcels list\n6- For base stations with available charge slots");
             if (int.TryParse(Console.ReadLine(), out int innerChoice))
             {
                 try

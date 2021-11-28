@@ -41,6 +41,7 @@ namespace ConsoleUI_BL
                                 IBL.BO.Drone drone = new();
                                 (drone.Id, drone.Model, drone.MaxWeight) = InputDroneDetails();
                                 baseStationId = InputIntValue();
+                                drone.Location = bl.GetBLBaseStation(baseStationId).Location;
                                 bl.Add(drone, baseStationId);
                                 break;
                             }

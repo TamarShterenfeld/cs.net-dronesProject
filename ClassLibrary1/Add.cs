@@ -40,10 +40,5 @@ namespace IBL
         {
             dal.Add(new IDal.DO.Parcel() { Id = parcel.Id, SenderId = parcel.Sender.Id, TargetId = parcel.Target.Id, DroneId = 0 , Weight = (IDal.DO.WeightCategories)parcel.Weight, Priority = (IDal.DO.Priorities)parcel.Priority, ProductionDate = parcel.ProductionDate, AssociationDate = parcel.AssociationDate, PickUpDate = parcel.PickUpDate, SupplyDate = parcel.SupplyDate});
         }
-
-        public void Add(BO.DroneInCharging droneInCharging)
-        {
-            
-        }
     }
 }

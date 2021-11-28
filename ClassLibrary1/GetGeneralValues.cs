@@ -33,6 +33,7 @@ namespace IBL
         {
             
             ParcelForList parcelForList = ((List<ParcelForList>)GetParcelsList()).First(parcel=>parcel.DroneId == droneId);
+            //
             return parcelForList == null ? 0 : parcelForList.ParcelId;
         }
 
