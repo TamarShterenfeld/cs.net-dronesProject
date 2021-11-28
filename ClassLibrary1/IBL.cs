@@ -113,7 +113,7 @@ namespace IBL
         BO.Customer CustomerDOtOBO(IDal.DO.Customer customer);
         CustomerInParcel GetBLCustomrInParcel(string id);
         CustomerInParcel CustomrInParcelDOtOBO(IDal.DO.Customer customer);
-        public void UpdateBaseStation(string id, string name, string num);
+        
 
     }
 
