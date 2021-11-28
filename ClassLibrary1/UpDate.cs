@@ -65,7 +65,7 @@ namespace IBL
                         isAssociate = true;
                         currentDrone.Status = DroneStatuses.Shipment;
                         currentDrone.ParcelId = item.Id;
-                        BaseStation nearestBaseStation = NearestBaseStation(target);
+                        BaseStation nearestBaseStation = NearestBaseStation(currentDrone);//currentDrone instead of target
                         //there's a need to charge the drone in the nearest baseStation.
                         if (currentDrone.Battery == 0)
                         {
