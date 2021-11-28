@@ -101,15 +101,15 @@ namespace IBL
         /// <summary>
         /// the function returns the nearest BaseStation to the input drone.
         /// </summary>
-        /// <param name="drone"></param>
+        /// <param name="location"></param>
         /// <returns></returns>
 
-        private BO.BaseStation NearestBaseStation(DroneForList drone)
+        private BO.BaseStation NearestBaseStation(ILocatable location)
         {
             double minDistance = int.MaxValue;
             BO.BaseStation nearestBaseStation =
                        GetBOBaseStationsList().Last
-                       (item => Min(item.Distance(drone), minDistance) == item.Distance(drone));
+                       (item => Min(item.Distance(location), minDistance) == item.Distance(location));
             return nearestBaseStation;
         }
 

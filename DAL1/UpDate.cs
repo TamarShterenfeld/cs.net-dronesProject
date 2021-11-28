@@ -3,62 +3,69 @@ using System.Collections.Generic;
 using System.Text;
 using static DalObject.DataSource;
 using IDal.DO;
+using System.Linq;
 
 
 namespace DalObject
 {
     public partial class DalObject: IDal.IDal
     {
-        /// <inheritdoc />
-        public void UpdateDrone(Drone drone, int id)
+        
+        public void UpDate(Drone drone, int id)
         {
+            CheckExistenceOfDrone(id);
             DronesList.Remove(DronesList.Find( item => item.Id == id));
             DronesList.Add(drone);
         }
 
-        /// <inheritdoc />
-        public void UpdateBaseStation(BaseStation baseStation, int id)
+       
+        public void UpDate(BaseStation baseStation, int id)
         {
-            BaseStationsList.Remove(BaseStationsList.Find( item => item.Id == id));
+            CheckExistenceOfBaseStation(id);
+            BaseStationsList.Remove(BaseStationsList.First( item => item.Id == id));
             BaseStationsList.Add(baseStation);
         }
 
-        /// <inheritdoc />
-        public void UpdateCustomer(Customer customer, string id)
+        public void UpDate(Customer customer, string id)
         {
-            CustomersList.Remove(CustomersList.Find( item => item.Id == id));
+            CheckExistenceOfCustomer(id);
+            CustomersList.Remove(CustomersList.First( item => item.Id == id));
             CustomersList.Add(customer);
         }
-        
-        /// <inheritdoc />
-        public void AssociateParcel(int parcelId, int droneId)
+ 
+        public void UpDate(Parcel parcel, int id)
         {
-            for (int i = 0; i < ParcelsList.Count; i++)
-            {
-                if (ParcelsList[i].Id == parcelId)
-                {
-                    Parcel parcel = ParcelsList[i];
-                    parcel.DroneId = droneId;
-                    ParcelsList[i] = parcel;
-                    break;
-                }
-            }
+            CheckExistenceOfParcel(id);
+            ParcelsList.Remove(ParcelsList.First(item => item.Id == id));
+            ParcelsList.Add(parcel);
         }
+        //public void AssociateParcel(int parcelId, int droneId)
+        //{
+        //    for (int i = 0; i < ParcelsList.Count; i++)
+        //    {
+        //        if (ParcelsList[i].Id == parcelId)
+        //        {
+        //            Parcel parcel = ParcelsList[i];
+        //            parcel.DroneId = droneId;
+        //            ParcelsList[i] = parcel;
+        //            break;
+        //        }
+        //    }
+        //}
 
-        /// <inheritdoc />
-        public void PickupParcel(int parcelId)
-        {
-            for (int i = 0; i < ParcelsList.Count; i++)
-            {
-                if (ParcelsList[i].Id == parcelId)
-                {
-                    Parcel parcel = ParcelsList[i];
-                    parcel.PickUpDate = DateTime.Now;
-                    ParcelsList[i] = parcel;
-                    break;
-                }
-            }
-        }
+        //public void PickupParcel(int parcelId)
+        //{
+        //    for (int i = 0; i < ParcelsList.Count; i++)
+        //    {
+        //        if (ParcelsList[i].Id == parcelId)
+        //        {
+        //            Parcel parcel = ParcelsList[i];
+        //            parcel.PickUpDate = DateTime.Now;
+        //            ParcelsList[i] = parcel;
+        //            break;
+        //        }
+        //    }
+        //}
 
         /// <inheritdoc />
         public void SendDroneToRecharge(int droneId, int baseStationId)

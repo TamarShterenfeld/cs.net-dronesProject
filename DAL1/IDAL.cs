@@ -13,7 +13,6 @@ namespace IDal
         /// <param name="baseStation">an object of a base station - for adding to the BaseStationsList</param>
         void Add(BaseStation baseStation);
 
-        
         /// <summary>
         /// the function adds a drone to the DronesList.
         /// </summary>
@@ -51,35 +50,43 @@ namespace IDal
         /// </summary>
         /// <param name="drone">the updated drone</param>
         /// <param name="id">drone's id</param>
-        public void UpdateDrone(Drone drone, int id);
+        void UpDate(Drone drone, int id);
 
         /// <summary>
-        /// the function updates ( at least one detail ) base station's name and number of charge slots
+        /// the function updates a baseStation object in BaseStationsList.
         /// </summary>
         /// <param name="baseStation">the updated base station</param>
         /// <param name="id">base station's id</param>
-        public void UpdateBaseStation(BaseStation baseStation, int id);
+        void UpDate(BaseStation baseStation, int id);
 
         /// <summary>
-        /// the function updates ( at least one detail ) customer's name and phone 
+        /// the function updates a customer object in CustomersList.
         /// </summary>
         /// <param name="customer">the updated customer</param>
         /// <param name="id">customer's id</param>
-        public void UpdateCustomer(Customer customer, string id);
+        void UpDate(Customer customer, string id);
 
         /// <summary>
-        /// associates a parcel thet its id is as parcelId
-        /// to the drone that its id is as droneId
+        /// the function updates a parcel object in ParcelsList.
         /// </summary>
-        /// <param name="parcelId">like that, it's possible to identity the requested parcel </param>
-        /// <param name="droneId">like that, it's possible to identity the requested drone </param>
-        void AssociateParcel(int parcelId, int droneId);
+        /// <param name="customer">the updated parcel</param>
+        /// <param name="id">parcel's id</param>
+        void UpDate(Parcel customer, int id);
 
-        /// <summary>
-        /// chnges the requested parcel pickUpDate to DateTime.Now.
-        /// </summary>
-        /// <param name="parcelId">like that, it's possible to identity the requested parcel</param>
-        void PickupParcel(int parcelId);
+
+        ///// <summary>
+        ///// associates a parcel thet its id is as parcelId
+        ///// to the drone that its id is as droneId
+        ///// </summary>
+        ///// <param name="parcelId">like that, it's possible to identity the requested parcel </param>
+        ///// <param name="droneId">like that, it's possible to identity the requested drone </param>
+        //void AssociateParcel(int parcelId, int droneId);
+
+        ///// <summary>
+        ///// chnges the requested parcel pickUpDate to DateTime.Now.
+        ///// </summary>
+        ///// <param name="parcelId">like that, it's possible to identity the requested parcel</param>
+        //void PickupParcel(int parcelId);
 
         /// <summary>
         /// sends the requsted drone to recharge in the requested base station.

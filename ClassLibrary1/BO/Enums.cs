@@ -31,6 +31,10 @@ namespace IBL
         {
             From, To
         }
+        public enum Actions
+        {
+            Associate, PickUp, Supply, SendDroneForCharging, ReleaseDroneFromCharging,
+        }
     }
 
 }
