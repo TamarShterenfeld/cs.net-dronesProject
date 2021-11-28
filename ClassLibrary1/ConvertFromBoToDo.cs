@@ -72,14 +72,13 @@ namespace IBL
         }
         IDal.DO.WeightCategories ConvertToDoWeightCategory(BO.WeightCategories weight)
         {
-
-            IDal.DO.WeightCategories weight1 = (IDal.DO.WeightCategories)Enum.GetNames(typeof(IDal.DO.WeightCategories)).GetValue((int)weight);
+            IDal.DO.WeightCategories weight1 = (IDal.DO.WeightCategories)weight;
             return weight1;
         }
         IDal.DO.Priorities ConvertToDoPriority(BO.Priorities priority)
         {
 
-            IDal.DO.Priorities priority1 = (IDal.DO.Priorities)Enum.GetNames(typeof(IDal.DO.Priorities)).GetValue((int)priority);
+            IDal.DO.Priorities priority1 = (IDal.DO.Priorities)priority;
             return priority1;
         }
 
