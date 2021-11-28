@@ -154,16 +154,17 @@ namespace IBL
             {
                 return null;
             }
-            return DroneInParcelDOtOBO(dal.GetDrone(id));
+            return DroneInParcelDOtOBO(id);
         }
 
-        public DroneInParcel DroneInParcelDOtOBO(IDal.DO.Drone drone)
+        public DroneInParcel DroneInParcelDOtOBO(int id)
         {
+            DroneForList drone = dronesForList.First(drone => drone.Id == id);
             DroneInParcel droneInPrcel = new()
             {
                 Id = drone.Id,
                 Battery = GetDroneBattery(drone.Id),
-                //CurrentLocation =,
+                CurrentLocation = drone.Location,
             };
             return droneInPrcel;
         }

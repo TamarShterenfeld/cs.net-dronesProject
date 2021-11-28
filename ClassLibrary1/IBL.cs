@@ -72,7 +72,7 @@ namespace IBL
         BO.Drone GetBLDrone(int id);
         BO.Drone DroneDOtOBO(IDal.DO.Drone drone);
         DroneInParcel GetBLDroneInParcel(int id);
-        DroneInParcel DroneInParcelDOtOBO(IDal.DO.Drone drone);
+        DroneInParcel DroneInParcelDOtOBO(int id);
         public void UpdateDrone(int id, string model);
     }
 
