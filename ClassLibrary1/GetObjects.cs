@@ -273,7 +273,11 @@ namespace IBL
             {
                 Id = item.Id,
                 Name = item.Name,
-                Phone = item.Phone
+                Phone = item.Phone,
+                AmountOfGetParcels = GetAndSupplied(item),
+                AmountOfInPassingParcels = GetAndNotSupplied(item),
+                AmountOfSendAndNotSuppliedParcels = SendAndNotSupplied(item),
+                AmountOfSendAndSuppliedParcels = SendAndSupplied(item)
             };
             return current;
 

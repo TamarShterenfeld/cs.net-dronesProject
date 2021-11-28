@@ -39,6 +39,70 @@ namespace IBL
             return parcel.Id;
         }
 
+        /// <summary>
+        /// return the number of supplied parcels which the customer have sent 
+        /// </summary>
+        /// <param name="customer"> BO customer</param>
+        /// <returns>number of supplied parcels which the customer have sent </returns>
+        private int SendAndSupplied(BO.Customer customer)
+        {
+            int num = 0;
+            if (customer.FromCustomer == null) { return num;  }
+            foreach (var item in customer.FromCustomer)
+            {
+                if(item.ParcelStatus == ParcelStatuses.Supplied) { ++num; }
+            }
+            return num;
+        }
+
+
+        /// <summary>
+        /// return the number of unsupplied parcels which the customer have sent 
+        /// </summary>
+        /// <param name="customer"> BO customer</param>
+        /// <returns>number of unsupplied parcels which the customer have sent </returns>
+        private int SendAndNotSupplied(BO.Customer customer)
+        {
+            int num = 0;
+            if (customer.FromCustomer == null) { return num; }
+            foreach (var item in customer.FromCustomer)
+            {
+                if (item.ParcelStatus != ParcelStatuses.Supplied) { ++num; }
+            }
+            return num;
+        }
+
+        /// <summary>
+        /// return the number of supplied parcels which the customer have got 
+        /// </summary>
+        /// <param name="customer"> BO customer</param>
+        /// <returns>number of supplied parcels which the customer have got </returns>
+        private int GetAndSupplied(BO.Customer customer)
+        {
+            int num = 0;
+            if (customer.ToCustomer == null) { return num; }
+            foreach (var item in customer.ToCustomer)
+            {
+                if (item.ParcelStatus == ParcelStatuses.Supplied) { ++num; }
+            }
+            return num;
+        }
+
+        /// <summary>
+        /// return the number of unsupplied parcels which the customer have got 
+        /// </summary>
+        /// <param name="customer"> BO customer</param>
+        /// <returns>number of unsupplied parcels which the customer have got </returns>
+        private int GetAndNotSupplied(BO.Customer customer)
+        {
+            int num = 0;
+            if (customer.ToCustomer == null) { return num; }
+            foreach (var item in customer.ToCustomer)
+            {
+                if (item.ParcelStatus != ParcelStatuses.Supplied) { ++num; }
+            }
+            return num;
+        }
 
         private BO.Parcel ParcelDOtOBO(IDal.DO.Parcel parcel)
         {
