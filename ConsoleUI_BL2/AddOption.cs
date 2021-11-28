@@ -55,9 +55,11 @@ namespace ConsoleUI_BL
                         case (int)AddOptions.Parcel:
                             {
                                 IBL.BO.Parcel parcel = new();
-                                CustomerInParcel sender = new();
-                                CustomerInParcel target = new();
-                                (sender.Id, target.Id, parcel.Weight, parcel.Priority) = InputParcelDetails();
+                                string sender , target ;
+                                (sender, target, parcel.Weight, parcel.Priority) = InputParcelDetails();
+                                parcel.Sender = bl.GetBLCustomrInParcel(sender);
+                                parcel.Target = bl.GetBLCustomrInParcel(sender);
+                                parcel.MyDrone = null;
                                 bl.Add(parcel);
                                 break;
                             }

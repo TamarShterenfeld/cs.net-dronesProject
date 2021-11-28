@@ -79,13 +79,24 @@ namespace DalObject
         public IEnumerable<BaseStation> AvailableChargeStations()
         {
             List<BaseStation> availableChargingSlotsList = new ();
-            for (int i = 0; i < BaseStationsList.Count; i++)
+            foreach(var item in BaseStationsList)
             {
-                availableChargingSlotsList[i] = BaseStationsList[i];
-                BaseStation currBaseStation = availableChargingSlotsList[i];
-                currBaseStation.ChargeSlots -= DronesChargeList.ToArray().Count(dc => dc.StationId == availableChargingSlotsList[i].Id);
+                int caught = AvailableChargeSlots(item.Id);
+                if (item.ChargeSlots - caught > 0) { availableChargingSlotsList.Add(item); }
             }
             return availableChargingSlotsList;
         }
+
+        //public IEnumerable<BaseStation> AvailableChargeStations()
+        //{
+        //    List<BaseStation> availableChargingSlotsList = new();
+        //    for (int i = 0; i < BaseStationsList.Count; i++)
+        //    {
+        //        availableChargingSlotsList[i] = BaseStationsList[i];
+        //        BaseStation currBaseStation = availableChargingSlotsList[i];
+        //        currBaseStation.ChargeSlots -= DronesChargeList.ToArray().Count(dc => dc.StationId == availableChargingSlotsList[i].Id);
+        //    }
+        //    return availableChargingSlotsList;
+        //}
     }
 }

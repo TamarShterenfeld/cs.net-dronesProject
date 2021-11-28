@@ -26,7 +26,7 @@ namespace ConsoleUI_BL
                     {
                         case (int)ShowingListsOptions.BaseStations:
                             {
-                                ShowList(bl.GetBOBaseStationsList());
+                                ShowList(bl.GetBaseStationList());
                                 break;
                             }
                         case (int)ShowingListsOptions.Drones:
@@ -41,12 +41,12 @@ namespace ConsoleUI_BL
                             }
                         case (int)ShowingListsOptions.Parcels:
                             {
-                                ShowList(bl.GetBOParcelsList());
+                                ShowList(bl.GetParcelsList());
                                 break;
                             }
                         case (int)ShowingListsOptions.NotAssociatedParcels:
                             {
-                                ShowList(bl.GetNotAssociatedParcelsList());
+                               // ShowList(bl.GetNotAssociatedParcelsList());
                                 break;
                             }
                         case (int)ShowingListsOptions.AvailableChargeSlots:
@@ -79,7 +79,7 @@ namespace ConsoleUI_BL
 
 
         /// <inheritdoc />
-        public static void ShowList(IEnumerable<BaseStation> baseStations)
+        public static void ShowList(IEnumerable<BaseStationForList> baseStations)
         {
             foreach (var item in baseStations)
             {
@@ -97,7 +97,7 @@ namespace ConsoleUI_BL
         }
 
         /// <inheritdoc />
-        public static void ShowList(IEnumerable<Parcel> parcels)
+        public static void ShowList(IEnumerable<ParcelForList> parcels)
         {
             foreach (var item in parcels)
             {

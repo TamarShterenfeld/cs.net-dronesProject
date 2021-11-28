@@ -98,6 +98,22 @@ namespace IBL
             {
                 DroneId = droneId; ParcelId = parcelId; SenderId = senderId; TargetId = targetId; Weight = weight; Priority = priority; Status = status;
             }
+
+            /// <summary>
+            /// override ToString function.
+            /// </summary>
+            /// <returns>description of the ParcelForList object</returns>
+            public override string ToString()
+            {
+                return $"parcelId: {parcelId} \n" +
+                       $"senderId: {SenderId} \n" +
+                       $"targetId:  {TargetId}\n" +
+                       $"droneId: {DroneId} \n" +
+                       $"weight: {Weight} \n" +
+                       $"priority: {Priority} \n" +
+                       $"status: {Status} \n";
+
+            }
         }
     }
 

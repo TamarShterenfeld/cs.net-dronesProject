@@ -10,7 +10,7 @@ namespace IBL.BO
     public class Parcel
     {
         int id;
-        DateTime productionDate = new();
+        DateTime productionDate = DateTime.Now;
         DateTime associationDate = new();
         DateTime pickUpDate = new();
         DateTime supplyDate = new();
@@ -47,8 +47,15 @@ namespace IBL.BO
             ProductionDate = AssociationDate = PickUpDate = SupplyDate = new DateTime(01 / 01 / 0001);
         }
 
+        /// <summary>
+        /// default constructor
+        /// </summary>
         public Parcel() { }
 
+        /// <summary>
+        /// override ToString function.
+        /// </summary>
+        /// <returns>description of the Parcel object</returns>
         public override string ToString()
         {
             return $"id: {Id} \n" +

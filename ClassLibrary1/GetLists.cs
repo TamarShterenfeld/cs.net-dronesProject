@@ -31,17 +31,28 @@ namespace IBL
         /// <summary>
         /// The function shows all the available charge slots
         /// </summary>
-        public IEnumerable<BO.BaseStation> GetAvailableChargeSlots()
+        public IEnumerable<BaseStationForList> GetAvailableChargeSlots()
         {
             List<IDal.DO.BaseStation> DoAvailableChargeSlots = (List<IDal.DO.BaseStation>)dal.AvailableChargeStations();
-            List<BO.BaseStation> BoAvailableChargeSlots = new();
+            List<BaseStationForList> BoAvailableChargeSlots = new();
             foreach (IDal.DO.BaseStation item in DoAvailableChargeSlots)
             {
-                BoAvailableChargeSlots.Add(GetBLBaseStation(item.Id));
+                BoAvailableChargeSlots.Add(GetBaseStationForList(item.Id));
             }
 
             return BoAvailableChargeSlots;
         }
+        //public IEnumerable<BO.BaseStation> GetAvailableChargeSlots()
+        //{
+        //    List<IDal.DO.BaseStation> DoAvailableChargeSlots = (List<IDal.DO.BaseStation>)dal.AvailableChargeStations();
+        //    List<BO.BaseStation> BoAvailableChargeSlots = new();
+        //    foreach (IDal.DO.BaseStation item in DoAvailableChargeSlots)
+        //    {
+        //        BoAvailableChargeSlots.Add(GetBLBaseStation(item.Id));
+        //    }
+
+        //    return BoAvailableChargeSlots;
+        //}
 
 
         
@@ -127,9 +138,6 @@ namespace IBL
             foreach (var drone in dal.GetDronesList())
             {
                 singleDrone = GetDroneForList(drone);
-                //singleDrone.Status = RandomPriority();
-                //singleDrone.Location = new Location(RandomLongitude(), RandomLatitude());
-                //singleDrone.Battery = rand.NextDouble() * 20 + 20;
                 singleDrone.ParcelId = ++parcelId <= dal.getLastParcelId()? parcelId:0;
                 droneForList.Add(singleDrone);
 

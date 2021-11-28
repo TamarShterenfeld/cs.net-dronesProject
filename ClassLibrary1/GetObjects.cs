@@ -47,9 +47,9 @@ namespace IBL
             BaseStationForList current = new()
             {
                 Id = item.Id,
-                CaughtChargeSlots = item.ChargeSlots - CatchAvailableChargeSlots(item.Id),
+                CaughtChargeSlots = CatchAvailableChargeSlots(item.Id),
                 Name = item.Name,
-                FreeChargeSlots = CatchAvailableChargeSlots(item.Id)
+                FreeChargeSlots = item.ChargeSlots - CatchAvailableChargeSlots(item.Id),
             };
             return current;
         }
@@ -150,8 +150,11 @@ namespace IBL
         /// <param name="id">drone's id</param>
         public DroneInParcel GetBLDroneInParcel(int id)
         {
+            if (id == 0)
+            {
+                return null;
+            }
             return DroneInParcelDOtOBO(dal.GetDrone(id));
-
         }
 
         public DroneInParcel DroneInParcelDOtOBO(IDal.DO.Drone drone)
@@ -213,7 +216,7 @@ namespace IBL
                 Target = parcel.Target,
                 Collect = GetBLCustomer(parcel.Sender.Id).Location,
                 Destination = GetBLCustomer(parcel.Target.Id).Location,
-                Distatnce = Locatable.Distance((ILocatable)parcel.Sender, (ILocatable)parcel.Target)
+                Distatnce = Locatable.Distance((ILocatable)(parcel.Sender), (ILocatable)(parcel.Target))
             };
             return parcelInPassing;
         }

@@ -43,7 +43,7 @@ namespace DalObject
             int chargeSlots = BaseStationsList.First(item => item.Id == baseStationId).ChargeSlots;
             if (chargeSlots > 0)
             {
-                CheckNotExistenceOfDroneCharge(droneId);
+                CheckExistenceOfDroneCharge(droneId);
                 DroneCharge droneCharge = new() { DroneId = droneId, StationId = baseStationId, EntryTime = DateTime.Now };
                 DronesChargeList.Add(droneCharge);
             }
@@ -56,9 +56,10 @@ namespace DalObject
         {
             CheckNotExistenceOfParcel(parcel.Id);
             //check if the other ids really exist in the appropriate lists.
-            CheckNotExistenceOfCustomer(parcel.SenderId);
-            CheckNotExistenceOfCustomer(parcel.TargetId);
-            CheckNotExistenceOfDrone(parcel.DroneId);
+            CheckExistenceOfCustomer(parcel.SenderId);
+            CheckExistenceOfCustomer(parcel.TargetId);
+            if (parcel.DroneId != 0)
+            { CheckExistenceOfDrone(parcel.DroneId); }
             ParcelsList.Add(parcel);
         }
 

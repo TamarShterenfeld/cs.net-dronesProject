@@ -58,6 +58,11 @@ namespace IBL
             return BOParcel;
         }
 
+        /// <summary>
+        /// returns the number of caught charge slots in a specific base station
+        /// </summary>
+        /// <param name="stationId">station's id</param>
+        /// <returns>the number of caught charge slots</returns>
         int CatchAvailableChargeSlots(int stationId)
         {
             int caught = dal.AvailableChargeSlots(stationId);

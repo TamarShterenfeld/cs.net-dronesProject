@@ -44,7 +44,7 @@ namespace IBL
         /// by converting the BO.baseStation list to BaseStationForList type.
         /// </summary>
         /// <returns></returns>
-        IEnumerable<BO.BaseStation> GetAvailableChargeSlots();
+        IEnumerable<BaseStationForList> GetAvailableChargeSlots();
 
         IEnumerable<BaseStationForList> GetBaseStationList();
         BaseStationForList GetBaseStationForList(int id);
