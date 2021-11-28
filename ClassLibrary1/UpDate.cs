@@ -16,32 +16,40 @@ namespace IBL
             drone.Model = model;
             dal.UpDate(drone, droneId);
             DroneForList droneForList = GetDroneForList(droneId);
-            UpdateDroneForList(droneForList, droneId);
+            UpdateDrone(droneForList);
         }
 
         public void UpdateBaseStation(int baseStationId, string name, string chargeSlots)
         {
             IDal.DO.BaseStation station = dal.GetBaseStation(baseStationId);
             if (name != null) { station.Name = name; }
-            if (chargeSlots != null) { station.ChargeSlots = int.Parse(chargeSlots); }
+            if (chargeSlots != null)
+            {
+                int chargeSlots1 = int.Parse(chargeSlots);
+                //the amount of drones thet charged in this baseStation
+                //is bigger than its available chargeSLots.
+                if (CatchAvailableChargeSlots(baseStationId) > chargeSlots1)
+                    throw new ChargeSlotsException(chargeSlots1);
+                station.ChargeSlots = chargeSlots1;
+            }
             dal.UpDate(station, baseStationId);
         }
 
         public void UpdateCustomer(string customerId, string name, string phone)
         {
-            IDal.DO.Customer station = dal.GetCustomer(customerId);
-            if (name != null) { station.Name = name; }
-            if (phone != null) { station.Phone = phone; }
-            dal.UpDate(station, customerId);
+            IDal.DO.Customer customer = dal.GetCustomer(customerId);
+            if (name != null) { customer.Name = name; }
+            if (phone != null) { customer.Phone = phone; }
+            dal.UpDate(customer, customerId);
         }
 
-        public void UpdateDrone(DroneForList droneForList)
+        void UpdateDrone(DroneForList droneForList)
         {
             IDal.DO.Drone drone = ConvertBoToDoDrone(ConvertDroneForListToDrone(droneForList));
             dal.UpDate(drone, drone.Id);
         }
 
-        public void UpdateParcel(Parcel parcel)
+        void UpdateParcel(Parcel parcel)
         {
             IDal.DO.Parcel parcel1 = ConvertBoToDoParcel(parcel);
             dal.UpDate(parcel1, parcel1.Id);
@@ -62,12 +70,12 @@ namespace IBL
                 {
                     if (DroneReachLastDestination(currentDrone, item))
                     {
+                        Customer target = GetBLCustomer(item.Target.Id);
+                        BaseStation nearestBaseStation = NearestBaseStation(target);
                         isAssociate = true;
                         currentDrone.Status = DroneStatuses.Shipment;
                         currentDrone.ParcelId = item.Id;
-                        BaseStation nearestBaseStation = NearestBaseStation(currentDrone);//currentDrone instead of target
-                        //there's a need to charge the drone in the nearest baseStation.
-                        if (currentDrone.Battery == 0)
+                        if (BatteryRemainedInLastDestination(currentDrone, item) == 0)
                         {
                             if (nearestBaseStation.ChargeSlots > 0)
                             {
@@ -78,17 +86,17 @@ namespace IBL
                             else
                                 throw new ChargeSlotsException(nearestBaseStation.ChargeSlots);
                         }
-                        int droneIndex = dronesForList.FindIndex(item => item.Id == currentDrone.Id);
-                        UpdateDroneForList(currentDrone, droneIndex);
-                        UpdateDrone(currentDrone);
-                        item.AssociationDate = DateTime.Now;
-                        item.MyDrone = GetBLDroneInParcel(droneId);
-                        UpdateParcel(item);
                     }
+                    int droneIndex = dronesForList.FindIndex(item => item.Id == currentDrone.Id);
+                    UpdateDrone(currentDrone);
+                    UpdateDrone(currentDrone);
+                    item.AssociationDate = DateTime.Now;
+                    item.MyDrone = GetBLDroneInParcel(droneId);
+                    UpdateParcel(item);
                 }
-                if (isAssociate == false)
-                    throw new ActionException(Actions.Associate);
             }
+            if (isAssociate == false)
+                throw new ActionException(Actions.Associate);
             else
                 throw new DroneStatusException(currentDrone.Status);
         }
@@ -153,13 +161,32 @@ namespace IBL
         /// </summary>
         /// <param name="droneId">drone's id</param>
         /// <param name="baseStationId">base station's id</param>
-        public void ChargeDrone(int droneId)
+        public void SendDroneForCharge(int droneId)
         {
             DroneForList drone = GetDroneForList(droneId);
             if (drone.Status != DroneStatuses.Available) { throw new DroneStatusException(drone.Status); }
-            BaseStation baseStation = NearestBaseStation(drone);
-            drone.Battery = ComputeMinBatteryNeeded(drone, baseStation);
-            //there's a need to continue the function.
+            BaseStation baseStation = NearestBaseStation(drone); 
+           //while there are no available ChargeSlots
+           //and the battery is enough in order to reach the baseStation.
+            while (baseStation.ChargeSlots == 0 && ComputeBatteryRemained(drone, baseStation) >= 0)
+            {
+                //tries to find another close baseStation
+                //which is closed to the prev nearestBaseStation.
+                baseStation = NearestBaseStation(baseStation);
+            }
+            double battery = ComputeBatteryRemained(drone, baseStation);
+            if (baseStation.ChargeSlots == 0 ) 
+                throw new ChargeSlotsException(0);
+            if (battery < 0)
+                throw new BatteryException(battery);
+            drone.Battery = ComputeBatteryRemained(drone, baseStation);
+            drone.Location = baseStation.Location;
+            drone.Status = DroneStatuses.Shipment;
+            IDal.DO.DroneCharge droneCharge = new() { DroneId = drone.Id, StationId = baseStation.Id, EntryTime = DateTime.Now };
+            //the amount of available chargeSlots is decrease by one
+            //while adding the drone to chargeDrone. 
+            dal.Add(droneCharge);
+            UpdateDrone(drone);
         }
 
 
@@ -196,17 +223,26 @@ namespace IBL
             Customer target = GetBOCustomersList().First(item1 => item1.Id == item.Target.Id);
             if (DroneReachLocation(drone, sender))
             {
-                drone.Battery = ComputeBatteryRemaining(drone, sender);
+                drone.Battery = ComputeBatteryRemained(drone, sender);
                 drone.Location = sender.Location;
                 if (DroneReachLocation(drone, target))
                 {
-                    drone.Battery = ComputeBatteryRemaining(drone, target);
+                    drone.Battery = ComputeBatteryRemained(drone, target);
                     drone.Location = target.Location;
                     BaseStation nearestBaseStation = NearestBaseStation(drone);
                     return DroneReachLocation(drone, nearestBaseStation);
                 }
             }
             return false;
+        }
+        double BatteryRemainedInLastDestination(DroneForList drone, Parcel parcel)
+        {
+            Customer sender = GetBOCustomersList().First(item1 => item1.Id == parcel.Sender.Id);
+            Customer target = GetBOCustomersList().First(item1 => item1.Id == parcel.Target.Id);
+            BaseStation baseStation = NearestBaseStation(target);
+            drone.Battery = ComputeBatteryRemained(drone, sender);
+            drone.Battery = ComputeBatteryRemained(drone, target);
+            return ComputeBatteryRemained(drone, baseStation);
         }
     }
 }
