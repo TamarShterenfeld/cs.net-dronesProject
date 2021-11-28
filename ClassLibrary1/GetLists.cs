@@ -78,15 +78,13 @@ namespace IBL
         /// </summary>
         public IEnumerable<BO.Drone> GetBODronesList()
         {
-            List<BO.Drone> boDronesList = new();
-            List<IDal.DO.Drone> doDronseList = (List<IDal.DO.Drone>)dal.GetDronesList();
-            int i = 0;
-            foreach (IDal.DO.Drone item in doDronseList)
+            List<BO.Drone> BoDronesList = new();
+            List<IDal.DO.Drone> DoDronesList = (List<IDal.DO.Drone>)dal.GetDronesList();
+            foreach (var item in DoDronesList)
             {
-                i++;
-                boDronesList.Add(GetBLDroneFromBL(item.Id));
+                BoDronesList.Add(GetBLDroneFromBL(item.Id));
             }
-            return boDronesList;
+            return BoDronesList;
         }
 
 
@@ -139,33 +137,12 @@ namespace IBL
             return droneForList;
         }
 
-        //private DroneStatuses RandomPriority()
-        //{
-        //    DroneStatuses status = (DroneStatuses)rand.Next(1, Enum.GetNames(typeof(DroneStatuses)).Length);
-        //    return status;
-        //}
+        public IEnumerable<DroneForList> GetDronesForLists()
+        {
+            return dronesForList;
+        }
 
-        ///// <summary>
-        ///// randoms a longitude value of a Coordinate object.
-        ///// </summary>
-        ///// <returns>a coordinate object which stores a random longitude .</returns>
-        //private BO.Coordinate RandomLongitude()
-        //{
-        //    double longitude1 = 0.3 * rand.Next(0, 180) + 0.7 * rand.Next(-180, 0);
-        //    BO.Coordinate longitude = new BO.Coordinate( longitude1,BO.Locations.Longitude );
-        //    return longitude;
-        //}
 
-        ///// <summary>
-        ///// randoms a latitude value of a Coordinate object.
-        ///// </summary>
-        ///// <returns>a coordinate object which stores a random latitude.</returns>
-        //private BO.Coordinate RandomLatitude()
-        //{
-        //    double latitude1 = 0.3 * rand.Next(0, 180) + 0.7 * rand.Next(-180, 0);
-        //    BO.Coordinate latitude = new BO.Coordinate( latitude1, BO.Locations.Longitude);
-        //    return latitude;
-        //}
 
         // ---------------------------------Parcels GetList Methods------------------------------------------------
 

@@ -57,7 +57,16 @@ namespace IBL
             {
                 Id = id; ParcelId = parcelId; Model = model; MaxWeight = weight; Battery = battery; Status = status; Location = location;
             }
-            
+            public override string ToString()
+            {
+                return $"id: {Id} \n" +
+                       $"model: {Model} \n" +
+                       $"maxWeight:  {MaxWeight}\n" +
+                       $"battery: {Battery} \n" +
+                       $"status: {Status} \n" +
+                       $"parcelId: {parcelId} \n" +
+                       $"myLocation: {Location} \n";
+            }
         }
     }
 }

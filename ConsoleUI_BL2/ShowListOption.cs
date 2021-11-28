@@ -31,7 +31,7 @@ namespace ConsoleUI_BL
                             }
                         case (int)ShowingListsOptions.Drones:
                             {
-                                ShowList(bl.GetBODronesList());
+                                ShowList(bl.GetDronesForLists());
                                 break;
                             }
                         case (int)ShowingListsOptions.Customers:
@@ -88,7 +88,7 @@ namespace ConsoleUI_BL
         }
 
         /// <inheritdoc />
-        public static void ShowList(IEnumerable<Drone> drones)
+        public static void ShowList(IEnumerable<DroneForList> drones)
         {
             foreach (var item in drones)
             {
