@@ -57,7 +57,7 @@ namespace IBL
             /// <summary>
             /// override ToString function.
             /// </summary>
-            /// <returns>description of DroneInCharging objectreturns>
+            /// <returns>description of DroneInCharging object</returns>
             public override string ToString()
             {
                 return $"id: { Id } \n" +

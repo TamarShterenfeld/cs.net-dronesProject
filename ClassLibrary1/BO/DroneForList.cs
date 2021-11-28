@@ -51,6 +51,9 @@ namespace IBL
 
             public Location Location { get; set; }
 
+            /// <summary>
+            /// default constructor
+            /// </summary>
             public DroneForList() { }
 
             /// <summary>
@@ -70,7 +73,7 @@ namespace IBL
             /// <summary>
             /// override ToString function.
             /// </summary>
-            /// <returns></returns>
+            /// <returns>description of DroneForList object</returns>
             public override string ToString()
             {
                 return $"id: {Id} \n" +

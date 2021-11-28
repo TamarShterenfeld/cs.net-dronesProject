@@ -93,6 +93,9 @@ namespace IBL
             public int AmountOfGetParcels { set; get; }
             public int AmountOfInPassingParcels { set; get; }
 
+            /// <summary>
+            /// default constructor
+            /// </summary>
             public CustomerForList() { }
 
             /// <summary>

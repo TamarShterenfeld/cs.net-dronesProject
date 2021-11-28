@@ -95,6 +95,9 @@ namespace IBL
             public Priorities Priority { set; get; }
             public ParcelStatuses Status { set; get; }
 
+            /// <summary>
+            /// default constructor
+            /// </summary>
             public ParcelForList() { }
 
             public ParcelForList(int droneId, int parcelId, string senderId, string targetId, WeightCategories weight, Priorities priority, ParcelStatuses status)

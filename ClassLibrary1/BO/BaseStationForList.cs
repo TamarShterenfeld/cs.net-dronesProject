@@ -103,7 +103,9 @@ namespace IBL.BO
             this.id = id; this.name = name; this.availableChargeSlots = availableChargeSlots; this.caughtChargeSlots = caughtChargeSlots;
             Id = id; Name = name; AvailableChargeSlots = availableChargeSlots; CaughtChargeSlots = availableChargeSlots;
         }
-
+        /// <summary>
+        /// default constructor
+        /// </summary>
         public BaseStationForList() { }
 
         /// <summary>
