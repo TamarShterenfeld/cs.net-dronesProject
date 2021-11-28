@@ -161,7 +161,6 @@ namespace IBL
         /// <returns></returns>
         static double RandomBattery(double minBattery)
         {
-            Random rand = new();
             double randBattery = rand.Next((int)minBattery, 100);
             //check if the minBattery holds a real double value
             double fractionalPart = minBattery - (int)minBattery;

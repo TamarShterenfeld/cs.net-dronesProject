@@ -31,7 +31,7 @@ namespace ConsoleUI_BL
                             }
                         case (int)ShowingListsOptions.Drones:
                             {
-                                ShowList(bl.GetDronesList());
+                                ShowList(bl.GetDronesForLists());
                                 break;
                             }
                         case (int)ShowingListsOptions.Customers:
