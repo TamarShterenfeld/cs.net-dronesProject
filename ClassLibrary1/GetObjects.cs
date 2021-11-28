@@ -58,10 +58,7 @@ namespace IBL
 
         //----------------------------------Drone GetObject Methods---------------------------------
 
-        /// <summary>
-        /// The function displays a drone according to the id.
-        /// </summary>
-        /// <param name="id">drone's id</param>
+
         public BO.Drone GetBLDroneFromBL(int id)
         {
             DroneForList droneForList = dronesForList.First(drone => drone.Id == id);
