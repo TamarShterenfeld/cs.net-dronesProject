@@ -96,7 +96,7 @@ namespace IBL
                 }
             }
             if (isAssociate == false)
-                throw new ActionException(Actions.Associate);
+                throw new ParcelActionsException(ParcelActions.Associate);
             else
                 throw new DroneStatusException(currentDrone.Status);
         }
@@ -132,7 +132,7 @@ namespace IBL
             else
                 throw new DroneStatusException(currDrone.Status);
             if (isPickedUp == false)
-                throw new ActionException(Actions.PickUp);
+                throw new ParcelActionsException(ParcelActions.PickUp);
         }
 
         /// <summary>
@@ -159,7 +159,7 @@ namespace IBL
             else
                 throw new ParcelStatusException(parcelForList.Status);
             if (isSupplied == false)
-                throw new ActionException(Actions.Supply);
+                throw new ParcelActionsException(ParcelActions.Supply);
         }
 
 
@@ -170,31 +170,34 @@ namespace IBL
         /// <param name="baseStationId">base station's id</param>
         public void SendDroneForCharge(int droneId)
         {
-            bool isSended = false;
             DroneForList drone = GetDroneForList(droneId);
-            if (drone.Status != DroneStatuses.Available) { throw new DroneStatusException(drone.Status); }
-            BaseStation baseStation = NearestBaseStation(drone); 
-           //while there are no available ChargeSlots
-           //and the battery is enough in order to reach the baseStation.
-            while (baseStation.ChargeSlots == 0 && ComputeBatteryRemained(drone, baseStation) >= 0)
+            if (drone.Status != DroneStatuses.Available)
             {
-                //tries to find another close baseStation
-                //which is closed to the prev nearestBaseStation.
-                baseStation = NearestBaseStation(baseStation);
+                BaseStation baseStation = NearestBaseStation(drone);
+                //while there are no available ChargeSlots
+                //and the battery is enough in order to reach the baseStation.
+                while (baseStation.ChargeSlots == 0 && ComputeBatteryRemained(drone, baseStation) >= 0)
+                {
+                    //tries to find another close baseStation
+                    //which is closed to the prev nearestBaseStation.
+                    baseStation = NearestBaseStation(baseStation);
+                }
+                double battery = ComputeBatteryRemained(drone, baseStation);
+                if (baseStation.ChargeSlots == 0)
+                    throw new ChargeSlotsException(0);
+                if (battery < 0)
+                    throw new BatteryException(battery);
+                drone.Battery = ComputeBatteryRemained(drone, baseStation);
+                drone.Location = baseStation.Location;
+                drone.Status = DroneStatuses.Shipment;
+                IDal.DO.DroneCharge droneCharge = new() { DroneId = drone.Id, StationId = baseStation.Id, EntryTime = DateTime.Now };
+                //the amount of available chargeSlots is decrease by one
+                //while adding the drone to chargeDrone. 
+                dal.Add(droneCharge);
+                UpdateDrone(drone);
             }
-            double battery = ComputeBatteryRemained(drone, baseStation);
-            if (baseStation.ChargeSlots == 0 ) 
-                throw new ChargeSlotsException(0);
-            if (battery < 0)
-                throw new BatteryException(battery);
-            drone.Battery = ComputeBatteryRemained(drone, baseStation);
-            drone.Location = baseStation.Location;
-            drone.Status = DroneStatuses.Shipment;
-            IDal.DO.DroneCharge droneCharge = new() { DroneId = drone.Id, StationId = baseStation.Id, EntryTime = DateTime.Now };
-            //the amount of available chargeSlots is decrease by one
-            //while adding the drone to chargeDrone. 
-            dal.Add(droneCharge);
-            UpdateDrone(drone);
+            else
+                throw new DroneStatusException(drone.Status);
         }
 
 
@@ -230,7 +233,6 @@ namespace IBL
                 drone.Battery = myBattery * (timeCharge * chargeRate);
                 drone.Status = DroneStatuses.Available;
                 dal.ReleaseDroneFromRecharge(drone.Id);
-
             }
             else
                 throw new DroneStatusException(drone.Status);

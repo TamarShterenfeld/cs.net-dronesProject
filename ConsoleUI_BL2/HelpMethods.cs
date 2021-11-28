@@ -86,12 +86,15 @@ namespace ConsoleUI_BL
                 }
                 foreach (char letter in str)
                 {
-                    if ((!Char.IsLetter(letter)))
+                    if(letter != ' ')
                     {
-                        Console.WriteLine("The string type can hold only alphabetical values!");
-                        isValid = false;
-                        break;
-                    }
+                        if ((!Char.IsLetter(letter)))
+                        {
+                            Console.WriteLine("The string type can hold only alphabetical values!");
+                            isValid = false;
+                            break;
+                        }
+                    }                   
                         
                 }
                 if (!isValid)
