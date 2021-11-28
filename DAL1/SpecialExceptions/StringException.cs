@@ -12,12 +12,13 @@ namespace DAL
         [Serializable]
         public class StringException : Exception
         {
+            public string Str { get; set; }
             public StringException() : base() { }
 
           //  public StringIdExceptioin(string message) : base(message) { }
             public StringException(string message, Exception inner) : base(message, inner) { }
             protected StringException(SerializationInfo info, StreamingContext context) : base(info, context) { }
-            public StringException(string str) { }
+            public StringException(string str) { Str = str; }
             override public string ToString()
             {
                 return "String id Exceptioin : DAL logic level throws a string id exception " + Message;

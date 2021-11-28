@@ -110,6 +110,7 @@ namespace IBL
         /// <param name="senderId">sender id</param>
         public void PickUpParcel(int droneId)
         {
+            bool isPickedUp = false;
             List<Parcel> parcelsList = (List<Parcel>)dal.GetParcelsList();
             DroneForList currDrone = GetDroneForList(droneId);
             ParcelForList parcelForList = GetParcelForList(currDrone.ParcelId);
@@ -119,6 +120,7 @@ namespace IBL
             {
                 if (parcelForList.Status == ParcelStatuses.Associated)
                 {
+                    isPickedUp = true;
                     currDrone.Battery = ComputeMinBatteryNeeded(currDrone, sender);
                     currDrone.Location = sender.Location;
                     Parcel parcel = ConvertParcelForListToParcel(parcelForList);
@@ -129,6 +131,8 @@ namespace IBL
             }
             else
                 throw new DroneStatusException(currDrone.Status);
+            if (isPickedUp == false)
+                throw new ActionException(Actions.PickUp);
         }
 
         /// <summary>
@@ -138,6 +142,7 @@ namespace IBL
         /// <param name="targetId">target id</param>
         public void SupplyParcel(int droneId)
         {
+            bool isSupplied = false;
             DroneForList drone = GetDroneForList(droneId);
             ParcelForList parcelForList = GetParcelForList(drone.ParcelId);
             Customer target = GetBLCustomer(parcelForList.TargetId);
@@ -153,6 +158,8 @@ namespace IBL
             }
             else
                 throw new ParcelStatusException(parcelForList.Status);
+            if (isSupplied == false)
+                throw new ActionException(Actions.Supply);
         }
 
 
@@ -163,6 +170,7 @@ namespace IBL
         /// <param name="baseStationId">base station's id</param>
         public void SendDroneForCharge(int droneId)
         {
+            bool isSended = false;
             DroneForList drone = GetDroneForList(droneId);
             if (drone.Status != DroneStatuses.Available) { throw new DroneStatusException(drone.Status); }
             BaseStation baseStation = NearestBaseStation(drone); 
@@ -195,26 +203,37 @@ namespace IBL
         /// </summary>
         /// <param name="droneId">drone's id</param>
 
-        public void ReleaseDroneFromRecharge(int droneId)
+        public void ReleaseDroneFromRecharge(int droneId, double timeCharge)
         {
-            List<Drone> dronesList = (List<Drone>)dal.GetDronesList();
-            List<DroneInCharging> DroneChargeList = (List<DroneInCharging>)dal.GetDronesCharge();
-            List<BaseStation> baseStationsList = (List<BaseStation>)dal.GetBaseStationsList();
-            int findIndex = dronesList.FindIndex(item => item.Id == droneId);
-            if (findIndex == -1)
-                throw new IntIdException(droneId);
-            findIndex = DroneChargeList.FindIndex(item => item.Id == droneId);
-            if (findIndex == -1)
-                throw new IntIdException(droneId);
-            Drone drone = dronesList.First(item => item.Id == droneId);
-            int droneIndex = dronesList.FindIndex(item => item.Id == droneId);
-            DroneInCharging droneCharge = DroneChargeList.First(item => item.Id == droneId);
-        }
+            DroneForList drone = GetDroneForList(droneId);
+            if (drone.Status == DroneStatuses.Maintenance)
+            {
+                double myBattery = 1;
+                switch (drone.MaxWeight)
+                {
+                    case BO.WeightCategories.Light:
+                        {
+                            myBattery =  electricityConsumingOfLightWeight ;
+                            break;
+                        }
+                    case BO.WeightCategories.Average:
+                        {
+                            myBattery = electricityConsumingOfAverageWeight;
+                            break;
+                        }
+                    case BO.WeightCategories.Heavy:
+                        {
+                            myBattery = electricityConsumingOfHeavyWeight;
+                            break;
+                        }
+                }
+                drone.Battery = myBattery * (timeCharge * chargeRate);
+                drone.Status = DroneStatuses.Available;
+                dal.ReleaseDroneFromRecharge(drone.Id);
 
-        void UpdateDroneForList(DroneForList droneForList, int id)
-        {
-            int index = dronesForList.FindIndex(item => item.Id == id);
-            dronesForList[index] = droneForList;
+            }
+            else
+                throw new DroneStatusException(drone.Status);
         }
 
         bool DroneReachLastDestination(DroneForList drone, Parcel item)

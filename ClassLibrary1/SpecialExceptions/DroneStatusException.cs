@@ -10,12 +10,13 @@ namespace IBL
         [Serializable]
         public class DroneStatusException : Exception
         {
+            public DroneStatuses Status { get; set; }
             public DroneStatusException() : base() { }
             public DroneStatusException(string message) : base(message) { }
             public DroneStatusException(string message, Exception inner) : base(message, inner) { }
             protected DroneStatusException(SerializationInfo info, StreamingContext context) : base(info, context) { }
 
-            public DroneStatusException(DroneStatuses status) { }
+            public DroneStatusException(DroneStatuses status) { Status = status; }
             override public string ToString()
             {
                 return "OverloadCapacityException: DAL capacity of " + " overloaded\n" + Message;

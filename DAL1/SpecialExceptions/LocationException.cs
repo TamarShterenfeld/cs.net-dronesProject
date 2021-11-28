@@ -12,11 +12,12 @@ namespace DAL
         [Serializable]
         public class LocationException : Exception
         {
+            public double Location { get; set; }
             public LocationException() : base() { }
             public LocationException(string message) : base(message) { }
             public LocationException(string message, Exception inner) : base(message, inner) { }
             protected LocationException(SerializationInfo info, StreamingContext context) : base(info, context) { }
-            public LocationException(double location) { }
+            public LocationException(double location) { Location = location; }
             override public string ToString()
             {
                 return "Int Id Exceptioin : DAL logic level throws an int id exception " + Message;

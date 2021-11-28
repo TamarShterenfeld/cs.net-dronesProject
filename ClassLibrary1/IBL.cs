@@ -19,8 +19,9 @@ namespace IBL
         void AssociateParcel(int droneId);
         void PickUpParcel(int droneId);
         void SupplyParcel(int droneId);
-        void ChargeDrone(int droneId);
-        void ReleaseDroneFromRecharge(int droneId);
+        void SendDroneForCharge(int droneId);
+        void ReleaseDroneFromRecharge(int droneId, double timeCharge);
+
 
     }
     interface IBaseStationBL
