@@ -106,16 +106,6 @@ namespace IBL
 
         //---------------------------------DronesForList GetList Methods------------------------------------------------
 
-        //public List<DroneForList> GetDroneForList(List<BO.Drone> drones)
-        //{
-        //    List<DroneForList> droneForLists = new();
-        //    foreach (var drone in drones)
-        //    {
-        //        droneForLists.Add(GetOneDroneForList(drone));
-        //    }
-        //    return droneForLists;
-        //}
-
 
         public IEnumerable<DroneForList> InitDroneForList()
         {
@@ -132,6 +122,10 @@ namespace IBL
             return droneForList;
         }
 
+        /// <summary>
+        /// returns the List dronesForList
+        /// </summary>
+        /// <returns>the List dronesForList</returns>
         public IEnumerable<DroneForList> GetDronesForLists()
         {
             return dronesForList;
@@ -241,10 +235,7 @@ namespace IBL
             return customersForList;
         }
 
-        public void UpdateBaseStation(string id, string name, string num)
-        {
-           // throw new NotImplementedException();
-        }
+       
     }
 }
 
