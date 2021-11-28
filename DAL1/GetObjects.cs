@@ -17,7 +17,7 @@ namespace DalObject
             return baseStation;
         }
 
-        /// <inheritdoc />
+
         public Drone GetDrone(int droneId)
         {
             CheckExistenceOfDrone(droneId);
@@ -32,7 +32,7 @@ namespace DalObject
             return droneCharge;
         }
 
-        /// <inheritdoc />
+
         public Customer GetCustomer(string customerId)
         {
             CheckExistenceOfCustomer(customerId);

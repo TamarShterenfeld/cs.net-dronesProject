@@ -149,7 +149,7 @@ namespace ConsoleUI_BL
                 {
                     if ((!Char.IsDigit(digit)) || digit<0)
                     {
-                        Console.WriteLine("The string type can hold only numerical possitivel values!");
+                        Console.WriteLine("The string type can hold only numerical possitive values!");
                         isValid = false;
                         break;
                     }
@@ -305,5 +305,6 @@ namespace ConsoleUI_BL
             return priorities;
         }
 
+        
     }
 }

@@ -11,7 +11,7 @@ using IDal;
 
 namespace IBL
 {
-    public partial class BL 
+    public partial class BL : IBL
     {
         //----------------------------------Other GetObject Methods---------------------------------
         private double GetDroneBattery(int droneId)

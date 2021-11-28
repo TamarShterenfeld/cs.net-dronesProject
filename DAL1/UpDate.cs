@@ -75,7 +75,8 @@ namespace DalObject
 
         public void ReleaseDroneFromRecharge(int droneId)
         {
-            DronesChargeList.RemoveAll(dc => dc.DroneId == droneId);
+            DroneCharge droneCharge = GetDroneCharge(droneId);
+            DronesChargeList.Remove(droneCharge);
         }
     }
 }

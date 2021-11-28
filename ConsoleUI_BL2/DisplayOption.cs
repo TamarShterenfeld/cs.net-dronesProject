@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static ConsoleUI_BL.Program;
 using IBL;
+using DAL.DO;
 
 
 namespace ConsoleUI_BL
@@ -21,43 +22,59 @@ namespace ConsoleUI_BL
             int parcelId, droneId, baseStationId;
             string customerId;
             Console.WriteLine("Please enter: \n1- For a base station\n2- For a drone\n3- For a customer\n4- For a parcel");
-            if (int.TryParse(Console.ReadLine(), out int innerChoice ))
+            if (int.TryParse(Console.ReadLine(), out int innerChoice))
             {
-                switch (innerChoice)
+                try
                 {
-                    case (int)DisplayOptions.BaseStation:
-                        {
-                            Console.WriteLine("Please enter baseStationId");
-                            baseStationId =  InputIntValue();    
-                            Console.WriteLine(bl.GetBLBaseStation(baseStationId));
-                            break;
-                        }
-                    case (int)DisplayOptions.Drone:
-                        {
-                            Console.WriteLine("Please enter droneId");
-                            droneId = InputIntValue();
-                            Console.WriteLine(bl.GetBLDrone(droneId));
-                            break;
-                        }
-                    case (int)DisplayOptions.Customer:
-                        {
-                            Console.WriteLine("Please enter customerId");
-                            customerId = InputStringId();
-                            Console.WriteLine(bl.GetBLCustomer(customerId));
-                            break;
-                        }
-                    case (int)DisplayOptions.Parcel:
-                        {
-                            Console.WriteLine("Please enter parcelId");
-                            parcelId = InputIntValue();
-                            Console.WriteLine(bl.GetBLParcel(parcelId));
-                            break;
-                        }
-                    default:
-                        {
-                            Console.WriteLine("ERROR! \nan unknown option.");
-                            break;
-                        }
+                    switch (innerChoice)
+                    {
+
+                        case (int)DisplayOptions.BaseStation:
+                            {
+                                Console.WriteLine("Please enter baseStationId");
+                                baseStationId = InputIntValue();
+                                Console.WriteLine(bl.GetBLBaseStation(baseStationId));
+                                break;
+                            }
+                        case (int)DisplayOptions.Drone:
+                            {
+                                Console.WriteLine("Please enter droneId");
+                                droneId = InputIntValue();
+                                Console.WriteLine(bl.GetBLDrone(droneId));
+                                break;
+                            }
+                        case (int)DisplayOptions.Customer:
+                            {
+                                Console.WriteLine("Please enter customerId");
+                                customerId = InputStringId();
+                                Console.WriteLine(bl.GetBLCustomer(customerId));
+                                break;
+                            }
+                        case (int)DisplayOptions.Parcel:
+                            {
+                                Console.WriteLine("Please enter parcelId");
+                                parcelId = InputIntValue();
+                                Console.WriteLine(bl.GetBLParcel(parcelId));
+                                break;
+                            }
+                        default:
+                            {
+                                Console.WriteLine("ERROR! \nan unknown option.");
+                                break;
+                            }
+                    }
+                }
+                catch (IntIdException exe)
+                {
+                    Console.WriteLine("The id: " + exe.Id + " isn't valid!");
+                }
+                catch (LocationException exe)
+                {
+                    Console.WriteLine("The Location: " + exe.Location + " isn't valid!");
+                }
+                catch (StringException exe)
+                {
+                    Console.WriteLine("The string : " + exe.Str + " isn't valid!");
                 }
             }
             else Console.WriteLine("The display option must hold a numeric value!");
