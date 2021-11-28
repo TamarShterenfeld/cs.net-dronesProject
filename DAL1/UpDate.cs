@@ -67,13 +67,12 @@ namespace DalObject
         //    }
         //}
 
-        /// <inheritdoc />
+
         public void SendDroneToRecharge(int droneId, int baseStationId)
         {
             DronesChargeList.Add(new DroneCharge() { DroneId = droneId, StationId = baseStationId, EntryTime = DateTime.Now });
         }
 
-        /// <inheritdoc />
         public void ReleaseDroneFromRecharge(int droneId)
         {
             DronesChargeList.RemoveAll(dc => dc.DroneId == droneId);

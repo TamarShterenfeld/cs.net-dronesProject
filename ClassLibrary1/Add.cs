@@ -29,16 +29,21 @@ namespace IBL
             dronesForList.Add(GetDroneForList(drone));
         }
 
-        // < inheritdoc  />
+
         public void Add(BO.Customer customer)
         {
             dal.Add(new IDal.DO.Customer() { Id = customer.Id, Name = customer.Name, Phone = customer.Phone}); 
         }
 
-        // < inheritdoc  />
+
         public void Add(BO.Parcel parcel)
         {
             dal.Add(new IDal.DO.Parcel() { Id = parcel.Id, SenderId = parcel.Sender.Id, TargetId = parcel.Target.Name, DroneId = 0 , Weight = (IDal.DO.WeightCategories)parcel.Weight, Priority = (IDal.DO.Priorities)parcel.Priority, ProductionDate = parcel.ProductionDate, AssociationDate = parcel.AssociationDate, PickUpDate = parcel.PickUpDate, SupplyDate = parcel.SupplyDate});
+        }
+
+        public void Add(BO.DroneInCharging droneInCharging)
+        {
+            
         }
     }
 }
