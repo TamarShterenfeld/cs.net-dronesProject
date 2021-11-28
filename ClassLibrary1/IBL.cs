@@ -80,7 +80,7 @@ namespace IBL
     {
         IEnumerable<BO.Parcel> GetBOParcelsList();
         IEnumerable<ParcelForList> GetParcelsList();
-        IEnumerable<BO.Parcel> GetNotAssociatedParcelsList();
+        IEnumerable<ParcelForList> GetNotAssociatedParcelsList();
         void Add(BO.Parcel baseStation);
         ParcelForList GetParcelForList(int id);
         ParcelInPassing GetParcelInPassing(int id);

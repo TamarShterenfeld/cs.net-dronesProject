@@ -28,14 +28,14 @@ namespace DalObject
         {
             int customerIndex = CustomersList.FindIndex(item => item.Id == customerId);
             if (customerIndex == -1)
-                throw new IntIdException(customerId);
+                throw new StringIdException(customerId);
         }
 
         void CheckNotExistenceOfCustomer(string customerId)
         {
             int customerIndex = CustomersList.FindIndex(item => item.Id == customerId);
             if (customerIndex != -1)
-                throw new IntIdException(customerId);
+                throw new StringIdException(customerId);
         }
 
         void CheckExistenceOfDrone(int droneId)

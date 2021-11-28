@@ -10,13 +10,12 @@ namespace IBL
 {
     namespace BO
     { 
+        //a class which contains two coordinates which build together the class Location.
         public class Location
         {
-            
-
             public Coordinate CoorLongitude { get; set; }
-
             public Coordinate CoorLatitude { get; set; }
+
             /// <summary>
             /// constructor
             /// </summary>
@@ -26,14 +25,6 @@ namespace IBL
             {
                 CoorLongitude = longitude;
                 CoorLatitude = latitude;
-            }
-
-            public Location(double longitude, double latitude)
-            {
-                Coordinate longi = new() { InputCoorValue = longitude};
-                Coordinate lati = new() { InputCoorValue = latitude};
-                CoorLongitude = longi;
-                CoorLatitude = lati;
             }
 
             // default constructor

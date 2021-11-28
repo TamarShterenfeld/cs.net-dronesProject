@@ -9,6 +9,10 @@ namespace IBL
     namespace BO
     {
 
+        /// <summary>
+        /// the class CustomerForList contains all the baseStation's details
+        /// that we want to show to the client.
+        /// </summary>
         public class CustomerForList
         {
 
@@ -91,12 +95,38 @@ namespace IBL
 
             public CustomerForList() { }
 
+            /// <summary>
+            /// a constructor
+            /// </summary>
+            /// <param name="id">customer's id</param>
+            /// <param name="name">customer's name</param>
+            /// <param name="phone">customer's phone</param>
+            /// <param name="amountOfSendAndSuppliedParcels">customer's amountOfSendAndSuppliedParcels</param>
+            /// <param name="amountOfSendAndNotSuppliedParcels">customer's amountOfSendAndNotSuppliedParcels</param>
+            /// <param name="amountOfGetParcels">customer's amountOfGetParcels</param>
+            /// <param name="amountOfInPassingParcels">customer's amountOfInPassingParcels</param>
             public CustomerForList(string id, string name, string phone, int amountOfSendAndSuppliedParcels, int amountOfSendAndNotSuppliedParcels, int amountOfGetParcels, int amountOfInPassingParcels)
             {
                 Id = id; Name = name; Phone = phone; AmountOfSendAndNotSuppliedParcels = amountOfSendAndSuppliedParcels;
                 AmountOfSendAndNotSuppliedParcels = amountOfSendAndNotSuppliedParcels; AmountOfGetParcels = amountOfGetParcels;
                 AmountOfInPassingParcels = amountOfInPassingParcels;
             }
+
+            /// <summary>
+            /// override ToString function.
+            /// </summary>
+            /// <returns></returns>
+            public override string ToString()
+            {
+                return $"id: {Id} \n" +
+                       $"name: {Name} \n" +
+                       $"phone:  {Phone}\n" +
+                       $"amount of 'send & supplied' parcels: {AmountOfSendAndSuppliedParcels}\n" +
+                       $"amount of 'send & not supplied' parcels: {AmountOfSendAndNotSuppliedParcels}\n" +
+                       $"amount of 'get' parcels: { AmountOfGetParcels}\n" +
+                       $"amount of 'In Passing' parcels: {AmountOfInPassingParcels}\n";
+            }
+
         }
     }
 }

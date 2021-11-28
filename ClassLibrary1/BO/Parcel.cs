@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace IBL.BO
 {
+   /// <summary>
+   /// the class contains all the parcel's needed  details.
+   /// </summary>
     public class Parcel
     {
         int id;
@@ -36,8 +39,7 @@ namespace IBL.BO
         public DroneInParcel MyDrone { get { return drone; } set { drone = value; } }
         public  DateTime ProductionDate { get { return productionDate ; } init { productionDate = DateTime.Now; } }
         public DateTime AssociationDate { get { return associationDate; } set { associationDate = value; } }  
-        public DateTime PickUpDate { get { return pickUpDate; } set { pickUpDate = value; } }
-       
+        public DateTime PickUpDate { get { return pickUpDate; } set { pickUpDate = value; } }       
         public DateTime SupplyDate { get { return supplyDate; } set { supplyDate = value; } }
 
         public Parcel(int id, CustomerInParcel sender, CustomerInParcel target, WeightCategories weight, Priorities priority, DroneInParcel drone)

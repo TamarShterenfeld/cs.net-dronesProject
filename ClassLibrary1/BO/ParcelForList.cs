@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DAL.DO;
 
 namespace IBL
 {
 
     namespace BO
     {
-
+        /// <summary>
+        /// the class ParcelForList contains all the ParcelForList's needed details.
+        /// </summary>
         public class ParcelForList
         {
 
@@ -24,7 +27,7 @@ namespace IBL
                 {
                     if (value < 0)
                     {
-                        throw new DateTimeException("Id must contain a positive number");
+                        throw new IntIdException(value)
                     }
                     droneId = value;
                 }
@@ -90,7 +93,7 @@ namespace IBL
 
             public WeightCategories Weight { get; set; }
             public Priorities Priority { set; get; }
-            public ParcelStatuses Status { set; get;}
+            public ParcelStatuses Status { set; get; }
 
             public ParcelForList() { }
 
