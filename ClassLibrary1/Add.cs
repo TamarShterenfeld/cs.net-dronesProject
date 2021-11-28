@@ -25,7 +25,7 @@ namespace IBL
         {
             IDal.DO.Drone drone1 = new() { Id = drone.Id, MaxWeight = (IDal.DO.WeightCategories)drone.MaxWeight , Model = drone.Model};
             dal.Add(drone1);
-            dal.Add(drone1.Id, baseStationId);
+            //dal.Add(drone1.Id, baseStationId);
             dronesForList.Add(GetDroneForList(drone));
         }
 

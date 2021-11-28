@@ -60,7 +60,7 @@ namespace IBL.BO
                    $"target: {Target} \n" +
                    $"weight: {Weight} \n" +
                    $"priority: {Priority} \n" +
-                   MyDrone != null ? $"drone: {MyDrone} \n" : "\n"; 
+                   $"drone: {MyDrone} \n"; 
 
         }
     }

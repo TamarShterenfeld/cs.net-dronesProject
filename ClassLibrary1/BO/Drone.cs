@@ -44,7 +44,7 @@ namespace IBL.BO
                    $"maxWeight:  {MaxWeight}\n" +
                    $"battery: {Battery} \n" +
                    $"status: {Status} \n" +
-                   Parcel != null? $"parcel: {Parcel} \n":"\n" +
+                   $"parcel: {Parcel} \n" +
                    $"myLocation: {Location} \n";
         }
     }

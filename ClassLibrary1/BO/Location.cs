@@ -45,7 +45,7 @@ namespace IBL
             /// <returns>description of the Location object</returns>
             public override string ToString()
             {
-                return $"Longitude: {CoorLongitude} + Latitude: {CoorLatitude}";
+                return $"Longitude: {CoorLongitude} , Latitude: {CoorLatitude}";
             }
         }
     }

@@ -31,10 +31,12 @@ namespace IBL
 
         private int GetDroneParcelId(int droneId)
         {
-            
-            ParcelForList parcelForList = ((List<ParcelForList>)GetParcelsList()).First(parcel=>parcel.DroneId == droneId);
-            //
-            return parcelForList == null ? 0 : parcelForList.ParcelId;
+            if(((List<BO.Parcel>)GetBOParcelsList()).FindIndex(parcel => { if (parcel.MyDrone != null && parcel.MyDrone.Id == droneId) return true; else return false; }) != -1)
+            {
+                return 0;
+            }
+            BO.Parcel parcel = ((List<BO.Parcel>)GetBOParcelsList()).First(parcel=> { if (parcel.MyDrone != null && parcel.MyDrone.Id == droneId) return true;else return false; });
+            return parcel.Id;
         }
 
 

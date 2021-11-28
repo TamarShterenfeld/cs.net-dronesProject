@@ -84,7 +84,7 @@ namespace IBL
             foreach (IDal.DO.Drone item in doDronseList)
             {
                 i++;
-                boDronesList.Add(GetBLDrone(item.Id));
+                boDronesList.Add(GetBLDroneFromBL(item.Id));
             }
             return boDronesList;
         }
