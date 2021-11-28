@@ -57,7 +57,24 @@ namespace IBL
 
 
         //----------------------------------Drone GetObject Methods---------------------------------
-        
+
+
+        public BO.Drone GetBLDroneFromBL(int id)
+        {
+            DroneForList droneForList = dronesForList.First(drone => drone.Id == id);
+            BO.Drone drone = new()
+            {
+                Id = droneForList.Id,
+                Status = droneForList.Status,
+                Battery = droneForList.Battery,
+                Location = droneForList.Location,
+                Model = droneForList.Model,
+                MaxWeight = droneForList.MaxWeight,
+                Parcel = droneForList.ParcelId == 0 ? null : GetParcelInPassing(droneForList.ParcelId)
+            };
+            return drone;
+        }
+
         /// <summary>
         /// The function displays a drone according to the id.
         /// </summary>

@@ -40,7 +40,7 @@ namespace ConsoleUI_BL
                             {
                                 Console.WriteLine("Please enter droneId");
                                 droneId = InputIntValue();
-                                Console.WriteLine(bl.GetBLDrone(droneId));
+                                Console.WriteLine(bl.GetBLDroneFromBL(droneId));
                                 break;
                             }
                         case (int)DisplayOptions.Customer:
