@@ -46,11 +46,9 @@ namespace IBL
 
         private int GetDroneParcelId(int droneId)
         {
-            if(((List<BO.Parcel>)GetBOParcelsList()).FindIndex(parcel => { if (parcel.MyDrone != null && parcel.MyDrone.Id == droneId) return true; else return false; }) != -1)
-            {
+            if(((List<BO.Parcel>)GetBOParcelsList()).FindIndex(parcel => parcel.MyDrone != null && parcel.MyDrone.Id == droneId) == -1)
                 return 0;
-            }
-            BO.Parcel parcel = ((List<BO.Parcel>)GetBOParcelsList()).First(parcel=> { if (parcel.MyDrone != null && parcel.MyDrone.Id == droneId) return true;else return false; });
+            BO.Parcel parcel = ((List<BO.Parcel>)GetBOParcelsList()).First(parcel=> parcel.MyDrone != null && parcel.MyDrone.Id == droneId );
             return parcel.Id;
         }
 

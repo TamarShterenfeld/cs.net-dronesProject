@@ -20,7 +20,7 @@ namespace IBL
 
         double ComputeBatteryRemained(DroneForList drone, ILocatable locatable)
         {
-            return drone.Battery - ComputeMinBatteryNeeded(drone, locatable);
+            return (drone.Battery - ComputeMinBatteryNeeded(drone, locatable));
         }
 
         

@@ -103,17 +103,11 @@ namespace IBL
         public DroneForList GetDroneForList(int id)
         {
             BO.Drone item = GetBLDrone(id);
-            DroneForList current = new()
-            {
-                Id = item.Id,
-                Battery = item.Battery,
-                Location = item.Location,
-                MaxWeight = item.MaxWeight,
-                Model = item.Model,
-                ParcelId = item.Parcel.Id,
-                Status = item.Status
-            };
-            return current;
+            ParcelInPassing parcel = new();
+            if (item.Parcel != null) 
+                return new DroneForList(item.Id, item.Parcel.Id, item.Model, item.MaxWeight, item.Battery, item.Status, item.Location);
+            else
+                return new DroneForList(item.Id, 0 , item.Model, item.MaxWeight, item.Battery, item.Status, item.Location);
         }
 
         public DroneForList GetDroneForList(IDal.DO.Drone drone)
@@ -207,6 +201,8 @@ namespace IBL
         public ParcelInPassing GetParcelInPassing(int id)
         {
             BO.Parcel parcel = GetBLParcel(id);
+            BO.Customer sender = GetBLCustomer(parcel.Sender.Id);
+            BO.Customer target = GetBLCustomer(parcel.Target.Id);
             ParcelInPassing parcelInPassing = new()
             {
                 Id = parcel.Id,
@@ -217,7 +213,7 @@ namespace IBL
                 Target = parcel.Target,
                 Collect = GetBLCustomer(parcel.Sender.Id).Location,
                 Destination = GetBLCustomer(parcel.Target.Id).Location,
-                Distatnce = Locatable.Distance((ILocatable)(parcel.Sender), (ILocatable)(parcel.Target))
+                Distatnce = sender.Distance(target),
             };
             return parcelInPassing;
         }

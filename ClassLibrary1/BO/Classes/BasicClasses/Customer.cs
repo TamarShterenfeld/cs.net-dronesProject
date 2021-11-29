@@ -27,6 +27,18 @@ namespace IBL
                 }
                 set
                 {
+                    if (value.Length != 9)
+                    {
+                        throw new BLStringIdException(value);
+                    }
+                    foreach (char digit in value)
+                    {
+                        if (!Char.IsDigit(digit))
+                        {
+                            throw new BLStringIdException(value);
+
+                        }
+                    }
                     id = value;
                 }
             }

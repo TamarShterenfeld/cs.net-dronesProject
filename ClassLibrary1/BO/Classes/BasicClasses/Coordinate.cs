@@ -52,7 +52,7 @@ namespace IBL.BO
         public void CastDoubleToCoordinante()
         {
             if (InputCoorValue < -180 || InputCoorValue > 180)
-                throw new LocationException(InputCoorValue);
+                throw new BLLocationException(InputCoorValue);
             if (InputCoorValue < 0 && MyLocation == Locations.Longitude)
                 Direction = Directions.SOUTH;
 
@@ -90,8 +90,6 @@ namespace IBL.BO
         /// default constructor
         /// </summary>
         public Coordinate() { }
-
-
 
         /// <summary>
         /// override ToString function.

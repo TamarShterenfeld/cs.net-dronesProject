@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using static IBL.BO.DateTimeException;
 using static DalObject.DalObject;
 using IBL.BO;
+using DAL.DO;
 
 
 namespace IBL
@@ -29,7 +30,7 @@ namespace IBL
                 {
                     if (value.Length != 9)
                     {
-                        throw new DateTimeException("Id must include exactly 9 digits");
+                        throw new BLStringIdException(value);
                     }
                     foreach (char digit in value)
                     {

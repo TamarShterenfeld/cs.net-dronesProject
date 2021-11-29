@@ -4,18 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
 namespace IBL
 {
     namespace BO
     {
         /// <summary>
-        /// the class contains all the DroneInParcel's needed details.
+        /// the class contains all the DroneInCharging's needed details.
         /// </summary>
-        public class DroneInParcel 
+        public class DroneInCharging
         {
             int id;
-            double battery;
             public int Id
             {
                 set
@@ -32,42 +30,41 @@ namespace IBL
             {
                 set
                 {
-                    if (value < 0)
+                    if (value < 0 || value >100)
                         throw new BatteryException(value);
-                    battery = value;
+                    Battery = value;
                 }
                 get
                 {
-                    return battery;
+                    return Battery;
                 }
             }
-            public Location CurrentLocation { get; set; }
 
             /// <summary>
             /// constructor
             /// </summary>
             /// <param name="id"> DroneInPaecel's id </param>
             /// <param name="battery"> DroneInPaecel's battery </param>
-            /// <param name="current"> DroneInPaecel's current location </param>
-            public DroneInParcel(int id,double battery,Location current)
+            public DroneInCharging(int id, double battery)
             {
                 this.id = id;
-                Id = id; Battery = battery; CurrentLocation = current;
+                Id = id; Battery = battery;
             }
 
             // default constructor
-            public DroneInParcel(){}
+            public DroneInCharging(){}
 
             /// <summary>
             /// override ToString function.
             /// </summary>
-            /// <returns>description of DroneInPaecel objectreturns>
+            /// <returns>description of DroneInCharging object</returns>
             public override string ToString()
             {
                 return $"id: { Id } \n" +
-                       $"name: { Battery } \n" +
-                       $"current location: { CurrentLocation } \n" ;
+                       $"battery: { Battery }" + "%" + "\n" ;
             }
+
         }
+
     }
 }

@@ -25,7 +25,7 @@ namespace IBL.BO
             {
                 if (value < 0)
                 {
-                    throw new IntIdException(value);
+                    throw new BLIntIdException(value);
                 }
                 id = value;
             }
@@ -45,7 +45,7 @@ namespace IBL.BO
                     {
                         if (!Char.IsLetter(letter))
                         {
-                            throw new StringException(value);
+                            throw new BLStringException(value);
                         }
                     }
                 }
@@ -65,7 +65,7 @@ namespace IBL.BO
             {
                 if (value < 0)
                 {
-                    throw (new ChargeSlotsException(value));
+                    throw (new BLChargeSlotsException(value));
                 }
 
                 availableChargeSlots = value;
@@ -84,7 +84,7 @@ namespace IBL.BO
             {
                 if (value < 0)
                 {
-                    throw (new ChargeSlotsException(value));
+                    throw (new BLChargeSlotsException(value));
                 }
 
                 caughtChargeSlots = value;

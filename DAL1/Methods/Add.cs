@@ -64,6 +64,7 @@ namespace DalObject
         public void Add(DroneCharge droneCharge)
         {
             CheckNotExistenceOfDroneCharge(droneCharge.DroneId);
+            CheckExistenceOfDrone(droneCharge.DroneId);
             BaseStation baseStation = GetBaseStation(droneCharge.StationId);
             baseStation.ChargeSlots--;
             UpDate(baseStation, baseStation.Id);

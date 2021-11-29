@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DAL.DO;
 
 namespace IBL
 {
@@ -30,7 +31,7 @@ namespace IBL
                 {
                     if (value.Length != 9)
                     {
-                        throw new DateTimeException("Id must include exactly 9 digits");
+                        throw new BLStringIdException(value);
                     }
                     foreach (char digit in value)
                     {

@@ -30,7 +30,7 @@ namespace IBL
                 //the amount of drones thet charged in this baseStation
                 //is bigger than its available chargeSLots.
                 if (dal.CaughtChargeSlots(baseStationId) > chargeSlots1)
-                    throw new ChargeSlotsException(chargeSlots1);
+                    throw new BLChargeSlotsException(chargeSlots1);
                 station.ChargeSlots = chargeSlots1;
             }
             dal.UpDate(station, baseStationId);
@@ -90,7 +90,7 @@ namespace IBL
                                 dal.Add(droneCharge);
                             }
                             else
-                                throw new ChargeSlotsException(nearestBaseStation.ChargeSlots);
+                                throw new BLChargeSlotsException(nearestBaseStation.ChargeSlots);
                         }
                     }
                     int droneIndex = dronesForList.FindIndex(item => item.Id == currentDrone.Id);
@@ -177,7 +177,7 @@ namespace IBL
         public void SendDroneForCharge(int droneId)
         {
             DroneForList drone = GetDroneForList(droneId);
-            if (drone.Status != DroneStatuses.Available)
+            if (drone.Status == DroneStatuses.Available)
             {
                 BaseStation baseStation = NearestBaseStation(drone);
                 //while there are no available ChargeSlots
@@ -190,10 +190,10 @@ namespace IBL
                 }
                 double battery = ComputeBatteryRemained(drone, baseStation);
                 if (baseStation.ChargeSlots == 0)
-                    throw new ChargeSlotsException(0);
+                    throw new BLChargeSlotsException(0);
                 if (battery < 0)
                     throw new BatteryException(battery);
-                drone.Battery = ComputeBatteryRemained(drone, baseStation);
+                drone.Battery = battery;
                 drone.Location = baseStation.Location;
                 drone.Status = DroneStatuses.Shipment;
                 IDal.DO.DroneCharge droneCharge = new() { DroneId = drone.Id, StationId = baseStation.Id, EntryTime = DateTime.Now };

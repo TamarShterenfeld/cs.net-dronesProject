@@ -4,16 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace IBL
 {
     namespace BO
     {
         /// <summary>
-        /// the class contains all the DroneInCharging's needed details.
+        /// the class contains all the DroneInParcel's needed details.
         /// </summary>
-        public class DroneInCharging
+        public class DroneInParcel 
         {
             int id;
+            double battery;
             public int Id
             {
                 set
@@ -32,39 +34,40 @@ namespace IBL
                 {
                     if (value < 0)
                         throw new BatteryException(value);
-                    Battery = value;
+                    battery = value;
                 }
                 get
                 {
-                    return Battery;
+                    return battery;
                 }
             }
+            public Location CurrentLocation { get; set; }
 
             /// <summary>
             /// constructor
             /// </summary>
             /// <param name="id"> DroneInPaecel's id </param>
             /// <param name="battery"> DroneInPaecel's battery </param>
-            public DroneInCharging(int id, double battery)
+            /// <param name="current"> DroneInPaecel's current location </param>
+            public DroneInParcel(int id,double battery,Location current)
             {
                 this.id = id;
-                Id = id; Battery = battery;
+                Id = id; Battery = battery; CurrentLocation = current;
             }
 
             // default constructor
-            public DroneInCharging(){}
+            public DroneInParcel(){}
 
             /// <summary>
             /// override ToString function.
             /// </summary>
-            /// <returns>description of DroneInCharging object</returns>
+            /// <returns>description of DroneInPaecel objectreturns>
             public override string ToString()
             {
                 return $"id: { Id } \n" +
-                       $"name: { Battery } \n";
+                       $"battery: { Battery } " + "%" + "\n"+
+                       $"current location: { CurrentLocation } \n" ;
             }
-
         }
-
     }
 }

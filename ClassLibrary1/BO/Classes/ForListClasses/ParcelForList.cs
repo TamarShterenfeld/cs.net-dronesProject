@@ -27,7 +27,7 @@ namespace IBL
                 {
                     if (value < 0)
                     {
-                        throw new IntIdException(value);
+                        throw new BLIntIdException(value);
                     }
                     droneId = value;
                 }

@@ -45,8 +45,19 @@ namespace IBL
 
             public WeightCategories MaxWeight { set; get; }
 
-            public double Battery { get; set; }
-
+            public double Battery
+            {
+                set
+                {
+                    if (value < 0 || value > 100)
+                        throw new BatteryException(value);
+                    Battery = value;
+                }
+                get
+                {
+                    return Battery;
+                }
+            }
             public DroneStatuses Status { set; get; }
 
             public Location Location { get; set; }
@@ -80,7 +91,7 @@ namespace IBL
                        $"parcel id: {ParcelId} \n" +
                        $"model: {Model} \n" +
                        $"weight category: {MaxWeight} \n" +
-                       $"battery: {Battery} \n" +
+                       $"battery: {Battery} " +"%"+"\n" +
                        $"status: {Status} \n" +
                        $"locaion: {Location} \n";
             }

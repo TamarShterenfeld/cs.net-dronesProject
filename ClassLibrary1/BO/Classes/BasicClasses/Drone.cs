@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DAL.DO;
 
 
 
@@ -24,7 +25,7 @@ namespace IBL.BO
             {
                 if (value < 0)
                 {
-                    throw new DateTimeException("Id must contain a positive number");
+                    throw new BLIntIdException("Id must contain a positive number");
                 }
                 id = value;
             }
@@ -37,7 +38,7 @@ namespace IBL.BO
             get { return battery; } 
             set 
             {
-                if (value < 0)
+                if (value < 0 || value > 100)
                     throw new BatteryException(value);
                 battery = value; 
             }
@@ -56,7 +57,7 @@ namespace IBL.BO
             return $"id: {Id} \n" +
                    $"model: {Model} \n" +
                    $"maxWeight:  {MaxWeight}\n" +
-                   $"battery: {Battery} \n" +
+                   $"battery: {Battery} " + "%" + "\n" +
                    $"status: {Status} \n" +
                    $"parcel: {Parcel} \n" +
                    $"myLocation: {Location} \n";
