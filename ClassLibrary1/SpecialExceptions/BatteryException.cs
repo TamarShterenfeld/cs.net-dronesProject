@@ -7,6 +7,9 @@ namespace IBL
 {
     namespace BO
     {
+        /// <summary>
+        /// a class that treats in exceptions of Battery type.
+        /// </summary>
         [Serializable]
         public class BatteryException : Exception
         {
@@ -19,8 +22,9 @@ namespace IBL
             public BatteryException(double battery) { Battery = battery; }
             override public string ToString()
             {
-                return "OverloadCapacityException: DAL capacity of " + " overloaded\n" + Message;
+                return "Battery Exception is thrown from BL logic level because: " + Battery + " isn't a valid value";
             }
+        }
 
 
         }

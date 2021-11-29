@@ -64,6 +64,7 @@ namespace ConsoleUI_BL
                 catch (IntIdException exe)
                 {
                     Console.WriteLine("The id: " + exe.Id + " isn't valid!");
+
                 }
                 catch (LocationException exe)
                 {

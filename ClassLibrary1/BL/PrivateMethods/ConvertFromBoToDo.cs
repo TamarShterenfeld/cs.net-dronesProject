@@ -15,10 +15,10 @@ namespace IBL
             {
                 Id = parcel.Id,
                 DroneId = parcel.MyDrone.Id,
-                Priority = ConvertToDoPriority(parcel.Priority),
+                Priority = (IDal.DO.Priorities)(parcel.Priority),
                 SenderId = parcel.Sender.Id,
                 TargetId = parcel.Target.Id,
-                Weight = ConvertToDoWeightCategory(parcel.Weight)
+                Weight = (IDal.DO.WeightCategories)(parcel.Weight)
             };
             return doParcel;
         }
@@ -50,7 +50,7 @@ namespace IBL
             IDal.DO.Drone doDrone = new()
             {
                 Id = boDrone.Id,
-                MaxWeight = ConvertToDoWeightCategory(boDrone.MaxWeight),
+                MaxWeight = (IDal.DO.WeightCategories)(boDrone.MaxWeight),
                 Model = boDrone.Model,
             };
             return doDrone;
@@ -58,30 +58,10 @@ namespace IBL
 
         Drone ConvertDroneForListToDrone(DroneForList droneForList)
         {
-            Drone drone = new()
-            {
-                Id = droneForList.Id,
-                Battery = droneForList.Battery,
-                Location = droneForList.Location,
-                MaxWeight = droneForList.MaxWeight,
-                Model = droneForList.Model,
-                Status = droneForList.Status,
-                Parcel = new() { Id = droneForList.ParcelId }
-            };
+            ParcelInPassing parcel = new() { Id = droneForList.ParcelId };
+            Drone drone = new Drone(droneForList.Id, droneForList.Model, droneForList.MaxWeight, droneForList.Battery, droneForList.Status, parcel, droneForList.Location);
             return drone;
         }
-        IDal.DO.WeightCategories ConvertToDoWeightCategory(BO.WeightCategories weight)
-        {
-            IDal.DO.WeightCategories weight1 = (IDal.DO.WeightCategories)weight;
-            return weight1;
-        }
-        IDal.DO.Priorities ConvertToDoPriority(BO.Priorities priority)
-        {
 
-            IDal.DO.Priorities priority1 = (IDal.DO.Priorities)priority;
-            return priority1;
-        }
-
-        
     }
 }

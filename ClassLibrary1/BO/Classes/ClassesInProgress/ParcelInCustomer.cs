@@ -8,6 +8,9 @@ namespace IBL
 {
     namespace BO
     {
+        /// <summary>
+        /// the class contains all the ParcelInCustomer's needed details.
+        /// </summary>
         public class ParcelInCustomer
         {
             int id;
@@ -18,7 +21,7 @@ namespace IBL
                 {
                     if (value < 0)
                     {
-                        throw new DateTimeException("Id must contain a positive number");
+                        throw new BLIntIdException(value);
                     }
                     id = value;
                 }
@@ -29,7 +32,7 @@ namespace IBL
             public CustomerInParcel SourceOrDest { get; set; }
 
             /// <summary>
-            /// constructor
+            /// a constructor with parameters
             /// </summary>
             /// <param name="id"> DeliveryInCustomer's id </param>
             /// <param name="weight"> DeliveryInCustomer's weight </param>

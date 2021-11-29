@@ -7,6 +7,9 @@ namespace IBL
 {
     namespace BO
     {
+        /// <summary>
+        /// a class that treats in exceptions of ParcelStatuses type.
+        /// </summary>
         [Serializable]
         public class ParcelStatusException : Exception
         {
@@ -19,7 +22,7 @@ namespace IBL
             public ParcelStatusException(ParcelStatuses status) { ParcelStatus = status; }
             override public string ToString()
             {
-                return "OverloadCapacityException: DAL capacity of " + " overloaded\n" + Message;
+                return "ParcelStatus Exception is thrown from BL logic level because: " + ParcelStatus + " isn't a valid value";
             }
 
 

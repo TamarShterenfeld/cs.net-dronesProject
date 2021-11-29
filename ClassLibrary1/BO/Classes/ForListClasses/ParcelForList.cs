@@ -40,7 +40,7 @@ namespace IBL
                 {
                     if (value < 0)
                     {
-                        throw new DateTimeException("Id must contain a positive number");
+                        throw new BLIntIdException(value);
                     }
                     parcelId = value;
                 }
@@ -55,13 +55,13 @@ namespace IBL
                 {
                     if (value.Length != 9)
                     {
-                        throw new DateTimeException("Sender ID must include exactly 9 digits");
+                        throw new BLStringIdException(value);
                     }
                     foreach (char letter in value)
                     {
                         if (!Char.IsDigit(letter))
                         {
-                            throw new DateTimeException("Sender ID must include only digits");
+                            throw new BLStringIdException(value);
                         }
                     }
                     senderId = value;
@@ -77,13 +77,13 @@ namespace IBL
                 {
                     if (value.Length != 9)
                     {
-                        throw new DateTimeException("Target Id must include exactly 9 digits");
+                        throw new BLStringIdException(value);
                     }
                     foreach (char letter in value)
                     {
                         if (!Char.IsDigit(letter))
                         {
-                            throw new DateTimeException("Target Id must include only digits");
+                            throw new BLStringIdException(value);
 
                         }
                     }
@@ -100,6 +100,16 @@ namespace IBL
             /// </summary>
             public ParcelForList() { }
 
+            /// <summary>
+            /// a constructor with parameters.
+            /// </summary>
+            /// <param name="droneId"></param>
+            /// <param name="parcelId"></param>
+            /// <param name="senderId"></param>
+            /// <param name="targetId"></param>
+            /// <param name="weight"></param>
+            /// <param name="priority"></param>
+            /// <param name="status"></param>
             public ParcelForList(int droneId, int parcelId, string senderId, string targetId, WeightCategories weight, Priorities priority, ParcelStatuses status)
             {
                 DroneId = droneId; ParcelId = parcelId; SenderId = senderId; TargetId = targetId; Weight = weight; Priority = priority; Status = status;

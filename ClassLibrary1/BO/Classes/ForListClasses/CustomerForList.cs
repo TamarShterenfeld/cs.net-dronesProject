@@ -20,6 +20,10 @@ namespace IBL
             private string id;
             private string name;
             private string phone;
+            int amountOfSendAndSuppliedParcels;
+            int amountOfSendAndNotSuppliedParcels;
+            int amountOfGetParcels;
+            int amountOfInPassingParcels;
 
             public string Id
             {
@@ -37,7 +41,7 @@ namespace IBL
                     {
                         if (!Char.IsDigit(digit))
                         {
-                            throw new DateTimeException("Id must include only digits");
+                            throw new BLStringIdException(value);
 
                         }
                     }
@@ -59,7 +63,7 @@ namespace IBL
                         {
                             if (!Char.IsLetter(letter))
                             {
-                                throw new DateTimeException("Name can contain only letters.");
+                                throw new BLStringException(value);
                             }
                         }
                     }
@@ -76,23 +80,71 @@ namespace IBL
                 set
                 {
                     if (value[0] != '0')
-                        throw new DateTimeException("The first digit of a phone number must be '0'");
+                        throw new BLPhoneException(value);
                     foreach (char digit in value)
                     {
                         if (!Char.IsDigit(digit))
                         {
-                            throw new DateTimeException("Phone must include only digits");
-
+                            throw new BLPhoneException(value);
                         }
                     }
                     phone = value;
                 }
             }
 
-            public int AmountOfSendAndSuppliedParcels { set; get; }
-            public int AmountOfSendAndNotSuppliedParcels { set; get; }
-            public int AmountOfGetParcels { set; get; }
-            public int AmountOfInPassingParcels { set; get; }
+            public int AmountOfSendAndSuppliedParcels
+            {
+                set
+                {
+                    if (value < 0)
+                        throw new AmountOfParcelsException(value);
+                    amountOfSendAndSuppliedParcels = value;
+                }
+                get
+                {
+                    return amountOfSendAndSuppliedParcels;
+                }
+            }
+            public int AmountOfGetParcels
+            {
+                set
+                {
+                    if (value < 0)
+                        throw new AmountOfParcelsException(value);
+                    amountOfGetParcels = value;
+                }
+                get
+                {
+                    return amountOfGetParcels;
+                }
+            }
+            public int AmountOfSendAndNotSuppliedParcels
+            {
+                set
+                {
+                    if (value < 0)
+                        throw new AmountOfParcelsException(value);
+                    amountOfSendAndNotSuppliedParcels = value;
+                }
+                get
+                {
+                    return amountOfSendAndNotSuppliedParcels;
+                }
+            }
+            public int AmountOfInPassingParcels
+            {
+                set
+                {
+                    if (value < 0)
+                        throw new AmountOfParcelsException(value);
+                    amountOfInPassingParcels = value;
+                }
+                get
+                {
+                    return amountOfInPassingParcels;
+                }
+            }
+ 
 
             /// <summary>
             /// default constructor
@@ -100,7 +152,7 @@ namespace IBL
             public CustomerForList() { }
 
             /// <summary>
-            /// a constructor
+            /// a constructor with parameters
             /// </summary>
             /// <param name="id">customer's id</param>
             /// <param name="name">customer's name</param>

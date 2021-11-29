@@ -77,7 +77,7 @@ namespace IBL
                     if (DroneReachLastDestination(currentDrone, item))
                     {
                         Customer target = GetBLCustomer(item.Target.Id);
-                        BaseStation nearestBaseStation = NearestBaseStation(target);
+                        BaseStation nearestBaseStation = NearestBaseStation(target, (List<BaseStation>)GetBOBaseStationsList());
                         isAssociate = true;
                         currentDrone.Status = DroneStatuses.Shipment;
                         currentDrone.ParcelId = item.Id;
@@ -179,15 +179,7 @@ namespace IBL
             DroneForList drone = GetDroneForList(droneId);
             if (drone.Status == DroneStatuses.Available)
             {
-                BaseStation baseStation = NearestBaseStation(drone);
-                //while there are no available ChargeSlots
-                //and the battery is enough in order to reach the baseStation.
-                while (baseStation.ChargeSlots == 0 && ComputeBatteryRemained(drone, baseStation) >= 0)
-                {
-                    //tries to find another close baseStation
-                    //which is closed to the prev nearestBaseStation.
-                    baseStation = NearestBaseStation(baseStation);
-                }
+                BaseStation baseStation = NearestBaseStation(drone, (List<BaseStation>)GetAvailableChargeSlots());
                 double battery = ComputeBatteryRemained(drone, baseStation);
                 if (baseStation.ChargeSlots == 0)
                     throw new BLChargeSlotsException(0);
@@ -256,7 +248,7 @@ namespace IBL
                 {
                     drone.Battery = ComputeBatteryRemained(drone, target);
                     drone.Location = target.Location;
-                    BaseStation nearestBaseStation = NearestBaseStation(drone);
+                    BaseStation nearestBaseStation = NearestBaseStation(drone, (List<BaseStation>)GetBOBaseStationsList());
                     return DroneReachLocation(drone, nearestBaseStation);
                 }
             }
@@ -266,7 +258,7 @@ namespace IBL
         {
             Customer sender = GetBOCustomersList().First(item1 => item1.Id == parcel.Sender.Id);
             Customer target = GetBOCustomersList().First(item1 => item1.Id == parcel.Target.Id);
-            BaseStation baseStation = NearestBaseStation(target);
+            BaseStation baseStation = NearestBaseStation(target, (List<BaseStation>)GetBOBaseStationsList());
             drone.Battery = ComputeBatteryRemained(drone, sender);
             drone.Battery = ComputeBatteryRemained(drone, target);
             return ComputeBatteryRemained(drone, baseStation);

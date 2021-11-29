@@ -7,6 +7,9 @@ namespace IBL
 {
     namespace BO
     {
+        /// <summary>
+        /// a class that treats in exceptions of DroneStatuses type.
+        /// </summary>
         [Serializable]
         public class DroneStatusException : Exception
         {
@@ -19,7 +22,7 @@ namespace IBL
             public DroneStatusException(DroneStatuses status) { Status = status; }
             override public string ToString()
             {
-                return "OverloadCapacityException: DAL capacity of " + " overloaded\n" + Message;
+                return "DroneStatus Exception is thrown from BL logic level because: " + Status + " isn't a valid value";
             }
 
 

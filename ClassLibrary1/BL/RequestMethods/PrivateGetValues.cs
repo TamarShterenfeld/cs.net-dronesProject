@@ -4,10 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using IBL.BO;
-using IDal.DO;
-using IDal;
-
-
 
 namespace IBL
 {
@@ -19,7 +15,7 @@ namespace IBL
         /// </summary>
         /// <param name="droneId">drone's id</param>
         /// <returns>drone's battery</returns>
-        private double GetDroneBattery(int droneId)
+        double GetDroneBattery(int droneId)
         {
             return dronesForList.Find(drone => drone.Id == droneId).Battery;
         }
@@ -29,7 +25,7 @@ namespace IBL
         /// </summary>
         /// <param name="droneId">drone's id</param>
         /// <returns>drone's status</returns>
-        private DroneStatuses GetDroneStatus(int droneId)
+        DroneStatuses GetDroneStatus(int droneId)
         {
             return dronesForList.Find(drone => drone.Id == droneId).Status;
         }
@@ -39,12 +35,12 @@ namespace IBL
         /// </summary>
         /// <param name="droneId">drone's id</param>
         /// <returns>drone's location</returns>
-        private Location GetDroneLocation(int droneId)
+        Location GetDroneLocation(int droneId)
         {
             return dronesForList.Find(drone => drone.Id == droneId).Location;
         }
 
-        private int GetDroneParcelId(int droneId)
+        int GetDroneParcelId(int droneId)
         {
             if(((List<BO.Parcel>)GetBOParcelsList()).FindIndex(parcel => parcel.MyDrone != null && parcel.MyDrone.Id == droneId) == -1)
                 return 0;
@@ -57,7 +53,7 @@ namespace IBL
         /// </summary>
         /// <param name="customer"> BO customer</param>
         /// <returns>number of supplied parcels which the customer have sent </returns>
-        private int SendAndSupplied(BO.Customer customer)
+        int SendAndSupplied(BO.Customer customer)
         {
             int num = 0;
             if (customer.FromCustomer == null) { return num;  }
@@ -74,7 +70,7 @@ namespace IBL
         /// </summary>
         /// <param name="customer"> BO customer</param>
         /// <returns>number of unsupplied parcels which the customer have sent </returns>
-        private int SendAndNotSupplied(BO.Customer customer)
+        int SendAndNotSupplied(BO.Customer customer)
         {
             int num = 0;
             if (customer.FromCustomer == null) { return num; }
@@ -90,7 +86,7 @@ namespace IBL
         /// </summary>
         /// <param name="customer"> BO customer</param>
         /// <returns>number of supplied parcels which the customer have got </returns>
-        private int GetAndSupplied(BO.Customer customer)
+        int GetAndSupplied(BO.Customer customer)
         {
             int num = 0;
             if (customer.ToCustomer == null) { return num; }
@@ -106,7 +102,7 @@ namespace IBL
         /// </summary>
         /// <param name="customer"> BO customer</param>
         /// <returns>number of unsupplied parcels which the customer have got </returns>
-        private int GetAndNotSupplied(BO.Customer customer)
+         int GetAndNotSupplied(BO.Customer customer)
         {
             int num = 0;
             if (customer.ToCustomer == null) { return num; }
@@ -117,7 +113,7 @@ namespace IBL
             return num;
         }
 
-        private BO.Parcel ParcelDOtOBO(IDal.DO.Parcel parcel)
+         BO.Parcel ParcelDOtOBO(IDal.DO.Parcel parcel)
         {
             BO.Parcel BOParcel = new()
             {
@@ -140,7 +136,7 @@ namespace IBL
         /// </summary>
         /// <param name="coor">BO coordinate</param>
         /// <returns>DO coordinate</returns>
-        private IDal.DO.Coordinate CoordinateBoToDo(BO.Coordinate coor)
+         IDal.DO.Coordinate CoordinateBoToDo(BO.Coordinate coor)
         {
             return new IDal.DO.Coordinate() { InputCoorValue = coor.InputCoorValue, Degrees = coor.Degrees, Direction = (IDal.DO.Directions)coor.Direction, MyLocation = (IDal.DO.Locations)coor.MyLocation , Minutes = coor.Minutes, Seconds = coor.Seconds};
         }
@@ -150,7 +146,7 @@ namespace IBL
         /// </summary>
         /// <param name="coor">DO coordinate</param>
         /// <returns>BO coordinate</returns>
-        private BO.Coordinate CoordinateDoToBo(IDal.DO.Coordinate coor)
+         BO.Coordinate CoordinateDoToBo(IDal.DO.Coordinate coor)
         {
             return new BO.Coordinate() { InputCoorValue = coor.InputCoorValue, Degrees = coor.Degrees, Direction = (BO.Directions)coor.Direction, MyLocation = (BO.Locations)coor.MyLocation, Minutes = coor.Minutes, Seconds = coor.Seconds };
         }

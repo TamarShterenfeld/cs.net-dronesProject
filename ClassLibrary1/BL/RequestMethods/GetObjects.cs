@@ -5,9 +5,6 @@ using static DalObject.DataSource;
 using IBL.BO;
 using System.Linq;
 using System.Numerics;
-using IDal.DO;
-using IDal;
-using static DalObject.DalObject;
 using static IBL.BO.Locatable;
 
 
@@ -19,10 +16,6 @@ namespace IBL
 
         //----------------------------------BaseStation GetObject Methods---------------------------------
 
-        /// <summary>
-        /// The function displays a base station according to id.
-        /// </summary>
-        /// <param name="id">base station's id</param>
         public BO.BaseStation GetBLBaseStation(int id)
         {
             return BaseStationDOtOBO(dal.GetBaseStation(id)); ;
@@ -59,46 +52,26 @@ namespace IBL
         //----------------------------------Drone GetObject Methods---------------------------------
 
 
-        public BO.Drone GetBLDroneFromBL(int id)
+        public Drone GetBLDroneFromBL(int id)
         {
             DroneForList droneForList = dronesForList.First(drone => drone.Id == id);
-            BO.Drone drone = new()
-            {
-                Id = droneForList.Id,
-                Status = droneForList.Status,
-                Battery = droneForList.Battery,
-                Location = droneForList.Location,
-                Model = droneForList.Model,
-                MaxWeight = droneForList.MaxWeight,
-                Parcel = droneForList.ParcelId == 0 ? null : GetParcelInPassing(droneForList.ParcelId)
-            };
+            ParcelInPassing parcel = new() { Id = droneForList.ParcelId };
+            BO.Drone drone = new BO.Drone(droneForList.Id, droneForList.Model, droneForList.MaxWeight, droneForList.Battery, droneForList.Status, parcel, droneForList.Location );
             return drone;
         }
 
-        /// <summary>
-        /// The function displays a drone according to the id.
-        /// </summary>
-        /// <param name="id">drone's id</param>
-        public BO.Drone GetBLDrone(int id)
+        public Drone GetBLDrone(int id)
         {
             return DroneDOtOBO(dal.GetDrone(id));
-
         }
 
-        public BO.Drone DroneDOtOBO(IDal.DO.Drone drone)
+        public Drone DroneDOtOBO(IDal.DO.Drone drone)
         {
-            BO.Drone BODrone = new()
-            {
-                Id = drone.Id,
-                Model = drone.Model,
-                MaxWeight = (BO.WeightCategories)drone.MaxWeight,
-                Battery = GetDroneBattery(drone.Id),
-                Status = GetDroneStatus(drone.Id),
-                Parcel = GetDroneParcelId(drone.Id) != 0 ? GetParcelInPassing(GetDroneParcelId(drone.Id)) : null,
-                Location = GetDroneLocation(drone.Id)
-            };
-            return BODrone;
+            Drone bODrone = new Drone(drone.Id, drone.Model,(WeightCategories)( drone.MaxWeight), 0, DroneStatuses.Available, null, null);           
+            return bODrone;
         }
+
+        //----------------------------------DroneForList GetObject Methods---------------------------------
 
         public DroneForList GetDroneForList(int id)
         {
@@ -136,12 +109,10 @@ namespace IBL
             };
             return current;
         }
+       
+      
 
-
-        /// <summary>
-        /// The function displays a drone in parcel according to id.
-        /// </summary>
-        /// <param name="id">drone's id</param>
+        //----------------------------------DroneInParcel GetObject Methods---------------------------------
         public DroneInParcel GetBLDroneInParcel(int id)
         {
             if (id == 0)
@@ -163,24 +134,27 @@ namespace IBL
             return droneInPrcel;
         }
 
-        //----------------------------------DroneForList GetObject Methods---------------------------------
+        //----------------------------------Parcel GetObject Methods---------------------------------
 
-        private DroneForList GetOneDroneForList(BO.Drone drone)
+        public ParcelStatuses ParcelStatus(IDal.DO.Parcel parcel)
         {
-            DroneForList droneForList = new()
-            {
-                Id = drone.Id,
-                Model = drone.Model,
-                MaxWeight = drone.MaxWeight,
-                Status = drone.Status,
-                ParcelId = drone.Parcel != null ? drone.Parcel.Id : 0,
-                Location = drone.Location,
-                Battery = drone.Battery
-            };
-            return droneForList;
+            DateTime time = new();
+            return parcel.AssociationDate == time ? ParcelStatuses.Production :
+                    parcel.PickUpDate == time ? ParcelStatuses.Associated :
+                    parcel.SupplyDate == time ? ParcelStatuses.PickedUp : ParcelStatuses.Supplied;
         }
 
-        //----------------------------------Parcel GetObject Methods---------------------------------
+        /// <summary>
+        /// The function displays a parcel according to id.
+        /// </summary>
+        /// <param name="id">parcel's id</param>
+        public BO.Parcel GetBLParcel(int id)
+        {
+            return ParcelDOtOBO(dal.GetParcel(id));
+
+        }
+
+        //----------------------------------ParcelForList GetObject Methods---------------------------------
 
         public ParcelForList GetParcelForList(int id)
         {
@@ -198,6 +172,7 @@ namespace IBL
             return current;
         }
 
+        //----------------------------------ParcelInPassing GetObject Methods---------------------------------
         public ParcelInPassing GetParcelInPassing(int id)
         {
             BO.Parcel parcel = GetBLParcel(id);
@@ -218,26 +193,12 @@ namespace IBL
             return parcelInPassing;
         }
 
-        /// <summary>
-        /// The function displays a parcel according to id.
-        /// </summary>
-        /// <param name="id">parcel's id</param>
-        public BO.Parcel GetBLParcel(int id)
-        {
-            return ParcelDOtOBO(dal.GetParcel(id));
 
-        }
-
+        //----------------------------------ParcelInCustomer GetObject Methods---------------------------------
         /// <summary>
         /// The function displays a parcel in customer according to id.
         /// </summary>
         /// <param name="id">parcel's id</param>
-
-        //public ParcelInCustomer GetBLParcelInCustomer(int id, FromOrTo fromOrTo)
-        //{
-        //    return ParcelInCustomerDOtOBO(dal.GetParcel(id),fromOrTo);
-
-        //}
 
         public ParcelInCustomer ParcelInCustomerDOtOBO(IDal.DO.Parcel parcel, FromOrTo fromOrTo)
         {
@@ -252,13 +213,7 @@ namespace IBL
             return BOCustomerInParcel;
         }
 
-        public ParcelStatuses ParcelStatus(IDal.DO.Parcel parcel)
-        {
-            DateTime time = new();
-            return parcel.AssociationDate == time ? ParcelStatuses.Production :
-                    parcel.PickUpDate == time ? ParcelStatuses.Associated :
-                    parcel.SupplyDate == time ? ParcelStatuses.PickedUp : ParcelStatuses.Supplied;
-        }
+        
 
 
         //----------------------------------Customer GetObject Methods---------------------------------

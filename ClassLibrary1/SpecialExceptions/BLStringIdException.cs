@@ -9,6 +9,9 @@ namespace IBL
 {
     namespace BO
     {
+        /// <summary>
+        /// a class that treats in exceptions of stringId type.
+        /// </summary>
         [Serializable]
         public class BLStringIdException : Exception
         {
@@ -20,7 +23,7 @@ namespace IBL
             public BLStringIdException(string str) { Id = str; }
             override public string ToString()
             {
-                return "String id Exceptioin : DAL logic level throws a string id exception " + Message;
+                return "StringId Exception is thrown from BL logic level because: " + Id + " isn't a valid value";
             }
 
         }

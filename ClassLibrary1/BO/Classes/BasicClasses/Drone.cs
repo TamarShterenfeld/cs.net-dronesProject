@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DAL.DO;
 
 
 
@@ -25,7 +24,7 @@ namespace IBL.BO
             {
                 if (value < 0)
                 {
-                    throw new BLIntIdException("Id must contain a positive number");
+                    throw new BLIntIdException(value);
                 }
                 id = value;
             }
@@ -47,6 +46,21 @@ namespace IBL.BO
         public DroneStatuses Status { get { return status; } set { status = value; } }         
         public ParcelInPassing Parcel { set { parcel = value; } get { return parcel; } }
         public Location Location { set; get; }
+
+       /// <summary>
+       /// a constructor with parameters.
+       /// </summary>
+       /// <param name="id"></param>
+       /// <param name="model"></param>
+       /// <param name="weight"></param>
+       /// <param name="battery"></param>
+       /// <param name="status"></param>
+       /// <param name="parcel"></param>
+       /// <param name="location"></param>
+        public Drone(int id, string model, WeightCategories weight, double battery, DroneStatuses status, ParcelInPassing parcel, Location location)
+        {
+            Id = id; Model = model; MaxWeight = weight; Battery = battery; Status = status; Parcel = parcel; Location = location;
+        }
 
         /// <summary>
         /// override ToString function.

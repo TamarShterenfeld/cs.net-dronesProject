@@ -15,6 +15,7 @@ namespace IBL
         {
             int id;
             int parcelId;
+            double battery;
 
             public int Id
             {
@@ -22,7 +23,7 @@ namespace IBL
                 {
                     if (value < 0)
                     {
-                        throw new DateTimeException("Id must contain a positive number");
+                        throw new BLIntIdException(value);
                     }
                     id = value;
                 }
@@ -35,7 +36,7 @@ namespace IBL
                 {
                     if (value < 0)
                     {
-                        throw new DateTimeException("Id must contain a positive number");
+                        throw new BLIntIdException(value);
                     }
                     parcelId = value;
                 }
@@ -51,11 +52,11 @@ namespace IBL
                 {
                     if (value < 0 || value > 100)
                         throw new BatteryException(value);
-                    Battery = value;
+                    battery = value;
                 }
                 get
                 {
-                    return Battery;
+                    return battery;
                 }
             }
             public DroneStatuses Status { set; get; }
@@ -68,7 +69,7 @@ namespace IBL
             public DroneForList() { }
 
             /// <summary>
-            /// constructor
+            /// a constructor with parameters
             /// </summary>
             /// <param name="id">DroneForList's id</param>
             /// <param name="parcelId">DroneForList's parcelId</param>

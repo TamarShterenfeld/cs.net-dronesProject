@@ -20,7 +20,7 @@ namespace IBL
                 {
                     if (value < 0)
                     {
-                        throw new DateTimeException("Id must contain a positive number");
+                        throw new BLIntIdException(value);
                     }
                     id = value;
                 }
@@ -41,7 +41,7 @@ namespace IBL
             }
 
             /// <summary>
-            /// constructor
+            /// a constructor with parameters
             /// </summary>
             /// <param name="id"> DroneInPaecel's id </param>
             /// <param name="battery"> DroneInPaecel's battery </param>

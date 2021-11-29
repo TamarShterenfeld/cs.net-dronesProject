@@ -7,6 +7,9 @@ namespace IBL
 {
     namespace BO
     {
+        /// <summary>
+        /// a class that treats in exceptions of ParcelActions type.
+        /// </summary>
         [Serializable]
         public class ParcelActionsException : Exception
         {
@@ -19,7 +22,7 @@ namespace IBL
             public ParcelActionsException(ParcelActions action) { Action = action; }
             override public string ToString()
             {
-                return "OverloadCapacityException: DAL capacity of " + " overloaded\n" + Message;
+                return "ParcdlActions Exception is thrown from BL logic level because: " + Action + " isn't a valid value";
             }
 
 

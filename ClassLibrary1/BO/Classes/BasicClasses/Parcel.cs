@@ -16,8 +16,7 @@ namespace IBL.BO
         DateTime productionDate = DateTime.Now;
         DateTime associationDate = new();
         DateTime pickUpDate = new();
-        DateTime supplyDate = new();
-        
+        DateTime supplyDate = new();        
         DroneInParcel drone = null;
         public int Id
         {
@@ -26,7 +25,7 @@ namespace IBL.BO
             {
                 if (value < 0)
                 {
-                    throw new DateTimeException("Id must contain a positive number");
+                    throw new BLIntIdException(value);
                 }
                 id = value;
             }
@@ -42,6 +41,15 @@ namespace IBL.BO
         public DateTime PickUpDate { get { return pickUpDate; } set { pickUpDate = value; } }       
         public DateTime SupplyDate { get { return supplyDate; } set { supplyDate = value; } }
 
+        /// <summary>
+        /// a contructor with parameters
+        /// </summary>
+        /// <param name="id">the parcel's id</param>
+        /// <param name="sender">the parcel's sender</param>
+        /// <param name="target">the parcel's target</param>
+        /// <param name="weight">the parcel's weight</param>
+        /// <param name="priority">the parcel's priority</param>
+        /// <param name="drone">the drone that has to pass the parcel</param>
         public Parcel(int id, CustomerInParcel sender, CustomerInParcel target, WeightCategories weight, Priorities priority, DroneInParcel drone)
         {
             this.id = id; Sender = sender; Target = target; Weight = weight; Priority = priority; MyDrone = drone;
@@ -70,7 +78,6 @@ namespace IBL.BO
                    $"weight: {Weight} \n" +
                    $"priority: {Priority} \n" +
                    $"drone: {MyDrone} \n"; 
-
         }
     }
 

@@ -10,6 +10,9 @@ namespace IBL
 {
     namespace BO
     {
+        /// <summary>
+        /// the class contains all the ParcelInPassing's needed details.
+        /// </summary>
         public class ParcelInPassing
         {
             int id;
@@ -20,13 +23,14 @@ namespace IBL
                 {
                     if (value < 0)
                     {
-                        throw new DateTimeException("Id must contain a positive number");
+                        throw new BLIntIdException(value);
                     }
                     id = value;
                 }
             }
 
-            // if the parcel waits to be picked up: false, else, if the parcel in the way: true.
+            // if the parcel waits to be picked up: the value of ToDestination is false,
+            //else - if the parcel in the way:  the value of ToDestination is true.
             public bool ToDestination { get; set; }
 
             public Priorities Priority { get; set; }
@@ -41,7 +45,7 @@ namespace IBL
             public double Distatnce { get; set; }
 
             /// <summary>
-            /// constructor
+            /// a constructor with parameters
             /// </summary>
             /// <param name=" ParcelInPassing's id">id </param>
             /// <param name="priority"> ParcelInPassing's priority </param>

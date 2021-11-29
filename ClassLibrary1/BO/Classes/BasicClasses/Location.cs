@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static IDal.DO.Coordinate;
-using IDal.DO;
 
 namespace IBL
 {
@@ -36,7 +34,7 @@ namespace IBL
             /// <returns>description of the Location object</returns>
             public override string ToString()
             {
-                return $"Longitude: {CoorLongitude} , Latitude: {CoorLatitude}";
+                return $"longitude: {CoorLongitude} , latitude: {CoorLatitude}";
             }
         }
     }

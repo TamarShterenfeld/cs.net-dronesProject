@@ -7,9 +7,12 @@ using System.Threading.Tasks;
 namespace IBL.BO
 {
     
+    /// <summary>
+    /// an static class which was created for giving the possibility for ILocatable objects 
+    /// to use its methods as if the method appeared in their original class.
+    /// </summary>
     internal static class Locatable
     {
-
         /// <summary>
         /// an extension function that computes the distance between two ILocatable objects.
         /// assuming that the returned value is measured by kilometers.

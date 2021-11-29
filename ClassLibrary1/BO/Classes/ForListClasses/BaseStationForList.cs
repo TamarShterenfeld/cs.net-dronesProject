@@ -92,7 +92,7 @@ namespace IBL.BO
         }
 
         /// <summary>
-        /// a constructor
+        /// a constructor with parameters
         /// </summary>
         /// <param name="id">base station's id</param>
         /// <param name="name">base station's name</param>
@@ -103,6 +103,7 @@ namespace IBL.BO
             this.id = id; this.name = name; this.availableChargeSlots = availableChargeSlots; this.caughtChargeSlots = caughtChargeSlots;
             Id = id; Name = name; AvailableChargeSlots = availableChargeSlots; CaughtChargeSlots = availableChargeSlots;
         }
+
         /// <summary>
         /// default constructor
         /// </summary>

@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static IDal.DO.BaseStation;
-using IDal.DO;
-using IDal;
 using static DalObject.DalObject;
 using static IBL.BL;
 
@@ -16,6 +13,7 @@ namespace IBL
     {
         /// <summary>
         /// the struct BaseStation contains the following details: id, name, longitude, latitude,  number of chargeSlots.
+        /// actaully, these are the needed details for creating a base station.
         /// </summary>
 
         public class BaseStation : ILocatable
@@ -51,7 +49,7 @@ namespace IBL
                         {
                             if (!Char.IsLetter(letter))
                             {
-                                throw new DateTimeException("Name can contain only letters.");
+                                throw new BLStringException(value);
                             }
                         }
                     }
@@ -73,7 +71,7 @@ namespace IBL
                 {
                     if (value < 0)
                     {
-                        throw (new DateTimeException("Not valid number of chargeSlots"));
+                        throw (new BLChargeSlotsException(value);
                     }
 
                     chargeSlots = value;
@@ -83,7 +81,7 @@ namespace IBL
 
 
             /// <summary>
-            /// constructor
+            /// a constructor with parameters
             /// </summary>
             /// <param name="id"> BaseStation's id </param>
             /// <param name="name"> BaseStation's name </param>

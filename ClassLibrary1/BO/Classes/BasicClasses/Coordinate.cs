@@ -3,26 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DAL.DO;
+using IBL.BO;
 
 namespace IBL.BO
 {
-    /// <summary>
-    /// an enum which contains all the different directions.
-    /// </summary>
-    public enum Directions
-    {
-        NORTH, EAST, WEST, SOUTH
-    }
-
-    /// <summary>
-    /// 
-    /// an enum which contains the two oprtions for a location - longitude / latitude.
-    /// </summary>
-    public enum Locations
-    {
-        Latitude, Longitude
-    }
+ 
 
     /// <summary>
     /// the class coordinate contains: degrees, minutes, seconds
@@ -34,7 +19,20 @@ namespace IBL.BO
         public double Degrees { get; set; }
         public double Minutes { get; set; }
         public double Seconds { get; set; }
-        public double InputCoorValue { get; set; }
+        double inputCoorValue;
+        public double InputCoorValue
+        {
+            get
+            {
+                return inputCoorValue;
+            }
+            set
+            {
+                if (value < -180 || value > 180)
+                    throw new BLLocationException(value);
+            }
+        }
+
 
         public Directions Direction { get; set; }
         public Locations MyLocation { set; get; }

@@ -15,8 +15,6 @@ namespace IBL
         //a static random field - for general use.
         public static readonly Random rand = new();
         //---------------------------------BaseStation GetList methods------------------------------------------------
-
-
         public IEnumerable<BO.BaseStation> GetBOBaseStationsList()
         {
             List<BO.BaseStation> boBaseStationList = new();
@@ -27,10 +25,6 @@ namespace IBL
             }
             return boBaseStationList;
         }
-
-        /// <summary>
-        /// The function shows all the available charge slots
-        /// </summary>
         public IEnumerable<BaseStationForList> GetAvailableChargeSlots()
         {
             List<IDal.DO.BaseStation> DoAvailableChargeSlots = (List<IDal.DO.BaseStation>)dal.AvailableChargeStations();
@@ -135,10 +129,7 @@ namespace IBL
 
         // ---------------------------------Parcels GetList Methods------------------------------------------------
 
-        /// <summary>
-        /// The function returns all the ParcelsLIst items 
-        /// (by converting the IDal.DO ParcelsLIst to BO ParcelsLIst)
-        /// </summary>
+      
         public IEnumerable<BO.Parcel> GetBOParcelsList()
         {
             List<BO.Parcel> boParcelList = new ();
@@ -150,11 +141,7 @@ namespace IBL
             return boParcelList;
         }
 
-        /// <summary>
-        /// the function returns a ParcelForList list
-        /// by converting the BO.Parcel PArcelForList  type.
-        /// </summary>
-        /// <returns></returns>
+        
         public IEnumerable<ParcelForList> GetParcelsList()
         {
             List<ParcelForList> parcelsForList = new();
@@ -168,9 +155,7 @@ namespace IBL
         }
 
 
-        /// <summary>
-        /// The function shows all the not associated parcels 
-        /// </summary>
+
         public IEnumerable<ParcelForList> GetNotAssociatedParcelsList()
         {
             List<ParcelForList> boNotAssociatedParcelsList = new ();

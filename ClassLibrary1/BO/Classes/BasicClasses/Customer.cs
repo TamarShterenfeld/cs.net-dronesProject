@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DAL.DO;
-using IDal.DO;
 
 
 namespace IBL
@@ -50,9 +48,20 @@ namespace IBL
                 }
                 set
                 {
+                    foreach (char letter in value)
+                    {
+                        if (letter != ' ')
+                        {
+                            if (!Char.IsLetter(letter))
+                            {
+                                throw new BLStringException(value);
+                            }
+                        }
+                    }
                     name = value;
                 }
             }
+
             public string Phone
             {
                 get
@@ -61,9 +70,20 @@ namespace IBL
                 }
                 set
                 {
+                    if (value[0] != '0')
+                        throw new BLPhoneException(value);
+                    foreach (char digit in value)
+                    {
+                        if (!Char.IsDigit(digit))
+                        {
+                            throw new BLPhoneException(value);
+
+                        }
+                    }
                     phone = value;
                 }
             }
+
 
             public Location MyLocation { get; set; }
 
@@ -72,9 +92,8 @@ namespace IBL
             public Location Location { get; set; }
 
 
-
             /// <summary>
-            /// constructor
+            /// a constructor with parameters
             /// </summary>
             /// <param name="id"> Customer's id </param>
             /// <param name="name"> Customer's name </param>

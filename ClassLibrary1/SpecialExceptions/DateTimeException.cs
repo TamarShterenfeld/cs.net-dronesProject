@@ -7,6 +7,9 @@ namespace IBL
 {
     namespace BO
     {
+        /// <summary>
+        /// a class that treats in exceptions of DateTime type.
+        /// </summary>
         [Serializable]
         public class DateTimeException : Exception
         {
@@ -19,7 +22,7 @@ namespace IBL
             public DateTimeException(DateTime dateTime) { MyDateTime = dateTime; }
             override public string ToString()
             {
-                return "OverloadCapacityException: DAL capacity of " + " overloaded\n" + Message;
+                return "DateTime Exception is thrown from BL logic level because: " + MyDateTime + " isn't a valid value";
             }
 
 

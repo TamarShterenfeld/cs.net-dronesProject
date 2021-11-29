@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using static IBL.BO.DateTimeException;
 using static DalObject.DalObject;
 using IBL.BO;
-using DAL.DO;
+
 
 
 namespace IBL
@@ -36,7 +36,7 @@ namespace IBL
                     {
                         if (!Char.IsDigit(digit))
                         {
-                            throw new DateTimeException("Id must include only digits");
+                            throw new BLStringIdException(value);
 
                         }
                     }
@@ -57,7 +57,7 @@ namespace IBL
                         {
                             if (!Char.IsLetter(letter))
                             {
-                                throw new DateTimeException("Name can contain only letters.");
+                                throw new BLStringException(value);
                             }
                         }
                     }
@@ -66,7 +66,7 @@ namespace IBL
             }
 
             /// <summary>
-            /// constructor
+            /// a constructor with parameters
             /// </summary>
             /// <param name="id">CustomerInShipment's id</param>
             /// <param name="name">CustomerInShipment's name</param>
