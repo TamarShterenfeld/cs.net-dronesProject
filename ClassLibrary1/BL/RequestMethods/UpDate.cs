@@ -104,8 +104,7 @@ namespace IBL
       
         public void PickUpParcel(int droneId)
         {
-            bool isPickedUp = false;
-            List<Parcel> parcelsList = (List<Parcel>)dal.GetParcelsList();
+            bool isPickedUp;
             DroneForList currDrone = GetDroneForList(droneId);
             ParcelForList parcelForList = GetParcelForList(currDrone.ParcelId);
             Customer sender = GetBLCustomer(parcelForList.SenderId);

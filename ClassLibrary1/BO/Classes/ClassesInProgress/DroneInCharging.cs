@@ -14,6 +14,7 @@ namespace IBL
         public class DroneInCharging
         {
             int id;
+            double battery;
             public int Id
             {
                 set
@@ -32,11 +33,11 @@ namespace IBL
                 {
                     if (value < 0 || value >100)
                         throw new BatteryException(value);
-                    Battery = value;
+                    battery = value;
                 }
                 get
                 {
-                    return Battery;
+                    return battery;
                 }
             }
 

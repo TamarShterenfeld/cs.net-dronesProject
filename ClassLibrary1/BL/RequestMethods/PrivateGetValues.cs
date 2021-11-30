@@ -25,7 +25,7 @@ namespace IBL
         /// </summary>
         /// <param name="customer"> BO customer</param>
         /// <returns>number of supplied parcels which the customer have sent </returns>
-        int SendAndSupplied(BO.Customer customer)
+        static int SendAndSupplied(BO.Customer customer)
         {
             int num = 0;
             if (customer.FromCustomer == null) { return num;  }
@@ -42,7 +42,7 @@ namespace IBL
         /// </summary>
         /// <param name="customer"> BO customer</param>
         /// <returns>number of unsupplied parcels which the customer have sent </returns>
-        int SendAndNotSupplied(BO.Customer customer)
+        static int SendAndNotSupplied(BO.Customer customer)
         {
             int num = 0;
             if (customer.FromCustomer == null) { return num; }
@@ -58,7 +58,7 @@ namespace IBL
         /// </summary>
         /// <param name="customer"> BO customer</param>
         /// <returns>number of supplied parcels which the customer have got </returns>
-        int GetAndSupplied(BO.Customer customer)
+        static int GetAndSupplied(BO.Customer customer)
         {
             int num = 0;
             if (customer.ToCustomer == null) { return num; }
@@ -74,7 +74,7 @@ namespace IBL
         /// </summary>
         /// <param name="customer"> BO customer</param>
         /// <returns>number of unsupplied parcels which the customer have got </returns>
-         int GetAndNotSupplied(BO.Customer customer)
+        static int GetAndNotSupplied(BO.Customer customer)
         {
             int num = 0;
             if (customer.ToCustomer == null) { return num; }
@@ -113,7 +113,7 @@ namespace IBL
         /// </summary>
         /// <param name="coor">BO coordinate</param>
         /// <returns>DO coordinate</returns>
-         IDal.DO.Coordinate CoordinateBoToDo(BO.Coordinate coor)
+        static IDal.DO.Coordinate CoordinateBoToDo(BO.Coordinate coor)
         {
             return new IDal.DO.Coordinate() { InputCoorValue = coor.InputCoorValue, Degrees = coor.Degrees, Direction = (IDal.DO.Directions)coor.Direction, MyLocation = (IDal.DO.Locations)coor.MyLocation , Minutes = coor.Minutes, Seconds = coor.Seconds};
         }
@@ -123,7 +123,7 @@ namespace IBL
         /// </summary>
         /// <param name="coor">DO coordinate</param>
         /// <returns>BO coordinate</returns>
-         BO.Coordinate CoordinateDoToBo(IDal.DO.Coordinate coor)
+         static BO.Coordinate CoordinateDoToBo(IDal.DO.Coordinate coor)
         {
             return new BO.Coordinate() { InputCoorValue = coor.InputCoorValue, Degrees = coor.Degrees, Direction = (BO.Directions)coor.Direction, MyLocation = (BO.Locations)coor.MyLocation, Minutes = coor.Minutes, Seconds = coor.Seconds };
         }

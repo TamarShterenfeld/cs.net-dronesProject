@@ -16,10 +16,10 @@ namespace IBL
         /// <param name="location"></param>
         /// <param name="baseStations">the list of the basStations that the nearest baseStation has to be found from.</param>
         /// <returns>the nearest baseStation</returns>
-        private BO.BaseStation NearestBaseStation(ILocatable location, List<BaseStation> baseStations)
+        static BaseStation NearestBaseStation(ILocatable location, List<BaseStation> baseStations)
         {
             double minDistance = int.MaxValue;
-            BO.BaseStation nearestBaseStation =
+            BaseStation nearestBaseStation =
                        baseStations.Last
                        (item => Min(item.Distance(location), minDistance) == item.Distance(location));
             return nearestBaseStation;

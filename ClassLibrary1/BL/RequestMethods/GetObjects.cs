@@ -47,7 +47,6 @@ namespace IBL
         public DroneForList GetDroneForList(int id)
         {
             Drone item = GetBLDrone(id);
-            ParcelInPassing parcel = new();
             if (item.Parcel != null) 
                 return new DroneForList(item.Id, item.Parcel.Id, item.Model, item.MaxWeight, item.Battery, item.Status, item.Location);
             else

@@ -30,7 +30,7 @@ namespace DalObject
 
         public IEnumerable<Parcel> NotAssociatedParcels()
         {
-            DateTime date = new DateTime();
+            DateTime date = new();
             List<Parcel> parcels = new ();
             foreach (var parcel in ParcelsList)
             {

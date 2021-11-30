@@ -14,7 +14,7 @@ namespace IBL
         /// </summary>
         /// <param name="parcel">the object to convert</param>
         /// <returns>a DO.Parcel converted object</returns>
-        IDal.DO.Parcel ConvertBoToDoParcel(BO.Parcel parcel)
+        static IDal.DO.Parcel ConvertBoToDoParcel(BO.Parcel parcel)
         {
             IDal.DO.Parcel doParcel = new()
             {
@@ -33,7 +33,7 @@ namespace IBL
         /// </summary>
         /// <param name="parcel">the object to convert</param>
         /// <returns>a BO.Parcel converted object</returns>
-        Parcel ConvertParcelForListToParcel(ParcelForList parcelForList)
+        static Parcel ConvertParcelForListToParcel(ParcelForList parcelForList)
         {
             Parcel parcel = new()
             {
@@ -77,10 +77,10 @@ namespace IBL
         /// </summary>
         /// <param name="droneForList">the object to convert</param>
         /// <returns>a BO.Drone converted object</returns>
-        Drone ConvertDroneForListToDrone(DroneForList droneForList)
+        static Drone ConvertDroneForListToDrone(DroneForList droneForList)
         {
             ParcelInPassing parcel = new() { Id = droneForList.ParcelId };
-            Drone drone = new Drone(droneForList.Id, droneForList.Model, droneForList.MaxWeight, droneForList.Battery, droneForList.Status, parcel, droneForList.Location);
+            Drone drone = new (droneForList.Id, droneForList.Model, droneForList.MaxWeight, droneForList.Battery, droneForList.Status, parcel, droneForList.Location);
             return drone;
         }
 
@@ -183,7 +183,7 @@ namespace IBL
         /// <returns>the converted BO.Drone object</returns>
         public Drone ConvertDroneDOtOBO(IDal.DO.Drone drone)
         {
-            Drone bODrone = new Drone(drone.Id, drone.Model, (WeightCategories)(drone.MaxWeight), 0, DroneStatuses.Available, null, null);
+            Drone bODrone = new (drone.Id, drone.Model, (WeightCategories)(drone.MaxWeight), 0, DroneStatuses.Available, null, null);
             return bODrone;
         }
 

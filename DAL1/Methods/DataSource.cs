@@ -145,7 +145,7 @@ namespace DalObject
                 parcel.TargetId = RandomCustomerId();
                 parcel.Priority = RandomPriority();
                 parcel.Weight = RandomWeight();
-                parcel.DroneId = -1;
+                parcel.DroneId = 0;
                 for (int j = 0; j < DronesList.Count; j++)
                 {
                     Drone currdrone = DronesList[j];
