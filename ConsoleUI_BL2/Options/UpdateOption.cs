@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using static ConsoleUI_BL.Program;
 using IBL;
 using IBL.BO;
+using IDal.DO;
+using DAL.DO;
 
 namespace ConsoleUI_BL
 {/// <summary>
@@ -13,8 +15,6 @@ namespace ConsoleUI_BL
  /// </summary>
     public class UpDateOption : ISubNavigate
     {
-
-        /// <inheritdoc />
         public void Options(ref BL bl)
         {
             int id;
@@ -29,10 +29,12 @@ namespace ConsoleUI_BL
                     {
                         case (int)UpDateOptions.UpdateDrone:
                             {
+
                                 Console.WriteLine("Please enter droneId and a new model for the drone");
                                 id = InputIntValue();
                                 model = InputOptionalStringValue();
                                 bl.UpdateDrone(id, model);
+
                                 break;
                             }
                         case (int)UpDateOptions.UpdateBaseStation:
@@ -45,6 +47,7 @@ namespace ConsoleUI_BL
                                     num = InputOptionalIntValue();
                                 }
                                 bl.UpdateBaseStation(id, model, num);
+
                                 break;
                             }
                         case (int)UpDateOptions.UpdateCustomer:
@@ -102,44 +105,79 @@ namespace ConsoleUI_BL
                             }
                     }
                 }
-                catch (DateTimeException exe)
-                {
-                    Console.WriteLine("the DateTime: " + exe.MyDateTime + " isn't valid!");
-                }
 
+                //whike making all the calaulations of UpDate options all these exceptions may be thrown:
+                catch (IntIdException exe)
+                {
+                    Console.WriteLine("the IntId: " + exe.Id + " isn't valid in the DAL logic level");
+                }
+                catch (ChargeSlotsException exe)
+                {
+                    Console.WriteLine("the chargeSlots: " + exe.ChargeSlots + " isn't valid in the DAL logic level");
+                }
+                catch (LocationException exe)
+                {
+                    Console.WriteLine("the Location: " + exe.Location + " isn't valid in the DAL logic level");
+                }
+                catch (StringException exe)
+                {
+                    Console.WriteLine("the String: " + exe.Str + " isn't valid in the DAL logic level");
+                }
+                catch (StringIdException exe)
+                {
+                    Console.WriteLine("the Customer Id: " + exe.Id + " isn't valid in the DAL logic level");
+                }
+                catch (BLPhoneException exe)
+                {
+                    Console.WriteLine("the Phone: " + exe.Phone + " wasn't succeeded in the BL logic level");
+                }
                 catch (ParcelActionsException exe)
                 {
-                    Console.WriteLine("the Action: " + exe.Action + " wasn't succeeded!");
+                    Console.WriteLine("the Action: " + exe.Action + " wasn't succeeded in the BL logic level");
                 }
+                catch (BLIntIdException exe)
+                {
+                    Console.WriteLine("The id: " + exe.Id + " isn't valid in the BL logic level ");
+                }
+                catch (PhoneException exe)
+                {
+                    Console.WriteLine("the Phone: " + exe.Phone + " wasn't succeeded in the DAL logic level");
+                }
+                
                 catch (BatteryException exe)
                 {
-                    Console.WriteLine("the Battery: " + exe.Battery + " isn't valid!");
+                    Console.WriteLine("the Battery: " + exe.Battery + " isn't valid in the BL logic level");
                 }
                 catch (DroneStatusException exe)
                 {
-                    Console.WriteLine("the Status: " + exe.Status + " isn't valid!");
+                    Console.WriteLine("the Status: " + exe.Status + " isn't valid  in the BL logic level");
                 }
                 catch (ParcelStatusException exe)
                 {
-                    Console.WriteLine("the Status: " + exe.ParcelStatus + " isn't valid");
+                    Console.WriteLine("the Status: " + exe.ParcelStatus + " isn't valid  in the BL logic level");
                 }
 
                 catch (BLChargeSlotsException exe)
                 {
-                    Console.WriteLine("The ChargeSlots: " + exe.ChargeSlots + " isn't available!");
-                }
-                catch (BLIntIdException exe)
-                {
-                    Console.WriteLine("The id: " + exe.Id + " isn't valid!");
+                    Console.WriteLine("The ChargeSlots: " + exe.ChargeSlots + " isn't available in the BL logic level ");
                 }
                 catch (BLLocationException exe)
                 {
-                    Console.WriteLine("The Location: " + exe.Location + "isn't valid" + "\nCoordinante value must be a positive number and in range of - 180º to 180º");
+                    Console.WriteLine("The Location: " + exe.Location + " isn't valid in the BL logic level" + "\nCoordinante value must be a positive number and in range of - 180º to 180º");
                 }
                 catch (BLStringIdException exe)
                 {
-                    Console.WriteLine("The Id : " + exe.Id + " isn't valid!");
+                    Console.WriteLine("The Customer Id: " + exe.Id + "isn't valid in the BL logic level ");
                 }
+                catch (AmountOfParcelsException exe)
+                {
+                    Console.WriteLine("The AmountOfParcels: " + exe.Amount + "isn't valid in the BL logic level ");
+                }
+                catch (BLStringException exe)
+                {
+                    Console.WriteLine("The String: " + exe.Str + "isn't valid in the BL logic level ");
+                }
+
             }
             else Console.WriteLine("The update option must hold a numeric value!");
         }

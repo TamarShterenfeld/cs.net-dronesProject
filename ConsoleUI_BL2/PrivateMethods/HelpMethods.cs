@@ -106,7 +106,10 @@ namespace ConsoleUI_BL
             }
         }
 
-
+        /// <summary>
+        /// the function inputs a string while giving the option to enter a null value
+        /// </summary>
+        /// <returns>the inputed string value</returns>
         internal static string InputOptionalStringValue()
         {
             while (true)
@@ -137,6 +140,10 @@ namespace ConsoleUI_BL
             }
         }
 
+       /// <summary>
+       /// the function inputs an int value while giving the option to enter a null value.
+       /// </summary>
+       /// <returns>the inputed int value</returns>
         internal static string InputOptionalIntValue()
         {
             while (true)

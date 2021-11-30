@@ -101,9 +101,7 @@ namespace IBL
                 throw new DroneStatusException(currentDrone.Status);
         }
 
-
-
-       
+      
         public void PickUpParcel(int droneId)
         {
             bool isPickedUp = false;

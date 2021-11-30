@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using IBL.BO;
 using IBL;
+using DAL.DO;
 
 namespace ConsoleUI_BL
 {/// <summary>
@@ -13,7 +14,6 @@ namespace ConsoleUI_BL
     public class ShowListOption : ISubNavigate, IShowList
     {
 
-        /// <inheritdoc />
         public void Options(ref BL bl)
         {
             Console.WriteLine("Please enter: \n1- For base stations list\n2- For drones list\n3- For customers list\n4- For parcels list\n5- For not associated parcels list\n6- For base stations with available charge slots");
@@ -60,25 +60,30 @@ namespace ConsoleUI_BL
                             }
                     }
                 }
+                //while getting data only IdExceptions may be thrown.
                 catch (BLIntIdException exe)
                 {
-                    Console.WriteLine("The id: " + exe.Id + " isn't valid!");
+                    Console.WriteLine("the Id: " + exe.Id + " isn't valid in the BL logic level");
 
-                }
-                catch (BLLocationException exe)
-                {
-                    Console.WriteLine("The Location: " + exe.Location + "isn't valid" + "\nCoordinante value must be a positive number and in range of - 180º to 180º");
                 }
                 catch (BLStringIdException exe)
                 {
-                    Console.WriteLine("The Id : " + exe.Id + " isn't valid!");
+                    Console.WriteLine("the Customer Id: " + exe.Id + " isn't valid in the BL logic level");
+                }
+                catch (IntIdException exe)
+                {
+                    Console.WriteLine("the Id: " + exe.Id + " isn't valid in the DAL logic level");
+                }
+                catch (StringIdException exe)
+                {
+                    Console.WriteLine("the Customer Id: " + exe.Id + " isn't valid in the DAL logic level");
                 }
             }
             else Console.WriteLine("The show list option must hold a numeric value!");
         }
 
 
-        public static void ShowList(IEnumerable<BaseStationForList> baseStations)
+        public void ShowList(IEnumerable<BaseStationForList> baseStations)
         {
             foreach (var item in baseStations)
             {
@@ -86,7 +91,7 @@ namespace ConsoleUI_BL
             }
         }
 
-        public static void ShowList(IEnumerable<DroneForList> drones)
+        public void ShowList(IEnumerable<DroneForList> drones)
         {
             foreach (var item in drones)
             {
@@ -94,7 +99,7 @@ namespace ConsoleUI_BL
             }
         }
 
-        public static void ShowList(IEnumerable<ParcelForList> parcels)
+        public void ShowList(IEnumerable<ParcelForList> parcels)
         {
             foreach (var item in parcels)
             {
@@ -102,7 +107,7 @@ namespace ConsoleUI_BL
             }
         }
 
-        public static void ShowList(IEnumerable<CustomerForList> customers)
+        public void ShowList(IEnumerable<CustomerForList> customers)
         {
             foreach (var item in customers)
             {
