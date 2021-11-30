@@ -15,27 +15,14 @@ namespace IBL
     {
 
         //----------------------------------BaseStation GetObject Methods---------------------------------
-        public BO.BaseStation GetBLBaseStation(int id)
+        public BaseStation GetBLBaseStation(int id)
         {
-            return BaseStationDOtOBO(dal.GetBaseStation(id)); ;
+            return ConvertBaseStationDOtOBO(dal.GetBaseStation(id)); ;
         }
-
-        public BO.BaseStation BaseStationDOtOBO(IDal.DO.BaseStation baseStation)
-        {
-            BO.BaseStation BOBaseStation = new()
-            {
-                Id = baseStation.Id,
-                Name = baseStation.Name,
-                Location = new Location(CoordinateDoToBo(baseStation.Longitude), CoordinateDoToBo(baseStation.Latitude)),
-                ChargeSlots = baseStation.ChargeSlots - dal.CaughtChargeSlots(baseStation.Id),
-                DroneCharging = (List<DroneInCharging>)GetDronesInMe(baseStation.Id)
-            };
-            return BOBaseStation;
-        }
-
+    
         public BaseStationForList GetBaseStationForList(int id)
         {
-            BO.BaseStation item = GetBLBaseStation(id);
+            BaseStation item = GetBLBaseStation(id);
             BaseStationForList current = new()
             {
                 Id = item.Id,
@@ -47,30 +34,19 @@ namespace IBL
         }
 
         //----------------------------------Drone GetObject Methods---------------------------------
-        public Drone GetBLDroneFromBL(int id)
-        {
-            DroneForList droneForList = dronesForList.First(drone => drone.Id == id);
-            ParcelInPassing parcel = new() { Id = droneForList.ParcelId };
-            BO.Drone drone = new BO.Drone(droneForList.Id, droneForList.Model, droneForList.MaxWeight, droneForList.Battery, droneForList.Status, parcel, droneForList.Location );
-            return drone;
-        }
 
         public Drone GetBLDrone(int id)
         {
-            return DroneDOtOBO(dal.GetDrone(id));
+            return ConvertDroneDOtOBO(dal.GetDrone(id));
         }
 
-        public Drone DroneDOtOBO(IDal.DO.Drone drone)
-        {
-            Drone bODrone = new Drone(drone.Id, drone.Model,(WeightCategories)( drone.MaxWeight), 0, DroneStatuses.Available, null, null);           
-            return bODrone;
-        }
+
 
         //----------------------------------DroneForList GetObject Methods---------------------------------
 
         public DroneForList GetDroneForList(int id)
         {
-            BO.Drone item = GetBLDrone(id);
+            Drone item = GetBLDrone(id);
             ParcelInPassing parcel = new();
             if (item.Parcel != null) 
                 return new DroneForList(item.Id, item.Parcel.Id, item.Model, item.MaxWeight, item.Battery, item.Status, item.Location);
@@ -78,32 +54,8 @@ namespace IBL
                 return new DroneForList(item.Id, 0 , item.Model, item.MaxWeight, item.Battery, item.Status, item.Location);
         }
 
-        public DroneForList GetDroneForList(IDal.DO.Drone drone)
-        {
-            DroneForList current = new()
-            {
-                Id = drone.Id,
-                MaxWeight = (BO.WeightCategories)drone.MaxWeight,
-                Model = drone.Model,
-           
-            };
-            return current;
-        }
 
-        public DroneForList GetDroneForList(BO.Drone drone)
-        {
-            DroneForList current = new()
-            {
-                Id = drone.Id,
-                MaxWeight = drone.MaxWeight,
-                Model = drone.Model,
-                Battery = drone.Battery,
-                Status = drone.Status,
-                Location = drone.Location,
-                ParcelId = drone.Parcel != null ? drone.Parcel.Id : 0,
-            };
-            return current;
-        }      
+   
 
         //----------------------------------DroneInParcel GetObject Methods---------------------------------
         public DroneInParcel GetBLDroneInParcel(int id)
@@ -112,10 +64,10 @@ namespace IBL
             {
                 return null;
             }
-            return DroneInParcelDOtOBO(id);
+            return GetDroneInParcel(id);
         }
 
-        public DroneInParcel DroneInParcelDOtOBO(int id)
+        public DroneInParcel GetDroneInParcel(int id)
         {
             DroneForList drone = dronesForList.First(drone => drone.Id == id);
             DroneInParcel droneInPrcel = new()
@@ -147,7 +99,7 @@ namespace IBL
 
         public ParcelForList GetParcelForList(int id)
         {
-            BO.Parcel item = GetBLParcel(id);
+            Parcel item = GetBLParcel(id);
             ParcelForList current = new()
             {
                 DroneId = item.MyDrone!= null? item.MyDrone.Id : 0,
@@ -164,9 +116,9 @@ namespace IBL
         //----------------------------------ParcelInPassing GetObject Methods---------------------------------
         public ParcelInPassing GetParcelInPassing(int id)
         {
-            BO.Parcel parcel = GetBLParcel(id);
-            BO.Customer sender = GetBLCustomer(parcel.Sender.Id);
-            BO.Customer target = GetBLCustomer(parcel.Target.Id);
+            Parcel parcel = GetBLParcel(id);
+            Customer sender = GetBLCustomer(parcel.Sender.Id);
+            Customer target = GetBLCustomer(parcel.Target.Id);
             ParcelInPassing parcelInPassing = new()
             {
                 Id = parcel.Id,
@@ -181,46 +133,20 @@ namespace IBL
             };
             return parcelInPassing;
         }
-
-        //----------------------------------ParcelInCustomer GetObject Methods---------------------------------
        
-        public ParcelInCustomer ParcelInCustomerDOtOBO(IDal.DO.Parcel parcel, FromOrTo fromOrTo)
-        {
-            ParcelInCustomer BOCustomerInParcel = new()
-            {
-                Id = parcel.Id,
-                Weight = (BO.WeightCategories)parcel.Weight,
-                Priority = (BO.Priorities)parcel.Priority,
-                ParcelStatus = ParcelStatus(parcel),
-                SourceOrDest = fromOrTo == FromOrTo.From ? GetBLCustomrInParcel(parcel.SenderId) : GetBLCustomrInParcel(parcel.TargetId)
-            };
-            return BOCustomerInParcel;
-        }
+       
 
         //----------------------------------Customer GetObject Methods---------------------------------
-        public BO.Customer GetBLCustomer(string id)
+        public Customer GetBLCustomer(string id)
         {
-            return CustomerDOtOBO(dal.GetCustomer(id));
+            return ConvertCustomerDoToBo(dal.GetCustomer(id));
 
         }
 
-        public BO.Customer CustomerDOtOBO(IDal.DO.Customer customer)
-        {
-            BO.Customer BOCustomer = new()
-            {
-                Id = customer.Id,
-                Name = customer.Name,
-                Phone = customer.Phone,
-                Location = new Location(CoordinateDoToBo(customer.Longitude), CoordinateDoToBo(customer.Latitude)),
-                FromCustomer = (List<ParcelInCustomer>)GetParcelInCustomerList(FromOrTo.From, customer.Id),
-                ToCustomer = (List<ParcelInCustomer>)GetParcelInCustomerList(FromOrTo.To, customer.Id),
-            };
-            return BOCustomer;
-        }
-
+       
         public CustomerForList GetCustomerForList(string id)
         {
-            BO.Customer item = GetBLCustomer(id);
+            Customer item = GetBLCustomer(id);
             CustomerForList current = new()
             {
                 Id = item.Id,
@@ -235,21 +161,13 @@ namespace IBL
 
         }
 
-        public CustomerInParcel GetBLCustomrInParcel(string id)
+        public CustomerInParcel GetCustomrInParcel(string id)
         {
 
-            return CustomrInParcelDOtOBO(dal.GetCustomer(id));
+            return ConvertCustomerDoToCustomerInParcel(dal.GetCustomer(id));
         }
 
-        public CustomerInParcel CustomrInParcelDOtOBO(IDal.DO.Customer customer)
-        {
-            CustomerInParcel BOCustomrInParcel = new()
-            {
-                Id = customer.Id,
-                Name = customer.Name
-            };
-            return BOCustomrInParcel;
-        }
+      
     }
 }
 

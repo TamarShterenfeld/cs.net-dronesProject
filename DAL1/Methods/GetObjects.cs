@@ -9,6 +9,7 @@ namespace DalObject
 {
   public partial class DalObject :IDal.IDal
     {
+
         public BaseStation GetBaseStation(int baseStationId)
         {
             CheckExistenceOfBaseStation(baseStationId);

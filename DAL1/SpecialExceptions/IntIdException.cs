@@ -9,6 +9,9 @@ namespace DAL
 {
     namespace DO
     {
+        /// <summary>
+        /// a class that treats in exceptions of IntId type.
+        /// </summary>
         [Serializable]
         public class IntIdException : Exception
         {
@@ -20,7 +23,7 @@ namespace DAL
             public IntIdException(int id) { Id = id; }
             override public string ToString()
             {
-                return "Int Id Exceptioin : DAL logic level throws an int id exception " + Message;
+                return "IntIdException Exception is thrown from DAL logic level because: " + Id + " isn't a valid value";
             }
 
         }

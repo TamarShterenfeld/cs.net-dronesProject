@@ -54,8 +54,8 @@ namespace ConsoleUI_BL
                                 IBL.BO.Parcel parcel = new();
                                 string sender , target ;
                                 (sender, target, parcel.Weight, parcel.Priority) = InputParcelDetails();
-                                parcel.Sender = bl.GetBLCustomrInParcel(sender);
-                                parcel.Target = bl.GetBLCustomrInParcel(target);
+                                parcel.Sender = bl.GetCustomrInParcel(sender);
+                                parcel.Target = bl.GetCustomrInParcel(target);
                                 parcel.MyDrone = null;
                                 bl.Add(parcel);
                                 break;

@@ -68,7 +68,7 @@ namespace IBL
             List<IDal.DO.Drone> DoDronesList = (List<IDal.DO.Drone>)dal.GetDronesList();
             foreach (var item in DoDronesList)
             {
-                BoDronesList.Add(GetBLDroneFromBL(item.Id));
+                BoDronesList.Add(GetBLDrone(item.Id));
             }
             return BoDronesList;
         }
@@ -81,10 +81,9 @@ namespace IBL
             int parcelId = 0;
             foreach (var drone in dal.GetDronesList())
             {
-                singleDrone = GetDroneForList(drone);
-                singleDrone.ParcelId = ++parcelId <= dal.getLastParcelId()? parcelId:0;
+                singleDrone = ConvertDroneDoToDroneForList(drone);
+                singleDrone.ParcelId = ++parcelId <= dal.GetLastParcelId()? parcelId:0;
                 droneForList.Add(singleDrone);
-
             }
             return droneForList;
         }
@@ -115,7 +114,7 @@ namespace IBL
             {
                 if ((fromOrTo == FromOrTo.From && parcel.SenderId == id) || (fromOrTo == FromOrTo.To && parcel.TargetId == id))
                 {
-                    parcelInCustomer.Add(ParcelInCustomerDOtOBO(parcel, fromOrTo));
+                    parcelInCustomer.Add(ConvertParcelDoToParcelInCustomer(parcel, fromOrTo));
                 }
             }
             return parcelInCustomer;

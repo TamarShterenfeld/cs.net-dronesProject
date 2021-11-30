@@ -16,7 +16,7 @@ namespace IBL
             dal.UpDate(drone, droneId);
             DroneForList droneForList = dronesForList.First(drone=>drone.Id == droneId);
             droneForList.Model = model;
-            UpdateDroneForList(droneForList);
+            UpdateDrone(droneForList);
         }
 
         public void UpdateBaseStation(int baseStationId, string name, string chargeSlots)
@@ -49,11 +49,6 @@ namespace IBL
             dal.UpDate(drone, drone.Id);
         }
 
-        public void UpdateDroneForList(DroneForList droneForList)
-        {
-            dronesForList.Remove(dronesForList.First(drone => drone.Id == droneForList.Id));
-            dronesForList.Add(droneForList);
-        }
         public void UpdateParcel(Parcel parcel)
         {
             IDal.DO.Parcel parcel1 = ConvertBoToDoParcel(parcel);

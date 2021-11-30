@@ -9,6 +9,9 @@ namespace DAL
 {
     namespace DO
     {
+        /// <summary>
+        /// a class that treats in exceptions of Location type.
+        /// </summary>
         [Serializable]
         public class LocationException : Exception
         {
@@ -20,7 +23,7 @@ namespace DAL
             public LocationException(double location) { Location = location; }
             override public string ToString()
             {
-                return "Int Id Exceptioin : DAL logic level throws an int id exception " + Message;
+                return "Location Exception is thrown from DAL logic level because: " + Location + " isn't a valid value";
             }
 
         }

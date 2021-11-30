@@ -12,7 +12,7 @@ namespace IBL
     /// </summary>
     interface IBL : IBaseStationBL, ICustomerBL, IDroneBL, IParcelBL
     {
-    
+
         /// <summary>
         /// The function gives associate date to the parcel.
         /// </summary>
@@ -75,8 +75,17 @@ namespace IBL
         /// <returns> a baseStationForList list with available chargeSlots</returns>
         IEnumerable<BaseStationForList> GetAvailableChargeSlots();
 
+        /// <summary>
+        /// the function returns all the baseStations in format of of BaseStationForList.
+        /// </summary>
+        /// <returns>the BaseStationFor list</returns>
         IEnumerable<BaseStationForList> GetBaseStationList();
 
+        /// <summary>
+        /// the function returns a BaseStationForList object according to the id parameter.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         BaseStationForList GetBaseStationForList(int id);
 
         /// <summary>
@@ -84,7 +93,13 @@ namespace IBL
         /// </summary>
         /// <param name="id">base station's id</param>
         BO.BaseStation GetBLBaseStation(int id);
-        BO.BaseStation BaseStationDOtOBO(IDal.DO.BaseStation baseStation);
+
+        /// <summary>
+        /// the function returns a BO.BaseStation object by converting the DO.BaseStation parameter object.
+        /// </summary>
+        /// <param name="baseStation">the object to convert</param>
+        /// <returns>the BO.BaseStation converted object</returns>
+        BaseStation ConvertBaseStationDOtOBO(IDal.DO.BaseStation baseStation);
         void UpdateBaseStation(int id, string name, string num);
 
     }
@@ -102,6 +117,12 @@ namespace IBL
         /// /// <param name="baseStationId">the id of the base station</param>
         void Add(BO.Drone drone, int baseStationId);
 
+        /// <summary>
+        /// the function returns a list of all the droneCharge object
+        /// thet are charged in the baseStation with the parameter 'stationId'
+        /// </summary>
+        /// <param name="stationId">the id for identifying the requested baseStation</param>
+        /// <returns></returns>
         IEnumerable<DroneInCharging> GetDronesInMe(int stationId);
 
         /// <summary>
@@ -110,6 +131,10 @@ namespace IBL
         /// </summary>
         IEnumerable<BO.Drone> GetBODronesList();
 
+        /// <summary>
+        /// the function returns a list of all the drones in DroneForList format.
+        /// </summary>
+        /// <returns>a DroneForList list</returns>
         IEnumerable<DroneForList> GetDronesForLists();
 
 
@@ -119,32 +144,66 @@ namespace IBL
         /// </summary>
         /// <returns></returns>
         IEnumerable<DroneForList> InitDroneForList();
-        Drone GetBLDroneFromBL(int id);
+
         /// <summary>
         /// The function displays a drone according to the id.
         /// </summary>
         /// <param name="id">drone's id</param>
         Drone GetBLDrone(int id);
-        Drone DroneDOtOBO(IDal.DO.Drone drone);
+
+        /// <summary>
+        /// the function converts a DO.Drone object to a BO.Drone object.
+        /// </summary>
+        /// <param name="drone"></param>
+        /// <returns>a BO.Drone object</returns>
+        Drone ConvertDroneDOtOBO(IDal.DO.Drone drone);
 
         /// <summary>
         /// returns the List dronesForList
         /// </summary>
         /// <returns>the List dronesForList</returns>
         DroneForList GetDroneForList(int id);
-        DroneForList GetDroneForList(BO.Drone drone);
-        DroneForList GetDroneForList(IDal.DO.Drone drone);
+
+        /// <summary>
+        /// the function gets a BO.Drone object and converts it to DronForList object.
+        /// </summary>
+        /// <param name="drone"></param>
+        /// <returns>a DroneForList object</returns>
+        DroneForList ConvertDroneBoToDroneForList(BO.Drone drone);
+
+        /// <summary>
+        /// the function converts a DO.Drone object to DroneForList object
+        /// </summary>
+        /// <param name="drone">a drone to convert</param>
+        /// <returns>the converted object</returns>
+        DroneForList ConvertDroneDoToDroneForList(IDal.DO.Drone drone);
 
         /// <summary>
         /// The function displays a drone in parcel according to id.
         /// </summary>
-        /// <param name="id">drone's id</param>
+        /// <param name="id">parcel's id - for identify the parcel</param>
         DroneInParcel GetBLDroneInParcel(int id);
 
-        DroneInParcel DroneInParcelDOtOBO(int id);
+        /// <summary>
+        /// the function returns a DroneInParcel obj by the id parameter.
+        /// </summary>
+        /// <param name="id">drone's id - for identify the drone</param>
+        /// <returns></returns>
+        DroneInParcel GetDroneInParcel(int id);
+
+        /// <summary>
+        /// the function update at least one of the parameters of the drone (those which don't hold a null value)
+        /// which its id is like the parameter id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="model"></param>
         void UpdateDrone(int id, string model);
+
+        /// <summary>
+        /// the function update a new DroneForList object instead of the prev one - with the same id.
+        /// </summary>
+        /// <param name="droneForList">the droneForList object to update</param>
         void UpdateDrone(DroneForList droneForList);
-        void UpdateDroneForList(DroneForList droneForList);
     }
 
     /// <summary>
@@ -184,22 +243,36 @@ namespace IBL
         IEnumerable<ParcelInCustomer> GetParcelInCustomerList(FromOrTo fromOrTo, string id);
 
         /// <summary>
-        /// The function displays a parcel according to id.
+        /// The function returns a parcel according to id.
         /// </summary>
         /// <param name="id">parcel's id</param>
         BO.Parcel GetBLParcel(int id);
+
+        /// <summary>
+        /// the function returns a ParcelForList object.
+        /// </summary>
+        /// <param name="id">for identify the parcelForList object</param>
+        /// <returns>the requested ParcelForList object</returns>
         ParcelForList GetParcelForList(int id);
 
-        
+        /// <summary>
+        /// the function returns a ParcelInPassing object by its id.
+        /// </summary>
+        /// <param name="id">for identify the ParcelInPassing object</param>
+        /// <returns>the requested ParcelInPassing object</returns>
         ParcelInPassing GetParcelInPassing(int id);
 
         /// <summary>
-        /// The function displays a parcel in customer according to id.
+        /// the function gets a DO.Parcel object ParcelStatus(by the values of the Dates)
         /// </summary>
-        /// <param name="id">parcel's id</param>
-
-        ParcelInCustomer ParcelInCustomerDOtOBO(IDal.DO.Parcel parcel, FromOrTo fromOrTo);
+        /// <param name="parcel">the Parcel object for checking</param>
+        /// <returns>the appropriate ParcelStatus</returns>
         ParcelStatuses ParcelStatus(IDal.DO.Parcel parcel);
+
+        /// <summary>
+        /// the function updates the parcel object instead of the prev object in the same id.
+        /// </summary>
+        /// <param name="parcel">the object to convert</param>
         void UpdateParcel(Parcel parcel);
     }
 
@@ -220,7 +293,7 @@ namespace IBL
         /// (by converting the IDal.DO CustomersLIst to BO CustomersLIst)
         /// </summary>
         IEnumerable<BO.Customer> GetBOCustomersList();
-       
+
 
         /// <summary>
         /// the function returns a customerForLIst list
@@ -234,22 +307,40 @@ namespace IBL
         /// </summary>
         /// <param name="id">customer's id</param>
         BO.Customer GetBLCustomer(string id);
-        BO.Customer CustomerDOtOBO(IDal.DO.Customer customer);
+
+        /// <summary>
+        /// the function converts a DO.Customer to a BO.Customer.
+        /// </summary>
+        /// <param name="customer"></param>
+        /// <returns></returns>
+        BO.Customer ConvertCustomerDoToBo(IDal.DO.Customer customer);
+
+        /// <summary>
+        /// the function returns a CustomerForList object - according to the requested id.
+        /// </summary>
+        /// <param name="id">the requested customer's id</param>
+        /// <returns>a BO.Customer object</returns>
         CustomerForList GetCustomerForList(string id);
 
         /// <summary>
         /// The function displays a customer in parcel according to id.
         /// </summary>
         /// <param name="id">parcel's id</param>
-        CustomerInParcel GetBLCustomrInParcel(string id);
+        CustomerInParcel GetCustomrInParcel(string id);
 
         /// <summary>
         /// the function converts a DO,Customer obj to a customerInParcel obsj
         /// </summary>
         /// <param name="customer"></param>
         /// <returns></returns>
-        CustomerInParcel CustomrInParcelDOtOBO(IDal.DO.Customer customer);
+        CustomerInParcel ConvertCustomerDoToCustomerInParcel(IDal.DO.Customer customer);
 
+        /// <summary>
+        /// update a Customer object with at least one of the parameters: name / phone (the one that isn't null)
+        /// </summary>
+        /// <param name="customerId">the requseted customer id (for updating that object)</param>
+        /// <param name="name">the name to update (if it's not null)</param>
+        /// <param name="phone">the phone to update (if it's not null)</param>
         void UpdateCustomer(string customerId, string name, string phone);
 
     }

@@ -84,5 +84,126 @@ namespace IBL
             return drone;
         }
 
+        /// <summary>
+        /// the function converts a Customer object to a CustomerInParcel object
+        /// </summary>
+        /// <param name="customer">the objext to convert</param>
+        /// <returns>the converted Customer object</returns>
+        public CustomerInParcel ConvertCustomerDoToCustomerInParcel(IDal.DO.Customer customer)
+        {
+            CustomerInParcel BOCustomrInParcel = new()
+            {
+                Id = customer.Id,
+                Name = customer.Name
+            };
+            return BOCustomrInParcel;
+        }
+
+        /// <summary>
+        /// the function converts a DO.Customer object to a BO.Customer object.
+        /// </summary>
+        /// <param name="customer">the object to convert</param>
+        /// <returns>the converted BO.Customer object</returns>
+        public Customer ConvertCustomerDoToBo(IDal.DO.Customer customer)
+        {
+            Customer BOCustomer = new()
+            {
+                Id = customer.Id,
+                Name = customer.Name,
+                Phone = customer.Phone,
+                Location = new Location(CoordinateDoToBo(customer.Longitude), CoordinateDoToBo(customer.Latitude)),
+                FromCustomer = (List<ParcelInCustomer>)GetParcelInCustomerList(FromOrTo.From, customer.Id),
+                ToCustomer = (List<ParcelInCustomer>)GetParcelInCustomerList(FromOrTo.To, customer.Id),
+            };
+            return BOCustomer;
+        }
+
+
+        /// <summary>
+        /// the function converts a DO.Parcel object to a ParcelInPassing object.
+        /// </summary>
+        /// <param name="parcel">the parcel to convert</param>
+        /// <param name="fromOrTo">an enum value - for filling the SourceOrDest field</param>
+        /// <returns></returns>
+        public ParcelInCustomer ConvertParcelDoToParcelInCustomer(IDal.DO.Parcel parcel, FromOrTo fromOrTo)
+        {
+            ParcelInCustomer BOCustomerInParcel = new()
+            {
+                Id = parcel.Id,
+                Weight = (BO.WeightCategories)parcel.Weight,
+                Priority = (BO.Priorities)parcel.Priority,
+                ParcelStatus = ParcelStatus(parcel),
+                SourceOrDest = fromOrTo == FromOrTo.From ? GetCustomrInParcel(parcel.SenderId) : GetCustomrInParcel(parcel.TargetId)
+            };
+            return BOCustomerInParcel;
+        }
+
+
+        /// <summary>
+        /// the function converts a BO.Drone object to a DO.Drone object.
+        /// </summary>
+        /// <param name="drone">the object to convert</param>
+        /// <returns>the converted DO.Drone object</returns>
+        public DroneForList ConvertDroneBoToDroneForList(BO.Drone drone)
+        {
+            DroneForList current = new()
+            {
+                Id = drone.Id,
+                MaxWeight = drone.MaxWeight,
+                Model = drone.Model,
+                Battery = drone.Battery,
+                Status = drone.Status,
+                Location = drone.Location,
+                ParcelId = drone.Parcel != null ? drone.Parcel.Id : 0,
+            };
+            return current;
+        }
+
+        /// <summary>
+        /// the function converts a DO.Drone object to a DroneForList object.
+        /// </summary>
+        /// <param name="drone">the object to convert</param>
+        /// <returns>the converted DroneForList object</returns>
+        public DroneForList ConvertDroneDoToDroneForList(IDal.DO.Drone drone)
+        {
+            DroneForList current = new()
+            {
+                Id = drone.Id,
+                MaxWeight = (BO.WeightCategories)drone.MaxWeight,
+                Model = drone.Model,
+
+            };
+            return current;
+        }
+
+        /// <summary>
+        /// the function converts a DO.Drone object to a BO.Drone object
+        /// </summary>
+        /// <param name="drone">the object to convert</param>
+        /// <returns>the converted BO.Drone object</returns>
+        public Drone ConvertDroneDOtOBO(IDal.DO.Drone drone)
+        {
+            Drone bODrone = new Drone(drone.Id, drone.Model, (WeightCategories)(drone.MaxWeight), 0, DroneStatuses.Available, null, null);
+            return bODrone;
+        }
+
+        /// <summary>
+        /// the function converts a DO.BaseStation object to BO.BaseStation object.
+        /// </summary>
+        /// <param name="baseStation"></param>
+        /// <returns></returns>
+        public BaseStation ConvertBaseStationDOtOBO(IDal.DO.BaseStation baseStation)
+        {
+            BaseStation BOBaseStation = new()
+            {
+                Id = baseStation.Id,
+                Name = baseStation.Name,
+                Location = new Location(CoordinateDoToBo(baseStation.Longitude), CoordinateDoToBo(baseStation.Latitude)),
+                ChargeSlots = baseStation.ChargeSlots - dal.CaughtChargeSlots(baseStation.Id),
+                DroneCharging = (List<DroneInCharging>)GetDronesInMe(baseStation.Id)
+            };
+            return BOBaseStation;
+        }
+
     }
 }

@@ -9,6 +9,9 @@ namespace DAL
 {
     namespace DO
     {
+        /// <summary>
+        /// a class that treats in exceptions of String type.
+        /// </summary>
         [Serializable]
         public class StringException : Exception
         {
@@ -19,7 +22,7 @@ namespace DAL
             public StringException(string str) { Str = str; }
             override public string ToString()
             {
-                return "String id Exceptioin : DAL logic level throws a string id exception " + Message;
+                return "String Exception is thrown from DAL logic level because: " + Str + " isn't a valid value";
             }
 
         }

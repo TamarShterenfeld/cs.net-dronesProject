@@ -95,8 +95,8 @@ namespace IBL
             Parcel BOParcel = new()
             {
                 Id = parcel.Id,
-                Sender = GetBLCustomrInParcel(parcel.SenderId),
-                Target = GetBLCustomrInParcel(parcel.TargetId),
+                Sender = GetCustomrInParcel(parcel.SenderId),
+                Target = GetCustomrInParcel(parcel.TargetId),
                 Weight = (BO.WeightCategories)parcel.Weight,
                 Priority = (BO.Priorities)parcel.Priority,
                 MyDrone = GetBLDroneInParcel(parcel.DroneId),

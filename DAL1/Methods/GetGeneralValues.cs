@@ -47,9 +47,9 @@ namespace DalObject
             return electricitiesConsuming;
         }
 
-        public int getLastParcelId()
+        public int GetLastParcelId()
         {
-            return ParcelsList.Count;
+            return Config.ParcelId;
         }
     }
 }

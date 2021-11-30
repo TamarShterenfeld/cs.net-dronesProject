@@ -190,6 +190,7 @@ namespace IDal
         /// returns the highest parcel's id
         /// </summary>
         /// <returns>the highest parcel's id</returns>
-        int getLastParcelId();
+        int GetLastParcelId();
+
     }
 }

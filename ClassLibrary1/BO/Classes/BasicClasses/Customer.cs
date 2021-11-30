@@ -93,8 +93,7 @@ namespace IBL
 
 
             /// <summary>
-            /// a constructor with parameters
-            /// </summary>
+            /// a constructor with parameters/// </summary>
             /// <param name="id"> Customer's id </param>
             /// <param name="name"> Customer's name </param>
             /// <param name="phone"> Customer's phone </param>
