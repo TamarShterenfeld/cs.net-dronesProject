@@ -34,28 +34,28 @@ namespace ConsoleUI_BL
                             {
                                 Console.WriteLine("Please enter baseStationId");
                                 baseStationId = InputIntValue();
-                                Console.WriteLine(bl.GetBaseStationForList(baseStationId));
+                                Console.WriteLine(bl.GetBLBaseStation(baseStationId));
                                 break;
                             }
                         case (int)DisplayOptions.Drone:
                             {
                                 Console.WriteLine("Please enter droneId");
                                 droneId = InputIntValue();
-                                Console.WriteLine(bl.GetDroneForList(droneId));
+                                Console.WriteLine(bl.GetBLDrone(droneId));
                                 break;
                             }
                         case (int)DisplayOptions.Customer:
                             {
                                 Console.WriteLine("Please enter customerId");
                                 customerId = InputStringId();
-                                Console.WriteLine(bl.GetCustomerForList(customerId));
+                                Console.WriteLine(bl.GetBLCustomer(customerId));
                                 break;
                             }
                         case (int)DisplayOptions.Parcel:
                             {
                                 Console.WriteLine("Please enter parcelId");
                                 parcelId = InputIntValue();
-                                Console.WriteLine(bl.GetParcelForList(parcelId));
+                                Console.WriteLine(bl.GetBLParcel(parcelId));
                                 break;
                             }
                         default:

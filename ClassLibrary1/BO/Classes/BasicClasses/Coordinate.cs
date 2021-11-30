@@ -19,7 +19,7 @@ namespace IBL.BO
         public double Degrees { get; set; }
         public double Minutes { get; set; }
         public double Seconds { get; set; }
-        readonly double  inputCoorValue;
+        private double  inputCoorValue;
         public double InputCoorValue
         {
             get
@@ -30,6 +30,7 @@ namespace IBL.BO
             {
                 if (value < -180 || value > 180)
                     throw new BLLocationException(value);
+                inputCoorValue = value;
             }
         }
 
@@ -79,7 +80,7 @@ namespace IBL.BO
         /// <param name="longOrLat">longitude ot latitude</param>
         public Coordinate(double degree, Locations longOrLat)
         {
-            InputCoorValue = degree;
+            inputCoorValue = degree;
             MyLocation = longOrLat;
             CastDoubleToCoordinante();
         }
