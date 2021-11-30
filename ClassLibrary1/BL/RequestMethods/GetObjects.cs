@@ -15,7 +15,6 @@ namespace IBL
     {
 
         //----------------------------------BaseStation GetObject Methods---------------------------------
-
         public BO.BaseStation GetBLBaseStation(int id)
         {
             return BaseStationDOtOBO(dal.GetBaseStation(id)); ;
@@ -47,11 +46,7 @@ namespace IBL
             return current;
         }
 
-
-
         //----------------------------------Drone GetObject Methods---------------------------------
-
-
         public Drone GetBLDroneFromBL(int id)
         {
             DroneForList droneForList = dronesForList.First(drone => drone.Id == id);
@@ -108,9 +103,7 @@ namespace IBL
                 ParcelId = drone.Parcel != null ? drone.Parcel.Id : 0,
             };
             return current;
-        }
-       
-      
+        }      
 
         //----------------------------------DroneInParcel GetObject Methods---------------------------------
         public DroneInParcel GetBLDroneInParcel(int id)
@@ -143,12 +136,8 @@ namespace IBL
                     parcel.PickUpDate == time ? ParcelStatuses.Associated :
                     parcel.SupplyDate == time ? ParcelStatuses.PickedUp : ParcelStatuses.Supplied;
         }
-
-        /// <summary>
-        /// The function displays a parcel according to id.
-        /// </summary>
-        /// <param name="id">parcel's id</param>
-        public BO.Parcel GetBLParcel(int id)
+      
+        public Parcel GetBLParcel(int id)
         {
             return ParcelDOtOBO(dal.GetParcel(id));
 
@@ -193,13 +182,8 @@ namespace IBL
             return parcelInPassing;
         }
 
-
         //----------------------------------ParcelInCustomer GetObject Methods---------------------------------
-        /// <summary>
-        /// The function displays a parcel in customer according to id.
-        /// </summary>
-        /// <param name="id">parcel's id</param>
-
+       
         public ParcelInCustomer ParcelInCustomerDOtOBO(IDal.DO.Parcel parcel, FromOrTo fromOrTo)
         {
             ParcelInCustomer BOCustomerInParcel = new()
@@ -213,33 +197,7 @@ namespace IBL
             return BOCustomerInParcel;
         }
 
-        
-
-
         //----------------------------------Customer GetObject Methods---------------------------------
-
-        public CustomerForList GetCustomerForList(string id)
-        {
-            BO.Customer item = GetBLCustomer(id);
-            CustomerForList current = new()
-            {
-                Id = item.Id,
-                Name = item.Name,
-                Phone = item.Phone,
-                AmountOfGetParcels = GetAndSupplied(item),
-                AmountOfInPassingParcels = GetAndNotSupplied(item),
-                AmountOfSendAndNotSuppliedParcels = SendAndNotSupplied(item),
-                AmountOfSendAndSuppliedParcels = SendAndSupplied(item)
-            };
-            return current;
-
-        }
-
-
-        /// <summary>
-        /// The function displays a customer according to id.
-        /// </summary>
-        /// <param name="id">customer's id</param>
         public BO.Customer GetBLCustomer(string id)
         {
             return CustomerDOtOBO(dal.GetCustomer(id));
@@ -260,21 +218,29 @@ namespace IBL
             return BOCustomer;
         }
 
-        /// <summary>
-        /// The function displays a customer in parcel according to id.
-        /// </summary>
-        /// <param name="id">parcel's id</param>
+        public CustomerForList GetCustomerForList(string id)
+        {
+            BO.Customer item = GetBLCustomer(id);
+            CustomerForList current = new()
+            {
+                Id = item.Id,
+                Name = item.Name,
+                Phone = item.Phone,
+                AmountOfGetParcels = GetAndSupplied(item),
+                AmountOfInPassingParcels = GetAndNotSupplied(item),
+                AmountOfSendAndNotSuppliedParcels = SendAndNotSupplied(item),
+                AmountOfSendAndSuppliedParcels = SendAndSupplied(item)
+            };
+            return current;
+
+        }
+
         public CustomerInParcel GetBLCustomrInParcel(string id)
         {
 
             return CustomrInParcelDOtOBO(dal.GetCustomer(id));
         }
 
-        /// <summary>
-        /// the function converts a DO,Customer obj to a customerInParcel obsj
-        /// </summary>
-        /// <param name="customer"></param>
-        /// <returns></returns>
         public CustomerInParcel CustomrInParcelDOtOBO(IDal.DO.Customer customer)
         {
             CustomerInParcel BOCustomrInParcel = new()
@@ -284,8 +250,6 @@ namespace IBL
             };
             return BOCustomrInParcel;
         }
-
-
     }
 }
 

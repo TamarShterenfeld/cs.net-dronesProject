@@ -20,13 +20,6 @@ namespace IDal
         void Add(Drone drone);
 
         /// <summary>
-        /// the function adds a droneCharge drone to the DronesChargeList.
-        /// </summary>
-        /// <param name="droneId">an id of a drone</param>
-        ///  <param name="baseStationId">an id of a baseStationId</param>
-        void Add(int droneCharge, int baseStationId);
-
-        /// <summary>
         /// the function adds a customer to the CustomersList.
         /// </summary>
         /// <param name="customer">an object of a customer - for adding to the CustomersList</param>
@@ -73,21 +66,6 @@ namespace IDal
         /// <param name="id">parcel's id</param>
         void UpDate(Parcel customer, int id);
 
-
-        ///// <summary>
-        ///// associates a parcel thet its id is as parcelId
-        ///// to the drone that its id is as droneId
-        ///// </summary>
-        ///// <param name="parcelId">like that, it's possible to identity the requested parcel </param>
-        ///// <param name="droneId">like that, it's possible to identity the requested drone </param>
-        //void AssociateParcel(int parcelId, int droneId);
-
-        ///// <summary>
-        ///// chnges the requested parcel pickUpDate to DateTime.Now.
-        ///// </summary>
-        ///// <param name="parcelId">like that, it's possible to identity the requested parcel</param>
-        //void PickupParcel(int parcelId);
-
         /// <summary>
         /// sends the requsted drone to recharge in the requested base station.
         /// </summary>
@@ -100,6 +78,14 @@ namespace IDal
         /// </summary>
         /// <param name="droneId">like that, it's possible to identity the requested drone</param>
         void ReleaseDroneFromRecharge(int droneId);
+
+        /// <summary>
+        /// the function removes a DroneCharge object from the DronesChargeList
+        /// it also takes care to update the appropriate base station's chargeSlots - 
+        /// by increasing them by one.
+        /// </summary>
+        /// <param name="drone"></param>
+        void Remove(DroneCharge drone);
 
         /// <summary>
         /// getts a specific base station by its id

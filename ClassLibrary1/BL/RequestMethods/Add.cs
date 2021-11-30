@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using System.Text;
 using static DalObject.DataSource;
 using System.Linq;
-using  DalObject;
-using IBL.BO;
 
 
 

@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static ConsoleUI_BL.Program;
+using IBL.BO;
 using IBL;
-using DAL.DO;
 
 
 namespace ConsoleUI_BL
@@ -64,19 +64,19 @@ namespace ConsoleUI_BL
                             }
                     }
                 }
-                catch (IntIdException exe)
+                catch (BLIntIdException exe)
                 {
                     Console.WriteLine("The id: " + exe.Id + " isn't valid!");
                 }
-                catch (LocationException exe)
+                catch (BLLocationException exe)
                 {
                     Console.WriteLine("The Location: " + exe.Location + "isn't valid" + "\nCoordinante value must be a positive number and in range of - 180º to 180º");
                 }
-                catch (StringIdException exe)
+                catch (BLStringIdException exe)
                 {
                     Console.WriteLine("The Id : " + exe.Id + " isn't valid!");
                 }
-                catch (StringException exe)
+                catch (BLStringException exe)
                 {
                     Console.WriteLine("The string : " + exe.Str + " isn't valid!");
                 }

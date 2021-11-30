@@ -21,7 +21,6 @@ namespace DalObject
             return ++Config.ParcelId;
         }
 
-        /// <inheritdoc /> 
         public int CaughtChargeSlots(int baseStationId)
         {
             int caught = 0;
@@ -35,7 +34,6 @@ namespace DalObject
             return caught;
         }
 
-        /// <inheritdoc />
         public double[] ElectricityConsuming()
         {
             const int DOUBLE_VARIABLES_IN_CONFIG_CLASS = 5;

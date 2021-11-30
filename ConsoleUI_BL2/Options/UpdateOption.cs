@@ -5,9 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static ConsoleUI_BL.Program;
 using IBL;
-using IDal.DO;
 using IBL.BO;
-using DAL.DO;
 
 namespace ConsoleUI_BL
 {/// <summary>
@@ -126,19 +124,19 @@ namespace ConsoleUI_BL
                     Console.WriteLine("the Status: " + exe.ParcelStatus + " isn't valid");
                 }
 
-                catch (ChargeSlotsException exe)
+                catch (BLChargeSlotsException exe)
                 {
                     Console.WriteLine("The ChargeSlots: " + exe.ChargeSlots + " isn't available!");
                 }
-                catch (IntIdException exe)
+                catch (BLIntIdException exe)
                 {
                     Console.WriteLine("The id: " + exe.Id + " isn't valid!");
                 }
-                catch (LocationException exe)
+                catch (BLLocationException exe)
                 {
                     Console.WriteLine("The Location: " + exe.Location + "isn't valid" + "\nCoordinante value must be a positive number and in range of - 180º to 180º");
                 }
-                catch (StringIdException exe)
+                catch (BLStringIdException exe)
                 {
                     Console.WriteLine("The Id : " + exe.Id + " isn't valid!");
                 }

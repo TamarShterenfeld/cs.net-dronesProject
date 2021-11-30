@@ -5,10 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using IBL.BO;
 using static ConsoleUI_BL.Program;
-using static IBL.BO.WeightCategories;
 using IBL;
-using DAL.DO;
-using IDal.DO;
+
 
 namespace ConsoleUI_BL
 {
@@ -17,7 +15,6 @@ namespace ConsoleUI_BL
     /// </summary>
     public class AddOption : ISubNavigate
     {
-        /// <inheritdoc />
         public void Options(ref BL bl)
         {
             Console.WriteLine("Please enter : \n1- For Base Station \n2- For Drone\n3- For Customer\n4- For Parcel ");
@@ -38,7 +35,7 @@ namespace ConsoleUI_BL
                         case (int)AddOptions.Drone:
                             {
                                 int baseStationId;
-                                IBL.BO.Drone drone = new();
+                                Drone drone = new();
                                 (drone.Id, drone.Model, drone.MaxWeight) = InputDroneDetails();
                                 baseStationId = InputIntValue();
                                 drone.Location = bl.GetBLBaseStation(baseStationId).Location;
@@ -70,19 +67,19 @@ namespace ConsoleUI_BL
                             }
                     }
                 }
-                catch (ChargeSlotsException exe)
+                catch (BLChargeSlotsException exe)
                 {
                     Console.WriteLine("The ChargeSlots: " + exe.ChargeSlots + " isn't available!");
                 }
-                catch (IntIdException exe)
+                catch (BLIntIdException exe)
                 {
                     Console.WriteLine("The id: " + exe.Id + " isn't valid!");
                 }
-                catch (LocationException exe)
+                catch (BLLocationException exe)
                 {
                     Console.WriteLine("The Location: " + exe.Location + "isn't valid"+"\nCoordinante value must be a positive number and in range of - 180º to 180º");
                 }
-                catch (StringIdException exe)
+                catch (BLStringIdException exe)
                 {
                     Console.WriteLine("The Id : " + exe.Id + " isn't valid!");
                 }

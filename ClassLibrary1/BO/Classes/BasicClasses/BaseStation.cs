@@ -71,7 +71,7 @@ namespace IBL
                 {
                     if (value < 0)
                     {
-                        throw (new BLChargeSlotsException(value);
+                        throw new BLChargeSlotsException(value);
                     }
 
                     chargeSlots = value;

@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using IBL.BO;
 using IBL;
-using DAL.DO;
 
 namespace ConsoleUI_BL
 {/// <summary>
@@ -61,16 +60,16 @@ namespace ConsoleUI_BL
                             }
                     }
                 }
-                catch (IntIdException exe)
+                catch (BLIntIdException exe)
                 {
                     Console.WriteLine("The id: " + exe.Id + " isn't valid!");
 
                 }
-                catch (LocationException exe)
+                catch (BLLocationException exe)
                 {
                     Console.WriteLine("The Location: " + exe.Location + "isn't valid" + "\nCoordinante value must be a positive number and in range of - 180º to 180º");
                 }
-                catch (StringIdException exe)
+                catch (BLStringIdException exe)
                 {
                     Console.WriteLine("The Id : " + exe.Id + " isn't valid!");
                 }
@@ -79,7 +78,6 @@ namespace ConsoleUI_BL
         }
 
 
-        /// <inheritdoc />
         public static void ShowList(IEnumerable<BaseStationForList> baseStations)
         {
             foreach (var item in baseStations)
@@ -88,7 +86,6 @@ namespace ConsoleUI_BL
             }
         }
 
-        /// <inheritdoc />
         public static void ShowList(IEnumerable<DroneForList> drones)
         {
             foreach (var item in drones)
@@ -97,7 +94,6 @@ namespace ConsoleUI_BL
             }
         }
 
-        /// <inheritdoc />
         public static void ShowList(IEnumerable<ParcelForList> parcels)
         {
             foreach (var item in parcels)
@@ -106,7 +102,6 @@ namespace ConsoleUI_BL
             }
         }
 
-        /// <inheritdoc />
         public static void ShowList(IEnumerable<CustomerForList> customers)
         {
             foreach (var item in customers)

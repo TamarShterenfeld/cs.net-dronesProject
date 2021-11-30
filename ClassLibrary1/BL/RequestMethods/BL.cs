@@ -4,8 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using IBL.BO;
-using IDal.DO;
-using static System.Math;
+
 
 
 namespace IBL
@@ -17,6 +16,7 @@ namespace IBL
     /// </summary>
     public partial class BL : IBL
     {
+        //the single object which has the responsibility of pulling the data from the DAl logic level.
         internal IDal.IDal dal;
         readonly List<DroneForList> dronesForList;
         readonly double electricityConsumingOfAvailable;

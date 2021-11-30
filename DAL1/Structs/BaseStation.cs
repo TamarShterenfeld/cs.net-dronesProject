@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using static IDal.DO.Locations;
 using System.Text;
-using IDal.DO;
-using static DalObject.DataSource;
 using DAL.DO;
 
 namespace IDal
@@ -18,7 +16,10 @@ namespace IDal
 
         public struct BaseStation
         {
-            private int id;  
+            private int id;
+
+            private int chargeSlots;
+
             public int Id
             {
                 get
@@ -60,8 +61,6 @@ namespace IDal
             public Coordinate Longitude { get; set; }
             public Coordinate Latitude { get; set; }
 
-            private int chargeSlots;
-          
             public int ChargeSlots
             {
                 get

@@ -21,34 +21,6 @@ namespace IBL
         }
 
         /// <summary>
-        /// returns drone's status
-        /// </summary>
-        /// <param name="droneId">drone's id</param>
-        /// <returns>drone's status</returns>
-        DroneStatuses GetDroneStatus(int droneId)
-        {
-            return dronesForList.Find(drone => drone.Id == droneId).Status;
-        }
-
-        /// <summary>
-        /// returns drone's location
-        /// </summary>
-        /// <param name="droneId">drone's id</param>
-        /// <returns>drone's location</returns>
-        Location GetDroneLocation(int droneId)
-        {
-            return dronesForList.Find(drone => drone.Id == droneId).Location;
-        }
-
-        int GetDroneParcelId(int droneId)
-        {
-            if(((List<BO.Parcel>)GetBOParcelsList()).FindIndex(parcel => parcel.MyDrone != null && parcel.MyDrone.Id == droneId) == -1)
-                return 0;
-            BO.Parcel parcel = ((List<BO.Parcel>)GetBOParcelsList()).First(parcel=> parcel.MyDrone != null && parcel.MyDrone.Id == droneId );
-            return parcel.Id;
-        }
-
-        /// <summary>
         /// return the number of supplied parcels which the customer have sent 
         /// </summary>
         /// <param name="customer"> BO customer</param>
@@ -113,9 +85,14 @@ namespace IBL
             return num;
         }
 
-         BO.Parcel ParcelDOtOBO(IDal.DO.Parcel parcel)
+        /// <summary>
+        /// the function converts a IDal.DO.Parcel object to a BO.Parcel object.
+        /// </summary>
+        /// <param name="parcel">the IDal.DO parcel object</param>
+        /// <returns>a BO.Parcel object</returns>
+         Parcel ParcelDOtOBO(IDal.DO.Parcel parcel)
         {
-            BO.Parcel BOParcel = new()
+            Parcel BOParcel = new()
             {
                 Id = parcel.Id,
                 Sender = GetBLCustomrInParcel(parcel.SenderId),

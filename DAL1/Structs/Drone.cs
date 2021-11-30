@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Text;
 using DAL.DO;
-using IDal.DO;
 
 namespace IDal
 {

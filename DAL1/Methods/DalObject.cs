@@ -16,13 +16,11 @@ namespace DalObject
     /// </summary>
     public partial class DalObject : IDal.IDal
     {
-        // constructor
+        // a constructor
         public DalObject()
         {
             Initialize();
-        }  
-        
-        
+        }         
   
     }
 

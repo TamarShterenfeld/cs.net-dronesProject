@@ -63,6 +63,10 @@ namespace IBL.BO
         }
 
         /// <summary>
+        /// a default contructor.
+        /// </summary>
+        public Drone() { }
+        /// <summary>
         /// override ToString function.
         /// </summary>
         /// <returns>description of Drone object</returns>

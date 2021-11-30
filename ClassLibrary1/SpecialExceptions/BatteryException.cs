@@ -25,8 +25,6 @@ namespace IBL
                 return "Battery Exception is thrown from BL logic level because: " + Battery + " isn't a valid value";
             }
         }
-
-
-        }
+       
     }
 }

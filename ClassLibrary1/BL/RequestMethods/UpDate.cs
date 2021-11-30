@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using IBL.BO;
 using System.Linq;
-using DAL.DO;
 
 namespace IBL
 {
@@ -44,18 +43,18 @@ namespace IBL
             dal.UpDate(customer, customerId);
         }
 
-        void UpdateDrone(DroneForList droneForList)
+        public void UpdateDrone(DroneForList droneForList)
         {
             IDal.DO.Drone drone = ConvertBoToDoDrone(ConvertDroneForListToDrone(droneForList));
             dal.UpDate(drone, drone.Id);
         }
 
-        void UpdateDroneForList(DroneForList droneForList)
+        public void UpdateDroneForList(DroneForList droneForList)
         {
             dronesForList.Remove(dronesForList.First(drone => drone.Id == droneForList.Id));
             dronesForList.Add(droneForList);
         }
-        void UpdateParcel(Parcel parcel)
+        public void UpdateParcel(Parcel parcel)
         {
             IDal.DO.Parcel parcel1 = ConvertBoToDoParcel(parcel);
             dal.UpDate(parcel1, parcel1.Id);
@@ -109,11 +108,7 @@ namespace IBL
 
 
 
-        /// <summary>
-        /// The function gives pick up date to the parcel.
-        /// </summary>
-        /// <param name="parcelId">parcel id</param>
-        /// <param name="senderId">sender id</param>
+       
         public void PickUpParcel(int droneId)
         {
             bool isPickedUp = false;
@@ -141,11 +136,7 @@ namespace IBL
                 throw new ParcelActionsException(ParcelActions.PickUp);
         }
 
-        /// <summary>
-        /// The function gives arrival date to the parcel.
-        /// </summary>
-        /// <param name="parcelId">parcel id</param>
-        /// <param name="targetId">target id</param>
+       
         public void SupplyParcel(int droneId)
         {
             bool isSupplied = false;
@@ -169,11 +160,7 @@ namespace IBL
         }
 
 
-        /// <summary>
-        /// the functuin trys to charge the drone.
-        /// </summary>
-        /// <param name="droneId">drone's id</param>
-        /// <param name="baseStationId">base station's id</param>
+       
         public void SendDroneForCharge(int droneId)
         {
             DroneForList drone = GetDroneForList(droneId);
@@ -193,17 +180,15 @@ namespace IBL
                 //while adding the drone to chargeDrone. 
                 dal.Add(droneCharge);
                 UpdateDrone(drone);
+                Drone drone1 = (ConvertDroneForListToDrone(drone));
+                dal.SendDroneToRecharge(drone1.Id, baseStation.Id);
             }
             else
                 throw new DroneStatusException(drone.Status);
         }
 
 
-        /// <summary>
-        /// the function stops the drone from charging
-        /// </summary>
-        /// <param name="droneId">drone's id</param>
-
+        
         public void ReleaseDroneFromRecharge(int droneId, double timeCharge)
         {
             DroneForList drone = GetDroneForList(droneId);
@@ -236,33 +221,7 @@ namespace IBL
                 throw new DroneStatusException(drone.Status);
         }
 
-        bool DroneReachLastDestination(DroneForList drone, Parcel item)
-        {
-            Customer sender = GetBOCustomersList().First(item1 => item1.Id == item.Sender.Id);
-            Customer target = GetBOCustomersList().First(item1 => item1.Id == item.Target.Id);
-            if (DroneReachLocation(drone, sender))
-            {
-                drone.Battery = ComputeBatteryRemained(drone, sender);
-                drone.Location = sender.Location;
-                if (DroneReachLocation(drone, target))
-                {
-                    drone.Battery = ComputeBatteryRemained(drone, target);
-                    drone.Location = target.Location;
-                    BaseStation nearestBaseStation = NearestBaseStation(drone, (List<BaseStation>)GetBOBaseStationsList());
-                    return DroneReachLocation(drone, nearestBaseStation);
-                }
-            }
-            return false;
-        }
-        double BatteryRemainedInLastDestination(DroneForList drone, Parcel parcel)
-        {
-            Customer sender = GetBOCustomersList().First(item1 => item1.Id == parcel.Sender.Id);
-            Customer target = GetBOCustomersList().First(item1 => item1.Id == parcel.Target.Id);
-            BaseStation baseStation = NearestBaseStation(target, (List<BaseStation>)GetBOBaseStationsList());
-            drone.Battery = ComputeBatteryRemained(drone, sender);
-            drone.Battery = ComputeBatteryRemained(drone, target);
-            return ComputeBatteryRemained(drone, baseStation);
-        }
+        
     }
 }
 

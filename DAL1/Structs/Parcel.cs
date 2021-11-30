@@ -41,13 +41,13 @@ namespace IDal
                 {
                     if (value.Length != 9)
                     {
-                        throw new StringException(value);
+                        throw new StringIdException(value);
                     }
                     foreach (char letter in value)
                     {
                         if (!Char.IsDigit(letter))
                         {
-                            throw new StringException(value);
+                            throw new StringIdException(value);
                         }
                     }
                     senderId = value;
@@ -63,13 +63,13 @@ namespace IDal
                 {
                     if (value.Length != 9)
                     {
-                        throw new StringException(value);
+                        throw new StringIdException(value);
                     }
                     foreach (char letter in value)
                     {
                         if (!Char.IsDigit(letter))
                         {
-                            throw new StringException(value);
+                            throw new StringIdException(value);
                         }
                     }
                     targetId = value;
@@ -84,8 +84,7 @@ namespace IDal
                 get { return droneId; }
                 set
                 {
-                    //-1 - is a sign for a not initalized droneId
-                    if (value < -1)
+                    if (value < 0)
                     {
                         throw new IntIdException(value);
                     }

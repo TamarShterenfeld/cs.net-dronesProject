@@ -32,10 +32,23 @@ namespace IDal
         /// </summary>
         public struct Coordinate
         {
+            double inputCoorValue;
             public double Degrees { get; set; }
             public double Minutes { get; set; }
             public double Seconds { get; set; }
-            public double InputCoorValue { get; set; }
+            public double InputCoorValue
+            {
+                set
+                {
+                    if (value < -180 || value > 180)
+                        throw new LocationException(value);
+                }
+                get
+                {
+                    return inputCoorValue;
+                }
+            }
+
             public Directions Direction { get; set; }
             public Locations MyLocation { set; get; }
 

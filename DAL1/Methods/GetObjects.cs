@@ -9,7 +9,6 @@ namespace DalObject
 {
   public partial class DalObject :IDal.IDal
     {
-        /// <inheritdoc />
         public BaseStation GetBaseStation(int baseStationId)
         {
             CheckExistenceOfBaseStation(baseStationId);
@@ -41,7 +40,6 @@ namespace DalObject
         }
 
 
-        /// <inheritdoc />
         public Parcel GetParcel(int parcelId)
         {
             CheckExistenceOfParcel(parcelId);

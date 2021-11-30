@@ -39,44 +39,19 @@ namespace DalObject
             ParcelsList.Remove(ParcelsList.First(item => item.Id == id));
             ParcelsList.Add(parcel);
         }
-        //public void AssociateParcel(int parcelId, int droneId)
-        //{
-        //    for (int i = 0; i < ParcelsList.Count; i++)
-        //    {
-        //        if (ParcelsList[i].Id == parcelId)
-        //        {
-        //            Parcel parcel = ParcelsList[i];
-        //            parcel.DroneId = droneId;
-        //            ParcelsList[i] = parcel;
-        //            break;
-        //        }
-        //    }
-        //}
-
-        //public void PickupParcel(int parcelId)
-        //{
-        //    for (int i = 0; i < ParcelsList.Count; i++)
-        //    {
-        //        if (ParcelsList[i].Id == parcelId)
-        //        {
-        //            Parcel parcel = ParcelsList[i];
-        //            parcel.PickUpDate = DateTime.Now;
-        //            ParcelsList[i] = parcel;
-        //            break;
-        //        }
-        //    }
-        //}
-
-
+        
         public void SendDroneToRecharge(int droneId, int baseStationId)
         {
-            DronesChargeList.Add(new DroneCharge() { DroneId = droneId, StationId = baseStationId, EntryTime = DateTime.Now });
+            CheckNotExistenceOfDroneCharge(droneId);
+            DroneCharge droneCharge = GetDroneCharge(droneId);
+            Add(droneCharge);
         }
 
         public void ReleaseDroneFromRecharge(int droneId)
         {
+            CheckExistenceOfDroneCharge(droneId);
             DroneCharge droneCharge = GetDroneCharge(droneId);
-            DronesChargeList.Remove(droneCharge);
+            Remove(droneCharge);
         }
     }
 }

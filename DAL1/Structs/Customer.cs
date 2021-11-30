@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Text;
 using static DalObject.DataSource;
-using IDal.DO;
 using DAL.DO;
 
 namespace IDal
@@ -72,12 +71,12 @@ namespace IDal
                 set
                 {
                     if (value[0] != '0')
-                        throw new StringException(value);
+                        throw new PhoneException(value);
                     foreach (char digit in value)
                     {
                         if (!Char.IsDigit(digit))
                         {
-                            throw new StringException(value);
+                            throw new PhoneException(value);
 
                         }
                     }

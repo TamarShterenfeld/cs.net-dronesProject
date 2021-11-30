@@ -9,6 +9,11 @@ namespace IBL
 {
     public partial class BL : IBL
     {
+        /// <summary>
+        /// the function converts BO.Parcel object to DO.Parcel object.
+        /// </summary>
+        /// <param name="parcel">the object to convert</param>
+        /// <returns>a DO.Parcel converted object</returns>
         IDal.DO.Parcel ConvertBoToDoParcel(BO.Parcel parcel)
         {
             IDal.DO.Parcel doParcel = new()
@@ -23,7 +28,12 @@ namespace IBL
             return doParcel;
         }
 
-        Parcel  ConvertParcelForListToParcel(ParcelForList parcelForList)
+        /// <summary>
+        /// the function converts ParcelForList object to BO.Parcel object.
+        /// </summary>
+        /// <param name="parcel">the object to convert</param>
+        /// <returns>a BO.Parcel converted object</returns>
+        Parcel ConvertParcelForListToParcel(ParcelForList parcelForList)
         {
             Parcel parcel = new()
             {
@@ -45,6 +55,12 @@ namespace IBL
             };
             return parcel;
         }
+
+        /// <summary>
+        /// the function converts a BO.Drone object to a DO.Drone object
+        /// </summary>
+        /// <param name="boDrone">the object to convert</param>
+        /// <returns>a DO.Drone converted object</returns>
         IDal.DO.Drone ConvertBoToDoDrone(BO.Drone boDrone)
         {
             IDal.DO.Drone doDrone = new()
@@ -56,6 +72,11 @@ namespace IBL
             return doDrone;
         }
 
+        /// <summary>
+        /// the function converts a DroneForList object to a BO.Drone object.
+        /// </summary>
+        /// <param name="droneForList">the object to convert</param>
+        /// <returns>a BO.Drone converted object</returns>
         Drone ConvertDroneForListToDrone(DroneForList droneForList)
         {
             ParcelInPassing parcel = new() { Id = droneForList.ParcelId };

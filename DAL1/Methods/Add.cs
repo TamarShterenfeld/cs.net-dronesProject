@@ -15,7 +15,6 @@ namespace DalObject
     /// </summary>
     public partial class DalObject : IDal.IDal
     {
-        /// <inheritdoc />
         public void Add(BaseStation baseStation)
         {
             CheckNotExistenceOfBaseStation(baseStation.Id);
@@ -34,21 +33,6 @@ namespace DalObject
             CheckNotExistenceOfDrone(drone.Id);
             DronesList.Add(drone);
         }
-
-        public void Add(int droneId, int baseStationId)
-        {
-            CheckExistenceOfBaseStation(baseStationId);
-            int chargeSlots = BaseStationsList.First(item => item.Id == baseStationId).ChargeSlots;
-            if (chargeSlots > 0)
-            {
-                CheckExistenceOfDroneCharge(droneId);
-                DroneCharge droneCharge = new() { DroneId = droneId, StationId = baseStationId, EntryTime = DateTime.Now };
-                Add(droneCharge);
-            }
-            else
-                throw new ChargeSlotsException(chargeSlots);
-        }
-
 
         public void Add(Parcel parcel)
         {

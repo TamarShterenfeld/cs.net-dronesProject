@@ -10,7 +10,6 @@ namespace DalObject
     public partial class DalObject
     {
 
-        /// <inheritdoc />
         public IEnumerable<DroneCharge> DronesChargingInMe(int stationId)
         {
             List<DroneCharge> dronesCharge = null;
@@ -24,13 +23,11 @@ namespace DalObject
             return dronesCharge;
         }
 
-        /// <inheritdoc />
         public IEnumerable<int> GetDronesIdInBaseStation(int stationId)
         {
             return DronesChargeList.FindAll(dc => dc.StationId == stationId).ConvertAll(dc => dc.DroneId);
         }
 
-        /// <inheritdoc />
         public IEnumerable<Parcel> NotAssociatedParcels()
         {
             DateTime date = new DateTime();
@@ -45,38 +42,32 @@ namespace DalObject
             return parcels;
         }
 
-        /// <inheritdoc />
         public IEnumerable<BaseStation> GetBaseStationsList()
         {
             return BaseStationsList;
         }
 
-        /// <inheritdoc />
         public IEnumerable<Drone> GetDronesList()
         {
             return DronesList;
         }
 
-        /// <inheritdoc />
         public IEnumerable<Customer> GetCustomersList()
         {
             return CustomersList;
         }
 
-        /// <inheritdoc />
         public IEnumerable<Parcel> GetParcelsList()
         {
             return ParcelsList;
         }
 
-        /// <inheritdoc />
         public IEnumerable<DroneCharge> GetDronesCharge()
         {
             return DronesChargeList;
         }
 
 
-        /// <inheritdoc />
         public IEnumerable<BaseStation> AvailableChargeStations()
         {
             List<BaseStation> availableChargingSlotsList = new ();
@@ -88,16 +79,5 @@ namespace DalObject
             return availableChargingSlotsList;
         }
 
-        //public IEnumerable<BaseStation> AvailableChargeStations()
-        //{
-        //    List<BaseStation> availableChargingSlotsList = new();
-        //    for (int i = 0; i < BaseStationsList.Count; i++)
-        //    {
-        //        availableChargingSlotsList[i] = BaseStationsList[i];
-        //        BaseStation currBaseStation = availableChargingSlotsList[i];
-        //        currBaseStation.ChargeSlots -= DronesChargeList.ToArray().Count(dc => dc.StationId == availableChargingSlotsList[i].Id);
-        //    }
-        //    return availableChargingSlotsList;
-        //}
     }
 }

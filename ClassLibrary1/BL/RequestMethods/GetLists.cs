@@ -7,7 +7,6 @@ using IBL.BO;
 using IDal.DO;
 
 
-
 namespace IBL
 {
     public partial class BL: IBL
@@ -49,7 +48,6 @@ namespace IBL
         }
 
         //---------------------------------Drones GetList Methods------------------------------------------------
-
         public IEnumerable<DroneInCharging> GetDronesInMe(int stationId)
         {
             List<DroneInCharging> droneInCharging = null;
@@ -64,10 +62,6 @@ namespace IBL
             return droneInCharging;
         } 
 
-        /// <summary>
-        /// The function returns all the DronesLIst items 
-        /// (by converting the IDal.DO DronesLIst to BO DronesLIst)
-        /// </summary>
         public IEnumerable<BO.Drone> GetBODronesList()
         {
             List<BO.Drone> BoDronesList = new();
@@ -79,28 +73,7 @@ namespace IBL
             return BoDronesList;
         }
 
-
-        /// <summary>
-        /// the function returns a droneForList
-        /// by converting the BO.Drone to DroneForList type.
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<DroneForList> GetDronesList()
-        {
-            List<DroneForList> droneForLists = new();
-            List<BO.Drone> drones = (List<BO.Drone>)GetBOCustomersList();
-
-            foreach (BO.Drone item in drones)
-            {
-
-                droneForLists.Add(GetDroneForList(item.Id));
-            }
-            return droneForLists;
-        }
-
         //---------------------------------DronesForList GetList Methods------------------------------------------------
-
-
         public IEnumerable<DroneForList> InitDroneForList()
         {
             List<DroneForList> droneForList = new();
@@ -115,21 +88,14 @@ namespace IBL
             }
             return droneForList;
         }
-
-        /// <summary>
-        /// returns the List dronesForList
-        /// </summary>
-        /// <returns>the List dronesForList</returns>
+  
         public IEnumerable<DroneForList> GetDronesForLists()
         {
             return dronesForList;
         }
 
-
-
         // ---------------------------------Parcels GetList Methods------------------------------------------------
-
-      
+     
         public IEnumerable<BO.Parcel> GetBOParcelsList()
         {
             List<BO.Parcel> boParcelList = new ();
@@ -141,7 +107,19 @@ namespace IBL
             return boParcelList;
         }
 
-        
+        public IEnumerable<ParcelInCustomer> GetParcelInCustomerList(FromOrTo fromOrTo, string id)
+        {
+            List<ParcelInCustomer> parcelInCustomer = new();
+            List<IDal.DO.Parcel> ParcelList = (List<IDal.DO.Parcel>)dal.GetParcelsList();
+            foreach (IDal.DO.Parcel parcel in ParcelList)
+            {
+                if ((fromOrTo == FromOrTo.From && parcel.SenderId == id) || (fromOrTo == FromOrTo.To && parcel.TargetId == id))
+                {
+                    parcelInCustomer.Add(ParcelInCustomerDOtOBO(parcel, fromOrTo));
+                }
+            }
+            return parcelInCustomer;
+        }
         public IEnumerable<ParcelForList> GetParcelsList()
         {
             List<ParcelForList> parcelsForList = new();
@@ -153,8 +131,6 @@ namespace IBL
             }
             return parcelsForList;
         }
-
-
 
         public IEnumerable<ParcelForList> GetNotAssociatedParcelsList()
         {
@@ -169,11 +145,6 @@ namespace IBL
 
 
         //---------------------------------Customers GetList Methods------------------------------------------------
-
-        /// <summary>
-        /// The function returns all the CustomersLIst items 
-        /// (by converting the IDal.DO CustomersLIst to BO CustomersLIst)
-        /// </summary>
         public IEnumerable<BO.Customer> GetBOCustomersList()
         {
             List<BO.Customer> boCustomerList = new();
@@ -185,30 +156,6 @@ namespace IBL
             return boCustomerList;
         }
        
-        /// <summary>
-        /// The function returns List of ParcelInCustomer items for sender or target
-        /// </summary>
-        /// <param name="fromOrTo"> sender or target </param>
-        /// <returns> List of ParcelInCustomer items </returns>
-        public IEnumerable<ParcelInCustomer> GetParcelInCustomerList(FromOrTo fromOrTo , string id)
-        {
-            List<ParcelInCustomer> parcelInCustomer = new ();
-            List<IDal.DO.Parcel> ParcelList = (List<IDal.DO.Parcel>)dal.GetParcelsList();
-            foreach (IDal.DO.Parcel parcel in ParcelList)
-            {
-                if((fromOrTo == FromOrTo.From && parcel.SenderId == id)  || (fromOrTo == FromOrTo.To && parcel.TargetId == id))
-                {
-                    parcelInCustomer.Add(ParcelInCustomerDOtOBO(parcel, fromOrTo));
-                }
-            }
-            return parcelInCustomer;
-        }
-
-        /// <summary>
-        /// the function returns a customerForLIst list
-        /// by converting the BO.customero customerForLIst type.
-        /// </summary>
-        /// <returns></returns>
         public IEnumerable<CustomerForList> GetCustomersList()
         {
             List<CustomerForList> customersForList = new();
@@ -218,9 +165,7 @@ namespace IBL
                 customersForList.Add(GetCustomerForList(item.Id));
             }
             return customersForList;
-        }
-
-       
+        }       
     }
 }
 
