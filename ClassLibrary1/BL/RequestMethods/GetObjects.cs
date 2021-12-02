@@ -35,6 +35,8 @@ namespace IBL
 
         //----------------------------------Drone GetObject Methods---------------------------------
 
+       
+
         public Drone GetBLDrone(int id)
         {
             Drone drone =  ConvertDroneDOtOBO(dal.GetDrone(id));

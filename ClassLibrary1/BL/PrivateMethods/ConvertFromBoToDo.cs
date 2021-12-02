@@ -133,7 +133,7 @@ namespace IBL
             return baseStations;
         }
         /// <summary>
-        /// the function converts a DO.Parcel object to a ParcelInPassing object.
+        /// the function converts a DO.Parcel object to a ParcelInCustomer object.
         /// </summary>
         /// <param name="parcel">the parcel to convert</param>
         /// <param name="fromOrTo">an enum value - for filling the SourceOrDest field</param>
