@@ -62,12 +62,6 @@ namespace DalObject
             return ParcelsList;
         }
 
-        public IEnumerable<DroneCharge> GetDronesCharge()
-        {
-            return DronesChargeList;
-        }
-
-
         public IEnumerable<BaseStation> AvailableChargeStations()
         {
             List<BaseStation> availableChargingSlotsList = new ();

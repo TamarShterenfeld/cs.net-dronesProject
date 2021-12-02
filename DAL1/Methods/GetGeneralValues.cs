@@ -23,15 +23,7 @@ namespace DalObject
 
         public int CaughtChargeSlots(int baseStationId)
         {
-            int caught = 0;
-            foreach (DroneCharge droneCharge in DronesChargeList)
-            {
-                if (droneCharge.StationId == baseStationId)
-                {
-                    ++caught;
-                }
-            }
-            return caught;
+            return ((List<int>)GetDronesIdInBaseStation(baseStationId)).Count;
         }
 
         public double[] ElectricityConsuming()

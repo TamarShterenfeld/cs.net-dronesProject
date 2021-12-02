@@ -19,7 +19,7 @@ namespace IBL
         {
             return ConvertBaseStationDOtOBO(dal.GetBaseStation(id)); ;
         }
-    
+
         public BaseStationForList GetBaseStationForList(int id)
         {
             BaseStation item = GetBLBaseStation(id);
@@ -35,13 +35,13 @@ namespace IBL
 
         //----------------------------------Drone GetObject Methods---------------------------------
 
-       
+
 
         public Drone GetBLDrone(int id)
         {
-            Drone drone =  ConvertDroneDOtOBO(dal.GetDrone(id));
+            Drone drone = ConvertDroneDOtOBO(dal.GetDrone(id));
             DroneForList drone1 = dronesForList.First(item => item.Id == drone.Id);
-            drone.Battery = drone1.Battery; drone.Status = drone1.Status;
+            drone.Battery = drone1.Battery; drone.Status = drone1.Status; drone.Parcel.Id = drone1.ParcelId;
             return drone;
         }
 
@@ -52,14 +52,14 @@ namespace IBL
         public DroneForList GetDroneForList(int id)
         {
             Drone item = GetBLDrone(id);
-            if (item.Parcel != null) 
+            if (item.Parcel != null)
                 return new DroneForList(item.Id, item.Parcel.Id, item.Model, item.MaxWeight, item.Battery, item.Status, item.Location);
             else
-                return new DroneForList(item.Id, 0 , item.Model, item.MaxWeight, item.Battery, item.Status, item.Location);
+                return new DroneForList(item.Id, 0, item.Model, item.MaxWeight, item.Battery, item.Status, item.Location);
         }
 
 
-   
+
 
         //----------------------------------DroneInParcel GetObject Methods---------------------------------
         public DroneInParcel GetBLDroneInParcel(int id)
@@ -88,11 +88,16 @@ namespace IBL
         public ParcelStatuses ParcelStatus(IDal.DO.Parcel parcel)
         {
             DateTime time = new();
-            return parcel.AssociationDate == time ? ParcelStatuses.Production :
-                    parcel.PickUpDate == time ? ParcelStatuses.Associated :
-                    parcel.SupplyDate == time ? ParcelStatuses.PickedUp : ParcelStatuses.Supplied;
+            if (parcel.AssociationDate == time)
+                return ParcelStatuses.Production;
+            if (parcel.PickUpDate == time)
+                return ParcelStatuses.Associated;
+            if (parcel.SupplyDate == time)
+                return ParcelStatuses.PickedUp;
+            else
+                return ParcelStatuses.Supplied;
         }
-      
+
         public Parcel GetBLParcel(int id)
         {
             return ParcelDOtOBO(dal.GetParcel(id));
@@ -105,11 +110,11 @@ namespace IBL
             Parcel item = GetBLParcel(id);
             ParcelForList current = new()
             {
-                DroneId = item.MyDrone!= null? item.MyDrone.Id : 0,
+                DroneId = item.MyDrone != null ? item.MyDrone.Id : 0,
                 ParcelId = item.Id,
                 Priority = item.Priority,
                 SenderId = item.Sender.Id,
-                Status = ParcelStatuses.Production,
+                Status = ParcelStatus(dal.GetParcel(item.Id)),
                 TargetId = item.Target.Id,
                 Weight = item.Weight
             };
@@ -136,8 +141,8 @@ namespace IBL
             };
             return parcelInPassing;
         }
-       
-       
+
+
 
         //----------------------------------Customer GetObject Methods---------------------------------
         public Customer GetBLCustomer(string id)
@@ -147,7 +152,7 @@ namespace IBL
 
         }
 
-       
+
         public CustomerForList GetCustomerForList(string id)
         {
             Customer item = GetBLCustomer(id);
@@ -171,7 +176,7 @@ namespace IBL
             return ConvertCustomerDoToCustomerInParcel(dal.GetCustomer(id));
         }
 
-      
+
     }
 }
 

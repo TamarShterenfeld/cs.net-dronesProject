@@ -108,6 +108,13 @@ namespace IDal
         /// <returns>the found Customer object</returns>
         Customer GetCustomer(string requestedId);
 
+        /// <summary>
+        /// the function returns a DroneCharge object by the requested id.
+        /// </summary>
+        /// <param name="droneId">the requested id</param>
+        /// <returns>a DroneCharge object</returns>
+        DroneCharge GetDroneCharge(int droneId);
+
 
         /// <summary>
         /// getts a specific parcel by its id
@@ -139,12 +146,6 @@ namespace IDal
         /// </summary>
         /// <returns>the list - parcelsList.</returns>
         IEnumerable<Parcel> GetParcelsList();
-
-        /// <summary>
-        /// getters the DronesChargeList.
-        /// </summary>
-        /// <returns>the list - DronesChargeList.</returns>
-        IEnumerable<DroneCharge> GetDronesCharge();
 
         /// <summary>
         /// creates a list which contains all the parcels that are not accosiated to any drone.

@@ -11,9 +11,8 @@ namespace IBL
         //a class which contains two coordinates which build together the class Location.
         public class Location
         {
-            static readonly  Random rand = new();
-            Coordinate coorLongitude = new(0.1234 * rand.Next(0, 180) + 0.8766 * rand.Next(-180, 0), Locations.Longitude);
-            Coordinate coorLatitude = new (0.8766 * rand.Next(0, 180) + 0.1234 * rand.Next(-180, 0), Locations.Latitude);
+            Coordinate coorLongitude;
+            Coordinate coorLatitude;
             public Coordinate CoorLongitude
             {
                 set

@@ -23,7 +23,11 @@ namespace IBL
                 Priority = (IDal.DO.Priorities)(parcel.Priority),
                 SenderId = parcel.Sender.Id,
                 TargetId = parcel.Target.Id,
-                Weight = (IDal.DO.WeightCategories)(parcel.Weight)
+                Weight = (IDal.DO.WeightCategories)(parcel.Weight),
+                ProductionDate = parcel.ProductionDate,
+                AssociationDate = parcel.AssociationDate,
+                PickUpDate = parcel.PickUpDate,
+                SupplyDate = parcel.SupplyDate,
             };
             return doParcel;
         }
@@ -37,11 +41,9 @@ namespace IBL
         {
             Parcel parcel = new()
             {
+
                 Id = parcelForList.ParcelId,
-                MyDrone = new()
-                {
-                    Id = parcelForList.DroneId
-                },
+
                 Priority = parcelForList.Priority,
                 Sender = new()
                 {
@@ -51,8 +53,31 @@ namespace IBL
                 {
                     Id = parcelForList.TargetId
                 },
-                Weight = parcelForList.Weight
+                Weight = parcelForList.Weight,
+                MyDrone = new() { Id = parcelForList.DroneId}
             };
+
+        
+            switch (parcelForList.Status)
+            {
+                
+                case ParcelStatuses.Associated:
+                    {
+                        parcel.AssociationDate = DateTime.Now;
+                        break;
+                    }
+                case ParcelStatuses.PickedUp:
+                    {
+                        parcel.PickUpDate = DateTime.Now;
+                        break;
+                    }
+                case ParcelStatuses.Supplied:
+                    {
+                        parcel.SupplyDate = DateTime.Now;
+                        break;
+                    }
+            }
+           
             return parcel;
         }
 
@@ -146,7 +171,7 @@ namespace IBL
                 Weight = (BO.WeightCategories)parcel.Weight,
                 Priority = (BO.Priorities)parcel.Priority,
                 ParcelStatus = ParcelStatus(parcel),
-                SourceOrDest = fromOrTo == FromOrTo.From ? GetCustomrInParcel(parcel.SenderId) : GetCustomrInParcel(parcel.TargetId)
+                SourceOrDest = fromOrTo == FromOrTo.From ? GetCustomrInParcel(parcel.SenderId) : GetCustomrInParcel(parcel.TargetId)                
             };
             return BOCustomerInParcel;
         }
@@ -196,7 +221,7 @@ namespace IBL
         /// <returns>the converted BO.Drone object</returns>
         public Drone ConvertDroneDOtOBO(IDal.DO.Drone drone)
         {
-            Drone bODrone = new (drone.Id, drone.Model, (WeightCategories)(drone.MaxWeight), 0, DroneStatuses.Available, new ParcelInPassing(), new Location(new Coordinate(10.1234, Locations.Longitude), new Coordinate(10.1234, Locations.Latitude)));
+            Drone bODrone = new (drone.Id, drone.Model, (WeightCategories)(drone.MaxWeight), 0, DroneStatuses.Available, new ParcelInPassing(), new Location());
             return bODrone;
         }
 
