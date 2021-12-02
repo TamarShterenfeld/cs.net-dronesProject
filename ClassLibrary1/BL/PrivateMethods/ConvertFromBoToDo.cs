@@ -61,7 +61,7 @@ namespace IBL
         /// </summary>
         /// <param name="boDrone">the object to convert</param>
         /// <returns>a DO.Drone converted object</returns>
-        IDal.DO.Drone ConvertBoToDoDrone(BO.Drone boDrone)
+       static IDal.DO.Drone ConvertBoToDoDrone(BO.Drone boDrone)
         {
             IDal.DO.Drone doDrone = new()
             {
@@ -118,7 +118,20 @@ namespace IBL
             return BOCustomer;
         }
 
-
+        /// <summary>
+        /// the function converts a list of BaseStationForList type to BaseStation type.
+        /// </summary>
+        /// <param name="baseStationForLists"></param>
+        /// <returns></returns>
+        IEnumerable<BaseStation> ConvertBaseStationsForListToBaseStation(List<BaseStationForList> baseStationForLists)
+        {
+            List<BaseStation> baseStations = new();
+            foreach (BaseStationForList item in baseStationForLists)
+            {
+                baseStations.Add(GetBLBaseStation(item.Id));
+            }
+            return baseStations;
+        }
         /// <summary>
         /// the function converts a DO.Parcel object to a ParcelInPassing object.
         /// </summary>
@@ -183,7 +196,7 @@ namespace IBL
         /// <returns>the converted BO.Drone object</returns>
         public Drone ConvertDroneDOtOBO(IDal.DO.Drone drone)
         {
-            Drone bODrone = new (drone.Id, drone.Model, (WeightCategories)(drone.MaxWeight), 0, DroneStatuses.Available, null, null);
+            Drone bODrone = new (drone.Id, drone.Model, (WeightCategories)(drone.MaxWeight), 0, DroneStatuses.Available, new ParcelInPassing(), new Location(new Coordinate(10.1234, Locations.Longitude), new Coordinate(10.1234, Locations.Latitude)));
             return bODrone;
         }
 
@@ -199,7 +212,7 @@ namespace IBL
                 Id = baseStation.Id,
                 Name = baseStation.Name,
                 Location = new Location(CoordinateDoToBo(baseStation.Longitude), CoordinateDoToBo(baseStation.Latitude)),
-                ChargeSlots = baseStation.ChargeSlots - dal.CaughtChargeSlots(baseStation.Id),
+                ChargeSlots = baseStation.ChargeSlots,
                 DroneCharging = (List<DroneInCharging>)GetDronesInMe(baseStation.Id)
             };
             return BOBaseStation;

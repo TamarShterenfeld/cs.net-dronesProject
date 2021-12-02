@@ -77,7 +77,7 @@ namespace IBL.BO
                    $"target: {Target} \n" +
                    $"weight: {Weight} \n" +
                    $"priority: {Priority} \n" +
-                   $"drone: {MyDrone} \n"; 
+                   $"drone: {MyDrone}"; 
         }
     }
 

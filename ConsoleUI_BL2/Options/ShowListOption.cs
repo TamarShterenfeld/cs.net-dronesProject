@@ -55,7 +55,7 @@ namespace ConsoleUI_BL
                             }
                         default:
                             {
-                                Console.WriteLine("ERROR! \nan unknown option.");
+                                Console.WriteLine("ERROR! \nan unknown option." + "\n");
                                 break;
                             }
                     }
@@ -89,6 +89,7 @@ namespace ConsoleUI_BL
             {
                 Console.WriteLine(item);
             }
+            Console.WriteLine("\n");
         }
 
         public void ShowList(IEnumerable<DroneForList> drones)
@@ -105,6 +106,7 @@ namespace ConsoleUI_BL
             {
                 Console.WriteLine(item);
             }
+            Console.WriteLine("\n");
         }
 
         public void ShowList(IEnumerable<CustomerForList> customers)
@@ -113,6 +115,7 @@ namespace ConsoleUI_BL
             {
                 Console.WriteLine(item);
             }
+            Console.WriteLine("\n");
         }
     }
 }

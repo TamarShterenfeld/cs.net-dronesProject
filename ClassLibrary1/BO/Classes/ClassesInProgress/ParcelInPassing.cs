@@ -74,7 +74,7 @@ namespace IBL
                        $"destination: {Target}\n"+
                        $"collect's location: {Collect}\n"+
                        $"destination's location: {Destination}\n"+
-                       $"distatnce: {Distatnce}\n";
+                       $"distatnce: {Distatnce}";
 
             }
         }

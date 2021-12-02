@@ -44,12 +44,12 @@ namespace ConsoleUI_BL
                                 }
                                 catch (LocationException exe)
                                 {
-                                    Console.WriteLine("the Location: " + exe.Location + " isn't valid in the DAL logic level");
+                                    Console.WriteLine("the Location: " + exe.Location + " isn't valid in the DAL logic level" + "\nCoordinante value must be in range of - 180º to 180º");
                                 }
 
                                 catch (BLLocationException exe)
                                 {
-                                    Console.WriteLine("The Location: " + exe.Location + " isn't valid in the BL logic level" + "\nCoordinante value must be a positive number and in range of - 180º to 180º");
+                                    Console.WriteLine("The Location: " + exe.Location + " isn't valid in the BL logic level" + "\nCoordinante value must be in range of - 180º to 180º");
                                 }
                                 catch (BLChargeSlotsException exe)
                                 {

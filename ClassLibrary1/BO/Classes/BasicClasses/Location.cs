@@ -7,12 +7,36 @@ using System.Threading.Tasks;
 namespace IBL
 {
     namespace BO
-    { 
+    {
         //a class which contains two coordinates which build together the class Location.
         public class Location
         {
-            public Coordinate CoorLongitude { get; set; }
-            public Coordinate CoorLatitude { get; set; }
+            static readonly  Random rand = new();
+            Coordinate coorLongitude = new(0.1234 * rand.Next(0, 180) + 0.8766 * rand.Next(-180, 0), Locations.Longitude);
+            Coordinate coorLatitude = new (0.8766 * rand.Next(0, 180) + 0.1234 * rand.Next(-180, 0), Locations.Latitude);
+            public Coordinate CoorLongitude
+            {
+                set
+                {
+                    coorLongitude = value;
+                }
+                get
+                {
+                    return coorLongitude;
+                }
+            }
+
+            public Coordinate CoorLatitude
+            {
+                set
+                {
+                    coorLatitude = value;
+                }
+                get
+                {
+                    return coorLatitude;
+                }
+            }
 
             /// <summary>
             /// constructor
@@ -26,7 +50,8 @@ namespace IBL
             }
 
             // default constructor
-            public Location() { }
+            public Location()
+            { }
 
             /// <summary>
             /// ovveride ToString function.

@@ -14,10 +14,10 @@ namespace DalObject
         public void Remove(DroneCharge drone)
         {
             CheckExistenceOfDroneCharge(drone.DroneId);
-            DronesChargeList.Remove(DronesChargeList.First(item => item.DroneId == drone.DroneId));
-            BaseStation baseStation = BaseStationsList.First(item => item.Id == drone.StationId);
+            DronesChargeList.Remove(GetDroneCharge(drone.DroneId));
+            BaseStation baseStation = GetBaseStation(drone.StationId);
             baseStation.ChargeSlots++;
-            BaseStationsList.Remove(BaseStationsList.First(item => item.Id == drone.StationId));
+            BaseStationsList.Remove(GetBaseStation(baseStation.Id));
             BaseStationsList.Add(baseStation);
         }
     }

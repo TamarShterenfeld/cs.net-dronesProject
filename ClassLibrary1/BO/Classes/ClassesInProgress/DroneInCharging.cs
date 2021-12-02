@@ -62,7 +62,7 @@ namespace IBL
             public override string ToString()
             {
                 return $"id: { Id } \n" +
-                       $"battery: { Battery }" + "%" + "\n" ;
+                       $"battery: { Battery }" + "%" ;
             }
 
         }

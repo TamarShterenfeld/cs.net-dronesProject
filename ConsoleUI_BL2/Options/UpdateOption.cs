@@ -20,7 +20,7 @@ namespace ConsoleUI_BL
             int id;
             double timeCharge;
             string model = null, num = null, customerId;
-            Console.WriteLine("Please enter : \n1- For updating a drone \n2- For updating a basetation \n3- For updating a customer \n4- For charging drone \n5- For stop drone charging \n6- For associating parcel \n7- For picking up parcel \n8- For supply parcel \n");
+            Console.WriteLine("Please enter : \n1- For updating a drone \n2- For updating a basetation \n3- For updating a customer \n4- For charging drone \n5- For stop drone charging \n6- For associating parcel \n7- For picking up parcel \n8- For supply parcel");
             if (int.TryParse(Console.ReadLine(), out int innerChoice))
             {
                 try
@@ -117,7 +117,7 @@ namespace ConsoleUI_BL
                 }
                 catch (LocationException exe)
                 {
-                    Console.WriteLine("the Location: " + exe.Location + " isn't valid in the DAL logic level");
+                    Console.WriteLine("the Location: " + exe.Location + " isn't valid in the DAL logic level"+ "\nCoordinante value must be in range of - 180º to 180º");
                 }
                 catch (StringException exe)
                 {
@@ -163,7 +163,7 @@ namespace ConsoleUI_BL
                 }
                 catch (BLLocationException exe)
                 {
-                    Console.WriteLine("The Location: " + exe.Location + " isn't valid in the BL logic level" + "\nCoordinante value must be a positive number and in range of - 180º to 180º");
+                    Console.WriteLine("The Location: " + exe.Location + " isn't valid in the BL logic level" + "\nCoordinante value must be in range of - 180º to 180º");
                 }
                 catch (BLStringIdException exe)
                 {

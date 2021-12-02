@@ -43,7 +43,7 @@ namespace DalObject
         public void SendDroneToRecharge(int droneId, int baseStationId)
         {
             CheckNotExistenceOfDroneCharge(droneId);
-            DroneCharge droneCharge = GetDroneCharge(droneId);
+            DroneCharge droneCharge = new() { DroneId = droneId, StationId = baseStationId, EntryTime = DateTime.Now };
             Add(droneCharge);
         }
 

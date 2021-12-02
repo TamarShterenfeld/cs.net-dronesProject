@@ -66,7 +66,7 @@ namespace IBL
             {
                 return $"id: { Id } \n" +
                        $"battery: { Battery } " + "%" + "\n"+
-                       $"current location: { CurrentLocation } \n" ;
+                       $"current location: { CurrentLocation }" ;
             }
         }
     }

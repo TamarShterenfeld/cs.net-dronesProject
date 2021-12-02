@@ -94,7 +94,7 @@ namespace IBL
                        $"weight category: {MaxWeight} \n" +
                        $"battery: {Battery} " +"%"+"\n" +
                        $"status: {Status} \n" +
-                       $"locaion: {Location} \n";
+                       $"locaion: {Location}";
             }
 
         }

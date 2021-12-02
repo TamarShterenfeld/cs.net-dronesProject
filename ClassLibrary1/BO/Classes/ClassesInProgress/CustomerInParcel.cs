@@ -85,7 +85,7 @@ namespace IBL
             public override string ToString()
             {
                 return $"id: {Id} \n" +
-                       $"name: {Name} \n";
+                       $"name: {Name}";
             }
         }
     }

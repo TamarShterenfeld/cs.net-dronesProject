@@ -62,7 +62,7 @@ namespace IBL
        /// </summary>
         public enum ParcelActions
         {
-            Associate, PickUp, Supply, 
+            Associate, PickUp, Supply, SendforRecharge,
         }
     }
 

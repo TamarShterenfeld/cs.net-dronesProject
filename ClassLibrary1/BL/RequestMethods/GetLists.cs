@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using IBL.BO;
-using IDal.DO;
+
+using IBL;
 
 
 namespace IBL
@@ -50,10 +51,10 @@ namespace IBL
         //---------------------------------Drones GetList Methods------------------------------------------------
         public IEnumerable<DroneInCharging> GetDronesInMe(int stationId)
         {
-            List<DroneInCharging> droneInCharging = null;
+            List<DroneInCharging> droneInCharging = new();
             if (dal.DronesChargingInMe(stationId) != null)
             {   
-                foreach (DroneCharge droneCharge in dal.DronesChargingInMe(stationId))
+                foreach (IDal.DO.DroneCharge droneCharge in dal.DronesChargingInMe(stationId))
                 {
                     DroneInCharging drone = new(droneCharge.DroneId, rand.NextDouble()*40+60);
                     droneInCharging.Add(drone);
@@ -82,7 +83,10 @@ namespace IBL
             foreach (var drone in dal.GetDronesList())
             {
                 singleDrone = ConvertDroneDoToDroneForList(drone);
-                singleDrone.ParcelId = ++parcelId <= dal.GetLastParcelId()? parcelId:0;
+                singleDrone.ParcelId = ++parcelId <= dal.GetLastParcelId()? parcelId:0;               
+                Coordinate coorLongitude = new Coordinate(rand.Next(0, 180) * 0.6 + rand.Next(-180, 0) * 0.4, Locations.Longitude);
+                Coordinate coorLatitude = new Coordinate(rand.Next(0, 180) * 0.4 + rand.Next(-180, 0) * 0.6, Locations.Latitude);
+                singleDrone.Location = new Location(coorLongitude, coorLatitude);
                 droneForList.Add(singleDrone);
             }
             return droneForList;

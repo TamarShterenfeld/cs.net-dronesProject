@@ -25,7 +25,7 @@ namespace DalObject
             return drone;
         }
 
-        public DroneCharge GetDroneCharge(int droneId)
+        static public DroneCharge GetDroneCharge(int droneId)
         {
             CheckExistenceOfDroneCharge(droneId);
             DroneCharge droneCharge = DronesChargeList.First(item => item.DroneId == droneId);

@@ -58,7 +58,7 @@ namespace IBL
                        $"weight: {Weight} \n" +
                        $"priority: {Priority}\n" +
                        $"parcelStatus: {ParcelStatus}\n" +
-                       $"sourceOrDest: {SourceOrDest}\n" ;
+                       $"sourceOrDest: {SourceOrDest}" ;
             }
 
         }

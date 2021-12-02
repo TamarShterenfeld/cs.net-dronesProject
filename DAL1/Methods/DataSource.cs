@@ -124,9 +124,8 @@ namespace DalObject
                 customer.Id = RandomId();
                 customer.Name = RandomCustomerName();
                 customer.Phone = RandomPhone();
-                //the latitude & longitude values are displayed in degrees.
                 customer.Longitude = RandomLongitude();
-                customer.Longitude = RandomLatitude();
+                customer.Latitude = RandomLatitude();
                 CustomersList.Add(customer);
 
             }
@@ -175,9 +174,9 @@ namespace DalObject
         /// <returns>a coordinate object which stores a random longitude .</returns>
         private static Coordinate RandomLongitude()
         {
-            double longitude1 = 0.3 * rand.Next(0, 180) + 0.7 * rand.Next(-180, 0);
+            double longitude1 = 0.4321 * rand.Next(0, 180) + 0.5679* rand.Next(-180, 0);
             Coordinate longitude = new() { InputCoorValue = longitude1, MyLocation = Locations.Longitude };
-            longitude = longitude.CastDoubleToCoordinante(longitude.InputCoorValue, longitude.MyLocation);
+            longitude.CastDoubleToCoordinante();
             return longitude;
         }
 
@@ -187,9 +186,9 @@ namespace DalObject
         /// <returns>a coordinate object which stores a random latitude.</returns>
         private static Coordinate RandomLatitude()
         {
-            double latitude1 = 0.3 * rand.Next(0, 180) + 0.7 * rand.Next(-180, 0);
-            Coordinate latitude = new () { InputCoorValue = latitude1, MyLocation = Locations.Longitude };
-            latitude = latitude.CastDoubleToCoordinante(latitude.InputCoorValue, latitude.MyLocation);
+            double latitude1 = 0.1234 * rand.Next(0, 180) + 0.8766 * rand.Next(-180, 0);
+            Coordinate latitude = new () { InputCoorValue = latitude1, MyLocation = Locations.Latitude };
+            latitude.CastDoubleToCoordinante();
             return latitude;
         }
 

@@ -180,7 +180,7 @@ namespace IBL
                        $"amount of 'send & supplied' parcels: {AmountOfSendAndSuppliedParcels}\n" +
                        $"amount of 'send & not supplied' parcels: {AmountOfSendAndNotSuppliedParcels}\n" +
                        $"amount of 'get' parcels: { AmountOfGetParcels}\n" +
-                       $"amount of 'In Passing' parcels: {AmountOfInPassingParcels}\n";
+                       $"amount of 'In Passing' parcels: {AmountOfInPassingParcels}";
             }
 
         }

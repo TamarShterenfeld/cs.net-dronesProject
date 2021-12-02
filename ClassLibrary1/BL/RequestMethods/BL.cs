@@ -45,7 +45,6 @@ namespace IBL
                 if (parcelOfDrone.SupplyDate == new DateTime(01 / 01 / 0001) &&
                     dronesForList[i].Status == BO.DroneStatuses.Shipment)
                 {
-                    dronesForList[i].Status = BO.DroneStatuses.Shipment;
 
                     //the parcel has been accosiated and hasn't been picked up.
                     if (parcelOfDrone.AssociationDate == new DateTime(01 / 01 / 0001) &&

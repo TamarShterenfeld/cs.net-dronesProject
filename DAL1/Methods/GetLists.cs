@@ -12,7 +12,7 @@ namespace DalObject
 
         public IEnumerable<DroneCharge> DronesChargingInMe(int stationId)
         {
-            List<DroneCharge> dronesCharge = null;
+            List<DroneCharge> dronesCharge = new();
             foreach (DroneCharge droneCharge in DronesChargeList)
             {
                 if (droneCharge.StationId == stationId)

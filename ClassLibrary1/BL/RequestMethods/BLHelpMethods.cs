@@ -19,9 +19,16 @@ namespace IBL
         static BaseStation NearestBaseStation(ILocatable location, List<BaseStation> baseStations)
         {
             double minDistance = int.MaxValue;
-            BaseStation nearestBaseStation =
-                       baseStations.Last
-                       (item => Min(item.Distance(location), minDistance) == item.Distance(location));
+            BaseStation nearestBaseStation = new();
+
+            foreach (BaseStation item in baseStations)
+            {
+                if (item.Distance(location) < minDistance)
+                {
+                    minDistance = item.Distance(location);
+                    nearestBaseStation = item;
+                }
+            }
             return nearestBaseStation;
         }
 

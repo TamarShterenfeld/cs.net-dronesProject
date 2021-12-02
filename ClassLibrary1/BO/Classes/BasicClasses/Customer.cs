@@ -17,6 +17,7 @@ namespace IBL
             string id;
             string name;
             string phone;
+            Location myLocation = new();
             public string Id
             {
                 get
@@ -85,11 +86,20 @@ namespace IBL
             }
 
 
-            public Location MyLocation { get; set; }
+            public Location Location
+            {
+                set
+                {
+                    myLocation = value;
+                }
+                get
+                {
+                    return myLocation;
+                }
+            }
 
             public List<ParcelInCustomer> FromCustomer { get; set; }
             public List<ParcelInCustomer> ToCustomer { get; set; }
-            public Location Location { get; set; }
 
 
             /// <summary>
@@ -103,7 +113,7 @@ namespace IBL
             public Customer(string id, string name, string phone, Location location, List<ParcelInCustomer> fromCustomer, List<ParcelInCustomer> toCustomer)
             {
                 this.id = id; this.name = name; this.phone = phone;
-                Id = id; Name = name; Phone = phone; MyLocation = location; FromCustomer = fromCustomer; ToCustomer = toCustomer;
+                Id = id; Name = name; Phone = phone; Location = location; FromCustomer = fromCustomer; ToCustomer = toCustomer;
             }
 
             //default constructor
@@ -120,7 +130,7 @@ namespace IBL
                        $"phone: {Phone}\n" +
                        $"location: {Location}\n" +
                        $"FromCustomer: {DeliveryInCustomerDetails(FromCustomer)}\n" +
-                       $"ToCustomer: {DeliveryInCustomerDetails(ToCustomer)}\n";
+                       $"ToCustomer: {DeliveryInCustomerDetails(ToCustomer)}";
             }
 
             /// <summary>

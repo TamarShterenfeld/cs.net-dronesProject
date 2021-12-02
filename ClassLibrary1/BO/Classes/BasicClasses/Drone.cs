@@ -16,8 +16,9 @@ namespace IBL.BO
         int id;
         readonly static Random rand = new();
         double battery = rand.NextDouble() * 20 + 20;
-        DroneStatuses status = DroneStatuses.Maintenance;
+        DroneStatuses status = DroneStatuses.Available;
         ParcelInPassing parcel = null;
+        Location location = new();
         public int Id
         {
             set
@@ -45,7 +46,17 @@ namespace IBL.BO
       
         public DroneStatuses Status { get { return status; } set { status = value; } }         
         public ParcelInPassing Parcel { set { parcel = value; } get { return parcel; } }
-        public Location Location { set; get; }
+        public Location Location
+        {
+            set
+            {
+                location = value;
+            }
+            get
+            {
+                return location;
+            }
+        }
 
        /// <summary>
        /// a constructor with parameters.
@@ -78,7 +89,7 @@ namespace IBL.BO
                    $"battery: {Battery} " + "%" + "\n" +
                    $"status: {Status} \n" +
                    $"parcel: {Parcel} \n" +
-                   $"myLocation: {Location} \n";
+                   $"myLocation: {Location}";
         }
     }
 }

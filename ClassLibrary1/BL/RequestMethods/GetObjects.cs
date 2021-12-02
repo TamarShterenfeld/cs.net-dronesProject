@@ -37,7 +37,10 @@ namespace IBL
 
         public Drone GetBLDrone(int id)
         {
-            return ConvertDroneDOtOBO(dal.GetDrone(id));
+            Drone drone =  ConvertDroneDOtOBO(dal.GetDrone(id));
+            DroneForList drone1 = dronesForList.First(item => item.Id == drone.Id);
+            drone.Battery = drone1.Battery; drone.Status = drone1.Status;
+            return drone;
         }
 
 
@@ -95,7 +98,6 @@ namespace IBL
         }
 
         //----------------------------------ParcelForList GetObject Methods---------------------------------
-
         public ParcelForList GetParcelForList(int id)
         {
             Parcel item = GetBLParcel(id);
@@ -138,7 +140,8 @@ namespace IBL
         //----------------------------------Customer GetObject Methods---------------------------------
         public Customer GetBLCustomer(string id)
         {
-            return ConvertCustomerDoToBo(dal.GetCustomer(id));
+            IDal.DO.Customer customer = dal.GetCustomer(id);
+            return ConvertCustomerDoToBo(customer);
 
         }
 

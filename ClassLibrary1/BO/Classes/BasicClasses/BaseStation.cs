@@ -19,6 +19,7 @@ namespace IBL
         public class BaseStation : ILocatable
         {
             private int id;
+            Location location = new();
             public int Id
             {
                 get
@@ -57,7 +58,17 @@ namespace IBL
                 }
             }
 
-            public Location Location { get; set; }
+            public Location Location
+            {
+                get
+                {
+                    return location;
+                }
+                set
+                {
+                    location = value;
+                }
+            }
 
             private int chargeSlots;
 
@@ -109,7 +120,8 @@ namespace IBL
                     foreach (DroneInCharging drone in DroneCharging)
                     {
                         dronesDetails += drone.ToString();
-                    }
+                        dronesDetails += "\n";
+                    }                   
                 }
                 return dronesDetails;
             }
@@ -125,7 +137,7 @@ namespace IBL
                         $"name: {Name} \n" +
                         $"location: { Location }\n" +
                         $"number of charge slots: {ChargeSlots}\n"
-                        + $"drones in charging: {DroneInChargingDetails()}\n";
+                        + $"drones in charging:\n{DroneInChargingDetails()}";
             }
 
         }

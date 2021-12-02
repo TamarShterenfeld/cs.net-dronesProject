@@ -45,10 +45,21 @@ namespace IBL
 
         public void UpdateDrone(DroneForList droneForList)
         {
+            UpDateDroneForList(droneForList);
             IDal.DO.Drone drone = ConvertBoToDoDrone(ConvertDroneForListToDrone(droneForList));
             dal.UpDate(drone, drone.Id);
         }
 
+        void UpDateBaseStation(BaseStation baseStation)
+        {
+            IDal.DO.BaseStation baseStation1 = dal.GetBaseStation(baseStation.Id);
+            dal.UpDate(baseStation1, baseStation1.Id);
+        }
+        public void UpDateDroneForList(DroneForList droneForList)
+        {
+            dronesForList.Remove(dronesForList.First(item => item.Id == droneForList.Id));
+            dronesForList.Add(droneForList);
+        }
         public void UpdateParcel(Parcel parcel)
         {
             IDal.DO.Parcel parcel1 = ConvertBoToDoParcel(parcel);
@@ -150,36 +161,41 @@ namespace IBL
             if (isSupplied == false)
                 throw new ParcelActionsException(ParcelActions.Supply);
         }
-
-
        
         public void SendDroneForCharge(int droneId)
         {
             DroneForList drone = GetDroneForList(droneId);
             if (drone.Status == DroneStatuses.Available)
             {
-                BaseStation baseStation = NearestBaseStation(drone, (List<BaseStation>)GetAvailableChargeSlots());
-                double battery = ComputeBatteryRemained(drone, baseStation);
-                if (baseStation.ChargeSlots == 0)
-                    throw new BLChargeSlotsException(0);
-                if (battery < 0)
-                    throw new BatteryException(battery);
-                drone.Battery = battery;
-                drone.Location = baseStation.Location;
-                drone.Status = DroneStatuses.Shipment;
-                IDal.DO.DroneCharge droneCharge = new() { DroneId = drone.Id, StationId = baseStation.Id, EntryTime = DateTime.Now };
-                //the amount of available chargeSlots is decrease by one
-                //while adding the drone to chargeDrone. 
-                dal.Add(droneCharge);
-                UpdateDrone(drone);
-                Drone drone1 = (ConvertDroneForListToDrone(drone));
-                dal.SendDroneToRecharge(drone1.Id, baseStation.Id);
+                List<BaseStationForList> availableBaseStations = (List<BaseStationForList>)GetAvailableChargeSlots();
+                if (availableBaseStations != null )
+                {
+                    List<BaseStation> baseStations1 = (List<BaseStation>)ConvertBaseStationsForListToBaseStation(availableBaseStations);
+                    BaseStation baseStation = NearestBaseStation(drone, baseStations1);
+                    double battery = ComputeBatteryRemained(drone, baseStation);
+                    if (baseStation.ChargeSlots == 0)
+                        throw new BLChargeSlotsException(0);
+                    if (battery < 0)
+                        throw new BatteryException(battery);
+                    drone.Battery = battery;
+                    drone.Location = baseStation.Location;
+                    drone.Status = DroneStatuses.Maintenance;
+                    DroneInCharging drone1 = new() { Battery = drone.Battery, Id = droneId };
+                    baseStation.DroneCharging = new();
+                    baseStation.DroneCharging.Add(drone1);
+                    //the amount of available chargeSlots is decrease by one
+                    //while adding the drone to chargeDrone. 
+                    UpdateDrone(drone);                   
+                    dal.SendDroneToRecharge(drone.Id, baseStation.Id);
+                    UpDateBaseStation(baseStation);
+                }
+                else
+                    throw new ParcelActionsException(ParcelActions.SendforRecharge);
+                
             }
             else
                 throw new DroneStatusException(drone.Status);
         }
-
-
         
         public void ReleaseDroneFromRecharge(int droneId, double timeCharge)
         {
@@ -207,7 +223,12 @@ namespace IBL
                 }
                 drone.Battery = myBattery * (timeCharge * chargeRate);
                 drone.Status = DroneStatuses.Available;
+                //the chargeSlots is increased by one within the function 'Remove'
+                //which treats the case a removing of a droneCharge from DronesChargeList occurs.
+                UpDateDroneForList(drone);
+                IDal.DO.Drone drone1 = dal.GetDrone(drone.Id);
                 dal.ReleaseDroneFromRecharge(drone.Id);
+                
             }
             else
                 throw new DroneStatusException(drone.Status);

@@ -118,7 +118,7 @@ namespace IBL.BO
             return $"id: {Id} \n" +
                    $"name: {Name} \n" +
                    $"number of free charge slots: {availableChargeSlots}\n"+
-                   $"number of caught charge slots: {caughtChargeSlots}\n";
+                   $"number of caught charge slots: {caughtChargeSlots}";
         }
     }
 }

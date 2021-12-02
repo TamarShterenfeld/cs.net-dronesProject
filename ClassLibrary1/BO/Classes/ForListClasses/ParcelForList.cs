@@ -127,7 +127,7 @@ namespace IBL
                        $"droneId: {DroneId} \n" +
                        $"weight: {Weight} \n" +
                        $"priority: {Priority} \n" +
-                       $"status: {Status} \n";
+                       $"status: {Status}";
 
             }
         }

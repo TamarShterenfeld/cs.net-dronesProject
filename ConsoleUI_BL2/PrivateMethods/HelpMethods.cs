@@ -18,7 +18,19 @@ namespace ConsoleUI_BL
         internal static Location InputLocationValue()
         {
             double longitude = InputDoubleValue();
+            while (longitude < -180 || longitude > 180)
+            {
+                Console.WriteLine("the longitude value: " + longitude + " isn't valid" + "\nCoordinante value must be in range of - 180º to 180º");
+                Console.WriteLine("Try again!");
+                longitude = InputDoubleValue(); 
+            }
             double latitude = InputDoubleValue();
+            while (latitude < -180 || latitude > 180)
+            {
+                Console.WriteLine("the latitude value: " + latitude + " isn't valid"+ "\nCoordinante value must be in range of - 180º to 180º");
+                Console.WriteLine("Try again!");
+                latitude = InputDoubleValue();
+            }
             Location location1 = new(new Coordinate(longitude, Locations.Longitude), new Coordinate(latitude, Locations.Latitude));
             return location1;
         }
@@ -123,13 +135,15 @@ namespace ConsoleUI_BL
                 }
                 foreach (char letter in str)
                 {
-                    if ((!Char.IsLetter(letter)))
+                    if(letter != ' ')
                     {
-                        Console.WriteLine("The string type can hold only alphabetical values!");
-                        isValid = false;
-                        break;
+                        if ((!Char.IsLetter(letter)))
+                        {
+                            Console.WriteLine("The string type can hold only alphabetical values!");
+                            isValid = false;
+                            break;
+                        }
                     }
-
                 }
                 if (!isValid)
                 {
