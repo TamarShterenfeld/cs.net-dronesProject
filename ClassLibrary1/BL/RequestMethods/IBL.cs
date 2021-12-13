@@ -10,7 +10,7 @@ namespace IBL
     /// an interface that forces the inherit classes to imlement the methods it contains.
     /// the methods are connected to BL class.
     /// </summary>
-    interface IBL : IBaseStationBL, ICustomerBL, IDroneBL, IParcelBL
+    public interface IBL : IBaseStationBL, ICustomerBL, IDroneBL, IParcelBL
     {
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace IBL
     /// an interface that forces the inherit classes to imlement the methods it contains.
     /// the methods are connected to actoions of baseStations
     /// </summary>
-    interface IBaseStationBL
+    public interface IBaseStationBL
     {
         /// <summary>
         /// The function adds a base station to the BaseStationsList.
@@ -108,7 +108,7 @@ namespace IBL
     /// an interface that forces the inherit classes to imlement the methods it contains.
     /// the methods are connected to actoions of drones.
     /// </summary>
-    interface IDroneBL
+    public interface IDroneBL
     {
         /// <summary>
         /// The function adds a drone to the DronesList.
@@ -135,7 +135,7 @@ namespace IBL
         /// the function returns a list of all the drones in DroneForList format.
         /// </summary>
         /// <returns>a DroneForList list</returns>
-        IEnumerable<DroneForList> GetDronesForLists();
+        IEnumerable<DroneForList> GetDronesForList();
 
 
         /// <summary>
@@ -179,6 +179,13 @@ namespace IBL
         DroneForList ConvertDroneDoToDroneForList(IDal.DO.Drone drone);
 
         /// <summary>
+        /// the function returns a filtered dronesForList list by the current parameter of DroneStatus
+        /// </summary>
+        /// <param name="status">the requested status that the list is filtered by</param>
+        /// <returns>a filtered list by the requested status</returns>
+        IEnumerable<DroneForList> GetFilteredDroneForList(DroneStatuses status);
+
+        /// <summary>
         /// The function displays a drone in parcel according to id.
         /// </summary>
         /// <param name="id">parcel's id - for identify the parcel</param>
@@ -210,7 +217,7 @@ namespace IBL
     /// an interface that forces the inherit classes to imlement the methods it contains.
     /// the methods are connected to actoions of parcels.
     /// </summary>
-    interface IParcelBL
+    public interface IParcelBL
     {
         /// <summary>
         /// The function adds a parcel to the parselsList.
@@ -280,7 +287,7 @@ namespace IBL
     /// an interface that forces the inherit classes to imlement the methods it contains.
     /// the methods are connected to actoions of customers
     /// </summary>
-    interface ICustomerBL
+    public interface ICustomerBL
     {
         /// <summary>
         /// The function adds a customer to the customersList.

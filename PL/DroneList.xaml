@@ -7,17 +7,29 @@
         mc:Ignorable="d"
         Title="DroneList" Height="450" Width="800">
     <Grid>
-        <ListView Grid.Row="0">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn/>
-                </GridView>
-            </ListView.View>
-        </ListView>
+        <!--<Grid.RowDefinitions >
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>-->
         <Grid >
-            <ComboBox Name="StatusSelector" HorizontalAlignment="Left" Margin="350,80,0,0" VerticalAlignment="Top" Width="120" Grid.Column="1">
-                <Label Grid.Column="0"/>
-            </ComboBox>
+            <ListView x:Name ="DroneListView" Grid.Row="0" >
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
         </Grid>
+        <Label x:Name="Filter" Content="choose filter:" HorizontalAlignment="Left" Margin="260,80,0,0" VerticalAlignment="Top" Width="120" Grid.Column="0"/>
+
+        <ComboBox x:Name="FilterComboBox" ItemsSource="{Binding}" HorizontalAlignment="Left" Margin="350,80,0,0" VerticalAlignment="Top" Width="120" Grid.Column="1" SelectionChanged="StatusSelector_SelectionChanged">
+           
+        </ComboBox>
+        
+        
     </Grid>
 </Window>

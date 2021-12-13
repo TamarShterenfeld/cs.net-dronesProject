@@ -92,9 +92,17 @@ namespace IBL
             return droneForList;
         }
   
-        public IEnumerable<DroneForList> GetDronesForLists()
+        public IEnumerable<DroneForList> GetDronesForList()
         {
             return dronesForList;
+        }
+
+        public IEnumerable<DroneForList> GetFilteredDroneForList(DroneStatuses status)
+        {
+            List<DroneForList> dronesForList = (List<DroneForList>)GetDronesForList();
+            List<DroneForList> drones = new();
+            drones = dronesForList.FindAll(item => item.Status == status);
+            return drones;
         }
 
         // ---------------------------------Parcels GetList Methods------------------------------------------------
@@ -116,7 +124,7 @@ namespace IBL
             List<IDal.DO.Parcel> ParcelList = (List<IDal.DO.Parcel>)dal.GetParcelsList();
             foreach (IDal.DO.Parcel parcel in ParcelList)
             {
-                if ((fromOrTo == FromOrTo.From && parcel.SenderId == id) || (fromOrTo == FromOrTo.To && parcel.TargetId == id))
+                //if ((fromOrTo == FromOrTo.From && parcel.SenderId == id) || (fromOrTo == FromOrTo.To && parcel.TargetId == id))
                 {
                     parcelInCustomer.Add(ConvertParcelDoToParcelInCustomer(parcel, fromOrTo));
                 }

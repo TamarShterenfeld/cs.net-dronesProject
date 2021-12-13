@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using IBL;
+using IBL.BO;
 
 namespace PL
 {
@@ -19,9 +21,27 @@ namespace PL
     /// </summary>
     public partial class DroneList : Window
     {
-        public DroneList()
+        IBL.IBL bl;
+        public DroneList(IBL.IBL bl)
         {
+            this.bl = bl;
             InitializeComponent();
+            DroneListView.DataContext = bl.GetDronesForList();
+            FilterComboBox.DataContext = Enum.GetValues(typeof(DroneStatuses));
+        }
+
+        private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(FilterComboBox.SelectedItem == null)
+            {
+                DroneListView.ItemsSource = (List<DroneForList>)bl.GetDronesForList();
+            }
+            else
+            {
+                DroneStatuses status = (DroneStatuses)FilterComboBox.SelectedItem;
+                DroneListView.ItemsSource = (List<DroneForList>)bl.GetFilteredDroneForList(status);
+            }
+            
         }
     }
 }
