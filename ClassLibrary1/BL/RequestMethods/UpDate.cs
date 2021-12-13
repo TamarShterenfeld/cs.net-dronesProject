@@ -151,7 +151,7 @@ namespace IBL
             DroneForList drone = GetDroneForList(droneId);
             Parcel parcel1 = GetBLParcel(drone.ParcelId);
             Customer target = GetBLCustomer(parcel1.Target.Id);
-            DateTime time = new();
+            DateTime? time = null;
             if (parcel1.PickUpDate != time ) 
             {
                 if (parcel1.SupplyDate == time)

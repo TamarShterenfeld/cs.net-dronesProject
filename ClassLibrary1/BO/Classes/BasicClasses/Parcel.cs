@@ -13,10 +13,10 @@ namespace IBL.BO
     public class Parcel
     {
         int id;
-        DateTime productionDate = DateTime.Now;
-        DateTime associationDate = new();
-        DateTime pickUpDate = new();
-        DateTime supplyDate = new();        
+        DateTime? productionDate = DateTime.Now;
+        DateTime? associationDate = null;
+        DateTime? pickUpDate = null;
+        DateTime? supplyDate = null;        
         DroneInParcel drone = null;
         public int Id
         {
@@ -36,10 +36,10 @@ namespace IBL.BO
         public WeightCategories Weight { get; set; }
         public Priorities Priority { get; set; } 
         public DroneInParcel MyDrone { get { return drone; } set { drone = value; } }
-        public  DateTime ProductionDate { get { return productionDate ; } init { productionDate = DateTime.Now; } }
-        public DateTime AssociationDate { get { return associationDate; } set { associationDate = value; } }  
-        public DateTime PickUpDate { get { return pickUpDate; } set { pickUpDate = value; } }       
-        public DateTime SupplyDate { get { return supplyDate; } set { supplyDate = value; } }
+        public  DateTime? ProductionDate { get { return productionDate ; } init { productionDate = DateTime.Now; } }
+        public DateTime? AssociationDate { get { return associationDate; } set { associationDate = value; } }  
+        public DateTime? PickUpDate { get { return pickUpDate; } set { pickUpDate = value; } }       
+        public DateTime?SupplyDate { get { return supplyDate; } set { supplyDate = value; } }
 
         /// <summary>
         /// a contructor with parameters
@@ -54,7 +54,7 @@ namespace IBL.BO
         {
             this.id = id; Sender = sender; Target = target; Weight = weight; Priority = priority; MyDrone = drone;
             //a default value in the creation of the object.
-            ProductionDate = AssociationDate = PickUpDate = SupplyDate = new DateTime(01 / 01 / 0001);
+            ProductionDate = AssociationDate = PickUpDate = SupplyDate = null;
         }
 
         /// <summary>

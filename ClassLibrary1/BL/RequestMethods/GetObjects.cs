@@ -87,7 +87,7 @@ namespace IBL
 
         public ParcelStatuses ParcelStatus(IDal.DO.Parcel parcel)
         {
-            DateTime time = new();
+            DateTime? time = new();
             if (parcel.AssociationDate == time)
                 return ParcelStatuses.Production;
             if (parcel.PickUpDate == time)
@@ -132,7 +132,7 @@ namespace IBL
                 Id = parcel.Id,
                 Weight = parcel.Weight,
                 Priority = parcel.Priority,
-                ToDestination = parcel.PickUpDate == new DateTime(),
+                ToDestination = parcel.PickUpDate == null,
                 Sender = parcel.Sender,
                 Target = parcel.Target,
                 Collect = GetBLCustomer(parcel.Sender.Id).Location,

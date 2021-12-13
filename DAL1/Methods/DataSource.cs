@@ -154,14 +154,14 @@ namespace DalObject
                 //initalize (random) a date of ProductionDate & the other DateTime fields are based on it.
                 //while assuming that each part of the shipment process maximum takes 14 business days.
                 parcel.ProductionDate = DateTime.Now;
-                parcel.AssociationDate = parcel.ProductionDate.AddDays(rand.Next(14)).AddHours(rand.Next(1, 24));
-                parcel.PickUpDate = parcel.AssociationDate.AddDays(rand.Next(14)).AddHours(rand.Next(1, 24)); ;
-                parcel.SupplyDate = parcel.PickUpDate.AddDays(rand.Next(14)).AddHours(rand.Next(1, 24)); ;
+                parcel.AssociationDate = parcel.AssociationDate != null? parcel.ProductionDate.Value.AddDays(rand.Next(14)).AddHours(rand.Next(1, 24)) : null;
+                parcel.PickUpDate = parcel.PickUpDate != null ? parcel.AssociationDate.Value.AddDays(rand.Next(14)).AddHours(rand.Next(1, 24)) : null;
+                parcel.SupplyDate = parcel.SupplyDate!= null? parcel.PickUpDate.Value.AddDays(rand.Next(14)).AddHours(rand.Next(1, 24)) : null; 
                 //there wasn't an available drone.
                 //the date: 01/ 01/ 0001 - is a sign for an unassociated parcel - a default value.
                 if (parcel.DroneId == -1)
                 {
-                    parcel.AssociationDate = new DateTime(01 / 01 / 0001);
+                    parcel.AssociationDate = null;
                 }
                 ParcelsList.Add(parcel);
 
