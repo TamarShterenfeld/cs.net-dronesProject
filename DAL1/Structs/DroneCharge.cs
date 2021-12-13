@@ -43,7 +43,7 @@ namespace IDal
                 }
             }
 
-            public DateTime EntryTime
+            public DateTime? EntryTime
             {
                 set; get;
             }

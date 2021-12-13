@@ -93,10 +93,10 @@ namespace IDal
 
             }
 
-            public DateTime ProductionDate { get; set; }
-            public DateTime AssociationDate { get; set; }
-            public DateTime PickUpDate { get; set; }
-            public DateTime SupplyDate { get; set; }
+            public DateTime? ProductionDate { get; set; }
+            public DateTime? AssociationDate { get; set; }
+            public DateTime? PickUpDate { get; set; }
+            public DateTime? SupplyDate { get; set; }
 
             /// <summary>
             /// override ToString function.

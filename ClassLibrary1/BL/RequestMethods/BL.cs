@@ -42,13 +42,13 @@ namespace IBL
 
                 BO.Parcel parcelOfDrone = GetBLParcel(dronesForList[i].ParcelId);
                 //the parcel hasn't been supplied.
-                if (parcelOfDrone.SupplyDate == new DateTime(01 / 01 / 0001) &&
+                if (parcelOfDrone.SupplyDate == null &&
                     dronesForList[i].Status == BO.DroneStatuses.Shipment)
                 {
 
                     //the parcel has been accosiated and hasn't been picked up.
-                    if (parcelOfDrone.AssociationDate == new DateTime(01 / 01 / 0001) &&
-                        parcelOfDrone.PickUpDate != new DateTime(01 / 01 / 0001))
+                    if (parcelOfDrone.AssociationDate == null &&
+                        parcelOfDrone.PickUpDate != null)
                     {
                         dronesForList[i].Location = NearestBaseStation(dronesForList[i], (List<BO.BaseStation>)GetBOBaseStationsList()).Location;
                     }
