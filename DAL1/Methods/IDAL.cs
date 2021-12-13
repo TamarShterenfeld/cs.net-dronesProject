@@ -153,11 +153,14 @@ namespace IDal
         /// <returns>the list that is build during solving the oroblem.</returns>
         IEnumerable<Parcel> NotAssociatedParcels();
 
+
+
         /// <summary>
         /// builds a base station list containing only the base station which have available chargeSlots
         /// </summary>
-        /// <returns>the created list is returned</returns> 
-        IEnumerable<BaseStation> AvailableChargeStations();
+        /// <param name="AvailableSlots">a predicate</param>
+        /// <returns>the created list is returned</returns>
+        IEnumerable<BaseStation> AvailableChargeStations(Predicate <BaseStation> AvailableSlots);
 
         /// <summary>
         /// computes the amount of the available chargeSlots in the baseStation with the id like the parameter.
