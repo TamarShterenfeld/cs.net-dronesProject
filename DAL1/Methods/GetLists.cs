@@ -10,38 +10,15 @@ namespace DalObject
     public partial class DalObject
     {
 
-        public IEnumerable<DroneCharge> DronesChargingInMe(int stationId)
+        public IEnumerable<DroneCharge> DronesChargingInMe(Predicate<DroneCharge>InMe)
         {
-            List<DroneCharge> dronesCharge = new();
-            foreach (DroneCharge droneCharge in DronesChargeList)
-            {
-                if (droneCharge.StationId == stationId)
-                {
-                    dronesCharge.Add(droneCharge);
-                }
-            }
-            return dronesCharge;
+            return DronesChargeList.Where(drone => InMe(drone));
         }
 
         public IEnumerable<int> GetDronesIdInBaseStation(int stationId)
         {
             return DronesChargeList.FindAll(dc => dc.StationId == stationId).ConvertAll(dc => dc.DroneId);
         }
-
-        public IEnumerable<Parcel> NotAssociatedParcels()
-        {
-            DateTime? date = null;
-            List<Parcel> parcels = new ();
-            foreach (var parcel in ParcelsList)
-            {
-                if (parcel.AssociationDate == date)
-                {
-                    parcels.Add(parcel);
-                }
-            }
-            return parcels;
-        }
-
         public IEnumerable<BaseStation> GetBaseStationsList()
         {
             return BaseStationsList;
@@ -62,15 +39,16 @@ namespace DalObject
             return ParcelsList;
         }
 
-        public IEnumerable<BaseStation> AvailableChargeStations()
+       
+
+        public IEnumerable<BaseStation> AvailableChargeStations(Predicate<BaseStation>AvailableSlots)
+        { 
+            return BaseStationsList.Where(station => AvailableSlots(station));
+        }
+
+        public IEnumerable<Parcel> Parcels(Predicate<Parcel> predicate)
         {
-            List<BaseStation> availableChargingSlotsList = new ();
-            foreach(var item in BaseStationsList)
-            {
-                int caught = CaughtChargeSlots(item.Id);
-                if (item.ChargeSlots - caught > 0) { availableChargingSlotsList.Add(item); }
-            }
-            return availableChargingSlotsList;
+            return ParcelsList.Where(parcel => predicate(parcel));
         }
 
     }

@@ -8,7 +8,6 @@ using IBL.BO;
 using IBL;
 using DAL.DO;
 
-
 namespace ConsoleUI_BL
 {
 

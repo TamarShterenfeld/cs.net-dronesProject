@@ -148,16 +148,11 @@ namespace IDal
         IEnumerable<Parcel> GetParcelsList();
 
         /// <summary>
-        /// creates a list which contains all the parcels that are not accosiated to any drone.
-        /// </summary.
-        /// <returns>the list that is build during solving the oroblem.</returns>
-        IEnumerable<Parcel> NotAssociatedParcels();
-
-        /// <summary>
         /// builds a base station list containing only the base station which have available chargeSlots
         /// </summary>
-        /// <returns>the created list is returned</returns> 
-        IEnumerable<BaseStation> AvailableChargeStations();
+        /// <param name="AvailableSlots">a predicate</param>
+        /// <returns>the created list is returned</returns>
+        IEnumerable<BaseStation> AvailableChargeStations(Predicate <BaseStation> AvailableSlots);
 
         /// <summary>
         /// computes the amount of the available chargeSlots in the baseStation with the id like the parameter.
@@ -174,12 +169,18 @@ namespace IDal
         IEnumerable<int> GetDronesIdInBaseStation(int requestedId);
 
         /// <summary>
-        /// creats a lists that contains all the drones that are charged in the currStation.
+        /// creates a lists that contains all the drones that are charged in the currStation.
         /// </summary>
-        /// <param name="stationId"></param>
-        /// <returns>a list which contauns all the droneCharge objects 
-        /// which are charged in the station that its id is equal to the id we got as a parameter. </returns>
-        IEnumerable<DroneCharge> DronesChargingInMe(int stationId);
+        /// <param name="InMe">a predicate</param>
+        /// <returns>a list which contauns all the droneCharge objects which are charged in the station that its id is equal to the id we got as a parameter.</returns>
+        IEnumerable<DroneCharge> DronesChargingInMe(Predicate<DroneCharge> InMe);
+
+        /// <summary>
+        /// creates a list which contains all the parcels with a certain condition
+        /// </summary>
+        /// <param name="predicate">a predicate</param>
+        /// <returns>all the parcels with a certain condition</returns>
+        public IEnumerable<Parcel> Parcels(Predicate<Parcel> predicate);
 
         /// <summary>
         /// a double array which contains all the electricities consuming by a drone + the charge rate.
