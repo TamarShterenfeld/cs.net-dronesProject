@@ -126,14 +126,7 @@ namespace IBL
             List<IDal.DO.Parcel> ParcelList = dal.Parcels( parcel => (fromOrTo == FromOrTo.From && parcel.SenderId == id) || (fromOrTo == FromOrTo.To && parcel.TargetId == id)).ToList();
             foreach (IDal.DO.Parcel parcel in ParcelList)
             {
-<<<<<<< HEAD
-                //if ((fromOrTo == FromOrTo.From && parcel.SenderId == id) || (fromOrTo == FromOrTo.To && parcel.TargetId == id))
-                {
-                    parcelInCustomer.Add(ConvertParcelDoToParcelInCustomer(parcel, fromOrTo));
-                }
-=======
                 parcelInCustomer.Add(ConvertParcelDoToParcelInCustomer(parcel, fromOrTo));
->>>>>>> aaecc2f08710b242367100fd1044dd81d8edc78a
             }
             return parcelInCustomer;
         }

@@ -25,9 +25,10 @@ namespace PL
         public DroneList(IBL.IBL bl)
         {
             this.bl = bl;
+            string[] categories = new string[2] {"status", "weight"};
             InitializeComponent();
             DroneListView.DataContext = bl.GetDronesForList();
-            FilterComboBox.DataContext = Enum.GetValues(typeof(DroneStatuses));
+            FilterComboBox.DataContext = categories;
         }
 
         private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
