@@ -37,8 +37,6 @@ namespace PL
             this.bl = bl;
             InitializeComponent();
             this.DataContext = "False";
-            status.DataContext = typeof(DroneStatuses).GetEnumValues();
-            weight.DataContext = typeof(WeightCategories).GetEnumValues();
             station.DataContext = "False";
             Drone drone = bl.GetBLDrone(droneForList.Id);
             id.Text = drone.Id.ToString();
