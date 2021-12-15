@@ -198,7 +198,7 @@ namespace DalObject
         /// <returns>a randomaled WeightCategory value.</returns>
         private static WeightCategories RandomWeight()
         {
-            WeightCategories weightIndex = (WeightCategories)rand.Next(1, Enum.GetNames(typeof(WeightCategories)).Length);
+            WeightCategories weightIndex = (WeightCategories)rand.Next(1, Enum.GetNames(typeof(WeightCategories)).Length +1);
             return weightIndex;
         }
 
@@ -208,7 +208,7 @@ namespace DalObject
         /// <returns>a randomaled Priority value.</returns>
         private static Priorities RandomPriority()
         {
-            Priorities priority = (Priorities)rand.Next(1, Enum.GetNames(typeof(Priorities)).Length);
+            Priorities priority = (Priorities)rand.Next(1, Enum.GetNames(typeof(Priorities)).Length +1);
             return priority;
         }
 

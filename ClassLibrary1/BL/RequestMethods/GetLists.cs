@@ -99,7 +99,7 @@ namespace IBL
             return dronesForList;
         }
 
-        public IEnumerable<DroneForList> GetFilteredDroneForList(DroneStatuses status)
+        public IEnumerable<DroneForList> GetStatusFilteredDroneForList(DroneStatuses status)
         {
             List<DroneForList> dronesForList = (List<DroneForList>)GetDronesForList();
             List<DroneForList> drones = new();
@@ -107,8 +107,16 @@ namespace IBL
             return drones;
         }
 
+        public IEnumerable<DroneForList> GetWeightFilteredDroneForList(WeightCategories weight)
+        {
+            List<DroneForList> dronesForList = (List<DroneForList>)GetDronesForList();
+            List<DroneForList> drones = new();
+            drones = dronesForList.FindAll(item => item.MaxWeight == weight);
+            return drones;
+        }
+
         // ---------------------------------Parcels GetList Methods------------------------------------------------
-     
+
         public IEnumerable<BO.Parcel> GetBOParcelsList()
         {
             List<BO.Parcel> boParcelList = new ();

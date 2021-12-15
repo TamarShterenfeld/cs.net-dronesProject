@@ -28,21 +28,70 @@ namespace PL
             string[] categories = new string[2] {"status", "weight"};
             InitializeComponent();
             DroneListView.DataContext = bl.GetDronesForList();
-            FilterComboBox.DataContext = categories;
+            ChooseCategory.DataContext = categories;
+            StatusFilter.DataContext = typeof(DroneStatuses).GetEnumValues();
+            WeightFilter .DataContext = typeof(WeightCategories).GetEnumValues();
+            StatusFilter.Visibility = Visibility.Collapsed;
+            WeightFilter.Visibility = Visibility.Collapsed;
+            StatusFilterLable.Visibility = Visibility.Collapsed;
+            WeightFilterLable.Visibility = Visibility.Collapsed;
         }
 
-        private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ChooseCategory_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(FilterComboBox.SelectedItem == null)
+            switch (ChooseCategory.SelectedItem)
+            {
+                case "status":
+                    {
+                        WeightFilter.Visibility = Visibility.Collapsed;
+                        WeightFilterLable.Visibility = Visibility.Collapsed;
+                        StatusFilter.Visibility = Visibility.Visible;
+                        StatusFilterLable.Visibility = Visibility.Visible;
+                        break;
+                    }
+                case "weight":
+                    {
+                        StatusFilterLable.Visibility = Visibility.Collapsed;
+                        StatusFilter.Visibility = Visibility.Collapsed;
+                        WeightFilter.Visibility = Visibility.Visible;
+                        WeightFilterLable.Visibility = Visibility.Visible;
+                        break;
+                    }
+            }
+            //{
+            //    DroneListView.ItemsSource = (List<DroneForList>)bl.GetDronesForList();
+            //}
+            //else
+            //{
+            //    DroneStatuses status = (DroneStatuses)FilterComboBox.SelectedItem;
+            //    DroneListView.ItemsSource = (List<DroneForList>)bl.GetFilteredDroneForList(status);
+            //}
+            
+        }
+        private void StatusFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(StatusFilter.SelectedItem == null)
             {
                 DroneListView.ItemsSource = (List<DroneForList>)bl.GetDronesForList();
             }
             else
             {
-                DroneStatuses status = (DroneStatuses)FilterComboBox.SelectedItem;
-                DroneListView.ItemsSource = (List<DroneForList>)bl.GetFilteredDroneForList(status);
+                DroneStatuses status = (DroneStatuses)StatusFilter.SelectedItem;
+                DroneListView.ItemsSource = (List<DroneForList>)bl.GetStatusFilteredDroneForList(status);
             }
-            
+        }
+
+        private void WeightFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (StatusFilter.SelectedItem == null)
+            {
+                DroneListView.ItemsSource = (List<DroneForList>)bl.GetDronesForList();
+            }
+            else
+            {
+                WeightCategories weight = (WeightCategories)WeightFilter.SelectedItem;
+                DroneListView.ItemsSource = (List<DroneForList>)bl.GetWeightFilteredDroneForList(weight);
+            }
         }
     }
 }

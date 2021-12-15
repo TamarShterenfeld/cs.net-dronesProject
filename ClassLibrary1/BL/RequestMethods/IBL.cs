@@ -183,7 +183,9 @@ namespace IBL
         /// </summary>
         /// <param name="status">the requested status that the list is filtered by</param>
         /// <returns>a filtered list by the requested status</returns>
-        IEnumerable<DroneForList> GetFilteredDroneForList(DroneStatuses status);
+        IEnumerable<DroneForList> GetStatusFilteredDroneForList(DroneStatuses status);
+
+        IEnumerable<DroneForList> GetWeightFilteredDroneForList(WeightCategories weight);
 
         /// <summary>
         /// The function displays a drone in parcel according to id.
