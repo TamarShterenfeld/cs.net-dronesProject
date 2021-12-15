@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IBL.BO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,15 @@ namespace PL
     /// </summary>
     public partial class Drone : Window
     {
-        public Drone()
+        public Drone(IBL.IBL bl)
         {
             InitializeComponent();
+            this.DataContext = "true";
+            status.DataContext = typeof(WeightCategories).GetEnumValues();
+            weight.DataContext = typeof(DroneStatuses).GetEnumValues();
         }
+
+        
+
     }
 }

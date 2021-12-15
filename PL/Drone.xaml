@@ -7,6 +7,22 @@
         mc:Ignorable="d"
         Title="Drone" Height="650" Width="800">
     <Grid >
-        
+        <Label   Content="Id:" HorizontalAlignment="Left" Margin="227,120,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Center" Margin="0,120,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="140" IsEnabled="{Binding}"/>
+        <Label Content="Model:" HorizontalAlignment="Left" Margin="227,160,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Center" Margin="0,160,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="140" IsEnabled="{Binding}"/>
+        <Label Content="Max Weight:" HorizontalAlignment="Left" Margin="227,200,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name ="weight" HorizontalAlignment="Center" Margin="0,200,0,0" VerticalAlignment="Top" Width="140" IsEnabled="{Binding}" ItemsSource="{Binding}"/>
+        <Label Content="Battery:" HorizontalAlignment="Left" Margin="227,240,0,0" VerticalAlignment="Top" />
+        <TextBox HorizontalAlignment="Center" Margin="0,240,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="140" IsEnabled="{Binding}"/>
+        <Label Content="Status:" HorizontalAlignment="Left" Margin="227,280,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name ="status" HorizontalAlignment="Center" Margin="0,280,0,0" VerticalAlignment="Top" Width="140" IsEnabled="False" ItemsSource="{Binding}"/>
+        <Label Content="Delivery:" HorizontalAlignment="Left" Margin="227,320,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Center" Margin="0,320,0,0" Text="0" TextWrapping="Wrap" VerticalAlignment="Top" Width="140" IsEnabled="False"/>
+        <Label Content="Longitude:" HorizontalAlignment="Left" Margin="227,360,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Center" Margin="0,360,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="140" IsEnabled="{Binding}"/>
+        <Label Content="Latitude:" HorizontalAlignment="Left" Margin="227,400,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Center" Margin="0,400,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="140" IsEnabled="{Binding}"/>
+
     </Grid>
 </Window>

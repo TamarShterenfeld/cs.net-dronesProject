@@ -93,5 +93,10 @@ namespace PL
                 DroneListView.ItemsSource = (List<DroneForList>)bl.GetWeightFilteredDroneForList(weight);
             }
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            new Drone(bl).Show();
+        }
     }
 }
