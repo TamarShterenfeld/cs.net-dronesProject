@@ -70,33 +70,28 @@ namespace PL
         }
         private void StatusFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(StatusFilter.SelectedItem == null)
-            {
-                DroneListView.ItemsSource = (List<DroneForList>)bl.GetDronesForList();
-            }
-            else
-            {
+            
                 DroneStatuses status = (DroneStatuses)StatusFilter.SelectedItem;
                 DroneListView.ItemsSource = (List<DroneForList>)bl.GetStatusFilteredDroneForList(status);
-            }
+            
         }
 
         private void WeightFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (StatusFilter.SelectedItem == null)
-            {
-                DroneListView.ItemsSource = (List<DroneForList>)bl.GetDronesForList();
-            }
-            else
-            {
+            
                 WeightCategories weight = (WeightCategories)WeightFilter.SelectedItem;
                 DroneListView.ItemsSource = (List<DroneForList>)bl.GetWeightFilteredDroneForList(weight);
-            }
+            
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            new Drone(bl).Show();
+            new SingleDrone(bl).Show();
+        }
+
+        private void DroneListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            new SingleDrone((e.OriginalSource as FrameworkElement).DataContext as IBL.BO.DroneForList, bl).Show();
         }
     }
 }

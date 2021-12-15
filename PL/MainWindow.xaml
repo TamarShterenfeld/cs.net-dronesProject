@@ -20,7 +20,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
         </Grid>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="350,58,0,0" Grid.Row="1" VerticalAlignment="Top" Click="Button_Click"/>
+        <Button Content="all drones" HorizontalAlignment="Left" Margin="350,58,0,0" Grid.Row="1" VerticalAlignment="Top" Click="Button_Click"/>
 
 
     </Grid>

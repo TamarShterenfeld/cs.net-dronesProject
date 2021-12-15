@@ -9,7 +9,7 @@
     <Grid>
 
         <Grid >
-            <ListView x:Name ="DroneListView" Grid.Row="0" >
+            <ListView x:Name ="DroneListView" Grid.Row="0" MouseDoubleClick="DroneListView_MouseDoubleClick" >
                 <ListView.View>
                     <GridView>
                         <GridViewColumn/>
