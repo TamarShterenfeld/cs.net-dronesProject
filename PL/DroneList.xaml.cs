@@ -84,9 +84,14 @@ namespace PL
             
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_ClickAdd(object sender, RoutedEventArgs e)
         {
             new SingleDrone(bl).Show();
+        }
+
+        private void Button_ClickClose(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
 
         private void DroneListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)

@@ -7,28 +7,33 @@
         mc:Ignorable="d"
         Title="DroneList" Height="450" Width="800">
     <Grid>
-
-        <Grid >
-            <ListView x:Name ="DroneListView" Grid.Row="0" MouseDoubleClick="DroneListView_MouseDoubleClick" >
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn/>
-                    </GridView>
-                </ListView.View>
-            </ListView>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="5*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <WrapPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="center"  VerticalAlignment="center">
+            <Button Content="Close"  Click="Button_ClickClose" />
+            <Button Content="Add Drone"   Click="Button_ClickAdd" />
+        </WrapPanel>
+        <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
+            <ListView x:Name ="DroneListView"  MouseDoubleClick="DroneListView_MouseDoubleClick"  BorderThickness="0"/>
         </Grid>
-        <Label x:Name="ChooseCategoryLabel" Content="choose category:" HorizontalAlignment="Left" Margin="450,80,0,0" VerticalAlignment="Top" Width="120" Grid.Column="0"/>
-        <ComboBox x:Name="ChooseCategory" ItemsSource="{Binding}" HorizontalAlignment="Left" Margin="550,80,0,0" VerticalAlignment="Top" Width="120" Grid.Column="1" SelectionChanged="ChooseCategory_SelectionChanged"></ComboBox>
-        <Label x:Name="StatusFilterLable" Content="choose status filter:" HorizontalAlignment="Left" Margin="440,120,0,0" VerticalAlignment="Top" Width="120" Grid.Column="0"/>
-        <ComboBox x:Name="StatusFilter" ItemsSource="{Binding}" HorizontalAlignment="Left" Margin="550,120,0,0" VerticalAlignment="Top" Width="120" Grid.Column="1" SelectionChanged="StatusFilter_SelectionChanged"></ComboBox>
-        <Label x:Name="WeightFilterLable" Content="choose weight filter:" HorizontalAlignment="Left" Margin="430,120,0,0" VerticalAlignment="Top" Width="120" Grid.Column="0"/>
-        <ComboBox x:Name="WeightFilter" ItemsSource="{Binding}" HorizontalAlignment="Left" Margin="550,120,0,0" VerticalAlignment="Top" Width="120" Grid.Column="1" SelectionChanged="WeightFilter_SelectionChanged"></ComboBox>
-        <Button Content="Add Drone" HorizontalAlignment="Left" Margin="699,393,0,0" VerticalAlignment="Top" Click="Button_Click"/>
-
-
-
-
-
-
+        <WrapPanel Grid.Row="1" Grid.Column="0" HorizontalAlignment="center"  VerticalAlignment="center">
+        <Label x:Name="ChooseCategoryLabel" Content="choose category:"   Width="120" />
+        <ComboBox x:Name="ChooseCategory" ItemsSource="{Binding}"  HorizontalAlignment="center"  VerticalAlignment="center" Width="120"  SelectionChanged="ChooseCategory_SelectionChanged"></ComboBox>
+        </WrapPanel>
+        <WrapPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="center"  VerticalAlignment="center">
+        <Label x:Name="StatusFilterLable" Content="choose status filter:"    Width="120" />
+        <ComboBox x:Name="StatusFilter" ItemsSource="{Binding}"  HorizontalAlignment="center"  VerticalAlignment="center" Width="120"  SelectionChanged="StatusFilter_SelectionChanged"></ComboBox>
+        </WrapPanel>
+        <WrapPanel Grid.Row="2" Grid.Column="1" HorizontalAlignment="center"  VerticalAlignment="center">
+            <Label x:Name="WeightFilterLable" Content="choose weight filter:"   Width="120"/>
+            <ComboBox x:Name="WeightFilter" ItemsSource="{Binding}"  HorizontalAlignment="center"  VerticalAlignment="center" Width="120"  SelectionChanged="WeightFilter_SelectionChanged"></ComboBox>
+        </WrapPanel>
     </Grid>
 </Window>

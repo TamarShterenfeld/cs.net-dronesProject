@@ -40,6 +40,14 @@ namespace PL
             station.DataContext = "False";
             Drone drone = bl.GetBLDrone(droneForList.Id);
             id.Text = drone.Id.ToString();
+            model.Text = drone.Model;
+            weight.SelectedItem = drone.MaxWeight;
+            battery.Text = drone.Battery.ToString()+"%";
+            status.SelectedItem = drone.Status;
+            delivery.Text = drone.Parcel.Id.ToString();
+            longitude.Text = drone.Location.CoorLongitude.ToString();
+            latitude.Text = drone.Location.CoorLatitude.ToString();
+            station.DataContext = Lstation.DataContext = button2.DataContext = "Collapsed";
         }
 
         private void Button_ClickCancel(object sender, RoutedEventArgs e)

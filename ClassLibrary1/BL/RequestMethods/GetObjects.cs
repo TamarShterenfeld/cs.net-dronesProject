@@ -42,6 +42,7 @@ namespace IBL
             Drone drone = ConvertDroneDOtOBO(dal.GetDrone(id));
             DroneForList drone1 = dronesForList.First(item => item.Id == drone.Id);
             drone.Battery = drone1.Battery; drone.Status = drone1.Status; drone.Parcel.Id = drone1.ParcelId;
+            drone.Location = drone1.Location;
             return drone;
         }
 

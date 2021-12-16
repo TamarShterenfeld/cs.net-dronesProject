@@ -88,7 +88,7 @@ namespace IBL
             /// <summary>
             /// default constructor
             /// </summary>
-            public Coordinate() { }
+            public Coordinate() {}
 
             /// <summary>
             /// override ToString function.
