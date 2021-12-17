@@ -27,7 +27,6 @@ namespace PL
             this.bl = bl;
             string[] categories = new string[2] {"status", "weight"};
             InitializeComponent();
-            DroneListView.DataContext = bl.GetDronesForList();
             ChooseCategory.DataContext = categories;
             StatusFilter.DataContext = typeof(DroneStatuses).GetEnumValues();
             WeightFilter .DataContext = typeof(WeightCategories).GetEnumValues();
@@ -68,12 +67,18 @@ namespace PL
             //}
             
         }
+
+        private void Filter()
+        {
+            DroneListView.ItemsSource = bl.GetDronesForList();
+        }
+       
         private void StatusFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             
                 DroneStatuses status = (DroneStatuses)StatusFilter.SelectedItem;
                 DroneListView.ItemsSource = (List<DroneForList>)bl.GetStatusFilteredDroneForList(status);
-            
+                Filter();
         }
 
         private void WeightFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -81,12 +86,12 @@ namespace PL
             
                 WeightCategories weight = (WeightCategories)WeightFilter.SelectedItem;
                 DroneListView.ItemsSource = (List<DroneForList>)bl.GetWeightFilteredDroneForList(weight);
-            
+                Filter();
         }
 
         private void Button_ClickAdd(object sender, RoutedEventArgs e)
         {
-            new SingleDrone(bl).Show();
+            new SingleDrone(bl,Filter).Show();
         }
 
         private void Button_ClickClose(object sender, RoutedEventArgs e)
@@ -96,7 +101,7 @@ namespace PL
 
         private void DroneListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            new SingleDrone((e.OriginalSource as FrameworkElement).DataContext as IBL.BO.DroneForList, bl).Show();
+            new SingleDrone((e.OriginalSource as FrameworkElement).DataContext as IBL.BO.DroneForList, bl, Filter).Show();
         }
     }
 }

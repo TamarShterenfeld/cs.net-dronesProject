@@ -21,7 +21,7 @@
             <Button Content="Add Drone"   Click="Button_ClickAdd" />
         </WrapPanel>
         <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
-            <ListView x:Name ="DroneListView"  MouseDoubleClick="DroneListView_MouseDoubleClick"  BorderThickness="0"/>
+            <ListView x:Name ="DroneListView"  MouseDoubleClick="DroneListView_MouseDoubleClick"  BorderThickness="0" ItemsSource="{Binding}"/>
         </Grid>
         <WrapPanel Grid.Row="1" Grid.Column="0" HorizontalAlignment="center"  VerticalAlignment="center">
         <Label x:Name="ChooseCategoryLabel" Content="choose category:"   Width="120" />

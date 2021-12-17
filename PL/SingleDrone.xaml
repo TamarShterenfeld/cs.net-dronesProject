@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
+        
         Title="Drone" Height="650" Width="800">
-    <Grid >
+    <Grid x:Name ="curdrone">
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
             <RowDefinition Height="*"/>
@@ -20,8 +21,8 @@
             <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.8*"/>
-            <ColumnDefinition Width="0.2*"/>
+            <ColumnDefinition Width="0.7*"/>
+            <ColumnDefinition Width="0.3*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
@@ -30,6 +31,14 @@
             <Button x:Name="button2" Content="Add" Width="50" Click="Button_ClickAddOrUpdate"/>
             <Button x:Name="button3"  Visibility="{Binding}" Content="Start \ Stop Charging"   Width="Auto" Click="Button_ClickCharging"/>
             <Button x:Name="button4" Visibility="{Binding}" Content="Associate \ Pick Up \ Supply a parcel"  Width="Auto" Click="Button_ClickToParcel"/>
+        </WrapPanel>
+        <WrapPanel x:Name="hlong" Grid.Row="0" Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Bottom" Visibility="Collapsed">
+            <TextBlock Text="how long?" />
+            <TextBox x:Name="howLong" 
+            TextWrapping="Wrap" 
+            Width="140" 
+            IsEnabled="{Binding}"
+            PreviewTextInput="PreviewTextInput"/>
         </WrapPanel>
         <TextBlock Text="Id:" Grid.Row="1" Grid.Column="1"/>
         <TextBox x:Name="id" 
@@ -67,7 +76,7 @@
                   Width="140" 
                   IsEnabled="False" 
                   ItemsSource="{Binding}"
-                  SelectedIndex ="0"/>
+                  SelectedIndex="0"/>
         <TextBlock Text="Delivery:" Grid.Row="6" Grid.Column="1"/>
         <TextBox x:Name="delivery"
             Grid.Row="6" Grid.Column="2"
@@ -91,13 +100,14 @@
             Width="140" 
             IsEnabled="False" />
         <TextBlock x:Name="Lstation" Text="Station ID:" Visibility="{Binding}" Grid.Row="9" Grid.Column="1"/>
-        <TextBox x:Name="station"
-            Grid.Row="9" Grid.Column="2"
-            TextWrapping="Wrap" 
-            VerticalAlignment="Top" 
-            Width="140" 
-            IsEnabled="{Binding}"
-            Visibility="{Binding}"
-            PreviewTextInput="PreviewTextInput"/>
+        <ComboBox x:Name ="station" 
+                  Grid.Row="9" Grid.Column="2"
+                  VerticalAlignment="Top" 
+                  Width="140" 
+                  IsEnabled="{Binding}"
+                  Visibility="{Binding}"
+                  ItemsSource="{Binding}"
+                  SelectedIndex="0"/>
+            
         </Grid>
 </Window>

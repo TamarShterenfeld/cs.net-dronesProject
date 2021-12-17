@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Globalization;
 
 namespace PL
 {
@@ -22,20 +23,27 @@ namespace PL
     public partial class SingleDrone : Window
     {
         private IBL.IBL bl;
-        public SingleDrone(IBL.IBL bl)
+        Action action;
+        public SingleDrone(IBL.IBL bl,Action action)
         {
             this.bl = bl;
+            this.action = action;
             InitializeComponent();
-            this.DataContext = "true";
+            id.DataContext = model.DataContext = weight.DataContext = station.DataContext = "true";
+            button3.DataContext = button4.DataContext = "Collapsed";
             status.DataContext = typeof(DroneStatuses).GetEnumValues();
             weight.DataContext = typeof(WeightCategories).GetEnumValues();
-            station.DataContext = "True";
+            List <string> str = new List<string>();
+            foreach (var item in bl.GetBOBaseStationsList())
+            {
+                str.Add(item.Id.ToString());
+            }
+            station.DataContext = str;
         }
 
-        public SingleDrone(DroneForList droneForList, IBL.IBL bl)
+        public SingleDrone(DroneForList droneForList, IBL.IBL bl,Action action)
+            :this(bl,action)
         {
-            this.bl = bl;
-            InitializeComponent();
             this.DataContext = "False";
             station.DataContext = "False";
             Drone drone = bl.GetBLDrone(droneForList.Id);
@@ -73,6 +81,7 @@ namespace PL
                 drone.Location = bl.GetBLBaseStation(InputIntValue(station.Text)).Location;
                 bl.Add(drone, InputIntValue(station.Text));
                 MessageBox.Show("drone was added successfully!");
+                action();
                 this.Close();
             }
         }
@@ -86,6 +95,7 @@ namespace PL
             else
             {
                 bl.UpdateDrone(InputIntValue(id.Text), model.Text);
+                action();
             }
         }
 
@@ -101,24 +111,44 @@ namespace PL
         {
             if (status.Text.ToString() == DroneStatuses.Maintenance.ToString())
             {
-                //timeCharge = MessageBoxOptions();
-                bl.ReleaseDroneFromRecharge(InputIntValue(id.Text), 2);
+                hlong.DataContext = "Collapsed";
+                int timeCharge = InputIntValue(howLong.Text);
+                bl.ReleaseDroneFromRecharge(InputIntValue(id.Text), timeCharge);
+                MessageBox.Show("drone stops charging!");
             }
             else if(delivery.Text.ToString() == "0")
             {
                 bl.SendDroneForCharge(InputIntValue(id.Text));
+                MessageBox.Show("drone starts charging!");
             }
             else
             {
                 MessageBox.Show("drone can not start or stop charging!");
             }
+            action();
         }
 
         
 
         private void Button_ClickToParcel(object sender, RoutedEventArgs e)
         {
-
+            if (delivery.Text.ToString() == "0")
+            {
+                bl.AssociateParcel(InputIntValue(id.Text));
+            }
+            else if (bl.GetBLParcel(InputIntValue(delivery.Text)).PickUpDate == null )
+            {
+                bl.PickUpParcel(InputIntValue(id.Text));
+            }
+            else if(bl.GetBLParcel(InputIntValue(delivery.Text)).PickUpDate != null && bl.GetBLParcel(InputIntValue(delivery.Text)).SupplyDate == null)
+            {
+                bl.SupplyParcel(InputIntValue(delivery.Text));
+            }
+            else
+            {
+                MessageBox.Show("drone can not treat a parcel!");
+            }
+            action();
         }
         private int InputIntValue(string str)
         {
@@ -163,3 +193,5 @@ namespace PL
     }
     
 }
+
+
