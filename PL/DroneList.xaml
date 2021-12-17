@@ -31,7 +31,7 @@
         <Label x:Name="StatusFilterLable" Content="choose status filter:"    Width="120" />
         <ComboBox x:Name="StatusFilter" ItemsSource="{Binding}"  HorizontalAlignment="center"  VerticalAlignment="center" Width="120"  SelectionChanged="StatusFilter_SelectionChanged"></ComboBox>
         </WrapPanel>
-        <WrapPanel Grid.Row="2" Grid.Column="1" HorizontalAlignment="center"  VerticalAlignment="center">
+        <WrapPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="center"  VerticalAlignment="center">
             <Label x:Name="WeightFilterLable" Content="choose weight filter:"   Width="120"/>
             <ComboBox x:Name="WeightFilter" ItemsSource="{Binding}"  HorizontalAlignment="center"  VerticalAlignment="center" Width="120"  SelectionChanged="WeightFilter_SelectionChanged"></ComboBox>
         </WrapPanel>

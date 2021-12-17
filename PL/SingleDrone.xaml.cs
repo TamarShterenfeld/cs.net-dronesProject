@@ -47,7 +47,10 @@ namespace PL
             delivery.Text = drone.Parcel.Id.ToString();
             longitude.Text = drone.Location.CoorLongitude.ToString();
             latitude.Text = drone.Location.CoorLatitude.ToString();
-            station.DataContext = Lstation.DataContext = button2.DataContext = "Collapsed";
+            station.DataContext = Lstation.DataContext =  "Collapsed";
+            button3.DataContext = button4.DataContext= "Visible";
+            button2.Content = "Update";
+
         }
 
         private void Button_ClickCancel(object sender, RoutedEventArgs e)
@@ -55,7 +58,7 @@ namespace PL
             this.Close();
         }
 
-        private void Button_ClickAdd(object sender, RoutedEventArgs e)
+        private void Button_ClickAdd()
         {
             if (model.Text == "" || weight.Text == "")
             {
@@ -74,6 +77,49 @@ namespace PL
             }
         }
 
+        private void Button_ClickUpdate()
+        {
+            if (model.Text == "")
+            {
+                MessageBox.Show("Model must have value!");
+            }
+            else
+            {
+                bl.UpdateDrone(InputIntValue(id.Text), model.Text);
+            }
+        }
+
+        private void Button_ClickAddOrUpdate(object sender, RoutedEventArgs e)
+        {
+            if(button2.Content.ToString() == "Add")
+            { Button_ClickAdd(); }
+            else 
+            { Button_ClickUpdate(); }  
+        }
+
+        private void Button_ClickCharging(object sender, RoutedEventArgs e)
+        {
+            if (status.Text.ToString() == DroneStatuses.Maintenance.ToString())
+            {
+                //timeCharge = MessageBoxOptions();
+                bl.ReleaseDroneFromRecharge(InputIntValue(id.Text), 2);
+            }
+            else if(delivery.Text.ToString() == "0")
+            {
+                bl.SendDroneForCharge(InputIntValue(id.Text));
+            }
+            else
+            {
+                MessageBox.Show("drone can not start or stop charging!");
+            }
+        }
+
+        
+
+        private void Button_ClickToParcel(object sender, RoutedEventArgs e)
+        {
+
+        }
         private int InputIntValue(string str)
         {
             int numericalValue = 0;

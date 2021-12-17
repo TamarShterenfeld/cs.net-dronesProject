@@ -27,9 +27,9 @@
         </Grid.ColumnDefinitions>
         <WrapPanel Grid.Row="0" Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Button x:Name="button1" Content="Cancel" Width="50" Click="Button_ClickCancel"/>
-            <Button x:Name="button2" Content="Add" Visibility="{Binding}" Width="50" Click="Button_ClickAdd"/>
-            <Button x:Name="button3"  Visibility="Collapsed" Content="Start \ Stop Charging"   Width="Auto" Click="Button_ClickCancel"/>
-            <Button x:Name="button4" Visibility="Collapsed" Content="Associate \ Pick Up \ Supply a parcel"  Width="Auto" Click="Button_ClickCancel"/>
+            <Button x:Name="button2" Content="Add" Width="50" Click="Button_ClickAddOrUpdate"/>
+            <Button x:Name="button3"  Visibility="{Binding}" Content="Start \ Stop Charging"   Width="Auto" Click="Button_ClickCharging"/>
+            <Button x:Name="button4" Visibility="{Binding}" Content="Associate \ Pick Up \ Supply a parcel"  Width="Auto" Click="Button_ClickToParcel"/>
         </WrapPanel>
         <TextBlock Text="Id:" Grid.Row="1" Grid.Column="1"/>
         <TextBox x:Name="id" 
