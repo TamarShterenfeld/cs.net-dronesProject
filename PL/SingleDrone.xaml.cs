@@ -168,7 +168,7 @@ namespace PL
             }
             catch(BatteryException exe)
             {
-                MessageBox.Show("the drone's battery: "+exe.Battery+" wasn't valid for this action!");
+                MessageBox.Show("the drone's battery: "+exe.Battery+" isn't enouph for reaching the  base station for charging!");
             }
             action();
         }
