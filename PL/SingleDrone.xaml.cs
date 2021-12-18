@@ -193,22 +193,41 @@ namespace PL
         {
             try
             {
-                if (delivery.Text.ToString() == "0")
+
+                switch (button4.SelectedItem)
                 {
-                    bl.AssociateParcel(InputIntValue(id.Text));
+                    case "Associate Parcel":
+                        {
+                            bl.AssociateParcel(InputIntValue(id.Text));
+                            break;
+                        }
+                    case "Pick Up Parcel":
+                        {
+                            bl.PickUpParcel(InputIntValue(id.Text));
+                            break;
+                        }
+                    case "Supply Parcel":
+                        {
+                            bl.SupplyParcel(InputIntValue(id.Text));
+                            break;
+                        }
                 }
-                else if (bl.GetBLParcel(InputIntValue(delivery.Text)).PickUpDate == null)
-                {
-                    bl.PickUpParcel(InputIntValue(id.Text));
-                }
-                else if (bl.GetBLParcel(InputIntValue(delivery.Text)).PickUpDate != null && bl.GetBLParcel(InputIntValue(delivery.Text)).SupplyDate == null)
-                {
-                    bl.SupplyParcel(InputIntValue(delivery.Text));
-                }
-                else
-                {
-                    MessageBox.Show("drone can not treat a parcel!");
-                }
+                //if (delivery.Text.ToString() == "0")
+                //{
+                //    bl.AssociateParcel(InputIntValue(id.Text));
+                //}
+                //else if (bl.GetBLParcel(InputIntValue(delivery.Text)).PickUpDate == null)
+                //{
+                //    bl.PickUpParcel(InputIntValue(id.Text));
+                //}
+                //else if (bl.GetBLParcel(InputIntValue(delivery.Text)).PickUpDate != null && bl.GetBLParcel(InputIntValue(delivery.Text)).SupplyDate == null)
+                //{
+                //    bl.SupplyParcel(InputIntValue(delivery.Text));
+                //}
+                //else
+                //{
+                //    MessageBox.Show("drone can not treat a parcel!");
+                //}
             }
             catch (DroneStatusException exe)
             {
