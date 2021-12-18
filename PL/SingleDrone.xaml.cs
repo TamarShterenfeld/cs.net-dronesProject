@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Globalization;
+using DAL.DO;
 
 namespace PL
 {
@@ -24,7 +25,7 @@ namespace PL
     {
         private IBL.IBL bl;
         Action action;
-        public SingleDrone(IBL.IBL bl,Action action)
+        public SingleDrone(IBL.IBL bl, Action action)
         {
             this.bl = bl;
             this.action = action;
@@ -33,7 +34,7 @@ namespace PL
             button3.DataContext = button4.DataContext = "Collapsed";
             status.DataContext = typeof(DroneStatuses).GetEnumValues();
             weight.DataContext = typeof(WeightCategories).GetEnumValues();
-            List <string> str = new List<string>();
+            List<string> str = new List<string>();
             foreach (var item in bl.GetBOBaseStationsList())
             {
                 str.Add(item.Id.ToString());
@@ -41,8 +42,8 @@ namespace PL
             station.DataContext = str;
         }
 
-        public SingleDrone(DroneForList droneForList, IBL.IBL bl,Action action)
-            :this(bl,action)
+        public SingleDrone(DroneForList droneForList, IBL.IBL bl, Action action)
+            : this(bl, action)
         {
             this.DataContext = "False";
             station.DataContext = "False";
@@ -50,13 +51,13 @@ namespace PL
             id.Text = drone.Id.ToString();
             model.Text = drone.Model;
             weight.SelectedItem = drone.MaxWeight;
-            battery.Text = drone.Battery.ToString()+"%";
+            battery.Text = drone.Battery.ToString() + "%";
             status.SelectedItem = drone.Status;
             delivery.Text = drone.Parcel.Id.ToString();
             longitude.Text = drone.Location.CoorLongitude.ToString();
             latitude.Text = drone.Location.CoorLatitude.ToString();
-            station.DataContext = Lstation.DataContext =  "Collapsed";
-            button3.DataContext = button4.DataContext= "Visible";
+            station.DataContext = Lstation.DataContext = "Collapsed";
+            button3.DataContext = button4.DataContext = "Visible";
             button2.Content = "Update";
 
         }
@@ -68,18 +69,37 @@ namespace PL
 
         private void Button_ClickAdd()
         {
+            bool isvalid = true;
+            MessageBoxResult m = new();
             if (model.Text == "" || weight.Text == "")
             {
                 MessageBox.Show("Model and Max Weight must have value!");
             }
             else
-            {
-                Drone drone = new Drone();
-                drone.Id = InputIntValue(id.Text);
-                drone.Model = model.Text;
-                drone.MaxWeight = InputWeightCategory(weight.Text);
-                drone.Location = bl.GetBLBaseStation(InputIntValue(station.Text)).Location;
-                bl.Add(drone, InputIntValue(station.Text));
+            {          
+                do
+                {                   
+                    Drone drone = new Drone();                   
+                    drone.Id = InputIntValue(id.Text);
+                    drone.Model = model.Text;
+                    drone.MaxWeight = InputWeightCategory(weight.Text);
+                    drone.Location = bl.GetBLBaseStation(InputIntValue(station.Text)).Location;
+                    try
+                    {
+                        bl.Add(drone, InputIntValue(station.Text));
+                    }
+                    catch (BLIntIdException exe)
+                    {
+                        isvalid = false;
+                        m = MessageBox.Show("drone's id: " + exe.Id + " isn't valid!");
+                        
+                    }
+                    catch (IntIdException exe)
+                    {
+                        isvalid = false;
+                        m = MessageBox.Show("drone's id: " + exe.Id + " isn't valid!");
+                    }
+                } while (isvalid == false && m == MessageBoxResult.OK);
                 MessageBox.Show("drone was added successfully!");
                 action();
                 this.Close();
@@ -101,10 +121,10 @@ namespace PL
 
         private void Button_ClickAddOrUpdate(object sender, RoutedEventArgs e)
         {
-            if(button2.Content.ToString() == "Add")
+            if (button2.Content.ToString() == "Add")
             { Button_ClickAdd(); }
-            else 
-            { Button_ClickUpdate(); }  
+            else
+            { Button_ClickUpdate(); }
         }
 
         private void Button_ClickCharging(object sender, RoutedEventArgs e)
@@ -116,7 +136,7 @@ namespace PL
                 bl.ReleaseDroneFromRecharge(InputIntValue(id.Text), timeCharge);
                 MessageBox.Show("drone stops charging!");
             }
-            else if(delivery.Text.ToString() == "0")
+            else if (delivery.Text.ToString() == "0")
             {
                 bl.SendDroneForCharge(InputIntValue(id.Text));
                 MessageBox.Show("drone starts charging!");
@@ -128,7 +148,7 @@ namespace PL
             action();
         }
 
-        
+
 
         private void Button_ClickToParcel(object sender, RoutedEventArgs e)
         {
@@ -136,11 +156,11 @@ namespace PL
             {
                 bl.AssociateParcel(InputIntValue(id.Text));
             }
-            else if (bl.GetBLParcel(InputIntValue(delivery.Text)).PickUpDate == null )
+            else if (bl.GetBLParcel(InputIntValue(delivery.Text)).PickUpDate == null)
             {
                 bl.PickUpParcel(InputIntValue(id.Text));
             }
-            else if(bl.GetBLParcel(InputIntValue(delivery.Text)).PickUpDate != null && bl.GetBLParcel(InputIntValue(delivery.Text)).SupplyDate == null)
+            else if (bl.GetBLParcel(InputIntValue(delivery.Text)).PickUpDate != null && bl.GetBLParcel(InputIntValue(delivery.Text)).SupplyDate == null)
             {
                 bl.SupplyParcel(InputIntValue(delivery.Text));
             }
@@ -191,7 +211,7 @@ namespace PL
             e.Handled = regex.IsMatch(e.Text);
         }
     }
-    
+
 }
 
 
