@@ -29,7 +29,7 @@
         <WrapPanel Grid.Row="0" Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Button x:Name="button1" Content="Cancel" Width="50" Click="Button_ClickCancel"/>
             <Button x:Name="button2" Content="Add" Width="50" Click="Button_ClickAddOrUpdate"/>
-            <Button x:Name="button3"  Visibility="{Binding}" Content="Start \ Stop Charging"   Width="Auto" Click="Button_ClickCharging"/>
+            <ComboBox x:Name="button3" ItemsSource="{Binding}"   Width="110" SelectionChanged="Button_ClickCharging"/>
 
             <ComboBox x:Name="button4"  Width="130" ItemsSource="{Binding}" SelectionChanged="button4_SelectionChanged"/>
         </WrapPanel>

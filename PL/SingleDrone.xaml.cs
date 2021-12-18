@@ -58,10 +58,11 @@ namespace PL
             latitude.Text = drone.Location.CoorLatitude.ToString();
             station.DataContext = Lstation.DataContext = "Collapsed";
             string[] parcelOptions = { "Associate Parcel", "Pick Up Parcel", "Supply Parcel" };
+            string[] chargeDroneOptions = { "Charging", "Stop Charging" };
+            button3.DataContext = chargeDroneOptions;
             button4.DataContext = parcelOptions;
-            button3.DataContext = "Visible";
+         
             button2.Content = "Update";
-
         }
 
         private void Button_ClickCancel(object sender, RoutedEventArgs e)
@@ -129,21 +130,45 @@ namespace PL
 
         private void Button_ClickCharging(object sender, RoutedEventArgs e)
         {
-            if (status.Text.ToString() == DroneStatuses.Maintenance.ToString())
+            try
             {
-                hlong.DataContext = "Collapsed";
-                int timeCharge = InputIntValue(howLong.Text);
-                bl.ReleaseDroneFromRecharge(InputIntValue(id.Text), timeCharge);
-                MessageBox.Show("drone stops charging!");
+                switch (button3.SelectedItem)
+                {
+                    case "Stop Charging":
+                        {
+                            hlong.DataContext = "Collapsed";
+                            int timeCharge = InputIntValue(howLong.Text);
+                            bl.ReleaseDroneFromRecharge(InputIntValue(id.Text), timeCharge);
+                            MessageBox.Show("drone stops charging!");
+                            break;
+                        }
+                    case "Charging":
+                        {
+                            bl.SendDroneForCharge(InputIntValue(id.Text));
+                            MessageBox.Show("drone starts charging!");
+                            break;
+                        }
+                }
             }
-            else if (delivery.Text.ToString() == "0")
+            catch (DroneStatusException exe)
             {
-                bl.SendDroneForCharge(InputIntValue(id.Text));
-                MessageBox.Show("drone starts charging!");
+                MessageBox.Show("the drone status: "+ exe.Status +" isn't valid");
             }
-            else
+            catch(ChargeSlotsException exe)
             {
-                MessageBox.Show("drone can not start or stop charging!");
+                MessageBox.Show("the chargeSlots: "+ exe.ChargeSlots+" isn't available!");
+            }
+            catch(BLChargeSlotsException exe)
+            {
+                MessageBox.Show("the chargeSlots: " + exe.ChargeSlots + " isn't available!");
+            }
+            catch(ParcelActionsException exe)
+            {
+                MessageBox.Show("the action of: "+ exe.Action+" wasn't completed successfully!");
+            }
+            catch(BatteryException exe)
+            {
+                MessageBox.Show("the drone's battery: "+exe.Battery+" wasn't valid for this action!");
             }
             action();
         }
@@ -212,22 +237,6 @@ namespace PL
                             break;
                         }
                 }
-                //if (delivery.Text.ToString() == "0")
-                //{
-                //    bl.AssociateParcel(InputIntValue(id.Text));
-                //}
-                //else if (bl.GetBLParcel(InputIntValue(delivery.Text)).PickUpDate == null)
-                //{
-                //    bl.PickUpParcel(InputIntValue(id.Text));
-                //}
-                //else if (bl.GetBLParcel(InputIntValue(delivery.Text)).PickUpDate != null && bl.GetBLParcel(InputIntValue(delivery.Text)).SupplyDate == null)
-                //{
-                //    bl.SupplyParcel(InputIntValue(delivery.Text));
-                //}
-                //else
-                //{
-                //    MessageBox.Show("drone can not treat a parcel!");
-                //}
             }
             catch (DroneStatusException exe)
             {
