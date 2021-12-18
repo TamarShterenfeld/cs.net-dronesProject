@@ -76,8 +76,7 @@
                   VerticalAlignment="Top" 
                   Width="140" 
                   IsEnabled="False" 
-                  ItemsSource="{Binding}"
-                  SelectedIndex="0"/>
+                  ItemsSource="{Binding}"/>
         <TextBlock Text="Delivery:" Grid.Row="6" Grid.Column="1"/>
         <TextBox x:Name="delivery"
             Grid.Row="6" Grid.Column="2"

@@ -30,7 +30,7 @@ namespace PL
             this.bl = bl;
             this.action = action;
             InitializeComponent();
-            id.DataContext = model.DataContext = weight.DataContext = station.DataContext = "true";
+            id.DataContext = model.DataContext = weight.DataContext = station.DataContext = "True";
             button3.DataContext = button4.DataContext = "Collapsed";
             status.DataContext = typeof(DroneStatuses).GetEnumValues();
             weight.DataContext = typeof(WeightCategories).GetEnumValues();
@@ -52,7 +52,7 @@ namespace PL
             weight.IsEnabled = false;
             weight.SelectedItem = drone.MaxWeight;
             battery.Text = drone.Battery.ToString() + "%";
-            //status.SelectedItem = drone.Status;
+            status.SelectedItem = drone.Status;
             delivery.Text = drone.Parcel.Id.ToString();
             longitude.Text = drone.Location.CoorLongitude.ToString();
             latitude.Text = drone.Location.CoorLatitude.ToString();
