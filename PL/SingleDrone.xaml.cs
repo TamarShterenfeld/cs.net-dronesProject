@@ -30,7 +30,7 @@ namespace PL
             this.bl = bl;
             this.action = action;
             InitializeComponent();
-            id.DataContext = model.DataContext = weight.DataContext = station.DataContext = "true";
+            id.DataContext = model.DataContext = weight.DataContext = station.DataContext = "True";
             button3.DataContext = button4.DataContext = "Collapsed";
             status.DataContext = typeof(DroneStatuses).GetEnumValues();
             weight.DataContext = typeof(WeightCategories).GetEnumValues();
@@ -45,11 +45,11 @@ namespace PL
         public SingleDrone(DroneForList droneForList, IBL.IBL bl, Action action)
             : this(bl, action)
         {
-            this.DataContext = "False";
-            station.DataContext = "False";
+            station.DataContext = id.DataContext = "False";
             Drone drone = bl.GetBLDrone(droneForList.Id);
             id.Text = drone.Id.ToString();
             model.Text = drone.Model;
+            weight.IsEnabled = false;
             weight.SelectedItem = drone.MaxWeight;
             battery.Text = drone.Battery.ToString() + "%";
             status.SelectedItem = drone.Status;
