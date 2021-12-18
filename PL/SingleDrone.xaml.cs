@@ -49,9 +49,10 @@ namespace PL
             Drone drone = bl.GetBLDrone(droneForList.Id);
             id.Text = drone.Id.ToString();
             model.Text = drone.Model;
+            weight.IsEnabled = false;
             weight.SelectedItem = drone.MaxWeight;
             battery.Text = drone.Battery.ToString() + "%";
-            status.SelectedItem = drone.Status;
+            //status.SelectedItem = drone.Status;
             delivery.Text = drone.Parcel.Id.ToString();
             longitude.Text = drone.Location.CoorLongitude.ToString();
             latitude.Text = drone.Location.CoorLatitude.ToString();
@@ -128,7 +129,7 @@ namespace PL
 
         private void Button_ClickCharging(object sender, RoutedEventArgs e)
         {
-            if (status.Text.ToString() == DroneStatuses.Maintenance.ToString())
+            if (status.Text == DroneStatuses.Maintenance.ToString())
             {
                 hlong.DataContext = "Collapsed";
                 int timeCharge = InputIntValue(howLong.Text);
