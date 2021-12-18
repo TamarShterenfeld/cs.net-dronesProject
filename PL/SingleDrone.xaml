@@ -30,7 +30,8 @@
             <Button x:Name="button1" Content="Cancel" Width="50" Click="Button_ClickCancel"/>
             <Button x:Name="button2" Content="Add" Width="50" Click="Button_ClickAddOrUpdate"/>
             <Button x:Name="button3"  Visibility="{Binding}" Content="Start \ Stop Charging"   Width="Auto" Click="Button_ClickCharging"/>
-            <Button x:Name="button4" Visibility="{Binding}" Content="Associate \ Pick Up \ Supply a parcel"  Width="Auto" Click="Button_ClickToParcel"/>
+
+            <ComboBox x:Name="button4"  Width="130" ItemsSource="{Binding}" SelectionChanged="button4_SelectionChanged"/>
         </WrapPanel>
         <WrapPanel x:Name="hlong" Grid.Row="0" Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Bottom" Visibility="Collapsed">
             <TextBlock Text="how long?" />

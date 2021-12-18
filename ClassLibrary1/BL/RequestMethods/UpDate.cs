@@ -1,7 +1,6 @@
-﻿using System;
+﻿using IBL.BO;
+using System;
 using System.Collections.Generic;
-using System.Text;
-using IBL.BO;
 using System.Linq;
 
 namespace IBL

@@ -57,7 +57,9 @@ namespace PL
             longitude.Text = drone.Location.CoorLongitude.ToString();
             latitude.Text = drone.Location.CoorLatitude.ToString();
             station.DataContext = Lstation.DataContext = "Collapsed";
-            button3.DataContext = button4.DataContext = "Visible";
+            string[] parcelOptions = { "Associate Parcel", "Pick Up Parcel", "Supply Parcel" };
+            button4.DataContext = parcelOptions;
+            button3.DataContext = "Visible";
             button2.Content = "Update";
 
         }
@@ -76,33 +78,31 @@ namespace PL
                 MessageBox.Show("Model and Max Weight must have value!");
             }
             else
-            {          
-                do
-                {                   
-                    Drone drone = new Drone();                   
-                    drone.Id = InputIntValue(id.Text);
-                    drone.Model = model.Text;
-                    drone.MaxWeight = InputWeightCategory(weight.Text);
-                    drone.Location = bl.GetBLBaseStation(InputIntValue(station.Text)).Location;
-                    try
-                    {
-                        bl.Add(drone, InputIntValue(station.Text));
-                    }
-                    catch (BLIntIdException exe)
-                    {
-                        isvalid = false;
-                        m = MessageBox.Show("drone's id: " + exe.Id + " isn't valid!");
-                        
-                    }
-                    catch (IntIdException exe)
-                    {
-                        isvalid = false;
-                        m = MessageBox.Show("drone's id: " + exe.Id + " isn't valid!");
-                    }
-                } while (isvalid == false && m == MessageBoxResult.OK);
-                MessageBox.Show("drone was added successfully!");
-                action();
-                this.Close();
+            {
+                Drone drone = new Drone();
+                drone.Id = InputIntValue(id.Text);
+                drone.Model = model.Text;
+                drone.MaxWeight = InputWeightCategory(weight.Text);
+                drone.Location = bl.GetBLBaseStation(InputIntValue(station.Text)).Location;
+                try
+                {
+                    bl.Add(drone, InputIntValue(station.Text));
+                    MessageBox.Show("drone was added successfully!");
+                    action();
+                    this.Close();
+                }
+                
+                catch (BLIntIdException exe)
+                {
+                    isvalid = false;
+                    m = MessageBox.Show("drone's id: " + exe.Id + " isn't valid!");
+
+                }
+                catch (IntIdException exe)
+                {
+                    isvalid = false;
+                    m = MessageBox.Show("drone's id: " + exe.Id + " isn't valid!");
+                }     
             }
         }
 
@@ -148,28 +148,6 @@ namespace PL
             action();
         }
 
-
-
-        private void Button_ClickToParcel(object sender, RoutedEventArgs e)
-        {
-            if (delivery.Text.ToString() == "0")
-            {
-                bl.AssociateParcel(InputIntValue(id.Text));
-            }
-            else if (bl.GetBLParcel(InputIntValue(delivery.Text)).PickUpDate == null)
-            {
-                bl.PickUpParcel(InputIntValue(id.Text));
-            }
-            else if (bl.GetBLParcel(InputIntValue(delivery.Text)).PickUpDate != null && bl.GetBLParcel(InputIntValue(delivery.Text)).SupplyDate == null)
-            {
-                bl.SupplyParcel(InputIntValue(delivery.Text));
-            }
-            else
-            {
-                MessageBox.Show("drone can not treat a parcel!");
-            }
-            action();
-        }
         private int InputIntValue(string str)
         {
             int numericalValue = 0;
@@ -209,6 +187,42 @@ namespace PL
         {
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private void button4_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                if (delivery.Text.ToString() == "0")
+                {
+                    bl.AssociateParcel(InputIntValue(id.Text));
+                }
+                else if (bl.GetBLParcel(InputIntValue(delivery.Text)).PickUpDate == null)
+                {
+                    bl.PickUpParcel(InputIntValue(id.Text));
+                }
+                else if (bl.GetBLParcel(InputIntValue(delivery.Text)).PickUpDate != null && bl.GetBLParcel(InputIntValue(delivery.Text)).SupplyDate == null)
+                {
+                    bl.SupplyParcel(InputIntValue(delivery.Text));
+                }
+                else
+                {
+                    MessageBox.Show("drone can not treat a parcel!");
+                }
+            }
+            catch (DroneStatusException exe)
+            {
+                MessageBox.Show("The action isn't valid, because the drone status: " + exe.Status + " isn't valid!");
+            }
+            catch(ParcelActionsException exe)
+            {
+                MessageBox.Show("The action " + exe.Action + " isn't valid!");
+            }
+            catch(ParcelStatusException exe)
+            {
+                MessageBox.Show("The action isn't valid, because the parcel status: " + exe.ParcelStatus + " isn't valid!");
+            }
+            action();
         }
     }
 
