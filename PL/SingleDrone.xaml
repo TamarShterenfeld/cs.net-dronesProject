@@ -109,6 +109,5 @@
                   Visibility="{Binding}"
                   ItemsSource="{Binding}"
                   SelectedIndex="0"/>
-            
-        </Grid>
+    </Grid>
 </Window>

@@ -45,8 +45,7 @@ namespace PL
         public SingleDrone(DroneForList droneForList, IBL.IBL bl, Action action)
             : this(bl, action)
         {
-            this.DataContext = "False";
-            station.DataContext = "False";
+            station.DataContext = id.DataContext = "False";
             Drone drone = bl.GetBLDrone(droneForList.Id);
             id.Text = drone.Id.ToString();
             model.Text = drone.Model;
