@@ -15,7 +15,7 @@ namespace IBL
         {
             int id;
             int parcelId;
-            double battery;
+            double battery = 100;
 
             public int Id
             {
