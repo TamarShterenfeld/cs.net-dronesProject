@@ -6,7 +6,7 @@ using static IDal.IDal;
 using static DalObject.DataSource;
 using System.Linq;
 using System.Reflection;
-
+using Singleton;
 
 namespace DalObject
 {
@@ -14,7 +14,7 @@ namespace DalObject
     ///the class DalObject contains all the needed methods 
     ///which are connected to the data (in DataSource class) of the program.
     /// </summary>
-    public partial class DalObject : IDal.IDal
+    sealed partial class DalObject : Singleton<DalObject>,IDal.IDal
     {
         // a constructor
         public DalObject()

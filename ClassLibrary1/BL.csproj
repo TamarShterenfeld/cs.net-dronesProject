@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DAL1\DAL.csproj" />
+    <ProjectReference Include="..\TemplateSingleton\TemplateSingleton.csproj" />
   </ItemGroup>
 
 </Project>
