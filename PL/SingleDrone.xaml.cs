@@ -136,15 +136,18 @@ namespace PL
                 {
                     case "Stop Charging":
                         {
-                            hlong.DataContext = "Collapsed";
+                            
+                            hlong.Visibility = howLong.Visibility = Visibility.Visible;
                             int timeCharge = InputIntValue(howLong.Text);
                             bl.ReleaseDroneFromRecharge(InputIntValue(id.Text), timeCharge);
+                            status.SelectedIndex = 0;
                             MessageBox.Show("drone stops charging!");
                             break;
                         }
                     case "Charging":
                         {
                             bl.SendDroneForCharge(InputIntValue(id.Text));
+                            status.SelectedIndex = 1;
                             MessageBox.Show("drone starts charging!");
                             break;
                         }
