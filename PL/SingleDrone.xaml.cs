@@ -61,7 +61,7 @@ namespace PL
             string[] chargeDroneOptions = { "Charging", "Stop Charging" };
             button3.DataContext = chargeDroneOptions;
             button4.DataContext = parcelOptions;
-         
+            button3.Visibility = button4.Visibility = Visibility.Visible;
             button2.Content = "Update";
         }
 
@@ -74,9 +74,9 @@ namespace PL
         {
             bool isvalid = true;
             MessageBoxResult m = new();
-            if (model.Text == "" || weight.Text == "")
+            if ( model.Text == "" || weight.Text == "" || id.Text == "" )
             {
-                MessageBox.Show("Model and Max Weight must have value!");
+                MessageBox.Show("Id, Model and Max-Weight must have value!");
             }
             else
             {

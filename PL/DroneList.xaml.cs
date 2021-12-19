@@ -22,6 +22,8 @@ namespace PL
     public partial class DroneList : Window
     {
         IBL.IBL bl;
+
+        Action currFilter;
         public DroneList(IBL.IBL bl)
         {
             this.bl = bl;
@@ -72,36 +74,37 @@ namespace PL
         {
             DroneListView.ItemsSource = (List<DroneForList>)bl.GetDronesForList();
         }
-       
+
+        private void FilterStatus()
+        {
+            Filter();
+            DroneStatuses status = (DroneStatuses)StatusFilter.SelectedItem;
+            DroneListView.ItemsSource = (List<DroneForList>)bl.GetStatusFilteredDroneForList(status);
+            
+        }
+
+        private void FilterWeight()
+        {
+                Filter();
+                WeightCategories weight = (WeightCategories)WeightFilter.SelectedItem;
+                DroneListView.ItemsSource = (List<DroneForList>)bl.GetWeightFilteredDroneForList(weight);
+        }
+
         private void StatusFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if( DroneListView.SelectedItems == null)
-            {
-                Filter();
-            }
-            else
-            {
-                DroneStatuses status = (DroneStatuses)StatusFilter.SelectedItem;
-                DroneListView.ItemsSource = (List<DroneForList>)bl.GetStatusFilteredDroneForList(status);               
-            }    
+            currFilter = FilterStatus;
+            FilterStatus();
         }
 
         private void WeightFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(DroneListView.SelectedItems == null)
-            {
-                Filter();
-            }
-            else
-            {
-                WeightCategories weight = (WeightCategories)WeightFilter.SelectedItem;
-                DroneListView.ItemsSource = (List<DroneForList>)bl.GetWeightFilteredDroneForList(weight);
-            }             
+            currFilter = FilterWeight;
+            FilterWeight();
         }
 
         private void Button_ClickAdd(object sender, RoutedEventArgs e)
         {
-            new SingleDrone(bl,Filter).Show();
+            new SingleDrone(bl, currFilter).Show();
         }
 
         private void Button_ClickClose(object sender, RoutedEventArgs e)
@@ -111,7 +114,7 @@ namespace PL
 
         private void DroneListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            new SingleDrone((e.OriginalSource as FrameworkElement).DataContext as IBL.BO.DroneForList, bl, Filter).Show();
+            new SingleDrone((e.OriginalSource as FrameworkElement).DataContext as IBL.BO.DroneForList, bl, currFilter).Show();
         }
     }
 }
