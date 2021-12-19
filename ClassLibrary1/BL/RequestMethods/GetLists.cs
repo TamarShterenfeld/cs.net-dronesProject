@@ -89,6 +89,7 @@ namespace IBL
                 Coordinate coorLongitude = new Coordinate(rand.Next(0, 180) * 0.6 + rand.Next(-180, 0) * 0.4, Locations.Longitude);
                 Coordinate coorLatitude = new Coordinate(rand.Next(0, 180) * 0.4 + rand.Next(-180, 0) * 0.6, Locations.Latitude);
                 singleDrone.Location = new Location(coorLongitude, coorLatitude);
+
                 droneForList.Add(singleDrone);
             }
             return droneForList;
