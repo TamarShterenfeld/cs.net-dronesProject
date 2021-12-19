@@ -187,7 +187,7 @@ namespace IBL
                     if (baseStation.ChargeSlots == 0)
                         throw new BLChargeSlotsException(0);
                     if (battery < 0)
-                        throw new BatteryException(battery);
+                        throw new BatteryException(drone.Battery);
                     drone.Battery = battery;
                     drone.Location = baseStation.Location;
                     drone.Status = DroneStatuses.Maintenance;

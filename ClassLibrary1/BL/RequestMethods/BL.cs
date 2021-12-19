@@ -67,7 +67,24 @@ namespace IBL
                 }
                 else
                 {
-                    dronesForList[i].Status = (BO.DroneStatuses)rand.Next(1, 3);
+                    DroneStatuses status = (BO.DroneStatuses)rand.Next(1, 3);
+                    if(status == DroneStatuses.Maintenance)
+                    {
+                        dronesForList[i].Status = DroneStatuses.Available;
+                        try
+                        {
+                            SendDroneForCharge(dronesForList[i].Id);
+                        }
+                        catch (BatteryException exe)
+                        {
+                            dronesForList[i].Status = DroneStatuses.Available;
+                        }
+                    }
+                    else
+                    {
+                        dronesForList[i].Status = status;
+                    }
+                        
                     List<BO.BaseStation> baseStationList = (List<BO.BaseStation>)GetBOBaseStationsList();
                     List<BO.Customer> customersList = (List<BO.Customer>)GetBOCustomersList();
                     switch (dronesForList[i].Status)
