@@ -7,9 +7,9 @@
         mc:Ignorable="d"
         
         Title="Drone" Height="650" Width="800">
-    <Window.Background>
+    <!--<Window.Background>
         <ImageBrush ImageSource="bg.JPG" />
-    </Window.Background>
+    </Window.Background>-->
     <Grid x:Name ="curdrone">
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>

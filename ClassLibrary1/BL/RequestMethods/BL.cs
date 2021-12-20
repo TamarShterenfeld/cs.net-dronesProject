@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using IBL.BO;
 using Singleton;
+using IDal.DO;
 
 namespace IBL
 {
@@ -13,7 +14,7 @@ namespace IBL
     /// which has the responsibility of pull & calaulating lists, object etc. from the DAL logic level
     /// the pulling of data from the DAL logic level is done by an IDal object - a field in the BL class.
     /// </summary>
-    sealed partial class BL :Singleton<BL>, IBL
+    sealed partial class BL : Singleton<BL>, IBL
     {
         //the single object which has the responsibility of pulling the data from the DAl logic level.
         internal IDal.IDal dal;
@@ -67,14 +68,16 @@ namespace IBL
                 else
                 {
                     DroneStatuses status = (BO.DroneStatuses)rand.Next(1, 3);
-                    if(status == DroneStatuses.Maintenance)
+                    if (status == DroneStatuses.Maintenance)
                     {
-                        dronesForList[i].Status = DroneStatuses.Available;
-                        try
+                        List<BO.BaseStation> baseStations = GetBOBaseStationsList().ToList();
+                        BO.BaseStation baseStation = baseStations[rand.Next(0, baseStations.Count - 1)];
+                        if(baseStation.ChargeSlots > 0)
                         {
-                            SendDroneForCharge(dronesForList[i].Id);
+                            dronesForList[i].Status = DroneStatuses.Maintenance;
+                            dal.SendDroneToRecharge(dronesForList[i].Id, baseStation.Id);
                         }
-                        catch (BatteryException exe)
+                        else
                         {
                             dronesForList[i].Status = DroneStatuses.Available;
                         }
@@ -83,7 +86,7 @@ namespace IBL
                     {
                         dronesForList[i].Status = status;
                     }
-                        
+
                     List<BO.BaseStation> baseStationList = (List<BO.BaseStation>)GetBOBaseStationsList();
                     List<BO.Customer> customersList = (List<BO.Customer>)GetBOCustomersList();
                     switch (dronesForList[i].Status)
