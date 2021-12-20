@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="MainWindow" Height="640" Width="800"
+        Title="MainWindow" Height="640" Width="800" 
        >
     <Grid Name="MainGrid">
         <Grid.RowDefinitions>
@@ -21,15 +21,12 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
         </Grid>
-        <Button Content="all drones" HorizontalAlignment="Left" Margin="350,58,0,0" Grid.Row="1" VerticalAlignment="Top" Click="Button_Click"/>
+        <Button Content="all drones" BorderThickness="0.5" HorizontalAlignment="Left" Margin="350,58,0,0" Grid.Row="1"
+                VerticalAlignment="Top" Background="Turquoise" Click="Button_Click"/>
+        
         <Grid Name="myGird" Width="800" Height="225">
-            <!--<Grid.Background>
-                <ImageBrush ImageSource="BackgroundDesign.jpg"></ImageBrush>
-            </Grid.Background>-->
+
         </Grid>
-        <!--<Window>
-            <ImageBrush ImageSource="BackgroundDesign.jpg" Stretch="Fill" />
-        </Window>-->
 
     </Grid>
 </Window>
