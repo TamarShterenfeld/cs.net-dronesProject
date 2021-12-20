@@ -5,6 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="GoogleMaps.LocationServices" Version="1.2.0.5" />
+    <PackageReference Include="Material.Icons" Version="1.0.66" />
+    <PackageReference Include="MaterialDesignColors" Version="2.0.4" />
+    <PackageReference Include="MaterialDesignThemes" Version="4.3.0" />
+    <PackageReference Include="MediaKit.Animations" Version="0.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\DAL3\DAL.csproj" />
   </ItemGroup>
 
