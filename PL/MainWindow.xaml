@@ -5,30 +5,42 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="MainWindow" Height="640" Width="800" 
-       >
-   
-    <Grid Name="MainGrid" Margin="0,-18,0,18">
+        >
+
+    <Grid Name="MainGrid2">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
         <Grid.RowDefinitions>
-            <RowDefinition Height="50*"/>
-            <RowDefinition Height="400*"/>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Grid Name="UpGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"
-             VerticalAlignment="Stretch" Width="auto">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions >
-        </Grid>
-        <Button Content="all drones" BorderThickness="0.5" HorizontalAlignment="Left" Margin="350,58,0,0" Grid.Row="1"
-                VerticalAlignment="Top" Background="Turquoise" Click="Button_Click"/>
 
-        <Grid Name="myGird" Width="800" Height="225">
+        <Image
+                Source="BackgroundDesign.jpg" 
+     
+            Margin="0,29,0,-29"
+            Grid.Column="0"
+            Grid.Row="0"
+            Grid.RowSpan="5"
+            Grid.ColumnSpan="4"
+            />
 
-        </Grid>
-
+        <Button 
+            Content="all drones" 
+            BorderThickness="0.5"
+            HorizontalAlignment="Left"
+            Margin="350,32,0,0" 
+            Grid.Row="1"
+            Grid.Column="0"
+                VerticalAlignment="Top" Background="Turquoise" Click="Button_Click"
+            ToolTip="Resource name: MaterialDesignRaisedSecondaryLightButton"
+              IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" />
     </Grid>
     
+
 </Window>
