@@ -26,9 +26,6 @@ namespace PL
         public MainWindow()
         {
             bl = new BL();
-            //ImageBrush b = new ImageBrush();
-            //b.ImageSource = new BitmapImage(new Uri("PL/BackgroundDesign.jpg"));
-            //myGird.Background = b;
             InitializeComponent();
         }
 
