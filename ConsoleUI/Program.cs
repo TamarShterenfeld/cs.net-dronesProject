@@ -6,14 +6,14 @@
 
 
 
-//namespace ConsoleUI
-//{
-//    public partial class Program
-//    {
-//        static void Main()
-//        {
-//            navigateMenue();
-//        }
-//    }
-//}
+namespace ConsoleUI
+{
+    public partial class Program
+    {
+        static void Main()
+        {
+            //navigateMenue();
+        }
+    }
+}
 

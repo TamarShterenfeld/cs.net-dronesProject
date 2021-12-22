@@ -5,69 +5,67 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace IBL
+namespace BO
 {
-    namespace BO
+    /// <summary>
+    /// the class contains all the DroneInParcel's needed details.
+    /// </summary>
+    public class DroneInParcel 
     {
-        /// <summary>
-        /// the class contains all the DroneInParcel's needed details.
-        /// </summary>
-        public class DroneInParcel 
+        int id;
+        double battery;
+        public int Id
         {
-            int id;
-            double battery;
-            public int Id
+            set
             {
-                set
+                if (value < 0)
                 {
-                    if (value < 0)
-                    {
-                        throw new BLIntIdException(value);
-                    }
-                    id = value;
+                    throw new BLIntIdException(value);
                 }
-                get { return id; }
+                id = value;
             }
-            public double Battery
+            get { return id; }
+        }
+        public double Battery
+        {
+            set
             {
-                set
-                {
-                    if (value < 0)
-                        throw new BatteryException(value);
-                    battery = value;
-                }
-                get
-                {
-                    return battery;
-                }
+                if (value < 0)
+                    throw new BatteryException(value);
+                battery = value;
             }
-            public Location CurrentLocation { get; set; }
-
-            /// <summary>
-            /// a constructor with parameters
-            /// </summary>
-            /// <param name="id"> DroneInPaecel's id </param>
-            /// <param name="battery"> DroneInPaecel's battery </param>
-            /// <param name="current"> DroneInPaecel's current location </param>
-            public DroneInParcel(int id,double battery,Location current)
+            get
             {
-                this.id = id;
-                Id = id; Battery = battery; CurrentLocation = current;
-            }
-
-            // default constructor
-            public DroneInParcel(){}
-
-            /// <summary>
-            /// override ToString function.
-            /// </summary>
-            /// <returns>description of DroneInPaecel objectreturns>
-            public override string ToString()
-            {
-                return $"id: { Id } \n" +
-                       $"battery: { Battery } " + "%" + "\n"+
-                       $"current location: { CurrentLocation }" ;
+                return battery;
             }
         }
+        public Location CurrentLocation { get; set; }
+
+        /// <summary>
+        /// a constructor with parameters
+        /// </summary>
+        /// <param name="id"> DroneInPaecel's id </param>
+        /// <param name="battery"> DroneInPaecel's battery </param>
+        /// <param name="current"> DroneInPaecel's current location </param>
+        public DroneInParcel(int id,double battery,Location current)
+        {
+            this.id = id;
+            Id = id; Battery = battery; CurrentLocation = current;
+        }
+
+        // default constructor
+        public DroneInParcel(){}
+
+        /// <summary>
+        /// override ToString function.
+        /// </summary>
+        /// <returns>description of DroneInPaecel objectreturns>
+        public override string ToString()
+        {
+            return $"id: { Id } \n" +
+                    $"battery: { Battery } " + "%" + "\n"+
+                    $"current location: { CurrentLocation }" ;
+        }
     }
+    
 }

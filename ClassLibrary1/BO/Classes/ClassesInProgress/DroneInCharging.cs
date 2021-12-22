@@ -4,68 +4,66 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IBL
+namespace BO
 {
-    namespace BO
+    /// <summary>
+    /// the class contains all the DroneInCharging's needed details.
+    /// </summary>
+    public class DroneInCharging
     {
-        /// <summary>
-        /// the class contains all the DroneInCharging's needed details.
-        /// </summary>
-        public class DroneInCharging
+        int id;
+        double battery;
+        public int Id
         {
-            int id;
-            double battery;
-            public int Id
+            set
             {
-                set
+                if (value < 0)
                 {
-                    if (value < 0)
-                    {
-                        throw new BLIntIdException(value);
-                    }
-                    id = value;
+                    throw new BLIntIdException(value);
                 }
-                get { return id; }
+                id = value;
             }
-            public double Battery
+            get { return id; }
+        }
+        public double Battery
+        {
+            set
             {
-                set
-                {
-                    if (value < 0 || value >100)
-                        throw new BatteryException(value);
-                    battery = value;
-                }
-                get
-                {
-                    return battery;
-                }
+                if (value < 0 || value >100)
+                    throw new BatteryException(value);
+                battery = value;
             }
-
-            /// <summary>
-            /// a constructor with parameters
-            /// </summary>
-            /// <param name="id"> DroneInPaecel's id </param>
-            /// <param name="battery"> DroneInPaecel's battery </param>
-            public DroneInCharging(int id, double battery)
+            get
             {
-                this.id = id;
-                Id = id; Battery = battery;
+                return battery;
             }
+        }
 
-            // default constructor
-            public DroneInCharging(){}
+        /// <summary>
+        /// a constructor with parameters
+        /// </summary>
+        /// <param name="id"> DroneInPaecel's id </param>
+        /// <param name="battery"> DroneInPaecel's battery </param>
+        public DroneInCharging(int id, double battery)
+        {
+            this.id = id;
+            Id = id; Battery = battery;
+        }
 
-            /// <summary>
-            /// override ToString function.
-            /// </summary>
-            /// <returns>description of DroneInCharging object</returns>
-            public override string ToString()
-            {
-                return $"id: { Id } \n" +
-                       $"battery: { Battery }" + "%" ;
-            }
+        // default constructor
+        public DroneInCharging(){}
 
+        /// <summary>
+        /// override ToString function.
+        /// </summary>
+        /// <returns>description of DroneInCharging object</returns>
+        public override string ToString()
+        {
+            return $"id: { Id } \n" +
+                    $"battery: { Battery }" + "%" ;
         }
 
     }
+
+    
 }

@@ -5,9 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using static ConsoleUI_BL.Program;
 using IBL;
-using IBL.BO;
-using IDal.DO;
-using DAL.DO;
+using BO;
+using DO;
 
 namespace ConsoleUI_BL
 {/// <summary>
@@ -15,7 +14,7 @@ namespace ConsoleUI_BL
  /// </summary>
     public class UpDateOption : ISubNavigate
     {
-        public void Options(ref BL bl)
+        public void Options(ref BLApi.IBL bl)
         {
             int id;
             double timeCharge;

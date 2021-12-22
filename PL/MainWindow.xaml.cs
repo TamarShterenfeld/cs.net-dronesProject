@@ -22,10 +22,10 @@ namespace PL
     /// </summary>
     public partial class MainWindow : Window
     {
-        public IBL.IBL bl ;
+        public BLApi.IBL bl ;
         public MainWindow()
         {
-            bl = new BL();
+            bl = BLApi.BLFactory.GetBl();
             InitializeComponent();
         }
 

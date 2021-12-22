@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IBL.BO
+namespace BO
 {
-    
+
     /// <summary>
     /// an static class which was created for giving the possibility for ILocatable objects 
     /// to use its methods as if the method appeared in their original class.

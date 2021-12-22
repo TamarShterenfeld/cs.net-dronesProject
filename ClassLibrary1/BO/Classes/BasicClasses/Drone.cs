@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 
 
-namespace IBL.BO
+namespace BO
 {
     /// <summary>
     /// the class Drone contains all the needed details for creating a drone object.

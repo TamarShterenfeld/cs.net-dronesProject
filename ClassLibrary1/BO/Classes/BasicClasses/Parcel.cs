@@ -1,15 +1,14 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IBL.BO
+namespace BO
 {
-   /// <summary>
-   /// the class contains all the parcel's needed  details.
-   /// </summary>
+    /// <summary>
+    /// the class contains all the parcel's needed  details.
+    /// </summary>
     public class Parcel
     {
         int id;

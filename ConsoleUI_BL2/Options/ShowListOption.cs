@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IBL.BO;
+using BO;
 using IBL;
-using DAL.DO;
+using DO;
 
 namespace ConsoleUI_BL
 {/// <summary>
@@ -14,7 +14,7 @@ namespace ConsoleUI_BL
     public class ShowListOption : ISubNavigate, IShowList
     {
 
-        public void Options(ref BL bl)
+        public void Options(ref BLApi.IBL bl)
         {
             Console.WriteLine("Please enter: \n1- For base stations list\n2- For drones list\n3- For customers list\n4- For parcels list\n5- For not associated parcels list\n6- For base stations with available charge slots");
             if (int.TryParse(Console.ReadLine(), out int innerChoice))

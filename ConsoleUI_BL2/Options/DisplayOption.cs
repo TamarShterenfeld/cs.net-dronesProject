@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static ConsoleUI_BL.Program;
-using IBL.BO;
+using BO;
 using IBL;
-using DAL.DO;
+using DO;
 
 namespace ConsoleUI_BL
 {
@@ -17,7 +17,7 @@ namespace ConsoleUI_BL
     public class DisplayOption : ISubNavigate
     {
         /// <inheritdoc />
-        public void Options(ref BL bl)
+        public void Options(ref BLApi.IBL bl)
         {
             int parcelId, droneId, baseStationId;
             string customerId;

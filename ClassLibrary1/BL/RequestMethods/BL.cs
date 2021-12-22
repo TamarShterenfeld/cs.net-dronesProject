@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IBL.BO;
+using BO;
 using Singleton;
-using IDal.DO;
 
 namespace IBL
 {
@@ -14,20 +13,19 @@ namespace IBL
     /// which has the responsibility of pull & calaulating lists, object etc. from the DAL logic level
     /// the pulling of data from the DAL logic level is done by an IDal object - a field in the BL class.
     /// </summary>
-    sealed partial class BL : Singleton<BL>, IBL
+    sealed public partial class BL : Singleton<BL>, BLApi.IBL
     {
         //the single object which has the responsibility of pulling the data from the DAl logic level.
-        internal IDal.IDal dal;
+        internal DalApi.IDal dal;
         readonly List<DroneForList> dronesForList;
         readonly double electricityConsumingOfAvailable;
         readonly double electricityConsumingOfLightWeight;
         readonly double electricityConsumingOfHeavyWeight;
         readonly double electricityConsumingOfAverageWeight;
         readonly double chargeRate;
-
-        public BL()
+        BL()
         {
-            dal = new DalObject.DalObject();
+            dal = DalApi.DalFactory.GetDal();
             dronesForList = (List<DroneForList>)InitDroneForList();
             double[] droneElectricityInfo = dal.ElectricityConsuming();
             electricityConsumingOfAvailable = droneElectricityInfo[0];

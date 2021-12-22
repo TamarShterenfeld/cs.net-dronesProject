@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IBL.BO;
+using BO;
 
 namespace IBL
 {
-    public partial class BL : IBL
+    public partial class BL 
     {
         //----------------------------------Other GetObject Methods---------------------------------
         /// <summary>
@@ -90,7 +90,7 @@ namespace IBL
         /// </summary>
         /// <param name="parcel">the IDal.DO parcel object</param>
         /// <returns>a BO.Parcel object</returns>
-         Parcel ParcelDOtOBO(IDal.DO.Parcel parcel)
+         Parcel ParcelDOtOBO(DO.Parcel parcel)
         {
             Parcel BOParcel = new()
             {
@@ -113,9 +113,9 @@ namespace IBL
         /// </summary>
         /// <param name="coor">BO coordinate</param>
         /// <returns>DO coordinate</returns>
-        static IDal.DO.Coordinate CoordinateBoToDo(BO.Coordinate coor)
+        static DO.Coordinate CoordinateBoToDo(BO.Coordinate coor)
         {
-            return new IDal.DO.Coordinate() { InputCoorValue = coor.InputCoorValue, Degrees = coor.Degrees, Direction = (IDal.DO.Directions)coor.Direction, MyLocation = (IDal.DO.Locations)coor.MyLocation , Minutes = coor.Minutes, Seconds = coor.Seconds};
+            return new DO.Coordinate() { InputCoorValue = coor.InputCoorValue, Degrees = coor.Degrees, Direction = (DO.Directions)coor.Direction, MyLocation = (DO.Locations)coor.MyLocation , Minutes = coor.Minutes, Seconds = coor.Seconds};
         }
 
         /// <summary>
@@ -123,7 +123,7 @@ namespace IBL
         /// </summary>
         /// <param name="coor">DO coordinate</param>
         /// <returns>BO coordinate</returns>
-         static BO.Coordinate CoordinateDoToBo(IDal.DO.Coordinate coor)
+         static BO.Coordinate CoordinateDoToBo(DO.Coordinate coor)
         {
             return new BO.Coordinate() { InputCoorValue = coor.InputCoorValue, Degrees = coor.Degrees, Direction = (BO.Directions)coor.Direction, MyLocation = (BO.Locations)coor.MyLocation, Minutes = coor.Minutes, Seconds = coor.Seconds };
         }

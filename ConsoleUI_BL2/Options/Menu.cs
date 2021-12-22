@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using static System.Environment;
 using IBL;
-using IBL.BO;
 
 
 namespace ConsoleUI_BL
@@ -19,14 +18,14 @@ namespace ConsoleUI_BL
     /// </summary>
     public class Menu
     {
-        BL bl;
+        BLApi.IBL bl;
         readonly AddOption add;
         readonly UpDateOption upDate;
         readonly DisplayOption display;
         readonly ShowListOption show;
         public Menu()
         {
-            bl = new IBL.BL();
+            bl = BLApi.BLFactory.GetBl();
             add = new();
             upDate = new();
             display = new();

@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DAL.DO;
 
 
-namespace IBL.BO
+namespace BO
 {
     /// <summary>
     /// the class BaseStationForList contains all the baseStation's details
     /// that we want to show to the client.
     /// </summary>
-   public  class BaseStationForList
+    public  class BaseStationForList
     {
         private int id;
         public int Id

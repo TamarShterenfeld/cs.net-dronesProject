@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using static DalObject.DataSource;
-using IBL.BO;
+using BO;
 using System.Linq;
 using System.Numerics;
-using static IBL.BO.Locatable;
 
 
 
 namespace IBL
 {
-    public partial class BL : IBL
+    public partial class BL 
     {
 
         //----------------------------------BaseStation GetObject Methods---------------------------------
@@ -86,7 +84,7 @@ namespace IBL
 
         //----------------------------------Parcel GetObject Methods---------------------------------
 
-        public ParcelStatuses ParcelStatus(IDal.DO.Parcel parcel)
+        public ParcelStatuses ParcelStatus(DO.Parcel parcel)
         {
             DateTime? time = new();
             if (parcel.AssociationDate == time)
@@ -148,7 +146,7 @@ namespace IBL
         //----------------------------------Customer GetObject Methods---------------------------------
         public Customer GetBLCustomer(string id)
         {
-            IDal.DO.Customer customer = dal.GetCustomer(id);
+            DO.Customer customer = dal.GetCustomer(id);
             return ConvertCustomerDoToBo(customer);
 
         }
