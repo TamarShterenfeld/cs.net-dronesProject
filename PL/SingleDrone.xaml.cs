@@ -46,23 +46,26 @@ namespace PL
             : this(bl, action)
         {
             station.DataContext = id.DataContext = "False";
-            Drone drone = bl.GetBLDrone(droneForList.Id);
-            id.Text = drone.Id.ToString();
-            model.Text = drone.Model;
-            weight.IsEnabled = false;
-            weight.SelectedItem = drone.MaxWeight;
-            battery.Text = drone.Battery.ToString() + "%";
-            status.SelectedItem = drone.Status;
-            delivery.Text = drone.Parcel.Id.ToString();
-            longitude.Text = drone.Location.CoorLongitude.ToString();
-            latitude.Text = drone.Location.CoorLatitude.ToString();
-            station.DataContext = Lstation.DataContext = "Collapsed";
-            string[] parcelOptions = { "Associate Parcel", "Pick Up Parcel", "Supply Parcel" };
-            string[] chargeDroneOptions = { "Charging", "Stop Charging" };
-            button3.DataContext = chargeDroneOptions;
-            button4.DataContext = parcelOptions;
-            button3.Visibility = button4.Visibility = Visibility.Visible;
-            button2.Content = "Update";
+            if (droneForList != null)
+            {
+                Drone drone = bl.GetBLDrone(droneForList.Id);
+                id.Text = drone.Id.ToString();
+                model.Text = drone.Model;
+                weight.IsEnabled = false;
+                weight.SelectedItem = drone.MaxWeight;
+                battery.Text = drone.Battery.ToString() + "%";
+                status.SelectedItem = drone.Status;
+                delivery.Text = drone.Parcel.Id.ToString();
+                longitude.Text = drone.Location.CoorLongitude.ToString();
+                latitude.Text = drone.Location.CoorLatitude.ToString();
+                station.DataContext = Lstation.DataContext = "Collapsed";
+                string[] parcelOptions = { "Associate Parcel", "Pick Up Parcel", "Supply Parcel" };
+                string[] chargeDroneOptions = { "Charging", "Stop Charging" };
+                button3.DataContext = chargeDroneOptions;
+                button4.DataContext = parcelOptions;
+                button3.Visibility = button4.Visibility = Visibility.Visible;
+                button2.Content = "Update";
+            }          
         }
 
         private void Button_ClickCancel(object sender, RoutedEventArgs e)
@@ -72,7 +75,6 @@ namespace PL
 
         private void Button_ClickAdd()
         {
-            bool isvalid = true;
             MessageBoxResult m = new();
             if ( model.Text == "" || weight.Text == "" || id.Text == "" )
             {
@@ -95,13 +97,11 @@ namespace PL
                 
                 catch (BLIntIdException exe)
                 {
-                    isvalid = false;
                     m = MessageBox.Show("drone's id: " + exe.Id + " isn't valid!");
 
                 }
                 catch (IntIdException exe)
                 {
-                    isvalid = false;
                     m = MessageBox.Show("drone's id: " + exe.Id + " isn't valid!");
                 }     
             }
@@ -136,12 +136,21 @@ namespace PL
                 {
                     case "Stop Charging":
                         {
+                            bool isTime = false;
                             
-                            hlong.Visibility = howLong.Visibility = Visibility.Visible;
-                            int timeCharge = InputIntValue(howLong.Text);
-                            bl.ReleaseDroneFromRecharge(InputIntValue(id.Text), timeCharge);
-                            status.SelectedIndex = 0;
-                            MessageBox.Show("drone stops charging!");
+                            hlong.Visibility = TimeText.Visibility = Visibility.Visible;
+                            Key key = new();
+                            if( key == Key.None)
+                            {
+                                MessageBox.Show("Enter the charge Duration in the suitable field");
+                            }
+                            while ( isTime == false && Keyboard.IsKeyDown(key))
+                            {          
+                                if(key != Key.None)
+                                {
+                                    MessageBox.Show("the field 'Charge Duration' must be filled!");
+                                }
+                            }
                             break;
                         }
                     case "Charging":
@@ -254,6 +263,14 @@ namespace PL
                 MessageBox.Show("The action isn't valid, because the parcel status: " + exe.ParcelStatus + " isn't valid!");
             }
             action();
+        }
+
+        private void Time_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            int timeCharge = InputIntValue(Time.Text);
+            bl.ReleaseDroneFromRecharge(InputIntValue(id.Text), timeCharge);
+            status.SelectedIndex = 0;
+            MessageBox.Show("drone stops charging!");
         }
     }
 
