@@ -51,8 +51,8 @@
             <Button 
             Content="all drones" 
             BorderThickness="0.5"
-            HorizontalAlignment="Left"
-            Margin="175,82,0,0" 
+            HorizontalAlignment="Center"
+            Margin="0,94,0,0" 
             Grid.Row="1"
             Grid.Column="1"
                 VerticalAlignment="Top" Background="Turquoise" Click="Button_Click"

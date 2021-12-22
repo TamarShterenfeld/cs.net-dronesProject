@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         
         Title="Drone" Height="650" Width="800">
-    <Grid x:Name ="curdrone">
+    <Grid x:Name ="curdrone" Height="634" VerticalAlignment="Top">
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
             <RowDefinition Height="*"/>
@@ -18,7 +18,8 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="2*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.7*"/>
@@ -111,16 +112,19 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
         </Grid>
-        <Grid x:Name="hlong" Grid.Column="1" Margin="0,26,27,0" Grid.Row="8" Grid.RowSpan="2" Height="107" VerticalAlignment="Top" Grid.ColumnSpan="2">
-            <TextBox x:Name="Time"
-            TextWrapping="Wrap" 
+
+        <TextBox x:Name="Time"
             Width="140" 
             IsEnabled="{Binding}"
-          
-            PreviewTextInput="PreviewTextInput" TextAlignment="Left" Margin="143,-23,37,23" TextChanged="Time_TextChanged" />
-            <TextBlock x:Name="TimeText" Text="Charge Duration:" Visibility="Collapsed" Foreground="#FF3F3F3F" Margin="0,69,222,0"/>
-
-        </Grid>
+                   Visibility="Collapsed"
+           PreviewTextInput="PreviewTextInput" TextAlignment="Left" Margin="63,17,63,34" TextChanged="Time_TextChanged" Grid.RowSpan="2" Grid.Row="8" Grid.Column="2" />
+        <TextBlock x:Name="TimeText"  Visibility="Collapsed" Text="Charge Duration:" Grid.Row="9" Foreground="#FF3F3F3F" Grid.ColumnSpan="3" Margin="186,53,245,15"/>
+        <TextBox x:Name="id_Copy" Grid.Column="2"
+            TextWrapping="Wrap" 
+            Width="140" 
+           TextAlignment="Left" Margin="63,27,63,26" Grid.Row="10"/>
+        <TextBlock Grid.Row= "8" Grid.Column="1" Foreground="#FF3F4245" Grid.ColumnSpan="2" Margin="0,53,266,0" Grid.RowSpan="2"><Run FlowDirection="RightToLeft" Language="he-il" Text="S"/><Run Text="tation ID:"/></TextBlock>
+        
 
     </Grid>
 </Window>

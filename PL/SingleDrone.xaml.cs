@@ -135,21 +135,20 @@ namespace PL
                 switch (button3.SelectedItem)
                 {
                     case "Stop Charging":
-                        {
-                            bool isTime = false;
-                            
-                            hlong.Visibility = TimeText.Visibility = Visibility.Visible;
+                        { 
+                           
                             Key key = new();
                             if( key == Key.None)
                             {
                                 MessageBox.Show("Enter the charge Duration in the suitable field");
+                            
+                                TimeText.Visibility = Visibility.Visible;
+                                Time.Visibility = Visibility.Visible;
                             }
-                            while ( isTime == false && Keyboard.IsKeyDown(key))
-                            {          
-                                if(key != Key.None)
-                                {
+                            while (key != Key.None&& Keyboard.IsKeyDown(key))
+                        {          
+                              
                                     MessageBox.Show("the field 'Charge Duration' must be filled!");
-                                }
                             }
                             break;
                         }
@@ -271,6 +270,10 @@ namespace PL
             bl.ReleaseDroneFromRecharge(InputIntValue(id.Text), timeCharge);
             status.SelectedIndex = 0;
             MessageBox.Show("drone stops charging!");
+          
+            TimeText.Visibility = Visibility.Collapsed;
+            Time.Visibility = Visibility.Collapsed;
+
         }
     }
 
