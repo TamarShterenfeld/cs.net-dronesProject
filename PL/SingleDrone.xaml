@@ -112,19 +112,15 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
         </Grid>
+        <TextBlock Grid.Row= "8" Grid.Column="1" Foreground="#FF3F4245" Grid.ColumnSpan="2" Margin="0,53,266,0" Grid.RowSpan="2"><Run FlowDirection="RightToLeft" Language="he-il" Text="S"/><Run Text="tation ID:"/></TextBlock>
 
         <TextBox x:Name="Time"
             Width="140" 
-            IsEnabled="{Binding}"
-                   Visibility="Collapsed"
-           PreviewTextInput="PreviewTextInput" TextAlignment="Left" Margin="63,17,63,34" TextChanged="Time_TextChanged" Grid.RowSpan="2" Grid.Row="8" Grid.Column="2" />
-        <TextBlock x:Name="TimeText"  Visibility="Collapsed" Text="Charge Duration:" Grid.Row="9" Foreground="#FF3F3F3F" Grid.ColumnSpan="3" Margin="186,53,245,15"/>
-        <TextBox x:Name="id_Copy" Grid.Column="2"
-            TextWrapping="Wrap" 
-            Width="140" 
-           TextAlignment="Left" Margin="63,27,63,26" Grid.Row="10"/>
-        <TextBlock Grid.Row= "8" Grid.Column="1" Foreground="#FF3F4245" Grid.ColumnSpan="2" Margin="0,53,266,0" Grid.RowSpan="2"><Run FlowDirection="RightToLeft" Language="he-il" Text="S"/><Run Text="tation ID:"/></TextBlock>
-        
+            IsEnabled="{Binding}"                  
+           PreviewTextInput="PreviewTextInput" TextAlignment="Left" Margin="63,25,63,26" TextChanged="Time_TextChanged" Grid.RowSpan="2" Grid.Row="9" Grid.Column="2" />
+        <TextBlock x:Name="TimeText"  Text="Charge Duration:" Grid.Row="10" Foreground="#FF3F3F3F" Grid.ColumnSpan="2" Margin="0,10,244,6" Grid.Column="1"/>
+
+
 
     </Grid>
 </Window>

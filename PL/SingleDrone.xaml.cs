@@ -65,7 +65,7 @@ namespace PL
                 button4.DataContext = parcelOptions;
                 button3.Visibility = button4.Visibility = Visibility.Visible;
                 button2.Content = "Update";
-            }          
+            }
         }
 
         private void Button_ClickCancel(object sender, RoutedEventArgs e)
@@ -76,7 +76,7 @@ namespace PL
         private void Button_ClickAdd()
         {
             MessageBoxResult m = new();
-            if ( model.Text == "" || weight.Text == "" || id.Text == "" )
+            if (model.Text == "" || weight.Text == "" || id.Text == "")
             {
                 MessageBox.Show("Id, Model and Max-Weight must have value!");
             }
@@ -94,7 +94,7 @@ namespace PL
                     action();
                     this.Close();
                 }
-                
+
                 catch (BLIntIdException exe)
                 {
                     m = MessageBox.Show("drone's id: " + exe.Id + " isn't valid!");
@@ -103,7 +103,7 @@ namespace PL
                 catch (IntIdException exe)
                 {
                     m = MessageBox.Show("drone's id: " + exe.Id + " isn't valid!");
-                }     
+                }
             }
         }
 
@@ -135,20 +135,16 @@ namespace PL
                 switch (button3.SelectedItem)
                 {
                     case "Stop Charging":
-                        { 
-                           
-                            Key key = new();
-                            if( key == Key.None)
+                        {
+
+                            Key key1 = new();
+                            Key key2 = new();
+                            if (key1 == Key.None)
                             {
                                 MessageBox.Show("Enter the charge Duration in the suitable field");
-                            
                                 TimeText.Visibility = Visibility.Visible;
                                 Time.Visibility = Visibility.Visible;
-                            }
-                            while (key != Key.None&& Keyboard.IsKeyDown(key))
-                        {          
-                              
-                                    MessageBox.Show("the field 'Charge Duration' must be filled!");
+                                key1 = Key.M;
                             }
                             break;
                         }
@@ -163,23 +159,23 @@ namespace PL
             }
             catch (DroneStatusException exe)
             {
-                MessageBox.Show("the drone status: "+ exe.Status +" isn't valid");
+                MessageBox.Show("the drone status: " + exe.Status + " isn't valid");
             }
-            catch(ChargeSlotsException exe)
-            {
-                MessageBox.Show("the chargeSlots: "+ exe.ChargeSlots+" isn't available!");
-            }
-            catch(BLChargeSlotsException exe)
+            catch (ChargeSlotsException exe)
             {
                 MessageBox.Show("the chargeSlots: " + exe.ChargeSlots + " isn't available!");
             }
-            catch(ParcelActionsException exe)
+            catch (BLChargeSlotsException exe)
             {
-                MessageBox.Show("the action of: "+ exe.Action+" wasn't completed successfully!");
+                MessageBox.Show("the chargeSlots: " + exe.ChargeSlots + " isn't available!");
             }
-            catch(BatteryException exe)
+            catch (ParcelActionsException exe)
             {
-                MessageBox.Show("the drone's battery: "+exe.Battery+" isn't enouph for reaching the  base station for charging!");
+                MessageBox.Show("the action of: " + exe.Action + " wasn't completed successfully!");
+            }
+            catch (BatteryException exe)
+            {
+                MessageBox.Show("the drone's battery: " + exe.Battery + " isn't enouph for reaching the  base station for charging!");
             }
             action();
         }
@@ -234,16 +230,21 @@ namespace PL
                 {
                     case "Associate Parcel":
                         {
+                            Time.Visibility = Visibility.Collapsed;
+                            TimeText.Visibility = Visibility.Collapsed;
                             bl.AssociateParcel(InputIntValue(id.Text));
                             break;
                         }
                     case "Pick Up Parcel":
                         {
+                            Time.Visibility = Visibility.Collapsed;
+                            TimeText.Visibility = Visibility.Collapsed;
                             bl.PickUpParcel(InputIntValue(id.Text));
                             break;
-                        }
-                    case "Supply Parcel":
+                        }                    case "Supply Parcel":
                         {
+                            Time.Visibility = Visibility.Collapsed;
+                            TimeText.Visibility = Visibility.Collapsed;
                             bl.SupplyParcel(InputIntValue(id.Text));
                             break;
                         }
@@ -253,11 +254,11 @@ namespace PL
             {
                 MessageBox.Show("The action isn't valid, because the drone status: " + exe.Status + " isn't valid!");
             }
-            catch(ParcelActionsException exe)
+            catch (ParcelActionsException exe)
             {
                 MessageBox.Show("The action " + exe.Action + " isn't valid!");
             }
-            catch(ParcelStatusException exe)
+            catch (ParcelStatusException exe)
             {
                 MessageBox.Show("The action isn't valid, because the parcel status: " + exe.ParcelStatus + " isn't valid!");
             }
@@ -270,7 +271,6 @@ namespace PL
             bl.ReleaseDroneFromRecharge(InputIntValue(id.Text), timeCharge);
             status.SelectedIndex = 0;
             MessageBox.Show("drone stops charging!");
-          
             TimeText.Visibility = Visibility.Collapsed;
             Time.Visibility = Visibility.Collapsed;
 
