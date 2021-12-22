@@ -50,7 +50,7 @@ namespace PL
             station.DataContext = id.DataContext = "False";
             if (droneForList != null)
             {
-                Drone drone = bl.GetBLDrone(droneForList.Id);
+                BO.Drone drone = bl.GetBLDrone(droneForList.Id);
                 id.Text = drone.Id.ToString();
                 model.Text = drone.Model;
                 weight.IsEnabled = false;
