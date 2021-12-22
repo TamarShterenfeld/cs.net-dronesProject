@@ -1,16 +1,16 @@
-﻿using IBL.BO;
+﻿using BO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace IBL
 {
-    public partial class BL : IBL
+    public partial class BL 
     {
 
         public void UpdateDrone(int droneId, string model)
-        {
-            IDal.DO.Drone drone = dal.GetDrone(droneId);
+        { 
+            DO.Drone drone = dal.GetDrone(droneId);
             drone.Model = model;
             dal.UpDate(drone, droneId);
             DroneForList droneForList = dronesForList.First(drone => drone.Id == droneId);
@@ -20,7 +20,7 @@ namespace IBL
 
         public void UpdateBaseStation(int baseStationId, string name, string chargeSlots)
         {
-            IDal.DO.BaseStation station = dal.GetBaseStation(baseStationId);
+            DO.BaseStation station = dal.GetBaseStation(baseStationId);
             if (name != null) { station.Name = name; }
             if (chargeSlots != null)
             {
@@ -36,7 +36,7 @@ namespace IBL
 
         public void UpdateCustomer(string customerId, string name, string phone)
         {
-            IDal.DO.Customer customer = dal.GetCustomer(customerId);
+            DO.Customer customer = dal.GetCustomer(customerId);
             if (name != null) { customer.Name = name; }
             if (phone != null) { customer.Phone = phone; }
             dal.UpDate(customer, customerId);
@@ -45,13 +45,13 @@ namespace IBL
         public void UpdateDrone(DroneForList droneForList)
         {
             UpDateDroneForList(droneForList);
-            IDal.DO.Drone drone = ConvertBoToDoDrone(ConvertDroneForListToDrone(droneForList));
+            DO.Drone drone = ConvertBoToDoDrone(ConvertDroneForListToDrone(droneForList));
             dal.UpDate(drone, drone.Id);
         }
 
         void UpDateBaseStation(BaseStation baseStation)
         {
-            IDal.DO.BaseStation baseStation1 = dal.GetBaseStation(baseStation.Id);
+            DO.BaseStation baseStation1 = dal.GetBaseStation(baseStation.Id);
             dal.UpDate(baseStation1, baseStation1.Id);
         }
         public void UpDateDroneForList(DroneForList droneForList)
@@ -61,7 +61,7 @@ namespace IBL
         }
         public void UpdateParcel(Parcel parcel)
         {
-            IDal.DO.Parcel parcel1 = ConvertBoToDoParcel(parcel);
+            DO.Parcel parcel1 = ConvertBoToDoParcel(parcel);
             dal.UpDate(parcel1, parcel1.Id);
         }
 
@@ -95,7 +95,7 @@ namespace IBL
                                 if (nearestBaseStation.ChargeSlots > 0)
                                 {
                                     currentDrone.Status = DroneStatuses.Maintenance;
-                                    IDal.DO.DroneCharge droneCharge = new() { DroneId = currentDrone.Id, StationId = nearestBaseStation.Id, EntryTime = DateTime.Now };
+                                    DO.DroneCharge droneCharge = new() { DroneId = currentDrone.Id, StationId = nearestBaseStation.Id, EntryTime = DateTime.Now };
                                     dal.Add(droneCharge);
                                 }
                             }
@@ -237,7 +237,7 @@ namespace IBL
                 //the chargeSlots is increased by one within the function 'Remove'
                 //which treats the case a removing of a droneCharge from DronesChargeList occurs.
                 UpDateDroneForList(drone);
-                IDal.DO.Drone drone1 = dal.GetDrone(drone.Id);
+                DO.Drone drone1 = dal.GetDrone(drone.Id);
                 dal.UpDate(drone1, drone1.Id);
                 dal.ReleaseDroneFromRecharge(drone.Id);
 

@@ -11,8 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using IBL;
-using IBL.BO;
+using BO;
 
 namespace PL
 {
@@ -21,10 +20,10 @@ namespace PL
     /// </summary>
     public partial class DroneList : Window
     {
-        IBL.IBL bl;
+        BLApi.IBL bl;
 
         Action currFilter;
-        public DroneList(IBL.IBL bl)
+        public DroneList(BLApi.IBL bl)
         {
             this.bl = bl;
             string[] categories = new string[2] {"status", "weight"};
@@ -114,7 +113,7 @@ namespace PL
 
         private void DroneListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            new SingleDrone((e.OriginalSource as FrameworkElement).DataContext as IBL.BO.DroneForList, bl, currFilter).Show();
+            new SingleDrone((e.OriginalSource as FrameworkElement).DataContext as DroneForList, bl, currFilter).Show();
         }
     }
 }

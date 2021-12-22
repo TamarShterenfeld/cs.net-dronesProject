@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IBL.BO;
+using BO;
 using static System.Math;
 
 namespace IBL
 {
-    public partial class BL : IBL
+    public partial class BL 
     {
         /// <summary>
         /// the function returns the nearest BaseStation to the input drone.

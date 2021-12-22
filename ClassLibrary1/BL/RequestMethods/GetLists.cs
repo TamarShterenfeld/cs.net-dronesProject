@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IBL.BO;
+using BO;
 
 using IBL;
 
 
 namespace IBL
 {
-    public partial class BL: IBL
+    public partial class BL
     {
         //a static random field - for general use.
         public static readonly Random rand = new();
@@ -18,8 +18,8 @@ namespace IBL
         public IEnumerable<BO.BaseStation> GetBOBaseStationsList()
         {
             List<BO.BaseStation> boBaseStationList = new();
-            List<IDal.DO.BaseStation> doBaseStationList = (List<IDal.DO.BaseStation>)dal.GetBaseStationsList();
-            foreach (IDal.DO.BaseStation item in doBaseStationList)
+            List<DO.BaseStation> doBaseStationList = (List<DO.BaseStation>)dal.GetBaseStationsList();
+            foreach (DO.BaseStation item in doBaseStationList)
             {
                 boBaseStationList.Add(GetBLBaseStation(item.Id));
             }
@@ -27,9 +27,9 @@ namespace IBL
         }
         public IEnumerable<BaseStationForList> GetAvailableChargeSlots()
         {
-            List<IDal.DO.BaseStation> DoAvailableChargeSlots = dal.AvailableChargeStations(station => station.ChargeSlots - dal.CaughtChargeSlots(station.Id) > 0).ToList();
+            List<DO.BaseStation> DoAvailableChargeSlots = dal.AvailableChargeStations(station => station.ChargeSlots - dal.CaughtChargeSlots(station.Id) > 0).ToList();
             List<BaseStationForList> BoAvailableChargeSlots = new();
-            foreach (IDal.DO.BaseStation item in DoAvailableChargeSlots)
+            foreach (DO.BaseStation item in DoAvailableChargeSlots)
             {
                 BoAvailableChargeSlots.Add(GetBaseStationForList(item.Id));
             }
@@ -54,7 +54,7 @@ namespace IBL
             List<DroneInCharging> droneInCharging = new();
             if (dal.DronesChargingInMe(drone => drone.StationId == stationId ).ToList() != null)
             {   
-                foreach (IDal.DO.DroneCharge droneCharge in dal.DronesChargingInMe(drone => drone.StationId == stationId).ToList())
+                foreach (DO.DroneCharge droneCharge in dal.DronesChargingInMe(drone => drone.StationId == stationId).ToList())
                 {
                     DroneInCharging drone = new(droneCharge.DroneId, rand.NextDouble()*40+60);
                     droneInCharging.Add(drone);
@@ -68,7 +68,7 @@ namespace IBL
         public IEnumerable<BO.Drone> GetBODronesList()
         {
             List<BO.Drone> BoDronesList = new();
-            List<IDal.DO.Drone> DoDronesList = (List<IDal.DO.Drone>)dal.GetDronesList();
+            List<DO.Drone> DoDronesList = (List<DO.Drone>)dal.GetDronesList();
             foreach (var item in DoDronesList)
             {
                 BoDronesList.Add(GetBLDrone(item.Id));
@@ -121,8 +121,8 @@ namespace IBL
         public IEnumerable<BO.Parcel> GetBOParcelsList()
         {
             List<BO.Parcel> boParcelList = new ();
-            List<IDal.DO.Parcel> doParcelList = (List<IDal.DO.Parcel>)dal.GetParcelsList();
-            foreach (IDal.DO.Parcel item in doParcelList)
+            List<DO.Parcel> doParcelList = (List<DO.Parcel>)dal.GetParcelsList();
+            foreach (DO.Parcel item in doParcelList)
             {
                 boParcelList.Add(GetBLParcel(item.Id));
             }
@@ -132,8 +132,8 @@ namespace IBL
         public IEnumerable<ParcelInCustomer> GetParcelInCustomerList(FromOrTo fromOrTo, string id)
         {
             List<ParcelInCustomer> parcelInCustomer = new();
-            List<IDal.DO.Parcel> ParcelList = dal.Parcels( parcel => (fromOrTo == FromOrTo.From && parcel.SenderId == id) || (fromOrTo == FromOrTo.To && parcel.TargetId == id)).ToList();
-            foreach (IDal.DO.Parcel parcel in ParcelList)
+            List<DO.Parcel> ParcelList = dal.Parcels( parcel => (fromOrTo == FromOrTo.From && parcel.SenderId == id) || (fromOrTo == FromOrTo.To && parcel.TargetId == id)).ToList();
+            foreach (DO.Parcel parcel in ParcelList)
             {
                 parcelInCustomer.Add(ConvertParcelDoToParcelInCustomer(parcel, fromOrTo));
             }
@@ -154,8 +154,8 @@ namespace IBL
         public IEnumerable<ParcelForList> GetNotAssociatedParcelsList()
         {
             List<ParcelForList> boNotAssociatedParcelsList = new ();
-            List<IDal.DO.Parcel> doNotAccosiatedParcelsList = dal.Parcels(parcel=> parcel.AssociationDate == null).ToList();
-            foreach (IDal.DO.Parcel item in doNotAccosiatedParcelsList)
+            List<DO.Parcel> doNotAccosiatedParcelsList = dal.Parcels(parcel=> parcel.AssociationDate == null).ToList();
+            foreach (DO.Parcel item in doNotAccosiatedParcelsList)
             {
                 boNotAssociatedParcelsList.Add(GetParcelForList(item.Id));
             }
@@ -168,8 +168,8 @@ namespace IBL
         public IEnumerable<BO.Customer> GetBOCustomersList()
         {
             List<BO.Customer> boCustomerList = new();
-            List<IDal.DO.Customer> doCustomerList = (List<IDal.DO.Customer>)dal.GetCustomersList();
-            foreach (IDal.DO.Customer item in doCustomerList)
+            List<DO.Customer> doCustomerList = (List<DO.Customer>)dal.GetCustomersList();
+            foreach (DO.Customer item in doCustomerList)
             {
                 boCustomerList.Add(GetBLCustomer(item.Id));
             }

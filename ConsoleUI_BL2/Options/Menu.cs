@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using static System.Environment;
 using IBL;
-using IBL.BO;
 
 
 namespace ConsoleUI_BL

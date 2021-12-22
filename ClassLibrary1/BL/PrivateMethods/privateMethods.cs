@@ -1,11 +1,11 @@
-﻿using IBL.BO;
+﻿using BO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace IBL
 {
-    public partial class BL : IBL
+    public partial class BL 
     {
         /// <summary>
         /// the function increases the parcel's index
@@ -14,7 +14,7 @@ namespace IBL
         /// <returns>the next parcel index</returns>
         public static int GetParcelIndex()
         {
-            return DalObject.DalObject.IncreaseParcelIndex();
+            return DalApi.DalFactory.GetDal().GetLastParcelId();    
         }
 
         /// <summary>

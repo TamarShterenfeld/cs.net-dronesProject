@@ -1,4 +1,6 @@
-﻿using IBL.BO;
+﻿using BO;
+using IBL;
+using DO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Globalization;
-using DAL.DO;
+
 
 namespace PL
 {
@@ -23,9 +25,9 @@ namespace PL
     /// </summary>
     public partial class SingleDrone : Window
     {
-        private IBL.IBL bl;
+        private BLApi.IBL bl;
         Action action;
-        public SingleDrone(IBL.IBL bl, Action action)
+        public SingleDrone(BLApi.IBL bl, Action action)
         {
             this.bl = bl;
             this.action = action;
@@ -33,7 +35,7 @@ namespace PL
             id.DataContext = model.DataContext = weight.DataContext = station.DataContext = "True";
             button3.DataContext = button4.DataContext = "Collapsed";
             status.DataContext = typeof(DroneStatuses).GetEnumValues();
-            weight.DataContext = typeof(WeightCategories).GetEnumValues();
+            weight.DataContext = typeof(BO.WeightCategories).GetEnumValues();
             List<string> str = new List<string>();
             foreach (var item in bl.GetBOBaseStationsList())
             {
@@ -42,11 +44,11 @@ namespace PL
             station.DataContext = str;
         }
 
-        public SingleDrone(DroneForList droneForList, IBL.IBL bl, Action action)
+        public SingleDrone(DroneForList droneForList, BLApi.IBL bl, Action action)
             : this(bl, action)
         {
             station.DataContext = id.DataContext = "False";
-            Drone drone = bl.GetBLDrone(droneForList.Id);
+            BO.Drone drone = bl.GetBLDrone(droneForList.Id);
             id.Text = drone.Id.ToString();
             model.Text = drone.Model;
             weight.IsEnabled = false;
@@ -80,7 +82,7 @@ namespace PL
             }
             else
             {
-                Drone drone = new Drone();
+                BO.Drone drone = new();
                 drone.Id = InputIntValue(id.Text);
                 drone.Model = model.Text;
                 drone.MaxWeight = InputWeightCategory(weight.Text);
@@ -186,20 +188,20 @@ namespace PL
             return numericalValue;
         }
 
-        private WeightCategories InputWeightCategory(string str)
+        private BO.WeightCategories InputWeightCategory(string str)
         {
             bool isExist1 = false;
             string currentEnum;
-            WeightCategories weight = WeightCategories.Average;
+            BO.WeightCategories weight = BO.WeightCategories.Average;
             //checking if the inputed category (string) exists in WeightCategories enum
             while (isExist1 == false)
             {
-                for (int i = 1; i <= Enum.GetNames(typeof(WeightCategories)).Length; i++)
+                for (int i = 1; i <= Enum.GetNames(typeof(BO.WeightCategories)).Length; i++)
                 {
-                    currentEnum = (string)Enum.GetNames(typeof(WeightCategories)).GetValue(i - 1);
+                    currentEnum = (string)Enum.GetNames(typeof(BO.WeightCategories)).GetValue(i - 1);
                     if (currentEnum == str || currentEnum.ToLower() == str)
                     {
-                        weight = (WeightCategories)i;
+                        weight = (BO.WeightCategories)i;
                         isExist1 = true;
                         break;
                     }

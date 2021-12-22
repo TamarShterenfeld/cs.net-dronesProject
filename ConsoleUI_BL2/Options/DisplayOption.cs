@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static ConsoleUI_BL.Program;
-using IBL.BO;
+using BO;
 using IBL;
-using DAL.DO;
+using DO;
 
 namespace ConsoleUI_BL
 {

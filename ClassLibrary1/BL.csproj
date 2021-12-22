@@ -13,7 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DAL3\DAL.csproj" />
+    <ProjectReference Include="..\DalApi\DalApi.csproj" />
+    <ProjectReference Include="..\TemplateSingleTon4\TemplateSingleTon.csproj" />
   </ItemGroup>
 
 </Project>

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IBL.BO;
+using BO;
 using static ConsoleUI_BL.Program;
 using IBL;
-using DAL.DO;
+using DO;
 
 
 namespace ConsoleUI_BL
@@ -29,7 +29,7 @@ namespace ConsoleUI_BL
                             {
                                 try
                                 {
-                                    IBL.BO.BaseStation baseStation = new();
+                                    BO.BaseStation baseStation = new();
                                     (baseStation.Id, baseStation.Name, baseStation.Location, baseStation.ChargeSlots) = InputBaseStationDetails();
                                     bl.Add(baseStation);
                                     break;
@@ -69,7 +69,7 @@ namespace ConsoleUI_BL
                                 try
                                 {
                                     int baseStationId;
-                                    Drone drone = new();
+                                    BO.Drone drone = new();
                                     (drone.Id, drone.Model, drone.MaxWeight) = InputDroneDetails();
                                     baseStationId = InputIntValue();
                                     drone.Location = bl.GetBLBaseStation(baseStationId).Location;
@@ -99,7 +99,7 @@ namespace ConsoleUI_BL
                             {
                                 try
                                 {
-                                    IBL.BO.Customer customer = new();
+                                    BO.Customer customer = new();
                                     (customer.Id, customer.Name, customer.Phone, customer.Location) = InputCustomerDetails();
                                     bl.Add(customer);
                                 }
@@ -139,7 +139,7 @@ namespace ConsoleUI_BL
                             {
                                 try
                                 {
-                                    IBL.BO.Parcel parcel = new();
+                                    BO.Parcel parcel = new();
                                     string sender, target;
                                     (sender, target, parcel.Weight, parcel.Priority) = InputParcelDetails();
                                     parcel.Sender = bl.GetCustomrInParcel(sender);
