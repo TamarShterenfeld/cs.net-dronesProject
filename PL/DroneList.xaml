@@ -17,23 +17,40 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <WrapPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="center"  VerticalAlignment="center">
-            <Button Content="Close"  Click="Button_ClickClose" />
-            <Button Content="Add Drone"   Click="Button_ClickAdd" />
+            <Button Content="Close"  Click="Button_ClickClose"  Background="Turquoise" BorderBrush="White" />
+            <Button Content="Add Drone"   Click="Button_ClickAdd" Background="Turquoise" BorderBrush="White" />
         </WrapPanel>
         <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
-            <ListView x:Name ="DroneListView"  MouseDoubleClick="DroneListView_MouseDoubleClick"  BorderThickness="0" ItemsSource="{Binding}"/>
+            <ListView x:Name ="DroneListView"  MouseDoubleClick="DroneListView_MouseDoubleClick"  BorderThickness="0" Margin="0,0,359,0" FontFamily="Microsoft Yi Baiti" FontSize="18">
+
+            </ListView>
+            <Grid x:Name="aside" Margin="430,84,-22,10">
+                <Grid.Background>
+                    <ImageBrush ImageSource="/dron bg.jpg"/>
+                </Grid.Background>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+            </Grid>
         </Grid>
         <WrapPanel Grid.Row="1" Grid.Column="0" HorizontalAlignment="center"  VerticalAlignment="center">
-        <Label x:Name="ChooseCategoryLabel" Content="choose category:"   Width="120" />
-        <ComboBox x:Name="ChooseCategory" ItemsSource="{Binding}"  HorizontalAlignment="center"  VerticalAlignment="center" Width="120"  SelectionChanged="ChooseCategory_SelectionChanged"></ComboBox>
+            <ComboBox x:Name="ChooseCategory" ItemsSource="{Binding}"  HorizontalAlignment="center" Background="{x:Null}" VerticalAlignment="center" Width="120"  SelectionChanged="ChooseCategory_SelectionChanged" Text="choose category" BorderBrush="#8909FFFE" Foreground="#FF272626" IsEditable="True" IsReadOnly="True"/>
         </WrapPanel>
         <WrapPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="center"  VerticalAlignment="center">
-        <Label x:Name="StatusFilterLable" Content="choose status filter:"    Width="120" />
-        <ComboBox x:Name="StatusFilter" ItemsSource="{Binding}"  HorizontalAlignment="center"  VerticalAlignment="center" Width="120"  SelectionChanged="StatusFilter_SelectionChanged"></ComboBox>
+            <ComboBox x:Name="StatusFilter" Text="choose status filter" ItemsSource="{Binding}"  HorizontalAlignment="Center"  Background="{x:Null}" VerticalAlignment="Center" Width="146"  SelectionChanged="StatusFilter_SelectionChanged" IsEditable="True" BorderBrush="#FF38FFFD" Foreground="#FF2A2828"/>
         </WrapPanel>
         <WrapPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="center"  VerticalAlignment="center">
-            <Label x:Name="WeightFilterLable" Content="choose weight filter:"   Width="120"/>
-            <ComboBox x:Name="WeightFilter" ItemsSource="{Binding}"  HorizontalAlignment="center"  VerticalAlignment="center" Width="120"  SelectionChanged="WeightFilter_SelectionChanged"></ComboBox>
+            <ComboBox x:Name="WeightFilter" Text="choose weight status" ItemsSource="{Binding}"  HorizontalAlignment="Center"  VerticalAlignment="Center" Width="146"  SelectionChanged="WeightFilter_SelectionChanged" Background="{x:Null}" Foreground="#FF373737" IsEditable="True" BorderBrush="#FF7BFFFE" IsReadOnly="True"></ComboBox>
         </WrapPanel>
+        <Grid Height="42" VerticalAlignment="Center" Margin="10,0,273,0">
+            <Grid.Background>
+                <ImageBrush ImageSource="/logo1.jpg"/>
+            </Grid.Background>
+        </Grid>
     </Grid>
 </Window>

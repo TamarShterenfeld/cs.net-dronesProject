@@ -27,12 +27,12 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <WrapPanel Grid.Row="0" Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Button x:Name="button1" Content="Cancel" Width="50" Click="Button_ClickCancel"/>
-            <Button x:Name="button2" Content="Add" Width="50" Click="Button_ClickAddOrUpdate"/>
-            <ComboBox x:Name="button3" ItemsSource="{Binding}"   Width="110" SelectionChanged="Button_ClickCharging"  Visibility="Collapsed"/>
-            <ComboBox x:Name="button4"  Width="130" ItemsSource="{Binding}" SelectionChanged="button4_SelectionChanged"  Visibility="Collapsed"/>
+            <Button x:Name="button1" Content="Cancel" Width="92" Click="Button_ClickCancel" Background="Turquoise" BorderBrush="White" Command="{Binding ClickMode.Hover, ElementName=button1}" Foreground="#DDFFFFFF"/>
+            <Button x:Name="button2" Content="Add" Width="71" Click="Button_ClickAddOrUpdate" Background="Turquoise" BorderBrush="White"/>
+            <ComboBox x:Name="button3" ItemsSource="{Binding}"   Width="110" SelectionChanged="Button_ClickCharging" Background="Turquoise"  Visibility="Collapsed" Foreground="#FF313131" BorderThickness="1"/>
+            <ComboBox x:Name="button4"  Width="130" ItemsSource="{Binding}" SelectionChanged="button4_SelectionChanged" Background="Turquoise"  Visibility="Collapsed" BorderThickness="1"  Foreground="#FF313131" />
         </WrapPanel>
-        <WrapPanel x:Name="hlong" Grid.Row="0" Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Bottom" Visibility="Collapsed">
+        <WrapPanel x:Name="hlong" Grid.Row="0" Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Bottom" Visibility="Collapsed" Background="Turquoise" >
             <TextBlock Text="how long?" />
             <TextBox x:Name="howLong" 
             TextWrapping="Wrap" 
@@ -40,43 +40,44 @@
             IsEnabled="{Binding}"
             PreviewTextInput="PreviewTextInput"/>
         </WrapPanel>
-        <TextBlock Text="Id:" Grid.Row="1" Grid.Column="1"/>
+        <TextBlock Text="Id:" Grid.Row="1" Grid.Column="1" Foreground="#FF2D2D2D"/>
         <TextBox x:Name="id" 
             Grid.Row="1" Grid.Column="2"
             TextWrapping="Wrap" 
             VerticalAlignment="Top" 
             Width="140" 
             IsEnabled="{Binding}"
-            PreviewTextInput="PreviewTextInput"/>
-        <TextBlock  Text="Model:" Grid.Row="2" Grid.Column="1"/>
+            PreviewTextInput="PreviewTextInput" TextAlignment="Left"/>
+        <TextBlock  Text="Model:" Grid.Row="2" Grid.Column="1" Foreground="#FF2D2D2D"/>
         <TextBox x:Name="model" 
             Grid.Row="2" Grid.Column="2" 
             TextWrapping="Wrap" 
             VerticalAlignment="Top" 
             Width="140" />
-        <TextBlock Text="Max Weight:" Grid.Row="3" Grid.Column="1"/>
+        <TextBlock Text="Max Weight:" Grid.Row="3" Grid.Column="1" Foreground="#FF4C386B"/>
         <ComboBox x:Name ="weight" 
                   Grid.Row="3" Grid.Column="2" 
                   VerticalAlignment="Top" 
                   Width="140" 
                   IsEnabled="{Binding}" 
-                  ItemsSource="{Binding}"
+                  ItemsSource="{Binding}" RenderTransformOrigin="0.494,0.292" BorderBrush="White" Background="{x:Null}"
+                  
                   />
-        <TextBlock Text="Battery:" Grid.Row="4" Grid.Column="1"/>
+        <TextBlock Text="Battery:" Grid.Row="4" Grid.Column="1" Foreground="#FF3F4245"/>
         <TextBox x:Name="battery"
            Grid.Row="4" Grid.Column="2"
             TextWrapping="Wrap" 
             VerticalAlignment="Top" 
             Width="140" 
             IsEnabled="False"/>
-        <TextBlock Text="Status:" Grid.Row="5" Grid.Column="1"/>
+        <TextBlock Text="Status:" Grid.Row="5" Grid.Column="1" Foreground="#FF3F4245"/>
         <ComboBox x:Name ="status" 
                   Grid.Row="5" Grid.Column="2"
                   VerticalAlignment="Top" 
                   Width="140" 
                   IsEnabled="False" 
                   ItemsSource="{Binding}"/>
-        <TextBlock Text="Delivery:" Grid.Row="6" Grid.Column="1"/>
+        <TextBlock Text="Delivery:" Grid.Row="6" Grid.Column="1" Foreground="#FF3F4245"/>
         <TextBox x:Name="delivery"
             Grid.Row="6" Grid.Column="2"
             Text="0" 
@@ -84,21 +85,21 @@
             VerticalAlignment="Top" 
             Width="140" 
             IsEnabled="False"/>
-        <TextBlock Text="Longitude:" Grid.Row="7" Grid.Column="1"/>
+        <TextBlock Text="Longitude:" Grid.Row="7" Grid.Column="1" Foreground="#FF3F4245"/>
         <TextBox x:Name="longitude"
             Grid.Row="7" Grid.Column="2"
             TextWrapping="Wrap" 
             VerticalAlignment="Top" 
             Width="140" 
             IsEnabled="False"/>
-        <TextBlock Text="Latitude:" Grid.Row="8" Grid.Column="1"/>
+        <TextBlock Text="Latitude:" Grid.Row="8" Grid.Column="1" Foreground="#FF3F4245"/>
         <TextBox x:Name="latitude"
             Grid.Row="8" Grid.Column="2"
             TextWrapping="Wrap" 
             VerticalAlignment="Top" 
             Width="140" 
             IsEnabled="False" />
-        <TextBlock x:Name="Lstation" Text="Station ID:" Visibility="{Binding}" Grid.Row="9" Grid.Column="1"/>
+        <TextBlock x:Name="Lstation" Text="Station ID:" Visibility="{Binding}" Grid.Row="9" Grid.Column="1" Foreground="#FF3F3F3F"/>
         <ComboBox x:Name ="station" 
                   Grid.Row="9" Grid.Column="2"
                   VerticalAlignment="Top" 
@@ -107,5 +108,18 @@
                   Visibility="{Binding}"
                   ItemsSource="{Binding}"
                   SelectedIndex="0"/>
+        <Grid Margin="-18,0,80,20" Grid.ColumnSpan="2">
+            <Grid.Background>
+                <ImageBrush Stretch="Fill" ImageSource="/logo1.jpg"/>
+            </Grid.Background>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+        </Grid>
     </Grid>
 </Window>

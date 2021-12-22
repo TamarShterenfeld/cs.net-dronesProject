@@ -34,8 +34,6 @@ namespace PL
             WeightFilter .DataContext = typeof(WeightCategories).GetEnumValues();
             StatusFilter.Visibility = Visibility.Collapsed;
             WeightFilter.Visibility = Visibility.Collapsed;
-            StatusFilterLable.Visibility = Visibility.Collapsed;
-            WeightFilterLable.Visibility = Visibility.Collapsed;
         }
 
         private void ChooseCategory_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -45,17 +43,13 @@ namespace PL
                 case "status":
                     {
                         WeightFilter.Visibility = Visibility.Collapsed;
-                        WeightFilterLable.Visibility = Visibility.Collapsed;
                         StatusFilter.Visibility = Visibility.Visible;
-                        StatusFilterLable.Visibility = Visibility.Visible;
                         break;
                     }
                 case "weight":
                     {
-                        StatusFilterLable.Visibility = Visibility.Collapsed;
                         StatusFilter.Visibility = Visibility.Collapsed;
                         WeightFilter.Visibility = Visibility.Visible;
-                        WeightFilterLable.Visibility = Visibility.Visible;
                         break;
                     }
             }
