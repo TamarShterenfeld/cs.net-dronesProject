@@ -23,7 +23,7 @@ namespace IBL
         readonly double electricityConsumingOfHeavyWeight;
         readonly double electricityConsumingOfAverageWeight;
         readonly double chargeRate;
-        public BL()
+        BL()
         {
             dal = DalApi.DalFactory.GetDal();
             dronesForList = (List<DroneForList>)InitDroneForList();
