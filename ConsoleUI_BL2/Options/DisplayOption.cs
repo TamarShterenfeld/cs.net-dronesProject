@@ -17,7 +17,7 @@ namespace ConsoleUI_BL
     public class DisplayOption : ISubNavigate
     {
         /// <inheritdoc />
-        public void Options(ref BL bl)
+        public void Options(ref BLApi.IBL bl)
         {
             int parcelId, droneId, baseStationId;
             string customerId;

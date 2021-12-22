@@ -18,8 +18,11 @@ namespace DalObject
         DalObject()
         {
             Initialize();
-        }
+        }         
+  
     }
+
+    
 }
 
 

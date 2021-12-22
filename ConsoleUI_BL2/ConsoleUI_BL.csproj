@@ -5,6 +5,10 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath></OutputPath>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="GoogleMaps.LocationServices" Version="1.2.0.5" />
     <PackageReference Include="Material.Icons" Version="1.0.66" />

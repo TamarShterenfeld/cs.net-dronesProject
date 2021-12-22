@@ -16,7 +16,7 @@ namespace ConsoleUI_BL
     /// </summary>
     public class AddOption : ISubNavigate
     {
-        public void Options(ref BL bl)
+        public void Options(ref BLApi.IBL bl)
         {
             Console.WriteLine("Please enter : \n1- For Base Station \n2- For Drone\n3- For Customer\n4- For Parcel ");
             if (int.TryParse(Console.ReadLine(), out int innerChoice))

@@ -14,7 +14,7 @@ namespace ConsoleUI_BL
  /// </summary>
     public class UpDateOption : ISubNavigate
     {
-        public void Options(ref BL bl)
+        public void Options(ref BLApi.IBL bl)
         {
             int id;
             double timeCharge;

@@ -12,13 +12,13 @@ namespace DalApi
         internal static Dictionary<string, string> DalPackages;
         static DalConfig()
         {
-            XElement dalConfig = XElement.Load(@"xml\dal-config.xml");
+            XElement dalConfig = XElement.Load(@"../../dal-config.xml");
             DalName = dalConfig.Element("dal").Value;
             DalPackages = (from pkg in dalConfig.Element("dal-packages").Elements()
                            select pkg
                           ).ToDictionary(p => "" + p.Name, p => p.Value);
         }
-    }
+    } 
 
     public class DalConfigException : Exception
     {

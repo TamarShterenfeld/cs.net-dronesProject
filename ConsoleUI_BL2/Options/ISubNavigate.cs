@@ -15,6 +15,6 @@ namespace ConsoleUI_BL
         /// a function that navigates the user into his innerChoice
         /// </summary>
         /// <param name="bl"></param>
-        public void Options(ref IBL.BL bl);
+        public void Options(ref BLApi.IBL bl);
     }
 }
