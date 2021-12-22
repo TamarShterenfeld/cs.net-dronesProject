@@ -6,41 +6,61 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         >
+    <Grid>
+        <Grid x:Name="aside" Margin="685,269,-41,10">
+            <Grid.Background>
+                <ImageBrush ImageSource="/dron bg.jpg"/>
+            </Grid.Background>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+        </Grid>
 
-    <Grid Name="MainGrid2">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
+        <Grid Margin="10,19,958,458">
+            <Grid.Background>
+                <ImageBrush Stretch="Fill" ImageSource="/logo1.jpg"/>
+            </Grid.Background>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+        </Grid>
+        <Grid Name="MainGrid2" Height="606" Width="1289">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
 
-        <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-
-        <Image
-                Source="BackgroundDesign.jpg" 
-     
-            Margin="0,29,0,-29"
-            Grid.Column="0"
-            Grid.Row="0"
-            Grid.RowSpan="5"
-            Grid.ColumnSpan="4"
-            />
-
-        <Button 
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*" />
+            </Grid.RowDefinitions>
+            <Button 
             Content="all drones" 
             BorderThickness="0.5"
-            HorizontalAlignment="Left"
-            Margin="350,32,0,0" 
+            HorizontalAlignment="Center"
+            Margin="0,94,0,0" 
             Grid.Row="1"
-            Grid.Column="0"
+            Grid.Column="1"
                 VerticalAlignment="Top" Background="Turquoise" Click="Button_Click"
-            ToolTip="Resource name: MaterialDesignRaisedSecondaryLightButton"
-              IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" />
+             Style="{StaticResource MaterialDesignFloatingActionSecondaryDarkButton}"
+            ToolTip="MaterialDesignFloatingActionSecondaryDarkButton"
+             IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" BorderBrush="White" Width="104" Height="101" Grid.RowSpan="2" FontSize="18" RenderTransformOrigin="0.457,0.544"
+            />
+        </Grid>
     </Grid>
-    
 
 </Window>
