@@ -42,13 +42,13 @@
             </Grid>
         </Grid>
         <WrapPanel Grid.Row="1" Grid.Column="0" HorizontalAlignment="center"  VerticalAlignment="center">
-            <ComboBox x:Name="ChooseCategory" ItemsSource="{Binding}"  HorizontalAlignment="center" Background="{x:Null}" VerticalAlignment="center" Width="120"  SelectionChanged="ChooseCategory_SelectionChanged" Text="choose category" BorderBrush="#8909FFFE" Foreground="#FF272626" IsEditable="True" IsReadOnly="True"/>
+            <ComboBox x:Name="ChooseCategory" ItemsSource="{Binding}"  HorizontalAlignment="center"  VerticalAlignment="center" Width="120"  SelectionChanged="ChooseCategory_SelectionChanged" Text="choose category" BorderBrush="#8909FFFE" Foreground="#FF272626" IsEditable="True" IsReadOnly="True"/>
         </WrapPanel>
         <WrapPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="center"  VerticalAlignment="center">
-            <ComboBox x:Name="StatusFilter" Text="choose status filter" ItemsSource="{Binding}"  HorizontalAlignment="Center"  Background="{x:Null}" VerticalAlignment="Center" Width="146"  SelectionChanged="StatusFilter_SelectionChanged" IsEditable="True" BorderBrush="#FF38FFFD" Foreground="#FF2A2828"/>
+            <ComboBox x:Name="StatusFilter" Text="choose status filter" ItemsSource="{Binding}"  HorizontalAlignment="Center"  VerticalAlignment="Center" Width="146"  SelectionChanged="StatusFilter_SelectionChanged" IsEditable="True" BorderBrush="#FF38FFFD" Foreground="#FF2A2828"/>
         </WrapPanel>
         <WrapPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="center"  VerticalAlignment="center">
-            <ComboBox x:Name="WeightFilter" Text="choose weight status" ItemsSource="{Binding}"  HorizontalAlignment="Center"  VerticalAlignment="Center" Width="146"  SelectionChanged="WeightFilter_SelectionChanged" Background="{x:Null}" Foreground="#FF373737" IsEditable="True" BorderBrush="#FF7BFFFE" IsReadOnly="True"></ComboBox>
+            <ComboBox x:Name="WeightFilter" Text="choose weight status" ItemsSource="{Binding}"  HorizontalAlignment="Center"  VerticalAlignment="Center" Width="146"  SelectionChanged="WeightFilter_SelectionChanged" Foreground="#FF373737" IsEditable="True" BorderBrush="#FF7BFFFE" IsReadOnly="True"></ComboBox>
         </WrapPanel>
         <Grid Height="42" VerticalAlignment="Center" Margin="10,0,273,0">
             <Grid.Background>

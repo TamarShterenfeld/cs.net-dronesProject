@@ -225,7 +225,6 @@ namespace PL
         {
             try
             {
-
                 switch (button4.SelectedItem)
                 {
                     case "Associate Parcel":
@@ -265,7 +264,7 @@ namespace PL
             action();
         }
 
-        private void Time_TextChanged(object sender, TextChangedEventArgs e)
+        private void TimeValue (object sender, TextChangedEventArgs e)
         {
             int timeCharge = InputIntValue(Time.Text);
             bl.ReleaseDroneFromRecharge(InputIntValue(id.Text), timeCharge);
@@ -273,7 +272,6 @@ namespace PL
             MessageBox.Show("drone stops charging!");
             TimeText.Visibility = Visibility.Collapsed;
             Time.Visibility = Visibility.Collapsed;
-
         }
     }
 
