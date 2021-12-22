@@ -60,7 +60,7 @@ namespace PL
                 delivery.Text = drone.Parcel.Id.ToString();
                 longitude.Text = drone.Location.CoorLongitude.ToString();
                 latitude.Text = drone.Location.CoorLatitude.ToString();
-                station.DataContext = Lstation.DataContext = "Collapsed";
+                station.Visibility = Lstation.Visibility = Visibility.Collapsed;
                 string[] parcelOptions = { "Associate Parcel", "Pick Up Parcel", "Supply Parcel" };
                 string[] chargeDroneOptions = { "Charging", "Stop Charging" };
                 button3.DataContext = chargeDroneOptions;
@@ -93,7 +93,7 @@ namespace PL
                 {
                     bl.Add(drone, InputIntValue(station.Text));
                     MessageBox.Show("drone was added successfully!");
-                    action();
+                    action?.Invoke();
                     this.Close();
                 }
 
@@ -138,9 +138,7 @@ namespace PL
                 {
                     case "Stop Charging":
                         {
-
                             Key key1 = new();
-                            Key key2 = new();
                             if (key1 == Key.None)
                             {
                                 MessageBox.Show("Enter the charge Duration in the suitable field");
@@ -234,6 +232,8 @@ namespace PL
                             Time.Visibility = Visibility.Collapsed;
                             TimeText.Visibility = Visibility.Collapsed;
                             bl.AssociateParcel(InputIntValue(id.Text));
+                            MessageBox.Show("The parcel was associated successfully!");
+                            action();
                             break;
                         }
                     case "Pick Up Parcel":
@@ -241,12 +241,17 @@ namespace PL
                             Time.Visibility = Visibility.Collapsed;
                             TimeText.Visibility = Visibility.Collapsed;
                             bl.PickUpParcel(InputIntValue(id.Text));
+                            MessageBox.Show("The parcel was picked up successfully!");
+                            action();
                             break;
-                        }                    case "Supply Parcel":
+                        }                   
+                    case "Supply Parcel":
                         {
                             Time.Visibility = Visibility.Collapsed;
                             TimeText.Visibility = Visibility.Collapsed;
                             bl.SupplyParcel(InputIntValue(id.Text));
+                            MessageBox.Show("The parcel was supplied successfully!");
+                            action();
                             break;
                         }
                 }

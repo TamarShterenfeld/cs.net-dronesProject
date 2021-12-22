@@ -100,11 +100,14 @@ namespace IBL
                                 }
                             }
                         }
-                        int droneIndex = dronesForList.FindIndex(item => item.Id == currentDrone.Id);
+                        currentDrone.Status = DroneStatuses.Shipment;
                         UpdateDrone(currentDrone);
                         parcel.AssociationDate = DateTime.Now;
                         parcel.MyDrone = GetBLDroneInParcel(droneId);
                         UpdateParcel(parcel);
+                        ParcelForList parcel1 = GetParcelForList(parcel.Id);
+                        parcel1.Status = ParcelStatuses.Associated;
+                        break;
                     } 
                 }
                 if (isAssociate == false)
@@ -150,10 +153,9 @@ namespace IBL
             DroneForList drone = GetDroneForList(droneId);
             Parcel parcel1 = GetBLParcel(drone.ParcelId);
             Customer target = GetBLCustomer(parcel1.Target.Id);
-            DateTime? time = null;
-            if (parcel1.PickUpDate != time ) 
+            if (parcel1.PickUpDate != null ) 
             {
-                if (parcel1.SupplyDate == time)
+                if (parcel1.SupplyDate == null)
                 {
                     ParcelForList parcelForList = GetParcelForList(drone.ParcelId);
                     isSupplied = true;

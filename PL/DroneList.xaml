@@ -27,7 +27,7 @@
                 <ColumnDefinition Width="371*"/>
             </Grid.ColumnDefinitions>
             <ListView x:Name ="DroneListView"  MouseDoubleClick="DroneListView_MouseDoubleClick"  BorderThickness="0" Margin="0,0,359,0" FontFamily="Levenim MT" FontSize="12" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionMode="Extended" Grid.ColumnSpan="3"/>
-            <Grid x:Name="aside" Margin="1,84,-22,10" Grid.Column="2">
+            <Grid x:Name="aside" Margin="17,84,-22,10" Grid.Column="2">
                 <Grid.Background>
                     <ImageBrush ImageSource="/dron bg.jpg"/>
                 </Grid.Background>
@@ -50,7 +50,7 @@
         <WrapPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="center"  VerticalAlignment="center">
             <ComboBox x:Name="WeightFilter" Text="choose weight status" ItemsSource="{Binding}"  HorizontalAlignment="Center"  VerticalAlignment="Center" Width="146"  SelectionChanged="WeightFilter_SelectionChanged" Foreground="#FF373737" IsEditable="True" BorderBrush="#FF7BFFFE" IsReadOnly="True"></ComboBox>
         </WrapPanel>
-        <Grid Height="42" VerticalAlignment="Center" Margin="10,0,273,0">
+        <Grid Height="62" VerticalAlignment="Center" Margin="10,0,253,0">
             <Grid.Background>
                 <ImageBrush ImageSource="/logo1.jpg"/>
             </Grid.Background>
