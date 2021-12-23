@@ -27,6 +27,12 @@ namespace PL
     {
         private BLApi.IBL bl;
         Action action;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bl"></param>
+        /// <param name="action"></param>
         public SingleDrone(BLApi.IBL bl, Action action)
         {
             this.bl = bl;
@@ -36,12 +42,12 @@ namespace PL
             button3.DataContext = button4.DataContext = "Collapsed";
             status.DataContext = typeof(DroneStatuses).GetEnumValues();
             weight.DataContext = typeof(BO.WeightCategories).GetEnumValues();
-            List<string> str = new List<string>();
+            List<string> stationsId = new List<string>();
             foreach (var item in bl.GetBOBaseStationsList())
             {
-                str.Add(item.Id.ToString());
+                stationsId.Add(item.Id.ToString());
             }
-            station.DataContext = str;
+            station.DataContext = stationsId;
         }
 
         public SingleDrone(DroneForList droneForList, BLApi.IBL bl, Action action)
