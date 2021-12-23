@@ -26,7 +26,7 @@ namespace PL
         /// <summary>
         /// a constructor
         /// </summary>
-        /// <param name="bl">bl - the request object is passed from the MainWindow window </param>
+        /// <param name="bl">bl - the request object to the BL logic level</param>
         public DroneList(BLApi.IBL bl)
         {
             this.bl = bl;

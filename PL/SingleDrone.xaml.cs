@@ -29,15 +29,12 @@ namespace PL
         Action action;
 
         /// <summary>
-        /// 
+        /// a constructor that gets the object bl + the delegate action.
         /// </summary>
-        /// <param name="bl"></param>
-        /// <param name="action"></param>
+        /// <param name="bl">the request object to the BL logic level</param>
+        /// <param name="action">a delegate</param>
         public SingleDrone(BLApi.IBL bl, Action action)
         {
-            this.bl = bl;
-            this.action = action;
-            InitializeComponent();
             id.DataContext = model.DataContext = weight.DataContext = station.DataContext = "True";
             button3.DataContext = button4.DataContext = "Collapsed";
             status.DataContext = typeof(DroneStatuses).GetEnumValues();
@@ -50,6 +47,12 @@ namespace PL
             station.DataContext = stationsId;
         }
 
+        /// <summary>
+        /// another constructor with parameters
+        /// </summary>
+        /// <param name="droneForList"></param>
+        /// <param name="bl">the request object to the BL level</param>
+        /// <param name="action">a delegate</param>
         public SingleDrone(DroneForList droneForList, BLApi.IBL bl, Action action)
             : this(bl, action)
         {
@@ -77,11 +80,19 @@ namespace PL
             }
         }
 
+        /// <summary>
+        /// the function treats the event of clicking on the button 'Cancel'.
+        /// </summary>
+        /// <param name="sender">the invoking object</param>
+        /// <param name="e">the event</param>
         private void Button_ClickCancel(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
 
+        /// <summary>
+        /// the function treats the event of clicking on the button 'Add'.
+        /// </summary>
         private void Button_ClickAdd()
         {
             MessageBoxResult m = new();
@@ -116,6 +127,10 @@ namespace PL
             }
         }
 
+
+        /// <summary>
+        /// the function treats the event of clicking on the button 'UpDate'.
+        /// </summary>
         private void Button_ClickUpdate()
         {
             if (model.Text == "")
@@ -129,6 +144,11 @@ namespace PL
             }
         }
 
+        /// <summary>
+        /// the function invoking the appropriate function according to the button's content.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_ClickAddOrUpdate(object sender, RoutedEventArgs e)
         {
             if (button2.Content.ToString() == "Add")
@@ -137,6 +157,12 @@ namespace PL
             { Button_ClickUpdate(); }
         }
 
+        /// <summary>
+        /// the function treats the evdent of choosing  - 
+        /// 'Charging' / 'Stop Charging' from the ComboBox - 'button3'
+        /// </summary>
+        /// <param name="sender">the invoking object</param>
+        /// <param name="e">the event</param>
         private void Button_ClickCharging(object sender, RoutedEventArgs e)
         {
             try
@@ -151,7 +177,7 @@ namespace PL
                                 MessageBox.Show("Enter the charge Duration in the suitable field");
                                 TimeText.Visibility = Visibility.Visible;
                                 Time.Visibility = Visibility.Visible;
-                                key1 = Key.M;
+                                //---it begins charging the drone when the Time textbox field is filled.
                             }
                             break;
                         }
@@ -188,6 +214,11 @@ namespace PL
             action();
         }
 
+        /// <summary>
+        /// the function checks that the inputed value really contains a numerical value.
+        /// </summary>
+        /// <param name="str">a string value</param>
+        /// <returns></returns>
         private int InputIntValue(string str)
         {
             int numericalValue = 0;
@@ -198,6 +229,12 @@ namespace PL
             return numericalValue;
         }
 
+        /// <summary>
+        /// the function checks that the inputed value ( a string one )
+        /// is really contained in the enum 'WeightCategory'.
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
         private BO.WeightCategories InputWeightCategory(string str)
         {
             bool isExist1 = false;
@@ -218,17 +255,29 @@ namespace PL
                 }
                 if (isExist1 == false)
                 {
-                    Console.WriteLine("The entered weight category doesn't exist\nPlease enter another weight category");
+                    MessageBox.Show("The entered weight category doesn't exist\nPlease enter another weight category");
                 }
             }
             return weight;
-        }
+       }
+
+        /// <summary>
+        /// the function enforces the user to enter only a number that contains digits.
+        /// </summary>
+        /// <param name="sender">the invoking object</param>
+        /// <param name="e">the event</param>
         private void PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
         }
 
+        /// <summary>
+        /// the function treats the event of choosing an action (from button4 - a ComboBox)
+        /// from the update options of a parcel.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button4_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             try
@@ -279,13 +328,19 @@ namespace PL
             action();
         }
 
+        /// <summary>
+        /// the function treats the event of inserting a value into the charge duration field.
+        /// this function is in charge of release drone drom chaging.
+        /// </summary>
+        /// <param name="sender">the invoking object</param>
+        /// <param name="e">the event</param>
         private void TimeValue (object sender, TextChangedEventArgs e)
         {
             int timeCharge = InputIntValue(Time.Text);
             bl.ReleaseDroneFromRecharge(InputIntValue(id.Text), timeCharge);
             action();
             status.SelectedIndex = 0;
-            MessageBox.Show("drone stops charging!");
+            MessageBox.Show("drone stopps charging!");
             TimeText.Visibility = Visibility.Collapsed;
             Time.Visibility = Visibility.Collapsed;
         }
