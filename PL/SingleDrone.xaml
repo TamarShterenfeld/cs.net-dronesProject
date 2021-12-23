@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"       
-        Title="Drone" Height="650" Width="800">
+        Title="Drone" Height="650" Width="800"
+         Icon="/images/toplogo.jpg">
     <Grid x:Name ="curdrone" Height="634" VerticalAlignment="Top">
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
@@ -99,7 +100,7 @@
                   SelectedIndex="0" Margin="63,2,63,0" Height="20"/>
         <Grid Margin="-18,0,80,20" Grid.ColumnSpan="2">
             <Grid.Background>
-                <ImageBrush Stretch="Fill" ImageSource="/logo1.jpg"/>
+                <ImageBrush Stretch="Fill" ImageSource="/images/logo1.jpg"/>
             </Grid.Background>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />

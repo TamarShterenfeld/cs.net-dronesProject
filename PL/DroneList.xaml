@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="DroneList" Height="450" Width="800">
+        Title="DroneList" Height="450" Width="800"
+        Icon="images/toplogo.jpg">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -29,7 +30,7 @@
             <ListView x:Name ="DroneListView"  MouseDoubleClick="DroneListView_MouseDoubleClick"  BorderThickness="0" Margin="0,0,359,0" FontFamily="Levenim MT" FontSize="12" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionMode="Extended" Grid.ColumnSpan="3"/>
             <Grid x:Name="aside" Margin="17,84,-22,10" Grid.Column="2">
                 <Grid.Background>
-                    <ImageBrush ImageSource="/dron bg.jpg"/>
+                    <ImageBrush ImageSource="/images/dron bg.jpg"/>
                 </Grid.Background>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -50,9 +51,9 @@
         <WrapPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="center"  VerticalAlignment="center">
             <ComboBox x:Name="WeightFilter" Text="choose weight status" ItemsSource="{Binding}"  HorizontalAlignment="Center"  VerticalAlignment="Center" Width="146"  SelectionChanged="WeightFilter_SelectionChanged" Foreground="#FF373737" IsEditable="True" BorderBrush="#FF7BFFFE" IsReadOnly="True"></ComboBox>
         </WrapPanel>
-        <Grid Height="62" VerticalAlignment="Center" Margin="10,0,253,0">
+        <Grid Height="62" VerticalAlignment="Top" Margin="10,0,253,0">
             <Grid.Background>
-                <ImageBrush ImageSource="/logo1.jpg"/>
+                <ImageBrush ImageSource="/images/logo1.jpg"/>
             </Grid.Background>
         </Grid>
     </Grid>

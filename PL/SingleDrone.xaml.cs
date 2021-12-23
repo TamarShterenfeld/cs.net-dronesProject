@@ -60,7 +60,8 @@ namespace PL
                 delivery.Text = drone.Parcel.Id.ToString();
                 longitude.Text = drone.Location.CoorLongitude.ToString();
                 latitude.Text = drone.Location.CoorLatitude.ToString();
-                station.Visibility = Lstation.Visibility = Visibility.Collapsed;
+                station.Visibility = Visibility.Collapsed;
+                Lstation.Visibility = Visibility.Collapsed;
                 string[] parcelOptions = { "Associate Parcel", "Pick Up Parcel", "Supply Parcel" };
                 string[] chargeDroneOptions = { "Charging", "Stop Charging" };
                 button3.DataContext = chargeDroneOptions;
@@ -153,6 +154,7 @@ namespace PL
                             bl.SendDroneForCharge(InputIntValue(id.Text));
                             status.SelectedIndex = 1;
                             MessageBox.Show("drone starts charging!");
+                            action();
                             break;
                         }
                 }
@@ -185,7 +187,7 @@ namespace PL
             int numericalValue = 0;
             if (!int.TryParse(str, out numericalValue))
             {
-                Console.WriteLine("a field which supposed to contain numerical value does not contain!");
+                MessageBox.Show("a field which supposed to contain numerical value does not contain!");
             }
             return numericalValue;
         }
@@ -275,6 +277,7 @@ namespace PL
         {
             int timeCharge = InputIntValue(Time.Text);
             bl.ReleaseDroneFromRecharge(InputIntValue(id.Text), timeCharge);
+            action();
             status.SelectedIndex = 0;
             MessageBox.Show("drone stops charging!");
             TimeText.Visibility = Visibility.Collapsed;
