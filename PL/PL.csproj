@@ -26,8 +26,12 @@
     <None Remove="bg2.jpg" />
     <None Remove="bg3.jpg" />
     <None Remove="dron bg.jpg" />
+    <None Remove="images\dron bg.jpg" />
+    <None Remove="images\logo1.jpg" />
+    <None Remove="images\toplogo.jpg" />
     <None Remove="logo.jpg" />
     <None Remove="logo1.jpg" />
+    <None Remove="toplogo.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -43,10 +47,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="dron bg.jpg">
+    <Resource Include="images\dron bg.jpg">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="logo1.jpg">
+    <Resource Include="images\logo1.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\toplogo.jpg">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

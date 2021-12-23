@@ -86,12 +86,11 @@ namespace IBL
 
         public ParcelStatuses ParcelStatus(DO.Parcel parcel)
         {
-            DateTime? time = new();
-            if (parcel.AssociationDate == time)
+            if (parcel.AssociationDate == null)
                 return ParcelStatuses.Production;
-            if (parcel.PickUpDate == time)
+            if (parcel.PickUpDate == null)
                 return ParcelStatuses.Associated;
-            if (parcel.SupplyDate == time)
+            if (parcel.SupplyDate == null)
                 return ParcelStatuses.PickedUp;
             else
                 return ParcelStatuses.Supplied;

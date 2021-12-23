@@ -27,7 +27,6 @@ namespace BO
             double phi2 = to.Location.CoorLatitude.InputCoorValue * Math.PI / 180;
             double deltaPhi = (to.Location.CoorLatitude.InputCoorValue - from.Location.CoorLatitude.InputCoorValue) * Math.PI / 180;
             double deltaLambda = (to.Location.CoorLongitude.InputCoorValue - from.Location.CoorLongitude.InputCoorValue) * Math.PI / 180;
-
             double a = Math.Sin(deltaPhi / 2) * Math.Sin(deltaPhi / 2) +
                         Math.Cos(phi1) * Math.Cos(phi2) *
                         Math.Sin(deltaLambda / 2) * Math.Sin(deltaLambda / 2);

@@ -29,6 +29,12 @@ namespace PL
             InitializeComponent();
         }
 
+        /// <summary>
+        /// the function treats the event of clicking the button 'all drones'
+        /// when it's pressed - it opens a new window named 'DroneList'.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             new DroneList(bl).Show();

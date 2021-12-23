@@ -4,9 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
-        mc:Ignorable="d"
-        
-        Title="Drone" Height="650" Width="800">
+        mc:Ignorable="d"       
+        Title="Drone" Height="650" Width="800"
+         Icon="/images/toplogo.jpg">
     <Grid x:Name ="curdrone" Height="634" VerticalAlignment="Top">
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
@@ -29,7 +29,7 @@
         </Grid.ColumnDefinitions>
         <WrapPanel Grid.Row="0" Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Button x:Name="button1" Content="Cancel" Width="92" Click="Button_ClickCancel" Background="Turquoise" BorderBrush="White" Command="{Binding ClickMode.Hover, ElementName=button1}" Foreground="#DDFFFFFF"/>
-            <Button x:Name="button2" Content="Add" Width="71" Click="Button_ClickAddOrUpdate" Background="Turquoise" BorderBrush="White"/>
+            <Button x:Name="button2" Content="Add" Width="92" Click="Button_ClickAddOrUpdate" Background="Turquoise" BorderBrush="White"/>
             <ComboBox x:Name="button3" ItemsSource="{Binding}"   Width="110" SelectionChanged="Button_ClickCharging" Background="Turquoise"  Visibility="Collapsed" Foreground="#FF313131" BorderThickness="1"/>
             <ComboBox x:Name="button4"  Width="130" ItemsSource="{Binding}" SelectionChanged="button4_SelectionChanged" Background="Turquoise"  Visibility="Collapsed" BorderThickness="1"  Foreground="#FF313131" />
         </WrapPanel>
@@ -49,10 +49,9 @@
         <ComboBox x:Name ="weight" 
                   Grid.Row="2" Grid.Column="2" 
                   VerticalAlignment="Top" 
-                  Width="140" 
-                  IsEnabled="{Binding}" 
+                  Width="140"  
                   ItemsSource="{Binding}" RenderTransformOrigin="0.494,0.292" Background="{x:Null}" Margin="63,48,63,0" Grid.RowSpan="2"
-                  
+                  IsEnabled="True"
                   />
         <TextBlock Text="Battery:" Grid.Row="4" Grid.Column="1" Foreground="#FF3F4245"/>
         <TextBox x:Name="battery"
@@ -89,19 +88,19 @@
             TextWrapping="Wrap" 
             VerticalAlignment="Top" 
             Width="140" 
+          
             IsEnabled="False" Margin="63,49,63,0" Grid.RowSpan="2" />
         <TextBlock x:Name="Lstation" Text="Station ID:" Visibility="{Binding}" Grid.Row="8" Grid.Column="1" Foreground="#FF3F3F3F" Grid.ColumnSpan="2" Margin="0,52,266,69" Grid.RowSpan="2"/>
         <ComboBox x:Name ="station" 
-                  Grid.Row="8" Grid.Column="2"
+                  Grid.Row="9" Grid.Column="2"
                   VerticalAlignment="Top" 
-                  Width="140" 
-                  IsEnabled="{Binding}"
-                  Visibility="{Binding}"
+                  Width="140"                  
                   ItemsSource="{Binding}"
-                  SelectedIndex="0" Margin="63,48,63,0" Grid.RowSpan="2"/>
+                  IsEnabled="{Binding}"
+                  SelectedIndex="0" Margin="63,2,63,0" Height="20"/>
         <Grid Margin="-18,0,80,20" Grid.ColumnSpan="2">
             <Grid.Background>
-                <ImageBrush Stretch="Fill" ImageSource="/logo1.jpg"/>
+                <ImageBrush Stretch="Fill" ImageSource="/images/logo1.jpg"/>
             </Grid.Background>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -113,14 +112,11 @@
             </Grid.RowDefinitions>
         </Grid>
         <TextBlock Grid.Row= "8" Grid.Column="1" Foreground="#FF3F4245" Grid.ColumnSpan="2" Margin="0,53,266,0" Grid.RowSpan="2"><Run FlowDirection="RightToLeft" Language="he-il" Text="S"/><Run Text="tation ID:"/></TextBlock>
-
         <TextBox x:Name="Time"
             Width="140" 
-            IsEnabled="{Binding}"                  
-           PreviewTextInput="PreviewTextInput" TextAlignment="Left" Margin="63,25,63,26" TextChanged="Time_TextChanged" Grid.RowSpan="2" Grid.Row="9" Grid.Column="2" />
-        <TextBlock x:Name="TimeText"  Text="Charge Duration:" Grid.Row="10" Foreground="#FF3F3F3F" Grid.ColumnSpan="2" Margin="0,10,244,6" Grid.Column="1"/>
-
-
-
+                 Visibility="Collapsed"
+            IsEnabled="{Binding}"    
+           PreviewTextInput="PreviewTextInput" TextAlignment="Left" Margin="63,2,63,34" TextChanged="TimeValue" Grid.Row="10" Grid.Column="2" />
+        <TextBlock x:Name="TimeText"  Text="Charge Duration:" Grid.Row="9" Foreground="#FF3F3F3F" Grid.ColumnSpan="2" Margin="0,53,244,16" Grid.Column="1" Grid.RowSpan="2" Visibility="Collapsed" />
     </Grid>
 </Window>
