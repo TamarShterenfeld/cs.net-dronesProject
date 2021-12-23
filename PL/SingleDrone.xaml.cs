@@ -93,7 +93,7 @@ namespace PL
                 {
                     bl.Add(drone, InputIntValue(station.Text));
                     MessageBox.Show("drone was added successfully!");
-                    action();
+                    action?.Invoke();
                     this.Close();
                 }
 
@@ -118,7 +118,7 @@ namespace PL
             else
             {
                 bl.UpdateDrone(InputIntValue(id.Text), model.Text);
-                action();
+                action?.Invoke();
             }
         }
 
@@ -179,7 +179,7 @@ namespace PL
             {
                 MessageBox.Show("the drone's battery: " + exe.Battery + " isn't enouph for reaching the  base station for charging!");
             }
-            action();
+            action?.Invoke();
         }
 
         private int InputIntValue(string str)
@@ -264,7 +264,7 @@ namespace PL
             {
                 MessageBox.Show("The action isn't valid, because the parcel status: " + exe.ParcelStatus + " isn't valid!");
             }
-            action();
+            action?.Invoke();
         }
 
         private void Time_TextChanged(object sender, TextChangedEventArgs e)

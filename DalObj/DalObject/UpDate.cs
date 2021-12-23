@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace DalObject
 {
-    public partial class DalObject
+    partial class DalObject
     {
         
         public void UpDate(Drone drone, int id)

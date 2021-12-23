@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace DalObject
 {
-  public partial class DalObject
+    partial class DalObject
     {
 
         public BaseStation GetBaseStation(int baseStationId)
