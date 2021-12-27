@@ -27,7 +27,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DalApi\DalApi.csproj" />
-    <ProjectReference Include="..\DalObj\DalObject.csproj" />
     <ProjectReference Include="..\TemplateSingleTon4\TemplateSingleTon.csproj" />
   </ItemGroup>
 

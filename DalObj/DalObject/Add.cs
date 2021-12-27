@@ -11,7 +11,7 @@ namespace DalObject
     ///the class DalObject contains all the needed methods 
     ///which are connected to the data (in DataSource class) of the program.
     /// </summary>
-    partial class DalObject
+    public partial class DalObject
     {
         public void Add(BaseStation baseStation)
         {

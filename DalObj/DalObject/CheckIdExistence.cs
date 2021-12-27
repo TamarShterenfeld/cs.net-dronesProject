@@ -8,7 +8,7 @@ using static DalObject.DataSource;
 
 namespace DalObject
 {
-    partial class DalObject 
+    public partial class DalObject 
     {
         /// <summary>
         /// check if the id exists in the baseStationsList

@@ -6,7 +6,7 @@ using System.Reflection;
 
 namespace DalObject
 {
-    partial class DalObject
+    public partial class DalObject
     {
 
 
