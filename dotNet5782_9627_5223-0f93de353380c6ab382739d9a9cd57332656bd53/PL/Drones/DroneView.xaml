@@ -3,10 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PL" xmlns:po="clr-namespace:PL.PO" d:DataContext="{d:DesignInstance Type=po:Drone}"
-        mc:Ignorable="d"       
+        xmlns:local="clr-namespace:PL"         mc:Ignorable="d"       
         Title="Drone" Height="650" Width="800"
          Icon="/images/toplogo.jpg">
+    <Window.Resources>
+        <ResourceDictionary >
+        <local:ConverterIntToString x:Key="ConverterIntToString" />
+        </ResourceDictionary>
+    </Window.Resources>
     <Grid x:Name ="curdrone" Height="634" VerticalAlignment="Top">
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
@@ -39,7 +43,8 @@
             TextWrapping="Wrap" 
             Width="140" 
             IsEnabled="{Binding}"
-            Text="{Binding Drone.Id}"
+            Text="{ Binding Drone.Id , Converter={StaticResource ConverterIntToString}}"
+
             PreviewTextInput="PreviewTextInput" TextAlignment="Left" Margin="63,99,63,35" Grid.RowSpan="2"/>
         <TextBlock  Text="Model:" Grid.Row="2" Grid.Column="1" Foreground="#FF2D2D2D"/>
         <TextBox x:Name="model" 
