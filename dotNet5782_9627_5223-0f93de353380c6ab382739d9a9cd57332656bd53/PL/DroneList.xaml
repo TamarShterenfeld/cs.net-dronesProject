@@ -26,7 +26,7 @@
                 <ColumnDefinition Width="371*"/>
             </Grid.ColumnDefinitions>
             <ListView x:Name ="DroneListView"  MouseDoubleClick="DroneListView_MouseDoubleClick"  BorderThickness="0" Margin="0,0,359,0" FontFamily="Levenim MT" FontSize="12" 
-                      d:ItemsSource="{d:SampleData ItemCount=5}" SelectionMode="Extended" Grid.ColumnSpan="3"/>
+                      ItemsSource="{Binding}" SelectionMode="Extended" Grid.ColumnSpan="3"/>
             <Grid x:Name="aside" Margin="17,84,-22,10" Grid.Column="2">
                 <Grid.Background>
                     <ImageBrush ImageSource="/images/dron bg.jpg"/>

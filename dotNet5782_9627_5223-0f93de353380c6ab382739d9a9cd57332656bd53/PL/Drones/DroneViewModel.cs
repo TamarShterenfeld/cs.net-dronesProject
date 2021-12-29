@@ -15,10 +15,21 @@ namespace PL
             Drone = new Drone(drone);
             DroneStatusesList = typeof(BO.DroneStatuses).GetEnumValues();
             DroneWeightsList = typeof(BO.WeightCategories).GetEnumValues();
+            IsAdd = false;
+            IsEdit = true;
+            //StationsId = new List<string>();
+            //foreach (var item in bl.GetBOBaseStationsList())
+            //{
+            //    StationsId.Add(item.Id.ToString());
+            //}
         }
         public Drone Drone { get; set; }
         public Array DroneStatusesList { get; set; }
         public Array DroneWeightsList { get; set; }
+
+        public List<string> StationsId { get; set; }
         public ICommand MyProperty { get; set; }
+        public bool IsAdd { get; set; }
+        public bool IsEdit { get; set; }
     }
 }

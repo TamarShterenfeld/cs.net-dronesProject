@@ -41,7 +41,7 @@ namespace PL
             InitializeComponent();
             this.bl = bl;
             this.refreshDroneList = refreshDroneList;
-            id.DataContext = /*model.DataContext =*/ weight.DataContext = station.DataContext = "True";
+            /*id.DataContext = model.DataContext = weight.DataContext = station.DataContext = "True";*/
             button3.DataContext = button4.DataContext = "Collapsed";
             //status.DataContext = typeof(DroneStatuses).GetEnumValues();
             weight.DataContext = typeof(BO.WeightCategories).GetEnumValues();
@@ -62,13 +62,14 @@ namespace PL
         public DroneView(DroneForList droneForList, BLApi.IBL bl, Action refreshDroneList)
             : this(bl, refreshDroneList)
         {
+
             this.DataContext = new DroneViewModel(droneForList);
 
-            station.DataContext = id.DataContext = "False";
+            station.DataContext = /*id.DataContext =*/ "False";
             if (droneForList != null)
             {
                 BO.Drone drone = bl.GetBLDrone(droneForList.Id);
-                id.Text = drone.Id.ToString();
+                //id.Text = drone.Id.ToString();
                 //model.Text = drone.Model;
                 weight.IsEnabled = false;
                 weight.SelectedItem = drone.MaxWeight;
@@ -359,6 +360,7 @@ namespace PL
                 Time.Visibility = Visibility.Collapsed;
             }
         }
+
     }
 }
 
