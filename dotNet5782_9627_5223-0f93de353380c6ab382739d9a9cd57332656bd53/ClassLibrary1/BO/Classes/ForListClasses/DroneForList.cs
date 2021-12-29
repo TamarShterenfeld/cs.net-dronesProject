@@ -12,7 +12,7 @@ namespace BO
     {
         int id;
         int parcelId;
-        double battery = 100;
+        double battery;
 
         public int Id
         {

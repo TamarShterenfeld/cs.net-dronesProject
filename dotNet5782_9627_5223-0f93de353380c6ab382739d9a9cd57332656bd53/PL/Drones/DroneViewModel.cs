@@ -14,9 +14,11 @@ namespace PL
         {
             Drone = new Drone(drone);
             DroneStatusesList = typeof(BO.DroneStatuses).GetEnumValues();
+            DroneWeightsList = typeof(BO.WeightCategories).GetEnumValues();
         }
         public Drone Drone { get; set; }
         public Array DroneStatusesList { get; set; }
+        public Array DroneWeightsList { get; set; }
         public ICommand MyProperty { get; set; }
     }
 }

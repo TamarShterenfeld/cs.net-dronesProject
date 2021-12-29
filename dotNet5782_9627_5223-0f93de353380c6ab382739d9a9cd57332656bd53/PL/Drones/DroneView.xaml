@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PL"
+        xmlns:local="clr-namespace:PL" xmlns:po="clr-namespace:PL.PO" d:DataContext="{d:DesignInstance Type=po:Drone}"
         mc:Ignorable="d"       
         Title="Drone" Height="650" Width="800"
          Icon="/images/toplogo.jpg">
@@ -39,10 +39,11 @@
             TextWrapping="Wrap" 
             Width="140" 
             IsEnabled="{Binding}"
+            Text="{Binding Drone.Id}"
             PreviewTextInput="PreviewTextInput" TextAlignment="Left" Margin="63,99,63,35" Grid.RowSpan="2"/>
         <TextBlock  Text="Model:" Grid.Row="2" Grid.Column="1" Foreground="#FF2D2D2D"/>
         <TextBox x:Name="model" 
-                 Text="{Binding Drone.Model}"
+            Text="{Binding Drone.Model}"
             Grid.Row="1" Grid.Column="2" 
             TextWrapping="Wrap" 
             VerticalAlignment="Top" 
@@ -52,7 +53,9 @@
                   Grid.Row="2" Grid.Column="2" 
                   VerticalAlignment="Top" 
                   Width="140"  
-                  ItemsSource="{Binding}" RenderTransformOrigin="0.494,0.292" Background="{x:Null}" Margin="63,48,63,0" Grid.RowSpan="2"
+                  ItemsSource="{Binding DroneWeightsList}"
+                  SelectedItem="{Binding Drone.Weight}"
+                  Margin="63,48,63,0" Grid.RowSpan="2"
                   IsEnabled="True"
                   />
         <TextBlock Text="Battery:" Grid.Row="4" Grid.Column="1" Foreground="#FF3F4245"/>
