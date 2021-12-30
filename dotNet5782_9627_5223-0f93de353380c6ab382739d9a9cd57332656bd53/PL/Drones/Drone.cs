@@ -7,7 +7,10 @@ namespace PL
     {
         public class Drone : INotifyPropertyChanged
         {
+            private int id;
             private string model;
+            private WeightCategories weight;
+            private DroneStatuses status;
 
             public Drone(BO.DroneForList drone)
             {
@@ -33,7 +36,17 @@ namespace PL
             public int ParcelId { get; set; }
             public Location Location { get; set; }
             public WeightCategories Weight { set; get; }
-            public DroneStatuses Status { get; set; }
+            public DroneStatuses Status
+            {
+                get => status;
+                set
+                {
+                    status = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Status)));
+                }
+            }
+
+            
 
             public event PropertyChangedEventHandler PropertyChanged;
         }
