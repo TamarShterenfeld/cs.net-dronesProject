@@ -6,7 +6,8 @@
     xmlns:local="clr-namespace:PL.PO"
         mc:Ignorable="d" 
         Title="Drone" Height="650" Width="800"
-             Icon="/images/toplogo.jpg">
+             Icon="/images/toplogo.jpg"
+        x:Name="Drone">
     <Window.Resources>
         <ResourceDictionary >
             <!--<local:ConverterIntToString x:Key="ConverterIntToString"/>-->
@@ -34,7 +35,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <WrapPanel Grid.Row="0" Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Button x:Name="button1" Content="Cancel" Width="92" Click="Button_ClickCancel" Background="Turquoise" BorderBrush="White" Command="{Binding ClickMode.Hover, ElementName=button1}" Foreground="#DDFFFFFF"/>
+            <Button x:Name="button1" Content="Cancel" Width="92" Command="{Binding Cancel}" CommandParameter="{Binding ElementName=Drone }" Background="Turquoise" BorderBrush="White"  Foreground="#DDFFFFFF"/>
             <Button x:Name="button2" Content="Add" Width="92" Click="Button_ClickAddOrUpdate" Background="Turquoise" BorderBrush="White"/>
             <ComboBox x:Name="button3" ItemsSource="{Binding}"   Width="110" SelectionChanged="Button_ClickCharging" Background="Turquoise"  Visibility="Collapsed" Foreground="#FF313131" BorderThickness="1"/>
             <ComboBox x:Name="button4"  Width="130" ItemsSource="{Binding}" SelectionChanged="button4_SelectionChanged" Background="Turquoise"  Visibility="Collapsed" BorderThickness="1"  Foreground="#FF313131" />

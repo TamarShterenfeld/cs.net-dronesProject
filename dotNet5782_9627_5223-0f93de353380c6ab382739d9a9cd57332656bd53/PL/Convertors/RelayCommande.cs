@@ -11,7 +11,7 @@ namespace PL
     {
         #region Fields
 
-        readonly Action<object>_execute;
+        readonly Action<object>_execute ;
         readonly Func<object, bool> _canExecute ;
 
         #endregion
@@ -33,7 +33,7 @@ namespace PL
         /// </summary>
         /// <param name="execute">The execution logic.</param>
         /// <param name="canExecute">The execution status logic.</param>
-        public RelayCommand(Action<object> execute, Func<object, bool> canExecute)
+        public RelayCommand(Action<object> execute, Func<object, bool> canExecute =null)
         {
             if (execute == null)
                 throw new ArgumentNullException("execute");
@@ -55,7 +55,7 @@ namespace PL
         ///</returns>
         public bool CanExecute(object parameter)
         {
-            return _canExecute == null || _canExecute((T)parameter);
+            return _canExecute == null || _canExecute(parameter);
         }
 
         ///<summary>

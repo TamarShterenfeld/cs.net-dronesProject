@@ -11,7 +11,6 @@ namespace PL
 {
     public class DroneViewModel
     {
-        private RelayCommand cancel;
         public DroneViewModel(BO.DroneForList drone, BLApi.IBL bl)
         {
             Drone = new Drone(drone);
@@ -24,19 +23,14 @@ namespace PL
             {
                 StationsId.Add(item.Id.ToString());
             }
+            Cancel = new(Button_ClickCancel, null);
         }
         public Drone Drone { get; set; }
         public Array DroneStatusesList { get; set; }
         public Array DroneWeightsList { get; set; }
         public List<string> StationsId { get; set; }
-        public RelayCommand Cancel
-        {
-            get { return cancel; }
-            set
-            {
-                 cancel = new(Button_ClickCancel, ;
-            }
-        }
+        public RelayCommand Cancel { get; set; }
+
 
         public bool IsAdd { get; set; }
         public bool IsEdit { get; set; }
@@ -46,9 +40,9 @@ namespace PL
         /// </summary>
         /// <param name="sender">the invoking object</param>
         /// <param name="e">the event</param>
-        private void Button_ClickCancel(object sender, RoutedEventArgs e)
+        private void Button_ClickCancel(object sender)
         {
-            sender.Close();
+            (sender as Window).Close();
         }
     }
 }
