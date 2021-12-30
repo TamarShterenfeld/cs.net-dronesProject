@@ -4,32 +4,51 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace PL
 {
-   public class DroneViewModel
+    public class DroneViewModel
     {
-        public DroneViewModel(BO.DroneForList drone)
+        private RelayCommand cancel;
+        public DroneViewModel(BO.DroneForList drone, BLApi.IBL bl)
         {
             Drone = new Drone(drone);
             DroneStatusesList = typeof(BO.DroneStatuses).GetEnumValues();
             DroneWeightsList = typeof(BO.WeightCategories).GetEnumValues();
             IsAdd = false;
             IsEdit = true;
-            //StationsId = new List<string>();
-            //foreach (var item in bl.GetBOBaseStationsList())
-            //{
-            //    StationsId.Add(item.Id.ToString());
-            //}
+            StationsId = new List<string>();
+            foreach (var item in bl.GetBOBaseStationsList())
+            {
+                StationsId.Add(item.Id.ToString());
+            }
         }
         public Drone Drone { get; set; }
         public Array DroneStatusesList { get; set; }
         public Array DroneWeightsList { get; set; }
-
         public List<string> StationsId { get; set; }
-        public ICommand MyProperty { get; set; }
+        public RelayCommand Cancel
+        {
+            get { return cancel; }
+            set
+            {
+                 cancel = new(Button_ClickCancel, ;
+            }
+        }
+
         public bool IsAdd { get; set; }
         public bool IsEdit { get; set; }
+
+        /// <summary>
+        /// the function treats the event of clicking on the button 'Cancel'.
+        /// </summary>
+        /// <param name="sender">the invoking object</param>
+        /// <param name="e">the event</param>
+        private void Button_ClickCancel(object sender, RoutedEventArgs e)
+        {
+            sender.Close();
+        }
     }
 }

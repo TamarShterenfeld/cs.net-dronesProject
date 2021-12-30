@@ -63,7 +63,7 @@ namespace PL
             : this(bl, refreshDroneList)
         {
 
-            this.DataContext = new DroneViewModel(droneForList);
+            this.DataContext = new DroneViewModel(droneForList, bl);
 
             station.DataContext = /*id.DataContext =*/ "False";
             if (droneForList != null)

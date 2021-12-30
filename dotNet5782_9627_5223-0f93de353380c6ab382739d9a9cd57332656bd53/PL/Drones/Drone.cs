@@ -22,6 +22,10 @@ namespace PL
                 ParcelId = drone.ParcelId;
                 Location = drone.Location;
             }
+
+            public double Battery { get; set; }
+            public int ParcelId { get; set; }
+            public Location Location { get; set; }
             public string Model
             {
                 get => model;
@@ -31,11 +35,25 @@ namespace PL
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Model)));
                 }
             }
-            public int Id { get; set; }
-            public double Battery { get; set; }
-            public int ParcelId { get; set; }
-            public Location Location { get; set; }
-            public WeightCategories Weight { set; get; }
+            public int Id
+            {
+                get => id;
+                set
+                {
+                    id = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Id)));
+                }
+            }           
+          
+            public WeightCategories Weight
+            {
+                get => weight;
+                set
+                {
+                    weight = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Weight)));
+                }
+            }
             public DroneStatuses Status
             {
                 get => status;
@@ -45,8 +63,6 @@ namespace PL
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Status)));
                 }
             }
-
-            
 
             public event PropertyChangedEventHandler PropertyChanged;
         }
