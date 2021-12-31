@@ -37,8 +37,8 @@
         <WrapPanel Grid.Row="0" Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Button x:Name="button1" Content="Cancel" Width="92" Command="{Binding Cancel}" CommandParameter="{Binding ElementName=Drone }" Background="Turquoise" BorderBrush="White"  Foreground="#DDFFFFFF"/>
             <Button x:Name="button2" Content="Add" Width="92" Command="{Binding Add}" CommandParameter="{Binding ElementName=Drone }" Background="Turquoise" BorderBrush="White"/>
-            <ComboBox x:Name="button3" ItemsSource="{Binding}"   Width="110" SelectionChanged="Button_ClickCharging" Background="Turquoise"  Visibility="Collapsed" Foreground="#FF313131" BorderThickness="1"/>
-            <ComboBox x:Name="button4"  Width="130" ItemsSource="{Binding}" SelectionChanged="button4_SelectionChanged" Background="Turquoise"  Visibility="Collapsed" BorderThickness="1"  Foreground="#FF313131" />
+            <ComboBox x:Name="button3" ItemsSource="{Binding Button3Content}" SelectedItem="{Binding Button3SelectedItem}"    Width="110" Background="Turquoise"  Visibility="Collapsed" Foreground="#FF313131" BorderThickness="1"/>
+            <ComboBox x:Name="button4"  Width="130" ItemsSource="{Binding }"  Background="Turquoise"  Visibility="Collapsed" BorderThickness="1"  Foreground="#FF313131" />
         </WrapPanel>
         <TextBlock Text="Id:" Grid.Row="1" Grid.Column="1" Foreground="#FF2D2D2D"/>
         <TextBox x:Name="id" Grid.Column="2"
@@ -107,8 +107,9 @@
                   Grid.Row="9" Grid.Column="2"
                   VerticalAlignment="Top" 
                   Width="140"                  
-                  ItemsSource="{Binding}"
-                  IsEnabled="{Binding}"
+                  ItemsSource="{Binding StationsId}"
+                  SelectedItem="{Binding StationId}"
+                  IsEnabled="{Binding }"
                   SelectedIndex="0" Margin="63,2,63,0" Height="20"/>
         <Grid Margin="-18,0,80,20" Grid.ColumnSpan="2">
             <Grid.Background>
@@ -123,10 +124,10 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
         </Grid>
-        <TextBlock x:Name="TimeText" Grid.Row= "10" Grid.Column="1" Foreground="#FF3F4245" Visibility="Collapsed"   Grid.ColumnSpan="2" Margin="0,5,238,0" Text="Charge Duration:" />
+        <TextBlock x:Name="TimeText"   Grid.Row= "10" Grid.Column="1" Foreground="#FF3F4245" Visibility="Collapsed"   Grid.ColumnSpan="2" Margin="0,5,238,0" Text="Charge Duration:" />
         <TextBox x:Name="Time" Grid.Row="9" Grid.Column="2"  Visibility="Collapsed"
             Width="140"
             Text="{Binding ChargeDurationTime, UpdateSourceTrigger=LostFocus}"  
-           PreviewTextInput="PreviewTextInput" Margin="0,48,0,0" Background="{x:Null}" BorderBrush="#FF0A0A0A" Foreground="Black" VerticalAlignment="Top" HorizontalAlignment="Center" Height="25" Grid.RowSpan="2" />
+             Margin="0,48,0,0" Background="{x:Null}" BorderBrush="#FF0A0A0A" Foreground="Black" VerticalAlignment="Top" HorizontalAlignment="Center" Height="25" Grid.RowSpan="2" />
     </Grid>
 </Window>

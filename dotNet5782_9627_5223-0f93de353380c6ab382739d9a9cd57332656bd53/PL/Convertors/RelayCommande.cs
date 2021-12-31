@@ -12,6 +12,7 @@ namespace PL
         #region Fields
 
         readonly Action<object>_execute ;
+        readonly object _execute2;
         readonly Func<object, bool> _canExecute ;
 
         #endregion
@@ -28,18 +29,23 @@ namespace PL
         {
         }
 
+        public RelayCommand(object executed2) 
+        {
+            this._execute2 = executed2;  
+        }
         /// <summary>
         /// Creates a new command.
         /// </summary>
         /// <param name="execute">The execution logic.</param>
         /// <param name="canExecute">The execution status logic.</param>
-        public RelayCommand(Action<object> execute, Func<object, bool> canExecute =null)
+        public RelayCommand(Action<object> execute, Func<object, bool> canExecute =null, object execute2 = null)
         {
             if (execute == null)
                 throw new ArgumentNullException("execute");
 
             _execute = execute;
             _canExecute = canExecute;
+            _execute2 = execute2;
         }
 
         #endregion
@@ -55,7 +61,7 @@ namespace PL
         ///</returns>
         public bool CanExecute(object parameter)
         {
-            return _canExecute == null || _canExecute(parameter);
+            return _canExecute == null || _canExecute(parameter) || _execute2 == null;
         }
 
         ///<summary>

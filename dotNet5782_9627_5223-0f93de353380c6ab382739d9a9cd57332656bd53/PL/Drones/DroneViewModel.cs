@@ -42,9 +42,11 @@ namespace PL
             Add = new(Button_ClickAdd, null);
             AddOrUpDate = new(Button_ClickAddOrUpdate, null);
             Charging = new(Button_ClickCharging, null);
+            AllParcelsOptions = new(ChargeDurationTime);
+            TimeDuration = new(ChargeDurationTime);
         }
 
-        //prop
+        //properties
         public PO.Drone Drone { get; set; }
         public Array DroneStatusesList { get; set; }
         public Array DroneWeightsList { get; set; }
@@ -55,7 +57,6 @@ namespace PL
         public List<string> Button3Content = new List<string>(2){ "Charging", "NotCharging" };
 
         public event PropertyChangedEventHandler PropertyChanged;
-
         public List<string> ParcelOptions { set; get; }
         public string ParcelOption { get; set; }
         
@@ -68,6 +69,7 @@ namespace PL
         public RelayCommand AddOrUpDate { get; set; }
         public RelayCommand Charging { get; set; }
         public RelayCommand AllParcelsOptions { set; get; }
+        public RelayCommand TimeDuration { set; get; }
         public bool IsAdd { get; set; }
         public bool IsEdit { get; set; }
 
@@ -206,20 +208,6 @@ namespace PL
             refreshDroneList();
         }
 
-
-
-
-        /// <summary>
-        /// the function enforces the user to enter only a number that contains digits.
-        /// </summary>
-        /// <param name="sender">the invoking object</param>
-        /// <param name="e">the event</param>
-        private void PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            Regex regex = new Regex("[^0-9]+");
-            e.Handled = regex.IsMatch(e.Text);
-        }
-
         /// <summary>
         /// the function treats the event of choosing an action (from button4 - a ComboBox)
         /// from the update options of a parcel.
@@ -298,6 +286,17 @@ namespace PL
 
 
         //-----------------------------------Helping Functions----------------------------------
+        /// <summary>
+        /// the function enforces the user to enter only a number that contains digits.
+        /// </summary>
+        /// <param name="sender">the invoking object</param>
+        /// <param name="e">the event</param>
+        private void PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
         /// <summary>
         /// The function shows the field 'Time' and the appropriate lable.
         /// </summary>
