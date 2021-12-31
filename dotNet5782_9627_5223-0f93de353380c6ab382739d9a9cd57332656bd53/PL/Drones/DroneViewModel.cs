@@ -3,19 +3,28 @@ using DO;
 using PL.PO;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
 namespace PL
 {
-    public class DroneViewModel
+    public class DroneViewModel : INotifyPropertyChanged
     {
+        //private fields
         BLApi.IBL Bl;
         Action refreshDroneList;
-        private object chargeDurationTime;
+        object chargeDurationTime;
+
+        /// <summary>
+        /// a constructor
+        /// </summary>
+        /// <param name="drone">gets a DroneForList object</param>
+        /// <param name="bl">gets the request object which connect this level to the data in BL logic level.</param>
         public DroneViewModel(BO.DroneForList drone, BLApi.IBL bl)
         {
             Bl = bl;
@@ -31,7 +40,11 @@ namespace PL
             }
             Cancel = new(Button_ClickCancel, null);
             Add = new(Button_ClickAdd, null);
+            AddOrUpDate = new(Button_ClickAddOrUpdate, null);
+            Charging = new(Button_ClickCharging, null);
         }
+
+        //prop
         public PO.Drone Drone { get; set; }
         public Array DroneStatusesList { get; set; }
         public Array DroneWeightsList { get; set; }
@@ -39,19 +52,27 @@ namespace PL
         public int StationId { get; set; }
         public string Button2Content { get; set; }
 
-        public string[] Button3Content = new string[2] { "Charging", "NotCharging" };
+        public List<string> Button3Content = new List<string>(2){ "Charging", "NotCharging" };
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public List<string> ParcelOptions { set; get; }
+        public string ParcelOption { get; set; }
         
         public TimeSpan Time { set; get; }
 
         public TimeSpan TimeText { set; get; }
         public string Button3SelectedItem { set; get; } 
         public RelayCommand Cancel { get; set; }
-
-        public RelayCommand UpDate { get; set; }
         public RelayCommand Add { get; set; }
+        public RelayCommand AddOrUpDate { get; set; }
+        public RelayCommand Charging { get; set; }
+        public RelayCommand AllParcelsOptions { set; get; }
         public bool IsAdd { get; set; }
         public bool IsEdit { get; set; }
 
+
+        //---------------------------------Drone's Methods------------------------------
         /// <summary>
         /// the function treats the event of clicking on the button 'Cancel'.
         /// </summary>
@@ -120,7 +141,7 @@ namespace PL
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Button_ClickAddOrUpdate(object sender, RoutedEventArgs e)
+        private void Button_ClickAddOrUpdate(object sender)
         {
             if (Button2Content == "Add")
             { Button_ClickAdd(sender); }
@@ -134,7 +155,7 @@ namespace PL
         /// </summary>
         /// <param name="sender">the invoking object</param>
         /// <param name="e">the event</param>
-        private void Button_ClickCharging(object sender, RoutedEventArgs e)
+        private void Button_ClickCharging(object sender)
         {
             try
             {
@@ -147,15 +168,15 @@ namespace PL
                             {
                                 MessageBox.Show("Enter the charge Duration in the suitable field");
                                 ((object)Time as Window).Visibility = Visibility.Visible;
-                                TimeText.Visibility = Visibility.Visible;
+                                ((object)TimeText as Window).Visibility = Visibility.Visible;
                                 //---it begins charging the drone when the Time textbox field is filled.
                             }
                             break;
                         }
                     case "Charging":
                         {
-                            bl.SendDroneForCharge(InputIntValue(id.Text));
-                            status.SelectedIndex = 1;
+                            Bl.SendDroneForCharge(InputIntValue(Drone.Id.ToString()));
+                            //status.SelectedIndex = 1;
                             MessageBox.Show("drone starts charging!");
                             refreshDroneList();
                             break;
@@ -205,35 +226,32 @@ namespace PL
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void button4_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ParcelsOptions(object sender)
         {
             try
             {
-                switch (button4.SelectedItem)
+                switch (ParcelOption)
                 {
                     case "Associate Parcel":
                         {
-                            Time.Visibility = Visibility.Collapsed;
-                            TimeText.Visibility = Visibility.Collapsed;
-                            bl.AssociateParcel(InputIntValue(id.Text));
+                            InvokeTimeField();
+                            Bl.AssociateParcel(InputIntValue(Drone.Id.ToString()));
                             MessageBox.Show("The parcel was associated successfully!");
                             refreshDroneList();
                             break;
                         }
                     case "Pick Up Parcel":
                         {
-                            Time.Visibility = Visibility.Collapsed;
-                            TimeText.Visibility = Visibility.Collapsed;
-                            bl.PickUpParcel(InputIntValue(id.Text));
+                            InvokeTimeField();
+                            Bl.PickUpParcel(InputIntValue(Drone.Id.ToString()));
                             MessageBox.Show("The parcel was picked up successfully!");
                             refreshDroneList();
                             break;
                         }
                     case "Supply Parcel":
                         {
-                            Time.Visibility = Visibility.Collapsed;
-                            TimeText.Visibility = Visibility.Collapsed;
-                            bl.SupplyParcel(InputIntValue(id.Text));
+                            InvokeTimeField();
+                            Bl.SupplyParcel(InputIntValue(Drone.Id.ToString()));
                             MessageBox.Show("The parcel was supplied successfully!");
                             refreshDroneList();
                             break;
@@ -269,14 +287,24 @@ namespace PL
             {
                 chargeDurationTime = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ChargeDurationTime)));
-                int timeCharge = InputIntValue(Time.Text);
-                bl.ReleaseDroneFromRecharge(InputIntValue(id.Text), timeCharge);
+                int timeCharge = InputIntValue(Time.ToString());
+                Bl.ReleaseDroneFromRecharge(InputIntValue(Drone.Id.ToString()), timeCharge);
                 refreshDroneList();
-                status.SelectedIndex = 0;
+                //status.SelectedIndex = 0;
                 MessageBox.Show("drone stopps charging!");
-                TimeText.Visibility = Visibility.Collapsed;
-                Time.Visibility = Visibility.Collapsed;
+                InvokeTimeField();
             }
+        }
+
+
+        //-----------------------------------Helping Functions----------------------------------
+        /// <summary>
+        /// The function shows the field 'Time' and the appropriate lable.
+        /// </summary>
+        private void InvokeTimeField()
+        {
+            ((object)Time as Window).Visibility = Visibility.Collapsed;
+            ((object)TimeText as Window).Visibility = Visibility.Collapsed;
         }
 
         /// <summary>
