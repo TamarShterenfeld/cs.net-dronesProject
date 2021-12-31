@@ -69,7 +69,7 @@ namespace PL
         /// </summary>
         private void Filter()
         {
-            DroneListView.ItemsSource = (List<DroneForList>)bl.GetDronesForList();
+            DroneListView.DataContext = (List<DroneForList>)bl.GetDronesForList();
         }
 
         /// <summary>

@@ -14,12 +14,12 @@ namespace PL
 
         BLApi.IBL bl;
         public PO.StationModel BaseStation { get; set; }
-        public RelayCommand Cancel { get;set;}
+        public RelayCommand Cancel { get; set; }
         public RelayCommand Add { get; set; }
-        public StationViewModel(BLApi.IBL bl,PO.StationModel station)
+        public StationViewModel(BLApi.IBL bl, BO.BaseStationForList station)
         {
             this.bl = bl;
-            BaseStation = station;
+            BaseStation = new PO.StationModel(station.Id, station.Name, null, station.CaughtChargeSlots, null);
             Cancel = new(Button_ClickCancel, null);
             Add = new(Button_ClickAdd, null);
         }
@@ -35,7 +35,7 @@ namespace PL
         }
         private void Button_ClickAdd(object sender)
         {
-            
+
         }
     }
 }

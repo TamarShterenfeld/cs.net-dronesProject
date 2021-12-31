@@ -19,7 +19,9 @@ namespace PL
     /// </summary>
     public partial class StationView : Window
     {
-        public StationView()
+        private BLApi.IBL bl;
+        Action refreshDroneList;
+        public StationView(BO.BaseStationForList station,BLApi.IBL bl, Action filter)
         {
             InitializeComponent();
         }

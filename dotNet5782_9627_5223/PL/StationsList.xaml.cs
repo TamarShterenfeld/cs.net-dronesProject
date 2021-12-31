@@ -19,9 +19,27 @@ namespace PL
     /// </summary>
     public partial class StationsList : Window
     {
-        public StationsList()
+        BLApi.IBL bl;
+        Action currFilter;
+        public StationsList(BLApi.IBL bl)
         {
+            this.bl = bl;
             InitializeComponent();
+            Filter();
+            CurrFilter.DataContext = new string[2] { "All BaseStations", "Group By Free ChargeSlots" };
+        }
+
+        /// <summary>
+        /// the function updates DroneListView with the curreent data.
+        /// </summary>
+        private void Filter()
+        {
+            DroneListView.DataContext = (List<BO.BaseStationForList>)bl.GetBaseStationList();
+        }
+
+        private void StationListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            new StationView((e.OriginalSource as FrameworkElement).DataContext as BO.BaseStationForList, bl, currFilter).Show();
         }
     }
 }

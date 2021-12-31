@@ -44,7 +44,7 @@
             
         <TextBlock  Text="Name:" Grid.Row="2" Grid.Column="1" Foreground="#FF2D2D2D"/>
         <TextBox x:Name="name" 
-            Text="{Binding Drone.Model}"
+            Text="{Binding BaseStation.Name}"
             Grid.Row="2" Grid.Column="2" 
             TextWrapping="Wrap" 
             VerticalAlignment="Top" 
