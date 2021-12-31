@@ -1,0 +1,99 @@
+﻿<Window x:Class="PL.StationView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL"
+        mc:Ignorable="d"
+        Title="StationView" Height="650" Width="800"
+        Icon="/images/toplogo.jpg">
+        <Grid x:Name ="curdrone" Height="634" VerticalAlignment="Top">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.7*"/>
+                <ColumnDefinition Width="0.3*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+        <WrapPanel Grid.Row="0" Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Button x:Name="button1" Content="Cancel" Width="92" Command="{Binding Cancel}" CommandParameter="{Binding ElementName=Drone }" Background="Turquoise" BorderBrush="White"  Foreground="#DDFFFFFF"/>
+            <Button x:Name="button2" Content="Add" Width="92" Command="{Binding Add}" CommandParameter="{Binding ElementName=Drone }" Background="Turquoise" BorderBrush="White"/>
+            <ComboBox x:Name="button3" ItemsSource="{Binding Button3Content}" SelectedItem="{Binding Button3SelectedItem}"    Width="110" Background="Turquoise"  Visibility="Collapsed" Foreground="#FF313131" BorderThickness="1"/>
+            <ComboBox x:Name="button4"  Width="130" ItemsSource="{Binding }"  Background="Turquoise"  Visibility="Collapsed" BorderThickness="1"  Foreground="#FF313131" />
+        </WrapPanel>
+        
+        <TextBlock Text="Id:" Grid.Row="1" Grid.Column="1" Foreground="#FF2D2D2D"/>
+        <TextBox x:Name="id" Grid.Column="2"
+            TextWrapping="Wrap" 
+            Width="140" 
+            IsEnabled="{Binding IsAdd}"
+            Text="{Binding Drone.Id}" Margin="63,5,63,22" Grid.Row="1"/>
+            
+        <TextBlock  Text="Name:" Grid.Row="2" Grid.Column="1" Foreground="#FF2D2D2D"/>
+        <TextBox x:Name="name" 
+            Text="{Binding Drone.Model}"
+            Grid.Row="2" Grid.Column="2" 
+            TextWrapping="Wrap" 
+            VerticalAlignment="Top" 
+            Width="140" Grid.RowSpan="2" />
+
+        <TextBlock Text="Charge Slots:" Grid.Row="3" Grid.Column="1" Foreground="#FF4C386B"/>
+        <ComboBox x:Name ="weight" 
+                  Grid.Row="3" Grid.Column="2" 
+                  VerticalAlignment="Top" 
+                  Width="140"  
+                  ItemsSource="{Binding DroneWeightsList}"
+                  SelectedItem="{Binding Drone.Weight}"
+                   Grid.RowSpan="2"
+                  IsEnabled="True"
+                  />
+       
+       
+
+        <TextBlock Text="Longitude:" Grid.Row="4" Grid.Column="1" Foreground="#FF3F4245"/>
+        <TextBox x:Name="longitude"
+            Grid.Row="4" Grid.Column="2"
+            TextWrapping="Wrap" 
+            VerticalAlignment="Top" 
+            Width="140" 
+            IsEnabled="False"  Grid.RowSpan="2"/>
+            
+        <TextBlock Text="Latitude:" Grid.Row="8" Grid.Column="1" Foreground="#FF3F4245"/>
+        <TextBox x:Name="latitude"
+            Grid.Row="7" Grid.Column="2"
+            TextWrapping="Wrap" 
+            VerticalAlignment="Top" 
+            Width="140" 
+          
+            IsEnabled="False" Margin="63,49,63,0" Grid.RowSpan="2" />
+  
+            
+        <Grid Margin="-18,0,80,20" Grid.ColumnSpan="2">
+            <Grid.Background>
+                <ImageBrush Stretch="Fill" ImageSource="/images/logo1.jpg"/>
+            </Grid.Background>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+        </Grid>
+        
+    </Grid>
+</Window>
