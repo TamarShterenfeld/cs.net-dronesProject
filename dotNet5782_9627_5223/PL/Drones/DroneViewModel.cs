@@ -17,8 +17,10 @@ namespace PL
     {
         //private fields
         BLApi.IBL Bl;
-        Action refreshDroneList;
+        readonly Action refreshDroneList;
         object chargeDurationTime;
+        string button3SelectedItem;
+        string parcelOption;
 
         /// <summary>
         /// a constructor
@@ -41,8 +43,6 @@ namespace PL
             Cancel = new(Button_ClickCancel, null);
             Add = new(Button_ClickAdd, null);
             AddOrUpDate = new(Button_ClickAddOrUpdate, null);
-            Charging = new(Button_ClickCharging, null);
-            AllParcelsOptions = new(ChargeDurationTime);
             TimeDuration = new(ChargeDurationTime);
         }
 
@@ -54,21 +54,40 @@ namespace PL
         public int StationId { get; set; }
         public string Button2Content { get; set; }
 
-        public List<string> Button3Content = new List<string>(2){ "Charging", "NotCharging" };
+        public List<string> Button3Content = new List<string>(2) { "Charging", "NotCharging" };
 
         public event PropertyChangedEventHandler PropertyChanged;
-        public List<string> ParcelOptions { set; get; }
-        public string ParcelOption { get; set; }
-        
+        public List<string> ParcelOptions = new List<string>(4) { "Associate", "PickUp", "Supply" };
+        public string ParcelOption 
+        { set
+            {
+                parcelOption = ParcelOption;
+                ParcelsOptions();
+            }
+            get
+            {
+                return parcelOption;
+            }
+        }
+
         public TimeSpan Time { set; get; }
 
         public TimeSpan TimeText { set; get; }
-        public string Button3SelectedItem { set; get; } 
+        public string Button3SelectedItem
+        {
+            set
+            {
+                button3SelectedItem = value;
+                Button_ClickCharging();
+            }
+            get
+            {
+                return button3SelectedItem;
+            }
+        }
         public RelayCommand Cancel { get; set; }
         public RelayCommand Add { get; set; }
         public RelayCommand AddOrUpDate { get; set; }
-        public RelayCommand Charging { get; set; }
-        public RelayCommand AllParcelsOptions { set; get; }
         public RelayCommand TimeDuration { set; get; }
         public bool IsAdd { get; set; }
         public bool IsEdit { get; set; }
@@ -157,7 +176,7 @@ namespace PL
         /// </summary>
         /// <param name="sender">the invoking object</param>
         /// <param name="e">the event</param>
-        private void Button_ClickCharging(object sender)
+        private void Button_ClickCharging()
         {
             try
             {
@@ -214,7 +233,7 @@ namespace PL
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ParcelsOptions(object sender)
+        private void ParcelsOptions()
         {
             try
             {
