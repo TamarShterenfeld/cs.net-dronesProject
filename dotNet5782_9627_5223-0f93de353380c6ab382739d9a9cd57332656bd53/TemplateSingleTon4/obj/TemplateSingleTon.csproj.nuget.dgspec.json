@@ -1,0 +1,84 @@
+{
+  "format": 1,
+  "restore": {
+    "D:\\31 12 2021\\dotNet5782_9627_5223-0f93de353380c6ab382739d9a9cd57332656bd53\\TemplateSingleTon4\\TemplateSingleTon.csproj": {}
+  },
+  "projects": {
+    "D:\\31 12 2021\\dotNet5782_9627_5223-0f93de353380c6ab382739d9a9cd57332656bd53\\TemplateSingleTon4\\TemplateSingleTon.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\31 12 2021\\dotNet5782_9627_5223-0f93de353380c6ab382739d9a9cd57332656bd53\\TemplateSingleTon4\\TemplateSingleTon.csproj",
+        "projectName": "TemplateSingleTon",
+        "projectPath": "D:\\31 12 2021\\dotNet5782_9627_5223-0f93de353380c6ab382739d9a9cd57332656bd53\\TemplateSingleTon4\\TemplateSingleTon.csproj",
+        "packagesPath": "C:\\Users\\hitmachut\\.nuget\\packages\\",
+        "outputPath": "D:\\31 12 2021\\dotNet5782_9627_5223-0f93de353380c6ab382739d9a9cd57332656bd53\\TemplateSingleTon4\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\hitmachut\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "GoogleMaps.LocationServices": {
+              "target": "Package",
+              "version": "[1.2.0.5, )"
+            },
+            "Material.Icons": {
+              "target": "Package",
+              "version": "[1.0.66, )"
+            },
+            "MaterialDesignColors": {
+              "target": "Package",
+              "version": "[2.0.4, )"
+            },
+            "MaterialDesignThemes": {
+              "target": "Package",
+              "version": "[4.3.0, )"
+            },
+            "MediaKit.Animations": {
+              "target": "Package",
+              "version": "[0.3.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.301\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
