@@ -35,9 +35,21 @@ namespace PL
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_DroneClick(object sender, RoutedEventArgs e)
         {
             new DroneList(bl).Show();
         }
+
+        /// <summary>
+        /// the function treats the event of clicking the button 'all stations'
+        /// when it's pressed - it opens a new window named 'StationList'.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Button_StationClick(object sender, RoutedEventArgs e)
+        {
+            new StationsList(bl).Show();
+        }
+        
     }
 }
