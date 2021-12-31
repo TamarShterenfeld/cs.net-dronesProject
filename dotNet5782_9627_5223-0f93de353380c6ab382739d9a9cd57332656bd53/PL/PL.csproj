@@ -64,4 +64,8 @@
     </Page>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Parcels\" />
+  </ItemGroup>
+
 </Project>
