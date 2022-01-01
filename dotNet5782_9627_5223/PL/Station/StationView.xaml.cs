@@ -21,9 +21,26 @@ namespace PL
     {
         private BLApi.IBL bl;
         Action refreshDroneList;
-        public StationView(BO.BaseStationForList station,BLApi.IBL bl, Action filter)
+
+        public StationView(BLApi.IBL bl, Action filter)
         {
+            this.bl = bl;
             InitializeComponent();
+            InCharging.DataContext = bl.GetDronesInMe(int.Parse(id.Text));
         }
+
+        public StationView(BO.BaseStationForList station ,BLApi.IBL bl, Action filter)
+        {
+            this.bl = bl;
+            InitializeComponent();
+            InCharging.DataContext = bl.GetDronesInMe(int.Parse(id.Text));
+        }
+
+
+        private void DroneListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            new DroneView((e.OriginalSource as FrameworkElement).DataContext as BO.DroneForList, bl, refreshDroneList).Show();
+        }
+
     }
 }

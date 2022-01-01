@@ -20,7 +20,7 @@ namespace PL
     public partial class StationsList : Window
     {
         BLApi.IBL bl;
-        Action currFilter;
+        Action filter;
         public StationsList(BLApi.IBL bl)
         {
             this.bl = bl;
@@ -34,12 +34,33 @@ namespace PL
         /// </summary>
         private void Filter()
         {
-            DroneListView.DataContext = (List<BO.BaseStationForList>)bl.GetBaseStationList();
+            StationsListView.DataContext = (List<BO.BaseStationForList>)bl.GetBaseStationList();
         }
 
         private void StationListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            new StationView((e.OriginalSource as FrameworkElement).DataContext as BO.BaseStationForList, bl, currFilter).Show();
+            new StationView((e.OriginalSource as FrameworkElement).DataContext as BO.BaseStationForList, bl, filter).Show();
         }
+
+        private void Button_ClickAdd(object sender, RoutedEventArgs e)
+        {
+            new StationView(bl, filter).Show();
+        }
+
+        /// <summary>
+        /// the function treats the event of pressing the button 'close'. 
+        /// </summary>
+        /// <param name="sender">the invoking object</param>
+        /// <param name="e">the event</param>
+        private void Button_ClickClose(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void StatusFilter_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+            //לחשוב מה לעשות כאן
+        }
+        
     }
 }

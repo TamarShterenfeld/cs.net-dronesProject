@@ -71,6 +71,8 @@ namespace PL.PO
             Id = id; Name = name; Location = location; ChargeSlots = chargeSlots; DroneCharging = droneCharging;
         }
 
+       
+
         // default constructor
         public StationModel() { }
 

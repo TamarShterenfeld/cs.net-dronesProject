@@ -20,9 +20,9 @@ namespace PL
                 Weight = drone.MaxWeight;
                 Battery = drone.Battery;
                 ParcelId = drone.ParcelId;
-                Location = drone.Location;
+                Location = null;//לטפל בזה
             }
-
+            
             public double Battery { get; set; }
             public int ParcelId { get; set; }
             public Location Location { get; set; }

@@ -113,7 +113,7 @@ namespace PL.PO
         /// </summary>
         /// <param name="degree">place in degrees</param>
         /// <param name="longOrLat">longitude ot latitude</param>
-        public Coordinate(double degree, Locations longOrLat)
+        public Coordinate(double degree, PO.Locations longOrLat)
         {
             InputCoorValue = degree;
             MyLocation = longOrLat;
@@ -125,19 +125,21 @@ namespace PL.PO
         /// </summary>
         public Coordinate() { }
 
-        public enum Directions
-        {
-            NORTH, EAST, WEST, SOUTH
-        }
+        
 
-        /// <summary>
-        /// 
-        /// an enum which contains the two options for a location - longitude / latitude.
-        /// </summary>
-        public enum Locations
-        {
-            Latitude, Longitude
-        }
+    }
 
+    public enum Directions
+    {
+        NORTH, EAST, WEST, SOUTH
+    }
+
+    /// <summary>
+    /// 
+    /// an enum which contains the two options for a location - longitude / latitude.
+    /// </summary>
+    public enum Locations
+    {
+        Latitude, Longitude
     }
 }
