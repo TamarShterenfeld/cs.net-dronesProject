@@ -19,9 +19,9 @@ namespace PL.Parcel
     /// </summary>
     public partial class ParcelView : Window
     {
-        public ParcelView()
-        {
-            InitializeComponent();
-        }
+        //public ParcelView()
+        //{
+        //    InitializeComponent();
+        //}
     }
 }
