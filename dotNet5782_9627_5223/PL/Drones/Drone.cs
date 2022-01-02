@@ -7,6 +7,11 @@ namespace PL
     {
         public class Drone : INotifyPropertyChanged
         {
+            PO.Coordinate CoordinateDoToBo(BO.Coordinate coor)
+            {
+                return new PO.Coordinate() { InputCoorValue = coor.InputCoorValue, Degrees = coor.Degrees, Direction = (PO.Directions)coor.Direction, MyLocation = (PO.Locations)coor.MyLocation, Minutes = coor.Minutes, Seconds = coor.Seconds };
+            }
+
             private int id;
             private string model;
             private WeightCategories weight;
@@ -20,7 +25,7 @@ namespace PL
                 Weight = drone.MaxWeight;
                 Battery = drone.Battery;
                 ParcelId = drone.ParcelId;
-                Location = null;//לטפל בזה
+                Location = new(CoordinateDoToBo(drone.Location.CoorLongitude), CoordinateDoToBo(drone.Location.CoorLatitude));
             }
             
             public double Battery { get; set; }

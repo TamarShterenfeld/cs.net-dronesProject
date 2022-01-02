@@ -33,7 +33,7 @@ namespace PL
         {
             this.bl = bl;
             InitializeComponent();
-            InCharging.DataContext = bl.GetDronesInMe(int.Parse(id.Text));
+            InCharging.DataContext = bl.GetDronesInMe(2);
         }
 
 

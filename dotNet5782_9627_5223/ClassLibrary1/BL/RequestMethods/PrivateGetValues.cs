@@ -123,7 +123,7 @@ namespace IBL
         /// </summary>
         /// <param name="coor">DO coordinate</param>
         /// <returns>BO coordinate</returns>
-         static BO.Coordinate CoordinateDoToBo(DO.Coordinate coor)
+        static BO.Coordinate CoordinateDoToBo(DO.Coordinate coor)
         {
             return new BO.Coordinate() { InputCoorValue = coor.InputCoorValue, Degrees = coor.Degrees, Direction = (BO.Directions)coor.Direction, MyLocation = (BO.Locations)coor.MyLocation, Minutes = coor.Minutes, Seconds = coor.Seconds };
         }

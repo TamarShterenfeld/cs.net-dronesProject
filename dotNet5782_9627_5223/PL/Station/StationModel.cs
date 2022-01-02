@@ -9,6 +9,7 @@ namespace PL.PO
 {
     public class StationModel : INotifyPropertyChanged
     {
+        BLApi.IBL bl;
         public event PropertyChangedEventHandler PropertyChanged;
         private int id;
         Location location = new();
@@ -71,7 +72,13 @@ namespace PL.PO
             Id = id; Name = name; Location = location; ChargeSlots = chargeSlots; DroneCharging = droneCharging;
         }
 
-       
+        public StationModel(BLApi.IBL bl,BO.BaseStationForList station)
+        {
+            this.bl = bl;
+            Id = station.Id; Name = station.Name; Location = location; ChargeSlots = station.AvailableChargeSlots + station.CaughtChargeSlots ; DroneCharging = ;
+        }
+
+
 
         // default constructor
         public StationModel() { }
