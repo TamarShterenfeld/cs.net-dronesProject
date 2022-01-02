@@ -9,7 +9,7 @@
          Icon="../images/toplogo.jpg"
         >
     <Grid>
-        <Grid x:Name="aside" Margin="685,269,-41,10">
+        <Grid x:Name="aside" Margin="798,303,-154,-24">
             <Grid.Background>
                 <ImageBrush ImageSource="../images/dron bg.jpg"/>
             </Grid.Background>
@@ -42,6 +42,8 @@
                 <ColumnDefinition Width="2*" />
                 <ColumnDefinition Width="2*" />
                 <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="2*" />
+
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
@@ -53,26 +55,47 @@
             <Button 
             Content="all drones" 
             BorderThickness="0.5"
-            HorizontalAlignment="Center"
-            Margin="0,94,0,0" 
+            HorizontalAlignment="Left"
+            Margin="107,90,0,0" 
             Grid.Row="1"
-            Grid.Column="1"
                 VerticalAlignment="Top" Background="Turquoise" Click="Button_DroneClick"
              Style="{StaticResource MaterialDesignFloatingActionSecondaryDarkButton}"
             ToolTip="MaterialDesignFloatingActionSecondaryDarkButton"
-             IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" BorderBrush="White" Width="104" Height="101" Grid.RowSpan="2" FontSize="18" RenderTransformOrigin="0.457,0.544"/>
+             IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" BorderBrush="White" Width="115" Height="114" Grid.RowSpan="2" FontSize="18" RenderTransformOrigin="0.457,0.544"/>
 
             <Button 
             Content="all stations" 
             BorderThickness="0.5"
-            HorizontalAlignment="Center"
-            Margin="0,94,0,0" 
+            HorizontalAlignment="Left"
+            Margin="47,90,0,0" 
             Grid.Row="1"
-            Grid.Column="2"
-                VerticalAlignment="Top" Background="Turquoise" Click="Button_StationClick"
+            Grid.Column="1"
+                VerticalAlignment="Top" Background="#FFFE7A05" Click="Button_StationClick"
              Style="{StaticResource MaterialDesignFloatingActionSecondaryDarkButton}"
             ToolTip="MaterialDesignFloatingActionSecondaryDarkButton"
-             IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" BorderBrush="White" Width="104" Height="101" Grid.RowSpan="2" FontSize="18" RenderTransformOrigin="0.457,0.544"/>
+             IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" BorderBrush="White" Width="115" Height="114" Grid.RowSpan="2" FontSize="18" RenderTransformOrigin="0.457,0.544" IsCancel="True"/>
+            <Button 
+                Content="all customers" 
+                BorderThickness="0.5"
+                HorizontalAlignment="Left"
+                Margin="247,90,0,0" 
+                Grid.Row="1"
+                Grid.Column="1"
+                VerticalAlignment="Top" Background="#FFF6E804" Click="Button_StationClick"
+                Style="{StaticResource MaterialDesignFloatingActionSecondaryDarkButton}"
+                ToolTip="MaterialDesignFloatingActionSecondaryDarkButton"
+                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" BorderBrush="White" Width="115" Height="114" Grid.RowSpan="2" FontSize="18" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="2"/>
+            <Button 
+                Content="all parcels" 
+                BorderThickness="0.5"
+                HorizontalAlignment="Left"
+                Margin="194,90,0,0" 
+                Grid.Row="1"
+                Grid.Column="2"
+                VerticalAlignment="Top" Background="#FFB3F308" Click="Button_StationClick"
+                Style="{StaticResource MaterialDesignFloatingActionSecondaryDarkButton}"
+                ToolTip="MaterialDesignFloatingActionSecondaryDarkButton"
+                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" BorderBrush="White" Width="115" Height="114" Grid.RowSpan="2" FontSize="18" RenderTransformOrigin="0.457,0.544" Grid.ColumnSpan="2"/>
 
         </Grid>
     </Grid>
