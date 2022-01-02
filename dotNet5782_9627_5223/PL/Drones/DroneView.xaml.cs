@@ -65,7 +65,7 @@ namespace PL
 
             this.DataContext = new DroneViewModel(droneForList, bl);
 
-            station.DataContext = /*id.DataContext =*/ "False";
+            station.DataContext = "False";
             if (droneForList != null)
             {
                 BO.Drone drone = bl.GetBLDrone(droneForList.Id);

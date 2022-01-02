@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:PL" xmlns:i1="http://xamarin.com/schemas/2014/forms" 
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         Title="Drone" Height="650" Width="800"
-             Icon="/images/toplogo.jpg"
+             Icon="../images/toplogo.jpg"
         x:Name="Drone">
     <Window.Resources>
         <ResourceDictionary >
@@ -125,7 +125,7 @@
                   SelectedIndex="0" Margin="63,2,63,0" Height="20"/>
         <Grid Margin="-18,0,80,20" Grid.ColumnSpan="2">
             <Grid.Background>
-                <ImageBrush Stretch="Fill" ImageSource="/images/logo1.jpg"/>
+                <ImageBrush Stretch="Fill" ImageSource="../images/logo1.jpg"/>
             </Grid.Background>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />

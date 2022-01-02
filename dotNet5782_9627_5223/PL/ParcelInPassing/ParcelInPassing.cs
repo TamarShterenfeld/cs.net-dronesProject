@@ -11,7 +11,7 @@ namespace PL
 {
     namespace PO
     {
-        class ParcelInPassing
+        public class ParcelInPassing
         {
             public ParcelInPassing(BO.ParcelForList parcel, BLApi.IBL bL)
             {
@@ -24,7 +24,7 @@ namespace PL
                 string senderName = sender.Name;
                 string targetName = target.Name;
                 Sender = new CustomerInParcel { Id = parcel.SenderId, Name = senderName };
-                Target = new CustomerInParcel { Id = parcel.TargetId, Name = targetName };              
+                Target = new CustomerInParcel { Id = parcel.TargetId, Name = targetName };
                 Collect = ConvertBoLocationToPoLocation(sender.Location);
                 Destination = ConvertBoLocationToPoLocation(target.Location);
                 Distance = sender.Distance(target);
@@ -46,5 +46,5 @@ namespace PL
             }
         }
     }
-    
+
 }
