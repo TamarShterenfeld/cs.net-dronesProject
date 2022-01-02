@@ -65,7 +65,7 @@ namespace PL
 
             this.DataContext = new DroneViewModel(droneForList, bl);
 
-            station.DataContext = /*id.DataContext =*/ "False";
+            station.DataContext = "False";
             if (droneForList != null)
             {
                 BO.Drone drone = bl.GetBLDrone(droneForList.Id);
@@ -87,8 +87,12 @@ namespace PL
                 button3.Visibility = button4.Visibility = Visibility.Visible;
                 button2.Content = "Update";
             }
-        } 
+        }
 
+        private void delivery_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }
 

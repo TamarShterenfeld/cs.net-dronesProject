@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace BO
 {
     //a class which contains two coordinates which build together the class Location.
-    public class Location
+    public class Location 
     {
         Coordinate coorLongitude;
         Coordinate coorLatitude;

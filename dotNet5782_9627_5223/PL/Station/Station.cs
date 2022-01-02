@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PL.PO
 {
-    public class StationModel : INotifyPropertyChanged
+    public class Station : INotifyPropertyChanged
     {
         BLApi.IBL bl;
         public event PropertyChangedEventHandler PropertyChanged;
@@ -67,7 +67,7 @@ namespace PL.PO
         /// <param name="location"> BaseStation's location </param>
         /// <param name="chargeSlots"> BaseStation's number of chargeSlots </param>
         /// <param name="droneCharging"> BaseStation's droneInCharging </param>
-        public StationModel(int id, string name, Location location, int chargeSlots, List<DroneInCharging> droneCharging)
+        public Station(int id, string name, Location location, int chargeSlots, List<DroneInCharging> droneCharging)
         {
             Id = id; Name = name; Location = location; ChargeSlots = chargeSlots; DroneCharging = droneCharging;
         }
@@ -81,7 +81,7 @@ namespace PL.PO
 
 
         // default constructor
-        public StationModel() { }
+        public Station() { }
 
 
         /// <summary>

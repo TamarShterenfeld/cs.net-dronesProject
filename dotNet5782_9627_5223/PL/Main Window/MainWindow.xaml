@@ -6,12 +6,12 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
          Title="Main"
-         Icon="images/toplogo.jpg"
+         Icon="../images/toplogo.jpg"
         >
     <Grid>
         <Grid x:Name="aside" Margin="685,269,-41,10">
             <Grid.Background>
-                <ImageBrush ImageSource="/images/dron bg.jpg"/>
+                <ImageBrush ImageSource="../images/dron bg.jpg"/>
             </Grid.Background>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -25,7 +25,7 @@
 
         <Grid Margin="10,19,958,458">
             <Grid.Background>
-                <ImageBrush Stretch="Fill" ImageSource="/images/logo1.jpg"/>
+                <ImageBrush Stretch="Fill" ImageSource="../images/logo1.jpg"/>
             </Grid.Background>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
