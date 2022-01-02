@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PL.BaseStations
 {
-    class StationViewModel
+    class StationsListViewModel
     {
     }
 }
