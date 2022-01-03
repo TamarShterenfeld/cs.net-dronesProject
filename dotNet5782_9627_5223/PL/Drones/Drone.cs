@@ -15,7 +15,7 @@ namespace PL
             private WeightCategories weight;
             private DroneStatuses status;
 
-            public Drone(BO.DroneForList drone)
+            public Drone(BO.DroneForList drone, BLApi.IBL bl )
             {
                 Id = drone.Id;
                 Model = drone.Model;
@@ -23,7 +23,8 @@ namespace PL
                 Weight = drone.MaxWeight;
                 Battery = drone.Battery;
                 ParcelId = drone.ParcelId;
-                Location = LocationDoToBo(drone.Location);
+                BO.Drone drone1 = bl.GetBLDrone(Id);
+                Location =(PO.Location)PrivateMethods.ConvertBoLocationToPoLocation(drone1.Location);
             }
             
             public double Battery { get; set; }
