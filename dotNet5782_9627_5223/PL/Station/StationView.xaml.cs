@@ -28,7 +28,7 @@ namespace PL
             InitializeComponent();
         }
 
-        public StationView(BO.BaseStationForList station ,BLApi.IBL bl, Action filter)
+        public StationView(BO.BaseStationForList station ,BLApi.IBL bl)
         {
             this.bl = bl;
             InitializeComponent();

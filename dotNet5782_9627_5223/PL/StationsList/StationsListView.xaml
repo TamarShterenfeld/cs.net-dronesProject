@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PL" xmlns:i1="clr-namespace:Microsoft.VisualBasic;assembly=Microsoft.VisualBasic.Core"
+        xmlns:local="clr-namespace:PL" xmlns:i1="clr-namespace:Microsoft.VisualBasic;assembly=Microsoft.VisualBasic.Core" xmlns:i="clr-namespace:Microsoft.VisualBasic;assembly=Microsoft.VisualBasic" xmlns:i2="http://schemas.microsoft.com/netfx/2007/xaml/presentation"
         mc:Ignorable="d"
         Title="StationsList" Height="450" Width="800"
         x:Name="stationsList">
@@ -38,6 +38,9 @@
                         </GroupStyle.HeaderTemplate>
                     </GroupStyle>
                 </ListView.GroupStyle>
+                <ListView.InputBindings>
+                    <MouseBinding Gesture="LeftDoubleClick" Command="{Binding Double}" CommandParameter="{Binding ElementName = StationsListView}"/>
+                </ListView.InputBindings>
             </ListView>
             <Grid x:Name="aside" Margin="17,84,-22,10" Grid.Column="2">
                 <Grid.Background>
@@ -55,7 +58,7 @@
         </Grid>
         <WrapPanel Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="center"  VerticalAlignment="center">
             <ComboBox x:Name="CurrFilter" Text="choose filter" ItemsSource="{Binding Options}" HorizontalAlignment="Center"  
-                      VerticalAlignment="Center" Width="146"   IsEditable="True" BorderBrush="#FF38FFFD" Foreground="#FF2A2828"
+                      VerticalAlignment="Center" Width="180"   IsEditable="True" BorderBrush="#FF38FFFD" Foreground="#FF2A2828"
                       SelectedItem="{Binding SelectedFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         </WrapPanel>
         <Grid Height="62" VerticalAlignment="Top" Margin="10,0,253,0">
