@@ -28,7 +28,7 @@ namespace PL
                 Target = new CustomerInParcel(target.Id, targetName);
                 Collect = BoToPo.LocationBOTOPO(sender.Location);
                 Destination = BoToPo.LocationBOTOPO(target.Location);
-                //Distance = sender.Distance(target);
+                Distance = sender.Distance(target);
             }
             public int Id { get; set; }
             public bool ToDestinition { set; get; }

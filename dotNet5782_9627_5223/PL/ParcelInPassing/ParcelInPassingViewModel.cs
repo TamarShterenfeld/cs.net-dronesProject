@@ -10,13 +10,13 @@ namespace PL.ParcelInPassing
     {
         BLApi.IBL Bl;
         
-        public PO.ParcelInPassing ParcdelInPass { get; set; }
+        public PO.ParcelInPassing ParcelInPass { get; set; }
         public Array PrioritiesArr { get; set; }
         public Array WeightArr { get; set; }
         public ParcelInPassingViewModel(BO.ParcelInPassing parcel, BLApi.IBL bl)
         {
             Bl = bl;
-            ParcdelInPass = new PO.ParcelInPassing(parcel, bl);
+            ParcelInPass = new PO.ParcelInPassing(parcel, bl);
             PrioritiesArr = typeof(BO.Priorities).GetEnumValues();
             WeightArr = typeof(BO.WeightCategories).GetEnumValues();
         }
