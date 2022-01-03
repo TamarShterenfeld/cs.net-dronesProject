@@ -25,8 +25,8 @@ namespace PL
                 string targetName = target.Name;
                 Sender = new CustomerInParcel { Id = parcel.SenderId, Name = senderName };
                 Target = new CustomerInParcel { Id = parcel.TargetId, Name = targetName };
-                Collect = ConvertBoLocationToPoLocation(sender.Location);
-                Destination = ConvertBoLocationToPoLocation(target.Location);
+                Collect = PrivateMethods.ConvertBoLocationToPoLocation((sender.Location));
+                Destination = PrivateMethods.ConvertBoLocationToPoLocation((target.Location));
                 Distance = sender.Distance(target);
             }
             public int Id { get; set; }
@@ -38,12 +38,6 @@ namespace PL
             public Location Collect { get; set; }
             public Location Destination { get; set; }
             public double Distance { get; set; }
-            private PO.Location ConvertBoLocationToPoLocation(BO.Location location)
-            {
-                PO.Coordinate longitude = new(location.CoorLongitude.Degrees, Locations.Longitude);
-                PO.Coordinate latitude = new(location.CoorLatitude.Degrees, Locations.Latitude);
-                return new(longitude, latitude);
-            }
         }
     }
 

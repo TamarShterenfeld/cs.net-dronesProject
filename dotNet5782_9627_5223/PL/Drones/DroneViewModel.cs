@@ -30,7 +30,7 @@ namespace PL
         public DroneViewModel(BO.DroneForList drone, BLApi.IBL bl)
         {
             Bl = bl;
-            Drone = new PO.Drone(drone);
+            Drone = new PO.Drone(drone, bl);
             DroneStatusesList = typeof(BO.DroneStatuses).GetEnumValues();
             DroneWeightsList = typeof(BO.WeightCategories).GetEnumValues();
             IsAdd = false;
