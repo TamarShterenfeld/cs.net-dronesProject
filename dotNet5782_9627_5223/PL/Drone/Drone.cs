@@ -8,8 +8,6 @@ namespace PL
     {
         public class Drone : INotifyPropertyChanged
         {
-            
-
             private int id;
             private string model;
             private Location location;
@@ -76,7 +74,6 @@ namespace PL
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Status)));
                 }
             }
-
             public event PropertyChangedEventHandler PropertyChanged;
         }
     }

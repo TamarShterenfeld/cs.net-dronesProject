@@ -33,6 +33,8 @@ namespace PL
                 Destination = BoToPo.LocationBOTOPO(target.Location);
                 Distance = sender.Distance(target);
             }
+
+            public ParcelInPassing() { }
             public int Id { get; set; }
             public bool ToDestinition { set; get; }
             public Priorities Priority { get; set; }

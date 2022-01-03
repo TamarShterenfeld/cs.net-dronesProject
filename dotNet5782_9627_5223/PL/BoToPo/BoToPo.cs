@@ -24,6 +24,12 @@ namespace PL.PO
         {
             return new PO.Location(CoordinateDoToBo(location.CoorLongitude), CoordinateDoToBo(location.CoorLatitude));
         }
-       
+
+        public static PO.Location ParcelInPassingBOTOPO(BO.ParcelInPassing parcelInPassing)
+        {
+            PO.ParcelInPassing poParcelInPassing = new();
+
+        }
+
     }
 }

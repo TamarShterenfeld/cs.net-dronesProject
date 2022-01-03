@@ -31,6 +31,7 @@ namespace PL
         {
             Bl = bl;
             Drone = new PO.Drone(drone, bl);
+            Parcel =  Bl.GetParcelInPassing(ParcelId)
             DroneStatusesList = typeof(BO.DroneStatuses).GetEnumValues();
             DroneWeightsList = typeof(BO.WeightCategories).GetEnumValues();
             IsAdd = false;
@@ -47,6 +48,7 @@ namespace PL
         }
 
         //properties
+        public PO.ParcelInPassing Parcel { get; set; }
         public PO.Drone Drone { get; set; }
         public Array DroneStatusesList { get; set; }
         public Array DroneWeightsList { get; set; }
@@ -89,6 +91,7 @@ namespace PL
         public RelayCommand Add { get; set; }
         public RelayCommand AddOrUpDate { get; set; }
         public RelayCommand TimeDuration { set; get; }
+        public RelayCommand ParcelDoubleClick { set; get; }
         public bool IsAdd { get; set; }
         public bool IsEdit { get; set; }
 
@@ -303,6 +306,11 @@ namespace PL
             }
         }
 
+
+        public void DoubleClickP (object sender)
+        {
+            new PO.ParcelInPassing(,Bl)
+        }
 
         //-----------------------------------Helping Functions----------------------------------
         /// <summary>

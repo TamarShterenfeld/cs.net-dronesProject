@@ -30,12 +30,7 @@ namespace PL
             InitializeComponent();
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void TargetLocation_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
+        public event PropertyChangedEventHandler PropertyChanged;      
     }
 
 }
