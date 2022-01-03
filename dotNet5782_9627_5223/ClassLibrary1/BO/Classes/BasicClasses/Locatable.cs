@@ -11,7 +11,7 @@ namespace BO
     /// an static class which was created for giving the possibility for ILocatable objects 
     /// to use its methods as if the method appeared in their original class.
     /// </summary>
-    public static class Locatable
+    internal static class Locatable
     {
         /// <summary>
         /// an extension function that computes the distance between two ILocatable objects.

@@ -1,4 +1,5 @@
 ﻿using BO;
+using static PL.PO.BoToPo;
 using System.ComponentModel;
 
 namespace PL
@@ -7,10 +8,7 @@ namespace PL
     {
         public class Drone : INotifyPropertyChanged
         {
-            PO.Coordinate CoordinateDoToBo(BO.Coordinate coor)
-            {
-                return new PO.Coordinate() { InputCoorValue = coor.InputCoorValue, Degrees = coor.Degrees, Direction = (PO.Directions)coor.Direction, MyLocation = (PO.Locations)coor.MyLocation, Minutes = coor.Minutes, Seconds = coor.Seconds };
-            }
+            
 
             private int id;
             private string model;
@@ -25,7 +23,7 @@ namespace PL
                 Weight = drone.MaxWeight;
                 Battery = drone.Battery;
                 ParcelId = drone.ParcelId;
-                Location = new(CoordinateDoToBo(drone.Location.CoorLongitude), CoordinateDoToBo(drone.Location.CoorLatitude));
+                Location = LocationDoToBo(drone.Location);
             }
             
             public double Battery { get; set; }
