@@ -31,16 +31,7 @@ namespace PL
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-
-        private void priority_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void id_Copy_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
+     
     }
 
 }
