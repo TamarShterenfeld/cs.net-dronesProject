@@ -90,7 +90,7 @@
                   IsEnabled="False" 
                   ItemsSource="{Binding DroneStatusesList}" Margin="63,49,63,0" Grid.RowSpan="2"
                   SelectedItem="{Binding Drone.Status}"/>
-        <TextBlock Text="Delivery:" Grid.Row="6" Grid.Column="1" Foreground="#FF3F4245"/>
+        <TextBlock Text="Delivery:" Grid.Row= "6" Grid.Column="1" Foreground="#FF3F4245"/>
         <TextBox x:Name="delivery"
             Grid.Row="5" Grid.Column="2"
             Text="{Binding Drone.ParcelId}"
