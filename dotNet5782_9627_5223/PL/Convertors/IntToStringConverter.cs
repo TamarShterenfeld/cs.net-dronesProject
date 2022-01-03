@@ -17,8 +17,7 @@ namespace PL
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return int.Parse(va(string)lue);
+            return int.Parse((string)value);
         }
     }
-    
 }
