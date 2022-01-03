@@ -15,6 +15,9 @@ namespace PL
         readonly object _execute2;
         readonly Func<object, bool> _canExecute ;
 
+        public Action<object, MouseButtonEventArgs> Button_DoubleClick { get; }
+        public object P { get; }
+
         #endregion
 
         #region Constructors
@@ -46,6 +49,12 @@ namespace PL
             _execute = execute;
             _canExecute = canExecute;
             _execute2 = execute2;
+        }
+
+        public RelayCommand(Action<object, MouseButtonEventArgs> button_DoubleClick, object p)
+        {
+            Button_DoubleClick = button_DoubleClick;
+            P = p;
         }
 
         #endregion

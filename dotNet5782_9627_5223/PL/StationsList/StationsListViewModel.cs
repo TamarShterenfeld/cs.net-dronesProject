@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
+using System.Windows.Input;
 using BO;
 
 namespace PL.BaseStations
@@ -21,9 +22,11 @@ namespace PL.BaseStations
             Options = new List<string>() { "All BaseStations", "Group By Free ChargeSlots" };
             AllStations = new(bl.GetBaseStationList().ToList());
             Button_AllStations();
+            Double = new(doubleClick, null);
         }
         public RelayCommand Cancel { get; set; }
         public RelayCommand Add { get; set; }
+        public RelayCommand Double { get; set; }
         public List<string> Options { get; set; }
         private ListCollectionView allStations;
         public ListCollectionView AllStations 
@@ -39,12 +42,6 @@ namespace PL.BaseStations
         SortDescription sortFree = new("AvailableChargeSlots", 0);
         SortDescription sortId = new("Id", 0);
 
-
-        //CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(lvUsers.ItemsSource);
-        //PropertyGroupDescription groupDescription = new PropertyGroupDescription("Sex");
-        //view.GroupDescriptions.Add(groupDescription);
-
-
         private string selectedFilter;
         public string SelectedFilter
         {
@@ -56,8 +53,6 @@ namespace PL.BaseStations
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedFilter)));
             }
         }
-
-        
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -79,6 +74,13 @@ namespace PL.BaseStations
         {
             new StationView(bl).Show();
         }
+
+        private void doubleClick(object sender)
+        {
+            MessageBox.Show("aaaaaaaaaaaa");
+        }
+
+
 
         private void Button_AllStations()
         {
