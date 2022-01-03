@@ -19,7 +19,7 @@ namespace PL
         public StationViewModel(BLApi.IBL bl, BO.BaseStationForList station)
         {
             this.bl = bl;
-            BaseStation = new PO.Station(station.Id, station.Name, null, station.CaughtChargeSlots, null);
+            BaseStation = new(bl,station);
             Cancel = new(Button_ClickCancel, null);
             Add = new(Button_ClickAdd, null);
         }

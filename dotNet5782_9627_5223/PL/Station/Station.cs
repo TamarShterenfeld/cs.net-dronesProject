@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using static PL.PO.BoToPo;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ namespace PL.PO
 {
     public class Station : INotifyPropertyChanged
     {
+        BLApi.IBL bl;
         public event PropertyChangedEventHandler PropertyChanged;
         private int id;
         Location location = new();
@@ -57,43 +59,15 @@ namespace PL.PO
         }
         public List<DroneInCharging> DroneCharging { get; set; }
 
-
-        /// <summary>
-        /// a constructor with parameters
-        /// </summary>
-        /// <param name="id"> BaseStation's id </param>
-        /// <param name="name"> BaseStation's name </param>
-        /// <param name="location"> BaseStation's location </param>
-        /// <param name="chargeSlots"> BaseStation's number of chargeSlots </param>
-        /// <param name="droneCharging"> BaseStation's droneInCharging </param>
-        public Station(int id, string name, Location location, int chargeSlots, List<DroneInCharging> droneCharging)
+        public Station(BLApi.IBL bl,BO.BaseStationForList station)
         {
-            Id = id; Name = name; Location = location; ChargeSlots = chargeSlots; DroneCharging = droneCharging;
+            this.bl = bl;
+            Id = station.Id; Name = station.Name; Location = LocationDoToBo(bl.GetBLBaseStation(station.Id).Location); ChargeSlots = station.AvailableChargeSlots + station.CaughtChargeSlots ; DroneCharging = (List<PO.DroneInCharging>)DroneInChargingBOToPO(bl.GetDronesInMe(Id));
         }
-
-       
 
         // default constructor
         public Station() { }
-
-
-        /// <summary>
-        /// collect the details about the drones in charging
-        /// </summary>
-        /// <returns> the details about the drones in charging </returns>
-        private string DroneInChargingDetails()
-        {
-            string dronesDetails = "";
-            if (DroneCharging != null)
-            {
-                foreach (DroneInCharging drone in DroneCharging)
-                {
-                    dronesDetails += drone.ToString();
-                    dronesDetails += "\n";
-                }
-            }
-            return dronesDetails;
-        }
+        
 
     }
 }

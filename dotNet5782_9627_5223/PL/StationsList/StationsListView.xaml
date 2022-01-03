@@ -17,8 +17,8 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <WrapPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="center"  VerticalAlignment="center">
-            <Button Content="Close"  Click="Button_ClickClose"  Background="Turquoise" BorderBrush="White" />
-            <Button Content="Add BaseStation"   Click="Button_ClickAdd" Background="Turquoise" BorderBrush="White" />
+            <Button Content="Close"  Command="{Binding Cancel}"  Background="Turquoise" BorderBrush="White" />
+            <Button Content="Add BaseStation"   Command="{Binding Add}" Background="Turquoise" BorderBrush="White" />
         </WrapPanel>
         <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
@@ -26,8 +26,8 @@
                 <ColumnDefinition Width="10*"/>
                 <ColumnDefinition Width="371*"/>
             </Grid.ColumnDefinitions>
-            <ListView x:Name ="StationsListView"  MouseDoubleClick="StationListView_MouseDoubleClick"  BorderThickness="0" Margin="0,0,359,0" FontFamily="Levenim MT" FontSize="12" 
-                      ItemsSource="{Binding}" SelectionMode="Extended" Grid.ColumnSpan="3"/>
+            <ListView x:Name ="StationsListView"    BorderThickness="0" Margin="0,0,359,0" FontFamily="Levenim MT" FontSize="12" 
+                      ItemsSource="{Binding AllStations}" SelectionMode="Extended" Grid.ColumnSpan="3"/>
             <Grid x:Name="aside" Margin="17,84,-22,10" Grid.Column="2">
                 <Grid.Background>
                     <ImageBrush ImageSource="/images/dron bg.jpg"/>
@@ -43,7 +43,7 @@
             </Grid>
         </Grid>
         <WrapPanel Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="center"  VerticalAlignment="center">
-            <ComboBox x:Name="CurrFilter" Text="choose filter" ItemsSource="{Binding}"  HorizontalAlignment="Center"  VerticalAlignment="Center" Width="146"  SelectionChanged="StatusFilter_SelectionChanged" IsEditable="True" BorderBrush="#FF38FFFD" Foreground="#FF2A2828"/>
+            <ComboBox x:Name="CurrFilter" Text="choose filter" ItemsSource="{Binding Options}"  HorizontalAlignment="Center"  VerticalAlignment="Center" Width="146"   IsEditable="True" BorderBrush="#FF38FFFD" Foreground="#FF2A2828"/>
         </WrapPanel>
         <Grid Height="62" VerticalAlignment="Top" Margin="10,0,253,0">
             <Grid.Background>

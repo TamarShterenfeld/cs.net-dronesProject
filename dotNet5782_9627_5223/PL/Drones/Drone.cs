@@ -1,4 +1,5 @@
 ﻿using BO;
+using static PL.PO.BoToPo;
 using System.ComponentModel;
 
 namespace PL
@@ -7,6 +8,8 @@ namespace PL
     {
         public class Drone : INotifyPropertyChanged
         {
+            
+
             private int id;
             private string model;
             private WeightCategories weight;

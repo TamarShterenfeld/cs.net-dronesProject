@@ -37,7 +37,7 @@ namespace PL.PO
         /// </summary>
         /// <param name="longitude">location's longitude</param>
         /// <param name="latitude">location's latitude</param>
-        public Location(Coordinate longitude, Coordinate latitude)
+        public Location(PO.Coordinate longitude, PO.Coordinate latitude)
         {
             CoorLongitude = longitude;
             CoorLatitude = latitude;
