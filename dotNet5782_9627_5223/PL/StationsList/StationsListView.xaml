@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PL"
+        xmlns:local="clr-namespace:PL" xmlns:i1="clr-namespace:Microsoft.VisualBasic;assembly=Microsoft.VisualBasic.Core"
         mc:Ignorable="d"
         Title="StationsList" Height="450" Width="800"
         x:Name="stationsList">
@@ -28,7 +28,17 @@
                 <ColumnDefinition Width="371*"/>
             </Grid.ColumnDefinitions>
             <ListView x:Name ="StationsListView" BorderThickness="0" Margin="0,0,359,0" FontFamily="Levenim MT" FontSize="12" 
-                      ItemsSource="{Binding AllStations}" SelectionMode="Extended" Grid.ColumnSpan="3" />
+                      ItemsSource="{Binding AllStations}" SelectionMode="Extended" Grid.ColumnSpan="3" >
+                <ListView.GroupStyle>
+                    <GroupStyle>
+                        <GroupStyle.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock FontWeight="Bold" FontSize="14" Text="{Binding Name}"/>
+                            </DataTemplate>
+                        </GroupStyle.HeaderTemplate>
+                    </GroupStyle>
+                </ListView.GroupStyle>
+            </ListView>
             <Grid x:Name="aside" Margin="17,84,-22,10" Grid.Column="2">
                 <Grid.Background>
                     <ImageBrush ImageSource="/images/dron bg.jpg"/>
@@ -44,7 +54,9 @@
             </Grid>
         </Grid>
         <WrapPanel Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="center"  VerticalAlignment="center">
-            <ComboBox x:Name="CurrFilter" Text="choose filter" ItemsSource="{Binding Options}" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="146"   IsEditable="True" BorderBrush="#FF38FFFD" Foreground="#FF2A2828"/>
+            <ComboBox x:Name="CurrFilter" Text="choose filter" ItemsSource="{Binding Options}" HorizontalAlignment="Center"  
+                      VerticalAlignment="Center" Width="146"   IsEditable="True" BorderBrush="#FF38FFFD" Foreground="#FF2A2828"
+                      SelectedItem="{Binding SelectedFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         </WrapPanel>
         <Grid Height="62" VerticalAlignment="Top" Margin="10,0,253,0">
             <Grid.Background>
