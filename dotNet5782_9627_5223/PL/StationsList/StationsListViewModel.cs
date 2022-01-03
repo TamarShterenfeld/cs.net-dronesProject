@@ -11,12 +11,14 @@ namespace PL.BaseStations
 {
     class StationsListViewModel:INotifyPropertyChanged
     {
+        BLApi.IBL bl;
         public StationsListViewModel(BLApi.IBL bl)
         {
+            this.bl = bl;
             Cancel = new(Button_ClickCancel, null);
             Add = new(Button_ClickAdd, null);
             Options = new List<string>() { "All BaseStations", "Group By Free ChargeSlots" };
-            AllStations = bl.GetBaseStationList();
+            AllStations = Button_AllStations();
         }
         public RelayCommand Cancel { get; set; }
         public RelayCommand Add { get; set; }
@@ -50,7 +52,19 @@ namespace PL.BaseStations
         /// </summary>
         private void Button_ClickAdd(object sender)
         {
+            new StationView(bl).Show();
         }
 
+        private IEnumerable<BaseStationForList> Button_AllStations()
+        {
+            return bl.GetBaseStationList();
+        }
+
+        // לבדוק אם ממומש בצורה טובה
+        private IEnumerable<BaseStationForList> Button_GroupByChargeSlots()
+        {
+            var q = bl.GetBaseStationList().GroupBy(s => s.AvailableChargeSlots).ToList().ToList();
+            return (IEnumerable<BaseStationForList>)q;
+        }
     }
 }

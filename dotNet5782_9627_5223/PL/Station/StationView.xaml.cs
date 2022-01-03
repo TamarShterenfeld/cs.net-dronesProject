@@ -22,18 +22,16 @@ namespace PL
         private BLApi.IBL bl;
         Action refreshDroneList;
 
-        public StationView(BLApi.IBL bl, Action filter)
+        public StationView(BLApi.IBL bl)
         {
             this.bl = bl;
             InitializeComponent();
-            InCharging.DataContext = bl.GetDronesInMe(int.Parse(id.Text));
         }
 
         public StationView(BO.BaseStationForList station ,BLApi.IBL bl, Action filter)
         {
             this.bl = bl;
             InitializeComponent();
-            InCharging.DataContext = bl.GetDronesInMe(2);
         }
 
 

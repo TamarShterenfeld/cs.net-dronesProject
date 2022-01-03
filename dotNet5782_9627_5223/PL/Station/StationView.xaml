@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="StationView" Height="650" Width="800"
         Icon="/images/toplogo.jpg">
-    <Grid x:Name ="curdrone" Height="634" VerticalAlignment="Top">
+    <Grid x:Name ="station" Height="634" VerticalAlignment="Top">
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
             <RowDefinition Height="*"/>
@@ -29,8 +29,8 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <WrapPanel Grid.Row="0" Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Button x:Name="button1" Content="Cancel" Width="92" Command="{Binding Cancel}" CommandParameter="{Binding ElementName=Drone }" Background="Turquoise" BorderBrush="White"  Foreground="#DDFFFFFF"/>
-            <Button x:Name="button2" Content="Add" Width="92" Command="{Binding Add}" CommandParameter="{Binding ElementName=Drone }" Background="Turquoise" BorderBrush="White"/>
+            <Button x:Name="button1" Content="Cancel" Width="92" Command="{Binding Cancel}" CommandParameter="{Binding ElementName=station }" Background="Turquoise" BorderBrush="White"  Foreground="#DDFFFFFF"/>
+            <Button x:Name="button2" Content="Add" Width="92" Command="{Binding Add}" CommandParameter="{Binding ElementName=station }" Background="Turquoise" BorderBrush="White"/>
             <ComboBox x:Name="button3" ItemsSource="{Binding Button3Content}" SelectedItem="{Binding Button3SelectedItem}"    Width="110" Background="Turquoise"  Visibility="Collapsed" Foreground="#FF313131" BorderThickness="1"/>
             <ComboBox x:Name="button4"  Width="130" ItemsSource="{Binding }"  Background="Turquoise"  Visibility="Collapsed" BorderThickness="1"  Foreground="#FF313131" />
         </WrapPanel>
