@@ -36,6 +36,11 @@ namespace PL
         {
 
         }
+
+        private void id_Copy_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 
 }

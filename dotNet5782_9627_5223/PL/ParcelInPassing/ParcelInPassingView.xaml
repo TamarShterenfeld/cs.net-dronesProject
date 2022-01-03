@@ -7,21 +7,40 @@
          Icon="../images/toplogo.jpg"
         x:Name="ParcelInPassingh"
         mc:Ignorable="d"
-        Title="ParcelView" Height="450" Width="800">
-    <Grid>
-        <TextBlock Text="Id:" Foreground="#FF2D2D2D" Margin="187,98,533,288"/>
+        Title="ParcelView" Height="700" Width="800">
+    <Grid x:Name ="curdrone" Margin="0,-13,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.7*"/>
+            <ColumnDefinition Width="0.3*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Text="Id:" Grid.Row="4" Foreground="#FF2D2D2D" Margin="187,98,533,561"/>
         <TextBox x:Name="id"
             TextWrapping="Wrap" 
-            Width="140" 
+            Width="140"
             IsEnabled="{Binding IsAdd}"
-            Text="{Binding Drone.Id}" Margin="330,103,330,310"/>
-        <TextBlock  Text="For Destination:" Foreground="#FF2D2D2D" Margin="187,146,533,239"/>
+            Text="{Binding Drone.Id}" Margin="330,103,330,561"/>
+        <TextBlock  Text="For Destination:" Foreground="#FF2D2D2D" Margin="187,157,533,435"/>
         <TextBox x:Name="model" 
             Text="{Binding Drone.Model}" 
             TextWrapping="Wrap" 
             VerticalAlignment="Top" 
-            Width="140" Margin="330,145,330,0" />
-        <Grid Margin="-18,0,613,357">
+            Width="140" Margin="61,113,65,0" Grid.Column="2" />
+        <Grid Margin="-18,0,619,598">
             <Grid.Background>
                 <ImageBrush Stretch="Fill" ImageSource="/images/logo1.jpg"/>
             </Grid.Background>
@@ -34,123 +53,77 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
         </Grid>
-        <Grid x:Name ="curdrone" Margin="-74,-13,74,-187">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="98*"/>
-                <RowDefinition Height="49*"/>
-                <RowDefinition Height="49*"/>
-                <RowDefinition Height="49*"/>
-                <RowDefinition Height="49*"/>
-                <RowDefinition Height="26*"/>
-                <RowDefinition Height="23*"/>
-                <RowDefinition Height="49*"/>
-                <RowDefinition Height="49*"/>
-                <RowDefinition Height="49*"/>
-                <RowDefinition Height="49*"/>
-                <RowDefinition Height="49*"/>
-                <RowDefinition Height="49*"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.7*"/>
-                <ColumnDefinition Width="0.3*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="2">
-                <Button x:Name="button1" Content="Cancel" Width="92" Command="{Binding Cancel}" CommandParameter="{Binding ElementName=Drone}" Background="Turquoise" BorderBrush="White"  Foreground="#DDFFFFFF"/>
-                <ComboBox x:Name="button3" 
+
+        <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="2" Height="32" Width="92">
+            <Button x:Name="button1" Content="Cancel" Width="92" Command="{Binding Cancel}" CommandParameter="{Binding ElementName=Drone}" Background="Turquoise" BorderBrush="White"  Foreground="#DDFFFFFF"/>
+            <ComboBox x:Name="button3" 
                     ItemsSource="{Binding Button3Content}" 
                     SelectedItem="{Binding Button3SelectedItem}"   
                     Width="110" Background="Turquoise"  Visibility="Collapsed" Foreground="#FF313131" BorderThickness="1"/>
-                <!--<i:Interaction.Triggers>
+            <!--<i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
                         <i:InvokeCommandAction Command="{Binding ValueTypeSortCommand}" CommandParameter="{Binding ElementName=KindOf}" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>-->
-                <ComboBox x:Name="button4"
+            <ComboBox x:Name="button4"
                     Width="130"
                     ItemsSource="{Binding ParcelOptions}" 
                     SelectedItem="{Binding ParcelOption}"  
                     Background="Turquoise"  Visibility="Collapsed" BorderThickness="1"  Foreground="#FF313131" />
-            </WrapPanel>
-            <TextBlock Text="Priority" Grid.Row="2" Grid.Column="1" Foreground="#FF4C386B" Grid.ColumnSpan="2" Margin="0,49,266,49" Grid.RowSpan="3"/>
-            <ComboBox x:Name ="weight" 
-                Grid.Row="2" Grid.Column="2" 
-                VerticalAlignment="Top" 
-                Width="140"  
+        </WrapPanel>
+        <TextBlock Grid.Row="2" Grid.Column="1" Foreground="#FF4C386B" Grid.ColumnSpan="2" Margin="0,48,265,57" Grid.RowSpan="2"><Run Text="Priority"/><Run FlowDirection="RightToLeft" Language="he-il" Text=":"/></TextBlock>
+        <ComboBox x:Name ="weight" 
+                Grid.Row="3" Grid.Column="2" 
+                VerticalAlignment="Top"  
                 ItemsSource="{Binding DroneWeightsList}"
                 SelectedItem="{Binding Drone.Weight}"
-                Margin="63,48,63,0" Grid.RowSpan="2"
-                IsEnabled="True"
+                Margin="64,39,61,0"
+                IsEnabled="True" Height="25" Grid.RowSpan="2"
                   />
-            <TextBlock Text="Weight:" Grid.Row="3" Grid.Column="1" Foreground="#FF3F4245" Grid.ColumnSpan="2" Margin="0,48,266,2" Grid.RowSpan="2"/>
-            <ComboBox x:Name ="status" 
-                Grid.Row="3" Grid.Column="2"
+        <TextBlock Text="Weight:" Grid.Row="3" Grid.Column="1" Foreground="#FF3F4245" Grid.ColumnSpan="2" Margin="0,48,265,50" Grid.RowSpan="2"/>
+        <ComboBox x:Name ="priority" 
+                Grid.Row="2" Grid.Column="2"
                 VerticalAlignment="Top" 
-                Width="140" 
-                IsEnabled="False" 
-                ItemsSource="{Binding DroneStatusesList}" Margin="63,45,63,0"
-                SelectedItem="{Binding Drone.Status}" Grid.RowSpan="2"/>
-            <TextBlock Text="Target:" Grid.Row="6" Grid.Column="1" Foreground="#FF3F4245" Grid.ColumnSpan="2" Margin="0,22,266,0" Grid.RowSpan="2"/>
-            <TextBlock Text="Longitude:" Grid.Row="7" Grid.Column="1" Foreground="#FF3F4245" Grid.ColumnSpan="2" Margin="0,49,266,49" Grid.RowSpan="3"/>
-            <TextBox x:Name="longitude"
+                ItemsSource="{Binding DroneStatusesList}" Margin="61,38,63,0"
+                SelectedItem="{Binding Drone.Status}" Height="25" SelectionChanged="priority_SelectionChanged"/>
+        <TextBlock Text="Target:" Grid.Row="5" Foreground="#FF3F4245" Grid.ColumnSpan="3" Margin="186,49,265,58" Grid.RowSpan="2"/>
+        <TextBlock Text="Collect:" Grid.Row="6" Grid.Column="1" Foreground="#FF3F4245" Grid.ColumnSpan="2" Margin="0,48,265,55" Grid.RowSpan="2"/>
+        <TextBox x:Name="longitude"
                 Grid.Row="7" Grid.Column="2"
                 TextWrapping="Wrap" 
                 VerticalAlignment="Top" 
-                Width="140" 
-                IsEnabled="False" Margin="63,47,63,0" Grid.RowSpan="2"/>
-            <TextBlock Text="Latitude:" Grid.Row="9" Grid.Column="1" Foreground="#FF3F4245" Grid.ColumnSpan="2" Margin="0,0,266,48" Grid.RowSpan="2"/>
-            <TextBox x:Name="latitude"
-                Grid.Row="9" Grid.Column="2"
+                IsEnabled="False" Margin="63,37,63,0" Height="25"/>
+        <TextBlock Text="Destination:" Grid.Row="7" Grid.Column="1" Foreground="#FF3F4245" Grid.ColumnSpan="2" Margin="0,49,265,55" Grid.RowSpan="2"/>
+        <TextBox x:Name="latitude"
+                Grid.Row="8" Grid.Column="2"
                 TextWrapping="Wrap" 
                 VerticalAlignment="Top" 
-                Width="140" 
           
-                IsEnabled="False" Margin="63,0,63,0" />
-            <TextBlock x:Name="Lstation" Grid.Row= "10" Grid.Column="1" Foreground="#FF3F4245" Grid.ColumnSpan="2" Margin="0,4,266,0"><Run FlowDirection="RightToLeft" Language="he-il" Text="S"/><Run Text="tation ID:"/></TextBlock>
-            <ComboBox x:Name ="station" 
-                Grid.Row="10" Grid.Column="2"
-                VerticalAlignment="Top" 
-                Width="140"                  
-                ItemsSource="{Binding StationsId}"
-                SelectedItem="{Binding StationId}"
-                IsEnabled="{Binding ''}"
-                SelectedIndex="0" Margin="63,2,63,0" Height="20"/>
-            <Grid Margin="-18,0,80,20" Grid.ColumnSpan="2">
-                <Grid.Background>
-                    <ImageBrush Stretch="Fill" ImageSource="/images/logo1.jpg"/>
-                </Grid.Background>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-            </Grid>
-            <TextBlock x:Name="TimeText"   Grid.Row= "11" Grid.Column="1" Foreground="#FF3F4245" Visibility="Collapsed"   Grid.ColumnSpan="2" Margin="0,5,238,0" Text="Charge Duration:" />
-            <TextBox x:Name="Time" Grid.Row="10" Grid.Column="2"  Visibility="Collapsed"
-                Width="140"
-                Text="{Binding ChargeDurationTime, UpdateSourceTrigger=LostFocus}"  
-                Margin="0,48,0,0" Background="{x:Null}" BorderBrush="#FF0A0A0A" Foreground="Black" VerticalAlignment="Top" HorizontalAlignment="Center" Height="25" Grid.RowSpan="2" />
-            <TextBlock Text="Sender:" Grid.Row="4" Grid.Column="1" Foreground="#FF3F4245" Grid.ColumnSpan="2" Margin="0,47,266,3" Grid.RowSpan="3"/>
-        </Grid>
-        <TextBox x:Name="id_Copy"
+                IsEnabled="False" Margin="64,35,62,0" Height="25" />
+        <TextBlock x:Name="Lstation" Grid.Row= "10" Grid.Column="1" Foreground="#FF3F4245" Grid.ColumnSpan="2" Margin="0,4,266,64" Grid.RowSpan="2"><Run FlowDirection="RightToLeft" Language="he-il" Text="S"/><Run Text="tation ID:"/></TextBlock>
+        <TextBox x:Name="ToDestinatioin" Grid.Column="2"
+            TextWrapping="Wrap" 
+            Width="140" 
+            IsEnabled="False"
+            Text="{Binding Drone.Id}" Margin="64,42,62,0" Grid.Row="1" TextChanged="id_Copy_TextChanged"/>
+        <TextBlock Text="Id:" Grid.Column="1" Foreground="#FF4C386B" Grid.ColumnSpan="2" Margin="0,113,265,57" Grid.RowSpan="2"/>
+        <TextBlock Grid.Row="1" Foreground="#FF4C386B" Grid.ColumnSpan="2" Margin="0,50,262,56" Grid.RowSpan="2" Grid.Column="1"><Run FlowDirection="RightToLeft" Language="he-il" Text="T"/><Run Text="o"/><Run FlowDirection="RightToLeft" Language="he-il" Text=" "/><Run Text="Destination:"/></TextBlock>
+        <TextBlock Grid.Row="4" Foreground="#FF3F4245" Grid.ColumnSpan="2" Margin="0,49,264,56" Grid.RowSpan="2" Grid.Column="1"><Run FlowDirection="RightToLeft" Language="he-il" Text="S"/><Run Text="ender:"/></TextBlock>
+        <TextBlock Text="Distance:" Grid.Row="8" Foreground="#FF3F4245" Grid.ColumnSpan="3" Margin="186,49,265,56" Grid.RowSpan="2"/>
+        <TextBox x:Name="id_Copy1" Grid.Column="2"
             TextWrapping="Wrap" 
             Width="140" 
             IsEnabled="{Binding IsAdd}"
-            Text="{Binding Drone.Id}" Margin="330,103,330,310"/>
-        <TextBox x:Name="id_Copy1"
+            Text="{Binding Drone.Id}" Margin="65,42,61,0" Grid.Row="4"/>
+        <TextBox x:Name="id_Copy2" Grid.Column="2"
             TextWrapping="Wrap" 
             Width="140" 
             IsEnabled="{Binding IsAdd}"
-            Text="{Binding Drone.Id}" Margin="330,296,330,117"/>
-        <TextBox x:Name="id_Copy2"
+            Text="{Binding Drone.Id}" Margin="65,42,61,63" Grid.Row="5" Grid.RowSpan="2"/>
+        <TextBox x:Name="longitude_Copy"
+            Grid.Row="6" Grid.Column="2"
             TextWrapping="Wrap" 
-            Width="140" 
-            IsEnabled="{Binding IsAdd}"
-            Text="{Binding Drone.Id}" Margin="330,353,330,60"/>
-
+            VerticalAlignment="Top" 
+            IsEnabled="False" Margin="63,38,63,0" Height="25" Grid.RowSpan="2"/>
     </Grid>
 </Window>

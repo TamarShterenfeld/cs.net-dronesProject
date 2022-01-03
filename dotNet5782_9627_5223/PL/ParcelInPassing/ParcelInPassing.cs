@@ -23,8 +23,8 @@ namespace PL
                 Weight = parcel.Weight;
                 string senderName = sender.Name;
                 string targetName = target.Name;
-                Sender = new CustomerInParcel { Id = parcel.SenderId, Name = senderName };
-                Target = new CustomerInParcel { Id = parcel.TargetId, Name = targetName };
+                Sender = new CustomerInParcel(sender.Id, senderName);
+                Target = new CustomerInParcel(target.Id, targetName);
                 Collect = BoToPo.LocationBOTOPO(sender.Location);
                 Destination = BoToPo.LocationBOTOPO(target.Location);
                 //Distance = sender.Distance(target);
