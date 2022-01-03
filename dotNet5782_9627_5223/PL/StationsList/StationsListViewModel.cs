@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Data;
 using BO;
 
 namespace PL.BaseStations
@@ -18,13 +19,14 @@ namespace PL.BaseStations
             Cancel = new(Button_ClickCancel, null);
             Add = new(Button_ClickAdd, null);
             Options = new List<string>() { "All BaseStations", "Group By Free ChargeSlots" };
-            AllStations = Button_AllStations();
+            AllStations = new(bl.GetBaseStationList().ToList());
+            Button_AllStations();
         }
         public RelayCommand Cancel { get; set; }
         public RelayCommand Add { get; set; }
         public List<string> Options { get; set; }
-        private IEnumerable<BaseStationForList> allStations;
-        public IEnumerable<BaseStationForList> AllStations 
+        private ListCollectionView allStations;
+        public ListCollectionView AllStations 
         { 
             get => allStations; 
             set
@@ -33,6 +35,29 @@ namespace PL.BaseStations
                 PropertyChanged?.Invoke(this,new PropertyChangedEventArgs(nameof(AllStations)));
             }
         }
+        PropertyGroupDescription groupDescription = new PropertyGroupDescription("AvailableChargeSlots");
+        SortDescription sortFree = new("AvailableChargeSlots", 0);
+        SortDescription sortId = new("Id", 0);
+
+
+        //CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(lvUsers.ItemsSource);
+        //PropertyGroupDescription groupDescription = new PropertyGroupDescription("Sex");
+        //view.GroupDescriptions.Add(groupDescription);
+
+
+        private string selectedFilter;
+        public string SelectedFilter
+        {
+            get => selectedFilter;
+            set
+            {
+                selectedFilter = value;
+                if (value == Options[0]) Button_AllStations(); else Button_GroupByChargeSlots();
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedFilter)));
+            }
+        }
+
+        
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -55,16 +80,18 @@ namespace PL.BaseStations
             new StationView(bl).Show();
         }
 
-        private IEnumerable<BaseStationForList> Button_AllStations()
+        private void Button_AllStations()
         {
-            return bl.GetBaseStationList();
+            AllStations.GroupDescriptions.Remove(groupDescription);
+            AllStations.SortDescriptions.Remove(sortFree);
+            AllStations.SortDescriptions.Add(sortId);
         }
 
-        // לבדוק אם ממומש בצורה טובה
-        private IEnumerable<BaseStationForList> Button_GroupByChargeSlots()
-        {
-            var q = bl.GetBaseStationList().GroupBy(s => s.AvailableChargeSlots).ToList().ToList();
-            return (IEnumerable<BaseStationForList>)q;
+        private void Button_GroupByChargeSlots()
+        {         
+            AllStations.GroupDescriptions.Add(groupDescription);
+            AllStations.SortDescriptions.Remove(sortId);
+            AllStations.SortDescriptions.Add(sortFree);
         }
     }
 }
