@@ -50,7 +50,7 @@
             </Grid.ColumnDefinitions>
 
             <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="2" Height="32" Width="92">
-                <Button x:Name="button1" Content="Cancel" Width="92" Command="{Binding Cancel}" CommandParameter="{Binding ElementName=Drone}" Background="#FFD00017" BorderBrush="White"  Foreground="White"/>
+                <Button x:Name="button1"  Content="Cancel" Width="92" Command="{Binding Cancel}" CommandParameter="{Binding ElementName=Drone}" Background="#FFD00017" BorderBrush="White"  Foreground="White"/>
                 <ComboBox x:Name="button3" 
                     ItemsSource="{Binding Button3Content}" 
                     SelectedItem="{Binding Button3SelectedItem}"   

@@ -93,7 +93,7 @@
         <TextBlock Text="Delivery:" Grid.Row="6" Grid.Column="1" Foreground="#FF3F4245"/>
         <TextBox x:Name="delivery"
             Grid.Row="5" Grid.Column="2"
-            Text="0" 
+            Text="{Binding Drone.ParcelId}"
             TextWrapping="Wrap" 
             VerticalAlignment="Top" 
             Width="140" 
