@@ -5,13 +5,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BLApi;
+using System.ComponentModel;
 
 
 namespace PL
 {
     namespace PO
     {
-        public class ParcelInPassing
+        //there's no need to create the event PropertyChangedEventHandler - for this window is passive
+        //(without changes).
+        public class ParcelInPassing /* : INotifyPropertyChanged*/
         {
             public ParcelInPassing(BO.ParcelInPassing parcel, BLApi.IBL bL)
             {
@@ -39,6 +42,8 @@ namespace PL
             public Location Collect { get; set; }
             public Location Destination { get; set; }
             public double Distance { get; set; }
+
+            //public event PropertyChangedEventHandler PropertyChanged;
         }
     }
 

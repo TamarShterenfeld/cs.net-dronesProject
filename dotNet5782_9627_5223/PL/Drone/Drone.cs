@@ -12,6 +12,7 @@ namespace PL
 
             private int id;
             private string model;
+            private Location location;
             private WeightCategories weight;
             private DroneStatuses status;
 
@@ -29,7 +30,15 @@ namespace PL
             
             public double Battery { get; set; }
             public int ParcelId { get; set; }
-            public Location Location { get; set; }
+            public Location Location
+            {
+                get => location;
+                set
+                {
+                    location = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Location)));
+                }
+            }
             public string Model
             {
                 get => model;
