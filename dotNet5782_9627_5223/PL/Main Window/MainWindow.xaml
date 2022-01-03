@@ -9,7 +9,7 @@
          Icon="../images/toplogo.jpg"
         >
     <Grid>
-        <Grid x:Name="aside" Margin="798,303,-154,-24">
+        <Grid x:Name="aside" Margin="815,319,-171,-40">
             <Grid.Background>
                 <ImageBrush ImageSource="../images/dron bg.jpg"/>
             </Grid.Background>
@@ -23,7 +23,7 @@
             </Grid.RowDefinitions>
         </Grid>
 
-        <Grid Margin="10,19,958,458">
+        <Grid Margin="10,19,1075,509">
             <Grid.Background>
                 <ImageBrush Stretch="Fill" ImageSource="../images/logo1.jpg"/>
             </Grid.Background>
@@ -92,7 +92,7 @@
                 Margin="194,90,0,0" 
                 Grid.Row="1"
                 Grid.Column="2"
-                VerticalAlignment="Top" Background="#FFB3F308" Click="Button_StationClick"
+                VerticalAlignment="Top" Background="#FF85EA0B" Click="Button_StationClick"
                 Style="{StaticResource MaterialDesignFloatingActionSecondaryDarkButton}"
                 ToolTip="MaterialDesignFloatingActionSecondaryDarkButton"
                 IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" BorderBrush="White" Width="115" Height="114" Grid.RowSpan="2" FontSize="18" RenderTransformOrigin="0.457,0.544" Grid.ColumnSpan="2"/>

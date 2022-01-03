@@ -62,7 +62,7 @@ namespace PL.PO
         public Station(BLApi.IBL bl,BO.BaseStationForList station)
         {
             this.bl = bl;
-            Id = station.Id; Name = station.Name; Location = LocationDoToBo(bl.GetBLBaseStation(station.Id).Location); ChargeSlots = station.AvailableChargeSlots + station.CaughtChargeSlots ; DroneCharging = (List<PO.DroneInCharging>)DroneInChargingBOToPO(bl.GetDronesInMe(Id));
+            Id = station.Id; Name = station.Name; Location = LocationBOTOPO(bl.GetBLBaseStation(station.Id).Location); ChargeSlots = station.AvailableChargeSlots + station.CaughtChargeSlots ; DroneCharging = (List<PO.DroneInCharging>)DroneInChargingBOToPO(bl.GetDronesInMe(Id));
         }
 
         // default constructor

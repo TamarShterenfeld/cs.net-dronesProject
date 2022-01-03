@@ -25,8 +25,8 @@ namespace PL
                 string targetName = target.Name;
                 Sender = new CustomerInParcel { Id = parcel.SenderId, Name = senderName };
                 Target = new CustomerInParcel { Id = parcel.TargetId, Name = targetName };
-                Collect = PrivateMethods.ConvertBoLocationToPoLocation((sender.Location));
-                Destination = PrivateMethods.ConvertBoLocationToPoLocation((target.Location));
+                Collect = BoToPo.LocationBOTOPO(sender.Location);
+                Destination = BoToPo.LocationBOTOPO(target.Location);
                 //Distance = sender.Distance(target);
             }
             public int Id { get; set; }
