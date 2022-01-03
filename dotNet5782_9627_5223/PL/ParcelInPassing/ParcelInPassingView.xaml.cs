@@ -31,7 +31,11 @@ namespace PL
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-     
+
+        private void TargetLocation_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 
 }
