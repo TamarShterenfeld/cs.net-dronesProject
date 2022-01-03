@@ -25,11 +25,15 @@ namespace PL.PO
             return new PO.Location(CoordinateDoToBo(location.CoorLongitude), CoordinateDoToBo(location.CoorLatitude));
         }
 
-        public static PO.Location ParcelInPassingBOTOPO(BO.ParcelInPassing parcelInPassing)
+        public static PO.ParcelInPassing ParcelInPassingBOTOPO(BO.ParcelInPassing parcel)
         {
-            PO.ParcelInPassing poParcelInPassing = new();
-
+            return new PO.ParcelInPassing(parcel.Id, parcel.ToDestination, parcel.Priority,
+                parcel.Weight, parcel.Sender, parcel.Target, parcel.Collect, parcel.Destination, parcel.Distatnce);
         }
 
+        public static PO.CustomerInParcel CustomerInParcelBOTOPO(BO.CustomerInParcel customer)
+        {
+            return new PO.CustomerInParcel(customer.Id, customer.Name);
+        }
     }
 }

@@ -19,7 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DalApi\DalApi.csproj" />
-    <ProjectReference Include="..\TemplateSingleTon4\TemplateSingleTon.csproj" />
+    <ProjectReference Include="..\TemplateSingleTon4\SingleTon.csproj" />
   </ItemGroup>
 
 </Project>

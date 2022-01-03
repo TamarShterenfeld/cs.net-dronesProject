@@ -31,7 +31,7 @@ namespace PL
         {
             Bl = bl;
             Drone = new PO.Drone(drone, bl);
-            Parcel =  Bl.GetParcelInPassing(ParcelId)
+            Parcel = BoToPo.ParcelInPassingBOTOPO(Bl.GetParcelInPassing(Drone.ParcelId));
             DroneStatusesList = typeof(BO.DroneStatuses).GetEnumValues();
             DroneWeightsList = typeof(BO.WeightCategories).GetEnumValues();
             IsAdd = false;
@@ -309,7 +309,7 @@ namespace PL
 
         public void DoubleClickP (object sender)
         {
-            new PO.ParcelInPassing(,Bl)
+           // new PO.ParcelInPassing(,Bl)
         }
 
         //-----------------------------------Helping Functions----------------------------------

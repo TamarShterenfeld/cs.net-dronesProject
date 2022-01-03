@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleUI_BL", "ConsoleUI_B
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PL", "PL\PL.csproj", "{B92C7121-398D-4CA6-BF07-ADB9A810F8F2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TemplateSingleTon", "TemplateSingleTon4\TemplateSingleTon.csproj", "{489FFEDB-5A8F-4035-9DB9-3DCC672434D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SingleTon", "TemplateSingleTon4\SingleTon.csproj", "{489FFEDB-5A8F-4035-9DB9-3DCC672434D3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalApi", "DalApi\DalApi.csproj", "{06B51774-B93C-4866-A4CD-A536B98B6951}"
 EndProject
