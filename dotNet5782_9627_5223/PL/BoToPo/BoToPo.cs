@@ -20,9 +20,10 @@ namespace PL.PO
             return PoInCharging;
         }
 
-        public static PO.Location LocationDoToBo(BO.Location location)
+        public static PO.Location LocationBOTOPO(BO.Location location)
         {
             return new PO.Location(CoordinateDoToBo(location.CoorLongitude), CoordinateDoToBo(location.CoorLatitude));
         }
+       
     }
 }

@@ -13,20 +13,21 @@ namespace PL
     {
         public class ParcelInPassing
         {
-            public ParcelInPassing(BO.ParcelForList parcel, BLApi.IBL bL)
+            public ParcelInPassing(BO.ParcelInPassing parcel, BLApi.IBL bL)
             {
-                BO.Customer sender = bL.GetBOCustomersList().First(item => item.Id == parcel.SenderId);
-                BO.Customer target = bL.GetBOCustomersList().First(item => item.Id == parcel.TargetId);
-                Id = parcel.ParcelId;
-                ToDestinition = parcel.Status == ParcelStatuses.PickedUp ? true : false;
+                ParcelForList parcel1 = bL.GetParcelForList(parcel.Id);
+                BO.Customer sender = bL.GetBOCustomersList().First(item => item.Id == parcel1.SenderId);
+                BO.Customer target = bL.GetBOCustomersList().First(item => item.Id == parcel1.TargetId);
+                Id = parcel.Id;          
+                ToDestinition = parcel1.Status == ParcelStatuses.PickedUp ? true : false;
                 Priority = parcel.Priority;
                 Weight = parcel.Weight;
                 string senderName = sender.Name;
                 string targetName = target.Name;
-                Sender = new CustomerInParcel { Id = parcel.SenderId, Name = senderName };
-                Target = new CustomerInParcel { Id = parcel.TargetId, Name = targetName };
-                Collect = PrivateMethods.ConvertBoLocationToPoLocation((sender.Location));
-                Destination = PrivateMethods.ConvertBoLocationToPoLocation((target.Location));
+                Sender = new CustomerInParcel(sender.Id, senderName);
+                Target = new CustomerInParcel(target.Id, targetName);
+                Collect = BoToPo.LocationBOTOPO(sender.Location);
+                Destination = BoToPo.LocationBOTOPO(target.Location);
                 //Distance = sender.Distance(target);
             }
             public int Id { get; set; }

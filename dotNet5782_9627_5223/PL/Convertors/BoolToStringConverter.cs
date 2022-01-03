@@ -8,16 +8,17 @@ using System.Windows.Data;
 
 namespace PL
 {
-    public class IntToStringConverter : IValueConverter
+    public class BoolToStringConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value.ToString();
+            return value = true ? "yes" : "no"; 
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return int.Parse((string)value);
+            throw new NotImplementedException();
         }
     }
+    
 }

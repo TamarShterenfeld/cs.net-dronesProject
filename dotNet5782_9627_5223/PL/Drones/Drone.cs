@@ -24,7 +24,7 @@ namespace PL
                 Battery = drone.Battery;
                 ParcelId = drone.ParcelId;
                 BO.Drone drone1 = bl.GetBLDrone(Id);
-                Location =(PO.Location)PrivateMethods.ConvertBoLocationToPoLocation(drone1.Location);
+                Location =(PO.Location)BoToPo.LocationBOTOPO(drone1.Location);
             }
             
             public double Battery { get; set; }
