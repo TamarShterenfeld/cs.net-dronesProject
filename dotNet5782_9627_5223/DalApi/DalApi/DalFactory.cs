@@ -18,7 +18,7 @@ namespace DalApi
             //try { Assembly.Load(dalPkg); }
             try
             {
-                Assembly.LoadFrom("DalObject.dll");
+                var a = Assembly.LoadFrom("DalObject.dll");
             }
             catch (Exception e) { throw new DalConfigException("Failed to load the DalObject.dll file"); }
             Type type = Type.GetType($"DalObject.{dalPkg}, {dalPkg}");

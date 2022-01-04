@@ -1,4 +1,4 @@
-﻿using PL.BaseStations;
+﻿using PL.BaseStation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +26,6 @@ namespace PL
             StationsListViewModel VM = new StationsListViewModel(bl);
             this.DataContext = VM;
         }
-    
+
     }
 }

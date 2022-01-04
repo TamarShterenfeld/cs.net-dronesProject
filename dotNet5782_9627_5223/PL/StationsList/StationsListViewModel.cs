@@ -9,7 +9,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using BO;
 
-namespace PL.BaseStations
+namespace PL
 {
     class StationsListViewModel:INotifyPropertyChanged
     {
@@ -22,11 +22,11 @@ namespace PL.BaseStations
             Options = new List<string>() { "All BaseStations", "Group By Free ChargeSlots" };
             AllStations = new(bl.GetBaseStationList().ToList());
             Button_AllStations();
-            Double = new(doubleClick, null);
+            LeftDoubleClick = new(DroneListView_MouseDoubleClick, null);
         }
         public RelayCommand Cancel { get; set; }
         public RelayCommand Add { get; set; }
-        public RelayCommand Double { get; set; }
+        public RelayCommand LeftDoubleClick { get; set; }
         public List<string> Options { get; set; }
         private ListCollectionView allStations;
         public ListCollectionView AllStations 
@@ -75,11 +75,11 @@ namespace PL.BaseStations
             new StationView(bl).Show();
         }
 
-        private void doubleClick(object sender)
-        {
-            MessageBox.Show("aaaaaaaaaaaa");
-        }
 
+        private void DroneListView_MouseDoubleClick(object sender)
+        {
+            new StationView(sender as BaseStationForList, bl).Show();
+        }
 
 
         private void Button_AllStations()
