@@ -45,6 +45,7 @@ namespace PL
             Add = new(Button_ClickAdd, null);
             AddOrUpDate = new(Button_ClickAddOrUpdate, null);
             TimeDuration = new(ChargeDurationTime);
+            ParcelDoubleClick = new(DoubleClickP);
         }
 
         //properties
@@ -309,7 +310,8 @@ namespace PL
 
         public void DoubleClickP (object sender)
         {
-           // new PO.ParcelInPassing(,Bl)
+            BO.ParcelInPassing parcel = Bl.GetParcelInPassing(Parcel.Id);
+            new PO.ParcelInPassing(parcel, Bl);
         }
 
         //-----------------------------------Helping Functions----------------------------------

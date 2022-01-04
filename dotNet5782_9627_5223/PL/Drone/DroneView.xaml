@@ -90,14 +90,18 @@
                   IsEnabled="False" 
                   ItemsSource="{Binding DroneStatusesList}" Margin="63,49,63,0" Grid.RowSpan="2"
                   SelectedItem="{Binding Drone.Status}"/>
-        <TextBlock Text="Delivery:" Grid.Row= "6" Grid.Column="1" Foreground="#FF3F4245"/>
+        <TextBlock Text="Delivery:" Grid.Row= "5" Grid.Column="1" Foreground="#FF3F4245" Grid.ColumnSpan="2" Height="49" Margin="0,0,266,0" Grid.RowSpan="2" VerticalAlignment="Bottom"/>
         <TextBox x:Name="delivery"
             Grid.Row="5" Grid.Column="2"
             Text="{Binding Drone.ParcelId}"
             TextWrapping="Wrap" 
             VerticalAlignment="Top" 
             Width="140" 
-             IsEnabled="False" Margin="63,47,63,0" Grid.RowSpan="2"/>
+            Margin="63,47,63,0" Grid.RowSpan="2">
+            <TextBox.InputBindings>
+                <MouseBinding Gesture="LeftDoubleClick" Command="{Binding ParcelDoubleClick}"/>
+            </TextBox.InputBindings>
+        </TextBox>
         <TextBlock Text="Longitude:" Grid.Row="7" Grid.Column="1" Foreground="#FF3F4245"/>
         <TextBox x:Name="longitude"
             Grid.Row="6" Grid.Column="2"

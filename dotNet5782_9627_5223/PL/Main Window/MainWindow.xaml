@@ -23,7 +23,7 @@
             </Grid.RowDefinitions>
         </Grid>
 
-        <Grid Margin="10,19,1075,509">
+        <Grid Margin="10,19,895,416">
             <Grid.Background>
                 <ImageBrush Stretch="Fill" ImageSource="../images/logo1.jpg"/>
             </Grid.Background>
