@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="StationView" Height="650" Width="800"
-        Icon="/images/toplogo.jpg">
+        Icon="/images/toplogo.jpg"
+        x:Name="StationWindow">
     <Grid x:Name ="station" Height="634" VerticalAlignment="Top">
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
@@ -29,17 +30,17 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <WrapPanel Grid.Row="0" Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Button x:Name="button1" Content="Cancel" Width="92" Command="{Binding Cancel}" CommandParameter="{Binding ElementName=station }" Background="Turquoise" BorderBrush="White"  Foreground="#DDFFFFFF"/>
-            <Button x:Name="button2" Content="Add" Width="92" Command="{Binding Add}" CommandParameter="{Binding ElementName=station }" Background="Turquoise" BorderBrush="White"/>
-            <ComboBox x:Name="button3" ItemsSource="{Binding Button3Content}" SelectedItem="{Binding Button3SelectedItem}"    Width="110" Background="Turquoise"  Visibility="Collapsed" Foreground="#FF313131" BorderThickness="1"/>
-            <ComboBox x:Name="button4"  Width="130" ItemsSource="{Binding }"  Background="Turquoise"  Visibility="Collapsed" BorderThickness="1"  Foreground="#FF313131" />
+            <Button x:Name="button1" Content="Close" Width="92" Command="{Binding Cancel}" CommandParameter="{Binding ElementName=StationWindow }" Background="Turquoise" BorderBrush="White"  Foreground="#DDFFFFFF"/>
+            <Button x:Name="buttonState" Content="{Binding State}" Width="92" Command="{Binding AddOrUpdate}"  Background="Turquoise" BorderBrush="White"/>
+            <!--<ComboBox x:Name="button3" ItemsSource="{Binding Button3Content}" SelectedItem="{Binding Button3SelectedItem}"    Width="110" Background="Turquoise"  Visibility="Collapsed" Foreground="#FF313131" BorderThickness="1"/>
+            <ComboBox x:Name="button4"  Width="130" ItemsSource="{Binding }"  Background="Turquoise"  Visibility="Collapsed" BorderThickness="1"  Foreground="#FF313131" />-->
         </WrapPanel>
 
         <TextBlock Text="Id:" Grid.Row="1" Grid.Column="1" Foreground="#FF2D2D2D"/>
         <TextBox x:Name="id" Grid.Column="2"
             TextWrapping="Wrap" 
             Width="140" 
-            IsEnabled="{Binding IsAdd}"
+            IsEnabled="{Binding EnableUpdate}"
             Text="{Binding BaseStation.Id}" Margin="63,5,63,22" Grid.Row="1"/>
 
         <TextBlock  Text="Name:" Grid.Row="2" Grid.Column="1" Foreground="#FF2D2D2D"/>
@@ -55,30 +56,31 @@
             Text="{Binding BaseStation.ChargeSlots}"
             Grid.Row="2" Grid.Column="2" 
             TextWrapping="Wrap" 
+            IsEnabled="{Binding EnableUpdate}"
             Width="140" Grid.RowSpan="2" Margin="63,49,63,24" />
 
 
 
         <TextBlock Text="Longitude:" Grid.Row="4" Grid.Column="1" Foreground="#FF3F4245"/>
         <TextBox x:Name="longitude"
-            Text="{Binding BaseStation.Location.CoorLongitude}"
+            Text="{Binding CoorLong }"
             Grid.Row="4" Grid.Column="2"
             TextWrapping="Wrap" 
             VerticalAlignment="Top" 
             Width="140" 
-            IsEnabled="False"  Grid.RowSpan="2"/>
+            IsEnabled="{Binding EnableUpdate}"  Grid.RowSpan="2"/>
 
         <TextBlock Text="Latitude:" Grid.Row="5" Grid.Column="1" Foreground="#FF3F4245"/>
         <TextBox x:Name="latitude"
-           Text="{Binding BaseStation.Location.CoorLatitude}"
+           Text="{Binding CoorLat}"
             Grid.Row="5" Grid.Column="2"
             TextWrapping="Wrap" 
             VerticalAlignment="Top" 
             Width="140" 
-            IsEnabled="False" />
+            IsEnabled="{Binding EnableUpdate}" />
 
         <TextBlock Text="In_Charging:" Grid.Row="6" Grid.Column="1" Foreground="#FF3F4245"/>
-        <ListView x:Name ="InCharging"  MouseDoubleClick="DroneListView_MouseDoubleClick"  BorderThickness="0" Margin="0,0,359,0" FontFamily="Levenim MT" FontSize="12" 
+        <ListView x:Name ="InCharging"   BorderThickness="0" Margin="0,0,359,0" FontFamily="Levenim MT" FontSize="12" 
                       ItemsSource="{Binding BaseStation.DroneCharging}" SelectionMode="Extended" Grid.Row="6" Grid.Column="2" Grid.RowSpan="5"/>
 
         <Grid Margin="-18,0,80,20" Grid.ColumnSpan="2">

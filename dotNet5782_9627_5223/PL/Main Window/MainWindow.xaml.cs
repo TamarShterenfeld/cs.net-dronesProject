@@ -48,7 +48,7 @@ namespace PL
         /// <param name="e"></param>
         private void Button_StationClick(object sender, RoutedEventArgs e)
         {
-            new StationsList(bl).Show();
+            new StationsList(new StationsListViewModel(bl)).Show();
 
         }
     }

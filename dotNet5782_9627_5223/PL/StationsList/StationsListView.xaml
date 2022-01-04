@@ -20,7 +20,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <WrapPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="center"  VerticalAlignment="center">
-            <Button Content="Close"  Command="{Binding Cancel}" CommandParameter="{Binding ElementName = stationsList}" Background="Turquoise" BorderBrush="White" />
+            <Button Content="Close"  Command="{Binding Cancel}" CommandParameter="{Binding ElementName=stationsList}" Background="Turquoise" BorderBrush="White" />
             <Button Content="Add BaseStation"   Command="{Binding Add}" Background="Turquoise" BorderBrush="White" />
         </WrapPanel>
         <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">

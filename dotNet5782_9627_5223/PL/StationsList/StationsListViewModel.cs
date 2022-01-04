@@ -1,17 +1,13 @@
-﻿using System;
+﻿using BO;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
-using System.Windows.Input;
-using BO;
 
 namespace PL
 {
-    class StationsListViewModel:INotifyPropertyChanged
+    public class StationsListViewModel : INotifyPropertyChanged
     {
         BLApi.IBL bl;
         public StationsListViewModel(BLApi.IBL bl)
@@ -29,13 +25,13 @@ namespace PL
         public RelayCommand LeftDoubleClick { get; set; }
         public List<string> Options { get; set; }
         private ListCollectionView allStations;
-        public ListCollectionView AllStations 
-        { 
-            get => allStations; 
+        public ListCollectionView AllStations
+        {
+            get => allStations;
             set
-            { 
+            {
                 allStations = value;
-                PropertyChanged?.Invoke(this,new PropertyChangedEventArgs(nameof(AllStations)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AllStations)));
             }
         }
         PropertyGroupDescription groupDescription = new PropertyGroupDescription("AvailableChargeSlots");
@@ -72,13 +68,11 @@ namespace PL
         /// </summary>
         private void Button_ClickAdd(object sender)
         {
-            new StationView(bl).Show();
+            new StationView(new StationViewModel(bl)).Show();
         }
-
-
         private void DroneListView_MouseDoubleClick(object sender)
         {
-            new StationView(sender as BaseStationForList, bl).Show();
+            new StationView(new StationViewModel(bl, sender as BaseStationForList)).Show();
         }
 
 
@@ -90,7 +84,7 @@ namespace PL
         }
 
         private void Button_GroupByChargeSlots()
-        {         
+        {
             AllStations.GroupDescriptions.Add(groupDescription);
             AllStations.SortDescriptions.Remove(sortId);
             AllStations.SortDescriptions.Add(sortFree);
