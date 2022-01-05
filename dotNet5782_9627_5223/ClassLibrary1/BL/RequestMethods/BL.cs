@@ -13,7 +13,7 @@ namespace IBL
     /// which has the responsibility of pull & calaulating lists, object etc. from the DAL logic level
     /// the pulling of data from the DAL logic level is done by an IDal object - a field in the BL class.
     /// </summary>
-    sealed public partial class BL : Singleton<BL>, BLApi.IBL
+    sealed partial class BL : Singleton<BL>, BLApi.IBL
     {
         //the single object which has the responsibility of pulling the data from the DAl logic level.
         internal DalApi.IDal dal;

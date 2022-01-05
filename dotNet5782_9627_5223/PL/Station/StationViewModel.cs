@@ -12,14 +12,14 @@ namespace PL
         BLApi.IBL bl;
         object coorLon, coorLat;
         Action refreshDroneList;
-
         public PO.Station BaseStation { get; set; }
         public bool EnableUpdate { get; set; }
         public string State { get; set; }
         public RelayCommand Cancel { get; set; }
         public RelayCommand AddOrUpdate { get; set; }
         public RelayCommand LeftDoubleClick { get; set; }
-        public StationViewModel(BLApi.IBL bl, BO.BaseStationForList station) : this(bl)
+        public StationViewModel(BLApi.IBL bl, BO.BaseStationForList station)
+            : this(bl)
         {
             BaseStation = new(bl, station);
             AddOrUpdate = new(Button_ClickUpdate, null);
@@ -36,7 +36,7 @@ namespace PL
             AddOrUpdate = new(Button_ClickAdd, null);
             EnableUpdate = true;
             State = "Add";
-            LeftDoubleClick = new(doubleClickDrone ,null);
+            LeftDoubleClick = new(doubleClickDrone, null);
         }
         public object CoorLon
         {
@@ -77,14 +77,16 @@ namespace PL
         private void Button_ClickAdd(object sender)
         {
             bl.Add(POConverter.StationPoToBo(BaseStation));
+            ListsModel.Instance.AddStation(BaseStation.Id);
         }
         private void Button_ClickUpdate(object sender)
         {
-
+            bl.UpdateBaseStation(BaseStation.Id, BaseStation.Name, BaseStation.ChargeSlots.ToString());
+            ListsModel.Instance.UpdateStation(BaseStation.Id);
         }
         private void doubleClickDrone(object sender)
         {
-            new DroneView(bl.GetDroneForList((sender as PO.DroneInCharging).Id),bl, refreshDroneList).Show();
-        }        
+            new DroneView(bl.GetDroneForList((sender as PO.DroneInCharging).Id), bl, refreshDroneList).Show();
+        }
     }
 }
