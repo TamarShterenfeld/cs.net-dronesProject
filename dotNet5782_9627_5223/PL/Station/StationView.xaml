@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         Title="StationView" Height="650" Width="800"
         Icon="/images/toplogo.jpg"
@@ -32,8 +33,6 @@
         <WrapPanel Grid.Row="0" Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Button x:Name="button1" Content="Close" Width="92" Command="{Binding Cancel}" CommandParameter="{Binding ElementName=StationWindow }" Background="Turquoise" BorderBrush="White"  Foreground="#DDFFFFFF"/>
             <Button x:Name="buttonState" Content="{Binding State}" Width="92" Command="{Binding AddOrUpdate}"  Background="Turquoise" BorderBrush="White"/>
-            <!--<ComboBox x:Name="button3" ItemsSource="{Binding Button3Content}" SelectedItem="{Binding Button3SelectedItem}"    Width="110" Background="Turquoise"  Visibility="Collapsed" Foreground="#FF313131" BorderThickness="1"/>
-            <ComboBox x:Name="button4"  Width="130" ItemsSource="{Binding }"  Background="Turquoise"  Visibility="Collapsed" BorderThickness="1"  Foreground="#FF313131" />-->
         </WrapPanel>
 
         <TextBlock Text="Id:" Grid.Row="1" Grid.Column="1" Foreground="#FF2D2D2D"/>
@@ -87,7 +86,15 @@
                   ItemsSource="{Binding BaseStation.DroneCharging}" 
                   SelectionMode="Extended" 
                   Width="140" 
-                  Grid.Row="6" Grid.Column="2" Grid.RowSpan="5"/>
+                  Grid.Row="6" Grid.Column="2" Grid.RowSpan="5">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDoubleClick">
+                    <i:InvokeCommandAction 
+                        Command="{Binding LeftDoubleClick}"
+                        CommandParameter="{Binding ElementName=InCharging, Path=SelectedItem}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ListView>
 
         <Grid Margin="-18,0,80,20" Grid.ColumnSpan="2">
             <Grid.Background>

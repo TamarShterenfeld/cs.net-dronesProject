@@ -1,4 +1,5 @@
 ﻿using PL.PO;
+using System;
 using System.ComponentModel;
 using System.Windows;
 
@@ -10,13 +11,14 @@ namespace PL
 
         BLApi.IBL bl;
         object coorLon, coorLat;
+        Action refreshDroneList;
 
         public PO.Station BaseStation { get; set; }
         public bool EnableUpdate { get; set; }
         public string State { get; set; }
         public RelayCommand Cancel { get; set; }
         public RelayCommand AddOrUpdate { get; set; }
-
+        public RelayCommand LeftDoubleClick { get; set; }
         public StationViewModel(BLApi.IBL bl, BO.BaseStationForList station) : this(bl)
         {
             BaseStation = new(bl, station);
@@ -34,6 +36,7 @@ namespace PL
             AddOrUpdate = new(Button_ClickAdd, null);
             EnableUpdate = true;
             State = "Add";
+            LeftDoubleClick = new(doubleClickDrone ,null);
         }
         public object CoorLon
         {
@@ -79,5 +82,9 @@ namespace PL
         {
 
         }
+        private void doubleClickDrone(object sender)
+        {
+            new DroneView(bl.GetDroneForList((sender as PO.DroneInCharging).Id),bl, refreshDroneList).Show();
+        }        
     }
 }

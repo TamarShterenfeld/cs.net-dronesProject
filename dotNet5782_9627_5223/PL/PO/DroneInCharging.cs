@@ -41,10 +41,19 @@ namespace PL.PO
         {
             this.id = id;
             Id = id; Battery = battery;
+
         }
+
 
         // default constructor
         public DroneInCharging() { }
+
+        public override string ToString()
+        {
+            String strBattery = String.Format("%.2F", Battery);
+            return $"id: { Id } \n" +
+                   $"battery: {Math.Round(Battery,2)}\n";
+        }
     }
 
 }
