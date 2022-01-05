@@ -31,7 +31,7 @@ namespace PL
         {
             Bl = bl;
             Drone = new PO.Drone(drone, bl);
-            Parcel = BoToPo.ParcelInPassingBOTOPO(Bl.GetParcelInPassing(Drone.ParcelId));
+            Parcel = POConverter.ParcelInPassingBOTOPO(Bl.GetParcelInPassing(Drone.ParcelId));
             DroneStatusesList = typeof(BO.DroneStatuses).GetEnumValues();
             DroneWeightsList = typeof(BO.WeightCategories).GetEnumValues();
             IsAdd = false;

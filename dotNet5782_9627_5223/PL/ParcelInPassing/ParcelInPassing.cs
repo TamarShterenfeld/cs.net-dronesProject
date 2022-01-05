@@ -29,8 +29,8 @@ namespace PL
                 string targetName = target.Name;
                 Sender = new CustomerInParcel(sender.Id, senderName);
                 Target = new CustomerInParcel(target.Id, targetName);
-                Collect = BoToPo.LocationBOTOPO(sender.Location);
-                Destination = BoToPo.LocationBOTOPO(target.Location);
+                Collect = POConverter.LocationBOTOPO(sender.Location);
+                Destination = POConverter.LocationBOTOPO(target.Location);
                 Distance = sender.Distance(target);
             }
 
@@ -39,9 +39,9 @@ namespace PL
             public ParcelInPassing(int id, bool toDest, Priorities priority, WeightCategories weight, BO.CustomerInParcel sender,
                 BO.CustomerInParcel target, BO.Location collect, BO.Location destination, double distance)
             {
-                Id = id; ToDestinition = toDest; Priority = priority; Weight = weight; Sender = BoToPo.CustomerInParcelBOTOPO(sender);
-                Target = BoToPo.CustomerInParcelBOTOPO(target); Collect = BoToPo.LocationBOTOPO(collect);
-                Destination = BoToPo.LocationBOTOPO(destination); Distance = distance;
+                Id = id; ToDestinition = toDest; Priority = priority; Weight = weight; Sender = POConverter.CustomerInParcelBOTOPO(sender);
+                Target = POConverter.CustomerInParcelBOTOPO(target); Collect = POConverter.LocationBOTOPO(collect);
+                Destination = POConverter.LocationBOTOPO(destination); Distance = distance;
             }
             public int Id { get; set; }
             public bool ToDestinition { set; get; }

@@ -1,5 +1,5 @@
 ﻿using BO;
-using static PL.PO.BoToPo;
+using static PL.PO.POConverter;
 using System.ComponentModel;
 
 namespace PL
@@ -23,7 +23,7 @@ namespace PL
                 Battery = drone.Battery;
                 ParcelId = drone.ParcelId;
                 BO.Drone drone1 = bl.GetBLDrone(Id);
-                Location =(PO.Location)BoToPo.LocationBOTOPO(drone1.Location);
+                Location =(PO.Location)POConverter.LocationBOTOPO(drone1.Location);
             }
             
             public double Battery { get; set; }

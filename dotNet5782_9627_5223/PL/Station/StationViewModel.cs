@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using PL.PO;
+using System.ComponentModel;
 using System.Windows;
 
 namespace PL
@@ -8,17 +9,21 @@ namespace PL
         public event PropertyChangedEventHandler PropertyChanged;
 
         BLApi.IBL bl;
+        object coorLon, coorLat;
+
         public PO.Station BaseStation { get; set; }
         public bool EnableUpdate { get; set; }
         public string State { get; set; }
         public RelayCommand Cancel { get; set; }
         public RelayCommand AddOrUpdate { get; set; }
-        
-        public StationViewModel(BLApi.IBL bl, BO.BaseStationForList station): this(bl)
+
+        public StationViewModel(BLApi.IBL bl, BO.BaseStationForList station) : this(bl)
         {
             BaseStation = new(bl, station);
             AddOrUpdate = new(Button_ClickUpdate, null);
             EnableUpdate = false;
+            coorLon = BaseStation.Location.CoorLongitude.ToString();
+            coorLat = BaseStation.Location.CoorLatitude.ToString();
             State = "Update";
         }
         public StationViewModel(BLApi.IBL bl)
@@ -27,10 +32,34 @@ namespace PL
             BaseStation = new PO.Station();
             Cancel = new(Button_ClickCancel, null);
             AddOrUpdate = new(Button_ClickAdd, null);
-            EnableUpdate = true; 
+            EnableUpdate = true;
             State = "Add";
         }
-        
+        public object CoorLon
+        {
+            get => coorLon;
+            set
+            {
+                if (double.TryParse(value.ToString(), out double longitude))
+                {
+                    coorLon = value;
+                    BaseStation.Location.CoorLongitude = new Coordinate(longitude, Locations.Longitude);
+                }
+            }
+        }
+        public object CoorLat
+        {
+            get => coorLat;
+            set
+            {
+                if (double.TryParse(value.ToString(), out double latitude))
+                {
+                    coorLat = value;
+                    BaseStation.Location.CoorLatitude = new Coordinate(latitude, Locations.Latitude);
+                }
+            }
+        }
+
         //---------------------------------BaseStation's Methods------------------------------
         /// <summary>
         /// the function treats the event of clicking on the button 'Cancel'.
@@ -44,11 +73,11 @@ namespace PL
 
         private void Button_ClickAdd(object sender)
         {
-
+            bl.Add(POConverter.StationPoToBo(BaseStation));
         }
         private void Button_ClickUpdate(object sender)
         {
-            
+
         }
     }
 }

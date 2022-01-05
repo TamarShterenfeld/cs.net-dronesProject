@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PL.PO
 {
-    public class BoToPo
+    public class POConverter
     {
         public static PO.Coordinate CoordinateBoToPo(BO.Coordinate coor)
         {
@@ -20,7 +20,7 @@ namespace PL.PO
 
         public static PO.DroneInCharging DroneInChargingBoToPo(BO.DroneInCharging drone)
         {
-            return new PO.DroneInCharging() {  Id = drone.Id, Battery = drone.Battery };
+            return new PO.DroneInCharging() { Id = drone.Id, Battery = drone.Battery };
         }
 
         public static BO.DroneInCharging DroneInChargingPoToBo(PO.DroneInCharging drone)
@@ -30,17 +30,31 @@ namespace PL.PO
 
         public static IEnumerable<PO.DroneInCharging> DroneInChargingListBoToPo(IEnumerable<BO.DroneInCharging> droneList)
         {
-            return droneList.Select(drone => DroneInChargingBoToPo(drone));
-        }
-
-        public static IEnumerable<BO.DroneInCharging> DroneInChargingListPoToBo(IEnumerable<PO.DroneInCharging> droneList)
-        {
-            return droneList.Select(drone => DroneInChargingPoToBo(drone));
+            List<PO.DroneInCharging> boDroneList = new();
+            foreach (var drone in droneList)
+            {
+                boDroneList.Add(DroneInChargingBoToPo(drone));
+            }
+            return boDroneList;
         }
 
         public static BO.BaseStation StationPoToBo(PO.Station station)
         {
-            return new BO.BaseStation() { Id = station.Id, Name = station.Name, Location = LocationPOTOBO(station.Location), ChargeSlots = station.ChargeSlots, DroneCharging = (List<BO.DroneInCharging>)DroneInChargingListPoToBo(station.DroneCharging) };
+            return new BO.BaseStation()
+            {
+                Id = station.Id,
+                Name = station.Name,
+                Location = LocationPOTOBO(station.Location),
+                ChargeSlots = station.ChargeSlots,
+                DroneCharging = DroneInChargingListPoToBo(station.DroneCharging).ToList()
+            };
+        }
+        public static IEnumerable<BO.DroneInCharging> DroneInChargingListPoToBo(IEnumerable<PO.DroneInCharging> droneList)
+        {
+            if (droneList == null)
+                return Enumerable.Empty<BO.DroneInCharging>();
+            else
+                return droneList.Select(drone => DroneInChargingPoToBo(drone));
         }
 
         public static IEnumerable<PO.DroneInCharging> DroneInChargingBOToPO(IEnumerable<BO.DroneInCharging> inCharging)
