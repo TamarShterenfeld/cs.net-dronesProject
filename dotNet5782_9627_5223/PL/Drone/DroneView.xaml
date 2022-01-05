@@ -5,6 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PL" xmlns:i1="http://xamarin.com/schemas/2014/forms" 
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:i2="http://schemas.microsoft.com/xaml/behaviors"
+           xmlns:i3="http://schemas.microsoft.com/xaml/behaviors"
         Title="Drone" Height="650" Width="800"
         Icon="/images/toplogo.jpg"
         x:Name="Drone">
@@ -91,17 +93,18 @@
                   ItemsSource="{Binding DroneStatusesList}" Margin="63,49,63,0" Grid.RowSpan="2"
                   SelectedItem="{Binding Drone.Status}"/>
         <TextBlock Text="Delivery:" Grid.Row= "5" Grid.Column="1" Foreground="#FF3F4245" Grid.ColumnSpan="2" Height="49" Margin="0,0,266,0" Grid.RowSpan="2" VerticalAlignment="Bottom"/>
-        <TextBox x:Name="delivery"
-            Grid.Row="5" Grid.Column="2"
-            Text="{Binding Drone.ParcelId}"
-            TextWrapping="Wrap" 
-            VerticalAlignment="Top" 
-            Width="140" 
-            Margin="63,47,63,0" Grid.RowSpan="2">
-            <TextBox.InputBindings>
-                <MouseBinding Gesture="LeftDoubleClick" Command="{Binding ParcelDoubleClick}"/>
-            </TextBox.InputBindings>
-        </TextBox>
+        
+        <StackPanel Grid.Row="5" Grid.Column="2" Grid.RowSpan="2"
+                    Width="140" Margin="63,47,63,0">
+            <StackPanel.InputBindings>
+                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding DisplayParcelCommand}"/>
+            </StackPanel.InputBindings>
+            <TextBlock x:Name="delivery"
+                       Text="{Binding Drone.ParcelId}"
+                       VerticalAlignment="Top" 
+                       IsEnabled="False">
+            </TextBlock>
+        </StackPanel>
         <TextBlock Text="Longitude:" Grid.Row="7" Grid.Column="1" Foreground="#FF3F4245"/>
         <TextBox x:Name="longitude"
             Grid.Row="6" Grid.Column="2"
