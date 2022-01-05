@@ -17,20 +17,20 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Globalization;
 using System.ComponentModel;
+using PL.ParcelInPassing;
 
 namespace PL
 {
     /// <summary>
     /// Interaction logic for ParcelView.xaml
     /// </summary>
-    public partial class ParcelInPassingView : Window, INotifyPropertyChanged
+    public partial class ParcelInPassingView : Window
     {
-        public ParcelInPassingView(BLApi.IBL bl)
+        public ParcelInPassingView(ParcelInPassingViewModel parcelInPassingViewModel)
         {
             InitializeComponent();
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;      
+            this.DataContext = parcelInPassingViewModel;
+        }  
     }
 
 }

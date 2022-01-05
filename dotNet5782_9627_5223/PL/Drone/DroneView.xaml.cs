@@ -75,7 +75,7 @@ namespace PL
                 weight.SelectedItem = drone.MaxWeight;
                 battery.Text = drone.Battery.ToString() + "%";
                 //status.SelectedItem = drone.Status;
-                delivery.Text = drone.Parcel.Id.ToString();
+                
                 longitude.Text = drone.Location.CoorLongitude.ToString();
                 latitude.Text = drone.Location.CoorLatitude.ToString();
                 station.Visibility = Visibility.Collapsed;
