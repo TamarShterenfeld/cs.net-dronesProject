@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,26 +20,10 @@ namespace PL
     /// </summary>
     public partial class StationView : Window
     {
-        private BLApi.IBL bl;
-        Action refreshDroneList;
-
-        public StationView(BLApi.IBL bl)
+        public StationView(StationViewModel stationViewModel)
         {
-            this.bl = bl;
             InitializeComponent();
+            this.DataContext = stationViewModel;
         }
-
-        public StationView(BO.BaseStationForList station ,BLApi.IBL bl)
-        {
-            this.bl = bl;
-            InitializeComponent();
-        }
-
-
-        private void DroneListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            new DroneView((e.OriginalSource as FrameworkElement).DataContext as BO.DroneForList, bl, refreshDroneList).Show();
-        }
-
     }
 }

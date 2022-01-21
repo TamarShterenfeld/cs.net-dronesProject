@@ -1,5 +1,6 @@
 ﻿using BO;
 using DO;
+using PL.ParcelInPassing;
 using PL.PO;
 using System;
 using System.Collections.Generic;
@@ -31,7 +32,7 @@ namespace PL
         {
             Bl = bl;
             Drone = new PO.Drone(drone, bl);
-            Parcel = BoToPo.ParcelInPassingBOTOPO(Bl.GetParcelInPassing(Drone.ParcelId));
+            Parcel = POConverter.ParcelInPassingBOTOPO(Bl.GetParcelInPassing(Drone.ParcelId));
             DroneStatusesList = typeof(BO.DroneStatuses).GetEnumValues();
             DroneWeightsList = typeof(BO.WeightCategories).GetEnumValues();
             IsAdd = false;
@@ -45,7 +46,7 @@ namespace PL
             Add = new(Button_ClickAdd, null);
             AddOrUpDate = new(Button_ClickAddOrUpdate, null);
             TimeDuration = new(ChargeDurationTime);
-            ParcelDoubleClick = new(DoubleClickP);
+            DisplayParcelCommand = new(DisplayParcle);
         }
 
         //properties
@@ -92,7 +93,7 @@ namespace PL
         public RelayCommand Add { get; set; }
         public RelayCommand AddOrUpDate { get; set; }
         public RelayCommand TimeDuration { set; get; }
-        public RelayCommand ParcelDoubleClick { set; get; }
+        public RelayCommand DisplayParcelCommand { set; get; }
         public bool IsAdd { get; set; }
         public bool IsEdit { get; set; }
 
@@ -308,10 +309,11 @@ namespace PL
         }
 
 
-        public void DoubleClickP (object sender)
+        public void DisplayParcle (object sender)
         {
-            BO.ParcelInPassing parcel = Bl.GetParcelInPassing(Parcel.Id);
-            new PO.ParcelInPassing(parcel, Bl);
+            var parcel = Bl.GetParcelInPassing(Parcel.Id);
+            new ParcelInPassingView(new ParcelInPassingViewModel(parcel, Bl))
+                .Show();
         }
 
         //-----------------------------------Helping Functions----------------------------------

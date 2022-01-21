@@ -1,46 +1,43 @@
-﻿using System;
+﻿using BO;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
-using System.Windows.Input;
-using BO;
 
-namespace PL.BaseStations
+namespace PL
 {
-    class StationsListViewModel:INotifyPropertyChanged
+    public class StationsListViewModel : INotifyPropertyChanged
     {
         BLApi.IBL bl;
+        PropertyGroupDescription allStations_groupDescription;
+        SortDescription allStations_sortFree;
+        SortDescription allStations_sortId;
+
         public StationsListViewModel(BLApi.IBL bl)
         {
             this.bl = bl;
+            allStations_groupDescription = new PropertyGroupDescription(nameof(BO.BaseStationForList.AvailableChargeSlots));
+            allStations_sortFree = new(nameof(BO.BaseStationForList.AvailableChargeSlots), ListSortDirection.Ascending);
+            allStations_sortId = new(nameof(BO.BaseStationForList.Id), ListSortDirection.Ascending);
+
             Cancel = new(Button_ClickCancel, null);
             Add = new(Button_ClickAdd, null);
             Options = new List<string>() { "All BaseStations", "Group By Free ChargeSlots" };
-            AllStations = new(bl.GetBaseStationList().ToList());
+            AllStations = new ListCollectionView(ListsModel.Instance.Stations);
             Button_AllStations();
-            Double = new(doubleClick, null);
+            LeftDoubleClick = new(DroneListView_MouseDoubleClick, null);
         }
         public RelayCommand Cancel { get; set; }
         public RelayCommand Add { get; set; }
-        public RelayCommand Double { get; set; }
+        public RelayCommand LeftDoubleClick { get; set; }
         public List<string> Options { get; set; }
-        private ListCollectionView allStations;
-        public ListCollectionView AllStations 
-        { 
-            get => allStations; 
-            set
-            { 
-                allStations = value;
-                PropertyChanged?.Invoke(this,new PropertyChangedEventArgs(nameof(AllStations)));
-            }
-        }
-        PropertyGroupDescription groupDescription = new PropertyGroupDescription("AvailableChargeSlots");
-        SortDescription sortFree = new("AvailableChargeSlots", 0);
-        SortDescription sortId = new("Id", 0);
+        public ListCollectionView AllStations { get; set; }
+
+        //PropertyGroupDescription groupDescription = new PropertyGroupDescription("AvailableChargeSlots");
+        //SortDescription sortFree = new("AvailableChargeSlots", 0);
+        //SortDescription sortId = new("Id", 0);
 
         private string selectedFilter;
         public string SelectedFilter
@@ -49,7 +46,9 @@ namespace PL.BaseStations
             set
             {
                 selectedFilter = value;
-                if (value == Options[0]) Button_AllStations(); else Button_GroupByChargeSlots();
+                if (value == Options[0])
+                    Button_AllStations();
+                else Button_GroupByChargeSlots();
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedFilter)));
             }
         }
@@ -72,28 +71,28 @@ namespace PL.BaseStations
         /// </summary>
         private void Button_ClickAdd(object sender)
         {
-            new StationView(bl).Show();
-        }
+            new StationView(new StationViewModel(bl)).Show();
 
-        private void doubleClick(object sender)
+        }
+        private void DroneListView_MouseDoubleClick(object sender)
         {
-            MessageBox.Show("aaaaaaaaaaaa");
+            new StationView(new StationViewModel(bl, sender as BaseStationForList)).Show();
         }
-
 
 
         private void Button_AllStations()
         {
-            AllStations.GroupDescriptions.Remove(groupDescription);
-            AllStations.SortDescriptions.Remove(sortFree);
-            AllStations.SortDescriptions.Add(sortId);
+            AllStations.GroupDescriptions.Remove(allStations_groupDescription);
+            AllStations.SortDescriptions.Remove(allStations_sortFree);
+            AllStations.SortDescriptions.Add(allStations_sortId);
         }
 
         private void Button_GroupByChargeSlots()
-        {         
-            AllStations.GroupDescriptions.Add(groupDescription);
-            AllStations.SortDescriptions.Remove(sortId);
-            AllStations.SortDescriptions.Add(sortFree);
+        {
+            AllStations.GroupDescriptions.Add(allStations_groupDescription);
+            AllStations.SortDescriptions.Remove(allStations_sortId);
+            AllStations.SortDescriptions.Add(allStations_sortFree);
         }
+
     }
 }

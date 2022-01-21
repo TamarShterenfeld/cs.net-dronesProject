@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using IBL;
-using PL.BaseStations;
+using PL;
 
 namespace PL
 {
@@ -48,7 +48,7 @@ namespace PL
         /// <param name="e"></param>
         private void Button_StationClick(object sender, RoutedEventArgs e)
         {
-            new StationsList(bl).Show();
+            new StationsList(new StationsListViewModel(bl)).Show();
 
         }
     }

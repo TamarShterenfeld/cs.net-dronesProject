@@ -1,4 +1,4 @@
-﻿using PL.BaseStations;
+﻿using PL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,12 +20,10 @@ namespace PL
     /// </summary>
     public partial class StationsList : Window
     {
-        public StationsList(BLApi.IBL bl)
+        public StationsList(StationsListViewModel stationListVMl)
         {
             InitializeComponent();
-            StationsListViewModel VM = new StationsListViewModel(bl);
-            this.DataContext = VM;
+            this.DataContext = stationListVMl;
         }
-    
     }
 }

@@ -125,7 +125,14 @@ namespace PL.PO
         /// </summary>
         public Coordinate() { }
 
-        
+        /// <summary>
+        /// override ToString function.
+        /// </summary>
+        /// <returns>description of the Coordinate object</returns>
+        public override string ToString()
+        {
+            return Degrees + "º " + Minutes + "' " + Seconds + "'' " + Direction.ToString()[0];
+        }
 
     }
 

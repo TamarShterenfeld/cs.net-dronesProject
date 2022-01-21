@@ -12,7 +12,7 @@ namespace DalObject
     ///the class DalObject contains all the needed methods 
     ///which are connected to the data (in DataSource class) of the program.
     /// </summary>
-    sealed public partial class DalObject : Singleton<DalObject>,DalApi.IDal
+    sealed partial class DalObject : Singleton<DalObject>, DalApi.IDal
     {
         // a constructor
         DalObject()

@@ -5,6 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PL" xmlns:i1="http://xamarin.com/schemas/2014/forms" 
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:i2="http://schemas.microsoft.com/xaml/behaviors"
+           xmlns:i3="http://schemas.microsoft.com/xaml/behaviors"
         Title="Drone" Height="650" Width="800"
         Icon="/images/toplogo.jpg"
         x:Name="Drone">
@@ -97,7 +99,7 @@
             TextWrapping="Wrap" 
             VerticalAlignment="Top" 
             Width="140" 
-            Margin="63,47,63,0" Grid.RowSpan="2" IsEnabled="False">
+            Margin="63,47,63,0" Grid.RowSpan="2">
             <TextBox.InputBindings>
                 <MouseBinding Gesture="LeftDoubleClick" Command="{Binding ParcelDoubleClick}"/>
             </TextBox.InputBindings>

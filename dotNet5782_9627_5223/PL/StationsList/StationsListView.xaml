@@ -3,10 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PL" xmlns:i1="clr-namespace:Microsoft.VisualBasic;assembly=Microsoft.VisualBasic.Core" xmlns:i="clr-namespace:Microsoft.VisualBasic;assembly=Microsoft.VisualBasic" xmlns:i2="http://schemas.microsoft.com/netfx/2007/xaml/presentation"
+        xmlns:local="clr-namespace:PL" 
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         Title="StationsList" Height="450" Width="800"
         x:Name="stationsList">
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -18,7 +20,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <WrapPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="center"  VerticalAlignment="center">
-            <Button Content="Close"  Command="{Binding Cancel}" CommandParameter="{Binding ElementName = stationsList}" Background="Turquoise" BorderBrush="White" />
+            <Button Content="Close"  Command="{Binding Cancel}" CommandParameter="{Binding ElementName=stationsList}" Background="Turquoise" BorderBrush="White" />
             <Button Content="Add BaseStation"   Command="{Binding Add}" Background="Turquoise" BorderBrush="White" />
         </WrapPanel>
         <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
@@ -27,8 +29,14 @@
                 <ColumnDefinition Width="10*"/>
                 <ColumnDefinition Width="371*"/>
             </Grid.ColumnDefinitions>
-            <ListView x:Name ="StationsListView" BorderThickness="0" Margin="0,0,359,0" FontFamily="Levenim MT" FontSize="12" 
-                      ItemsSource="{Binding AllStations}" SelectionMode="Extended" Grid.ColumnSpan="3" >
+            <ListView x:Name ="StationsListView" BorderThickness="0" Margin="0,0,359,0" FontFamily="Levenim MT" FontSize="12" ItemsSource="{Binding AllStations}" SelectionMode="Extended" Grid.ColumnSpan="3" >
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <i:InvokeCommandAction 
+                        Command="{Binding LeftDoubleClick}"
+                        CommandParameter="{Binding ElementName=StationsListView, Path=SelectedItem}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
                 <ListView.GroupStyle>
                     <GroupStyle>
                         <GroupStyle.HeaderTemplate>
@@ -38,9 +46,9 @@
                         </GroupStyle.HeaderTemplate>
                     </GroupStyle>
                 </ListView.GroupStyle>
-                <ListView.InputBindings>
-                    <MouseBinding Gesture="LeftDoubleClick" Command="{Binding Double}" CommandParameter="{Binding ElementName = StationsListView}"/>
-                </ListView.InputBindings>
+                
+                
+                
             </ListView>
             <Grid x:Name="aside" Margin="17,84,-22,10" Grid.Column="2">
                 <Grid.Background>
