@@ -79,6 +79,11 @@ namespace PL
 
         private void Button_ClickDelete(object sender)
         {
+            if(BaseStation.DroneCharging.Count != 0)
+            {
+                MessageBox.Show("Can not delete this station since it charges drones\n release the drones and try again.");
+                return;
+            }
             bl.Delete(StationPoToBo(BaseStation));
             ListsModel.Instance.DeleteStation(BaseStation.Id); 
             (sender as Window).Close();
