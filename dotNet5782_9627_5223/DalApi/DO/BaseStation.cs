@@ -71,8 +71,8 @@ namespace DO
 
                 chargeSlots = value;
             }
-        }
-
+        }  
+        public bool IsDeleted { get; set; }
         /// <summary>
         /// override ToString function.
         /// </summary>

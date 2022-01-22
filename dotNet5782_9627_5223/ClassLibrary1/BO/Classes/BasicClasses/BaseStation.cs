@@ -86,7 +86,7 @@ namespace BO
             }
         }
         public List<DroneInCharging> DroneCharging { get; set; }
-
+        public bool IsDeleted { get; set; }
 
         /// <summary>
         /// a constructor with parameters

@@ -37,22 +37,17 @@ namespace PL
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Stations)));
             }
         }
-        //ListCollectionView allStations;
-        //public ListCollectionView AllStations
-        //{
-        //    get => allStations;
-        //    set
-        //    {
-        //        allStations = value;
-        //        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AllStations)));
-        //    }
-        //}
 
         public void UpdateStation(int stationId)
         {
-            var updatedStation= Stations.FirstOrDefault(s => s.Id == stationId);
-            Stations.Remove(updatedStation);
+            DeleteStation(stationId);
             AddStation(stationId);
+        }
+
+        public void DeleteStation(int stationId)
+        {
+            var updatedStation = Stations.FirstOrDefault(s => s.Id == stationId);
+            Stations.Remove(updatedStation);
         }
         public void AddStation(int stationId)
         {

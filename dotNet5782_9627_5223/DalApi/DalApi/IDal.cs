@@ -38,6 +38,7 @@ namespace DalApi
         /// <param name="droneCharge">an object of a parcel - for adding to the ParcelsList</param> 
         void Add(DroneCharge droneCharge);
 
+
         /// <summary>
         /// the function updates drone's model
         /// </summary>

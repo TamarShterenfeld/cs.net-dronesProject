@@ -2,6 +2,7 @@
 using System;
 using System.ComponentModel;
 using System.Windows;
+using static PL.PO.POConverter;
 
 namespace PL
 {
@@ -17,12 +18,14 @@ namespace PL
         public string State { get; set; }
         public RelayCommand Cancel { get; set; }
         public RelayCommand AddOrUpdate { get; set; }
+        public RelayCommand Delete { get; set; }
         public RelayCommand LeftDoubleClick { get; set; }
         public StationViewModel(BLApi.IBL bl, BO.BaseStationForList station)
             : this(bl)
         {
             BaseStation = new(bl, station);
             AddOrUpdate = new(Button_ClickUpdate, null);
+            Delete = new(Button_ClickDelete, null);
             EnableUpdate = false;
             coorLon = BaseStation.Location.CoorLongitude.ToString();
             coorLat = BaseStation.Location.CoorLatitude.ToString();
@@ -71,6 +74,13 @@ namespace PL
         /// <param name="e">the event</param>
         private void Button_ClickCancel(object sender)
         {
+            (sender as Window).Close();
+        }
+
+        private void Button_ClickDelete(object sender)
+        {
+            bl.Delete(StationPoToBo(BaseStation));
+            ListsModel.Instance.DeleteStation(BaseStation.Id); 
             (sender as Window).Close();
         }
 

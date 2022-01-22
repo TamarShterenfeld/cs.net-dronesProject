@@ -58,12 +58,14 @@ namespace PL.PO
             }
         }
         public List<DroneInCharging> DroneCharging { get; set; }
-
+        public bool IsDeleted { get; set; }
         public Station(BLApi.IBL bl,BO.BaseStationForList station)
         {
             BO.BaseStation CurStation = bl.GetBLBaseStation(station.Id);
             this.bl = bl;
-            Id = station.Id; Name = station.Name; Location = LocationBOTOPO(CurStation.Location); ChargeSlots = station.AvailableChargeSlots + station.CaughtChargeSlots ; DroneCharging = (List<PO.DroneInCharging>)DroneInChargingListBoToPo(CurStation.DroneCharging);
+            Id = station.Id; Name = station.Name; Location = LocationBOTOPO(CurStation.Location); 
+            ChargeSlots = station.AvailableChargeSlots + station.CaughtChargeSlots ; IsDeleted = CurStation.IsDeleted;
+            DroneCharging = (List<PO.DroneInCharging>)DroneInChargingListBoToPo(CurStation.DroneCharging);
         }
 
         // default constructor

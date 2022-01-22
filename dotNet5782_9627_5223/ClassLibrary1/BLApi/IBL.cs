@@ -61,7 +61,13 @@ namespace BLApi
         /// The function adds a base station to the BaseStationsList.
         /// </summary>
         /// <param name="baseStation">a base station</param>
-        void Add(BaseStation baseStation);
+        void Add(BO.BaseStation baseStation);
+
+        /// <summary>
+        /// The function removes (by signing as "deleted" ) a base station.
+        /// </summary>
+        /// <param name="baseStation">a base station</param>
+        void Delete(BaseStation baseStation);
 
         /// <summary>
         /// The function returns all the baseStationList items 

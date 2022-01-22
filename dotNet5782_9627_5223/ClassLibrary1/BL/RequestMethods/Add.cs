@@ -12,7 +12,7 @@ namespace IBL
     {
         public void Add(BO.BaseStation baseStation)
         {
-            dal.Add(new DO.BaseStation() { Id = baseStation.Id, Name = baseStation.Name, Longitude = CoordinateBoToDo(baseStation.Location.CoorLongitude), Latitude = CoordinateBoToDo(baseStation.Location.CoorLatitude), ChargeSlots = baseStation.ChargeSlots });
+            dal.Add(new DO.BaseStation() { Id = baseStation.Id, Name = baseStation.Name, Longitude = CoordinateBoToDo(baseStation.Location.CoorLongitude), Latitude = CoordinateBoToDo(baseStation.Location.CoorLatitude), ChargeSlots = baseStation.ChargeSlots ,IsDeleted = baseStation.IsDeleted});
 
         }
 

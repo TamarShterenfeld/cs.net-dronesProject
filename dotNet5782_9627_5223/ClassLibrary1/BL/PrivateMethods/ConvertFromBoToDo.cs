@@ -240,9 +240,29 @@ namespace IBL
                 Name = baseStation.Name,
                 Location = new Location(CoordinateDoToBo(baseStation.Longitude), CoordinateDoToBo(baseStation.Latitude)),
                 ChargeSlots = baseStation.ChargeSlots,
-                DroneCharging = (List<DroneInCharging>)GetDronesInMe(baseStation.Id)
+                DroneCharging = (List<DroneInCharging>)GetDronesInMe(baseStation.Id),
+                IsDeleted = baseStation.IsDeleted 
             };
             return BOBaseStation;
+        }
+
+        /// <summary>
+        /// the function converts a BO.BaseStation object to DO.BaseStation object.
+        /// </summary>
+        /// <param name="baseStation"></param>
+        /// <returns></returns>
+        public DO.BaseStation ConvertBaseStationBOtODO(BO.BaseStation baseStation)
+        {
+            DO.BaseStation DOBaseStation = new()
+            {
+                Id = baseStation.Id,
+                Name = baseStation.Name,
+                ChargeSlots = baseStation.ChargeSlots,
+                Longitude = CoordinateBoToDo(baseStation.Location.CoorLongitude),
+                Latitude = CoordinateBoToDo(baseStation.Location.CoorLatitude),
+                IsDeleted = baseStation.IsDeleted
+            };
+            return DOBaseStation;
         }
 
     }
