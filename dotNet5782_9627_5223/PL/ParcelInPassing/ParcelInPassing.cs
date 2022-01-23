@@ -14,7 +14,7 @@ namespace PL
     {
         //there's no need to create the event PropertyChangedEventHandler - for this window is passive
         //(without changes).
-        public class ParcelInPassing /* : INotifyPropertyChanged*/
+        public class ParcelInPassing /* : INotifyPropertyChanged */
         {
             public ParcelInPassing(BO.ParcelInPassing parcel, BLApi.IBL bL)
             {
@@ -22,7 +22,7 @@ namespace PL
                 BO.Customer sender = bL.GetBOCustomersList().First(item => item.Id == parcel1.SenderId);
                 BO.Customer target = bL.GetBOCustomersList().First(item => item.Id == parcel1.TargetId);
                 Id = parcel.Id;          
-                ToDestinition = parcel1.Status == ParcelStatuses.PickedUp ? true : false;
+                ToDestinition = parcel1.Status == ParcelStatuses.PickedUp ? "yes" : "false";
                 Priority = parcel.Priority;
                 Weight = parcel.Weight;
                 string senderName = sender.Name;
@@ -36,7 +36,7 @@ namespace PL
 
             public ParcelInPassing() { }
 
-            public ParcelInPassing(int id, bool toDest, Priorities priority, WeightCategories weight, BO.CustomerInParcel sender,
+            public ParcelInPassing(int id, string toDest, Priorities priority, WeightCategories weight, BO.CustomerInParcel sender,
                 BO.CustomerInParcel target, BO.Location collect, BO.Location destination, double distance)
             {
                 Id = id; ToDestinition = toDest; Priority = priority; Weight = weight; Sender = POConverter.CustomerInParcelBOTOPO(sender);
@@ -44,7 +44,7 @@ namespace PL
                 Destination = POConverter.LocationBOTOPO(destination); Distance = distance;
             }
             public int Id { get; set; }
-            public bool ToDestinition { set; get; }
+            public string ToDestinition { set; get; }
             public Priorities Priority { get; set; }
             public WeightCategories Weight { get; set; }
             public CustomerInParcel Sender { get; set; }

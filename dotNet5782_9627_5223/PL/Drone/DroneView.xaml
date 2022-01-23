@@ -45,75 +45,92 @@
             Width="140" 
             IsEnabled="{Binding EnableUpdate}"
             Text="{Binding Drone.Id}" Grid.Row="1"/>
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
+            IsEnabled="{Binding IsAdd}"
+            Text="{Binding Drone.Id}" Grid.Row="1"/>
         <TextBlock  Text="Model:" Grid.Row="2" Grid.Column="1" Foreground="#FF2D2D2D"/>
         <TextBox x:Name="model" 
             Text="{Binding Drone.Model}"
-            Grid.Row="" Grid.Column="2" 
+            Grid.Row="2" Grid.Column="2" 
             TextWrapping="Wrap" 
             VerticalAlignment="Top" 
-            Width="140" Grid.RowSpan="2" />
+            HorizontalAlignment="Center"
+            Width="140"/>
         <TextBlock Text="Max Weight:" Grid.Row="3" Grid.Column="1" Foreground="#FF4C386B"/>
         <ComboBox x:Name ="weight" 
-                  Grid.Row="2" Grid.Column="2" 
+                  Grid.Row="3" Grid.Column="2" 
                   VerticalAlignment="Top" 
+                  HorizontalAlignment="Center"
                   Width="140"  
                   ItemsSource="{Binding DroneWeightsList}"
                   SelectedItem="{Binding Drone.Weight}"
-                  Grid.RowSpan="2"
                   IsEnabled="True"
                   />
         <TextBlock Text="Battery:" Grid.Row="4" Grid.Column="1" Foreground="#FF3F4245"/>
         <TextBox x:Name="battery"
-           Grid.Row="3" Grid.Column="2"
+           Grid.Row="4" Grid.Column="2"
             TextWrapping="Wrap" 
             VerticalAlignment="Top" 
+            HorizontalAlignment="Center"
             Width="140" 
-            IsEnabled="False" Grid.RowSpan="2"/>
+            IsEnabled="False"/>
         <TextBlock Text="Status:" Grid.Row="5" Grid.Column="1" Foreground="#FF3F4245"/>
         <ComboBox x:Name ="status" 
-                  Grid.Row="4" Grid.Column="2"
+                  Grid.Row="5" Grid.Column="2"
                   VerticalAlignment="Top" 
+                  HorizontalAlignment="Center"
                   Width="140" 
-                  IsEnabled="{Binding EnableUpdate}"  
-                  ItemsSource="{Binding DroneStatusesList}" Grid.RowSpan="2"
+                  IsEnabled="False" 
+                  ItemsSource="{Binding DroneStatusesList}"
                   SelectedItem="{Binding Drone.Status}"/>
-        <TextBlock Text="Delivery:" Grid.Row= "5" Grid.Column="1" Foreground="#FF3F4245" Grid.ColumnSpan="2" Height="49" Grid.RowSpan="2" VerticalAlignment="Bottom"/>
-        <TextBox x:Name="delivery"
-            Grid.Row="5" Grid.Column="2"
-            Text="{Binding Drone.ParcelId}"
-            TextWrapping="Wrap" 
-            VerticalAlignment="Top" 
-            Width="140" 
-            Grid.RowSpan="2">
-            <TextBox.InputBindings>
-                <MouseBinding Gesture="LeftDoubleClick" Command="{Binding ParcelDoubleClick}"/>
-            </TextBox.InputBindings>
-        </TextBox>
+        <TextBlock Text="Delivery:" Grid.Row= "6" Grid.Column="1" Foreground="#FF3F4245" Height="49"/>
+        <StackPanel Grid.Row="5" Grid.Column="2"
+                    Width="140"  Grid.RowSpan="2" VerticalAlignment="Top" 
+            HorizontalAlignment="Center">
+            <StackPanel.InputBindings>
+                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding DisplayParcelCommand}"/>
+            </StackPanel.InputBindings>
+            <TextBlock x:Name="delivery"
+                       Text="{Binding Drone.ParcelId}"
+                       VerticalAlignment="Top" 
+                       HorizontalAlignment="Center"
+                       IsEnabled="False" >
+            </TextBlock>
+        </StackPanel>
+        <TextBox x:Name="line"
+            Grid.Row="6" Grid.Column="2"
+            VerticalAlignment="Center" 
+            HorizontalAlignment="Center"
+            Width="140" IsEnabled="False" Height="6" />
         <TextBlock Text="Longitude:" Grid.Row="7" Grid.Column="1" Foreground="#FF3F4245"/>
         <TextBox x:Name="longitude"
-            Grid.Row="6" Grid.Column="2"
-            TextWrapping="Wrap" 
-            VerticalAlignment="Top" 
-            Width="140" 
-            IsEnabled="{Binding EnableUpdate}" Grid.RowSpan="2"/>
-        <TextBlock Text="Latitude:" Grid.Row="8" Grid.Column="1" Foreground="#FF3F4245"/>
-        <TextBox x:Name="latitude"
             Grid.Row="7" Grid.Column="2"
             TextWrapping="Wrap" 
             VerticalAlignment="Top" 
-            Width="140"  
-            IsEnabled="{Binding EnableUpdate}" Grid.RowSpan="2" />
-        <TextBlock x:Name="Lstation" Grid.Row= "8" Grid.Column="1" Foreground="#FF3F4245" Grid.ColumnSpan="2" Grid.RowSpan="2">
-            <Run FlowDirection="RightToLeft" Language="he-il" Text="S"/><Run Text="station ID:"/></TextBlock>
+            HorizontalAlignment="Center"
+            Width="140" 
+            IsEnabled="False"/>
+        <TextBlock Text="Latitude:" Grid.Row="8" Grid.Column="1" Foreground="#FF3F4245"/>
+        <TextBox x:Name="latitude"
+            Grid.Row="8" Grid.Column="2"
+            TextWrapping="Wrap" 
+            VerticalAlignment="Top" 
+            HorizontalAlignment="Center"
+            Width="140"           
+            IsEnabled="False" />
+        <TextBlock x:Name="Lstation" Grid.Row= "8" Grid.Column="1" Foreground="#FF3F4245" Grid.ColumnSpan="2" Margin="0,53,266,0" Grid.RowSpan="2">
+            <Run FlowDirection="RightToLeft" Language="he-il" Text="S"/><Run Text="tation ID:"/></TextBlock>
         <ComboBox x:Name ="station" 
                   Grid.Row="9" Grid.Column="2"
                   VerticalAlignment="Top" 
+                  HorizontalAlignment="Center"
                   Width="140"                  
                   ItemsSource="{Binding StationsId}"
                   SelectedItem="{Binding StationId}"
-                  IsEnabled="{Binding EnableUpdate}"
-                  SelectedIndex="0" Height="20"/>
-        <Grid Grid.ColumnSpan="2">
+                  IsEnabled="{Binding }"
+                  SelectedIndex="0"  Height="20"/>
+        <Grid >
             <Grid.Background>
                 <ImageBrush Stretch="Fill" ImageSource="../images/logo1.jpg"/>
             </Grid.Background>
@@ -130,6 +147,6 @@
         <TextBox x:Name="Time" Grid.Row="9" Grid.Column="2"  Visibility="Collapsed"
             Width="140"
             Text="{Binding ChargeDurationTime, UpdateSourceTrigger=LostFocus}"  
-            Background="{x:Null}" BorderBrush="#FF0A0A0A" Foreground="Black" VerticalAlignment="Top" HorizontalAlignment="Center" Height="25" Grid.RowSpan="2" />
+           Background="{x:Null}" BorderBrush="#FF0A0A0A" Foreground="Black" VerticalAlignment="Top" HorizontalAlignment="Center" Height="25" Grid.RowSpan="2" />
     </Grid>
 </Window>
