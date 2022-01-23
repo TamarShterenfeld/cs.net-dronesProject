@@ -72,7 +72,6 @@ namespace PL
         private void Button_ClickAdd(object sender)
         {
             new StationView(new StationViewModel(bl)).Show();
-
         }
         private void DroneListView_MouseDoubleClick(object sender)
         {

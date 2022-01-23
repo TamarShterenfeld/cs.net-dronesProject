@@ -1,20 +1,9 @@
 ﻿<Window x:Class="PL.DroneView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:PL" xmlns:i1="http://xamarin.com/schemas/2014/forms" 
-        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-        xmlns:i2="http://schemas.microsoft.com/xaml/behaviors"
-           xmlns:i3="http://schemas.microsoft.com/xaml/behaviors"
         Title="Drone" Height="650" Width="800"
         Icon="/images/toplogo.jpg"
         x:Name="Drone">
-    <Window.Resources>
-        <ResourceDictionary >
-            <!--<local:ConverterIntToString x:Key="ConverterIntToString"/>-->
-        </ResourceDictionary>
-    </Window.Resources>
     <Grid x:Name ="curdrone" Height="634" VerticalAlignment="Top">
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
@@ -43,11 +32,7 @@
                       ItemsSource="{Binding Button3Content}" 
                       SelectedItem="{Binding Button3SelectedItem}"   
                       Width="110" Background="Turquoise"  Visibility="Collapsed" Foreground="#FF313131" BorderThickness="1"/>
-            <!--<i:Interaction.Triggers>
-                    <i:EventTrigger EventName="SelectionChanged">
-                        <i:InvokeCommandAction Command="{Binding ValueTypeSortCommand}" CommandParameter="{Binding ElementName=KindOf}" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>-->
+            
             <ComboBox x:Name="button4"
                       Width="130"
                        ItemsSource="{Binding ParcelOptions}" 
@@ -58,9 +43,7 @@
         <TextBox x:Name="id" Grid.Column="2"
             TextWrapping="Wrap" 
             Width="140" 
-            HorizontalAlignment="Center"
-            VerticalAlignment="Top"
-            IsEnabled="{Binding IsAdd}"
+            IsEnabled="{Binding EnableUpdate}"
             Text="{Binding Drone.Id}" Grid.Row="1"/>
         <TextBlock  Text="Model:" Grid.Row="2" Grid.Column="1" Foreground="#FF2D2D2D"/>
         <TextBox x:Name="model" 
@@ -156,7 +139,7 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
         </Grid>
-        <TextBlock x:Name="TimeText"   Grid.Row= "10" Grid.Column="1" Foreground="#FF3F4245" Visibility="Collapsed"   Grid.ColumnSpan="2" Margin="0,5,238,0" Text="Charge Duration:" />
+        <TextBlock x:Name="TimeText"   Grid.Row= "10" Grid.Column="1" Foreground="#FF3F4245" Visibility="Collapsed"   Grid.ColumnSpan="2" Text="Charge Duration:" />
         <TextBox x:Name="Time" Grid.Row="9" Grid.Column="2"  Visibility="Collapsed"
             Width="140"
             Text="{Binding ChargeDurationTime, UpdateSourceTrigger=LostFocus}"  

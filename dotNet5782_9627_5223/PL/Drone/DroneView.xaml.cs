@@ -23,19 +23,20 @@ namespace PL
     /// <summary>
     /// Interaction logic for Drone.xaml
     /// </summary>
-    public partial class DroneView : Window, INotifyPropertyChanged
+    public partial class DroneView : Window
     {
+
         private BLApi.IBL bl;
         Action refreshDroneList;
         private object chargeDurationTime;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        /// <summary>
-        /// a constructor that gets the object bl + the delegate action.
-        /// </summary>
-        /// <param name="bl">the request object to the BL logic level</param>
-        /// <param name="refreshDroneList">a delegate</param>
+        ///// <summary>
+        ///// a constructor that gets the object bl + the delegate action.
+        ///// </summary>
+        ///// <param name="bl">the request object to the BL logic level</param>
+        ///// <param name="refreshDroneList">a delegate</param>
         public DroneView(BLApi.IBL bl, Action refreshDroneList)
         {
             InitializeComponent();
@@ -53,12 +54,12 @@ namespace PL
             station.DataContext = stationsId;
         }
 
-        /// <summary>
-        /// another constructor with parameters
-        /// </summary>
-        /// <param name="droneForList"></param>
-        /// <param name="bl">the request object to the BL level</param>
-        /// <param name="refreshDroneList">a delegate</param>
+        ///// <summary>
+        ///// another constructor with parameters
+        ///// </summary>
+        ///// <param name="droneForList"></param>
+        ///// <param name="bl">the request object to the BL level</param>
+        ///// <param name="refreshDroneList">a delegate</param>
         public DroneView(DroneForList droneForList, BLApi.IBL bl, Action refreshDroneList)
             : this(bl, refreshDroneList)
         {
@@ -87,6 +88,12 @@ namespace PL
                 button3.Visibility = button4.Visibility = Visibility.Visible;
                 button2.Content = "Update";
             }
+        }
+
+        public DroneView(DroneViewModel droneViewModel)
+        {
+            InitializeComponent();
+            this.DataContext = droneViewModel;
         }
     }
 }
