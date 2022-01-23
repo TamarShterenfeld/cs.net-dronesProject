@@ -130,7 +130,7 @@
                   SelectedItem="{Binding StationId}"
                   IsEnabled="{Binding }"
                   SelectedIndex="0" Margin="63,2,63,0" Height="20"/>
-        <Grid Margin="-18,0,80,20" Grid.ColumnSpan="2">
+        <Grid Margin="-18,0,28,20">
             <Grid.Background>
                 <ImageBrush Stretch="Fill" ImageSource="../images/logo1.jpg"/>
             </Grid.Background>

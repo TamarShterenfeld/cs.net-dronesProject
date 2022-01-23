@@ -76,7 +76,8 @@ namespace PL.PO
 
         public static PO.ParcelInPassing ParcelInPassingBOTOPO(BO.ParcelInPassing parcel)
         {
-            return new PO.ParcelInPassing(parcel.Id, parcel.ToDestination, parcel.Priority,
+            string toDest = parcel.ToDestination ? "yes" : "no"; 
+            return new PO.ParcelInPassing(parcel.Id, toDest, parcel.Priority,
                 parcel.Weight, parcel.Sender, parcel.Target, parcel.Collect, parcel.Destination, parcel.Distatnce);
         }
 
