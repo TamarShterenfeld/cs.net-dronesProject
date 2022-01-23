@@ -88,11 +88,6 @@ namespace PL
                 button2.Content = "Update";
             }
         }
-
-        private void delivery_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
     }
 }
 

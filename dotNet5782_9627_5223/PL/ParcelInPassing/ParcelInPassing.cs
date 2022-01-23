@@ -14,7 +14,7 @@ namespace PL
     {
         //there's no need to create the event PropertyChangedEventHandler - for this window is passive
         //(without changes).
-        public class ParcelInPassing /* : INotifyPropertyChanged*/
+        public class ParcelInPassing /* : INotifyPropertyChanged */
         {
             public ParcelInPassing(BO.ParcelInPassing parcel, BLApi.IBL bL)
             {
