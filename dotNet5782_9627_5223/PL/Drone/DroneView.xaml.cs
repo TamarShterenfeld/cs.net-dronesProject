@@ -26,38 +26,33 @@ namespace PL
     public partial class DroneView : Window
     {
 
-        public DroneView(DroneViewModel droneViewModel)
-        {
-            InitializeComponent();
-            this.DataContext = droneViewModel;
-        }
-        //private BLApi.IBL bl;
-        //Action refreshDroneList;
-        //private object chargeDurationTime;
+        private BLApi.IBL bl;
+        Action refreshDroneList;
+        private object chargeDurationTime;
 
-        //public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
 
         ///// <summary>
         ///// a constructor that gets the object bl + the delegate action.
         ///// </summary>
         ///// <param name="bl">the request object to the BL logic level</param>
         ///// <param name="refreshDroneList">a delegate</param>
-        //public DroneView(BLApi.IBL bl, Action refreshDroneList)
-        //{
-        //    InitializeComponent();
-        //    this.bl = bl;
-        //    this.refreshDroneList = refreshDroneList;
-        //    /*id.DataContext = model.DataContext = weight.DataContext = station.DataContext = "True";*/
-        //    button3.DataContext = button4.DataContext = "Collapsed";
-        //    //status.DataContext = typeof(DroneStatuses).GetEnumValues();
-        //    weight.DataContext = typeof(BO.WeightCategories).GetEnumValues();
-        //    List<string> stationsId = new List<string>();
-        //    foreach (var item in bl.GetBOBaseStationsList())
-        //    {
-        //        stationsId.Add(item.Id.ToString());
-        //    }
-        //    station.DataContext = stationsId;
-        //}
+        public DroneView(BLApi.IBL bl, Action refreshDroneList)
+        {
+            InitializeComponent();
+            this.bl = bl;
+            this.refreshDroneList = refreshDroneList;
+            /*id.DataContext = model.DataContext = weight.DataContext = station.DataContext = "True";*/
+            button3.DataContext = button4.DataContext = "Collapsed";
+            //status.DataContext = typeof(DroneStatuses).GetEnumValues();
+            weight.DataContext = typeof(BO.WeightCategories).GetEnumValues();
+            List<string> stationsId = new List<string>();
+            foreach (var item in bl.GetBOBaseStationsList())
+            {
+                stationsId.Add(item.Id.ToString());
+            }
+            station.DataContext = stationsId;
+        }
 
         ///// <summary>
         ///// another constructor with parameters
@@ -65,11 +60,11 @@ namespace PL
         ///// <param name="droneForList"></param>
         ///// <param name="bl">the request object to the BL level</param>
         ///// <param name="refreshDroneList">a delegate</param>
-        //public DroneView(DroneForList droneForList, BLApi.IBL bl, Action refreshDroneList)
-        //    : this(bl, refreshDroneList)
-        //{
+        public DroneView(DroneForList droneForList, BLApi.IBL bl, Action refreshDroneList)
+            : this(bl, refreshDroneList)
+        {
 
-        //    this.DataContext = new DroneViewModel(droneForList, bl);
+            this.DataContext = new DroneViewModel(droneForList, bl);
 
             station.DataContext = "False";
             if (droneForList != null)
@@ -93,6 +88,12 @@ namespace PL
                 button3.Visibility = button4.Visibility = Visibility.Visible;
                 button2.Content = "Update";
             }
+        }
+
+        public DroneView(DroneViewModel droneViewModel)
+        {
+            InitializeComponent();
+            this.DataContext = droneViewModel;
         }
     }
 }

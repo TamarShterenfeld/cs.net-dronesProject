@@ -45,10 +45,6 @@
             Width="140" 
             IsEnabled="{Binding EnableUpdate}"
             Text="{Binding Drone.Id}" Grid.Row="1"/>
-            HorizontalAlignment="Center"
-            VerticalAlignment="Top"
-            IsEnabled="{Binding IsAdd}"
-            Text="{Binding Drone.Id}" Grid.Row="1"/>
         <TextBlock  Text="Model:" Grid.Row="2" Grid.Column="1" Foreground="#FF2D2D2D"/>
         <TextBox x:Name="model" 
             Text="{Binding Drone.Model}"
