@@ -20,6 +20,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Parcel\**" />
+    <EmbeddedResource Remove="Parcel\**" />
+    <None Remove="Parcel\**" />
+    <Page Remove="Parcel\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="BackgroundDesign.jpg" />
     <None Remove="bg.jpg" />
     <None Remove="bg1.jpg" />

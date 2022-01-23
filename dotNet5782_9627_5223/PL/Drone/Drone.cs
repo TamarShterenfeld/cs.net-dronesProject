@@ -14,7 +14,7 @@ namespace PL
             private WeightCategories weight;
             private DroneStatuses status;
 
-            public Drone(BO.DroneForList drone, BLApi.IBL bl )
+            public Drone(BO.DroneForList drone, BLApi.IBL bl)
             {
                 Id = drone.Id;
                 Model = drone.Model;
