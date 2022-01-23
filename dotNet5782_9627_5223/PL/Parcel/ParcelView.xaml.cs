@@ -19,9 +19,10 @@ namespace PL.Parcels
     /// </summary>
     public partial class ParcelView : Window
     {
-        public ParcelView()
+        public ParcelView(ParcelViewModel parcelViewModel)
         {
             InitializeComponent();
+            this.DataContext = parcelViewModel;
         }
     }
 }
