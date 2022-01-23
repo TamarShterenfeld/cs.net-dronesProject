@@ -91,7 +91,7 @@ namespace PL
 
         private void Button_ClickAdd(object sender)
         {
-            bl.Add(POConverter.StationPoToBo(BaseStation));
+            bl.Add(StationPoToBo(BaseStation));
             ListsModel.Instance.AddStation(BaseStation.Id);
         }
         private void Button_ClickUpdate(object sender)
@@ -101,7 +101,7 @@ namespace PL
         }
         private void doubleClickDrone(object sender)
         {
-            new DroneView(bl.GetDroneForList((sender as PO.DroneInCharging).Id), bl, refreshDroneList).Show();
+            //new DroneView(bl.GetDroneForList((sender as PO.DroneInCharging).Id), bl, refreshDroneList).Show();
         }
     }
 }

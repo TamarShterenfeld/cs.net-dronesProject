@@ -13,5 +13,11 @@ namespace IBL
             station.IsDeleted = true;
             dal.UpDate(ConvertBaseStationBOtODO(station), station.Id);
         }
+        //public void Delete(BO.Drone drone)
+        //{
+        //    drone.IsDeleted = true;
+        //    dal.UpDate(ConvertBoToDoDrone(drone), drone.Id);
+        //}
+        
     }
 }

@@ -124,7 +124,7 @@ namespace PL
         /// <param name="e"></param>
         private void Button_ClickAdd(object sender, RoutedEventArgs e)
         {
-            new DroneView(bl, currFilter).Show();
+            new DroneView(new DroneViewModel(bl)).Show();
         }
 
         /// <summary>
@@ -145,7 +145,7 @@ namespace PL
         /// <param name="e"></param>
         private void DroneListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            new DroneView((e.OriginalSource as FrameworkElement).DataContext as DroneForList, bl, currFilter).Show();
+            new DroneView(new DroneViewModel((e.OriginalSource as FrameworkElement).DataContext as DroneForList, bl)).Show();
         }
     }
 }

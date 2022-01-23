@@ -28,25 +28,28 @@ namespace PL
         /// </summary>
         /// <param name="drone">gets a DroneForList object</param>
         /// <param name="bl">gets the request object which connect this level to the data in BL logic level.</param>
-        public DroneViewModel(BO.DroneForList drone, BLApi.IBL bl)
+        public DroneViewModel(BO.DroneForList drone, BLApi.IBL bl) : this(bl)
         {
-            Bl = bl;
             Drone = new PO.Drone(drone, bl);
             Parcel = POConverter.ParcelInPassingBOTOPO(Bl.GetParcelInPassing(Drone.ParcelId));
             DroneStatusesList = typeof(BO.DroneStatuses).GetEnumValues();
             DroneWeightsList = typeof(BO.WeightCategories).GetEnumValues();
-            IsAdd = false;
-            IsEdit = true;
+            EnableUpdate = true;
             StationsId = new List<string>();
             foreach (var item in bl.GetBOBaseStationsList())
             {
                 StationsId.Add(item.Id.ToString());
             }
-            Cancel = new(Button_ClickCancel, null);
             Add = new(Button_ClickAdd, null);
             AddOrUpDate = new(Button_ClickAddOrUpdate, null);
             TimeDuration = new(ChargeDurationTime);
             DisplayParcelCommand = new(DisplayParcle);
+        }
+        public DroneViewModel(BLApi.IBL bl)
+        {
+            Bl = bl;
+            EnableUpdate = false;
+            Cancel = new(Button_ClickCancel, null);
         }
 
         //properties
@@ -94,8 +97,7 @@ namespace PL
         public RelayCommand AddOrUpDate { get; set; }
         public RelayCommand TimeDuration { set; get; }
         public RelayCommand DisplayParcelCommand { set; get; }
-        public bool IsAdd { get; set; }
-        public bool IsEdit { get; set; }
+        public bool EnableUpdate { get; set; }
 
 
         //---------------------------------Drone's Methods------------------------------
