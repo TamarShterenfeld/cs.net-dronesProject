@@ -142,6 +142,7 @@
 
             <TextBlock Text="Distance:" Grid.Row="8" Foreground="#FF3F4245"  Grid.Column="1" HorizontalAlignment="Left"  VerticalAlignment="Bottom"/>
             <TextBox x:Name="Distance"
+                  
             Grid.Row="8" Grid.Column="2"
             TextWrapping="Wrap" 
             VerticalAlignment="Bottom"
