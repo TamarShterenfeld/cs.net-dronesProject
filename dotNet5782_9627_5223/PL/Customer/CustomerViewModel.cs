@@ -6,7 +6,7 @@ using static PL.PO.POConverter;
 
 namespace PL
 {
-    public class StationViewModel : INotifyPropertyChanged
+    public class CustomerViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -20,7 +20,7 @@ namespace PL
         public RelayCommand AddOrUpdate { get; set; }
         public RelayCommand Delete { get; set; }
         public RelayCommand LeftDoubleClick { get; set; }
-        public StationViewModel(BLApi.IBL bl, BO.BaseStationForList station)
+        public CustomerViewModel(BLApi.IBL bl, BO.BaseStationForList station)
             : this(bl)
         {
             BaseStation = new(bl, station);
@@ -31,7 +31,7 @@ namespace PL
             coorLat = BaseStation.Location.CoorLatitude.ToString();
             State = "Update";
         }
-        public StationViewModel(BLApi.IBL bl)
+        public CustomerViewModel(BLApi.IBL bl)
         {
             this.bl = bl;
             BaseStation = new PO.Station();

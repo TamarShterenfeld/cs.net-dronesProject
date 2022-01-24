@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PL.PO
 {
-    public class POConverter
+    public partial class POConverter
     {
         public static PO.Coordinate CoordinateBoToPo(BO.Coordinate coor)
         {

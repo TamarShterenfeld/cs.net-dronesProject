@@ -18,12 +18,12 @@ namespace PL
     /// <summary>
     /// Interaction logic for StationView.xaml
     /// </summary>
-    public partial class StationView : Window
+    public partial class CustomerView : Window
     {
-        public StationView(StationViewModel stationViewModel)
+        public CustomerView(CustomerViewModel customerViewModel)
         {
             InitializeComponent();
-            this.DataContext = stationViewModel;
+            this.DataContext = customerViewModel;
         }
     }
 }

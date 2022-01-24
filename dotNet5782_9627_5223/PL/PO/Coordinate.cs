@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using static PL.PO.POConverter;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace PL.PO
 {
-    public class Coordinate :INotifyPropertyChanged
+    public class Coordinate : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
         private double degrees;
-        public double Degrees 
-        { 
-            get => degrees; 
+        public double Degrees
+        {
+            get => degrees;
             set
             {
                 degrees = value;
@@ -23,7 +23,7 @@ namespace PL.PO
         private double minutes;
         public double Minutes
         {
-            get => minutes; 
+            get => minutes;
             set
             {
                 minutes = value;
@@ -41,7 +41,7 @@ namespace PL.PO
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Seconds)));
             }
         }
-       
+
         double inputCoorValue;
         public double InputCoorValue
         {
@@ -113,7 +113,7 @@ namespace PL.PO
         /// </summary>
         /// <param name="degree">place in degrees</param>
         /// <param name="longOrLat">longitude ot latitude</param>
-        public Coordinate(double degree, PO.Locations longOrLat)
+        public Coordinate(double degree, Locations longOrLat)
         {
             InputCoorValue = degree;
             MyLocation = longOrLat;
@@ -134,19 +134,5 @@ namespace PL.PO
             return Degrees + "º " + Minutes + "' " + Seconds + "'' " + Direction.ToString()[0];
         }
 
-    }
-
-    public enum Directions
-    {
-        NORTH, EAST, WEST, SOUTH
-    }
-
-    /// <summary>
-    /// 
-    /// an enum which contains the two options for a location - longitude / latitude.
-    /// </summary>
-    public enum Locations
-    {
-        Latitude, Longitude
     }
 }

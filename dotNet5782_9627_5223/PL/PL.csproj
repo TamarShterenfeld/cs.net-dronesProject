@@ -63,7 +63,7 @@
     <Page Update="CustomersList\CustomersListView.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>
-    <Page Update="Customer\StationView.xaml">
+    <Page Update="Customer\CustomerView.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>
     <Page Update="Main Window\MainWindow.xaml">
