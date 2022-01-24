@@ -13,28 +13,28 @@ namespace PL
         BLApi.IBL bl;
         object coorLon, coorLat;
         Action refreshDroneList;
-        public PO.Station BaseStation { get; set; }
+        public PO.Customer Customer { get; set; }
         public bool EnableUpdate { get; set; }
         public string State { get; set; }
         public RelayCommand Cancel { get; set; }
         public RelayCommand AddOrUpdate { get; set; }
         public RelayCommand Delete { get; set; }
         public RelayCommand LeftDoubleClick { get; set; }
-        public CustomerViewModel(BLApi.IBL bl, BO.BaseStationForList station)
+        public CustomerViewModel(BLApi.IBL bl, BO.CustomerForList customer)
             : this(bl)
         {
-            BaseStation = new(bl, station);
+            Customer = new PO.Customer(bl, Customer);
             AddOrUpdate = new(Button_ClickUpdate, null);
             Delete = new(Button_ClickDelete, null);
             EnableUpdate = false;
-            coorLon = BaseStation.Location.CoorLongitude.ToString();
-            coorLat = BaseStation.Location.CoorLatitude.ToString();
+            coorLon = Customer.Location.CoorLongitude.ToString();
+            coorLat = Customer.Location.CoorLatitude.ToString();
             State = "Update";
         }
         public CustomerViewModel(BLApi.IBL bl)
         {
             this.bl = bl;
-            BaseStation = new PO.Station();
+            Customer = new();
             Cancel = new(Button_ClickCancel, null);
             AddOrUpdate = new(Button_ClickAdd, null);
             EnableUpdate = true;
@@ -49,7 +49,7 @@ namespace PL
                 if (double.TryParse(value.ToString(), out double longitude))
                 {
                     coorLon = value;
-                    BaseStation.Location.CoorLongitude = new Coordinate(longitude, Locations.Longitude);
+                    Customer.Location.CoorLongitude = new Coordinate(longitude, Locations.Longitude);
                 }
             }
         }
@@ -61,7 +61,7 @@ namespace PL
                 if (double.TryParse(value.ToString(), out double latitude))
                 {
                     coorLat = value;
-                    BaseStation.Location.CoorLatitude = new Coordinate(latitude, Locations.Latitude);
+                    Customer.Location.CoorLatitude = new Coordinate(latitude, Locations.Latitude);
                 }
             }
         }
@@ -79,25 +79,17 @@ namespace PL
 
         private void Button_ClickDelete(object sender)
         {
-            if(BaseStation.DroneCharging.Count != 0)
-            {
-                MessageBox.Show("Can not delete this station since it charges drones\n release the drones and try again.");
-                return;
-            }
-            bl.Delete(StationPoToBo(BaseStation));
-            ListsModel.Instance.DeleteStation(BaseStation.Id); 
             (sender as Window).Close();
         }
 
         private void Button_ClickAdd(object sender)
         {
-            bl.Add(StationPoToBo(BaseStation));
-            ListsModel.Instance.AddStation(BaseStation.Id);
+            //bl.Add(StationPoToBo(BaseStation));
+            //ListsModel.Instance.AddStation(BaseStation.Id);
         }
         private void Button_ClickUpdate(object sender)
-        {
-            bl.UpdateBaseStation(BaseStation.Id, BaseStation.Name, BaseStation.ChargeSlots.ToString());
-            ListsModel.Instance.UpdateStation(BaseStation.Id);
+        {  
+            ListsModel.Instance.UpdateCustomers(Customer.Id);
         }
         private void doubleClickDrone(object sender)
         {

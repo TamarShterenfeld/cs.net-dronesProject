@@ -74,6 +74,16 @@ namespace PL.PO
             this.id = id; this.name = name; this.phone = phone;
             Id = id; Name = name; Phone = phone; Location = location; FromCustomer = fromCustomer; ToCustomer = toCustomer;
         }
+
+        /// <summary>
+        /// constructor with params
+        /// </summary>
+        /// <param name="bl">bl object</param>
+        /// <param name="customer">customerForList</param>
+        public Customer(BLApi.IBL bl,Customer customer)
+        {
+        }
+
         /// <summary>
         /// override ToString function.
         /// </summary>

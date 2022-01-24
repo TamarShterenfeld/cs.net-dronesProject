@@ -22,14 +22,11 @@ namespace PL
         public RelayCommand Cancel { get; set; }
         public RelayCommand Add { get; set; }
         public RelayCommand LeftDoubleClick { get; set; }
-        public List<string> Options { get; set; }
         public ListCollectionView AllCustomers { get; set; }
-
-     
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        //---------------------------------Stations's Methods------------------------------
+        //---------------------------------Customers's Methods------------------------------
         /// <summary>
         /// the function treats the event of clicking on the button 'Cancel'.
         /// </summary>
@@ -49,9 +46,7 @@ namespace PL
         }
         private void DroneListView_MouseDoubleClick(object sender)
         {
-            new CustomerView(new CustomerViewModel(bl, sender as BaseStationForList)).Show();
+            new CustomerView(new CustomerViewModel(bl, sender as CustomerForList)).Show();
         }
-
-
     }
 }

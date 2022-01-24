@@ -174,10 +174,10 @@ namespace BO
             return $"id: {Id} \n" +
                     $"name: {Name} \n" +
                     $"phone:  {Phone}\n" +
-                    $"amount of 'send & supplied' parcels: {AmountOfSendAndSuppliedParcels}\n" +
-                    $"amount of 'send & not supplied' parcels: {AmountOfSendAndNotSuppliedParcels}\n" +
-                    $"amount of 'get' parcels: { AmountOfGetParcels}\n" +
-                    $"amount of 'In Passing' parcels: {AmountOfInPassingParcels}";
+                    $"amount of send and supplied parcels: {AmountOfSendAndSuppliedParcels}\n" +
+                    $"amount of send and not supplied parcels: {AmountOfSendAndNotSuppliedParcels}\n" +
+                    $"amount of get parcels: { AmountOfGetParcels}\n" +
+                    $"amount of In Passing parcels: {AmountOfInPassingParcels}";
         }
 
     }
