@@ -18,7 +18,7 @@ namespace PL
         {
             public ParcelInPassing(BO.ParcelInPassing parcel, BLApi.IBL bL)
             {
-                ParcelForList parcel1 = bL.GetParcelForList(parcel.Id);
+                BO.ParcelForList parcel1 = bL.GetParcelForList(parcel.Id);
                 BO.Customer sender = bL.GetBOCustomersList().First(item => item.Id == parcel1.SenderId);
                 BO.Customer target = bL.GetBOCustomersList().First(item => item.Id == parcel1.TargetId);
                 Id = parcel.Id;          
