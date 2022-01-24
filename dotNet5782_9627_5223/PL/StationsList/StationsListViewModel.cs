@@ -35,10 +35,6 @@ namespace PL
         public List<string> Options { get; set; }
         public ListCollectionView AllStations { get; set; }
 
-        //PropertyGroupDescription groupDescription = new PropertyGroupDescription("AvailableChargeSlots");
-        //SortDescription sortFree = new("AvailableChargeSlots", 0);
-        //SortDescription sortId = new("Id", 0);
-
         private string selectedFilter;
         public string SelectedFilter
         {

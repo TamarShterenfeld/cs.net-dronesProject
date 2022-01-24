@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,16 +13,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace PL.Customers
+namespace PL
 {
     /// <summary>
-    /// Interaction logic for CustomerView.xaml
+    /// Interaction logic for StationView.xaml
     /// </summary>
-    public partial class CustomerView : Window
+    public partial class StationView : Window
     {
-        public CustomerView()
+        public StationView(StationViewModel stationViewModel)
         {
             InitializeComponent();
+            this.DataContext = stationViewModel;
         }
     }
 }
