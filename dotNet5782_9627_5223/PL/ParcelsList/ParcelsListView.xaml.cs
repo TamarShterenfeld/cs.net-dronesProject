@@ -17,12 +17,13 @@ namespace PL
     /// <summary>
     /// Interaction logic for ParcelsListView.xaml
     /// </summary>
-    public partial class ParcelsListView : Window
+    public partial class ParcelsList : Window
     {
-        public ParcelsListView(ParcelsListViewModel parcelsListViewModel)
+        public ParcelsList(ParcelsListViewModel parcelsListViewModel)
         {
             InitializeComponent();
             this.DataContext = parcelsListViewModel;    
         }
+
     }
 }

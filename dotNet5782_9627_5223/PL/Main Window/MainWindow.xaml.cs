@@ -35,7 +35,7 @@ namespace PL
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Button_DroneClick(object sender, RoutedEventArgs e)
+        private void ButtonDroneClick(object sender, RoutedEventArgs e)
         {
             new DroneList(bl).Show();
         }
@@ -46,7 +46,7 @@ namespace PL
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Button_StationClick(object sender, RoutedEventArgs e)
+        private void ButtonStationClick(object sender, RoutedEventArgs e)
         {
             new StationsList(new StationsListViewModel(bl)).Show();
         }
@@ -57,7 +57,17 @@ namespace PL
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Button_CustomerClick(object sender, RoutedEventArgs e)
+        private void ButtonParcelsClick(object sender, RoutedEventArgs e)
+        {
+            new ParcelsList(new ParcelsListViewModel(bl)).Show();
+        }
+        /// <summary>
+        /// the function treats the event of clicking the button 'all stations'
+        /// when it's pressed - it opens a new window named 'StationList'.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonCustomerClick(object sender, RoutedEventArgs e)
         {
             new CustomersList(new CustomersListViewModel(bl)).Show();
         }
