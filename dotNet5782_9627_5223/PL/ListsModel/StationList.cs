@@ -25,7 +25,8 @@ namespace PL
         {
             bl = BLApi.BLFactory.GetBl();
             Stations = new ObservableCollection<BaseStationForList>(bl.GetBaseStationList().ToList());
-            customers = new ObservableCollection<CustomerForList>(bl.GetCustomersList().ToList());
+            Customers = new ObservableCollection<CustomerForList>(bl.GetCustomersList().ToList());
+            Parcels = new ObservableCollection<ParcelForList>(bl.GetParcelsList().ToList());
         }
 
         public ObservableCollection<BO.BaseStationForList> Stations

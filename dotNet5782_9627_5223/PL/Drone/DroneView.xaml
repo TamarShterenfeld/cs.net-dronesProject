@@ -27,12 +27,12 @@
         </Grid.ColumnDefinitions>
         <WrapPanel Grid.Row="0" Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Button x:Name="button1" Content="Cancel" Width="92" Command="{Binding Cancel}" CommandParameter="{Binding ElementName=Drone }" Background="Turquoise" BorderBrush="White"  Foreground="#DDFFFFFF"/>
-            <Button x:Name="button2" Content="Add" Width="92" Command="{Binding Add}" CommandParameter="{Binding ElementName=Drone }" Background="Turquoise" BorderBrush="White"/>
+            <Button x:Name="button2" Content= "{Binding Button2Content}" Width="92" Command="{Binding Add}" CommandParameter="{Binding ElementName=Drone }" Background="Turquoise" BorderBrush="White"/>
             <ComboBox x:Name="button3" 
                       ItemsSource="{Binding Button3Content}" 
                       SelectedItem="{Binding Button3SelectedItem}"   
                       Width="110" Background="Turquoise"  Visibility="Collapsed" Foreground="#FF313131" BorderThickness="1"/>
-            
+
             <ComboBox x:Name="button4"
                       Width="130"
                        ItemsSource="{Binding ParcelOptions}" 
@@ -44,7 +44,7 @@
             TextWrapping="Wrap" 
             Width="140" 
             IsEnabled="{Binding EnableUpdate}"
-            Text="{Binding Drone.Id}" Grid.Row="1"/>
+            Text="{Binding Drone.Id}" Grid.Row="1" Margin="63,0,63,24"/>
         <TextBlock  Text="Model:" Grid.Row="2" Grid.Column="1" Foreground="#FF2D2D2D"/>
         <TextBox x:Name="model" 
             Text="{Binding Drone.Model}"
@@ -96,9 +96,18 @@
         </StackPanel>
         <TextBox x:Name="line"
             Grid.Row="6" Grid.Column="2"
-            VerticalAlignment="Center" 
+            VerticalAlignment="Top" 
             HorizontalAlignment="Center"
-            Width="140" IsEnabled="False" Height="6" />
+            Width="140" IsEnabled="False" Height="17" RenderTransformOrigin="0.5,0.5" Margin="0,10,0,0" >
+            <TextBox.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleY="1"/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </TextBox.RenderTransform>
+        </TextBox>
         <TextBlock Text="Longitude:" Grid.Row="7" Grid.Column="1" Foreground="#FF3F4245"/>
         <TextBox x:Name="longitude"
             Grid.Row="7" Grid.Column="2"
@@ -125,7 +134,7 @@
                   ItemsSource="{Binding StationsId}"
                   SelectedItem="{Binding StationId}"
                   IsEnabled="{Binding }"
-                  SelectedIndex="0"  Height="20"/>
+                  SelectedIndex="0"  Height="24"/>
         <Grid >
             <Grid.Background>
                 <ImageBrush Stretch="Fill" ImageSource="../images/logo1.jpg"/>
