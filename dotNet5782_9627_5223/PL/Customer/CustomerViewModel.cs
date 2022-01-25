@@ -23,7 +23,7 @@ namespace PL
         public CustomerViewModel(BLApi.IBL bl, BO.CustomerForList customer)
             : this(bl)
         {
-            Customer = new PO.Customer(bl, Customer);
+            Customer = new PO.Customer(bl, customer);
             AddOrUpdate = new(Button_ClickUpdate, null);
             Delete = new(Button_ClickDelete, null);
             EnableUpdate = false;
@@ -88,7 +88,8 @@ namespace PL
             //ListsModel.Instance.AddStation(BaseStation.Id);
         }
         private void Button_ClickUpdate(object sender)
-        {  
+        {
+            bl.UpdateCustomer(Customer.Id, Customer.Name, Customer.Phone);
             ListsModel.Instance.UpdateCustomers(Customer.Id);
         }
         private void doubleClickDrone(object sender)

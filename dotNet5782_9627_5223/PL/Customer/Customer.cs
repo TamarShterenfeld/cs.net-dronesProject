@@ -15,7 +15,7 @@ namespace PL.PO
         string id;
         string name;
         string phone;
-        Location myLocation = new();
+        Location myLocation;//= new();
         public string Id
         {
             get => id;
@@ -81,7 +81,7 @@ namespace PL.PO
         /// </summary>
         /// <param name="bl">bl object</param>
         /// <param name="customer">customerForList</param>
-        public Customer(BLApi.IBL bl,Customer customer)
+        public Customer(BLApi.IBL bl, BO.CustomerForList customer)
         {
             BO.Customer CurCustomer = bl.GetBLCustomer(customer.Id);
             this.bl = bl;
