@@ -183,7 +183,6 @@ namespace IBL
             foreach (BO.Customer item in customers)
             {      
                 customersForList.Add(GetCustomerForList(item.Id));
-                
             }
             return customersForList;
         }       

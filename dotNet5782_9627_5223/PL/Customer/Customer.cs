@@ -10,6 +10,7 @@ namespace PL.PO
 {
     public class Customer : INotifyPropertyChanged
     {
+        BLApi.IBL bl;
         public event PropertyChangedEventHandler PropertyChanged;
         string id;
         string name;
@@ -82,6 +83,11 @@ namespace PL.PO
         /// <param name="customer">customerForList</param>
         public Customer(BLApi.IBL bl,Customer customer)
         {
+            BO.Customer CurCustomer = bl.GetBLCustomer(customer.Id);
+            this.bl = bl;
+            id = CurCustomer.Id;name = CurCustomer.Name; phone = CurCustomer.Phone;
+            Id = CurCustomer.Id; Name = CurCustomer.Name; Phone = CurCustomer.Phone; Location = LocationBOTOPO(CurCustomer.Location);
+            FromCustomer = ParcelInCustomerListBOToPO(CurCustomer.FromCustomer).ToList(); ToCustomer = ParcelInCustomerListBOToPO(CurCustomer.ToCustomer).ToList();
         }
 
         /// <summary>
