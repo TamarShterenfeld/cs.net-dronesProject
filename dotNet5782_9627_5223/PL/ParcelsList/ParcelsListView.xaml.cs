@@ -15,14 +15,14 @@ using System.Windows.Shapes;
 namespace PL
 {
     /// <summary>
-    /// Interaction logic for ParcelView.xaml
+    /// Interaction logic for ParcelsListView.xaml
     /// </summary>
-    public partial class ParcelView : Window
+    public partial class ParcelsListView : Window
     {
-        public ParcelView(ParcelViewModel parcelViewModel)
+        public ParcelsListView(ParcelsListViewModel parcelsListViewModel)
         {
             InitializeComponent();
-            this.DataContext = parcelViewModel;
+            this.DataContext = parcelsListViewModel;    
         }
     }
 }
