@@ -37,6 +37,7 @@ namespace PL
             WeightFilter .DataContext = typeof(WeightCategories).GetEnumValues();
             StatusFilter.Visibility = Visibility.Collapsed;
             WeightFilter.Visibility = Visibility.Collapsed;
+            Filter();
         }
 
         /// <summary>
