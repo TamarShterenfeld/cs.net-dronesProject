@@ -37,7 +37,7 @@
                         CommandParameter="{Binding ElementName=CustomerListView, Path=SelectedItem}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
-                <ListView.GroupStyle>
+                <!--<ListView.GroupStyle>
                     <GroupStyle>
                         <GroupStyle.HeaderTemplate>
                             <DataTemplate>
@@ -45,7 +45,7 @@
                             </DataTemplate>
                         </GroupStyle.HeaderTemplate>
                     </GroupStyle>
-                </ListView.GroupStyle>
+                </ListView.GroupStyle>-->
             </ListView>
             <Grid x:Name="aside" Margin="17,84,-22,10" Grid.Column="2">
                 <Grid.Background>
