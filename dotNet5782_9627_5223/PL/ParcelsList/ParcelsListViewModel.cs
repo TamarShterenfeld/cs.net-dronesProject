@@ -21,7 +21,6 @@ namespace PL
             allStations_groupDescription = new PropertyGroupDescription(nameof(BO.BaseStationForList.AvailableChargeSlots));
             allStations_sortFree = new(nameof(BO.BaseStationForList.AvailableChargeSlots), ListSortDirection.Ascending);
             allStations_sortId = new(nameof(BO.BaseStationForList.Id), ListSortDirection.Ascending);
-
             Cancel = new(ButtonCancel_Click, null);
             Add = new(AddParcel, null);
             Options = new List<string>() { "All BaseStations", "Group By Free ChargeSlots" };
