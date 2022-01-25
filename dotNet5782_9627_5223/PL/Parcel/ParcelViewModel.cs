@@ -24,6 +24,10 @@ namespace PL
             DroneStatusesList = typeof(BO.DroneStatuses).GetEnumValues();
         }
 
+        public ParcelViewModel(BLApi.IBL bl)
+        {
+            Bl = bl;
+        }
     }
 }
 

@@ -57,6 +57,16 @@ namespace PL
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
+        private void Button_ParcelsClick(object sender, RoutedEventArgs e)
+        {
+            new ParcelsList(new ParcelsListViewModel(bl)).Show();
+        }
+        /// <summary>
+        /// the function treats the event of clicking the button 'all stations'
+        /// when it's pressed - it opens a new window named 'StationList'.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_CustomerClick(object sender, RoutedEventArgs e)
         {
             new CustomersList(new CustomersListViewModel(bl)).Show();

@@ -1,0 +1,73 @@
+﻿<Window x:Class="PL.ParcelsList"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        mc:Ignorable="d"
+        Title="ParcelsListView" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="5*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <WrapPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="center"  VerticalAlignment="center">
+            <Button Content="Close"  Command="{Binding Cancel}" CommandParameter="{Binding ElementName=parcelsList}" Background="Turquoise" BorderBrush="White" />
+            <Button Content="Add Parcel"   Command="{Binding Add}" Background="Turquoise" BorderBrush="White"  />
+        </WrapPanel>
+        <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="419*"/>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="371*"/>
+            </Grid.ColumnDefinitions>
+            <ListView x:Name ="StationsListView" BorderThickness="0" Margin="0,0,359,0" FontFamily="Levenim MT" FontSize="12" ItemsSource="{Binding AllStations}" SelectionMode="Extended" Grid.ColumnSpan="3" >
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <i:InvokeCommandAction 
+                        Command="{Binding LeftDoubleClick}"
+                        CommandParameter="{Binding ElementName=StationsListView, Path=SelectedItem}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <ListView.GroupStyle>
+                    <GroupStyle>
+                        <GroupStyle.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock FontWeight="Bold" FontSize="14" Text="{Binding Name}"/>
+                            </DataTemplate>
+                        </GroupStyle.HeaderTemplate>
+                    </GroupStyle>
+                </ListView.GroupStyle>
+            </ListView>
+            <Grid x:Name="aside" Margin="17,84,-22,10" Grid.Column="2">
+                <Grid.Background>
+                    <ImageBrush ImageSource="/images/dron bg.jpg"/>
+                </Grid.Background>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+            </Grid>
+        </Grid>
+        <!--<WrapPanel Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="center"  VerticalAlignment="center">
+            <ComboBox x:Name="CurrFilter" Text="choose filter" ItemsSource="{Binding Options}" HorizontalAlignment="Center"  
+                      VerticalAlignment="Center" Width="180"   IsEditable="True" BorderBrush="#FF38FFFD" Foreground="#FF2A2828"
+                      SelectedItem="{Binding SelectedFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        </WrapPanel>-->
+        <Grid Height="62" VerticalAlignment="Top" Margin="10,0,253,0">
+            <Grid.Background>
+                <ImageBrush ImageSource="/images/logo1.jpg"/>
+            </Grid.Background>
+        </Grid>
+    </Grid>
+</Window>
