@@ -58,7 +58,7 @@
             HorizontalAlignment="Left"
             Margin="107,90,0,0" 
             Grid.Row="1"
-                VerticalAlignment="Top" Background="Turquoise" Click="ButtonDroneClick"
+                VerticalAlignment="Top" Background="Turquoise" Click="Button_DroneClick"
              Style="{StaticResource MaterialDesignFloatingActionSecondaryDarkButton}"
             ToolTip="MaterialDesignFloatingActionSecondaryDarkButton"
              IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" BorderBrush="White" Width="115" Height="114" Grid.RowSpan="2" FontSize="18" RenderTransformOrigin="0.457,0.544"/>
@@ -70,7 +70,7 @@
             Margin="47,90,0,0" 
             Grid.Row="1"
             Grid.Column="1"
-                VerticalAlignment="Top" Background="#FFFE7A05" Click="ButtonStationClick"
+                VerticalAlignment="Top" Background="#FFFE7A05" Click="Button_StationClick"
              Style="{StaticResource MaterialDesignFloatingActionSecondaryDarkButton}"
             ToolTip="MaterialDesignFloatingActionSecondaryDarkButton"
              IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" BorderBrush="White" Width="115" Height="114" Grid.RowSpan="2" FontSize="18" RenderTransformOrigin="0.457,0.544" IsCancel="True"/>
@@ -81,7 +81,7 @@
                 Margin="247,90,0,0" 
                 Grid.Row="1"
                 Grid.Column="1"
-                VerticalAlignment="Top" Background="#FFF6E804" Click="ButtonCustomerClick"
+                VerticalAlignment="Top" Background="#FFF6E804" Click="Button_CustomerClick"
                 Style="{StaticResource MaterialDesignFloatingActionSecondaryDarkButton}"
                 ToolTip="MaterialDesignFloatingActionSecondaryDarkButton"
                 IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" BorderBrush="White" Width="115" Height="114" Grid.RowSpan="2" FontSize="18" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="2"/>
@@ -92,7 +92,7 @@
                 Margin="194,90,0,0" 
                 Grid.Row="1"
                 Grid.Column="2"
-                VerticalAlignment="Top" Background="#FF85EA0B" Click="ButtonParcelsClick"
+                VerticalAlignment="Top" Background="#FF85EA0B" Click="Button_ParcelsClick"
                 Style="{StaticResource MaterialDesignFloatingActionSecondaryDarkButton}"
                 ToolTip="MaterialDesignFloatingActionSecondaryDarkButton"
                 IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" BorderBrush="White" Width="115" Height="114" Grid.RowSpan="2" FontSize="18" RenderTransformOrigin="0.457,0.544" Grid.ColumnSpan="2"/>

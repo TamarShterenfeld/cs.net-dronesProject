@@ -22,8 +22,8 @@ namespace PL
             allStations_sortFree = new(nameof(BO.BaseStationForList.AvailableChargeSlots), ListSortDirection.Ascending);
             allStations_sortId = new(nameof(BO.BaseStationForList.Id), ListSortDirection.Ascending);
 
-            Cancel = new(Button_ClickCancel, null);
-            Add = new(Button_ClickAdd, null);
+            Cancel = new(ButtonCancel_Click, null);
+            Add = new(AddParcel, null);
             Options = new List<string>() { "All BaseStations", "Group By Free ChargeSlots" };
             AllStations = new ListCollectionView(ListsModel.Instance.Stations);
             Button_AllStations();
@@ -61,18 +61,11 @@ namespace PL
         /// </summary>
         /// <param name="sender">the invoking object</param>
         /// <param name="e">the event</param>
-        private void Button_ClickCancel(object sender)
-        {
-            (sender as Window).Close();
-        }
-
+       
         /// <summary>
         /// the function treats the event of clicking on the button 'Add'.
         /// </summary>
-        private void Button_ClickAdd(object sender)
-        {
-            new StationView(new StationViewModel(bl)).Show();
-        }
+      
         private void DroneListView_MouseDoubleClick(object sender)
         {
             new StationView(new StationViewModel(bl, sender as BaseStationForList)).Show();
@@ -91,6 +84,16 @@ namespace PL
             AllStations.GroupDescriptions.Add(allStations_groupDescription);
             AllStations.SortDescriptions.Remove(allStations_sortId);
             AllStations.SortDescriptions.Add(allStations_sortFree);
+        }
+
+        private void ButtonCancel_Click(object sender, RoutedEventArgs e)
+        {
+            (sender as Window).Close();
+        }
+
+        private void AddParcel(object sender, RoutedEventArgs e)
+        {
+            new ParcelView(new ParcelViewModel(this.bl)).Show();
         }
 
     }

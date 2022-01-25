@@ -35,7 +35,7 @@ namespace PL
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ButtonDroneClick(object sender, RoutedEventArgs e)
+        private void Button_DroneClick(object sender, RoutedEventArgs e)
         {
             new DroneList(bl).Show();
         }
@@ -46,7 +46,7 @@ namespace PL
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ButtonStationClick(object sender, RoutedEventArgs e)
+        private void Button_StationClick(object sender, RoutedEventArgs e)
         {
             new StationsList(new StationsListViewModel(bl)).Show();
         }
@@ -57,7 +57,7 @@ namespace PL
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ButtonParcelsClick(object sender, RoutedEventArgs e)
+        private void Button_ParcelsClick(object sender, RoutedEventArgs e)
         {
             new ParcelsList(new ParcelsListViewModel(bl)).Show();
         }
@@ -67,7 +67,7 @@ namespace PL
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ButtonCustomerClick(object sender, RoutedEventArgs e)
+        private void Button_CustomerClick(object sender, RoutedEventArgs e)
         {
             new CustomersList(new CustomersListViewModel(bl)).Show();
         }

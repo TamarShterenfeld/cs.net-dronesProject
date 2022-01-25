@@ -29,7 +29,12 @@ namespace PL
         {
             InitializeComponent();
             this.DataContext = parcelInPassingViewModel;
-        }  
+        }
+
+        private void ButtonCancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 
 }
