@@ -75,18 +75,17 @@ namespace PL
                 weight.IsEnabled = false;
                 weight.SelectedItem = drone.MaxWeight;
                 battery.Text = drone.Battery.ToString() + "%";
-                //status.SelectedItem = drone.Status;
-                
+                //status.SelectedItem = drone.Status;               
                 longitude.Text = drone.Location.CoorLongitude.ToString();
                 latitude.Text = drone.Location.CoorLatitude.ToString();
                 station.Visibility = Visibility.Collapsed;
                 Lstation.Visibility = Visibility.Collapsed;
-                string[] parcelOptions = { "Associate Parcel", "Pick Up Parcel", "Supply Parcel" };
-                string[] chargeDroneOptions = { "Charging", "Stop Charging" };
-                button3.DataContext = chargeDroneOptions;
-                button4.DataContext = parcelOptions;
+                //string[] parcelOptions = { "Associate Parcel", "Pick Up Parcel", "Supply Parcel" };
+                //string[] chargeDroneOptions = { "Charging", "Stop Charging" };
+                //button3.DataContext = chargeDroneOptions;
+                //button4.DataContext = parcelOptions;
                 button3.Visibility = button4.Visibility = Visibility.Visible;
-                button2.Content = "Update";
+                //button2.Content = "Update";
             }
         }
 

@@ -11,29 +11,32 @@ namespace PL
     public class ParcelsListViewModel : INotifyPropertyChanged
     {
         BLApi.IBL bl;
-        PropertyGroupDescription allStations_groupDescription;
-        SortDescription allStations_sortFree;
-        SortDescription allStations_sortId;
+        PropertyGroupDescription allParcels_groupDescription;
+        SortDescription allParcels_sortStatus;
+        SortDescription allParcels_sortWeight;
+        SortDescription allParcels_sortPriority;
+        SortDescription allParcels_sortId;
 
         public ParcelsListViewModel(BLApi.IBL bl)
         {
             this.bl = bl;
-            allStations_groupDescription = new PropertyGroupDescription(nameof(BO.BaseStationForList.AvailableChargeSlots));
-            allStations_sortFree = new(nameof(BO.BaseStationForList.AvailableChargeSlots), ListSortDirection.Ascending);
-            allStations_sortId = new(nameof(BO.BaseStationForList.Id), ListSortDirection.Ascending);
-
+            allParcels_groupDescription = new PropertyGroupDescription(nameof(BO.ParcelForList.SenderId));
+            allParcels_sortStatus = new(nameof(BO.ParcelForList.Status), ListSortDirection.Ascending);
+            allParcels_sortWeight = new(nameof(BO.ParcelForList.Weight), ListSortDirection.Ascending);
+            allParcels_sortPriority = new(nameof(BO.ParcelForList.Priority), ListSortDirection.Ascending);
+            allParcels_sortId = new(nameof(BO.ParcelForList.ParcelId), ListSortDirection.Ascending);
             Cancel = new(ButtonCancel_Click, null);
             Add = new(AddParcel, null);
-            Options = new List<string>() { "All BaseStations", "Group By Free ChargeSlots" };
-            AllStations = new ListCollectionView(ListsModel.Instance.Stations);
-            Button_AllStations();
+            Options = new List<string>() { "Group By Sender", "Group By Target" };
+            AllParcels = new ListCollectionView(ListsModel.Instance.Parcels);
+            Button_AllParcels();
             LeftDoubleClick = new(DroneListView_MouseDoubleClick, null);
         }
         public RelayCommand Cancel { get; set; }
         public RelayCommand Add { get; set; }
         public RelayCommand LeftDoubleClick { get; set; }
         public List<string> Options { get; set; }
-        public ListCollectionView AllStations { get; set; }
+        public ListCollectionView AllParcels { get; set; }
 
         //PropertyGroupDescription groupDescription = new PropertyGroupDescription("AvailableChargeSlots");
         //SortDescription sortFree = new("AvailableChargeSlots", 0);
@@ -47,8 +50,8 @@ namespace PL
             {
                 selectedFilter = value;
                 if (value == Options[0])
-                    Button_AllStations();
-                else Button_GroupByChargeSlots();
+                    Button_AllParcels();
+                else Button_GroupByStatus();
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedFilter)));
             }
         }
@@ -72,20 +75,32 @@ namespace PL
         }
 
 
-        private void Button_AllStations()
+        private void Button_AllParcels()
         {
-            AllStations.GroupDescriptions.Remove(allStations_groupDescription);
-            AllStations.SortDescriptions.Remove(allStations_sortFree);
-            AllStations.SortDescriptions.Add(allStations_sortId);
+            AllParcels.GroupDescriptions.Remove(allParcels_groupDescription);
+            AllParcels.SortDescriptions.Remove(allParcels_sortStatus);
+            AllParcels.SortDescriptions.Add(allParcels_sortId);
         }
 
-        private void Button_GroupByChargeSlots()
+        private void Button_GroupByStatus()
         {
-            AllStations.GroupDescriptions.Add(allStations_groupDescription);
-            AllStations.SortDescriptions.Remove(allStations_sortId);
-            AllStations.SortDescriptions.Add(allStations_sortFree);
+            AllParcels.GroupDescriptions.Add(allParcels_groupDescription);
+            AllParcels.SortDescriptions.Remove(allParcels_sortId);
+            AllParcels.SortDescriptions.Add(allParcels_sortStatus);
         }
 
+        private void Button_GroupByWeight()
+        {
+            AllParcels.GroupDescriptions.Add(allParcels_groupDescription);
+            AllParcels.SortDescriptions.Remove(allParcels_sortId);
+            AllParcels.SortDescriptions.Add(allParcels_sortWeight);
+        }
+        private void Button_GroupByPriority()
+        {
+            AllParcels.GroupDescriptions.Add(allParcels_groupDescription);
+            AllParcels.SortDescriptions.Remove(allParcels_sortId);
+            AllParcels.SortDescriptions.Add(allParcels_sortPriority);
+        }
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)
         {
             (sender as Window).Close();

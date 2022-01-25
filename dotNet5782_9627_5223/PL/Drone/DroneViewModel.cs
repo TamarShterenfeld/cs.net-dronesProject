@@ -34,6 +34,7 @@ namespace PL
             DroneStatusesList = typeof(BO.DroneStatuses).GetEnumValues();
             DroneWeightsList = typeof(BO.WeightCategories).GetEnumValues();
             EnableUpdate = true;
+            Button2Content = "Update";
             StationsId = new List<string>();
             foreach (var item in bl.GetBOBaseStationsList())
             {
