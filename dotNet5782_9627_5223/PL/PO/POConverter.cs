@@ -85,5 +85,28 @@ namespace PL.PO
             return new PO.CustomerInParcel(customer.Id, customer.Name);
         }
 
+        /// <summary>
+        /// convert ParcelInCustomer object from PO to BO.
+        /// </summary>
+        /// <param name="parcel">BO.ParcelInCustomer</param>
+        /// <returns>PO.ParcelInCustomer</returns>
+        public static PO.ParcelInCustomer ParcelInCustomerBOToPO(BO.ParcelInCustomer parcel)
+        {
+            return new PO.ParcelInCustomer(parcel.Id, (PO.POConverter.WeightCategories)parcel.Weight, (PO.POConverter.Priorities)parcel.Priority, (PO.POConverter.ParcelStatuses)parcel.ParcelStatus, CustomerInParcelBOTOPO(parcel.SourceOrDest));
+        }
+
+        /// <summary>
+        /// convert ParcelInCustomer IEnumerable from PO to BO.
+        /// </summary>
+        /// <param name="parcels">BO.ParcelInCustomer IEnumerable</param>
+        /// <returns>PO.ParcelInCustomer IEnumerable</returns>
+        public static IEnumerable<PO.ParcelInCustomer> ParcelInCustomerListBOToPO(IEnumerable<BO.ParcelInCustomer> parcels)
+        {
+            if (parcels == null)
+                return Enumerable.Empty<PO.ParcelInCustomer>();
+            else
+                return parcels.Select(parcel => ParcelInCustomerBOToPO(parcel));
+        }
+
     }
 }
