@@ -14,18 +14,18 @@ namespace PL
     sealed partial class ListsModel : Singleton<ListsModel>, INotifyPropertyChanged
     {
         // StationViewModel Lists
+ 
+        BLApi.IBL bl;
+        ObservableCollection<BaseStationForList> stations;
 
         /// <summary>
         /// private constructor
         /// </summary>
-        /// 
-        BLApi.IBL bl;
-        ObservableCollection<BaseStationForList> stations;
-
         private ListsModel()
         {
             bl = BLApi.BLFactory.GetBl();
             Stations = new ObservableCollection<BaseStationForList>(bl.GetBaseStationList().ToList());
+            customers = new ObservableCollection<CustomerForList>(bl.GetCustomersList().ToList());
         }
 
         public ObservableCollection<BO.BaseStationForList> Stations

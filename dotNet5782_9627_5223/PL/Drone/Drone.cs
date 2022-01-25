@@ -11,15 +11,15 @@ namespace PL
             private int id;
             private string model;
             private Location location;
-            private WeightCategories weight;
-            private DroneStatuses status;
+            private PL.PO.POConverter.WeightCategories weight;
+            private PL.PO.POConverter.DroneStatuses status;
 
             public Drone(BO.DroneForList drone, BLApi.IBL bl)
             {
                 Id = drone.Id;
                 Model = drone.Model;
-                Status = drone.Status;
-                Weight = drone.MaxWeight;
+                Status = (PL.PO.POConverter.DroneStatuses)drone.Status;
+                Weight = (PL.PO.POConverter.WeightCategories)drone.MaxWeight;
                 Battery = drone.Battery;
                 ParcelId = drone.ParcelId;
                 BO.Drone drone1 = bl.GetBLDrone(Id);
@@ -56,7 +56,7 @@ namespace PL
                 }
             }           
           
-            public WeightCategories Weight
+            public PL.PO.POConverter.WeightCategories Weight
             {
                 get => weight;
                 set
@@ -65,7 +65,7 @@ namespace PL
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Weight)));
                 }
             }
-            public DroneStatuses Status
+            public PL.PO.POConverter.DroneStatuses Status
             {
                 get => status;
                 set

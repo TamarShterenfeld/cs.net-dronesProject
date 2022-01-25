@@ -81,7 +81,7 @@
                 Margin="247,90,0,0" 
                 Grid.Row="1"
                 Grid.Column="1"
-                VerticalAlignment="Top" Background="#FFF6E804" Click="Button_StationClick"
+                VerticalAlignment="Top" Background="#FFF6E804" Click="Button_CustomerClick"
                 Style="{StaticResource MaterialDesignFloatingActionSecondaryDarkButton}"
                 ToolTip="MaterialDesignFloatingActionSecondaryDarkButton"
                 IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" BorderBrush="White" Width="115" Height="114" Grid.RowSpan="2" FontSize="18" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="2"/>
