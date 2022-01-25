@@ -98,6 +98,7 @@ namespace BO
 
         public List<ParcelInCustomer> FromCustomer { get; set; }
         public List<ParcelInCustomer> ToCustomer { get; set; }
+        public bool IsDeleted { get; set; }
 
 
         /// <summary>

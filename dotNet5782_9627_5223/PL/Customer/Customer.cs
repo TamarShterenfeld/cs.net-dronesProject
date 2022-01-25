@@ -15,7 +15,7 @@ namespace PL.PO
         string id;
         string name;
         string phone;
-        Location myLocation;//= new();
+        Location myLocation = new();
         public string Id
         {
             get => id;

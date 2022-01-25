@@ -87,8 +87,7 @@ namespace PL.PO
             return $"id: {Id} \n" +
                     $"weight: {Weight} \n" +
                     $"priority: {Priority}\n" +
-                    $"parcelStatus: {ParcelStatus}\n" +
-                    $"sourceOrDest: {SourceOrDest}";
+                    $"parcelStatus: {ParcelStatus}\n";
         }
         public event PropertyChangedEventHandler PropertyChanged;
     }

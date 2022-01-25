@@ -13,11 +13,12 @@ namespace IBL
             station.IsDeleted = true;
             dal.UpDate(ConvertBaseStationBOtODO(station), station.Id);
         }
-        //public void Delete(BO.Drone drone)
-        //{
-        //    drone.IsDeleted = true;
-        //    dal.UpDate(ConvertBoToDoDrone(drone), drone.Id);
-        //}
-        
+        public void Delete(BO.Customer customer)
+        {
+            DO.Customer curCustomer = dal.GetCustomer(customer.Id);
+            curCustomer.IsDeleted = true;
+            dal.UpDate(curCustomer, customer.Id);
+        }
+
     }
 }

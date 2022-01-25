@@ -56,7 +56,6 @@
             Text="{Binding Customer.Phone}"
             Grid.Row="2" Grid.Column="2" 
             TextWrapping="Wrap" 
-            IsEnabled="{Binding EnableUpdate}"
             Width="140" Grid.RowSpan="2" Margin="63,49,63,24" />
 
 
@@ -78,25 +77,45 @@
             VerticalAlignment="Top" 
             Width="140" 
             IsEnabled="{Binding EnableUpdate}" />
-
-        <TextBlock Text="From Me:" Grid.Row="6" Grid.Column="1" Foreground="#FF3F4245"/>
-        <ListView x:Name ="FromMe"   
-                  BorderThickness="0"
-                  FontFamily="Levenim MT" 
-                  FontSize="12" 
-                  ItemsSource="{Binding Customer.FromCustomer}" 
-                  SelectionMode="Extended" 
-                  Width="140" 
-                  Grid.Row="6" Grid.Column="2" Grid.RowSpan="5">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="MouseDoubleClick">
-                    <i:InvokeCommandAction 
-                        Command="{Binding LeftDoubleClick}"
-                        CommandParameter="{Binding ElementName=FromMe, Path=SelectedItem}"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-        </ListView>
-
+        <WrapPanel Grid.Row="6" HorizontalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="6">
+            <WrapPanel Orientation="Vertical">
+                <TextBlock Text="From Me:" Foreground="#FF3F4245"/>
+                <ListView x:Name ="FromMe"   
+                          BorderThickness="0"
+                          FontFamily="Levenim MT" 
+                          FontSize="12" 
+                          ItemsSource="{Binding Customer.FromCustomer}" 
+                          SelectionMode="Extended" 
+                          Margin="40,0">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDoubleClick">
+                            <i:InvokeCommandAction 
+                                Command="{Binding LeftDoubleClick}"
+                                CommandParameter="{Binding ElementName=FromMe, Path=SelectedItem}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ListView>
+            </WrapPanel>
+            <WrapPanel Orientation="Vertical">
+                <TextBlock Text="To Me:" Foreground="#FF3F4245"/>
+                <ListView x:Name ="ToMe"   
+                          BorderThickness="0"
+                          FontFamily="Levenim MT" 
+                          FontSize="12" 
+                          ItemsSource="{Binding Customer.ToCustomer}" 
+                          SelectionMode="Extended"
+                          Margin="40,0">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDoubleClick">
+                            <i:InvokeCommandAction 
+                                Command="{Binding LeftDoubleClick}"
+                                CommandParameter="{Binding ElementName=ToMe, Path=SelectedItem}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ListView>
+            </WrapPanel>
+        </WrapPanel>
+        
         <Grid Margin="-18,0,80,20" Grid.ColumnSpan="2">
             <Grid.Background>
                 <ImageBrush Stretch="Fill" ImageSource="/images/logo1.jpg"/>

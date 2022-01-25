@@ -25,7 +25,7 @@ namespace IBL
 
         public void Add(BO.Customer customer)
         {
-            dal.Add(new DO.Customer() { Id = customer.Id, Name = customer.Name, Phone = customer.Phone,Longitude = CoordinateBoToDo(customer.Location.CoorLongitude) , Latitude = CoordinateBoToDo(customer.Location.CoorLatitude) }); 
+            dal.Add(new DO.Customer() { Id = customer.Id, Name = customer.Name, Phone = customer.Phone,Longitude = CoordinateBoToDo(customer.Location.CoorLongitude) , Latitude = CoordinateBoToDo(customer.Location.CoorLatitude) ,IsDeleted = customer.IsDeleted}); 
         }
 
         public void Add(BO.Parcel parcel)

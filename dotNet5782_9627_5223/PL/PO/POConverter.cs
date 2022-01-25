@@ -49,6 +49,24 @@ namespace PL.PO
                 DroneCharging = DroneInChargingListPoToBo(station.DroneCharging).ToList()
             };
         }
+
+        /// <summary>
+        /// convert Customer object from PO to BO
+        /// </summary>
+        /// <param name="customer">BO.Customer</param>
+        /// <returns>PO.Customer</returns>
+        public static BO.Customer CustomerPoToBo(PO.Customer customer)
+        {
+            return new BO.Customer()
+            {
+                Id = customer.Id,
+                Name = customer.Name,
+                Location = LocationPOTOBO(customer.Location),
+                Phone = customer.Phone,
+                FromCustomer = ParcelInCustomerListPOToBO(customer.FromCustomer).ToList(),
+                ToCustomer = ParcelInCustomerListPOToBO(customer.ToCustomer).ToList(),
+            };
+        }
         public static IEnumerable<BO.DroneInCharging> DroneInChargingListPoToBo(IEnumerable<PO.DroneInCharging> droneList)
         {
             if (droneList == null)
@@ -85,6 +103,11 @@ namespace PL.PO
             return new PO.CustomerInParcel(customer.Id, customer.Name);
         }
 
+        public static BO.CustomerInParcel CustomerInParcelPOTOBO(PO.CustomerInParcel customer)
+        {
+            return new BO.CustomerInParcel(customer.Id, customer.Name);
+        }
+
         /// <summary>
         /// convert ParcelInCustomer object from PO to BO.
         /// </summary>
@@ -92,7 +115,17 @@ namespace PL.PO
         /// <returns>PO.ParcelInCustomer</returns>
         public static PO.ParcelInCustomer ParcelInCustomerBOToPO(BO.ParcelInCustomer parcel)
         {
-            return new PO.ParcelInCustomer(parcel.Id, (PO.POConverter.WeightCategories)parcel.Weight, (PO.POConverter.Priorities)parcel.Priority, (PO.POConverter.ParcelStatuses)parcel.ParcelStatus, CustomerInParcelBOTOPO(parcel.SourceOrDest));
+            return new PO.ParcelInCustomer(parcel.Id, (WeightCategories)parcel.Weight, (Priorities)parcel.Priority, (ParcelStatuses)parcel.ParcelStatus, CustomerInParcelBOTOPO(parcel.SourceOrDest));
+        }
+
+        /// <summary>
+        /// convert ParcelInCustomer object from BO to PO.
+        /// </summary>
+        /// <param name="parcel">PO.ParcelInCustomer</param>
+        /// <returns>BO.ParcelInCustomer</returns>
+        public static BO.ParcelInCustomer ParcelInCustomerPOToBO(PO.ParcelInCustomer parcel)
+        {
+            return new BO.ParcelInCustomer(parcel.Id, (BO.WeightCategories)parcel.Weight, (BO.Priorities)parcel.Priority, (BO.ParcelStatuses)parcel.ParcelStatus, CustomerInParcelPOTOBO(parcel.SourceOrDest));
         }
 
         /// <summary>
@@ -106,6 +139,14 @@ namespace PL.PO
                 return Enumerable.Empty<PO.ParcelInCustomer>();
             else
                 return parcels.Select(parcel => ParcelInCustomerBOToPO(parcel));
+        }
+
+        public static IEnumerable<BO.ParcelInCustomer> ParcelInCustomerListPOToBO(IEnumerable<PO.ParcelInCustomer> parcels)
+        {
+            if (parcels == null)
+                return Enumerable.Empty<BO.ParcelInCustomer>();
+            else
+                return parcels.Select(parcel => ParcelInCustomerPOToBO(parcel));
         }
 
     }

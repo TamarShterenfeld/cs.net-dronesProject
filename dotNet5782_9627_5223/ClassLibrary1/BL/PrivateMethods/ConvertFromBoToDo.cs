@@ -141,6 +141,7 @@ namespace IBL
                 Location = new Location(CoordinateDoToBo(customer.Longitude), CoordinateDoToBo(customer.Latitude)),
                 FromCustomer = (List<ParcelInCustomer>)GetParcelInCustomerList(FromOrTo.From, customer.Id),
                 ToCustomer = (List<ParcelInCustomer>)GetParcelInCustomerList(FromOrTo.To, customer.Id),
+                IsDeleted = customer.IsDeleted
             };
             return BOCustomer;
         }

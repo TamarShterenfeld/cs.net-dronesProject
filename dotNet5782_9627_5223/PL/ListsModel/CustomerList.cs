@@ -26,18 +26,18 @@ namespace PL
             }
         }
 
-        public void UpdateCustomers(string id)
+        public void UpdateCustomer(string id)
         {
-            DeleteCustomers(id);
-            AddCustomers(id);
+            DeleteCustomer(id);
+            AddCustomer(id);
         }
 
-        public void DeleteCustomers(string id)
+        public void DeleteCustomer(string id)
         {
             var updatedCustomers = Customers.FirstOrDefault(s => s.Id == id);
             Customers.Remove(updatedCustomers);
         }
-        public void AddCustomers(string id)
+        public void AddCustomer(string id)
         {
             Customers.Add(bl.GetCustomerForList(id));
         }

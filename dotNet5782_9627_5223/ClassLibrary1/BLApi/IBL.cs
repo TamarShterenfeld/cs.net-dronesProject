@@ -358,5 +358,11 @@ namespace BLApi
         /// <param name="phone">the phone to update (if it's not null)</param>
         void UpdateCustomer(string customerId, string name, string phone);
 
+        /// <summary>
+        /// The function removes (by signing as "deleted" ) a  customer.
+        /// </summary>
+        /// <param name="customer">Customer object</param>
+        void Delete(Customer customer);
+
     }
 }

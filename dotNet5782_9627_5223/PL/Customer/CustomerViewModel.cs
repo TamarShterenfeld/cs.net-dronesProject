@@ -20,6 +20,12 @@ namespace PL
         public RelayCommand AddOrUpdate { get; set; }
         public RelayCommand Delete { get; set; }
         public RelayCommand LeftDoubleClick { get; set; }
+
+        /// <summary>
+        /// constructor
+        /// </summary>
+        /// <param name="bl">BL object</param>
+        /// <param name="customer">CustomerForList object</param>
         public CustomerViewModel(BLApi.IBL bl, BO.CustomerForList customer)
             : this(bl)
         {
@@ -31,6 +37,11 @@ namespace PL
             coorLat = Customer.Location.CoorLatitude.ToString();
             State = "Update";
         }
+
+        /// <summary>
+        /// constructor
+        /// </summary>
+        /// <param name="bl">BL object</param>
         public CustomerViewModel(BLApi.IBL bl)
         {
             this.bl = bl;
@@ -39,7 +50,7 @@ namespace PL
             AddOrUpdate = new(Button_ClickAdd, null);
             EnableUpdate = true;
             State = "Add";
-            LeftDoubleClick = new(doubleClickDrone, null);
+            LeftDoubleClick = new(doubleClickParcel, null);
         }
         public object CoorLon
         {
@@ -77,24 +88,49 @@ namespace PL
             (sender as Window).Close();
         }
 
+        /// <summary>
+        /// delete a customer.
+        /// </summary>
+        /// <param name="sender">the event</param>
         private void Button_ClickDelete(object sender)
         {
+            if (Customer.ToCustomer.Count != 0 || Customer.FromCustomer.Count != 0)
+            {
+                MessageBox.Show("Can not delete this customer since he has parcels\nfinish with the parcels and try again.");
+                return;
+            }
+            bl.Delete(CustomerPoToBo(Customer));
+            ListsModel.Instance.DeleteCustomer(Customer.Id);
             (sender as Window).Close();
         }
 
+        /// <summary>
+        /// add a new customer.
+        /// </summary>
+        /// <param name="sender">the event</param>
         private void Button_ClickAdd(object sender)
         {
-            //bl.Add(StationPoToBo(BaseStation));
-            //ListsModel.Instance.AddStation(BaseStation.Id);
+            bl.Add(CustomerPoToBo(Customer));
+            ListsModel.Instance.AddCustomer(Customer.Id);
         }
+
+        /// <summary>
+        /// update details of a customer.
+        /// </summary>
+        /// <param name="sender">the event</param>
         private void Button_ClickUpdate(object sender)
         {
             bl.UpdateCustomer(Customer.Id, Customer.Name, Customer.Phone);
-            ListsModel.Instance.UpdateCustomers(Customer.Id);
+            ListsModel.Instance.UpdateCustomer(Customer.Id);
         }
-        private void doubleClickDrone(object sender)
+
+        /// <summary>
+        /// show full details of parcelInCustomer object
+        /// </summary>
+        /// <param name="sender">the event</param>
+        private void doubleClickParcel(object sender)
         {
-            //new DroneView(bl.GetDroneForList((sender as PO.DroneInCharging).Id), bl, refreshDroneList).Show();
+           //new ParcelView(new ParcelViewModel(sender as PO.ParcelForList,bl));
         }
     }
 }
