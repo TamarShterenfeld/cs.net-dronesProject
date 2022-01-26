@@ -41,22 +41,8 @@
             TextWrapping="Wrap" 
             Width="140" 
             IsEnabled="{Binding EnableUpdate}"
-            Text="{Binding BaseStation.Id,NotifyOnValidationError=True,ValidatesOnNotifyDataErrors=True,UpdateSourceTrigger=PropertyChanged}" Margin="63,5,63,22" Grid.Row="1">
-            <Validation.ErrorTemplate>
-                <ControlTemplate>
-                    <StackPanel>
-                        <!-- Placeholder for the TextBox itself -->
-                        <AdornedElementPlaceholder x:Name="textBox"/>
-                        <ItemsControl ItemsSource="{Binding}">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding ErrorContent}" Foreground="Red"/>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </StackPanel>
-                </ControlTemplate>
-            </Validation.ErrorTemplate>
+            Text="{Binding BaseStation.Id}" Margin="63,5,63,22" Grid.Row="1">
+            
         </TextBox>
 
         <TextBlock  Text="Name:" Grid.Row="2" Grid.Column="1" Foreground="#FF2D2D2D"/>

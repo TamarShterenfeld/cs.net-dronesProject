@@ -103,5 +103,7 @@ namespace PL
         {
             new DroneView(bl.GetDroneForList((sender as PO.DroneInCharging).Id), bl, refreshDroneList).Show();
         }
+
+        
     }
 }
