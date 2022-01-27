@@ -15,7 +15,7 @@ namespace PL
         public Array WeightArr { get; set; }
         public Array DroneStatusesList { get; set; }
 
-        public ParcelViewModel(PO.ParcelForList parcel, BLApi.IBL bl)
+        public ParcelViewModel(BO.ParcelForList parcel, BLApi.IBL bl)
         {
             Bl = bl;
             Parcel = new PO.ParcelForList(bl, parcel);

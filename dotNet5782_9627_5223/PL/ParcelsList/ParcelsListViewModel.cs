@@ -70,8 +70,8 @@ namespace PL
         /// </summary>
       
         private void DroneListView_MouseDoubleClick(object sender)
-        {
-            new StationView(new StationViewModel(bl, sender as BaseStationForList)).Show();
+        {       
+            new ParcelView(new ParcelViewModel(sender as BO.ParcelForList, bl)).Show();
         }
 
 

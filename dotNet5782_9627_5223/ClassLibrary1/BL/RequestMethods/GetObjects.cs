@@ -24,9 +24,9 @@ namespace IBL
             BaseStationForList current = new()
             {
                 Id = item.Id,
+                AvailableChargeSlots = item.ChargeSlots,
                 CaughtChargeSlots = dal.CaughtChargeSlots(item.Id),
-                Name = item.Name,
-                AvailableChargeSlots = item.ChargeSlots - dal.CaughtChargeSlots(item.Id),
+                Name = item.Name,                
             };
             return current;
         }

@@ -14,7 +14,7 @@ namespace PL
         public class ParcelForList
         {
 
-            public ParcelForList(BLApi.IBL bl, ParcelForList parcelForList)
+            public ParcelForList(BLApi.IBL bl, BO.ParcelForList parcelForList)
             {
                 ParcelId = parcelForList.ParcelId;
                 SenderId = parcelForList.SenderId;

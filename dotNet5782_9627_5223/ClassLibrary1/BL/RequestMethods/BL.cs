@@ -82,7 +82,7 @@ namespace IBL
                     }
                     else
                     {
-                        dronesForList[i].Status = status;
+                        dronesForList[i].Status = DroneStatuses.Available;
                     }
 
                     List<BO.BaseStation> baseStationList = (List<BO.BaseStation>)GetBOBaseStationsList();
