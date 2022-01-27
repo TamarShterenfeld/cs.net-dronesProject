@@ -101,7 +101,7 @@ namespace PL
         }
         private void doubleClickDrone(object sender)
         {
-            new DroneView(bl.GetDroneForList((sender as PO.DroneInCharging).Id), bl, refreshDroneList).Show();
+            new DroneView(new DroneViewModel( bl,bl.GetDroneForList((sender as PO.DroneInCharging).Id))).Show();
         }
 
         

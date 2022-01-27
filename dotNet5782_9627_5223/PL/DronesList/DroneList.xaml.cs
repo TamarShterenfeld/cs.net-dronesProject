@@ -146,7 +146,7 @@ namespace PL
         /// <param name="e"></param>
         private void DroneListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            new DroneView(new DroneViewModel((e.OriginalSource as FrameworkElement).DataContext as DroneForList, bl)).Show();
+            new DroneView(new DroneViewModel(bl,(e.OriginalSource as FrameworkElement).DataContext as DroneForList)).Show();
         }
     }
 }
