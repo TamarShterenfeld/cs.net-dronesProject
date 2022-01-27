@@ -59,7 +59,7 @@ namespace PL
         /// <param name="e"></param>
         private void Button_ParcelsClick(object sender, RoutedEventArgs e)
         {
-            new ParcelsList(new ParcelsListViewModel(bl)).Show();
+            new ParcelsListView(new ParcelsListViewModel(bl)).Show();
         }
         /// <summary>
         /// the function treats the event of clicking the button 'all stations'
