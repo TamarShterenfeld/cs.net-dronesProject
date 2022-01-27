@@ -17,9 +17,9 @@ namespace PL
     /// <summary>
     /// Interaction logic for ParcelsListView.xaml
     /// </summary>
-    public partial class ParcelsList : Window
+    public partial class ParcelsListView : Window
     {
-        public ParcelsList(ParcelsListViewModel parcelsListViewModel)
+        public ParcelsListView(ParcelsListViewModel parcelsListViewModel)
         {
             InitializeComponent();
             this.DataContext = parcelsListViewModel;    
