@@ -12,7 +12,6 @@ namespace PL
 
         BLApi.IBL bl;
         object coorLon, coorLat;
-        Action refreshDroneList;
         public PO.Customer Customer { get; set; }
         public bool EnableUpdate { get; set; }
         public string State { get; set; }

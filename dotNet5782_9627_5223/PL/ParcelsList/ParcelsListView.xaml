@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:PL"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
-        Title="ParcelsListView" Height="450" Width="800">
+        Title="ParcelsListView" Height="450" Width="800"
+         Icon="../images/toplogo.jpg">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
