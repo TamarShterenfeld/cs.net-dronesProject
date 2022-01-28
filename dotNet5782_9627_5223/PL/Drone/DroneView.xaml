@@ -29,16 +29,16 @@
             <Button x:Name="button1" Content="Close" Width="92" Command="{Binding Cancel}" CommandParameter="{Binding ElementName=DroneWindow}" Background="Turquoise" BorderBrush="White"  Foreground="#DDFFFFFF"/>
             <Button x:Name="buttonState" Content="{Binding State}" Width="92" Command="{Binding AddOrUpdate}"  Background="Turquoise" BorderBrush="White"/>
             <Button x:Name="buttonDelete" Content="Delete" Width="92" Command="{Binding Delete}" CommandParameter="{Binding ElementName=DroneWindow }"  Background="Turquoise" BorderBrush="White"/>
-            <ComboBox x:Name="button3" 
+            <!--<ComboBox x:Name="button3" 
                       ItemsSource="{Binding Button3Content}" 
                       SelectedItem="{Binding Button3SelectedItem}"   
-                      Width="110" Background="Turquoise"  Visibility="Collapsed" Foreground="#FF313131" BorderThickness="1"/>
+                      Width="110" Background="Turquoise"  Visibility="Collapsed" Foreground="#FF313131" BorderThickness="1"/>-->
 
-            <ComboBox x:Name="button4"
+            <!--<ComboBox x:Name="button4"
                       Width="130"
                        ItemsSource="{Binding ParcelOptions}" 
                       SelectedItem="{Binding ParcelOption}"  
-                      Background="Turquoise"  Visibility="Collapsed" BorderThickness="1"  Foreground="#FF313131" />
+                      Background="Turquoise"  Visibility="Collapsed" BorderThickness="1"  Foreground="#FF313131" />-->
         </WrapPanel>
         <TextBlock Text="Id:" Grid.Row="1" Grid.Column="1" Foreground="#FF2D2D2D"/>
         <TextBox x:Name="id" Grid.Row="1" Grid.Column="2"
@@ -61,9 +61,10 @@
                   HorizontalAlignment="Center"
                   Width="140"  
                   ItemsSource="{Binding DroneWeightsList}"
-                  SelectedItem="{Binding }"
-                  IsEnabled="True"
+                  SelectedItem="{Binding Drone.Weight}"
+                  IsEnabled="{Binding EnableUpdate}"
                   />
+
         <TextBlock Text="Battery:" Grid.Row="4" Grid.Column="1" Foreground="#FF3F4245"/>
         <TextBox x:Name="battery"
            Grid.Row="4" Grid.Column="2"
@@ -72,22 +73,24 @@
             VerticalAlignment="Top" 
             HorizontalAlignment="Center"
             Width="140" 
-            IsEnabled="False"/>
+            IsEnabled="{Binding EnableUpdate}"/>
+        
         <TextBlock Text="Status:" Grid.Row="5" Grid.Column="1" Foreground="#FF3F4245"/>
         <ComboBox x:Name ="status" 
                   Grid.Row="5" Grid.Column="2"
                   VerticalAlignment="Top" 
                   HorizontalAlignment="Center"
                   Width="140" 
-                  IsEnabled="False" 
-                  ItemsSource="{Binding DroneStatusesList}"
-                  SelectedItem="{Binding Drone.Status}"/>
+                  IsEnabled="{Binding ChangeStatus}" 
+                  ItemsSource="{Binding Statuses}"
+                  SelectedItem="{Binding Drone.Status}"
+                  />
         <TextBlock Text="Delivery:" Grid.Row= "6" Grid.Column="1" Foreground="#FF3F4245" Height="49"/>
         <StackPanel Grid.Row="6" Grid.Column="2"
                     Width="140"  Grid.RowSpan="2" VerticalAlignment="Top" 
             HorizontalAlignment="Center">
             <StackPanel.InputBindings>
-                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding DisplayParcelCommand}"/>
+                <MouseBinding MouseAction="LeftDoubleClick"/> <!--Command="{Binding DisplayParcelCommand}-->
             </StackPanel.InputBindings>
             <TextBlock x:Name="delivery"
                        Text="{Binding Drone.ParcelId}"
@@ -138,8 +141,8 @@
                   HorizontalAlignment="Center"
                   Width="140"                  
                   ItemsSource="{Binding StationsId}"
-                  SelectedItem="{Binding StationId}"
-                  SelectedIndex="0"  Height="24"/>
+                  SelectedIndex="0"  Height="24"
+                  IsEnabled="{Binding EnableUpdate}"/>
         <Grid >
             <Grid.Background>
                 <ImageBrush Stretch="Fill" ImageSource="../images/logo1.jpg"/>
@@ -155,8 +158,8 @@
         </Grid>
         <TextBlock x:Name="TimeText"   Grid.Row= "10" Grid.Column="1" Foreground="#FF3F4245" Visibility="Collapsed"   Grid.ColumnSpan="2" Text="Charge Duration:" />
         <TextBox x:Name="Time" Grid.Row="10" Grid.Column="2"  Visibility="Collapsed"
-            Width="140"
-            Text="{Binding ChargeDurationTime, UpdateSourceTrigger=LostFocus}"  
-           Background="{x:Null}" BorderBrush="#FF0A0A0A" Foreground="Black" VerticalAlignment="Top" HorizontalAlignment="Center" Height="25" Grid.RowSpan="2" />
+            Width="140" Background="{x:Null}" BorderBrush="#FF0A0A0A" Foreground="Black" VerticalAlignment="Top" HorizontalAlignment="Center" Height="25" Grid.RowSpan="2" />
+        <!--Text="{Binding ChargeDurationTime, UpdateSourceTrigger=LostFocus}"-->
+
     </Grid>
 </Window>

@@ -8,7 +8,7 @@ using System.Windows.Data;
 
 namespace PL
 {
-    public class CustomersListViewModel : INotifyPropertyChanged
+    public class CustomersListViewModel 
     {
         BLApi.IBL bl;
         public CustomersListViewModel(BLApi.IBL bl)
@@ -24,7 +24,7 @@ namespace PL
         public RelayCommand LeftDoubleClick { get; set; }
         public ListCollectionView AllCustomers { get; set; }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        //public event PropertyChangedEventHandler PropertyChanged;
 
         //---------------------------------Customers's Methods------------------------------
         /// <summary>
