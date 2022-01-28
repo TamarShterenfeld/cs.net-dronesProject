@@ -1,5 +1,4 @@
-﻿using BO;
-using static PL.PO.POConverter;
+﻿using static PL.PO.POConverter;
 using System.ComponentModel;
 
 namespace PL
@@ -11,26 +10,26 @@ namespace PL
             private int id;
             private string model;
             private Location location;
-            private PL.PO.POConverter.WeightCategories weight;
-            private PL.PO.POConverter.DroneStatuses status;
+            private WeightCategories weight;
+            private DroneStatuses status;
 
             public Drone(BO.DroneForList drone, BLApi.IBL bl)
             {
                 Id = drone.Id;
                 Model = drone.Model;
-                Status = (PL.PO.POConverter.DroneStatuses)drone.Status;
-                Weight = (PL.PO.POConverter.WeightCategories)drone.MaxWeight;
+                Status = (DroneStatuses)drone.Status;
+                Weight = (WeightCategories)drone.MaxWeight;
                 Battery = drone.Battery;
                 ParcelId = drone.ParcelId;
                 BO.Drone drone1 = bl.GetBLDrone(Id);
-                Location =(PO.Location)POConverter.LocationBOTOPO(drone1.Location);
+                Location = (PO.Location)POConverter.LocationBOTOPO(drone1.Location);
             }
 
             /// <summary>
             /// default constructor
             /// </summary>
             public Drone() { }
-            
+
             public double Battery { get; set; }
             public int ParcelId { get; set; }
             public Location Location
@@ -59,9 +58,9 @@ namespace PL
                     id = value;
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Id)));
                 }
-            }           
-          
-            public PL.PO.POConverter.WeightCategories Weight
+            }
+
+            public WeightCategories Weight
             {
                 get => weight;
                 set
@@ -70,7 +69,7 @@ namespace PL
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Weight)));
                 }
             }
-            public PL.PO.POConverter.DroneStatuses Status
+            public DroneStatuses Status
             {
                 get => status;
                 set
