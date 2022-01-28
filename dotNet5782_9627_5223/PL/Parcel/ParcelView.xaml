@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL" 
         mc:Ignorable="d"
-        Title="ParcelView" Height="650" Width="800"
+        Title="MyParcelView" Height="650" Width="800"
+        x:Name="MyParcelView"
          Icon ="../images/toplogo.jpg">
     <Grid>
         <Grid Margin="0,12,669,555" >
@@ -44,7 +45,7 @@
             </Grid.ColumnDefinitions>
 
             <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="2" Height="32" Width="92">
-                <Button x:Name="button1"  Content="Cancel" Width="92" Command="{Binding Cancel}" CommandParameter="{Binding ElementName=Drone}" Background="#FFD40202" BorderBrush="White"  Foreground="White"/>
+                <Button x:Name="button1"  Content="Cancel" Width="92" Command="{Binding Cancel}" CommandParameter="{Binding ElementName= MyParcelView}" Background="#FFD40202" BorderBrush="White"  Foreground="White"/>
                 <ComboBox x:Name="button3" 
                     ItemsSource="{Binding Button3Content}" 
                     SelectedItem="{Binding Button3SelectedItem}"   

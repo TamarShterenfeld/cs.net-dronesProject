@@ -1,9 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 
 namespace PL
 {
@@ -14,6 +22,8 @@ namespace PL
         public Array PrioritiesArr { get; set; }
         public Array WeightArr { get; set; }
         public Array DroneStatusesList { get; set; }
+
+        public RelayCommand Cancel;
 
         public ParcelViewModel(BO.ParcelForList parcel, BLApi.IBL bl)
         {
@@ -27,6 +37,11 @@ namespace PL
         public ParcelViewModel(BLApi.IBL bl)
         {
             Bl = bl;
+        }
+
+        public void ButtonClick_Cancel(object sender)
+        {
+            (sender as Window).Close(); 
         }
     }
 }
