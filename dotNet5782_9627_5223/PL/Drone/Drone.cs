@@ -25,6 +25,11 @@ namespace PL
                 BO.Drone drone1 = bl.GetBLDrone(Id);
                 Location =(PO.Location)POConverter.LocationBOTOPO(drone1.Location);
             }
+
+            /// <summary>
+            /// default constructor
+            /// </summary>
+            public Drone() { }
             
             public double Battery { get; set; }
             public int ParcelId { get; set; }

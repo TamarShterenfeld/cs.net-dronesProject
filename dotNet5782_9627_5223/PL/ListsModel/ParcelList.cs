@@ -29,20 +29,33 @@ namespace PL
             }
         }
 
+        /// <summary>
+        /// update parcel
+        /// </summary>
+        /// <param name="parcelId">parcel's id</param>
         public void UpdateParcel(int parcelId)
         {
             DeleteParcel(parcelId);
             AddParcel(parcelId);
         }
 
+        /// <summary>
+        /// delete parcel
+        /// </summary>
+        /// <param name="parcelId">parcel's id</param>
         public void DeleteParcel(int parcelId)
         {
             var updatedParcel = Parcels.FirstOrDefault(s => s.ParcelId == parcelId);
             Parcels.Remove(updatedParcel);
         }
+
+        /// <summary>
+        /// add parcel
+        /// </summary>
+        /// <param name="parcelId">parcel's id</param>
         public void AddParcel (int parcelId)
         {
-            Stations.Add(bl.GetBaseStationForList(parcelId));
+            Parcels.Add(bl.GetParcelForList(parcelId));
         }
         
 

@@ -6,10 +6,8 @@ using static PL.PO.POConverter;
 
 namespace PL
 {
-    public class CustomerViewModel : INotifyPropertyChanged
+    public class CustomerViewModel
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
         BLApi.IBL bl;
         object coorLon, coorLat;
         public PO.Customer Customer { get; set; }

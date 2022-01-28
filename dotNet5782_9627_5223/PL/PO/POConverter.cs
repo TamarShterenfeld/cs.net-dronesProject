@@ -38,6 +38,20 @@ namespace PL.PO
             return boDroneList;
         }
 
+        //public static BO.Drone DronePOToBO(PO.Drone drone)
+        //{
+        //    return new()
+        //    {
+        //        Id = drone.Id,
+        //        Model = drone.Model,
+        //        Battery = drone.Battery,
+        //        Location = LocationPOTOBO(drone.Location),
+        //        MaxWeight = (BO.WeightCategories)drone.Weight,
+        //        Status = (BO.DroneStatuses)drone.Status,
+                
+        //    }
+        //}
+
         public static BO.BaseStation StationPoToBo(PO.Station station)
         {
             return new BO.BaseStation()

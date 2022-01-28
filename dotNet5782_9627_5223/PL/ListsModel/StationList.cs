@@ -27,6 +27,7 @@ namespace PL
             Stations = new ObservableCollection<BaseStationForList>(bl.GetBaseStationList().ToList());
             Customers = new ObservableCollection<CustomerForList>(bl.GetCustomersList().ToList());
             Parcels = new ObservableCollection<ParcelForList>(bl.GetParcelsList().ToList());
+            Drones = new ObservableCollection<DroneForList>(bl.GetDronesForList().ToList());
         }
 
         public ObservableCollection<BO.BaseStationForList> Stations
@@ -39,17 +40,30 @@ namespace PL
             }
         }
 
+        /// <summary>
+        /// update station
+        /// </summary>
+        /// <param name="stationId">station's id</param>
         public void UpdateStation(int stationId)
         {
             DeleteStation(stationId);
             AddStation(stationId);
         }
 
+        /// <summary>
+        /// delete station
+        /// </summary>
+        /// <param name="stationId">station's id</param>
         public void DeleteStation(int stationId)
         {
             var updatedStation = Stations.FirstOrDefault(s => s.Id == stationId);
             Stations.Remove(updatedStation);
         }
+
+        /// <summary>
+        /// add station
+        /// </summary>
+        /// <param name="stationId">station's id</param>
         public void AddStation(int stationId)
         {
             Stations.Add(bl.GetBaseStationForList(stationId));
