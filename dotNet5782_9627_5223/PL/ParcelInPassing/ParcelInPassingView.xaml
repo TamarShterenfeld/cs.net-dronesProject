@@ -8,11 +8,7 @@
         x:Name="ParcelInPassingh"
         mc:Ignorable="d"
         Title="Parcel In Passing" Height="700" Width="800">
-    <Window.Resources>
-        <ResourceDictionary >
-            <local:BoolToStringConverter x:Key="BoolToStringConverter"/>
-        </ResourceDictionary>
-    </Window.Resources>
+    
     <Grid>
         <Grid Margin="-18,0,657,606">
             <Grid.ColumnDefinitions>
