@@ -6,8 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
-using System.Linq;
-using System.Windows.Data;
 
 namespace PL
 {
@@ -61,16 +59,12 @@ namespace PL
         object coorLon, coorLat;
         public PO.Drone Drone { get; set; }
         public bool EnableUpdate { get; set; }
-        public bool ChangeStatus { get; set; }
         public string State { get; set; }
         public RelayCommand Cancel { get; set; }
         public RelayCommand AddOrUpdate { get; set; }
         public RelayCommand Delete { get; set; }
         public RelayCommand LeftDoubleClick { get; set; }
-        public ListCollectionView DroneWeightsList { get; set; }
-        public ListCollectionView Statuses { get; set; }
-        public ListCollectionView StationsId { get; set; }
-        //public int IdOfStation { get; set; }
+
         /// <summary>
         /// constructor
         /// </summary>
@@ -82,7 +76,6 @@ namespace PL
             AddOrUpdate = new(Button_ClickUpdate, null);
             Delete = new(Button_ClickDelete, null);
             EnableUpdate = false;
-            ChangeStatus = !EnableUpdate;
             coorLon = Drone.Location.CoorLongitude.ToString();
             coorLat = Drone.Location.CoorLatitude.ToString();
             State = "Update";
@@ -100,14 +93,9 @@ namespace PL
             Cancel = new(Button_ClickCancel, null);
             AddOrUpdate = new(Button_ClickAdd, null);
             EnableUpdate = true;
-            ChangeStatus = !EnableUpdate;
             State = "Add";
             LeftDoubleClick = new(doubleClickParcel, null);
-            DroneWeightsList = new ListCollectionView(Enum.GetValues(typeof(PO.POConverter.WeightCategories)).Cast<PO.POConverter.WeightCategories>().ToList());
-            Statuses = new ListCollectionView(Enum.GetValues(typeof(PO.POConverter.DroneStatuses)).Cast<PO.POConverter.DroneStatuses> ().ToList());
-            StationsId = new ListCollectionView(bl.GetAvailableChargeSlots().ToList());
         }
-          
 
         public object CoorLon
         {
@@ -134,7 +122,7 @@ namespace PL
             }
         }
 
-        
+
         //public PO.ParcelInPassing Parcel { get; set; }
 
         //readonly Action refreshDroneList;
@@ -146,6 +134,7 @@ namespace PL
         //properties
         
        
+        //public Array DroneWeightsList { get; set; }
         //public List<string> StationsId { get; set; }
         //public int StationId { get; set; }
         //public string Button2Content { get; set; }
