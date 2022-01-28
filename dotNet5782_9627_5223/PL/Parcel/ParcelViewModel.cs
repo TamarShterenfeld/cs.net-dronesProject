@@ -23,7 +23,7 @@ namespace PL
         public Array WeightArr { get; set; }
         public Array DroneStatusesList { get; set; }
 
-        public RelayCommand Cancel;
+        public RelayCommand Cancel { set; get; }
 
         public ParcelViewModel(BO.ParcelForList parcel, BLApi.IBL bl)
         {
@@ -32,6 +32,7 @@ namespace PL
             PrioritiesArr = typeof(BO.Priorities).GetEnumValues();
             WeightArr = typeof(BO.WeightCategories).GetEnumValues();
             DroneStatusesList = typeof(BO.DroneStatuses).GetEnumValues();
+            Cancel = new(ButtonClick_Cancel);
         }
 
         public ParcelViewModel(BLApi.IBL bl)
