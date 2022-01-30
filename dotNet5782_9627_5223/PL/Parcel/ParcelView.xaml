@@ -1,13 +1,15 @@
 ﻿<Window x:Class="PL.ParcelView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PL" d:DataContext="{d:DesignInstance Type=local:ParcelsListViewModel}"
+        xmlns:local="clr-namespace:PL" 
         mc:Ignorable="d"
-        Title="ParcelView" Height="663" Width="696">
+        Title="MyParcelView" Height="650" Width="800"
+        x:Name="MyParcelView"
+         Icon ="../images/toplogo.jpg">
     <Grid>
-        <Grid Margin="-18,0,524,537">
+        <Grid Margin="0,12,669,555" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
@@ -20,26 +22,30 @@
                 <ImageBrush Stretch="Fill" ImageSource="/images/logo1.jpg"/>
             </Grid.Background>
         </Grid>
-        <Grid x:Name ="curdrone" Margin="0,-13,0,0">
+        <Grid x:Name ="curdrone" Margin="-31,0,0,0" >
             <Grid.RowDefinitions>
-                <RowDefinition Height="127*"/>
-                <RowDefinition Height="63*"/>
-                <RowDefinition Height="63*"/>
-                <RowDefinition Height="63*"/>
-                <RowDefinition Height="63*"/>
-                <RowDefinition Height="63*"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="80*"/>
+                <RowDefinition Height="80*"/>
+                <RowDefinition Height="80*"/>
+                <RowDefinition Height="80*"/>
+                <RowDefinition Height="80*"/>
+                <RowDefinition Height="80*"/>
+                <RowDefinition Height="80*"/>
+                <RowDefinition Height="80*"/>
+                <RowDefinition Height="80*"/>
+                <RowDefinition Height="80*"/>
+                <RowDefinition Height="80*"/>
 
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="264*"/>
-                <ColumnDefinition Width="87*"/>
-                <ColumnDefinition Width="251*"/>
-                <ColumnDefinition Width="198*"/>
+                <ColumnDefinition Width="242*"/>
+                <ColumnDefinition Width="95*"/>
+                <ColumnDefinition Width="276*"/>
+                <ColumnDefinition Width="218*"/>
             </Grid.ColumnDefinitions>
 
-            <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="2" Height="32" Width="92">
-                <Button x:Name="button1"  Content="Cancel" Width="92" Command="{Binding Cancel}" CommandParameter="{Binding ElementName=Drone}" Background="#FFD40202" BorderBrush="White"  Foreground="White"/>
+            <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="2" Height="32" Width="92">
+                <Button x:Name="button1"  Content="Cancel" Width="92" Command="{Binding Cancel}" CommandParameter="{Binding ElementName= MyParcelView}" Background="#FFD40202" BorderBrush="White"  Foreground="White"/>
                 <ComboBox x:Name="button3" 
                     ItemsSource="{Binding Button3Content}" 
                     SelectedItem="{Binding Button3SelectedItem}"   
@@ -50,67 +56,70 @@
                     SelectedItem="{Binding ParcelOption}"  
                     Background="Turquoise"  Visibility="Collapsed" BorderThickness="1"  Foreground="#FF313131" />
             </WrapPanel>
-            <TextBlock Text="Id:" Grid.Column="1" Grid.Row ="0" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Foreground="#FF4C386B"/>
-            <TextBox x:Name="id"
+            <TextBlock Text="Parcel Id:" Grid.Column="1" Grid.Row ="2" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Foreground="#FF4C386B" Height="16" Width="51" Margin="0,0,0,58" Grid.RowSpan="2"/>
+            <TextBox x:Name="ParcelId"
                 TextWrapping="Wrap"
                 IsEnabled="False"
                 Width="150"
                 Grid.Column="2"
-                Grid.Row ="0" 
+                Grid.Row ="2" 
                 HorizontalAlignment="Center" 
-                VerticalAlignment="Top"             
-                Text="{Binding ParcelInPass.Id}" Margin="0,102,0,0"/>
+                VerticalAlignment="Bottom"             
+                Text="{Binding Parcel.ParcelId}" Height="25"
+                     />
 
-            <TextBlock Text="Sender Id:" Grid.Column="1" Grid.Row ="1" HorizontalAlignment="Left" Foreground="#FF4C386B" Margin="0,47,0,1"/>
-            <TextBox x:Name="ToDestinatioin"
+            <TextBlock Text="Sender Id:" Grid.Column="1" Grid.Row ="3" HorizontalAlignment="Left" Foreground="#FF4C386B" Width="53" VerticalAlignment="Bottom" Height="16" />
+            <TextBox x:Name="SenderId"
                 TextWrapping="Wrap" 
                 IsEnabled="False"
                 Grid.Column="2"
-                Grid.Row ="1" 
+                Grid.Row ="3" 
                 HorizontalAlignment="Center" 
-                VerticalAlignment="Top"
-                Text="{Binding ParcelInPass.ToDestinition, Converter={StaticResource BoolToStringConverter}}"
-                Width="150" Margin="0,38,0,0"/>
-            
+                VerticalAlignment="Bottom"
+                Text="{Binding Parcel.SenderId }"  Width="150" Height="25"/>
 
-            <TextBlock Text="Target Id:" Grid.Row="2" Grid.Column="1" Foreground="#FF4C386B" HorizontalAlignment="Left"  VerticalAlignment="Bottom" />
-            
-            <ComboBox x:Name ="priority" 
-                Grid.Row="2" 
-                Grid.Column="2"
-                HorizontalAlignment="Center" 
-                VerticalAlignment="Top"
-                ItemsSource="{Binding PrioritiesArr}" Width="150"
-                SelectedItem="{Binding ParcelInPass.Priority}" Height="25" Margin="0,38,0,0" />
-
-            <TextBlock Text="Drone Id:" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Foreground="#FF3F4245" Margin="0,0,0,63" Grid.RowSpan="2" />
-            <ComboBox x:Name ="weight" 
-                Grid.Row="3" 
-                Grid.Column="2"
-                HorizontalAlignment="Center" 
-                VerticalAlignment="Top"
-                ItemsSource="{Binding WeightArr}" Width="150"
-                SelectedItem="{Binding ParcelInPass.Weight}" Height="25" Margin="0,39,0,0" Grid.RowSpan="2" />
-
-            <TextBlock Text="Sender:"  Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Foreground="#FF3F4245" Margin="0,0,0,63" Grid.RowSpan="2"/>
-            <TextBox x:Name="sender" 
+            <TextBlock Text="Target Id:" Grid.Row="4" Grid.Column="1" Foreground="#FF4C386B" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Height="16" Width="48" />
+            <TextBox x:Name="TargetId"
                 TextWrapping="Wrap" 
+                IsEnabled="False"
                 Grid.Column="2"
                 Grid.Row ="4" 
                 HorizontalAlignment="Center" 
-                VerticalAlignment="Top"
-                Width="150"
-                Text="{Binding ParcelInPass.Sender}" Margin="0,38,0,0"  />
-
-            <TextBlock Text="Target:" Grid.Row="5" Foreground="#FF3F4245"  HorizontalAlignment="Left"  VerticalAlignment="Bottom"  Grid.Column="1" Margin="0,0,0,254" Grid.RowSpan="2"/>
-            <TextBox x:Name="TargetLocation" 
-                TextWrapping="Wrap"   
+                VerticalAlignment="Bottom"
+                Text="{Binding Parcel.TargetId }"  Width="150" Height="25"/>
+            <TextBlock Text="DroneId:" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Foreground="#FF3F4245" Height="16" Width="49" />
+            <TextBox x:Name="DroneId"
+                TextWrapping="Wrap" 
+                IsEnabled="False"
                 Grid.Column="2"
                 Grid.Row ="5" 
                 HorizontalAlignment="Center" 
-                VerticalAlignment="Top"
-                Width="150"
-                Text="{Binding ParcelInPass.Target}" Margin="0,39,0,0" Grid.RowSpan="2"  />
+                VerticalAlignment="Bottom"
+                Text="{Binding Parcel.DroneId }"  Width="150" Height="25"/>
+            <TextBlock Text="Weight" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Foreground="#FF3F4245" Height="16" Width="49" />
+            <ComboBox x:Name ="weight" 
+                Grid.Row="6" 
+                Grid.Column="2"
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Bottom"
+                ItemsSource="{Binding WeightArr}" Width="150"
+                SelectedItem="{Binding Parcel.Weight}" Height="25" />
+            <TextBlock Text="Priority:" Grid.Row="7" Grid.Column="1" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Foreground="#FF3F4245" Height="16" Width="49" />
+            <ComboBox x:Name ="priority" 
+                Grid.Row="7" 
+                Grid.Column="2"
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Bottom"
+                ItemsSource="{Binding PrioritiesArr}" Width="150"
+                SelectedItem="{Binding Parcel.Priority}" Height="25" />
+            <TextBlock Text="Status:" Grid.Row="8" Grid.Column="1" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Foreground="#FF3F4245" Height="16" Width="49" />
+            <ComboBox x:Name ="status" 
+                Grid.Row="8" 
+                Grid.Column="2"
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Bottom"
+                ItemsSource="{Binding DroneStatusesList}" Width="150"
+                SelectedItem="{Binding Parcel.Status}" Height="25" />
         </Grid>
 
     </Grid>
