@@ -6,52 +6,11 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Data;
+using System.Linq;
 
 namespace PL
 {
-    //public class CustomerViewModel
-    //{
-    //    BLApi.IBL bl;
-    //    object coorLon, coorLat;
-    //    public PO.Customer Customer { get; set; }
-    //    public bool EnableUpdate { get; set; }
-    //    public string State { get; set; }
-    //    public RelayCommand Cancel { get; set; }
-    //    public RelayCommand AddOrUpdate { get; set; }
-    //    public RelayCommand Delete { get; set; }
-    //    public RelayCommand LeftDoubleClick { get; set; }
-
-    //    /// <summary>
-    //    /// constructor
-    //    /// </summary>
-    //    /// <param name="bl">BL object</param>
-    //    /// <param name="customer">CustomerForList object</param>
-    //    public CustomerViewModel(BLApi.IBL bl, BO.CustomerForList customer)
-    //        : this(bl)
-    //    {
-    //        Customer = new PO.Customer(bl, customer);
-    //        AddOrUpdate = new(Button_ClickUpdate, null);
-    //        Delete = new(Button_ClickDelete, null);
-    //        EnableUpdate = false;
-    //        coorLon = Customer.Location.CoorLongitude.ToString();
-    //        coorLat = Customer.Location.CoorLatitude.ToString();
-    //        State = "Update";
-    //    }
-
-    //    /// <summary>
-    //    /// constructor
-    //    /// </summary>
-    //    /// <param name="bl">BL object</param>
-    //    public CustomerViewModel(BLApi.IBL bl)
-    //    {
-    //        this.bl = bl;
-    //        Customer = new();
-    //        Cancel = new(Button_ClickCancel, null);
-    //        AddOrUpdate = new(Button_ClickAdd, null);
-    //        EnableUpdate = true;
-    //        State = "Add";
-    //        LeftDoubleClick = new(doubleClickParcel, null);
-    //    }
     public class DroneViewModel 
     {
 
@@ -64,6 +23,9 @@ namespace PL
         public RelayCommand AddOrUpdate { get; set; }
         public RelayCommand Delete { get; set; }
         public RelayCommand LeftDoubleClick { get; set; }
+        public ListCollectionView DroneWeightsList { get; set; }
+        public ListCollectionView Statuses { get; set; }
+        public ListCollectionView StationsId { get; set; }
 
         /// <summary>
         /// constructor
@@ -95,6 +57,9 @@ namespace PL
             EnableUpdate = true;
             State = "Add";
             LeftDoubleClick = new(doubleClickParcel, null);
+            DroneWeightsList = new ListCollectionView(Enum.GetValues(typeof(PO.POConverter.WeightCategories)).Cast<PO.POConverter.WeightCategories>().ToList());
+            Statuses = new ListCollectionView(Enum.GetValues(typeof(PO.POConverter.DroneStatuses)).Cast<PO.POConverter.DroneStatuses>().ToList());
+            StationsId = new ListCollectionView(bl.GetAvailableChargeSlots().ToList());
         }
 
         public object CoorLon
@@ -133,10 +98,8 @@ namespace PL
         
         //properties
         
+   
        
-        //public Array DroneWeightsList { get; set; }
-        //public List<string> StationsId { get; set; }
-        //public int StationId { get; set; }
         //public string Button2Content { get; set; }
 
         //public List<string> IsOrNotCharging = new List<string>() { "Charging", "NotCharging" };
@@ -229,7 +192,7 @@ namespace PL
         /// <param name="sender">the event</param>
         private void doubleClickParcel(object sender)
         {
-            //new ParcelView(new ParcelViewModel(sender as PO.ParcelForList,bl));
+            new ParcelView(new ParcelViewModel(Bl.GetParcelForList(Drone.Id),Bl));
         }
 
 

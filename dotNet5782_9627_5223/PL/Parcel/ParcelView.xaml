@@ -69,9 +69,12 @@
                 Grid.Row ="1" 
                 HorizontalAlignment="Center" 
                 VerticalAlignment="Top"
-                Text="{Binding ParcelInPass.ToDestinition, Converter={StaticResource BoolToStringConverter}}"  Width="150" Margin="0,38,0,0"/>
+                Text="{Binding ParcelInPass.ToDestinition, Converter={StaticResource BoolToStringConverter}}"
+                Width="150" Margin="0,38,0,0"/>
+            
 
             <TextBlock Text="Target Id:" Grid.Row="2" Grid.Column="1" Foreground="#FF4C386B" HorizontalAlignment="Left"  VerticalAlignment="Bottom" />
+            
             <ComboBox x:Name ="priority" 
                 Grid.Row="2" 
                 Grid.Column="2"
