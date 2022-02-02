@@ -17,6 +17,19 @@ namespace PL
         SortDescription allParcels_sortWeight;
         SortDescription allParcels_sortPriority;
         SortDescription allParcels_sortId;
+        public RelayCommand Cancel { get; set; }
+        public RelayCommand Add { get; set; }
+        public RelayCommand LeftDoubleClick { get; set; }
+        public  SortDescription[] SortOptions { get; }
+        public List<PropertyGroupDescription> GroupOptions { get; set; }
+        public ListCollectionView AllParcels { get; set; }
+
+        //PropertyGroupDescription groupDescription = new PropertyGroupDescription("AvailableChargeSlots");
+        //SortDescription sortFree = new("AvailableChargeSlots", 0);
+        //SortDescription sortId = new("Id", 0);
+
+        private PropertyGroupDescription selectedGroup;
+
 
         public ParcelsListViewModel(BLApi.IBL bl)
         {
@@ -29,24 +42,12 @@ namespace PL
             allParcels_sortId = new(nameof(BO.ParcelForList.ParcelId), ListSortDirection.Ascending);
             Cancel = new(ButtonCancel_Click, null);
             Add = new(AddParcel, null);
-            GroupOptions = new List<PropertyGroupDescription>() { "Group By Sender", "Group By Target" };
-            SortOptions = new List<string>() { "Status", "Weight", "Priority" };
+            GroupOptions = new List<PropertyGroupDescription>(2) { allParcels_groupSender, allParcels_groupTarget }.ToList();
+            SortOptions = new SortDescription[3] { allParcels_sortStatus, allParcels_sortWeight, allParcels_sortPriority };
             AllParcels = new ListCollectionView(ListsModel.Instance.Parcels);
             Button_AllParcels();
             LeftDoubleClick = new(DroneListView_MouseDoubleClick, null);
         }
-        public RelayCommand Cancel { get; set; }
-        public RelayCommand Add { get; set; }
-        public RelayCommand LeftDoubleClick { get; set; }
-        public List<string> SortOptions { get; set; }
-        public List<string> GroupOptions { get; set; }
-        public ListCollectionView AllParcels { get; set; }
-
-        //PropertyGroupDescription groupDescription = new PropertyGroupDescription("AvailableChargeSlots");
-        //SortDescription sortFree = new("AvailableChargeSlots", 0);
-        //SortDescription sortId = new("Id", 0);
-
-        private string selectedGroup;
         public PropertyGroupDescription SelectedGroup
         {
             get => selectedGroup;
@@ -62,21 +63,21 @@ namespace PL
             }
         }
 
-
-        private PropertyGroupDescription selectedSort;
-        public PropertyGroupDescription SelectedSort
+        private SortDescription selectedSort;
+        
+        public SortDescription SelectedSort
         {
             get => selectedSort;
             set
             {
                 selectedSort = value;
-                switch (value)
+                while (false)
                 {
-                    case SortOptions[0]:
-                        {
-                            break;
-                        }
+                   
+
                 }
+                
+                if (value == SortOptions[0])
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(selectedGroup)));
             }
         }
@@ -88,13 +89,13 @@ namespace PL
         /// </summary>
         /// <param name="sender">the invoking object</param>
         /// <param name="e">the event</param>
-       
+
         /// <summary>
         /// the function treats the event of clicking on the button 'Add'.
         /// </summary>
-      
+
         private void DroneListView_MouseDoubleClick(object sender)
-        {       
+        {
             new ParcelView(new ParcelViewModel(sender as BO.ParcelForList, bl)).Show();
         }
 
