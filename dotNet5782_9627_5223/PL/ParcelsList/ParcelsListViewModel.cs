@@ -71,12 +71,6 @@ namespace PL
             set
             {
                 selectedSort = value;
-                while (false)
-                {
-                   
-
-                }
-                
                 if (value == SortOptions[0])
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(selectedGroup)));
             }
