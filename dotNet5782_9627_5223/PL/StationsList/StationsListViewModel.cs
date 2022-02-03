@@ -11,16 +11,16 @@ namespace PL
     public class StationsListViewModel : INotifyPropertyChanged
     {
         BLApi.IBL bl;
-        PropertyGroupDescription allStations_groupDescription;
-        SortDescription allStations_sortFree;
-        SortDescription allStations_sortId;
+        PropertyGroupDescription allStationsGroupDescription;
+        SortDescription allStationsSortFree;
+        SortDescription allStationsSortId;
 
         public StationsListViewModel(BLApi.IBL bl)
         {
             this.bl = bl;
-            allStations_groupDescription = new PropertyGroupDescription(nameof(BO.BaseStationForList.AvailableChargeSlots));
-            allStations_sortFree = new(nameof(BO.BaseStationForList.AvailableChargeSlots), ListSortDirection.Ascending);
-            allStations_sortId = new(nameof(BO.BaseStationForList.Id), ListSortDirection.Ascending);
+            allStationsGroupDescription = new PropertyGroupDescription(nameof(BO.BaseStationForList.AvailableChargeSlots));
+            allStationsSortFree = new(nameof(BO.BaseStationForList.AvailableChargeSlots), ListSortDirection.Ascending);
+            allStationsSortId = new(nameof(BO.BaseStationForList.Id), ListSortDirection.Ascending);
 
             Cancel = new(Button_ClickCancel, null);
             Add = new(Button_ClickAdd, null);
@@ -77,16 +77,16 @@ namespace PL
 
         private void Button_AllStations()
         {
-            AllStations.GroupDescriptions.Remove(allStations_groupDescription);
-            AllStations.SortDescriptions.Remove(allStations_sortFree);
-            AllStations.SortDescriptions.Add(allStations_sortId);
+            AllStations.GroupDescriptions.Remove(allStationsGroupDescription);
+            AllStations.SortDescriptions.Remove(allStationsSortFree);
+            AllStations.SortDescriptions.Add(allStationsSortId);
         }
 
         private void Button_GroupByChargeSlots()
         {
-            AllStations.GroupDescriptions.Add(allStations_groupDescription);
-            AllStations.SortDescriptions.Remove(allStations_sortId);
-            AllStations.SortDescriptions.Add(allStations_sortFree);
+            AllStations.GroupDescriptions.Add(allStationsGroupDescription);
+            AllStations.SortDescriptions.Remove(allStationsSortId);
+            AllStations.SortDescriptions.Add(allStationsSortFree);
         }
 
     }

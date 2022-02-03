@@ -14,6 +14,16 @@ namespace PL.PO
             NORTH, EAST, WEST, SOUTH
         }
 
+        public enum GroupOptions
+        {
+            Sender, Target
+        }
+
+        public enum SortOptions
+        {
+            Id, Status, Weight, Priority
+        }
+
         /// <summary>
         /// 
         /// an enum which contains the two options for a location - longitude / latitude.

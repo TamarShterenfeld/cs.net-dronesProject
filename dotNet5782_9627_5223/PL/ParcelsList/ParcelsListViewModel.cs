@@ -8,22 +8,23 @@ using System.Windows.Data;
 
 namespace PL
 {
+
     public class ParcelsListViewModel : INotifyPropertyChanged
     {
         BLApi.IBL bl;
         PropertyGroupDescription allParcels_groupTarget;
         PropertyGroupDescription allParcels_groupSender;
-        SortDescription allParcels_sortStatus;
-        SortDescription allParcels_sortWeight;
-        SortDescription allParcels_sortPriority;
-        SortDescription allParcels_sortId;
+        SortDescription allParcelsSortStatus;
+        SortDescription allParcelsSortWeight;
+        SortDescription allParcelsSortPriority;
+        SortDescription allParcelsSortId;
         public RelayCommand Cancel { get; set; }
         public RelayCommand Add { get; set; }
         public RelayCommand LeftDoubleClick { get; set; }
-        public  SortDescription[] SortOptions { get; }
-        public List<PropertyGroupDescription> GroupOptions { get; set; }
         public ListCollectionView AllParcels { get; set; }
 
+        public ListCollectionView GroupOptions { get; set; }
+        public ListCollectionView SortOptions { get; set; }
         //PropertyGroupDescription groupDescription = new PropertyGroupDescription("AvailableChargeSlots");
         //SortDescription sortFree = new("AvailableChargeSlots", 0);
         //SortDescription sortId = new("Id", 0);
@@ -34,16 +35,16 @@ namespace PL
         public ParcelsListViewModel(BLApi.IBL bl)
         {
             this.bl = bl;
+            GroupOptions = new ListCollectionView(Enum.GetValues(typeof(PO.POConverter.GroupOptions)));
+            SortOptions = new ListCollectionView(Enum.GetValues(typeof(PO.POConverter.SortOptions)));
             allParcels_groupTarget = new PropertyGroupDescription(nameof(BO.ParcelForList.TargetId));
             allParcels_groupSender = new PropertyGroupDescription(nameof(BO.ParcelForList.SenderId));
-            allParcels_sortStatus = new(nameof(BO.ParcelForList.Status), ListSortDirection.Ascending);
-            allParcels_sortWeight = new(nameof(BO.ParcelForList.Weight), ListSortDirection.Ascending);
-            allParcels_sortPriority = new(nameof(BO.ParcelForList.Priority), ListSortDirection.Ascending);
-            allParcels_sortId = new(nameof(BO.ParcelForList.ParcelId), ListSortDirection.Ascending);
+            allParcelsSortStatus = new(nameof(BO.ParcelForList.Status), ListSortDirection.Ascending);
+            allParcelsSortWeight = new(nameof(BO.ParcelForList.Weight), ListSortDirection.Ascending);
+            allParcelsSortPriority = new(nameof(BO.ParcelForList.Priority), ListSortDirection.Ascending);
+            allParcelsSortId = new(nameof(BO.ParcelForList.ParcelId), ListSortDirection.Ascending);
             Cancel = new(ButtonCancel_Click, null);
             Add = new(AddParcel, null);
-            GroupOptions = new List<PropertyGroupDescription>(2) { allParcels_groupSender, allParcels_groupTarget }.ToList();
-            SortOptions = new SortDescription[3] { allParcels_sortStatus, allParcels_sortWeight, allParcels_sortPriority };
             AllParcels = new ListCollectionView(ListsModel.Instance.Parcels);
             Button_AllParcels();
             LeftDoubleClick = new(DroneListView_MouseDoubleClick, null);
@@ -56,7 +57,7 @@ namespace PL
                 selectedGroup = value;
                 AllParcels.GroupDescriptions.Clear();
                 AllParcels.GroupDescriptions.Add(value);
-                if (value == GroupOptions[0])
+                if (value == allParcels_groupSender)
                     Button_GroupBySender();
                 else Button_GroupByTarget();
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(selectedGroup)));
@@ -71,8 +72,17 @@ namespace PL
             set
             {
                 selectedSort = value;
-                if (value == SortOptions[0])
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(selectedGroup)));
+                AllParcels.SortDescriptions.Clear();
+                AllParcels.SortDescriptions.Add(value);
+                if(value == allParcelsSortId)
+                    Button_AllParcels();
+                else if(value == allParcelsSortStatus)
+                       Button_SortByStatus();
+                else if(value == allParcelsSortWeight)
+                    Button_SortByWeight();
+                else if(value == allParcelsSortPriority)
+                    Button_SortByPriority();
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(selectedSort)));
             }
         }
         public event PropertyChangedEventHandler PropertyChanged;
@@ -98,10 +108,10 @@ namespace PL
         {
             AllParcels.GroupDescriptions.Remove(allParcels_groupTarget);
             AllParcels.GroupDescriptions.Remove(allParcels_groupSender);
-            AllParcels.SortDescriptions.Remove(allParcels_sortStatus);
-            AllParcels.SortDescriptions.Remove(allParcels_sortWeight);
-            AllParcels.SortDescriptions.Remove(allParcels_sortPriority);
-            AllParcels.SortDescriptions.Add(allParcels_sortId);
+            AllParcels.SortDescriptions.Remove(allParcelsSortStatus);
+            AllParcels.SortDescriptions.Remove(allParcelsSortWeight);
+            AllParcels.SortDescriptions.Remove(allParcelsSortPriority);
+            AllParcels.SortDescriptions.Add(allParcelsSortId);
         }
 
         private void Button_GroupBySender()
@@ -117,16 +127,16 @@ namespace PL
 
         private void Button_SortByStatus()
         {
-            AllParcels.SortDescriptions.Add(allParcels_sortStatus);
+            AllParcels.SortDescriptions.Add(allParcelsSortStatus);
         }
 
         private void Button_SortByWeight()
         {
-            AllParcels.SortDescriptions.Add(allParcels_sortWeight);
+            AllParcels.SortDescriptions.Add(allParcelsSortWeight);
         }
         private void Button_SortByPriority()
         {
-            AllParcels.SortDescriptions.Add(allParcels_sortPriority);
+            AllParcels.SortDescriptions.Add(allParcelsSortPriority);
         }
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)
         {
