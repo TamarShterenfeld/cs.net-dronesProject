@@ -71,6 +71,6 @@
             </Grid.Background>
         </Grid>
         <ComboBox x:Name="GroupBy" ItemsSource="{Binding GroupOptions}" SelectedItem="{ Binding SelectedGroup}"  HorizontalAlignment="Left"  VerticalAlignment="Center" Width="120"  Text="group by" BorderBrush="#8909FFFE" Foreground="#FF272626" Grid.Row="1" Margin="154,0,0,0" IsEditable="True"/>
-        <ComboBox x:Name="SortBy" ItemsSource="{Binding SortOptions}" SelectedItem="{Binding SelectedGroup}" HorizontalAlignment="Left"  VerticalAlignment="Center" Width="120"  Text="sort by" BorderBrush="#8909FFFE" Foreground="#FF272626" IsEditable="True" Grid.Row="1" Margin="80,0,0,0" Grid.Column="1"/>
+        <ComboBox x:Name="SortBy" ItemsSource="{Binding SortOptions}" SelectedItem="{Binding SelectedSort}" HorizontalAlignment="Left"  VerticalAlignment="Center" Width="120"  Text="sort by" BorderBrush="#8909FFFE" Foreground="#FF272626" IsEditable="True" Grid.Row="1" Margin="80,0,0,0" Grid.Column="1"/>
     </Grid>
 </Window>

@@ -57,7 +57,6 @@ namespace PL
             {
                 selectedGroup = value;
                 AllParcels.GroupDescriptions.Clear();
-
                 if (value == PL.PO.POConverter.GroupOptions.Sender)
                 {
                     Button_GroupBySender();
@@ -83,12 +82,23 @@ namespace PL
                 AllParcels.SortDescriptions.Clear();
                 if (value == PO.POConverter.SortOptions.Id)
                     Button_AllParcels();
-                else if (value == PO.POConverter.SortOptions.Status)
-                    Button_SortByStatus();
-                else if (value == PO.POConverter.SortOptions.Weight)
-                    Button_SortByWeight();
-                else if (value == PO.POConverter.SortOptions.Priority)
-                    Button_SortByPriority();
+                else
+                {
+                    if (value == PO.POConverter.SortOptions.Status)
+                        Button_SortByStatus();
+                    else 
+                    {
+                        if (value == PO.POConverter.SortOptions.Weight)
+                            Button_SortByWeight();
+                        else
+                        {
+                            if (value == PO.POConverter.SortOptions.Priority)
+                                Button_SortByPriority();
+                        }
+                    }
+                   
+                }
+                
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(selectedSort)));
             }
         }
@@ -136,7 +146,7 @@ namespace PL
         {
             AllParcels.GroupDescriptions.Remove(allParcels_groupTarget);
             AllParcels.GroupDescriptions.Remove(allParcels_groupSender);
-            AllParcels.SortDescriptions.Remove(allParcelsSortStatus);
+            AllParcels.SortDescriptions.Remove(allParcelsSortWeight);
             AllParcels.SortDescriptions.Remove(allParcelsSortId);
             AllParcels.SortDescriptions.Remove(allParcelsSortPriority);
             AllParcels.SortDescriptions.Add(allParcelsSortStatus);
@@ -144,10 +154,20 @@ namespace PL
 
         private void Button_SortByWeight()
         {
+            AllParcels.GroupDescriptions.Remove(allParcels_groupTarget);
+            AllParcels.GroupDescriptions.Remove(allParcels_groupSender);
+            AllParcels.SortDescriptions.Remove(allParcelsSortStatus);
+            AllParcels.SortDescriptions.Remove(allParcelsSortId);
+            AllParcels.SortDescriptions.Remove(allParcelsSortPriority);
             AllParcels.SortDescriptions.Add(allParcelsSortWeight);
         }
         private void Button_SortByPriority()
         {
+            AllParcels.GroupDescriptions.Remove(allParcels_groupTarget);
+            AllParcels.GroupDescriptions.Remove(allParcels_groupSender);
+            AllParcels.SortDescriptions.Remove(allParcelsSortStatus);
+            AllParcels.SortDescriptions.Remove(allParcelsSortId);
+            AllParcels.SortDescriptions.Remove(allParcelsSortWeight);
             AllParcels.SortDescriptions.Add(allParcelsSortPriority);
         }
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)
