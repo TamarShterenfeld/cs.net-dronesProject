@@ -18,6 +18,8 @@ namespace PL
         SortDescription allParcelsSortWeight;
         SortDescription allParcelsSortPriority;
         SortDescription allParcelsSortId;
+        private PO.POConverter.GroupOptions selectedGroup;
+        private PO.POConverter.SortOptions selectedSort;
         public RelayCommand Cancel { get; set; }
         public RelayCommand Add { get; set; }
         public RelayCommand LeftDoubleClick { get; set; }
@@ -29,8 +31,7 @@ namespace PL
         //SortDescription sortFree = new("AvailableChargeSlots", 0);
         //SortDescription sortId = new("Id", 0);
 
-        private PropertyGroupDescription selectedGroup;
-
+      
 
         public ParcelsListViewModel(BLApi.IBL bl)
         {
@@ -49,38 +50,44 @@ namespace PL
             Button_AllParcels();
             LeftDoubleClick = new(DroneListView_MouseDoubleClick, null);
         }
-        public PropertyGroupDescription SelectedGroup
+        public PO.POConverter.GroupOptions SelectedGroup
         {
             get => selectedGroup;
             set
             {
                 selectedGroup = value;
                 AllParcels.GroupDescriptions.Clear();
-                AllParcels.GroupDescriptions.Add(value);
-                if (value == allParcels_groupSender)
+
+                if (value == PL.PO.POConverter.GroupOptions.Sender)
+                {
                     Button_GroupBySender();
-                else Button_GroupByTarget();
+                    AllParcels.GroupDescriptions.Add(allParcels_groupSender);
+                }
+                else
+                {
+                    Button_GroupByTarget();
+                    AllParcels.GroupDescriptions.Add(allParcels_groupSender);
+                }
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(selectedGroup)));
             }
         }
 
-        private SortDescription selectedSort;
+      
         
-        public SortDescription SelectedSort
+        public PO.POConverter.SortOptions SelectedSort
         {
             get => selectedSort;
             set
             {
                 selectedSort = value;
                 AllParcels.SortDescriptions.Clear();
-                AllParcels.SortDescriptions.Add(value);
-                if(value == allParcelsSortId)
+                if (value == PO.POConverter.SortOptions.Id)
                     Button_AllParcels();
-                else if(value == allParcelsSortStatus)
-                       Button_SortByStatus();
-                else if(value == allParcelsSortWeight)
+                else if (value == PO.POConverter.SortOptions.Status)
+                    Button_SortByStatus();
+                else if (value == PO.POConverter.SortOptions.Weight)
                     Button_SortByWeight();
-                else if(value == allParcelsSortPriority)
+                else if (value == PO.POConverter.SortOptions.Priority)
                     Button_SortByPriority();
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(selectedSort)));
             }
@@ -127,6 +134,11 @@ namespace PL
 
         private void Button_SortByStatus()
         {
+            AllParcels.GroupDescriptions.Remove(allParcels_groupTarget);
+            AllParcels.GroupDescriptions.Remove(allParcels_groupSender);
+            AllParcels.SortDescriptions.Remove(allParcelsSortStatus);
+            AllParcels.SortDescriptions.Remove(allParcelsSortId);
+            AllParcels.SortDescriptions.Remove(allParcelsSortPriority);
             AllParcels.SortDescriptions.Add(allParcelsSortStatus);
         }
 

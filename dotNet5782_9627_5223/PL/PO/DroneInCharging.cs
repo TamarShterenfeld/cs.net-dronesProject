@@ -14,8 +14,7 @@ namespace PL.PO
         public int Id
         {
             set
-            {
-               
+            { 
                 id = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Id)));
             }
