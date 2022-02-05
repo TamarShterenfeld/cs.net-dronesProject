@@ -16,12 +16,12 @@ namespace PL.PO
 
         public enum GroupOptions
         {
-            Sender, Target
+            GroupBySender = 1, GroupByTarget
         }
 
         public enum SortOptions
         {
-            Id, Status, Weight, Priority
+            SortedId = 1, SortedStatus, SortedWeight, SortedPriority
         }
 
         /// <summary>
