@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace Singleton
 {
-    public abstract class Singleton<T> where T: Singleton<T>
+    public abstract class Singleton<T> where T : Singleton<T>
     {
         // make the static and protected constructors
         static Singleton() { }
@@ -12,7 +12,7 @@ namespace Singleton
         class Nested
         {
             // _instance is initialized to null
-            internal static volatile T _instance = null;
+            internal static  T _instance = null;
             internal static readonly object  _lock  = new object();//for multithreading
             static Nested() { }
         }
