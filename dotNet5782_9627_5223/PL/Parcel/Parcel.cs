@@ -11,18 +11,18 @@ namespace PL
         /// <summary>
         /// the class ParcelForList contains all the ParcelForList's needed details.
         /// </summary>
-        public class ParcelForList
+        public class Parcel
         {
 
-            public ParcelForList(BLApi.IBL bl, BO.ParcelForList parcelForList)
+            public Parcel(BLApi.IBL bl, BO.ParcelForList parcelForList)
             {
                 ParcelId = parcelForList.ParcelId;
                 SenderId = parcelForList.SenderId;
                 TargetId = parcelForList.TargetId;
                 DroneId = parcelForList.DroneId;
-                Weight = parcelForList.Weight;
-                Priority = parcelForList.Priority;
-                Status = parcelForList.Status;
+                Weight = (POConverter.WeightCategories)(int)parcelForList.Weight;
+                Priority = (POConverter.Priorities)(int)parcelForList.Priority;
+                Status = (POConverter.ParcelStatuses)(int)parcelForList.Status;
             }
 
             int parcelId;
@@ -70,14 +70,14 @@ namespace PL
                 }
             }
 
-            public BO.WeightCategories Weight { get; set; }
-            public BO.Priorities Priority { set; get; }
-            public BO.ParcelStatuses Status { set; get; }
+            public POConverter.WeightCategories Weight { get; set; }
+            public POConverter.Priorities Priority { set; get; }
+            public POConverter.ParcelStatuses Status { set; get; }
 
             /// <summary>
             /// default constructor
             /// </summary>
-            public ParcelForList() { }
+            public Parcel() { }
 
             /// <summary>
             /// a constructor with parameters.
@@ -89,9 +89,9 @@ namespace PL
             /// <param name="weight"></param>
             /// <param name="priority"></param>
             /// <param name="status"></param>
-            public ParcelForList(int droneId, int parcelId, string senderId, string targetId, BO.WeightCategories weight, BO.Priorities priority, BO.ParcelStatuses status)
+            public Parcel(int droneId, int parcelId, string senderId, string targetId, BO.WeightCategories weight, BO.Priorities priority, BO.ParcelStatuses status)
             {
-                DroneId = droneId; ParcelId = parcelId; SenderId = senderId; TargetId = targetId; Weight = weight; Priority = priority; Status = status;
+                DroneId = droneId; ParcelId = parcelId; SenderId = senderId; TargetId = targetId; Weight = (POConverter.WeightCategories)(int)weight; Priority = (POConverter.Priorities)(int)priority; Status = (POConverter.ParcelStatuses)(int)status;
             }
 
             /// <summary>

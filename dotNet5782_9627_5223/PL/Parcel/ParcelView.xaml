@@ -45,7 +45,6 @@
             </Grid.ColumnDefinitions>
 
             <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="2" Height="32" Width="92">
-                <Button x:Name="button1"  Content="Cancel" Width="92" Command="{Binding Cancel}" CommandParameter="{Binding ElementName= MyParcelView}" Background="#FFD40202" BorderBrush="White"  Foreground="White"/>
                 <ComboBox x:Name="button3" 
                     ItemsSource="{Binding Button3Content}" 
                     SelectedItem="{Binding Button3SelectedItem}"   
@@ -120,7 +119,10 @@
                 VerticalAlignment="Bottom"
                 ItemsSource="{Binding DroneStatusesList}" Width="150"
                 SelectedItem="{Binding Parcel.Status}" Height="25" />
+            <Button x:Name="button1"  Content="Cancel" Command="{Binding Cancel}" CommandParameter="{Binding ElementName=MyParcelView}" Background="#FFD40202" BorderBrush="White"  Foreground="White" Grid.Column="1" Margin="40,10,239,15" Grid.Row="1" Grid.ColumnSpan="2"/>
         </Grid>
+        <Button x:Name="buttonState" Content="{Binding State}" Command="{Binding AddOrUpdate}"  Background="#FFD40202" BorderBrush="White" Margin="344,68,364,534"/>
+        <Button x:Name="buttonDelete" Content="Delete" Command="{Binding Delete}" CommandParameter="{Binding ElementName=StationWindow}"  Background="#FFD40202" BorderBrush="White" Margin="437,68,271,534"/>
 
     </Grid>
 </Window>

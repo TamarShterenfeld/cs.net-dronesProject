@@ -84,7 +84,7 @@ namespace DO
 
         public Coordinate Longitude { get; set; }
         public Coordinate Latitude { get; set; }
-        public bool IsDeleted { get; set; }
+        public bool IsDeleted { get; set; } 
 
         /// <summary>
         /// override ToString function.

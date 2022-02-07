@@ -123,6 +123,12 @@ namespace BLApi
         /// /// <param name="baseStationId">the id of the base station</param>
         void Add(Drone drone, int baseStationId);
 
+        // <summary>
+        /// The function removes (by signing as "deleted" ) a parcel.
+        /// </summary>
+        /// <param name="baseStation">a base station</param>
+        void Delete(Drone drone);
+
         /// <summary>
         /// the function returns a list of all the droneCharge object
         /// thet are charged in the baseStation with the parameter 'stationId'
@@ -232,6 +238,12 @@ namespace BLApi
         /// </summary>
         /// <param name="parcel">parcel</param>
         void Add(Parcel parcel);
+
+        // <summary>
+        /// The function removes (by signing as "deleted" ) a parcel.
+        /// </summary>
+        /// <param name="baseStation">a base station</param>
+        void Delete(Parcel parcel);
 
         /// <summary>
         /// The function returns all the ParcelsLIst items 
