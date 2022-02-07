@@ -33,7 +33,7 @@ namespace PL
         public StationViewModel(BLApi.IBL bl)
         {
             this.bl = bl;
-            BaseStation = new PO.Station();
+            BaseStation = new Station();
             Cancel = new(Button_ClickCancel, null);
             AddOrUpdate = new(Button_ClickAdd, null);
             EnableUpdate = true;
@@ -97,6 +97,7 @@ namespace PL
         {
             bl.UpdateBaseStation(BaseStation.Id, BaseStation.Name, BaseStation.ChargeSlots.ToString());
             ListsModel.Instance.UpdateStation(BaseStation.Id);
+          
         }
         private void doubleClickDrone(object sender)
         {
