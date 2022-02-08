@@ -9,6 +9,7 @@
         mc:Ignorable="d"
         Title="Parcel In Passing" Height="700" Width="800">
 
+   
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="199*"/>
@@ -80,7 +81,7 @@
             Grid.Row ="1" 
             HorizontalAlignment="Center" 
             VerticalAlignment="Bottom"
-            Text="{Binding ParcelInPass.ToDestinition, Converter={StaticResource BoolToStringConverter}}"  Width="150"/>
+            Text= "{Binding ParcelInPass.ToDestinition}" Width="150"/>
 
             <TextBlock Text="Priority" Grid.Row="2" Grid.Column="1" Foreground="#FF4C386B" HorizontalAlignment="Left"  VerticalAlignment="Bottom" ><Run /><Run FlowDirection="RightToLeft" Language="he-il" Text=":"/></TextBlock>
             <ComboBox x:Name ="priority" 

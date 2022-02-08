@@ -19,9 +19,10 @@ namespace PL
     /// </summary>
     public partial class CustomerInParcelView : Window
     {
-        public CustomerInParcelView()
+        public CustomerInParcelView(CustomerInParcelViewModel customerInParcelViewModel)
         {
             InitializeComponent();
+            this.DataContext = customerInParcelViewModel;
         }
     }
 }

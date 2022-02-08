@@ -85,15 +85,16 @@
         <TextBlock Text="Delivery:" Grid.Row= "6" Grid.Column="1" Foreground="#FF3F4245" Height="49"/>
         <StackPanel Grid.Row="6" Grid.Column="2"
             Width="160" VerticalAlignment="Center" 
-            HorizontalAlignment="Center" Height="48" Orientation="Horizontal">
+            HorizontalAlignment="Center" Height="48" Cursor="Hand" >
             <StackPanel.InputBindings>
                 <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding LeftDoubleClick}"/>
             </StackPanel.InputBindings>
             <TextBlock x:Name="delivery"
                 Text="{Binding Drone.ParcelId}"
-                IsEnabled="False" />
-            <TextBox x:Name="line"
-                Width="140" IsEnabled="False" Height="5" >
+                IsEnabled="False"  VerticalAlignment="Center" 
+            HorizontalAlignment="Center"/>
+            <!--<TextBox x:Name="line"
+                Width="140" IsEnabled="False" Height="19" >
                 <TextBox.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform ScaleY="1"/>
@@ -102,7 +103,7 @@
                         <TranslateTransform/>
                     </TransformGroup>
                 </TextBox.RenderTransform>
-            </TextBox>
+            </TextBox>-->
         </StackPanel>
 
         <TextBlock Text="Longitude:" Grid.Row="7" Grid.Column="1" Foreground="#FF3F4245"/>

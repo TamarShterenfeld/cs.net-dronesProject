@@ -54,7 +54,7 @@ namespace PL
 
         private void DoubleClick_Customer(object sender)
         {
-            new DroneView(new DroneViewModel(bl, bl.GetDroneForList((sender as PO.DroneInCharging).Id))).Show();
+            new CustomerInParcelView(new CustomerInParcelViewModel()).Show();
         }
         private void Button_ClickDelete(object sender)
         {

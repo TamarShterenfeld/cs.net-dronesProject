@@ -192,7 +192,7 @@ namespace PL
         /// <param name="sender">the event</param>
         private void doubleClickParcel(object sender)
         {
-            new ParcelView(new ParcelViewModel(Bl.GetParcelForList(Drone.Id),Bl));
+            new ParcelInPassingView(new ParcelInPassingViewModel(Bl.GetParcelInPassing(Drone.Id),Bl)).Show();
         }
 
 
