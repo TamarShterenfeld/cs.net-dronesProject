@@ -17,28 +17,42 @@ using PL.PO;
 
 namespace PL
 {
-    public class ParcelViewModel 
+    public class ParcelViewModel
     {
-        BLApi.IBL bl;     
-        public bool EnableUpdate { get; set; }  
-        public PO.Parcel Parcel { set; get; }       
-        public Array PrioritiesArr { get; set; }
-        public Array WeightArr { get; set; }
+        BLApi.IBL bl;
+        ParcelStatuses selectedParcelStatus;
+        public bool EnableUpdate { get; set; }
+        public PO.Parcel Parcel { set; get; }
         public Array DroneStatusesList { get; set; }
         public RelayCommand Delete { get; set; }
-        public RelayCommand LeftDoubleClick { get; set; }
+        public RelayCommand LeftDoubleClick_Sender { get; set; }
+        public RelayCommand LeftDoubleClick_Target { get; set; }
+        public RelayCommand LeftDoubleClick_Drone { get; set; }
         public RelayCommand Cancel { set; get; }
+
+        public ParcelStatuses SelectedParcelStatus
+        {
+            get
+            {
+                return selectedParcelStatus;
+            }
+            set
+            {
+                selectedParcelStatus = value;
+                CheckStatus_Changed(selectedParcelStatus);
+            }
+        }
 
         public ParcelViewModel(BO.ParcelForList parcel, BLApi.IBL bl)
         {
             this.bl = bl;
             Parcel = new PO.Parcel(bl, parcel);
-            PrioritiesArr = typeof(BO.Priorities).GetEnumValues();
-            WeightArr = typeof(BO.WeightCategories).GetEnumValues();
-            DroneStatusesList = typeof(BO.DroneStatuses).GetEnumValues();
+            DroneStatusesList = typeof(DroneStatuses).GetEnumValues();
             Cancel = new(ButtonClick_Cancel);
             Delete = new(Button_ClickDelete, null);
-            LeftDoubleClick = new(DoubleClick_Customer, null);
+            LeftDoubleClick_Sender = new(DoubleClick_Sender, null);
+            LeftDoubleClick_Target = new(DoubleClick_Target, null);
+            LeftDoubleClick_Drone = new(DoubleClick_Drone, null);
         }
 
         public ParcelViewModel(BLApi.IBL bl)
@@ -49,12 +63,22 @@ namespace PL
 
         public void ButtonClick_Cancel(object sender)
         {
-            (sender as Window).Close(); 
+            (sender as Window).Close();
         }
 
-        private void DoubleClick_Customer(object sender)
+        private void DoubleClick_Sender(object sender)
         {
-            new CustomerInParcelView(new CustomerInParcelViewModel()).Show();
+            new CustomerView(new CustomerViewModel(bl, bl.GetCustomerForList(Parcel.SenderId))).Show();
+        }
+
+        private void DoubleClick_Target(object sender)
+        {
+            new CustomerView(new CustomerViewModel(bl, bl.GetCustomerForList(Parcel.TargetId))).Show();
+        }
+
+        private void DoubleClick_Drone(object sender)
+        {
+            new DroneView(new DroneViewModel(bl, bl.GetDroneForList(Parcel.DroneId))).Show();
         }
         private void Button_ClickDelete(object sender)
         {
@@ -63,13 +87,48 @@ namespace PL
                 MessageBox.Show("Can not delete this parcel since \nit has been associated already.");
                 return;
             }
-            if(Parcel == null)
+            if (Parcel == null)
             {
                 MessageBox.Show("No parcel was chosen, \nnot possible deleting nothing.");
             }
             bl.Delete(ParcelPoToBo(Parcel));
             ListsModel.Instance.DeleteParcel(Parcel.ParcelId);
             (sender as Window).Close();
+        }
+
+        private void CheckStatus_Changed(ParcelStatuses status)
+        {
+            ParcelStatuses originalStatus = Parcel.Status;
+            switch (originalStatus)
+            {
+                case ParcelStatuses.Production:
+                    {
+                        if (status == ParcelStatuses.PickedUp || status == ParcelStatuses.Supplied)
+                        {
+                            MessageBox.Show("The parcel has been producted a short time ago. \ntry a Production / Associated option.");
+                        }
+                        else
+                        {
+                            if(status == ParcelStatuses.Associated)
+                            {
+                                bl.AssociateParcel(Parcel.DroneId)
+                            }
+                        }
+                        break;
+                    }
+                case ParcelStatuses.Associated:
+                    {
+                        break;
+                    }
+                case ParcelStatuses.PickedUp:
+                    {
+                        break;
+                    }
+                case ParcelStatuses.Supplied:
+                    {
+                        break;
+                    }
+            }
         }
 
         //private void Button_ClickAdd(object sender)
