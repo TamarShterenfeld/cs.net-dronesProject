@@ -27,7 +27,7 @@ namespace Dal
             }
             catch (Exception ex)
             {
-                throw new DO.XMLFileLoadCreateException(filePath, $"fail to create xml file: {filePath}", ex);
+              //  throw new DO.XMLFileLoadCreateException(filePath, $"fail to create xml file: {filePath}", ex);
             }
         }
 
@@ -48,7 +48,8 @@ namespace Dal
             }
             catch (Exception ex)
             {
-                throw new DO.XMLFileLoadCreateException(filePath, $"fail to load xml file: {filePath}", ex);
+                throw ;
+               // throw new DO.XMLFileLoadCreateException(filePath, $"fail to load xml file: {filePath}", ex);
             }
         }
         #endregion
@@ -66,13 +67,13 @@ namespace Dal
             }
             catch (Exception ex)
             {
-                throw new DO.XMLFileLoadCreateException(filePath, $"fail to create xml file: {filePath}", ex);
+               // throw new DO.XMLFileLoadCreateException(filePath, $"fail to create xml file: {filePath}", ex);
             }
         }
         public static List<T> LoadListFromXmlSerializer<T>(string filePath)
         {
-            try
-            {
+            //try
+            //{
                 if (File.Exists(dirPath + filePath))
                 {
                     List<T> list;
@@ -84,11 +85,11 @@ namespace Dal
                 }
                 else
                     return new List<T>();
-            }
-            catch (Exception ex)
-            {
-                throw new DO.XMLFileLoadCreateException(filePath, $"fail to load xml file: {filePath}", ex);
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //   //throw new DO.XMLFileLoadCreateException(filePath, $"fail to load xml file: {filePath}", ex);
+            //}
         }
         #endregion
     }
