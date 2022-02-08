@@ -37,7 +37,7 @@
         </WrapPanel>
 
         <TextBlock Text="Id:" Grid.Row="1" Grid.Column="1" Foreground="#FF2D2D2D"/>
-        <TextBox x:Name="id" Grid.Column="2"
+        <TextBox x:Name="id" Grid.Column="2" MaxLength="9"
             TextWrapping="Wrap" 
             Width="140" 
             IsEnabled="{Binding EnableUpdate}"
