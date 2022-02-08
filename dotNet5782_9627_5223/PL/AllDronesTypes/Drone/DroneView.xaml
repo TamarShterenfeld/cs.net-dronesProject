@@ -2,7 +2,7 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Drone" Height="650" Width="800"
-        Icon="/images/toplogo.jpg"
+        Icon="../../images/toplogo.jpg"
          x:Name="DroneWindow">
     <Grid x:Name ="curdrone" Height="634" VerticalAlignment="Top">
         <Grid.RowDefinitions>
@@ -143,7 +143,7 @@
         <!--SelectedItem="{Binding StationId}"-->
         <Grid >
             <Grid.Background>
-                <ImageBrush Stretch="Fill" ImageSource="../images/logo1.jpg"/>
+                <ImageBrush Stretch="Fill" ImageSource="../../images/logo1.jpg"/>
             </Grid.Background>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />

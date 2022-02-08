@@ -4,13 +4,17 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
-         Icon="../images/toplogo.jpg"
+         Icon="../../images/toplogo.jpg"
         x:Name="ParcelInPassingh"
         mc:Ignorable="d"
         Title="Parcel In Passing" Height="700" Width="800">
-    
+
     <Grid>
-        <Grid Margin="-18,0,657,606">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="199*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid Margin="-18,0,653,606">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
@@ -24,7 +28,7 @@
             </Grid.Background>
         </Grid>
 
-        <Grid x:Name ="curdrone" Margin="0,-13,0,0">
+        <Grid x:Name ="curdrone" Margin="0,-13,0,0" Grid.ColumnSpan="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="2*"/>
                 <RowDefinition/>

@@ -60,10 +60,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Page Update="CustomersList\CustomersListView.xaml">
+    <Page Update="AllCustomersType\CustomersList\CustomersListView.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>
-    <Page Update="Customer\CustomerView.xaml">
+    <Page Update="AllCustomersType\Customer\CustomerView.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>
     <Page Update="Main Window\MainWindow.xaml">
