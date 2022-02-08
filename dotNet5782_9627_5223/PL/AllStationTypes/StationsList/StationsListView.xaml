@@ -67,9 +67,9 @@
         </Grid>
         <WrapPanel Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="center"  VerticalAlignment="center">
             <ComboBox x:Name="CurrFilter" Text="choose filter" ItemsSource="{Binding Options}" HorizontalAlignment="Center"  
-                      VerticalAlignment="Center" Width="180"   IsEditable="True" BorderBrush="#FF38FFFD" Foreground="#FF2A2828"
-                      SelectedItem="{Binding SelectedFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-        </WrapPanel>
+                      VerticalAlignment="Center" Width="180"   BorderBrush="#FF38FFFD" Foreground="#FF2A2828"
+                      SelectedItem="{Binding SelectedFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEditable="True" IsReadOnly="True"/>
+             </WrapPanel>
         <Grid Height="62" VerticalAlignment="Top" Margin="10,0,253,0">
             <Grid.Background>
                 <ImageBrush ImageSource="/images/logo1.jpg"/>
