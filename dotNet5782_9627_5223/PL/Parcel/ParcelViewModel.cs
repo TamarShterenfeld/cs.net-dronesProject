@@ -66,7 +66,7 @@ namespace PL
         }
         private void Button_ClickDelete(object sender)
         {
-            if (Parcel.Status != POConverter.ParcelStatuses.Production)
+            if (Parcel.Status != ParcelStatuses.Production)
             {
                 MessageBox.Show("Can not delete this parcel since \nit has been associated already.");
                 return;
