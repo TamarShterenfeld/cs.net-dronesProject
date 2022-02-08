@@ -24,7 +24,7 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Grid.Background>
-                <ImageBrush Stretch="Fill" ImageSource="../images/logo1.jpg"/>
+                <ImageBrush Stretch="Fill" ImageSource="../../images/logo1.jpg"/>
             </Grid.Background>
         </Grid>
 

@@ -57,5 +57,7 @@ namespace PL.PO
                     $"name: {Name}";
         }
 
+
+
     }
 }
