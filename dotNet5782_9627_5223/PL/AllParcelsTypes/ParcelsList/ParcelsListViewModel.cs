@@ -47,7 +47,7 @@ namespace PL
             allParcelsSortWeight = new(nameof(BO.ParcelForList.Weight), ListSortDirection.Ascending);
             allParcelsSortPriority = new(nameof(BO.ParcelForList.Priority), ListSortDirection.Ascending);
             allParcelsSortId = new(nameof(BO.ParcelForList.ParcelId), ListSortDirection.Ascending);
-            Cancel = new(ButtonCancel_Click, null);
+            Cancel = new(Button_ClickCancel, null);
             Add = new(AddParcel, null);
             AllParcels = new ListCollectionView(ListsModel.Instance.Parcels);
             Button_AllParcels();
@@ -151,7 +151,7 @@ namespace PL
         {
             AllParcels.SortDescriptions.Add(allParcelsSortPriority);
         }
-        private void ButtonCancel_Click(object sender, RoutedEventArgs e)
+        private void Button_ClickCancel(object sender)
         {
             (sender as Window).Close();
         }

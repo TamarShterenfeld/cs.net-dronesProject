@@ -19,7 +19,14 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
+<<<<<<< HEAD
        
+=======
+        <WrapPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="center"  VerticalAlignment="center">
+            <Button Content="Close"  Command="{Binding Cancel}" CommandParameter="{Binding ElementName=ParcelsListView1}" Background="Turquoise" BorderBrush="White" />
+            <Button Content="Add Parcel" Command="{Binding Add}"  Background="Turquoise" BorderBrush="White"  />
+        </WrapPanel>
+>>>>>>> aafb5d7028eb416f3ed07f5fb60d36f8987403d3
         <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="419*"/>
