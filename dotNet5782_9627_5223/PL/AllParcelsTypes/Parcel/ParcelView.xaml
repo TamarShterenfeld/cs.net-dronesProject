@@ -59,7 +59,7 @@
                 Grid.Row ="2" 
                 HorizontalAlignment="Center" 
                 VerticalAlignment="Bottom"             
-                Text="{Binding Parcel.ParcelId}" Height="25" Grid.RowSpan="2" 
+                Text="{Binding MyParcel.ParcelId}" Height="25" Grid.RowSpan="2" 
                      />
 
             <TextBlock Text="Sender Id:" Grid.Column="1" Grid.Row ="3" HorizontalAlignment="Left" Foreground="#FF4C386B" Width="53" VerticalAlignment="Bottom" Height="16" Margin="0,0,0,57" Grid.RowSpan="2" />
@@ -78,7 +78,7 @@
                 Grid.Row ="3" 
                 HorizontalAlignment="Center"
                 FontWeight="ExtraBlack"
-                Text="{Binding Parcel.SenderId }"  Width="150" Height="21" Cursor="Hand" />
+                Text="{Binding MyParcel.SenderId }"  Width="150" Height="21" Cursor="Hand" />
             </StackPanel>
             <TextBlock Text="Target Id:" Grid.Row="4" Grid.Column="1" Foreground="#FF4C386B" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Height="16" Width="48" />
             <StackPanel  Grid.Column="2"
@@ -95,7 +95,7 @@
                 Grid.Column="2"
                 Grid.Row ="4" 
                 HorizontalAlignment="Center"
-                Text="{Binding Parcel.TargetId }"  Width="150" Height="22" />
+                Text="{Binding MyParcel.TargetId }"  Width="150" Height="22" />
             </StackPanel>
 
             <TextBlock Text="DroneId:" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Foreground="#FF3F4245" Height="16" Width="49" Margin="0,0,0,57" Grid.RowSpan="2"/>
@@ -113,7 +113,7 @@
                 Grid.Row ="5" 
                 HorizontalAlignment="Center"
                 FontWeight="ExtraBlack"
-                Text="{Binding Parcel.DroneId }"  Width="150" Height="23" />
+                Text="{Binding MyParcel.DroneId }"  Width="150" Height="23" />
             </StackPanel>
             <TextBlock Text="Weight" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Foreground="#FF3F4245" Height="16" Width="49" />
             <TextBox x:Name ="weight" 
@@ -124,7 +124,7 @@
                 VerticalAlignment="Bottom"
                 IsEnabled="False"
                 Width="150"
-                Text="{Binding Parcel.Weight }" Height="24" />
+                Text="{Binding MyParcel.Weight }" Height="24" />
             <TextBlock Text="Priority:" Grid.Row="7" Grid.Column="1" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Foreground="#FF3F4245" Height="16" Width="49" />
             <TextBox x:Name ="priority"
                 IsEnabled="False"
@@ -134,7 +134,7 @@
                 Width="150"
                 HorizontalAlignment="Center" 
                 VerticalAlignment="Bottom"
-                Text ="{Binding Parcel.Priority}" Height="25" />
+                Text ="{Binding MyParcel.Priority.ToString()}" Height="25" />
             <TextBlock Text="Status:" Grid.Row="8" Grid.Column="1" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Foreground="#FF3F4245" Height="16" Width="49" Margin="0,0,0,57" Grid.RowSpan="2" />
             <TextBox x:Name ="status" 
                 IsEnabled="False"
@@ -142,7 +142,7 @@
                 Grid.Column="2"
                 Width="150"
                 HorizontalAlignment="Center"
-                Text="{Binding Parcel.Status}"
+                Text="{Binding MyParcel.Status}"
                 VerticalAlignment="Bottom" Height="25" />
 
         </Grid>
