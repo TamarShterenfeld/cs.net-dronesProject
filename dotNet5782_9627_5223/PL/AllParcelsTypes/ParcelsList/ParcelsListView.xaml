@@ -6,8 +6,9 @@
         xmlns:local="clr-namespace:PL"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         Title="ParcelsListView" Height="450" Width="800"
-         Icon="../../images/toplogo.jpg"
-        x:Name="ParcelsListView1">
+        x:Name="ParcelsListView1"
+        Icon="../../images/toplogo.jpg"
+        >
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -18,10 +19,14 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
+<<<<<<< HEAD
+       
+=======
         <WrapPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="center"  VerticalAlignment="center">
             <Button Content="Close"  Command="{Binding Cancel}" CommandParameter="{Binding ElementName=ParcelsListView1}" Background="Turquoise" BorderBrush="White" />
             <Button Content="Add Parcel"   Command="{Binding Add}" Background="Turquoise" BorderBrush="White" />
         </WrapPanel>
+>>>>>>> aafb5d7028eb416f3ed07f5fb60d36f8987403d3
         <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="419*"/>
@@ -70,6 +75,10 @@
                 <ImageBrush ImageSource="/images/logo1.jpg"/>
             </Grid.Background>
         </Grid>
+        <WrapPanel Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Button  Content="Close" Command="{Binding Cancel}" CommandParameter="{Binding ElementName=ParcelsListView1}" Background="Turquoise" BorderBrush="White"/>
+            <Button Content="Add Parcel" Command="{Binding Add}" Background="Turquoise" BorderBrush="White" />
+        </WrapPanel>
         <ComboBox x:Name="GroupBy" ItemsSource="{Binding GroupOptions}" SelectedItem="{ Binding SelectedGroup}"  HorizontalAlignment="Left"  VerticalAlignment="Center" Width="120" BorderBrush="#8909FFFE" Foreground="#FF272626" Grid.Row="1" Margin="154,0,0,0" IsEditable="True" IsReadOnly="True" Text="Group By"/>
         <ComboBox x:Name="SortBy" ItemsSource="{Binding SortOptions}" SelectedItem="{Binding SelectedSort}" HorizontalAlignment="Left"  VerticalAlignment="Center" Width="120" BorderBrush="#8909FFFE" Foreground="#FF272626" IsEditable="True" Grid.Row="1" Margin="80,0,0,0" Grid.Column="1" IsReadOnly="True" Text="Sort By"/>
     </Grid>
