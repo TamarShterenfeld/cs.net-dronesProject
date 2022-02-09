@@ -1,4 +1,5 @@
 ﻿using BO;
+using PL.PO;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,51 +12,59 @@ namespace PL
 {
     public class DroneListViewModel : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
         BLApi.IBL bl;
+        POConverter.DroneStatuses selectedStatusFilter;
+        private POConverter.WeightCategories selectedWeightFilter;
 
         public DroneListViewModel(BLApi.IBL bl)
         {
             this.bl = bl;
             Cancel = new(Button_ClickCancel, null);
             Add = new(Button_ClickAdd, null);
-            FilterCategory = new List<string>{"status", "weight"};
-            SelectFilter = new(comboBox_SelectFilter, null);
-            AllDrones = new List<PL.PO.DroneForList>(ListsModel.Instance.Drones);
-            statusFilter = Enum.GetValues(typeof(PO.POConverter.DroneStatuses)).Cast<PO.POConverter.DroneStatuses>() .ToList().ConvertAll(f => f.ToString()); 
-            weightFilter = Enum.GetValues(typeof(PO.POConverter.WeightCategories)).Cast<PO.POConverter.WeightCategories>().ToList().ConvertAll(f => f.ToString());
-            SelectSecondFilter = new(comboBox_SelectSecondFilter, null);
-            LeftDoubleClick = new(DroneListView_MouseDoubleClick, null);
+            DronesListView = new ListCollectionView(ListsModel.Instance.Drones);
+            DronesListView.Filter = DroneFilter;
+            StatusFilter = new(Enum.GetValues(typeof(PO.POConverter.DroneStatuses)).Cast<PO.POConverter.DroneStatuses>().ToList());
+            WeightFilter = new(Enum.GetValues(typeof(PO.POConverter.WeightCategories)).Cast<PO.POConverter.WeightCategories>().ToList());
+            DisplayDroneViewCommand = new(DisplayDroneView, null);
         }
+
+        private bool DroneFilter(object obj)
+        {
+            if (obj is PO.DroneForList drone)
+            {
+                return (SelectedStatusFilter == POConverter.DroneStatuses.None || drone.Status == SelectedStatusFilter)
+                    && (SelectedWeightFilter == POConverter.WeightCategories.None || drone.MaxWeight == SelectedWeightFilter);
+            }
+            return false;
+        }
+
         public RelayCommand Cancel { get; set; }
         public RelayCommand Add { get; set; }
-        public RelayCommand LeftDoubleClick { get; set; }
-        public RelayCommand SelectFilter { get; set; }
-        public RelayCommand SelectSecondFilter{ get; set; }
-        public List<string> FilterCategory { get; set; }
-        public List<string> StatusOrWeightFilter { get; set; }
-        public List<string> statusFilter { get; set; } 
-        private List<string> weightFilter { get; set; }
-        public IEnumerable<PL.PO.DroneForList> AllDrones { get; set; }
-
-        //public ObservableCollection<PL.PO.DroneForList> AllDrones {get => allDrones; set { allDrones = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AllDrones))); } }
-
-        //private ObservableCollection<PL.PO.DroneForList> allDrones;
-
-        private string selectedFilter;
-        public string SelectedFilter
+        public RelayCommand DisplayDroneViewCommand { get; set; }
+        public ObservableCollection<POConverter.DroneStatuses> StatusFilter { get; private set; }
+        public POConverter.DroneStatuses SelectedStatusFilter
         {
-            get => selectedFilter;
+            get => selectedStatusFilter;
             set
             {
-                selectedFilter = value;
-                StatusOrWeightFilter = value == FilterCategory[0] ?
-                     (List<string>)Enum.GetValues(typeof(PO.POConverter.DroneStatuses)).Cast<PO.POConverter.DroneStatuses>() :
-                     (List<string>)Enum.GetValues(typeof(PO.POConverter.WeightCategories)).Cast<PO.POConverter.WeightCategories>();
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedFilter)));
+                selectedStatusFilter = value;
+                DronesListView.Refresh();
             }
         }
+        public ObservableCollection<POConverter.WeightCategories> WeightFilter { get; private set; }
+        public POConverter.WeightCategories SelectedWeightFilter
+        {
+            get => selectedWeightFilter;
+            set
+            {
+                selectedWeightFilter = value;
+                DronesListView.Refresh();
+            }
+        }
+        public ListCollectionView DronesListView { get; set; }
 
-        public event PropertyChangedEventHandler PropertyChanged;
 
         //---------------------------------Stations's Methods------------------------------
         /// <summary>
@@ -80,32 +89,9 @@ namespace PL
         /// shows full details of a specific drone.
         /// </summary>
         /// <param name="sender">the selected drone</param>
-        private void DroneListView_MouseDoubleClick(object sender)
+        private void DisplayDroneView(object sender)
         {
             new DroneView(new DroneViewModel(bl, sender as PL.PO.DroneForList)).Show();
-        }
-
-        /// <summary>
-        /// shows the menu how to filter the drones' list according to the user's choice: status or weight.
-        /// </summary>
-        /// <param name="sender">the selected item</param>
-        private void comboBox_SelectFilter(object sender)
-        {
-            StatusOrWeightFilter = (string)sender == FilterCategory[0] ? statusFilter : weightFilter;
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(StatusOrWeightFilter)));
-        }
-        private void comboBox_SelectSecondFilter(object sender)
-        {
-            AllDrones = new List<PL.PO.DroneForList>(ListsModel.Instance.Drones);
-            if (StatusOrWeightFilter == statusFilter)
-            {
-                AllDrones = AllDrones.Where(drone => drone.Status == (PO.POConverter.DroneStatuses)Enum.Parse(typeof(PO.POConverter.DroneStatuses), (string)sender));
-            }
-            else
-            {
-                AllDrones = AllDrones.Where(drone => drone.MaxWeight == (PO.POConverter.WeightCategories)Enum.Parse(typeof(PO.POConverter.WeightCategories), (string)sender));
-            }
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AllDrones)));///////////////////////////
         }
     }
 }
