@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace DalXml
 {
-    public partial class DalXml
+    sealed partial class DalXml
     {
 
         public IEnumerable<DroneCharge> DronesChargingInMe(Predicate<DroneCharge>InMe)
