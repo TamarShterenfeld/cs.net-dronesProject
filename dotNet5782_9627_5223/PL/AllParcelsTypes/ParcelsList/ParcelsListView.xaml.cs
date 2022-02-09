@@ -22,7 +22,7 @@ namespace PL
         public ParcelsListView(ParcelsListViewModel parcelsListViewModel)
         {
             InitializeComponent();
-            this.DataContext = parcelsListViewModel;    
+            DataContext = parcelsListViewModel;    
         }
     }
 }

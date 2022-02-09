@@ -40,16 +40,15 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="242*"/>
                 <ColumnDefinition Width="92*"/>
-                <ColumnDefinition Width="279*"/>
-                <ColumnDefinition Width="218*"/>
+                <ColumnDefinition Width="237*"/>
+                <ColumnDefinition Width="260*"/>
             </Grid.ColumnDefinitions>
 
-            <WrapPanel  Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Margin="64,12,159,12" >
-                <Button x:Name="button1"  Width="79" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Cancel" Command="{Binding Cancel}" CommandParameter="{Binding ElementName=MyParcelView}" Background="#FFD40202" BorderBrush="White"  Foreground="White" />
-                <!--<Button x:Name="buttonState" Width="80" Background="Turquoise" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Add" Command="{Binding Add}" CommandParameter="{Binding ElementName=MyParcelView}" BorderBrush="White" />-->
-                <Button x:Name="buttonDelete" Width="79" HorizontalAlignment="Right" VerticalAlignment="Center" Content="Delete" Command="{Binding Delete}" CommandParameter="{Binding ElementName=MyParcelView}"  Background="#FFD40202" BorderBrush="White" />
 
-            </WrapPanel>
+            <Button x:Name="button1"  Width="79" HorizontalAlignment="Left" VerticalAlignment="Bottom" Content="Cancel" Command="{Binding Cancel}" CommandParameter="{Binding ElementName=MyParcelView}" Background="#FFD40202" BorderBrush="White"  Foreground="White" Grid.Column="2" Grid.Row="1" Height="32" />
+            <ComboBox x:Name="buttonState"  Width="78" Background="Turquoise" HorizontalAlignment="Center" ItemsSource="{Binding Statuses}" SelectedItem="{Binding SelectedParcelStatus}" BorderBrush="White" BorderThickness="0,0,0,0" Grid.Column="2" Grid.Row="1" Height="31" VerticalAlignment="Top" Margin="0,26,0,0" />
+            <Button x:Name="buttonDelete" Width="78" HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="Delete" Command="{Binding Delete}" CommandParameter="{Binding ElementName=MyParcelView}"  Background="#FFD40202" BorderBrush="White" RenderTransformOrigin="4.262,1.155" Grid.Column="2" Grid.Row="1" Height="32" />
+
 
             <TextBlock Text="Parcel Id:" Grid.Column="1" Grid.Row ="2" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Foreground="#FF4C386B" Height="16" Width="51" Margin="0,0,0,58" Grid.RowSpan="2"/>
             <TextBox x:Name="ParcelId"
@@ -59,48 +58,73 @@
                 Grid.Column="2"
                 Grid.Row ="2" 
                 HorizontalAlignment="Center" 
-                VerticalAlignment="Top"             
-                Text="{Binding Parcel.ParcelId}" Height="25" Margin="0,33,0,0" Grid.RowSpan="2"
+                VerticalAlignment="Bottom"             
+                Text="{Binding Parcel.ParcelId}" Height="25" Grid.RowSpan="2" 
                      />
 
             <TextBlock Text="Sender Id:" Grid.Column="1" Grid.Row ="3" HorizontalAlignment="Left" Foreground="#FF4C386B" Width="53" VerticalAlignment="Bottom" Height="16" Margin="0,0,0,57" Grid.RowSpan="2" />
-            <TextBox x:Name="SenderId"
+            <StackPanel  Grid.Column="2"
+                Grid.Row ="2" 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Top" Cursor="Hand"
+                         Width=" 180" Height="23" Margin="0,35,0,0" Grid.RowSpan="2">
+                <StackPanel.InputBindings>
+                    <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding LeftDoubleClick_Sender}" />
+                </StackPanel.InputBindings>
+                <TextBox x:Name="SenderId"
                 TextWrapping="Wrap" 
                 IsEnabled="False"
                 Grid.Column="2"
                 Grid.Row ="3" 
-                HorizontalAlignment="Center" 
-                VerticalAlignment="Top"
-                Text="{Binding Parcel.SenderId }"  Width="150" Height="25" Margin="0,33,0,0" Grid.RowSpan="2"/>
-
+                HorizontalAlignment="Center"
+                FontWeight="ExtraBlack"
+                Text="{Binding Parcel.SenderId }"  Width="150" Height="21" Cursor="Hand" />
+            </StackPanel>
             <TextBlock Text="Target Id:" Grid.Row="4" Grid.Column="1" Foreground="#FF4C386B" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Height="16" Width="48" />
-            <TextBox x:Name="TargetId"
+            <StackPanel  Grid.Column="2"
+                Grid.Row ="4" 
+                HorizontalAlignment="Center" Cursor="Hand"
+                VerticalAlignment="Top" Width="180" Height="25" Margin="0,32,0,0" >
+                <StackPanel.InputBindings>
+                    <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding LeftDoubleClick_Target}" />
+                </StackPanel.InputBindings>
+                <TextBox x:Name="TargetId"
                 TextWrapping="Wrap" 
+                FontWeight="ExtraBlack"
                 IsEnabled="False"
                 Grid.Column="2"
                 Grid.Row ="4" 
-                HorizontalAlignment="Center" 
-                VerticalAlignment="Top"
-                Text="{Binding Parcel.TargetId }"  Width="150" Height="25" Margin="0,32,0,0"/>
-            <TextBlock Text="DroneId:" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Foreground="#FF3F4245" Height="16" Width="49" Margin="0,0,0,57" Grid.RowSpan="2" />
-            <TextBox x:Name="DroneId"
-                TextWrapping="Wrap" 
+                HorizontalAlignment="Center"
+                Text="{Binding Parcel.TargetId }"  Width="150" Height="22" />
+            </StackPanel>
+
+            <TextBlock Text="DroneId:" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Foreground="#FF3F4245" Height="16" Width="49" Margin="0,0,0,57" Grid.RowSpan="2"/>
+            <StackPanel  Grid.Column="2"
+                Grid.Row ="5" 
+                HorizontalAlignment="Center" Cursor="Hand"
+                VerticalAlignment="Top" Width="180" Height="25" Margin="0,33,0,0" Grid.RowSpan="2">
+                <StackPanel.InputBindings>
+                    <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding LeftDoubleClick_Drone}" />
+                </StackPanel.InputBindings>
+                <TextBox x:Name="DroneId"
+                TextWrapping="Wrap"                    
                 IsEnabled="False"
                 Grid.Column="2"
                 Grid.Row ="5" 
-                HorizontalAlignment="Center" 
-                VerticalAlignment="Top"
-                Text="{Binding Parcel.DroneId }"  Width="150" Height="25" Margin="0,33,0,0" Grid.RowSpan="2"/>
+                HorizontalAlignment="Center"
+                FontWeight="ExtraBlack"
+                Text="{Binding Parcel.DroneId }"  Width="150" Height="23" />
+            </StackPanel>
             <TextBlock Text="Weight" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Foreground="#FF3F4245" Height="16" Width="49" />
             <TextBox x:Name ="weight" 
                 Grid.Row="6" 
                 TextWrapping="Wrap" 
                 Grid.Column="2"
                 HorizontalAlignment="Center" 
-                VerticalAlignment="Top"
+                VerticalAlignment="Bottom"
                 IsEnabled="False"
                 Width="150"
-                Text="{Binding Parcel.Weight }" Height="25" Margin="0,32,0,0" />
+                Text="{Binding Parcel.Weight }" Height="24" />
             <TextBlock Text="Priority:" Grid.Row="7" Grid.Column="1" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Foreground="#FF3F4245" Height="16" Width="49" />
             <TextBox x:Name ="priority"
                 IsEnabled="False"
@@ -109,8 +133,8 @@
                 TextWrapping="Wrap"
                 Width="150"
                 HorizontalAlignment="Center" 
-                VerticalAlignment="Top"
-                Text ="{Binding Parcel.Priority}" Height="25" Margin="0,33,0,0" />
+                VerticalAlignment="Bottom"
+                Text ="{Binding Parcel.Priority}" Height="25" />
             <TextBlock Text="Status:" Grid.Row="8" Grid.Column="1" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Foreground="#FF3F4245" Height="16" Width="49" Margin="0,0,0,57" Grid.RowSpan="2" />
             <TextBox x:Name ="status" 
                 IsEnabled="False"
@@ -118,9 +142,9 @@
                 Grid.Column="2"
                 Width="150"
                 HorizontalAlignment="Center"
-                TextWrapping="Wrap" 
-                VerticalAlignment="Top"
-                Text ="{Binding Parcel.Status}" Height="25" Margin="0,33,0,0" Grid.RowSpan="2" />
+                Text="{Binding Parcel.Status}"
+                VerticalAlignment="Bottom" Height="25" />
+
         </Grid>
 
     </Grid>

@@ -7,14 +7,15 @@
          Icon="../../images/toplogo.jpg"
         x:Name="ParcelInPassingh"
         mc:Ignorable="d"
-        Title="Parcel In Passing" Height="700" Width="800">
+        Title="Parcel In Passing" Height="650" Width="800">
 
+   
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="199*"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Grid Margin="-18,0,653,606">
+        <Grid Margin="-18,0,653,554">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
@@ -48,13 +49,9 @@
                 <ColumnDefinition Width="251*"/>
                 <ColumnDefinition Width="198*"/>
             </Grid.ColumnDefinitions>
-
             <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="2" Height="32" Width="92">
                 <Button x:Name="button1"  Content="Cancel" Width="92" Background="#FFD40202" BorderBrush="White"  Foreground="White" Click="ButtonCancel_Click"/>
-                <ComboBox x:Name="button3" 
-                    ItemsSource="{Binding Button3Content}" 
-                    SelectedItem="{Binding Button3SelectedItem}"   
-                    Width="110" Background="Turquoise"  Visibility="Collapsed" Foreground="#FF313131" BorderThickness="1"/>
+                
                 <ComboBox x:Name="button4"
                     Width="130"
                     ItemsSource="{Binding ParcelOptions}" 
@@ -80,7 +77,7 @@
             Grid.Row ="1" 
             HorizontalAlignment="Center" 
             VerticalAlignment="Bottom"
-            Text="{Binding ParcelInPass.ToDestinition, Converter={StaticResource BoolToStringConverter}}"  Width="150"/>
+            Text= "{Binding ParcelInPass.ToDestinition}" Width="150"/>
 
             <TextBlock Text="Priority" Grid.Row="2" Grid.Column="1" Foreground="#FF4C386B" HorizontalAlignment="Left"  VerticalAlignment="Bottom" ><Run /><Run FlowDirection="RightToLeft" Language="he-il" Text=":"/></TextBlock>
             <ComboBox x:Name ="priority" 

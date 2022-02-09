@@ -40,7 +40,7 @@
                       SelectedItem="{Binding ParcelOption}"  
                       Background="Turquoise"  Visibility="Collapsed" BorderThickness="1"  Foreground="#FF313131" />-->
         </WrapPanel>
-        <TextBlock Text="Id:" Grid.Row="1" Grid.Column="1" Foreground="#FF2D2D2D"/>
+        <TextBlock x:Name="textBlock" Text="Id:" Grid.Row="1" Grid.Column="1" Foreground="#FF2D2D2D"/>
         <TextBox x:Name="id" Grid.Row="1" Grid.Column="2" MaxLength="9"
             TextWrapping="Wrap" 
             Width="140" 
@@ -84,32 +84,28 @@
                   SelectedItem="{Binding Drone.Status}"/>
         <TextBlock Text="Delivery:" Grid.Row= "6" Grid.Column="1" Foreground="#FF3F4245" Height="49"/>
         <StackPanel Grid.Row="6" Grid.Column="2"
-                    Width="140"  Grid.RowSpan="2" VerticalAlignment="Top" 
-            HorizontalAlignment="Center">
+            Width="160" VerticalAlignment="Center" 
+            HorizontalAlignment="Center" Height="48" Cursor="Hand" >
             <StackPanel.InputBindings>
                 <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding LeftDoubleClick}"/>
             </StackPanel.InputBindings>
             <TextBlock x:Name="delivery"
-                       Text="{Binding Drone.ParcelId}"
-                       VerticalAlignment="Top" 
-                       HorizontalAlignment="Center"
-                       IsEnabled="False" >
-            </TextBlock>
+                Text="{Binding Drone.ParcelId}"
+                IsEnabled="False"  VerticalAlignment="Center" 
+            HorizontalAlignment="Center"/>
+            <!--<TextBox x:Name="line"
+                Width="140" IsEnabled="False" Height="19" >
+                <TextBox.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleY="1"/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </TextBox.RenderTransform>
+            </TextBox>-->
         </StackPanel>
-        <TextBox x:Name="line"
-            Grid.Row="6" Grid.Column="2"
-            VerticalAlignment="Top" 
-            HorizontalAlignment="Center"
-            Width="140" IsEnabled="False" Height="17" RenderTransformOrigin="0.5,0.5" Margin="0,10,0,0" >
-            <TextBox.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform ScaleY="1"/>
-                    <SkewTransform/>
-                    <RotateTransform/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </TextBox.RenderTransform>
-        </TextBox>
+
         <TextBlock Text="Longitude:" Grid.Row="7" Grid.Column="1" Foreground="#FF3F4245"/>
         <TextBox x:Name="longitude"
             Grid.Row="7" Grid.Column="2"
@@ -119,7 +115,7 @@
             Width="140" 
             Text="{Binding CoorLon}"
             IsEnabled="{Binding EnableUpdate}"/>
-        
+
         <TextBlock Text="Latitude:" Grid.Row="8" Grid.Column="1" Foreground="#FF3F4245"/>
         <TextBox x:Name="latitude"
             Grid.Row="8" Grid.Column="2"
@@ -129,7 +125,7 @@
             VerticalAlignment="Top" 
             HorizontalAlignment="Center"
             Width="140"/>
-        
+
         <TextBlock x:Name="Lstation" Grid.Row= "9" Grid.Column="1" Foreground="#FF3F4245" Grid.ColumnSpan="2" Grid.RowSpan="2">
             <Run FlowDirection="RightToLeft" Language="he-il" Text="S"/><Run Text="tation ID:"/></TextBlock>
         <ComboBox x:Name ="station" 

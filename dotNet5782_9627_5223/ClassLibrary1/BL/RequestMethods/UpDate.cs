@@ -117,7 +117,10 @@ namespace IBL
                 throw new DroneStatusException(currentDrone.Status);
         }
 
-
+        public bool AssociateParcel(DroneForList d, Parcel p)
+        {
+            return DroneReachLastDestination(d, p);
+        }
         public void PickUpParcel(int droneId)
         {
             bool isPickedUp;
