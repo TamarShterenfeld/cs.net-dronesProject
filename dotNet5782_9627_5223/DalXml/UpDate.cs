@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace DalXml
 {
-    public partial class DalXml
+    sealed partial class DalXml
     {
         
         public void UpDate(Drone drone, int id)

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using DO;
 namespace DalXml
 {
-    public partial class DalXml
+    sealed partial class DalXml
     {
         public void Remove(DroneCharge drone)
         {

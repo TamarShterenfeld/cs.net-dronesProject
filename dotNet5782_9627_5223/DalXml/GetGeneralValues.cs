@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace DalXml
 {
-    public partial class DalXml
+    sealed partial class DalXml
     {
 
 

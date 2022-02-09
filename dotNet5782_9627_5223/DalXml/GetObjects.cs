@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using DO;
-using System.Linq;
+﻿using DO;
 
 namespace DalXml
 {
-  public partial class DalXml
+    sealed partial class DalXml
     {
 
         public BaseStation GetBaseStation(int baseStationId)
@@ -20,7 +16,7 @@ namespace DalXml
             return new Drone();
         }
 
-        public  DroneCharge GetDroneCharge(int droneId)
+        public DroneCharge GetDroneCharge(int droneId)
         {
             return new DroneCharge();
         }
