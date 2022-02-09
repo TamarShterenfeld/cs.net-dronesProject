@@ -9,7 +9,7 @@ namespace PL
         {
             private int id;
             private string model;
-            private Location location;
+            private Location location = new();
             private WeightCategories weight;
             private DroneStatuses status;
 

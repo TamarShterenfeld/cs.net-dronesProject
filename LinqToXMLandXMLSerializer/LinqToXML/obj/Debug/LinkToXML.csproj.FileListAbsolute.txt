@@ -1,0 +1,7 @@
+E:\Bagat\קורסים\C#\תשפ\נושא 10 - LinkToXML\LinkToXMLandXMLSerializer\LinkToXML\bin\Debug\LinkToXML.exe.config
+E:\Bagat\קורסים\C#\תשפ\נושא 10 - LinkToXML\LinkToXMLandXMLSerializer\LinkToXML\bin\Debug\LinkToXML.exe
+E:\Bagat\קורסים\C#\תשפ\נושא 10 - LinkToXML\LinkToXMLandXMLSerializer\LinkToXML\bin\Debug\LinkToXML.pdb
+E:\Bagat\קורסים\C#\תשפ\נושא 10 - LinkToXML\LinkToXMLandXMLSerializer\LinkToXML\obj\Debug\LinkToXML.csprojAssemblyReference.cache
+E:\Bagat\קורסים\C#\תשפ\נושא 10 - LinkToXML\LinkToXMLandXMLSerializer\LinkToXML\obj\Debug\LinkToXML.csproj.CoreCompileInputs.cache
+E:\Bagat\קורסים\C#\תשפ\נושא 10 - LinkToXML\LinkToXMLandXMLSerializer\LinkToXML\obj\Debug\LinkToXML.exe
+E:\Bagat\קורסים\C#\תשפ\נושא 10 - LinkToXML\LinkToXMLandXMLSerializer\LinkToXML\obj\Debug\LinkToXML.pdb

@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<ArrayOfCourse xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Course>
+    <CourseId>0</CourseId>
+    <CourseName>c#</CourseName>
+  </Course>
+  <Course>
+    <CourseId>1</CourseId>
+    <CourseName>java</CourseName>
+  </Course>
+  <Course>
+    <CourseId>2</CourseId>
+    <CourseName>מבנה המחשב</CourseName>
+  </Course>
+  <Course>
+    <CourseId>3</CourseId>
+    <CourseName>c++</CourseName>
+  </Course>
+  <Course>
+    <CourseId>4</CourseId>
+    <CourseName>אינפי</CourseName>
+  </Course>
+  <Course>
+    <CourseId>5</CourseId>
+    <CourseName>בדידה</CourseName>
+  </Course>
+  <Course>
+    <CourseId>6</CourseId>
+    <CourseName>מבוא לתכנות</CourseName>
+  </Course>
+</ArrayOfCourse>

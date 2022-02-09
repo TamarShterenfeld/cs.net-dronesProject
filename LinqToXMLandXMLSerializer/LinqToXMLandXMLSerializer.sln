@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30621.155
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XmlSerializerSample", "XmlSerializer\XmlSerializerSample.csproj", "{53A27327-FD14-4F0C-BAB0-8BB7CC596AD3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinqToXML", "LinqToXML\LinqToXML.csproj", "{AD2DC49F-B4BB-4128-A7A4-6E6F67E96BB4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{53A27327-FD14-4F0C-BAB0-8BB7CC596AD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53A27327-FD14-4F0C-BAB0-8BB7CC596AD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53A27327-FD14-4F0C-BAB0-8BB7CC596AD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53A27327-FD14-4F0C-BAB0-8BB7CC596AD3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD2DC49F-B4BB-4128-A7A4-6E6F67E96BB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD2DC49F-B4BB-4128-A7A4-6E6F67E96BB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD2DC49F-B4BB-4128-A7A4-6E6F67E96BB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD2DC49F-B4BB-4128-A7A4-6E6F67E96BB4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A2EE7C16-1371-4B56-8151-D3F81992951D}
+	EndGlobalSection
+EndGlobal
