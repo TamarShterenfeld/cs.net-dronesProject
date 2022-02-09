@@ -22,7 +22,7 @@ namespace PL
         BLApi.IBL bl;
         string selectedParcelStatus;
         public bool EnableUpdate { get; set; }
-        public PO.Parcel Parcel { set; get; }
+        public PO.Parcel MyParcel { set; get; }
         public ListCollectionView Statuses { get; set; }
         public RelayCommand Delete { get; set; }
         public RelayCommand LeftDoubleClick_Sender { get; set; }
@@ -33,7 +33,7 @@ namespace PL
         public ParcelViewModel(BO.ParcelForList parcel, BLApi.IBL bl)
         {
             this.bl = bl;
-            Parcel = new PO.Parcel(bl, parcel);
+            MyParcel = new PO.Parcel(bl, parcel);
             Statuses = new ListCollectionView(new List<string>() { "PickUp", "Supply"});
             Cancel = new(ButtonClick_Cancel);
             Delete = new(Button_ClickDelete, null);
@@ -49,9 +49,9 @@ namespace PL
                 selectedParcelStatus = value;   
                 if(selectedParcelStatus == "PickUp")
                 {
-                    if (Parcel.Status == ParcelStatuses.Associated)
+                    if (MyParcel.Status == ParcelStatuses.Associated)
                     {
-                        bl.PickUpParcel(Parcel.DroneId);
+                        bl.PickUpParcel(MyParcel.DroneId);
                         //צריך לטפל במקרה של חריגות.
                         MessageBox.Show("Parcel is pickedUp successfully!");
                     }
@@ -62,9 +62,9 @@ namespace PL
                 }
                 if (selectedParcelStatus == "Supply")
                 {
-                    if (Parcel.Status == ParcelStatuses.PickedUp)
+                    if (MyParcel.Status == ParcelStatuses.PickedUp)
                     {
-                        bl.SupplyParcel(Parcel.DroneId);
+                        bl.SupplyParcel(MyParcel.DroneId);
                         //צריך לטפל במקרה של חריגות.
                         MessageBox.Show("Parcel is supplied successfully!");
                     }
@@ -82,7 +82,7 @@ namespace PL
         public ParcelViewModel(BLApi.IBL bl)
         {
             this.bl = bl;
-            Parcel = new Parcel();
+            MyParcel = new Parcel();
         }
 
         public void ButtonClick_Cancel(object sender)
@@ -92,44 +92,44 @@ namespace PL
 
         private void DoubleClick_Sender(object sender)
         {
-            new CustomerView(new CustomerViewModel(bl, bl.GetCustomerForList(Parcel.SenderId))).Show();
+            new CustomerView(new CustomerViewModel(bl, bl.GetCustomerForList(MyParcel.SenderId))).Show();
         }
 
         private void DoubleClick_Target(object sender)
         {
-            new CustomerView(new CustomerViewModel(bl, bl.GetCustomerForList(Parcel.TargetId))).Show();
+            new CustomerView(new CustomerViewModel(bl, bl.GetCustomerForList(MyParcel.TargetId))).Show();
         }
 
         private void DoubleClick_Drone(object sender)
         {
-            new DroneView(new DroneViewModel(bl, bl.GetDroneForList(Parcel.DroneId))).Show();
+            new DroneView(new DroneViewModel(bl, bl.GetDroneForList(MyParcel.DroneId))).Show();
         }
         private void Button_ClickDelete(object sender)
         {
-            if (Parcel.Status != ParcelStatuses.Production)
+            if (MyParcel.Status != ParcelStatuses.Production)
             {
                 MessageBox.Show("Can not delete this parcel since \nit has been associated already.");
                 return;
             }
-            if (Parcel == null)
+            if (MyParcel == null)
             {
                 MessageBox.Show("No parcel was chosen, \nnot possible deleting nothing.");
             }
-            bl.Delete(ParcelPoToBo(Parcel));
-            ListsModel.Instance.DeleteParcel(Parcel.ParcelId);
+            bl.Delete(ParcelPoToBo(MyParcel));
+            ListsModel.Instance.DeleteParcel(MyParcel.ParcelId);
             MessageBox.Show("Parcel was deleted succesfully!");
             (sender as Window).Close();
         }
 
         private void CheckStatus_Changed(ParcelStatuses status)
         {
-            ParcelStatuses originalStatus = Parcel.Status;         
+            ParcelStatuses originalStatus = MyParcel.Status;         
             CheckValidationOfStatus(originalStatus, status);
         }
 
         private void CheckValidationOfStatus(ParcelStatuses originalStatus, ParcelStatuses status)
         {
-            BO.DroneForList drone = bl.GetDroneForList(Parcel.DroneId);
+            BO.DroneForList drone = bl.GetDroneForList(MyParcel.DroneId);
            
         }
         //private void Button_ClickAdd(object sender)

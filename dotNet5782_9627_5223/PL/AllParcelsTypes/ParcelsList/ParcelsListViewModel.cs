@@ -48,7 +48,7 @@ namespace PL
             allParcelsSortPriority = new(nameof(BO.ParcelForList.Priority), ListSortDirection.Ascending);
             allParcelsSortId = new(nameof(BO.ParcelForList.ParcelId), ListSortDirection.Ascending);
             Cancel = new(Button_ClickCancel, null);
-            Add = new(AddParcel, null);
+            Add = new(Button_ClickAdd, null);
             AllParcels = new ListCollectionView(ListsModel.Instance.Parcels);
             Button_AllParcels();
             LeftDoubleClick = new(DroneListView_MouseDoubleClick, null);
@@ -156,9 +156,9 @@ namespace PL
             (sender as Window).Close();
         }
 
-        private void AddParcel(object sender, RoutedEventArgs e)
+        private void Button_ClickAdd(object sender)
         {
-            new ParcelView(new ParcelViewModel( bl.GetParcelForList((sender as ParcelForList).ParcelId), this.bl)).Show();
+            new ParcelView(new ParcelViewModel(bl)).Show();
         }
 
     }
