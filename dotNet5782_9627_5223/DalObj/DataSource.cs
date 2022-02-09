@@ -142,13 +142,8 @@ namespace DalObject
                 parcel.TargetId = RandomCustomerId();
                 parcel.Priority = RandomPriority();
                 parcel.Weight = RandomWeight();
-                parcel.DroneId = 0;
-                for (int j = 0; j < DronesList.Count; j++)
-                {
-                    Drone currdrone = DronesList[j];
-                    parcel.DroneId = currdrone.Id;
-                    DronesList[j] = currdrone;
-                }
+                parcel.DroneId = -1;
+                
                 //initalize (random) a date of ProductionDate & the other DateTime fields are based on it.
                 //while assuming that each part of the shipment process maximum takes 14 business days.
                 parcel.ProductionDate = DateTime.Now;
