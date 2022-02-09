@@ -26,11 +26,11 @@
                 <ColumnDefinition Width="371*"/>
             </Grid.ColumnDefinitions>
             <ListView x:Name ="DroneListView"    BorderThickness="0" Margin="0,0,359,0" FontFamily="Levenim MT" FontSize="12" 
-                      ItemsSource="{Binding AllDrones}" SelectionMode="Extended" Grid.ColumnSpan="3">
+                      ItemsSource="{Binding DronesListView}" SelectionMode="Extended" Grid.ColumnSpan="3">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDoubleClick">
                         <i:InvokeCommandAction 
-                        Command="{Binding LeftDoubleClick}"
+                        Command="{Binding DisplayDroneViewCommand}"
                         CommandParameter="{Binding ElementName=DroneListView, Path=SelectedItem}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
@@ -50,29 +50,17 @@
             </Grid>
         </Grid>
         <WrapPanel Grid.Row="1" Grid.Column="0" HorizontalAlignment="center"  VerticalAlignment="center">
-            <ComboBox x:Name="ChooseCategory" ItemsSource="{Binding FilterCategory}"  HorizontalAlignment="center"  VerticalAlignment="center" 
-                      Width="120"  Text="choose category" BorderBrush="#8909FFFE" Foreground="#FF272626" IsEditable="True" IsReadOnly="True">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="SelectionChanged">
-                        <i:InvokeCommandAction 
-                            Command="{Binding SelectFilter}" 
-                            CommandParameter="{Binding ElementName=ChooseCategory,Path=SelectedItem}"
-                         />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
+            <ComboBox x:Name="ChooseCategory" ItemsSource="{Binding StatusFilter}"  HorizontalAlignment="center"  VerticalAlignment="center" 
+                      Width="120"  Text="choose category" BorderBrush="#8909FFFE" Foreground="#FF272626" IsEditable="True" IsReadOnly="True"
+                      SelectedItem="{Binding SelectedStatusFilter}">
             </ComboBox>
+            
         </WrapPanel>
         <WrapPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="center"  VerticalAlignment="center">
-            <ComboBox x:Name="Filter" Text="filter" ItemsSource="{Binding StatusOrWeightFilter}"  HorizontalAlignment="Center"  
-                      VerticalAlignment="Center" Width="146"   BorderBrush="#FF38FFFD" Foreground="#FF2A2828" IsEditable="True" IsReadOnly="True">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="SelectionChanged">
-                        <i:InvokeCommandAction 
-                            Command="{Binding SelectSecondFilter}" 
-                            CommandParameter="{Binding ElementName=Filter,Path=SelectedItem}"
-                        />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
+            <ComboBox x:Name="StatusFilterComboBox" Text="filter" ItemsSource="{Binding WeightFilter}"  HorizontalAlignment="Center"  
+                      VerticalAlignment="Center" Width="146"   BorderBrush="#FF38FFFD" Foreground="#FF2A2828" IsReadOnly="True"
+                      SelectedItem="{Binding SelectedWeightFilter}">
+                
             </ComboBox>
         </WrapPanel>
         

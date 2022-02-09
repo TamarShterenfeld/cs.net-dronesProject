@@ -44,7 +44,7 @@ namespace PL.PO
         /// </summary>
         public enum WeightCategories
         {
-            Light = 1, Average, Heavy
+            None = 0, Light = 1, Average, Heavy
         }
 
 
@@ -83,8 +83,8 @@ namespace PL.PO
         /// </summary>
         public enum DroneStatuses
         {
-            Available = 1, Maintenance, Shipment
-        }      
+            None = 0, Available = 1, Maintenance, Shipment
+        }
 
     }
 }

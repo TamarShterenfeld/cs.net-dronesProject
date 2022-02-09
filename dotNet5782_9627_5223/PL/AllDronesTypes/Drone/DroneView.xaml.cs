@@ -13,7 +13,7 @@ namespace PL
         public DroneView(DroneViewModel droneViewModel)
         {
             InitializeComponent();
-            this.DataContext = droneViewModel;
+            DataContext = droneViewModel;
         }
     }
 }
