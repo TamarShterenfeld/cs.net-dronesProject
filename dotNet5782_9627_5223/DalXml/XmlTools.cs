@@ -19,37 +19,31 @@ namespace Dal
                 Directory.CreateDirectory(dirPath);
         }
         #region SaveLoadWithXElement
-        public static void SaveListToXmlElement(XElement rootElem, string filePath)
+        public static void SaveListToXmlElement<T>(List<T> list, string filePath)
         {
-            try
-            {
-                rootElem.Save(dirPath + filePath);
-            }
-            catch (Exception ex)
-            {
-              //  throw new DO.XMLFileLoadCreateException(filePath, $"fail to create xml file: {filePath}", ex);
-            }
+            FileStream file = new FileStream(dirPath + filePath, FileMode.Create);
+            XmlSerializer x = new XmlSerializer(list.GetType());
+            x.Serialize(file, list);
+            file.Close();
         }
 
-        public static XElement LoadListFromXmlElement(string filePath)
+        public static List<T> LoadListFromXmlElement<T>(string filePath)
         {
             try
             {
                 if (File.Exists(dirPath + filePath))
                 {
-                    return XElement.Load(dirPath + filePath);
+                    
                 }
                 else
                 {
-                    XElement rootElem = new XElement(dirPath + filePath);
-                    rootElem.Save(dirPath + filePath);
-                    return rootElem;
+                    return new List<T>();
                 }
             }
             catch (Exception ex)
             {
                 throw ;
-               // throw new DO.XMLFileLoadCreateException(filePath, $"fail to load xml file: {filePath}", ex);
+                throw new DO.XMLFileLoadCreateException(filePath, $"fail to load xml file: {filePath}", ex);
             }
         }
         #endregion
