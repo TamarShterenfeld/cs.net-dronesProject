@@ -21,7 +21,7 @@
         </Grid.ColumnDefinitions>
         <WrapPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="center"  VerticalAlignment="center">
             <Button Content="Close"  Command="{Binding Cancel}" CommandParameter="{Binding ElementName=customersList}" Background="Turquoise" BorderBrush="White" />
-            <Button Content="Add Customer"   Command="{Binding Add}" Background="Turquoise" BorderBrush="White" />
+            <Button Content="Add Customer" Command="{Binding Add}" Background="Turquoise" BorderBrush="White" />
         </WrapPanel>
         <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
