@@ -14,12 +14,18 @@ namespace DalXml
     {
         public void Add(BaseStation baseStation)
         {
-            
+            List<BaseStation> BaseStation = Dal.XMLTools.LoadListFromXmlSerializer<DO.BaseStation>(baseStationsPath);
+            CheckNotExistenceOfBaseStation(baseStation.Id);
+            BaseStation.Add(baseStation);
+
         }
+
 
         public void Add(Customer customer)
         {
-            
+            List<Customer> CustomersList = Dal.XMLTools.LoadListFromXmlSerializer<DO.Customer>(customersPath);
+            CheckNotExistenceOfCustomer(customer.Id);
+            CustomersList.Add(customer);
         }
 
 
@@ -39,6 +45,7 @@ namespace DalXml
         }
     }
 }
+
 
 
 
