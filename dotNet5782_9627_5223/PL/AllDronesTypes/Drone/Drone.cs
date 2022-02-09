@@ -20,7 +20,7 @@ namespace PL
                 Status = (DroneStatuses)drone.Status;
                 Weight = (WeightCategories)drone.MaxWeight;
                 Battery = drone.Battery;
-                ParcelId = drone.ParcelId;
+                //ParcelId = drone.ParcelId;
                 BO.Drone drone1 = bl.GetBLDrone(Id);
                 Location = (PO.Location)POConverter.LocationBOTOPO(drone1.Location);
             }
@@ -31,7 +31,8 @@ namespace PL
             public Drone() { }
 
             public double Battery { get; set; }
-            public int ParcelId { get; set; }
+            private ParcelInPassing parcel;
+            public ParcelInPassing Parcel { set { parcel = value; } get { return parcel; } }
             public Location Location
             {
                 get => location;

@@ -194,15 +194,6 @@ namespace BLApi
         DroneForList ConvertDroneDoToDroneForList(DO.Drone drone);
 
         /// <summary>
-        /// the function returns a filtered dronesForList list by the current parameter of DroneStatus
-        /// </summary>
-        /// <param name="status">the requested status that the list is filtered by</param>
-        /// <returns>a filtered list by the requested status</returns>
-        IEnumerable<DroneForList> GetStatusFilteredDroneForList(DroneStatuses status);
-
-        IEnumerable<DroneForList> GetWeightFilteredDroneForList(WeightCategories weight);
-
-        /// <summary>
         /// The function displays a drone in parcel according to id.
         /// </summary>
         /// <param name="id">parcel's id - for identify the parcel</param>

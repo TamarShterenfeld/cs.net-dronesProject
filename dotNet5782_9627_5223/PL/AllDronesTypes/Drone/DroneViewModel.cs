@@ -157,7 +157,7 @@ namespace PL
         /// <param name="sender">the event</param>
         private void Button_ClickDelete(object sender)
         {
-            if (Drone.ParcelId!=0 )
+            if (Drone.Parcel.Id!=0 )
             {
                 MessageBox.Show("Can not delete this drone since he has a parcel\nfinish with the parcel and try again.");
                 return;
@@ -173,7 +173,7 @@ namespace PL
         /// <param name="sender">the event</param>
         private void Button_ClickAdd(object sender)
         {
-            //Bl.Add(DronePOToBo(Drone));/////////////////////////////////////////////////////
+            Bl.Add(DronePOToBo(Drone),);
             ListsModel.Instance.AddDrone(Drone.Id);
         }
 

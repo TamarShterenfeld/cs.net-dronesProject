@@ -14,6 +14,5 @@ namespace PL.PO
             return new PO.ParcelInPassing(parcel.Id, toDest, parcel.Priority,
                 parcel.Weight, parcel.Sender, parcel.Target, parcel.Collect, parcel.Destination, parcel.Distatnce);
         }
-
     }
 }
