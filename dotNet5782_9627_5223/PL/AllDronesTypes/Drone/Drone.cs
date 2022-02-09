@@ -9,11 +9,11 @@ namespace PL
         {
             private int id;
             private string model;
-            private Location location;
+            private Location location = new();
             private WeightCategories weight;
             private DroneStatuses status;
 
-            public Drone(BO.DroneForList drone, BLApi.IBL bl)
+            public Drone(PL.PO.DroneForList drone, BLApi.IBL bl)
             {
                 Id = drone.Id;
                 Model = drone.Model;

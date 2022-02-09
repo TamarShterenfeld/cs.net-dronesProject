@@ -87,6 +87,7 @@ namespace PL
                         $"status: {Status} \n" +
                         $"locaion: {Location}";
             }
+
             public event PropertyChangedEventHandler PropertyChanged;
         }
     }

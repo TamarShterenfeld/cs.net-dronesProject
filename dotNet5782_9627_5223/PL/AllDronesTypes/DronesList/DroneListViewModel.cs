@@ -20,7 +20,7 @@ namespace PL
             Add = new(Button_ClickAdd, null);
             FilterCategory = new List<string>{"status", "weight"};
             SelectFilter = new(comboBox_SelectFilter, null);
-            allDrones = new ObservableCollection<PL.PO.DroneForList>(ListsModel.Instance.Drones);
+            AllDrones = new List<PL.PO.DroneForList>(ListsModel.Instance.Drones);
             statusFilter = Enum.GetValues(typeof(PO.POConverter.DroneStatuses)).Cast<PO.POConverter.DroneStatuses>() .ToList().ConvertAll(f => f.ToString()); 
             weightFilter = Enum.GetValues(typeof(PO.POConverter.WeightCategories)).Cast<PO.POConverter.WeightCategories>().ToList().ConvertAll(f => f.ToString());
             SelectSecondFilter = new(comboBox_SelectSecondFilter, null);
@@ -35,10 +35,11 @@ namespace PL
         public List<string> StatusOrWeightFilter { get; set; }
         public List<string> statusFilter { get; set; } 
         private List<string> weightFilter { get; set; }
+        public IEnumerable<PL.PO.DroneForList> AllDrones { get; set; }
 
-        public ObservableCollection<PL.PO.DroneForList> AllDrones {get => allDrones; set { allDrones = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AllDrones))); } }
+        //public ObservableCollection<PL.PO.DroneForList> AllDrones {get => allDrones; set { allDrones = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AllDrones))); } }
 
-        private ObservableCollection<PL.PO.DroneForList> allDrones;
+        //private ObservableCollection<PL.PO.DroneForList> allDrones;
 
         private string selectedFilter;
         public string SelectedFilter
@@ -47,9 +48,9 @@ namespace PL
             set
             {
                 selectedFilter = value;
-                //StatusOrWeightFilter = value == FilterCategory[0] ?
-                //     (List<string>)Enum.GetValues(typeof(PO.POConverter.DroneStatuses)).Cast<PO.POConverter.DroneStatuses>() :
-                //     (List<string>)Enum.GetValues(typeof(PO.POConverter.WeightCategories)).Cast<PO.POConverter.WeightCategories>();
+                StatusOrWeightFilter = value == FilterCategory[0] ?
+                     (List<string>)Enum.GetValues(typeof(PO.POConverter.DroneStatuses)).Cast<PO.POConverter.DroneStatuses>() :
+                     (List<string>)Enum.GetValues(typeof(PO.POConverter.WeightCategories)).Cast<PO.POConverter.WeightCategories>();
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedFilter)));
             }
         }
@@ -81,7 +82,7 @@ namespace PL
         /// <param name="sender">the selected drone</param>
         private void DroneListView_MouseDoubleClick(object sender)
         {
-            new DroneView(new DroneViewModel(bl, sender as DroneForList)).Show();
+            new DroneView(new DroneViewModel(bl, sender as PL.PO.DroneForList)).Show();
         }
 
         /// <summary>
@@ -95,49 +96,16 @@ namespace PL
         }
         private void comboBox_SelectSecondFilter(object sender)
         {
-            AllDrones = allDrones;
+            AllDrones = new List<PL.PO.DroneForList>(ListsModel.Instance.Drones);
             if (StatusOrWeightFilter == statusFilter)
             {
-               
-                foreach (var item in allDrones)
-                {
-                    if (item.Status == (PO.POConverter.DroneStatuses)Enum.Parse(typeof(PO.POConverter.DroneStatuses), (string)sender, true))
-                    {
-                        var curDrone = AllDrones.FirstOrDefault(drone => drone.Id == item.Id);
-                        AllDrones.Remove(curDrone);
-                    }
-                }
+                AllDrones = AllDrones.Where(drone => drone.Status == (PO.POConverter.DroneStatuses)Enum.Parse(typeof(PO.POConverter.DroneStatuses), (string)sender));
             }
             else
             {
-                foreach (var item in AllDrones)
-                {
-                    if (item.MaxWeight == (PO.POConverter.WeightCategories)Enum.Parse(typeof(PO.POConverter.WeightCategories), (string)sender, true))
-                    {
-                        var curDrone = AllDrones.FirstOrDefault(drone => drone.Id == item.Id);
-                        AllDrones.Remove(curDrone);
-                    }
-                }
+                AllDrones = AllDrones.Where(drone => drone.MaxWeight == (PO.POConverter.WeightCategories)Enum.Parse(typeof(PO.POConverter.WeightCategories), (string)sender));
             }
-           
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AllDrones)));///////////////////////////
         }
-        
-
-
-
-        //private void Button_AllStations()
-        //{
-        //    AllStations.GroupDescriptions.Remove(allStationsGroupDescription);
-        //    AllStations.SortDescriptions.Remove(allStationsSortFree);
-        //    AllStations.SortDescriptions.Add(allStationsSortId);
-        //}
-
-        //private void Button_GroupByChargeSlots()
-        //{
-        //    AllStations.GroupDescriptions.Add(allStationsGroupDescription);
-        //    AllStations.SortDescriptions.Remove(allStationsSortId);
-        //    AllStations.SortDescriptions.Add(allStationsSortFree);
-        //}
-
     }
 }

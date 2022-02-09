@@ -47,6 +47,15 @@ namespace PL.PO
         public Location()
         { }
 
-        
+        /// <summary>
+        /// ovveride ToString function.
+        /// </summary>
+        /// <returns>description of the Location object</returns>
+        public override string ToString()
+        {
+            return $"longitude: {CoorLongitude} , latitude: {CoorLatitude}";
+        }
+
+
     }
 }

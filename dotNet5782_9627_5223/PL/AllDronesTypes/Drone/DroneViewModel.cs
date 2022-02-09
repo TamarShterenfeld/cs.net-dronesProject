@@ -32,9 +32,9 @@ namespace PL
         /// </summary>
         /// <param name="bl">BL object</param>
         /// <param name="customer">CustomerForList object</param>
-        public DroneViewModel(BLApi.IBL bl, BO.DroneForList drone): this(bl)
+        public DroneViewModel(BLApi.IBL bl, PL.PO.DroneForList drone): this(bl)
         {
-            Drone = new PO.Drone (drone, bl);
+            Drone = new PO.Drone(drone, bl);
             AddOrUpdate = new(Button_ClickUpdate, null);
             Delete = new(Button_ClickDelete, null);
             EnableUpdate = false;
@@ -86,6 +86,7 @@ namespace PL
                 }
             }
         }
+
 
 
         //public PO.ParcelInPassing Parcel { get; set; }

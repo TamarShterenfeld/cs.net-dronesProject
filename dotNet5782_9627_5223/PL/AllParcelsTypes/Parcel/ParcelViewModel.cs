@@ -102,7 +102,7 @@ namespace PL
 
         private void DoubleClick_Drone(object sender)
         {
-            new DroneView(new DroneViewModel(bl, bl.GetDroneForList(MyParcel.DroneId))).Show();
+            new DroneView(new DroneViewModel(bl,DroneForListBOToPO( bl.GetDroneForList(MyParcel.DroneId)))).Show();
         }
         private void Button_ClickDelete(object sender)
         {
