@@ -19,7 +19,9 @@ namespace BLApi
         /// <param name="parcelId">parcel id</param>
         /// <param name="droneId">drone id</param>
         void AssociateParcel(int droneId);
-        
+
+        bool AssociateParcel(DroneForList d, Parcel p);
+
 
         /// <summary>
         /// The function gives pick up date to the parcel.

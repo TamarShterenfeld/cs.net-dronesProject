@@ -20,34 +20,21 @@ namespace PL
     public class ParcelViewModel
     {
         BLApi.IBL bl;
-        ParcelStatuses selectedParcelStatus;
+        string selectedParcelStatus;
         public bool EnableUpdate { get; set; }
         public PO.Parcel Parcel { set; get; }
-        public Array DroneStatusesList { get; set; }
+        public ListCollectionView Statuses { get; set; }
         public RelayCommand Delete { get; set; }
         public RelayCommand LeftDoubleClick_Sender { get; set; }
         public RelayCommand LeftDoubleClick_Target { get; set; }
         public RelayCommand LeftDoubleClick_Drone { get; set; }
         public RelayCommand Cancel { set; get; }
 
-        public ParcelStatuses SelectedParcelStatus
-        {
-            get
-            {
-                return selectedParcelStatus;
-            }
-            set
-            {
-                selectedParcelStatus = value;
-                CheckStatus_Changed(selectedParcelStatus);
-            }
-        }
-
         public ParcelViewModel(BO.ParcelForList parcel, BLApi.IBL bl)
         {
             this.bl = bl;
             Parcel = new PO.Parcel(bl, parcel);
-            DroneStatusesList = typeof(DroneStatuses).GetEnumValues();
+            Statuses = new ListCollectionView(new List<string>() { "PickUp", "Supply"});
             Cancel = new(ButtonClick_Cancel);
             Delete = new(Button_ClickDelete, null);
             LeftDoubleClick_Sender = new(DoubleClick_Sender, null);
@@ -55,6 +42,43 @@ namespace PL
             LeftDoubleClick_Drone = new(DoubleClick_Drone, null);
         }
 
+        public string SelectedParcelStatus
+        {
+            set
+            {
+                selectedParcelStatus = value;   
+                if(selectedParcelStatus == "PickUp")
+                {
+                    if (Parcel.Status == ParcelStatuses.Associated)
+                    {
+                        bl.PickUpParcel(Parcel.DroneId);
+                        //צריך לטפל במקרה של חריגות.
+                        MessageBox.Show("Parcel is pickedUp successfully!");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Parcel's status isn't valid for picking it up.");
+                    }
+                }
+                if (selectedParcelStatus == "Supply")
+                {
+                    if (Parcel.Status == ParcelStatuses.PickedUp)
+                    {
+                        bl.SupplyParcel(Parcel.DroneId);
+                        //צריך לטפל במקרה של חריגות.
+                        MessageBox.Show("Parcel is supplied successfully!");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Parcel's status isn't valid for suppling it.");
+                    }
+                }
+            }
+            get
+            {
+                return selectedParcelStatus;
+            }
+        }
         public ParcelViewModel(BLApi.IBL bl)
         {
             this.bl = bl;
@@ -93,44 +117,21 @@ namespace PL
             }
             bl.Delete(ParcelPoToBo(Parcel));
             ListsModel.Instance.DeleteParcel(Parcel.ParcelId);
+            MessageBox.Show("Parcel was deleted succesfully!");
             (sender as Window).Close();
         }
 
         private void CheckStatus_Changed(ParcelStatuses status)
         {
-            ParcelStatuses originalStatus = Parcel.Status;
-            switch (originalStatus)
-            {
-                case ParcelStatuses.Production:
-                    {
-                        if (status == ParcelStatuses.PickedUp || status == ParcelStatuses.Supplied)
-                        {
-                            MessageBox.Show("The parcel has been producted a short time ago. \ntry a Production / Associated option.");
-                        }
-                        else
-                        {
-                            if(status == ParcelStatuses.Associated)
-                            {
-                                bl.AssociateParcel(Parcel.DroneId)
-                            }
-                        }
-                        break;
-                    }
-                case ParcelStatuses.Associated:
-                    {
-                        break;
-                    }
-                case ParcelStatuses.PickedUp:
-                    {
-                        break;
-                    }
-                case ParcelStatuses.Supplied:
-                    {
-                        break;
-                    }
-            }
+            ParcelStatuses originalStatus = Parcel.Status;         
+            CheckValidationOfStatus(originalStatus, status);
         }
 
+        private void CheckValidationOfStatus(ParcelStatuses originalStatus, ParcelStatuses status)
+        {
+            BO.DroneForList drone = bl.GetDroneForList(Parcel.DroneId);
+           
+        }
         //private void Button_ClickAdd(object sender)
         //{
         //    bl.Add(ParcelPoToBo(Parcel));

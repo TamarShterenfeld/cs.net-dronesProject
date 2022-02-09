@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Data;
+using static PL.PO.POConverter;
 
 namespace PL
 {
@@ -27,11 +28,12 @@ namespace PL
 
         public ListCollectionView GroupOptions { get; set; }
         public ListCollectionView SortOptions { get; set; }
+
         //PropertyGroupDescription groupDescription = new PropertyGroupDescription("AvailableChargeSlots");
         //SortDescription sortFree = new("AvailableChargeSlots", 0);
         //SortDescription sortId = new("Id", 0);
 
-      
+
 
         public ParcelsListViewModel(BLApi.IBL bl)
         {
@@ -51,7 +53,7 @@ namespace PL
             Button_AllParcels();
             LeftDoubleClick = new(DroneListView_MouseDoubleClick, null);
         }
-        public PO.POConverter.GroupOptions SelectedGroup
+        public GroupOptions SelectedGroup
         {
             get => selectedGroup;
             set
@@ -74,7 +76,7 @@ namespace PL
 
       
         
-        public PO.POConverter.SortOptions SelectedSort
+        public SortOptions SelectedSort
         {
             get => selectedSort;
             set
@@ -156,7 +158,7 @@ namespace PL
 
         private void AddParcel(object sender, RoutedEventArgs e)
         {
-            new ParcelView(new ParcelViewModel(this.bl)).Show();
+            new ParcelView(new ParcelViewModel( bl.GetParcelForList((sender as ParcelForList).ParcelId), this.bl)).Show();
         }
 
     }
