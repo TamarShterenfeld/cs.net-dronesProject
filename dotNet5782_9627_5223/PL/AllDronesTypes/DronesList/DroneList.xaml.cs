@@ -88,8 +88,7 @@ namespace PL
         //{
         //    Filter();
         //    DroneStatuses status = (DroneStatuses)StatusFilter.SelectedItem;
-        //    DroneListView.ItemsSource = (List<DroneForList>)bl.GetStatusFilteredDroneForList(status);
-            
+        // DroneListView.ItemsSource = (List<DroneForList>)bl.GetStatusFilteredDroneForList(status); 
         //}
 
         ///// <summary>

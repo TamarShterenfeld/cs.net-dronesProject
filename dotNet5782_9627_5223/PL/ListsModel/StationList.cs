@@ -27,7 +27,7 @@ namespace PL
             Stations = new ObservableCollection<BaseStationForList>(bl.GetBaseStationList().ToList());
             Customers = new ObservableCollection<CustomerForList>(bl.GetCustomersList().ToList());
             Parcels = new ObservableCollection<ParcelForList>(bl.GetParcelsList().ToList());
-            Drones = new ObservableCollection<DroneForList>(bl.GetDronesForList().ToList());
+            Drones = new ObservableCollection<PL.PO.DroneForList>(PO.POConverter.DroneListBOToPO(bl.GetDronesForList()).ToList());
         }
 
         public ObservableCollection<BO.BaseStationForList> Stations

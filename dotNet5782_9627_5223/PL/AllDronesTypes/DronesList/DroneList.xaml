@@ -61,15 +61,21 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </ComboBox>
-            <!--SelectionChanged="ChooseCategory_SelectionChanged"-->
         </WrapPanel>
         <WrapPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="center"  VerticalAlignment="center">
-            <ComboBox x:Name="Filter" Text="filter" ItemsSource="{Binding StatusOrWeightFilter}"  HorizontalAlignment="Center"  VerticalAlignment="Center" Width="146"   BorderBrush="#FF38FFFD" Foreground="#FF2A2828" IsEditable="True" IsReadOnly="True"/>
-            <!--SelectionChanged="StatusFilter_SelectionChanged"-->
+            <ComboBox x:Name="Filter" Text="filter" ItemsSource="{Binding StatusOrWeightFilter}"  HorizontalAlignment="Center"  
+                      VerticalAlignment="Center" Width="146"   BorderBrush="#FF38FFFD" Foreground="#FF2A2828" IsEditable="True" IsReadOnly="True">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction 
+                            Command="{Binding SelectSecondFilter}" 
+                            CommandParameter="{Binding ElementName=Filter,Path=SelectedItem}"
+                        />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ComboBox>
         </WrapPanel>
-        <!--<WrapPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="center"  VerticalAlignment="center">
-            <ComboBox x:Name="WeightFilter" Text="choose weight status" ItemsSource="{Binding}"  HorizontalAlignment="Center"  VerticalAlignment="Center" Width="146"  SelectionChanged="WeightFilter_SelectionChanged" Foreground="#FF373737" IsEditable="True" BorderBrush="#FF7BFFFE" IsReadOnly="True"></ComboBox>
-        </WrapPanel>-->
+        
         <Grid Height="62" VerticalAlignment="Top" Margin="10,0,253,0">
             <Grid.Background>
                 <ImageBrush ImageSource="../../images/logo1.jpg"/>

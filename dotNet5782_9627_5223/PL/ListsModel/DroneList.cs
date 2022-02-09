@@ -15,8 +15,8 @@ namespace PL
     {
         // DroneViewModel Lists
 
-        ObservableCollection<DroneForList> drones;
-        public ObservableCollection<BO.DroneForList> Drones
+        ObservableCollection<PL.PO.DroneForList> drones;
+        public ObservableCollection<PL.PO.DroneForList> Drones
         {
             get => drones;
             private set
@@ -52,7 +52,7 @@ namespace PL
         /// <param name="droneId">drone's id</param>
         public void AddDrone(int droneId)
         {
-            Drones.Add(bl.GetDroneForList(droneId));
+            Drones.Add(PO.POConverter.DroneForListBOToPO(bl.GetDroneForList(droneId)));
         }
     }
 }
