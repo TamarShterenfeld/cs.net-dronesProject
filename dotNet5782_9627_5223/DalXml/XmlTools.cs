@@ -33,7 +33,12 @@ namespace Dal
             {
                 if (File.Exists(dirPath + filePath))
                 {
-                    
+                    List<T> list;
+                    XmlSerializer x = new XmlSerializer(typeof(List<T>));
+                    FileStream file = new FileStream(dirPath + filePath, FileMode.Open);
+                    list = (List<T>)x.Deserialize(file);
+                    file.Close();
+                    return list;
                 }
                 else
                 {

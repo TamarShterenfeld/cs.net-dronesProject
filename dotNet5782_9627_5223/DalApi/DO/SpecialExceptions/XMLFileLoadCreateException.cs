@@ -12,8 +12,8 @@ namespace DO
     public class XMLFileLoadCreateException : Exception
     {
         string myMessage;
-        public string Mymessage { get; set; }
         string file;
+        public string Mymessage { get; set; }
         public string File { get; set; }
         public XMLFileLoadCreateException() : base() { }
         public XMLFileLoadCreateException(string message) : base(message) { }
@@ -26,5 +26,4 @@ namespace DO
             return "XMLFileLoadCreateException Exception is thrown from DO logic level from file: " + Message;
         }
     }
-
 }
