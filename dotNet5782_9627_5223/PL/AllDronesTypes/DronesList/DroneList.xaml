@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"       
         Title="DroneList" Height="450" Width="800"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         Icon="../../images/toplogo.jpg">
     <Grid>
         <Grid.RowDefinitions>
@@ -15,8 +16,8 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <WrapPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="center"  VerticalAlignment="center">
-            <Button Content="Close"  Click="Button_ClickClose"  Background="Turquoise" BorderBrush="White" />
-            <Button Content="Add Drone"   Click="Button_ClickAdd" Background="Turquoise" BorderBrush="White" />
+            <Button Content="Close" Command="{Binding Cancel}"  CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}" Background="Turquoise" BorderBrush="White" />
+            <Button Content="Add Drone"  Command="{Binding Add}" Background="Turquoise" BorderBrush="White" />
         </WrapPanel>
         <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
@@ -24,8 +25,16 @@
                 <ColumnDefinition Width="10*"/>
                 <ColumnDefinition Width="371*"/>
             </Grid.ColumnDefinitions>
-            <ListView x:Name ="DroneListView"  MouseDoubleClick="DroneListView_MouseDoubleClick"  BorderThickness="0" Margin="0,0,359,0" FontFamily="Levenim MT" FontSize="12" 
-                      ItemsSource="{Binding}" SelectionMode="Extended" Grid.ColumnSpan="3"/>
+            <ListView x:Name ="DroneListView"    BorderThickness="0" Margin="0,0,359,0" FontFamily="Levenim MT" FontSize="12" 
+                      ItemsSource="{Binding AllDrones}" SelectionMode="Extended" Grid.ColumnSpan="3">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <i:InvokeCommandAction 
+                        Command="{Binding LeftDoubleClick}"
+                        CommandParameter="{Binding ElementName=DroneListView, Path=SelectedItem}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ListView>
             <Grid x:Name="aside" Margin="17,84,-22,10" Grid.Column="2">
                 <Grid.Background>
                     <ImageBrush ImageSource="../../images/dron bg.jpg"/>
@@ -41,14 +50,26 @@
             </Grid>
         </Grid>
         <WrapPanel Grid.Row="1" Grid.Column="0" HorizontalAlignment="center"  VerticalAlignment="center">
-            <ComboBox x:Name="ChooseCategory" ItemsSource="{Binding}"  HorizontalAlignment="center"  VerticalAlignment="center" Width="120"  SelectionChanged="ChooseCategory_SelectionChanged" Text="choose category" BorderBrush="#8909FFFE" Foreground="#FF272626" IsEditable="True" IsReadOnly="True"/>
+            <ComboBox x:Name="ChooseCategory" ItemsSource="{Binding FilterCategory}"  HorizontalAlignment="center"  VerticalAlignment="center" 
+                      Width="120"  Text="choose category" BorderBrush="#8909FFFE" Foreground="#FF272626" IsEditable="True" IsReadOnly="True">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction 
+                            Command="{Binding SelectFilter}" 
+                            CommandParameter="{Binding ElementName=ChooseCategory,Path=SelectedItem}"
+                         />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ComboBox>
+            <!--SelectionChanged="ChooseCategory_SelectionChanged"-->
         </WrapPanel>
         <WrapPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="center"  VerticalAlignment="center">
-            <ComboBox x:Name="StatusFilter" Text="choose status filter" ItemsSource="{Binding}"  HorizontalAlignment="Center"  VerticalAlignment="Center" Width="146"  SelectionChanged="StatusFilter_SelectionChanged" IsEditable="True" BorderBrush="#FF38FFFD" Foreground="#FF2A2828"/>
+            <ComboBox x:Name="Filter" Text="filter" ItemsSource="{Binding StatusOrWeightFilter}"  HorizontalAlignment="Center"  VerticalAlignment="Center" Width="146"   BorderBrush="#FF38FFFD" Foreground="#FF2A2828" IsEditable="True" IsReadOnly="True"/>
+            <!--SelectionChanged="StatusFilter_SelectionChanged"-->
         </WrapPanel>
-        <WrapPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="center"  VerticalAlignment="center">
+        <!--<WrapPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="center"  VerticalAlignment="center">
             <ComboBox x:Name="WeightFilter" Text="choose weight status" ItemsSource="{Binding}"  HorizontalAlignment="Center"  VerticalAlignment="Center" Width="146"  SelectionChanged="WeightFilter_SelectionChanged" Foreground="#FF373737" IsEditable="True" BorderBrush="#FF7BFFFE" IsReadOnly="True"></ComboBox>
-        </WrapPanel>
+        </WrapPanel>-->
         <Grid Height="62" VerticalAlignment="Top" Margin="10,0,253,0">
             <Grid.Background>
                 <ImageBrush ImageSource="../../images/logo1.jpg"/>

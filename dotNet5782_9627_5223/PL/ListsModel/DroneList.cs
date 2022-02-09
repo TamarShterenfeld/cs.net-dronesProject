@@ -22,7 +22,7 @@ namespace PL
             private set
             {
                 drones = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Stations)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Drones)));
             }
         }
 

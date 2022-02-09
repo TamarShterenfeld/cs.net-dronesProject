@@ -37,7 +37,7 @@ namespace PL
         /// <param name="e"></param>
         private void Button_DroneClick(object sender, RoutedEventArgs e)
         {
-            new DroneList(bl).Show();
+            new DroneList(new DroneListViewModel(bl)).Show();
         }
 
         /// <summary>
