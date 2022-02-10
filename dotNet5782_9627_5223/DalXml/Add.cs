@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using DO;
+using System.Xml.Linq;
 
 namespace DalXml
 {
@@ -23,10 +24,14 @@ namespace DalXml
 
         public void Add(Customer customer)
         {
-            List<Customer> customersList = Dal.XMLTools.LoadListFromXmlSerializer<DO.Customer>(customersPath);
             CheckNotExistenceOfCustomer(customer.Id);
-            customersList.Add(customer);
-            Dal.XMLTools.SaveListToXmlSerializer<Customer>(customersList, baseStationsPath);
+            XElement id = new XElement("id", customer.Id);
+            XElement firstName = new XElement("name", customer.Name);
+            XElement lastName = new XElement("phone", customer.Phone);
+            XElement name = new XElement("longitude",customer.Longitude);
+            XElement st = new XElement("latitude", customer.Latitude);
+            Dal.XMLTools.CustomersRoot.Add(st);
+            Dal.XMLTools.CustomersRoot.Save(customersPath);
         }
 
 

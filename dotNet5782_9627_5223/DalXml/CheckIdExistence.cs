@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using DO;
+using static Dal.XMLTools;
 
 namespace DalXml
 {
@@ -15,7 +17,7 @@ namespace DalXml
         /// <param name="baseStationId">the id for checking</param>
         private void CheckExistenceOfBaseStation(int baseStationId)
         {
-            List<BaseStation> baseStations = Dal.XMLTools.LoadListFromXmlSerializer<DO.BaseStation>(baseStationsPath);
+            List<BaseStation> baseStations = LoadListFromXmlSerializer<DO.BaseStation>(baseStationsPath);
             int baseStationIndex = baseStations.FindIndex(item => item.Id == baseStationId);
             if (baseStationIndex == -1)
                 throw new IntIdException(baseStationId);
@@ -24,11 +26,11 @@ namespace DalXml
 
         private void CheckNotExistenceOfBaseStation(int baseStationId)
         {
-            List<BaseStation> baseStations = Dal.XMLTools.LoadListFromXmlSerializer<DO.BaseStation>(baseStationsPath);
+            List<BaseStation> baseStations = LoadListFromXmlSerializer<DO.BaseStation>(baseStationsPath);
             int baseStationIndex = baseStations.FindIndex(item => item.Id == baseStationId);
             if (baseStationIndex != -1)
                 throw new IntIdException(baseStationId);
-            Dal.XMLTools.SaveListToXmlSerializer<BaseStation>(baseStations, baseStationsPath);
+            SaveListToXmlSerializer<BaseStation>(baseStations, baseStationsPath);
         }
 
         /// <summary>
@@ -37,11 +39,13 @@ namespace DalXml
         /// <param name="customerId">the id for checking</param>
         void CheckExistenceOfCustomer(string customerId)
         {
-            List<Customer> customers = Dal.XMLTools.LoadListFromXmlSerializer<DO.Customer>(customersPath);
-            int customerIndex = customers.FindIndex(item => item.Id == customerId);
-            if (customerIndex == -1)
-                throw new IntIdException(customerId);
-            Dal.XMLTools.SaveListToXmlSerializer<Customer>(customers, customersPath);
+            LoadData();
+            dynamic ans;
+                 ans = (from p in CustomersRoot.Elements()
+                           where p.Element("id").Value == customerId
+                           select p).First();
+
+            if (ans == null) throw new IntIdException(customerId); 
         }
 
         /// <summary>
@@ -50,18 +54,20 @@ namespace DalXml
         /// <param name="customerId">the id for checking</param>
         void CheckNotExistenceOfCustomer(string customerId)
         {
-            List<Customer> customers = Dal.XMLTools.LoadListFromXmlSerializer<DO.Customer>(customersPath);
-            int customerIndex = customers.FindIndex(item => item.Id == customerId);
-            if (customerIndex != -1)
-                throw new IntIdException(customerId);
-            Dal.XMLTools.SaveListToXmlSerializer<Customer>(customers, customersPath);
+            LoadData();
+            dynamic ans;
+            ans = (from p in CustomersRoot.Elements()
+                   where p.Element("id").Value == customerId
+                   select p).First();
+
+            if (ans != null) throw new IntIdException(customerId);
         }
 
         /// <summary>
         /// check if the id exists in the DronesList
         /// </summary>
         /// <param name="droneId">the id for checking</param>
-         void CheckExistenceOfDrone(int droneId)
+        void CheckExistenceOfDrone(int droneId)
         {
             List<Drone> drones = Dal.XMLTools.LoadListFromXmlSerializer<DO.Drone>(dronesPath);
             int droneIndex = drones.FindIndex(item => item.Id == droneId);

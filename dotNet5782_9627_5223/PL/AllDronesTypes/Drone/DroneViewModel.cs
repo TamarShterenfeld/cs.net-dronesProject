@@ -173,7 +173,7 @@ namespace PL
         /// <param name="sender">the event</param>
         private void Button_ClickAdd(object sender)
         {
-            Bl.Add(DronePOToBo(Drone),);
+      //      Bl.Add(DronePOToBo(Drone));
             ListsModel.Instance.AddDrone(Drone.Id);
         }
 
