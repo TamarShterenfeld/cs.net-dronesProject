@@ -13,39 +13,34 @@ namespace DalObject
         public BaseStation GetBaseStation(int baseStationId)
         {
             CheckExistenceOfBaseStation(baseStationId);
-            BaseStation baseStation = BaseStationsList.First(item => item.Id == baseStationId);
-            return baseStation;
+            return BaseStationsList.First(item => item.Id == baseStationId);
         }
 
 
         public Drone GetDrone(int droneId)
         {
             CheckExistenceOfDrone(droneId);
-            Drone drone = DronesList.First(item => item.Id == droneId);
-            return drone;
+            return DronesList.First(item => item.Id == droneId);
         }
 
         public  DroneCharge GetDroneCharge(int droneId)
         {
             CheckExistenceOfDroneCharge(droneId);
-            DroneCharge droneCharge = DronesChargeList.First(item => item.DroneId == droneId);
-            return droneCharge;
+            return DronesChargeList.First(item => item.DroneId == droneId);
         }
 
 
         public Customer GetCustomer(string customerId)
         {
             CheckExistenceOfCustomer(customerId);
-            Customer customer = CustomersList.First(item => item.Id == customerId);
-            return customer;
+            return CustomersList.First(item => item.Id == customerId);
         }
 
 
         public Parcel GetParcel(int parcelId)
         {
             CheckExistenceOfParcel(parcelId);
-            Parcel parcel = ParcelsList.First(item => item.Id == parcelId);
-            return parcel;
+            return ParcelsList.First(item => item.Id == parcelId);
         }
     }
 }

@@ -18,7 +18,8 @@ namespace DalXml
         private readonly string parcelsPath;
         private readonly string customersPath;
         private readonly string droneChargesPath;
-       
+        private readonly string configPath;
+
         // a constructor
         DalXml()
         {
@@ -27,6 +28,7 @@ namespace DalXml
             parcelsPath = "Parcels.xml";
             customersPath = "Customers.xml";
             droneChargesPath = "DroneCharges.xml";
+            configPath = "Config.xml";
         //Initialize();
     }
         //public static DalApi.IDal Instance { get; init{ In } = new ();
