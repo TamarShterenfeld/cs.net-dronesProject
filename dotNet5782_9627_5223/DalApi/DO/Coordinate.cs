@@ -95,7 +95,7 @@ namespace DO
         /// <returns>description of the Coordinate object</returns>
         public override string ToString()
         {
-            return Degrees + "º " + Minutes + "' " + Seconds + "'' " + Direction.ToString()[0];
+            return Degrees + "º " + Minutes + "' " + Seconds + "'' " + Direction;
         }
     }
 }

@@ -15,7 +15,7 @@ namespace Dal
     {
         public static XElement CustomersRoot;
         public static string CustomerPath = @"Customers.xml";
-        private static readonly string dirPath = @"xml\";
+        private static readonly string dirPath = @"Xml\";
 
         //a constructor which construct also files
         //of XmlSeriakizer and files of XElement.

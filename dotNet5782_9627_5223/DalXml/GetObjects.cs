@@ -1,6 +1,9 @@
-﻿using DO;
+﻿using DalApi.DO;
+using DO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using static Dal.XMLTools;
 
 namespace DalXml
 {
@@ -32,11 +35,31 @@ namespace DalXml
 
         public Customer GetCustomer(string customerId)
         {
-            List<Customer> customers = Dal.XMLTools.LoadListFromXmlSerializer<Customer>(customersPath);
+            List<Customer> customers = LoadListFromXmlSerializer<Customer>(customersPath);
             CheckExistenceOfCustomer(customerId);
-            return customers.First(item => item.Id == customerId);
-        }
+            LoadData();
+            Customer customer;
+            try
+            {
+                customer = (from c in CustomersRoot.Elements()
+                           where c.Element("id").Value == customerId
+                            select new Customer()
+                           {
+                                Id = c.Element("id").Value,
+                                IsDeleted = bool.Parse(c.Element("isDeleted").Value),
+                                Name = c.Element("name").Value,
+                                Phone = c.Element("phone").Value,
+                                Longitude = (c.Element("location").Element("longitude").Value).Parse(Locations.Longitude),
+                                Latitude = (c.Element("location").Element("longitude").Value).Parse(Locations.Latitude)
 
+                            }).FirstOrDefault();
+            }
+            catch
+            {
+                customer = default;
+            }
+            return customer;
+        }
 
         public Parcel GetParcel(int parcelId)
         {

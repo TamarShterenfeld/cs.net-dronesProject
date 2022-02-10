@@ -26,11 +26,13 @@ namespace DalXml
         {
             CheckNotExistenceOfCustomer(customer.Id);
             XElement id = new XElement("id", customer.Id);
-            XElement firstName = new XElement("name", customer.Name);
-            XElement lastName = new XElement("phone", customer.Phone);
-            XElement name = new XElement("longitude",customer.Longitude);
-            XElement st = new XElement("latitude", customer.Latitude);
-            Dal.XMLTools.CustomersRoot.Add(st);
+            XElement name = new XElement("name", customer.Name);
+            XElement phone = new XElement("phone", customer.Phone);
+            XElement longitude = new XElement("longitude", customer.Longitude.ToString());
+            XElement latitude = new XElement("longitude", customer.Latitude.ToString());
+            XElement location = new XElement("location",longitude, latitude);
+            XElement myCustomer = new XElement("Customer", id, name, phone, location);
+            Dal.XMLTools.CustomersRoot.Add(myCustomer);
             Dal.XMLTools.CustomersRoot.Save(customersPath);
         }
 
