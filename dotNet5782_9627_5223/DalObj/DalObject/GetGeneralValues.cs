@@ -15,7 +15,7 @@ namespace DalObject
         /// </summary>
         /// <returns></returns>
         public static int IncreaseParcelIndex()
-        {
+        { 
             return ++Config.ParcelId;
         }
 
