@@ -3,48 +3,57 @@ using System.Collections.Generic;
 using System.Text;
 using DO;
 using System.Linq;
+using System.Xml.Linq;
+using static DalXml.XMLTools;
 
 
 namespace DalXml
 {
-    sealed partial class DalXml
+    public sealed partial class DalXml
     {
         
         public void UpDate(Drone drone, int id)
         {
-            List<Drone> drones = Dal.XMLTools.LoadListFromXmlSerializer<Drone>(dronesPath);
+            List<Drone> drones = LoadListFromXmlSerializer<Drone>(dronesPath);
             CheckExistenceOfDrone(id);
             drones.Remove(drones.Find(item => item.Id == id));
             drones.Add(drone);
-            Dal.XMLTools.SaveListToXmlSerializer<Drone>(drones, dronesPath);
+            SaveListToXmlSerializer<Drone>(drones, dronesPath);
         }
 
        
         public void UpDate(BaseStation baseStation, int id)
         {
-            List<BaseStation> baseStations = Dal.XMLTools.LoadListFromXmlSerializer<BaseStation>(baseStationsPath);
+            List<BaseStation> baseStations = LoadListFromXmlSerializer<BaseStation>(baseStationsPath);
             CheckExistenceOfBaseStation(id);
             baseStations.Remove(baseStations.Find(item => item.Id == id));
             baseStations.Add(baseStation);
-            Dal.XMLTools.SaveListToXmlSerializer<BaseStation>(baseStations, baseStationsPath);
+            SaveListToXmlSerializer<BaseStation>(baseStations, baseStationsPath);
         }
 
         public void UpDate(Customer customer, string id)
         {
-            List<Customer> customers = Dal.XMLTools.LoadListFromXmlSerializer<Customer>(customersPath);
-            CheckExistenceOfCustomer(id);
-            customers.Remove(customers.Find(item => item.Id == id));
-            customers.Add(customer);
-            Dal.XMLTools.SaveListToXmlSerializer<Customer>(customers, customersPath);
+
+            XElement customerXElement = (from c in CustomersRoot.Elements()
+                                         where c.Element("id").Value == id
+                                         select c).FirstOrDefault();
+            customerXElement.Element("id").Value = customer.Id;
+            customerXElement.Element("name").Value = customer.Name;
+            customerXElement.Element("phone").Value = customer.Phone;
+            customerXElement.Element("isDeleted").Value = customer.IsDeleted.ToString();
+            customerXElement.Element("location").Element("longitude").Value = customer.Longitude.ToString();
+            customerXElement.Element("location").Element("latitude").Value = customer.Latitude.ToString();
+            CustomersRoot.Save(customersPath);
         }
+    
  
         public void UpDate(Parcel parcel, int id)
         {
-            List<Parcel> parcels = Dal.XMLTools.LoadListFromXmlSerializer<Parcel>(parcelsPath);
+            List<Parcel> parcels = LoadListFromXmlSerializer<Parcel>(parcelsPath);
             CheckExistenceOfParcel(id);
             parcels.Remove(parcels.Find(item => item.Id == id));
             parcels.Add(parcel);
-            Dal.XMLTools.SaveListToXmlSerializer<Parcel>(parcels, parcelsPath);
+            SaveListToXmlSerializer<Parcel>(parcels, parcelsPath);
         }
         
         public void SendDroneToRecharge(int droneId, int baseStationId)

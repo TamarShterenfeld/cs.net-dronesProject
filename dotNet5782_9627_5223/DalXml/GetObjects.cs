@@ -3,16 +3,16 @@ using DO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using static Dal.XMLTools;
+using static DalXml.XMLTools;
 
 namespace DalXml
 {
-    sealed partial class DalXml
+    public sealed partial class DalXml
     {
 
         public BaseStation GetBaseStation(int baseStationId)
         {
-            List<BaseStation> baseStations = Dal.XMLTools.LoadListFromXmlSerializer<BaseStation>(baseStationsPath);
+            List<BaseStation> baseStations = LoadListFromXmlSerializer<BaseStation>(baseStationsPath);
             CheckExistenceOfBaseStation(baseStationId);
             return baseStations.First(item => item.Id == baseStationId);
         }
@@ -20,14 +20,14 @@ namespace DalXml
 
         public Drone GetDrone(int droneId)
         {
-            List<Drone> drones = Dal.XMLTools.LoadListFromXmlSerializer<Drone>(dronesPath);
+            List<Drone> drones = LoadListFromXmlSerializer<Drone>(dronesPath);
             CheckExistenceOfDrone(droneId);
             return drones.First(item => item.Id == droneId);
         }
 
         public DroneCharge GetDroneCharge(int droneId)
         {
-            List<DroneCharge> drones = Dal.XMLTools.LoadListFromXmlSerializer<DroneCharge>(droneChargesPath);
+            List<DroneCharge> drones = LoadListFromXmlSerializer<DroneCharge>(droneChargesPath);
             CheckExistenceOfDroneCharge(droneId);
             return drones.First(item => item.DroneId == droneId);
         }
@@ -63,7 +63,7 @@ namespace DalXml
 
         public Parcel GetParcel(int parcelId)
         {
-            List<Parcel> parcels = Dal.XMLTools.LoadListFromXmlSerializer<Parcel>(parcelsPath);
+            List<Parcel> parcels = LoadListFromXmlSerializer<Parcel>(parcelsPath);
             CheckExistenceOfParcel(parcelId);
             return parcels.First(item => item.Id == parcelId);
         }

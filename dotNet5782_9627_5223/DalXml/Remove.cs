@@ -4,14 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DO;
+using static DalXml.XMLTools;
+
 namespace DalXml
 {
-    sealed partial class DalXml
+    public sealed partial class DalXml
     {
         public void Remove(DroneCharge drone)
         {
-            List<DroneCharge> droneCharges = Dal.XMLTools.LoadListFromXmlSerializer<DroneCharge>(droneChargesPath);
-            List<BaseStation> baseStations = Dal.XMLTools.LoadListFromXmlSerializer<BaseStation>(baseStationsPath);
+            List<DroneCharge> droneCharges = LoadListFromXmlSerializer<DroneCharge>(droneChargesPath);
+            List<BaseStation> baseStations = LoadListFromXmlSerializer<BaseStation>(baseStationsPath);
             CheckExistenceOfDroneCharge(drone.DroneId);
             droneCharges.Remove(GetDroneCharge(drone.DroneId));
             BaseStation baseStation = GetBaseStation(drone.StationId);

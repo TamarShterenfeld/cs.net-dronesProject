@@ -4,6 +4,7 @@ using System.Text;
 using System.Linq;
 using DO;
 using System.Xml.Linq;
+using static DalXml.XMLTools;
 
 namespace DalXml
 {
@@ -11,14 +12,14 @@ namespace DalXml
     ///the class DalObject contains all the needed methods 
     ///which are connected to the data (in DataSource class) of the program.
     /// </summary>
-    sealed partial class DalXml
+    public sealed partial class DalXml
     {
         public void Add(BaseStation baseStation)
         {
-            List<BaseStation> baseStations = Dal.XMLTools.LoadListFromXmlSerializer<DO.BaseStation>(baseStationsPath);
+            List<BaseStation> baseStations = LoadListFromXmlSerializer<DO.BaseStation>(baseStationsPath);
             CheckNotExistenceOfBaseStation(baseStation.Id);
             baseStations.Add(baseStation);
-            Dal.XMLTools.SaveListToXmlSerializer<BaseStation>(baseStations, baseStationsPath);
+            SaveListToXmlSerializer<BaseStation>(baseStations, baseStationsPath);
         }
 
 
@@ -28,37 +29,38 @@ namespace DalXml
             XElement id = new XElement("id", customer.Id);
             XElement name = new XElement("name", customer.Name);
             XElement phone = new XElement("phone", customer.Phone);
+            XElement isDeleted = new XElement("isDeleted", customer.IsDeleted);
             XElement longitude = new XElement("longitude", customer.Longitude.ToString());
             XElement latitude = new XElement("longitude", customer.Latitude.ToString());
             XElement location = new XElement("location",longitude, latitude);
-            XElement myCustomer = new XElement("Customer", id, name, phone, location);
-            Dal.XMLTools.CustomersRoot.Add(myCustomer);
-            Dal.XMLTools.CustomersRoot.Save(customersPath);
+            XElement myCustomer = new XElement("Customer", id, name, phone,isDeleted, location);
+            CustomersRoot.Add(myCustomer);
+            CustomersRoot.Save(customersPath);
         }
 
 
         public void Add(Drone drone)
         {
-            List<Drone> drones = Dal.XMLTools.LoadListFromXmlSerializer<DO.Drone>(dronesPath);
+            List<Drone> drones = LoadListFromXmlSerializer<DO.Drone>(dronesPath);
             CheckNotExistenceOfDrone(drone.Id);
             drones.Add(drone);
-            Dal.XMLTools.SaveListToXmlSerializer<Drone>(drones, baseStationsPath);
+            SaveListToXmlSerializer<Drone>(drones, baseStationsPath);
         }
 
         public void Add(Parcel parcel)
         {
-            List<Parcel> parcels = Dal.XMLTools.LoadListFromXmlSerializer < DO.Parcel>(parcelsPath);
+            List<Parcel> parcels = LoadListFromXmlSerializer < DO.Parcel>(parcelsPath);
             CheckNotExistenceOfParcel(parcel.Id);
             parcels.Add(parcel);
-            Dal.XMLTools.SaveListToXmlSerializer<Parcel>(parcels, baseStationsPath);
+            SaveListToXmlSerializer<Parcel>(parcels, baseStationsPath);
         }
 
         public void Add(DroneCharge droneCharge)
         {
-            List<DroneCharge> dronesCharge = Dal.XMLTools.LoadListFromXmlSerializer<DO.DroneCharge>(droneChargesPath);
+            List<DroneCharge> dronesCharge = LoadListFromXmlSerializer<DO.DroneCharge>(droneChargesPath);
             CheckNotExistenceOfDroneCharge(droneCharge.DroneId);
             dronesCharge.Add(droneCharge);
-            Dal.XMLTools.SaveListToXmlSerializer<DroneCharge>(dronesCharge, baseStationsPath);
+            SaveListToXmlSerializer<DroneCharge>(dronesCharge, baseStationsPath);
         }
     }
 }

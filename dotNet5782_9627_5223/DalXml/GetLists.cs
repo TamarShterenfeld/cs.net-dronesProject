@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Text;
 using DO;
 using System.Linq;
-using static Dal.XMLTools;
 using DalApi.DO;
+using static DalXml.XMLTools;
 
 namespace DalXml
 {
-    sealed partial class DalXml
+    public sealed partial class DalXml
     {
 
         public IEnumerable<DroneCharge> DronesChargingInMe(Predicate<DroneCharge> InMe)

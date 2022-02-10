@@ -9,12 +9,14 @@ using System.Xml.Linq;
 using System.Xml.Serialization;
 
 
-namespace Dal
+namespace DalXml
 {
     class XMLTools
     {
         public static XElement CustomersRoot;
+        public static XElement ConfigRoot;
         public static string CustomerPath = @"Customers.xml";
+        public static string ConfigPath = @"Config.xml";
         private static readonly string dirPath = @"Xml\";
 
         //a constructor which construct also files
@@ -80,6 +82,7 @@ namespace Dal
             try
             {
                 CustomersRoot = XElement.Load(dirPath + CustomerPath);
+                ConfigRoot = XElement.Load(dirPath + ConfigPath);
             }
             catch
             {
@@ -87,23 +90,7 @@ namespace Dal
             }
         }
 
-        public static void SaveStudentListLinq(List<Customer> customers)
-        {
-            //XElement StudentRoot;
-
-            var v = from c in customers
-                    select new XElement("Customer",
-                                                new XElement("id", c.Id),
-                                               new XElement("name",c.Name),
-                                               new XElement("phone", c.Phone),
-                                               new XElement("longitude", c.Longitude),
-                                               new XElement("latitude", c.Latitude)
-                                                );
-
-            CustomersRoot = new XElement("Customers", v);
-
-            CustomersRoot.Save(dirPath + CustomerPath);
-        }
+        
         #endregion
     }
 }

@@ -20,6 +20,7 @@ namespace DalApi
         }
     } 
 
+    [Serializable]
     public class DalConfigException : Exception
     {
         public DalConfigException(string message) : base(message) { }

@@ -5,11 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using DO;
-using static Dal.XMLTools;
+using static DalXml.XMLTools;
 
 namespace DalXml
 {
-    sealed partial class DalXml
+    public sealed partial class DalXml
     {
         /// <summary>
         /// check if the id exists in the baseStationsList
@@ -21,7 +21,7 @@ namespace DalXml
             int baseStationIndex = baseStations.FindIndex(item => item.Id == baseStationId);
             if (baseStationIndex == -1)
                 throw new IntIdException(baseStationId);
-            Dal.XMLTools.SaveListToXmlSerializer<BaseStation>(baseStations, baseStationsPath);
+            SaveListToXmlSerializer<BaseStation>(baseStations, baseStationsPath);
         }
 
         private void CheckNotExistenceOfBaseStation(int baseStationId)
@@ -69,11 +69,11 @@ namespace DalXml
         /// <param name="droneId">the id for checking</param>
         void CheckExistenceOfDrone(int droneId)
         {
-            List<Drone> drones = Dal.XMLTools.LoadListFromXmlSerializer<DO.Drone>(dronesPath);
+            List<Drone> drones = LoadListFromXmlSerializer<DO.Drone>(dronesPath);
             int droneIndex = drones.FindIndex(item => item.Id == droneId);
             if (droneIndex == -1)
                 throw new IntIdException(droneId);
-            Dal.XMLTools.SaveListToXmlSerializer<Drone>(drones, dronesPath);
+            SaveListToXmlSerializer<Drone>(drones, dronesPath);
         }
 
         /// <summary>
@@ -82,11 +82,11 @@ namespace DalXml
         /// <param name="droneId">the id for checking</param>
         void CheckNotExistenceOfDrone(int droneId)
         {
-            List<Drone> drones = Dal.XMLTools.LoadListFromXmlSerializer<DO.Drone>(dronesPath);
+            List<Drone> drones = LoadListFromXmlSerializer<DO.Drone>(dronesPath);
             int droneIndex = drones.FindIndex(item => item.Id == droneId);
             if (droneIndex != -1)
                 throw new IntIdException(droneId);
-            Dal.XMLTools.SaveListToXmlSerializer<Drone>(drones, dronesPath);
+            SaveListToXmlSerializer<Drone>(drones, dronesPath);
         }
 
         /// <summary>
@@ -95,11 +95,11 @@ namespace DalXml
         /// <param name="parcelId">the id for checking</param>
         void CheckExistenceOfParcel(int parcelId)
         {
-            List<Parcel> parcels = Dal.XMLTools.LoadListFromXmlSerializer<DO.Parcel>(parcelsPath);
+            List<Parcel> parcels = LoadListFromXmlSerializer<DO.Parcel>(parcelsPath);
             int droneIndex = parcels.FindIndex(item => item.Id == parcelId);
             if (droneIndex == -1)
                 throw new IntIdException(parcelId);
-            Dal.XMLTools.SaveListToXmlSerializer<Parcel>(parcels, parcelsPath);
+            SaveListToXmlSerializer<Parcel>(parcels, parcelsPath);
         }
 
         /// <summary>
@@ -108,11 +108,11 @@ namespace DalXml
         /// <param name="parcelId">the id for checking</param>
         void CheckNotExistenceOfParcel(int parcelId)
         {
-            List<Parcel> parcels = Dal.XMLTools.LoadListFromXmlSerializer<DO.Parcel>(parcelsPath);
+            List<Parcel> parcels = LoadListFromXmlSerializer<DO.Parcel>(parcelsPath);
             int droneIndex = parcels.FindIndex(item => item.Id == parcelId);
             if (droneIndex != -1)
                 throw new IntIdException(parcelId);
-            Dal.XMLTools.SaveListToXmlSerializer<Parcel>(parcels, parcelsPath);
+            SaveListToXmlSerializer<Parcel>(parcels, parcelsPath);
         }
 
         /// <summary>
@@ -121,20 +121,24 @@ namespace DalXml
         /// <param name="droneForListId">the id for checking</param>
         void CheckExistenceOfDroneCharge(int droneForListId)
         {
-            List<DroneCharge> drones = Dal.XMLTools.LoadListFromXmlSerializer<DO.DroneCharge>(dronesPath);
+            List<DroneCharge> drones = LoadListFromXmlSerializer<DO.DroneCharge>(dronesPath);
             int droneIndex = drones.FindIndex(item => item.DroneId == droneForListId);
             if (droneIndex == -1)
                 throw new IntIdException(droneForListId);
-            Dal.XMLTools.SaveListToXmlSerializer<DroneCharge>(drones, parcelsPath);
+            SaveListToXmlSerializer<DroneCharge>(drones, parcelsPath);
         }
 
         /// <summary>
         /// check if the id doesn't exist in the DronesChargeList
         /// </summary>
         /// <param name="droneForListId">the id for checking</param>
-        static void CheckNotExistenceOfDroneCharge(int droneForListId)
+        void CheckNotExistenceOfDroneCharge(int droneForListId)
         {
-
+            List<DroneCharge> drones = LoadListFromXmlSerializer<DO.DroneCharge>(dronesPath);
+            int droneIndex = drones.FindIndex(item => item.DroneId == droneForListId);
+            if (droneIndex != -1)
+                throw new IntIdException(droneForListId);
+            SaveListToXmlSerializer<DroneCharge>(drones, parcelsPath);
         }
 
     }
