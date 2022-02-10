@@ -17,9 +17,9 @@ namespace DalApi
             string[] Files = Directory.GetFiles(Environment.CurrentDirectory);
             try
             {
-                Assembly.LoadFrom("DalObject.dll");
+                Assembly.LoadFrom($"{dalPkg}.dll");
             }
-            catch (Exception e) { throw new DalConfigException("Failed to load the DalObject.dll file"); }
+            catch (Exception e) { throw new DalConfigException($"Failed to load the {dalPkg}.dll file"); }
             Type type = Type.GetType($"DalObject.{dalPkg}, {dalPkg}");
             if (type == null) throw new DalConfigException($"Class {dalPkg} was not found in the {dalPkg}.dll");
             IDal dal = (IDal)type.GetProperty("Instance", BindingFlags.Public | BindingFlags.Static| BindingFlags.FlattenHierarchy).GetValue(null);

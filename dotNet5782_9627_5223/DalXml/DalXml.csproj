@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <BaseOutputPath>..\\bin\\net5.0-windows</BaseOutputPath>
+    <BaseIntermediateOutputPath>..\\obj\\net5.0-windows</BaseIntermediateOutputPath>
   </PropertyGroup>
 
   <ItemGroup>
