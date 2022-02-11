@@ -20,7 +20,7 @@ namespace DalApi
                 Assembly.LoadFrom($"{dalPkg}.dll");
             }
             catch (Exception e) { throw new DalConfigException($"Failed to load the {dalPkg}.dll file"); }
-            Type type = Type.GetType($"DalObject.{dalPkg}, {dalPkg}");
+            Type type = Type.GetType($"{dalPkg}.{dalPkg}, {dalPkg}");
             if (type == null) throw new DalConfigException($"Class {dalPkg} was not found in the {dalPkg}.dll");
             IDal dal = (IDal)type.GetProperty("Instance", BindingFlags.Public | BindingFlags.Static| BindingFlags.FlattenHierarchy).GetValue(null);
             if (dal == null) throw new DalConfigException($"Class {dalPkg} is not a singleton or wrong propertry name for Instance");

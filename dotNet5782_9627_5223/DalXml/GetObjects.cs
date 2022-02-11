@@ -7,7 +7,7 @@ using static DalXml.XMLTools;
 
 namespace DalXml
 {
-    public sealed partial class DalXml
+    sealed partial class DalXml
     {
 
         public BaseStation GetBaseStation(int baseStationId)

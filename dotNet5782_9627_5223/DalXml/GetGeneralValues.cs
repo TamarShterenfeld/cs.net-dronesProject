@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace DalXml
 {
-    public sealed partial class DalXml
+    sealed partial class DalXml
     {
 
 
@@ -36,9 +36,9 @@ namespace DalXml
         }
 
         public double[] ElectricityConsuming()
+
         {
             double[] electricitiesConsuming = new double[5];
-
             electricitiesConsuming[0] = 
                 (from c in ConfigRoot.Elements()
                 select double.Parse(c.Element("ElectricityConsumingOfAvailable").Value)).FirstOrDefault();

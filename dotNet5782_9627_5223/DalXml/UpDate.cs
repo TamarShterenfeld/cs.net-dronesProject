@@ -9,7 +9,7 @@ using static DalXml.XMLTools;
 
 namespace DalXml
 {
-    public sealed partial class DalXml
+    sealed partial class DalXml
     {
         
         public void UpDate(Drone drone, int id)

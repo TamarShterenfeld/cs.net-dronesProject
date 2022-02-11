@@ -11,7 +11,7 @@ namespace DalXml
     ///the class DalXml contains all the needed methods 
     ///which are connected to the data (in xml files) of the program.
     /// </summary>
-    public sealed partial class DalXml : Singleton<DalXml>, DalApi.IDal
+    sealed partial class DalXml : Singleton<DalXml>, DalApi.IDal
     {
         private readonly string baseStationsPath;
         private readonly string dronesPath;

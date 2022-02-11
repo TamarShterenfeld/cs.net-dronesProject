@@ -12,7 +12,7 @@ namespace DalXml
     ///the class DalObject contains all the needed methods 
     ///which are connected to the data (in DataSource class) of the program.
     /// </summary>
-    public sealed partial class DalXml
+    sealed partial class DalXml
     {
         public void Add(BaseStation baseStation)
         {

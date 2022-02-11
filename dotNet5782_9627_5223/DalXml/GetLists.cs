@@ -8,7 +8,7 @@ using static DalXml.XMLTools;
 
 namespace DalXml
 {
-    public sealed partial class DalXml
+    sealed partial class DalXml
     {
 
         public IEnumerable<DroneCharge> DronesChargingInMe(Predicate<DroneCharge> InMe)
