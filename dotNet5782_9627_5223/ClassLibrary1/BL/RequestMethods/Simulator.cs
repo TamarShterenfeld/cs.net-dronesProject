@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IBL
 {
-    public sealed partial class BL
+    sealed partial class BL
     {
         public void InvokeSimulator<T>(int droneId, Action<T> refreshDisplay, Func<bool> checkStopping)
         {
