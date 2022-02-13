@@ -2,12 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace IBL
 {
     public partial class BL 
     {
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateDrone(int droneId, string model)
         { 
             DO.Drone drone = dal.GetDrone(droneId);
@@ -18,6 +19,7 @@ namespace IBL
             UpdateDrone(droneForList);
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateBaseStation(int baseStationId, string name, string chargeSlots)
         {
             DO.BaseStation station = dal.GetBaseStation(baseStationId);
@@ -34,6 +36,7 @@ namespace IBL
             dal.UpDate(station, baseStationId);
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateCustomer(string customerId, string name, string phone)
         {
             DO.Customer customer = dal.GetCustomer(customerId);
@@ -42,6 +45,7 @@ namespace IBL
             dal.UpDate(customer, customerId);
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateDrone(DroneForList droneForList)
         {
             UpDateDroneForList(droneForList);
@@ -49,22 +53,28 @@ namespace IBL
             dal.UpDate(drone, drone.Id);
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         void UpDateBaseStation(BaseStation baseStation)
         {
             DO.BaseStation baseStation1 = dal.GetBaseStation(baseStation.Id);
             dal.UpDate(baseStation1, baseStation1.Id);
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpDateDroneForList(DroneForList droneForList)
         {
             dronesForList.Remove(dronesForList.First(item => item.Id == droneForList.Id));
             dronesForList.Add(droneForList);
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateParcel(Parcel parcel)
         {
             DO.Parcel parcel1 = ConvertBoToDoParcel(parcel);
             dal.UpDate(parcel1, parcel1.Id);
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AssociateParcel(int droneId)
         {
             DroneForList currentDrone = GetDroneForList(droneId);
@@ -117,10 +127,13 @@ namespace IBL
                 throw new DroneStatusException(currentDrone.Status);
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public bool AssociateParcel(DroneForList d, Parcel p)
         {
             return DroneReachLastDestination(d, p);
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void PickUpParcel(int droneId)
         {
             bool isPickedUp;
@@ -149,7 +162,7 @@ namespace IBL
                 throw new ParcelActionsException(ParcelActions.PickUp);
         }
 
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void SupplyParcel(int droneId)
         {
             bool isSupplied = false;
@@ -178,6 +191,7 @@ namespace IBL
                 throw new ParcelActionsException(ParcelActions.Supply);
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void SendDroneForCharge(int droneId)
         {
             DroneForList drone = GetDroneForList(droneId);
@@ -213,6 +227,7 @@ namespace IBL
                 throw new DroneStatusException(drone.Status);
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void ReleaseDroneFromRecharge(int droneId, double timeCharge)
         {
             DroneForList drone = GetDroneForList(droneId);

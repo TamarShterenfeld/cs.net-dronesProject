@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BO;
+using System.Runtime.CompilerServices;
 
 using IBL;
 
@@ -13,8 +14,10 @@ namespace IBL
     public partial class BL
     {
         //a static random field - for general use.
-        public static readonly Random rand = new();
+         static readonly Random rand = new();
         //---------------------------------BaseStation GetList methods------------------------------------------------
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<BO.BaseStation> GetBOBaseStationsList()
         {
             List<BO.BaseStation> boBaseStationList = new();
@@ -25,6 +28,8 @@ namespace IBL
             }
             return boBaseStationList;
         }
+        
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<BaseStationForList> GetAvailableChargeSlots()
         {
             List<DO.BaseStation> DoAvailableChargeSlots = dal.AvailableChargeStations(station => station.ChargeSlots - dal.CaughtChargeSlots(station.Id) > 0).ToList();
@@ -37,6 +42,7 @@ namespace IBL
             return BoAvailableChargeSlots;
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<BaseStationForList> GetBaseStationList()
         {
             List<BaseStationForList> baseStationForLists = new();
@@ -49,6 +55,7 @@ namespace IBL
         }
 
         //---------------------------------Drones GetList Methods------------------------------------------------
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DroneInCharging> GetDronesInMe(int stationId)
         {
             List<DroneInCharging> droneInCharging = new();
@@ -63,8 +70,8 @@ namespace IBL
             return droneInCharging;
         }
 
-        
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<BO.Drone> GetBODronesList()
         {
             List<BO.Drone> BoDronesList = new();
@@ -77,6 +84,7 @@ namespace IBL
         }
 
         //---------------------------------DronesForList GetList Methods------------------------------------------------
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DroneForList> InitDroneForList()
         {
             List<DroneForList> droneForList = new();
@@ -94,7 +102,8 @@ namespace IBL
             }
             return droneForList;
         }
-  
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DroneForList> GetDronesForList()
         {
             return dronesForList;
@@ -118,6 +127,7 @@ namespace IBL
 
         // ---------------------------------Parcels GetList Methods------------------------------------------------
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<BO.Parcel> GetBOParcelsList()
         {
             List<BO.Parcel> boParcelList = new ();
@@ -129,6 +139,7 @@ namespace IBL
             return boParcelList;
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<ParcelInCustomer> GetParcelInCustomerList(FromOrTo fromOrTo, string id)
         {
             List<ParcelInCustomer> parcelInCustomer = new();
@@ -139,6 +150,8 @@ namespace IBL
             }
             return parcelInCustomer;
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<ParcelForList> GetParcelsList()
         {
             List<ParcelForList> parcelsForList = new();
@@ -151,6 +164,7 @@ namespace IBL
             return parcelsForList;
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<ParcelForList> GetNotAssociatedParcelsList()
         {
             List<ParcelForList> boNotAssociatedParcelsList = new ();
@@ -162,9 +176,10 @@ namespace IBL
             return boNotAssociatedParcelsList;
         }
 
-        
+
 
         //---------------------------------Customers GetList Methods------------------------------------------------
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<BO.Customer> GetBOCustomersList()
         {
             List<BO.Customer> boCustomerList = new();
@@ -176,6 +191,7 @@ namespace IBL
             return boCustomerList;
         }
        
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<CustomerForList> GetCustomersList()
         {
             List<CustomerForList> customersForList = new();

@@ -4,6 +4,7 @@ using System.Text;
 using BO;
 using System.Linq;
 using System.Numerics;
+using System.Runtime.CompilerServices;
 
 
 
@@ -13,11 +14,13 @@ namespace IBL
     {
 
         //----------------------------------BaseStation GetObject Methods---------------------------------
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public BaseStation GetBLBaseStation(int id)
         {
             return ConvertBaseStationDOtOBO(dal.GetBaseStation(id)); ;
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public BaseStationForList GetBaseStationForList(int id)
         {
             BaseStation item = GetBLBaseStation(id);
@@ -34,7 +37,7 @@ namespace IBL
         //----------------------------------Drone GetObject Methods---------------------------------
 
 
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Drone GetBLDrone(int id)
         {
             Drone drone = ConvertDroneDOtOBO(dal.GetDrone(id));
@@ -48,6 +51,7 @@ namespace IBL
 
         //----------------------------------DroneForList GetObject Methods---------------------------------
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public DroneForList GetDroneForList(int id)
         {
             Drone item = GetBLDrone(id);
@@ -61,6 +65,7 @@ namespace IBL
 
 
         //----------------------------------DroneInParcel GetObject Methods---------------------------------
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public DroneInParcel GetBLDroneInParcel(int id)
         {
             if (id == 0)
@@ -70,6 +75,7 @@ namespace IBL
             return GetDroneInParcel(id);
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public DroneInParcel GetDroneInParcel(int id)
         {
             DroneForList drone = dronesForList.First(drone => drone.Id == id);
@@ -84,6 +90,7 @@ namespace IBL
 
         //----------------------------------Parcel GetObject Methods---------------------------------
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public ParcelStatuses ParcelStatus(DO.Parcel parcel)
         {
             if (parcel.AssociationDate == null)
@@ -96,6 +103,7 @@ namespace IBL
                 return ParcelStatuses.Supplied;
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Parcel GetBLParcel(int id)
         {
             return ParcelDOtOBO(dal.GetParcel(id));
@@ -103,6 +111,7 @@ namespace IBL
         }
 
         //----------------------------------ParcelForList GetObject Methods---------------------------------
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public ParcelForList GetParcelForList(int id)
         {
             Parcel item = GetBLParcel(id);
@@ -120,6 +129,7 @@ namespace IBL
         }
 
         //----------------------------------ParcelInPassing GetObject Methods---------------------------------
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public ParcelInPassing GetParcelInPassing(int id)
         {
             Parcel parcel = GetBLParcel(id);
@@ -143,6 +153,7 @@ namespace IBL
 
 
         //----------------------------------Customer GetObject Methods---------------------------------
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Customer GetBLCustomer(string id)
         {
             DO.Customer customer = dal.GetCustomer(id);
@@ -150,7 +161,7 @@ namespace IBL
 
         }
 
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public CustomerForList GetCustomerForList(string id)
         {
             Customer item = GetBLCustomer(id);
@@ -168,6 +179,7 @@ namespace IBL
 
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public CustomerInParcel GetCustomrInParcel(string id)
         {
 

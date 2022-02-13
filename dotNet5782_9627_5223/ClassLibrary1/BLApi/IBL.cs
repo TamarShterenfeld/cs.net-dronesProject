@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using BO;
+using System.Runtime.CompilerServices;
 
 
 namespace BLApi
@@ -108,7 +109,7 @@ namespace BLApi
         /// </summary>
         /// <param name="baseStation">the object to convert</param>
         /// <returns>the BO.BaseStation converted object</returns>
-        BaseStation ConvertBaseStationDOtOBO(DO.BaseStation baseStation);
+        //BaseStation ConvertBaseStationDOtOBO(DO.BaseStation baseStation);
         void UpdateBaseStation(int id, string name, string num);
 
     }
@@ -171,7 +172,7 @@ namespace BLApi
         /// </summary>
         /// <param name="drone"></param>
         /// <returns>a BO.Drone object</returns>
-        Drone ConvertDroneDOtOBO(DO.Drone drone);
+        //Drone ConvertDroneDOtOBO(DO.Drone drone);
 
         /// <summary>
         /// returns the List dronesForList
@@ -184,14 +185,14 @@ namespace BLApi
         /// </summary>
         /// <param name="drone"></param>
         /// <returns>a DroneForList object</returns>
-        DroneForList ConvertDroneBoToDroneForList(Drone drone);
+      //  DroneForList ConvertDroneBoToDroneForList(Drone drone);
 
         /// <summary>
         /// the function converts a DO.Drone object to DroneForList object
         /// </summary>
         /// <param name="drone">a drone to convert</param>
         /// <returns>the converted object</returns>
-        DroneForList ConvertDroneDoToDroneForList(DO.Drone drone);
+       // DroneForList ConvertDroneDoToDroneForList(DO.Drone drone);
 
         /// <summary>
         /// The function displays a drone in parcel according to id.
@@ -334,7 +335,7 @@ namespace BLApi
         /// </summary>
         /// <param name="customer"></param>
         /// <returns></returns>
-        Customer ConvertCustomerDoToBo(DO.Customer customer);
+       // Customer ConvertCustomerDoToBo(DO.Customer customer);
 
         /// <summary>
         /// the function returns a CustomerForList object - according to the requested id.
@@ -354,7 +355,7 @@ namespace BLApi
         /// </summary>
         /// <param name="customer"></param>
         /// <returns></returns>
-        CustomerInParcel ConvertCustomerDoToCustomerInParcel(DO.Customer customer);
+       // CustomerInParcel ConvertCustomerDoToCustomerInParcel(DO.Customer customer);
 
         /// <summary>
         /// update a Customer object with at least one of the parameters: name / phone (the one that isn't null)

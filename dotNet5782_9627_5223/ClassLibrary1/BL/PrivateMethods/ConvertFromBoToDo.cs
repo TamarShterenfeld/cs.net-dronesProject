@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BO;
 using DalApi;
+using System.Runtime.CompilerServices;
 
 
 namespace IBL
@@ -16,7 +17,7 @@ namespace IBL
         /// </summary>
         /// <param name="parcel">the object to convert</param>
         /// <returns>a DO.Parcel converted object</returns>
-        static DO.Parcel ConvertBoToDoParcel(BO.Parcel parcel)
+         DO.Parcel ConvertBoToDoParcel(BO.Parcel parcel)
         {
             DO.Parcel doParcel = new()
             {
@@ -39,7 +40,7 @@ namespace IBL
         /// </summary>
         /// <param name="parcel">the object to convert</param>
         /// <returns>a BO.Parcel converted object</returns>
-        static Parcel ConvertParcelForListToParcel(ParcelForList parcelForList)
+         Parcel ConvertParcelForListToParcel(ParcelForList parcelForList)
         {
             Parcel parcel = new()
             {
@@ -88,7 +89,7 @@ namespace IBL
         /// </summary>
         /// <param name="boDrone">the object to convert</param>
         /// <returns>a DO.Drone converted object</returns>
-       static DO.Drone ConvertBoToDoDrone(BO.Drone boDrone)
+        DO.Drone ConvertBoToDoDrone(BO.Drone boDrone)
         {
             DO.Drone doDrone = new()
             {
@@ -104,7 +105,7 @@ namespace IBL
         /// </summary>
         /// <param name="droneForList">the object to convert</param>
         /// <returns>a BO.Drone converted object</returns>
-        static Drone ConvertDroneForListToDrone(DroneForList droneForList)
+         Drone ConvertDroneForListToDrone(DroneForList droneForList)
         {
             ParcelInPassing parcel = new() { Id = droneForList.ParcelId };
             Drone drone = new (droneForList.Id, droneForList.Model, droneForList.MaxWeight, droneForList.Battery, droneForList.Status, parcel, droneForList.Location);
@@ -116,7 +117,7 @@ namespace IBL
         /// </summary>
         /// <param name="customer">the objext to convert</param>
         /// <returns>the converted Customer object</returns>
-        public CustomerInParcel ConvertCustomerDoToCustomerInParcel(DO.Customer customer)
+         CustomerInParcel ConvertCustomerDoToCustomerInParcel(DO.Customer customer)
         {
             CustomerInParcel BOCustomrInParcel = new()
             {
@@ -131,7 +132,7 @@ namespace IBL
         /// </summary>
         /// <param name="customer">the object to convert</param>
         /// <returns>the converted BO.Customer object</returns>
-        public Customer ConvertCustomerDoToBo(DO.Customer customer)
+        Customer ConvertCustomerDoToBo(DO.Customer customer)
         {
             Customer BOCustomer = new()
             {
@@ -166,7 +167,7 @@ namespace IBL
         /// <param name="parcel">the parcel to convert</param>
         /// <param name="fromOrTo">an enum value - for filling the SourceOrDest field</param>
         /// <returns></returns>
-        public ParcelInCustomer ConvertParcelDoToParcelInCustomer(DO.Parcel parcel, FromOrTo fromOrTo)
+        ParcelInCustomer ConvertParcelDoToParcelInCustomer(DO.Parcel parcel, FromOrTo fromOrTo)
         {
             ParcelInCustomer BOCustomerInParcel = new()
             {
@@ -185,7 +186,7 @@ namespace IBL
         /// </summary>
         /// <param name="drone">the object to convert</param>
         /// <returns>the converted DO.Drone object</returns>
-        public DroneForList ConvertDroneBoToDroneForList(BO.Drone drone)
+        DroneForList ConvertDroneBoToDroneForList(BO.Drone drone)
         {
             DroneForList current = new()
             {
@@ -205,7 +206,7 @@ namespace IBL
         /// </summary>
         /// <param name="drone">the object to convert</param>
         /// <returns>the converted DroneForList object</returns>
-        public DroneForList ConvertDroneDoToDroneForList(DO.Drone drone)
+        DroneForList ConvertDroneDoToDroneForList(DO.Drone drone)
         {
             DroneForList current = new()
             {
@@ -222,7 +223,7 @@ namespace IBL
         /// </summary>
         /// <param name="drone">the object to convert</param>
         /// <returns>the converted BO.Drone object</returns>
-        public Drone ConvertDroneDOtOBO(DO.Drone drone)
+        Drone ConvertDroneDOtOBO(DO.Drone drone)
         {
             Drone bODrone = new (drone.Id, drone.Model, (WeightCategories)(drone.MaxWeight), 0, DroneStatuses.Available, new ParcelInPassing(), new Location());
             return bODrone;
@@ -233,7 +234,7 @@ namespace IBL
         /// </summary>
         /// <param name="baseStation"></param>
         /// <returns></returns>
-        public BaseStation ConvertBaseStationDOtOBO(DO.BaseStation baseStation)
+        BaseStation ConvertBaseStationDOtOBO(DO.BaseStation baseStation)
         {
             BaseStation BOBaseStation = new()
             {
@@ -252,7 +253,7 @@ namespace IBL
         /// </summary>
         /// <param name="baseStation"></param>
         /// <returns></returns>
-        public DO.BaseStation ConvertBaseStationBOtODO(BO.BaseStation baseStation)
+        DO.BaseStation ConvertBaseStationBOtODO(BO.BaseStation baseStation)
         {
             DO.BaseStation DOBaseStation = new()
             {
