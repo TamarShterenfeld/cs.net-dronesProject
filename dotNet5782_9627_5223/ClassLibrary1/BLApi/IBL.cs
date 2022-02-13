@@ -14,6 +14,8 @@ namespace BLApi
     public interface IBL : IBaseStationBL, ICustomerBL, IDroneBL, IParcelBL
     {
 
+        void InvokeSimulator<T>(int droneId, Action<T> refreshDisplay, Func<bool> checkStopping);
+
         /// <summary>
         /// The function gives associate date to the parcel.
         /// </summary>
@@ -49,7 +51,6 @@ namespace BLApi
         /// the function stops the drone from charging
         /// </summary>
         /// <param name="droneId">drone's id</param>
-
         void ReleaseDroneFromRecharge(int droneId, double timeCharge);
 
 
