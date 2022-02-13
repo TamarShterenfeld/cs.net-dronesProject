@@ -10,9 +10,11 @@ namespace PL.PO
     {
         public static BO.Drone DronePOToBo(PL.PO.Drone drone)
         {
-            return new BO.Drone(drone.Id, drone.Model,(BO.WeightCategories)drone.Weight, 
-                drone.Battery, (BO.DroneStatuses)drone.Status, 
-                new (drone.Parcel.Id, (BO.Priorities)drone.Parcel.Priority, CustomerInParcelPOTOBO(drone.Parcel.Sender), CustomerInParcelPOTOBO(drone.Parcel.Target)),
+            return new BO.Drone(drone.Id, drone.Model, (BO.WeightCategories)drone.Weight,
+                drone.Battery, (BO.DroneStatuses)drone.Status,
+                drone.Parcel != null ?  new(drone.Parcel.Id, (BO.Priorities)drone.Parcel.Priority,
+                CustomerInParcelPOTOBO(drone.Parcel.Sender),
+                CustomerInParcelPOTOBO(drone.Parcel.Target)):null,
                 LocationPOTOBO(drone.Location));
         }
     }

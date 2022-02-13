@@ -38,6 +38,7 @@ namespace PL
             EnableUpdate = false;
             coorLon = Drone.Location.CoorLongitude.ToString();
             coorLat = Drone.Location.CoorLatitude.ToString();
+            //ParcelID = Drone.Parcel != null? Drone.Parcel.Id:null;
             //Parcel = ParcelInPassingBOTOPO(bl.GetParcelInPassing(Drone.ParcelId));
         }
 
@@ -55,6 +56,7 @@ namespace PL
             LeftDoubleClick = new(doubleClickParcel, null);
             DroneWeightsList = new ListCollectionView(Enum.GetValues(typeof(PO.POConverter.WeightCategories)).Cast<PO.POConverter.WeightCategories>().ToList());
             Statuses = new ListCollectionView(Enum.GetValues(typeof(PO.POConverter.DroneStatuses)).Cast<PO.POConverter.DroneStatuses>().ToList());
+            if (Drone.Status == POConverter.DroneStatuses.None) { Drone.Status = POConverter.DroneStatuses.Available; }
             StationsId = new ListCollectionView(bl.GetAvailableChargeSlots().ToList());
         }
 
@@ -153,7 +155,7 @@ namespace PL
         /// <param name="sender">the event</param>
         private void Button_ClickDelete(object sender)
         {
-            if (Drone.Parcel.Id != 0 )
+            if (Drone.Parcel!= null)
             {
                 MessageBox.Show("Can not delete this drone since he has a parcel\n finish with the parcel and try again.");
                 return;
@@ -169,7 +171,12 @@ namespace PL
         /// <param name="sender">the event</param>
         private void Button_ClickAdd(object sender)
         {
-      //      Bl.Add(DronePOToBo(Drone));
+            if(sender as BaseStationForList == null)
+            {
+                MessageBox.Show("please select a station and try again.");
+                return;
+            }
+            Bl.Add(DronePOToBo(Drone),(sender as BaseStationForList).Id);
             ListsModel.Instance.AddDrone(Drone.Id);
         }
 

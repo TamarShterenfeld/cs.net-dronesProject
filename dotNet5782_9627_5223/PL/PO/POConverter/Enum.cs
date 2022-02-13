@@ -40,7 +40,7 @@ namespace PL.PO
         }
 
         /// <summary>
-        /// an enum which contains all the three categories of weight a parcel can weigh.
+        /// an enum which contains all the three categories of weight a parcel can weight + None.
         /// </summary>
         public enum WeightCategories
         {
@@ -79,11 +79,11 @@ namespace PL.PO
 
         //----------------------------Drone Enum------------------------
         /// <summary>
-        /// an enum which contains the three statuses a drone can be in.
+        /// an enum which contains the three statuses a drone can be in + None.
         /// </summary>
         public enum DroneStatuses
         {
-            None = 0, Available = 1, Maintenance, Shipment
+            None = 0, Available, Maintenance, Shipment
         }
 
     }

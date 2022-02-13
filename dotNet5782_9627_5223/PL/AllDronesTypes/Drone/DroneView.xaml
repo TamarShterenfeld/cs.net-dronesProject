@@ -7,6 +7,8 @@
         x:Name="DroneWindow">
     <Window.Resources>
         <local:BoolToStringConverter x:Key="BoolToStringConverter" />
+        <local:BoolToBoolConverter x:Key="BoolToBoolConverter" />
+        <local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
     </Window.Resources>
     <Grid x:Name ="curdrone" Height="634" VerticalAlignment="Top">
         <Grid.RowDefinitions>
@@ -31,7 +33,7 @@
         </Grid.ColumnDefinitions>
         <WrapPanel Grid.Row="0" Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Button x:Name="button1" Content="Close" Width="92" Command="{Binding Cancel}" CommandParameter="{Binding ElementName=DroneWindow}" Background="#FFD40202" BorderBrush="White"  Foreground="#DDFFFFFF"/>
-            <Button x:Name="buttonState" Content="{Binding EnableUpdate,Converter={StaticResource BoolToStringConverter}}" Width="92" Command="{Binding AddOrUpdate}"  Background="Turquoise" BorderBrush="White"/>
+            <Button x:Name="buttonState" Content="{Binding EnableUpdate,Converter={StaticResource BoolToStringConverter}}" Width="92" Command="{Binding AddOrUpdate}" CommandParameter="{Binding ElementName=station,Path=SelectedItem}" Background="Turquoise" BorderBrush="White"/>
             <Button x:Name="buttonDelete" Content="Delete" Width="92" Command="{Binding Delete}" CommandParameter="{Binding ElementName=DroneWindow }"  Background="#FFD40202" BorderBrush="White"/>
             <!--<ComboBox x:Name="button3" 
                       ItemsSource="{Binding Button3Content}" 
@@ -83,7 +85,7 @@
                   VerticalAlignment="Top" 
                   HorizontalAlignment="Center"
                   Width="140" 
-                  IsEnabled="False" 
+                  IsEnabled= "{Binding EnableUpdate,Converter={StaticResource BoolToBoolConverter}}"
                   ItemsSource="{Binding Statuses}"
                   SelectedItem="{Binding Drone.Status}"/>
         <TextBlock Text="Delivery:" Grid.Row= "6" Grid.Column="1" Foreground="#FF3F4245" Height="49"/>
@@ -130,16 +132,16 @@
             HorizontalAlignment="Center"
             Width="140"/>
 
-        <TextBlock x:Name="Lstation" Grid.Row= "9" Grid.Column="1" Foreground="#FF3F4245" Grid.ColumnSpan="2" Grid.RowSpan="2">
+        <TextBlock x:Name="Lstation" Grid.Row= "9" Grid.Column="1" Foreground="#FF3F4245" Grid.ColumnSpan="2" Grid.RowSpan="2" Visibility="{Binding EnableUpdate,Converter={StaticResource BoolToVisibilityConverter}}">
             <Run FlowDirection="RightToLeft" Language="he-il" Text="S"/><Run Text="tation ID:"/></TextBlock>
-        <ComboBox x:Name ="station" 
+        <ComboBox x:Name ="station" Visibility="{Binding EnableUpdate,Converter={StaticResource BoolToVisibilityConverter}}"
                   Grid.Row="9" Grid.Column="2"
                   VerticalAlignment="Top" 
                   HorizontalAlignment="Center"
                   Width="140"                  
                   ItemsSource="{Binding StationsId}"
-                  
-                  SelectedIndex="0"  Height="24"/>
+                  Height="24"/>
+        
         <!--SelectedItem="{Binding StationId}"-->
         <Grid >
             <Grid.Background>
