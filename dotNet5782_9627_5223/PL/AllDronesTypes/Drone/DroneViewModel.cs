@@ -11,16 +11,19 @@ using System.Linq;
 
 namespace PL
 {
-    public class DroneViewModel 
+    public class DroneViewModel
     {
         BLApi.IBL Bl;
         object coorLon, coorLat;
         public PO.Drone Drone { get; set; }
         public bool EnableUpdate { get; set; }
+        //int counterSimulator = 0;
+        //public string SimulatorOrRegular { get; set; } = "Simulator";
         public RelayCommand Cancel { get; set; }
         public RelayCommand AddOrUpdate { get; set; }
         public RelayCommand Delete { get; set; }
         public RelayCommand LeftDoubleClick { get; set; }
+        public RelayCommand Simulator { get; set; }
         public ListCollectionView DroneWeightsList { get; set; }
         public ListCollectionView Statuses { get; set; }
         public ListCollectionView StationsId { get; set; }
@@ -30,11 +33,12 @@ namespace PL
         /// </summary>
         /// <param name="bl">BL object</param>
         /// <param name="customer">CustomerForList object</param>
-        public DroneViewModel(BLApi.IBL bl, PL.PO.DroneForList drone): this(bl)
+        public DroneViewModel(BLApi.IBL bl, PL.PO.DroneForList drone) : this(bl)
         {
             Drone = new PO.Drone(drone, bl);
             AddOrUpdate = new(Button_ClickUpdate, null);
             Delete = new(Button_ClickDelete, null);
+            Simulator = new(Button_Simulator, null);
             EnableUpdate = false;
             coorLon = Drone.Location.CoorLongitude.ToString();
             coorLat = Drone.Location.CoorLatitude.ToString();
@@ -93,12 +97,13 @@ namespace PL
         object chargeDurationTime;
         string button3SelectedItem;
         string parcelOption;
+        private string simulatorOrRegular;
 
-        
+
         //properties
-        
-   
-       
+
+
+
         //public string Button2Content { get; set; }
 
         //public List<string> IsOrNotCharging = new List<string>() { "Charging", "NotCharging" };
@@ -131,8 +136,8 @@ namespace PL
         //        return button3SelectedItem;
         //    }
         //}
-       
-        
+
+
         //public RelayCommand TimeDuration { set; get; }
         //public RelayCommand DisplayParcelCommand { set; get; }
 
@@ -146,7 +151,7 @@ namespace PL
         /// <param name="e">the event</param>
         private void Button_ClickCancel(object sender)
         {
-            (sender as Window).Close(); 
+            (sender as Window).Close();
         }
 
         /// <summary>
@@ -155,7 +160,7 @@ namespace PL
         /// <param name="sender">the event</param>
         private void Button_ClickDelete(object sender)
         {
-            if (Drone.Parcel!= null)
+            if (Drone.Parcel != null)
             {
                 MessageBox.Show("Can not delete this drone since he has a parcel\n finish with the parcel and try again.");
                 return;
@@ -171,12 +176,12 @@ namespace PL
         /// <param name="sender">the event</param>
         private void Button_ClickAdd(object sender)
         {
-            if(sender as BaseStationForList == null)
+            if (sender as BaseStationForList == null)
             {
                 MessageBox.Show("please select a station and try again.");
                 return;
             }
-            Bl.Add(DronePOToBo(Drone),(sender as BaseStationForList).Id);
+            Bl.Add(DronePOToBo(Drone), (sender as BaseStationForList).Id);
             ListsModel.Instance.AddDrone(Drone.Id);
         }
 
@@ -191,12 +196,21 @@ namespace PL
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        private void Button_Simulator(object sender)
+        {
+           // SimulatorOrRegular = ++counterSimulator % 2 == 0? "Regular":"Simulator";
+        }
+
+        /// <summary>
         /// show full details of parcelInCustomer object
         /// </summary>
         /// <param name="sender">the event</param>
         private void doubleClickParcel(object sender)
         {
-            new ParcelInPassingView(new ParcelInPassingViewModel(Bl.GetParcelInPassing(Drone.Id),Bl)).Show();
+            new ParcelInPassingView(new ParcelInPassingViewModel(Bl.GetParcelInPassing(Drone.Id), Bl)).Show();
         }
 
 
