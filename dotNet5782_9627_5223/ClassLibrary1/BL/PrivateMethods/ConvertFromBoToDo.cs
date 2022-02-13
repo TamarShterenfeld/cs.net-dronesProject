@@ -60,7 +60,6 @@ namespace IBL
                 MyDrone = new() { Id = parcelForList.DroneId}
             };
 
-        
             switch (parcelForList.Status)
             {
                 

@@ -12,31 +12,43 @@ namespace IBL
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void Delete(BO.BaseStation station)
         {
-            station.IsDeleted = true;
-            dal.UpDate(ConvertBaseStationBOtODO(station), station.Id);
+            lock (dal)
+            {
+                station.IsDeleted = true;
+                dal.UpDate(ConvertBaseStationBOtODO(station), station.Id);
+            }    
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void Delete(BO.Customer customer)
         {
-            DO.Customer curCustomer = dal.GetCustomer(customer.Id);
-            curCustomer.IsDeleted = true;
-            dal.UpDate(curCustomer, customer.Id);
+            lock (dal)
+            {
+                DO.Customer curCustomer = dal.GetCustomer(customer.Id);
+                curCustomer.IsDeleted = true;
+                dal.UpDate(curCustomer, customer.Id);
+            }
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void Delete(BO.Parcel parcel)
         {
-            parcel.IsDeleted = true;
-            dal.UpDate(ConvertBoToDoParcel(parcel), parcel.Id);
+            lock (dal)
+            {
+                parcel.IsDeleted = true;
+                dal.UpDate(ConvertBoToDoParcel(parcel), parcel.Id);
+            }
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void Delete(BO.Drone drone)
         {
-            DO.Drone curDrone = dal.GetDrone(drone.Id);
-            curDrone.IsDeleted = true;
-            dal.UpDate(curDrone, drone.Id);
+            lock (dal)
+            {
+                DO.Drone curDrone = dal.GetDrone(drone.Id);
+                curDrone.IsDeleted = true;
+                dal.UpDate(curDrone, drone.Id);
+            }
         }
 
     }

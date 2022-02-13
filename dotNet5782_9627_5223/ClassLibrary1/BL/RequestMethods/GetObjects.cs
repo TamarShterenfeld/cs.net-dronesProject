@@ -10,14 +10,17 @@ using System.Runtime.CompilerServices;
 
 namespace IBL
 {
-    public partial class BL 
+    public partial class BL
     {
 
         //----------------------------------BaseStation GetObject Methods---------------------------------
         [MethodImpl(MethodImplOptions.Synchronized)]
         public BaseStation GetBLBaseStation(int id)
         {
-            return ConvertBaseStationDOtOBO(dal.GetBaseStation(id)); ;
+            lock (dal)
+            {
+                return ConvertBaseStationDOtOBO(dal.GetBaseStation(id));
+            }
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
@@ -29,7 +32,7 @@ namespace IBL
                 Id = item.Id,
                 AvailableChargeSlots = item.ChargeSlots,
                 CaughtChargeSlots = dal.CaughtChargeSlots(item.Id),
-                Name = item.Name,                
+                Name = item.Name,
             };
             return current;
         }
@@ -40,11 +43,14 @@ namespace IBL
         [MethodImpl(MethodImplOptions.Synchronized)]
         public Drone GetBLDrone(int id)
         {
-            Drone drone = ConvertDroneDOtOBO(dal.GetDrone(id));
-            DroneForList drone1 = dronesForList.First(item => item.Id == drone.Id);
-            drone.Battery = drone1.Battery; drone.Status = drone1.Status; drone.Parcel.Id = drone1.ParcelId;
-            drone.Location = drone1.Location;
-            return drone;
+            lock (dal)
+            {
+                Drone drone = ConvertDroneDOtOBO(dal.GetDrone(id));
+                DroneForList drone1 = dronesForList.First(item => item.Id == drone.Id);
+                drone.Battery = drone1.Battery; drone.Status = drone1.Status; drone.Parcel.Id = drone1.ParcelId;
+                drone.Location = drone1.Location;
+                return drone;
+            }
         }
 
 
@@ -60,9 +66,6 @@ namespace IBL
             else
                 return new DroneForList(item.Id, 0, item.Model, item.MaxWeight, item.Battery, item.Status, item.Location);
         }
-
-
-
 
         //----------------------------------DroneInParcel GetObject Methods---------------------------------
         [MethodImpl(MethodImplOptions.Synchronized)]
@@ -91,22 +94,12 @@ namespace IBL
         //----------------------------------Parcel GetObject Methods---------------------------------
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public ParcelStatuses ParcelStatus(DO.Parcel parcel)
-        {
-            if (parcel.AssociationDate == null)
-                return ParcelStatuses.Production;
-            if (parcel.PickUpDate == null)
-                return ParcelStatuses.Associated;
-            if (parcel.SupplyDate == null)
-                return ParcelStatuses.PickedUp;
-            else
-                return ParcelStatuses.Supplied;
-        }
-
-        [MethodImpl(MethodImplOptions.Synchronized)]
         public Parcel GetBLParcel(int id)
         {
-            return ParcelDOtOBO(dal.GetParcel(id));
+            lock (dal)
+            {
+                return ParcelDOtOBO(dal.GetParcel(id));
+            }
 
         }
 
@@ -132,22 +125,22 @@ namespace IBL
         [MethodImpl(MethodImplOptions.Synchronized)]
         public ParcelInPassing GetParcelInPassing(int id)
         {
-            Parcel parcel = GetBLParcel(id);
-            Customer sender = GetBLCustomer(parcel.Sender.Id);
-            Customer target = GetBLCustomer(parcel.Target.Id);
-            ParcelInPassing parcelInPassing = new()
-            {
-                Id = parcel.Id,
-                Weight = parcel.Weight,
-                Priority = parcel.Priority,
-                ToDestination = parcel.PickUpDate == null,
-                Sender = parcel.Sender,
-                Target = parcel.Target,
-                Collect = GetBLCustomer(parcel.Sender.Id).Location,
-                Destination = GetBLCustomer(parcel.Target.Id).Location,
-                Distatnce = sender.Distance(target),
-            };
-            return parcelInPassing;
+                Parcel parcel = GetBLParcel(id);
+                Customer sender = GetBLCustomer(parcel.Sender.Id);
+                Customer target = GetBLCustomer(parcel.Target.Id);
+                ParcelInPassing parcelInPassing = new()
+                {
+                    Id = parcel.Id,
+                    Weight = parcel.Weight,
+                    Priority = parcel.Priority,
+                    ToDestination = parcel.PickUpDate == null,
+                    Sender = parcel.Sender,
+                    Target = parcel.Target,
+                    Collect = GetBLCustomer(parcel.Sender.Id).Location,
+                    Destination = GetBLCustomer(parcel.Target.Id).Location,
+                    Distatnce = sender.Distance(target),
+                };
+                return parcelInPassing;
         }
 
 
@@ -156,8 +149,11 @@ namespace IBL
         [MethodImpl(MethodImplOptions.Synchronized)]
         public Customer GetBLCustomer(string id)
         {
-            DO.Customer customer = dal.GetCustomer(id);
-            return ConvertCustomerDoToBo(customer);
+            lock (dal)
+            {
+                DO.Customer customer = dal.GetCustomer(id);
+                return ConvertCustomerDoToBo(customer);
+            }
 
         }
 
@@ -176,17 +172,16 @@ namespace IBL
                 AmountOfSendAndSuppliedParcels = SendAndSupplied(item)
             };
             return current;
-
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
         public CustomerInParcel GetCustomrInParcel(string id)
         {
-
-            return ConvertCustomerDoToCustomerInParcel(dal.GetCustomer(id));
+            lock(dal)
+            {
+                return ConvertCustomerDoToCustomerInParcel(dal.GetCustomer(id));
+            }
         }
-
-
     }
 }
 

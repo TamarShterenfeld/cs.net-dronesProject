@@ -289,7 +289,7 @@ namespace BLApi
         /// </summary>
         /// <param name="parcel">the Parcel object for checking</param>
         /// <returns>the appropriate ParcelStatus</returns>
-        ParcelStatuses ParcelStatus(DO.Parcel parcel);
+        //ParcelStatuses ParcelStatus(DO.Parcel parcel);
 
         /// <summary>
         /// the function updates the parcel object instead of the prev object in the same id.

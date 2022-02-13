@@ -26,7 +26,7 @@ namespace IBL
         /// </summary>
         /// <param name="customer"> BO customer</param>
         /// <returns>number of supplied parcels which the customer have sent </returns>
-        static int SendAndSupplied(BO.Customer customer)
+        int SendAndSupplied(BO.Customer customer)
         {
             int num = 0;
             if (customer.FromCustomer == null) { return num;  }
@@ -43,7 +43,7 @@ namespace IBL
         /// </summary>
         /// <param name="customer"> BO customer</param>
         /// <returns>number of unsupplied parcels which the customer have sent </returns>
-        static int SendAndNotSupplied(BO.Customer customer)
+        int SendAndNotSupplied(BO.Customer customer)
         {
             int num = 0;
             if (customer.FromCustomer == null) { return num; }
@@ -59,7 +59,7 @@ namespace IBL
         /// </summary>
         /// <param name="customer"> BO customer</param>
         /// <returns>number of supplied parcels which the customer have got </returns>
-        static int GetAndSupplied(BO.Customer customer)
+        int GetAndSupplied(BO.Customer customer)
         {
             int num = 0;
             if (customer.ToCustomer == null) { return num; }
@@ -75,7 +75,7 @@ namespace IBL
         /// </summary>
         /// <param name="customer"> BO customer</param>
         /// <returns>number of unsupplied parcels which the customer have got </returns>
-        static int GetAndNotSupplied(BO.Customer customer)
+        int GetAndNotSupplied(BO.Customer customer)
         {
             int num = 0;
             if (customer.ToCustomer == null) { return num; }
@@ -114,7 +114,7 @@ namespace IBL
         /// </summary>
         /// <param name="coor">BO coordinate</param>
         /// <returns>DO coordinate</returns>
-        static DO.Coordinate CoordinateBoToDo(BO.Coordinate coor)
+        DO.Coordinate CoordinateBoToDo(BO.Coordinate coor)
         {
             return new DO.Coordinate() { InputCoorValue = coor.InputCoorValue, Degrees = coor.Degrees, Direction = (DO.Directions)coor.Direction, MyLocation = (DO.Locations)coor.MyLocation , Minutes = coor.Minutes, Seconds = coor.Seconds};
         }
@@ -127,6 +127,18 @@ namespace IBL
         static BO.Coordinate CoordinateDoToBo(DO.Coordinate coor)
         {
             return new BO.Coordinate() { InputCoorValue = coor.InputCoorValue, Degrees = coor.Degrees, Direction = (BO.Directions)coor.Direction, MyLocation = (BO.Locations)coor.MyLocation, Minutes = coor.Minutes, Seconds = coor.Seconds };
+        }
+
+        ParcelStatuses ParcelStatus(DO.Parcel parcel)
+        {
+            if (parcel.AssociationDate == null)
+                return ParcelStatuses.Production;
+            if (parcel.PickUpDate == null)
+                return ParcelStatuses.Associated;
+            if (parcel.SupplyDate == null)
+                return ParcelStatuses.PickedUp;
+            else
+                return ParcelStatuses.Supplied;
         }
     }
 }
