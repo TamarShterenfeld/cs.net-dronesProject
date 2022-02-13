@@ -26,9 +26,9 @@ namespace IBL
         readonly double chargeRate;
         BL()
         {
+            dal = DalApi.DalFactory.GetDal();
             lock (dal)
             {
-                dal = DalApi.DalFactory.GetDal();
                 dronesForList = (List<DroneForList>)InitDroneForList();
                 double[] droneElectricityInfo = dal.ElectricityConsuming();
                 electricityConsumingOfAvailable = droneElectricityInfo[0];
@@ -37,10 +37,8 @@ namespace IBL
                 electricityConsumingOfHeavyWeight = droneElectricityInfo[3];
                 chargeRate = droneElectricityInfo[4];
                 Random rand = new();
-
                 for (int i = 0; i < dronesForList.Count; i++)
                 {
-
                     BO.Parcel parcelOfDrone = GetBLParcel(dronesForList[i].ParcelId);
                     //the parcel hasn't been supplied.
                     if (parcelOfDrone.SupplyDate == null &&
@@ -115,7 +113,9 @@ namespace IBL
                         }
                     }
                 }
+
             }
+
         }
 
     }
