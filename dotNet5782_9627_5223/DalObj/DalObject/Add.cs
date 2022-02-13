@@ -4,6 +4,7 @@ using System.Text;
 using static DalObject.DataSource;
 using System.Linq;
 using DO;
+using System.Runtime.CompilerServices;
 
 namespace DalObject
 {
@@ -13,25 +14,28 @@ namespace DalObject
     /// </summary>
     public partial class DalObject
     {
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void Add(BaseStation baseStation)
         {
             CheckNotExistenceOfBaseStation(baseStation.Id);
             BaseStationsList.Add(baseStation);
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void Add(Customer customer)
         {
             CheckNotExistenceOfCustomer(customer.Id);
             CustomersList.Add(customer);
         }
 
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void Add(Drone drone)
         {
             CheckNotExistenceOfDrone(drone.Id);
             DronesList.Add(drone);
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void Add(Parcel parcel)
         {
             CheckNotExistenceOfParcel(parcel.Id);
@@ -43,6 +47,7 @@ namespace DalObject
             ParcelsList.Add(parcel);
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void Add(DroneCharge droneCharge)
         {
             CheckNotExistenceOfDroneCharge(droneCharge.DroneId);

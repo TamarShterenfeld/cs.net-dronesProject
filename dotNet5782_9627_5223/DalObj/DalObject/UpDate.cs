@@ -4,13 +4,14 @@ using System.Text;
 using static DalObject.DataSource;
 using DO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 
 namespace DalObject
 {
     public partial class DalObject
     {
-        
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpDate(Drone drone, int id)
         {
             CheckExistenceOfDrone(id);
@@ -18,7 +19,7 @@ namespace DalObject
             DronesList.Add(drone);
         }
 
-       
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpDate(BaseStation baseStation, int id)
         {
             CheckExistenceOfBaseStation(id);
@@ -26,20 +27,23 @@ namespace DalObject
             BaseStationsList.Add(baseStation);
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpDate(Customer customer, string id)
         {
             CheckExistenceOfCustomer(id);
             CustomersList.Remove(CustomersList.First( item => item.Id == id));
             CustomersList.Add(customer);
         }
- 
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpDate(Parcel parcel, int id)
         {
             CheckExistenceOfParcel(id);
             ParcelsList.Remove(ParcelsList.First(item => item.Id == id));
             ParcelsList.Add(parcel);
         }
-        
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void SendDroneToRecharge(int droneId, int baseStationId)
         {
             CheckNotExistenceOfDroneCharge(droneId);
@@ -47,6 +51,7 @@ namespace DalObject
             Add(droneCharge);
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void ReleaseDroneFromRecharge(int droneId)
         {
             CheckExistenceOfDroneCharge(droneId);

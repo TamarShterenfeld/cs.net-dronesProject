@@ -5,6 +5,7 @@ using System.Linq;
 using DO;
 using System.Xml.Linq;
 using static DalXml.XMLTools;
+using System.Runtime.CompilerServices;
 
 namespace DalXml
 {
@@ -14,6 +15,7 @@ namespace DalXml
     /// </summary>
     sealed partial class DalXml
     {
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void Add(BaseStation baseStation)
         {
             List<BaseStation> baseStations = LoadListFromXmlSerializer<DO.BaseStation>(baseStationsPath);
@@ -22,7 +24,7 @@ namespace DalXml
             SaveListToXmlSerializer<BaseStation>(baseStations, baseStationsPath);
         }
 
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void Add(Customer customer)
         {
             CheckNotExistenceOfCustomer(customer.Id);
@@ -38,7 +40,7 @@ namespace DalXml
             CustomersRoot.Save(customersPath);
         }
 
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void Add(Drone drone)
         {
             List<Drone> drones = LoadListFromXmlSerializer<DO.Drone>(dronesPath);
@@ -47,6 +49,7 @@ namespace DalXml
             SaveListToXmlSerializer<Drone>(drones, baseStationsPath);
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void Add(Parcel parcel)
         {
             List<Parcel> parcels = LoadListFromXmlSerializer < DO.Parcel>(parcelsPath);
@@ -55,6 +58,7 @@ namespace DalXml
             SaveListToXmlSerializer<Parcel>(parcels, baseStationsPath);
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void Add(DroneCharge droneCharge)
         {
             List<DroneCharge> dronesCharge = LoadListFromXmlSerializer<DO.DroneCharge>(droneChargesPath);

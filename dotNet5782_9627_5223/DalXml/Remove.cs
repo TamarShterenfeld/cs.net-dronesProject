@@ -5,11 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using DO;
 using static DalXml.XMLTools;
+using System.Runtime.CompilerServices;
 
 namespace DalXml
 {
     sealed partial class DalXml
     {
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void Remove(DroneCharge drone)
         {
             List<DroneCharge> droneCharges = LoadListFromXmlSerializer<DroneCharge>(droneChargesPath);

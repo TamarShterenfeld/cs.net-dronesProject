@@ -4,6 +4,8 @@ using System.Text;
 using System.Linq;
 using System.Reflection;
 using Singleton;
+using System.Runtime.CompilerServices;
+
 
 namespace DalXml
 {

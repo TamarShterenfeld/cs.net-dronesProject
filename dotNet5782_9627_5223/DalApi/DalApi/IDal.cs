@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using DO;
 using System.Text;
+using System.Runtime.CompilerServices;
 
 namespace DalApi
 {

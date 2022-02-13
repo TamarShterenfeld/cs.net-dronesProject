@@ -5,11 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using DO;
 using static DalObject.DataSource;
+using System.Runtime.CompilerServices;
 
 namespace DalObject
 {
     public partial class DalObject 
     {
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void Remove(DroneCharge drone)
         {
             CheckExistenceOfDroneCharge(drone.DroneId);

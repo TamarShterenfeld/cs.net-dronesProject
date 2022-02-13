@@ -6,6 +6,7 @@ using DO;
 using static DalXml.XMLTools;
 using System.Xml.Linq;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace DalXml
 {
@@ -29,12 +30,15 @@ namespace DalXml
             return ++parcelId;
         }
 
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public int CaughtChargeSlots(int baseStationId)
         {
             List<BaseStation> baseStations =  LoadListFromXmlSerializer<DO.BaseStation>(baseStationsPath);
             return ((List<int>)GetDronesIdInBaseStation(baseStationId)).Count;
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public double[] ElectricityConsuming()
 
         {
@@ -58,6 +62,7 @@ namespace DalXml
             return electricitiesConsuming;
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public int GetLastParcelId()
         {
             int parcelId = (from c in ConfigRoot.Elements()

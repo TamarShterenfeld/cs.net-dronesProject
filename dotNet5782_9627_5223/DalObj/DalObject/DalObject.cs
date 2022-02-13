@@ -5,6 +5,7 @@ using static DalObject.DataSource;
 using System.Linq;
 using System.Reflection;
 using Singleton;
+using System.Runtime.CompilerServices;
 
 namespace DalObject
 {

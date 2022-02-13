@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using DO;
 using static DalXml.XMLTools;
+using System.Runtime.CompilerServices;
 
 namespace DalXml
 {
@@ -15,7 +16,7 @@ namespace DalXml
         /// check if the id exists in the baseStationsList
         /// </summary>
         /// <param name="baseStationId">the id for checking</param>
-        private void CheckExistenceOfBaseStation(int baseStationId)
+        void CheckExistenceOfBaseStation(int baseStationId)
         {
             List<BaseStation> baseStations = LoadListFromXmlSerializer<DO.BaseStation>(baseStationsPath);
             int baseStationIndex = baseStations.FindIndex(item => item.Id == baseStationId);
@@ -24,7 +25,7 @@ namespace DalXml
             SaveListToXmlSerializer<BaseStation>(baseStations, baseStationsPath);
         }
 
-        private void CheckNotExistenceOfBaseStation(int baseStationId)
+        void CheckNotExistenceOfBaseStation(int baseStationId)
         {
             List<BaseStation> baseStations = LoadListFromXmlSerializer<DO.BaseStation>(baseStationsPath);
             int baseStationIndex = baseStations.FindIndex(item => item.Id == baseStationId);

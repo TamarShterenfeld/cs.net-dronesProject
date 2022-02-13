@@ -5,13 +5,14 @@ using DO;
 using System.Linq;
 using System.Xml.Linq;
 using static DalXml.XMLTools;
+using System.Runtime.CompilerServices;
 
 
 namespace DalXml
 {
     sealed partial class DalXml
     {
-        
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpDate(Drone drone, int id)
         {
             List<Drone> drones = LoadListFromXmlSerializer<Drone>(dronesPath);
@@ -21,7 +22,7 @@ namespace DalXml
             SaveListToXmlSerializer<Drone>(drones, dronesPath);
         }
 
-       
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpDate(BaseStation baseStation, int id)
         {
             List<BaseStation> baseStations = LoadListFromXmlSerializer<BaseStation>(baseStationsPath);
@@ -31,6 +32,7 @@ namespace DalXml
             SaveListToXmlSerializer<BaseStation>(baseStations, baseStationsPath);
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpDate(Customer customer, string id)
         {
 
@@ -45,8 +47,9 @@ namespace DalXml
             customerXElement.Element("location").Element("latitude").Value = customer.Latitude.ToString();
             CustomersRoot.Save(customersPath);
         }
-    
- 
+
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpDate(Parcel parcel, int id)
         {
             List<Parcel> parcels = LoadListFromXmlSerializer<Parcel>(parcelsPath);
@@ -55,14 +58,16 @@ namespace DalXml
             parcels.Add(parcel);
             SaveListToXmlSerializer<Parcel>(parcels, parcelsPath);
         }
-        
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void SendDroneToRecharge(int droneId, int baseStationId)
         {
             CheckNotExistenceOfDroneCharge(droneId);
             DroneCharge droneCharge = new() { DroneId = droneId, StationId = baseStationId, EntryTime = DateTime.Now };
             Add(droneCharge);
         }
-
+        
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void ReleaseDroneFromRecharge(int droneId)
         {
             CheckExistenceOfDroneCharge(droneId);

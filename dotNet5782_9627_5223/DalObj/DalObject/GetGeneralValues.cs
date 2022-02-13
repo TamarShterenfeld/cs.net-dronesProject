@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using static DalObject.DataSource;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace DalObject
 {
@@ -14,16 +15,19 @@ namespace DalObject
         ///a static method which increases the static field - 'ParcelId' in each time it is called. 
         /// </summary>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public static int IncreaseParcelIndex()
         { 
             return ++Config.ParcelId;
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public int CaughtChargeSlots(int baseStationId)
         {
             return ((List<int>)GetDronesIdInBaseStation(baseStationId)).Count;
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public double[] ElectricityConsuming()
         {
             const int DOUBLE_VARIABLES_IN_CONFIG_CLASS = 5;
@@ -37,6 +41,7 @@ namespace DalObject
             return electricitiesConsuming;
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public int GetLastParcelId()
         {
             return Config.ParcelId;
