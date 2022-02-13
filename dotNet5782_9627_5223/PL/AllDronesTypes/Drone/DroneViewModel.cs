@@ -13,12 +13,10 @@ namespace PL
 {
     public class DroneViewModel 
     {
-
         BLApi.IBL Bl;
         object coorLon, coorLat;
         public PO.Drone Drone { get; set; }
         public bool EnableUpdate { get; set; }
-        public string State { get; set; }
         public RelayCommand Cancel { get; set; }
         public RelayCommand AddOrUpdate { get; set; }
         public RelayCommand Delete { get; set; }
@@ -40,7 +38,6 @@ namespace PL
             EnableUpdate = false;
             coorLon = Drone.Location.CoorLongitude.ToString();
             coorLat = Drone.Location.CoorLatitude.ToString();
-            State = "Update";
             //Parcel = ParcelInPassingBOTOPO(bl.GetParcelInPassing(Drone.ParcelId));
         }
 
@@ -55,7 +52,6 @@ namespace PL
             Cancel = new(Button_ClickCancel, null);
             AddOrUpdate = new(Button_ClickAdd, null);
             EnableUpdate = true;
-            State = "Add";
             LeftDoubleClick = new(doubleClickParcel, null);
             DroneWeightsList = new ListCollectionView(Enum.GetValues(typeof(PO.POConverter.WeightCategories)).Cast<PO.POConverter.WeightCategories>().ToList());
             Statuses = new ListCollectionView(Enum.GetValues(typeof(PO.POConverter.DroneStatuses)).Cast<PO.POConverter.DroneStatuses>().ToList());
@@ -157,9 +153,9 @@ namespace PL
         /// <param name="sender">the event</param>
         private void Button_ClickDelete(object sender)
         {
-            if (Drone.Parcel.Id!=0 )
+            if (Drone.Parcel.Id != 0 )
             {
-                MessageBox.Show("Can not delete this drone since he has a parcel\nfinish with the parcel and try again.");
+                MessageBox.Show("Can not delete this drone since he has a parcel\n finish with the parcel and try again.");
                 return;
             }
             //Bl.Delete(CustomerPoToBo(Customer));///////////////////////////////////////////////////////////////////////////////////////
