@@ -8,12 +8,13 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Data;
 using System.Linq;
+using System.ComponentModel;
 
 namespace PL
 {
     public class DroneViewModel
     {
-        BLApi.IBL Bl;
+        BLApi.IBL bl;
         object coorLon, coorLat;
         public PO.Drone Drone { get; set; }
         public bool EnableUpdate { get; set; }
@@ -52,7 +53,7 @@ namespace PL
         /// <param name="bl">BL object</param>
         public DroneViewModel(BLApi.IBL bl)
         {
-            this.Bl = bl;
+            this.bl = bl;
             Drone = new();
             Cancel = new(Button_ClickCancel, null);
             AddOrUpdate = new(Button_ClickAdd, null);
@@ -181,7 +182,7 @@ namespace PL
                 MessageBox.Show("please select a station and try again.");
                 return;
             }
-            Bl.Add(DronePOToBo(Drone), (sender as BaseStationForList).Id);
+            bl.Add(DronePOToBo(Drone), (sender as BaseStationForList).Id);
             ListsModel.Instance.AddDrone(Drone.Id);
         }
 
@@ -191,7 +192,7 @@ namespace PL
         /// <param name="sender">the event</param>
         private void Button_ClickUpdate(object sender)
         {
-            Bl.UpdateDrone(Drone.Id, Drone.Model);
+            bl.UpdateDrone(Drone.Id, Drone.Model);
             ListsModel.Instance.UpdateDrone(Drone.Id);
         }
 
@@ -210,9 +211,16 @@ namespace PL
         /// <param name="sender">the event</param>
         private void doubleClickParcel(object sender)
         {
-            new ParcelInPassingView(new ParcelInPassingViewModel(Bl.GetParcelInPassing(Drone.Id), Bl)).Show();
+            new ParcelInPassingView(new ParcelInPassingViewModel(bl.GetParcelInPassing(Drone.Id), bl)).Show();
         }
 
+        private void Simulator_Click(Object sender, EventArgs e)
+        {
+            BackgroundWorker worker = new BackgroundWorker();
+           // worker.DoWork += bl.InvokeSimulator<BO.Drone>((sender as BO.Drone).Id, );
+           // worker.ProgressChanged += func;
+            worker.WorkerReportsProgress = true;
+        }
 
 
 
