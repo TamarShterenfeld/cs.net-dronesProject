@@ -20,11 +20,10 @@ namespace DalXml
         /// <returns></returns>
         public static int IncreaseParcelIndex()
         {
-            int parcelId = (from c in ConfigRoot.Elements()
-                                         select int.Parse(c.Element("ParcelId").Value)).FirstOrDefault();
+            int parcelId = RescueConfigValueByName<int>("ParcelId");
             XElement parcelIdXElement =
                  (from c in ConfigRoot.Elements()
-                 select c.Element("ParcelId")).FirstOrDefault();
+                  select c.Element("ParcelId")).FirstOrDefault();
             parcelIdXElement.Element("parcelId").Value = parcelId + 1.ToString();
             ConfigRoot.Save(ConfigPath);
             return ++parcelId;
@@ -34,38 +33,57 @@ namespace DalXml
         [MethodImpl(MethodImplOptions.Synchronized)]
         public int CaughtChargeSlots(int baseStationId)
         {
-            List<BaseStation> baseStations =  LoadListFromXmlSerializer<DO.BaseStation>(baseStationsPath);
+            List<BaseStation> baseStations = LoadListFromXmlSerializer<DO.BaseStation>(baseStationsPath);
             return ((List<int>)GetDronesIdInBaseStation(baseStationId)).Count;
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
         public double[] ElectricityConsuming()
-
         {
             double[] electricitiesConsuming = new double[5];
-            object ans = new();
-                (from c in ConfigRoot.Elements()
-                 where c.Name == "ElectricityConsumingOfAvailable"
-                 select new { A = c.Element("ElectricityConsumingOfAvailable").Value}).FirstOrDefault();
-            electricitiesConsuming[0] = (double)ans;
-            electricitiesConsuming[1] =
-               (from c in ConfigRoot.Elements()
-                where c.Name == "ElectricityConsumingOfLightWeight"
-                select double.Parse(c.Element("ElectricityConsumingOfLightWeight").Value)).FirstOrDefault();
-            electricitiesConsuming[2] =
-               (from c in ConfigRoot.Elements()
-                where c.Name == "ElectricityConsumingOfAverageWeight"
-                select double.Parse(c.Element("ElectricityConsumingOfAverageWeight").Value)).FirstOrDefault();
-            electricitiesConsuming[3] =
-               (from c in ConfigRoot.Elements()
-                where c.Name == "ElectricityConsumingOfHeavyWeight"
-                select double.Parse(c.Element("ElectricityConsumingOfHeavyWeight").Value)).FirstOrDefault();
-            electricitiesConsuming[4] =
-               (from c in ConfigRoot.Elements()
-                where c.Name == "electricitiesConsuming"
-                select double.Parse(c.Element("electricitiesConsuming").Value)).FirstOrDefault();
-
+            electricitiesConsuming[0] = RescueConfigValueByName<double>("ElectricityConsumingOfAvailable");
+            electricitiesConsuming[1] = RescueConfigValueByName<double>("ElectricityConsumingOfLightWeight");
+            electricitiesConsuming[2] = RescueConfigValueByName<double>("ElectricityConsumingOfAverageWeight");
+            electricitiesConsuming[3] = RescueConfigValueByName<double>("ElectricityConsumingOfHeavyWeight"); 
+            electricitiesConsuming[4] = RescueConfigValueByName<double>("ChargeRate");
             return electricitiesConsuming;
+        }
+
+        static T RescueConfigValueByName<T>(string name)
+        {
+            XElement ans =
+                (from c in ConfigRoot.Elements()
+                 where c.Name == name
+                 select c).FirstOrDefault();
+            if (ans.Value != null)
+            {
+                Type type = typeof(T);
+
+                T value = default(T);
+                var methodInfo = (from m in type.GetMethods(BindingFlags.Public | BindingFlags.Static)
+                                  where m.Name == "TryParse"
+                                  select m).FirstOrDefault();
+
+                if (methodInfo == null)
+                    throw new ApplicationException("Unable to find TryParse method!");
+
+                object result = methodInfo.Invoke(null, new object[] { ans.Value, value });
+                if ((result != null) && ((bool)result))
+                {
+                    methodInfo = (from m in type.GetMethods(BindingFlags.Public | BindingFlags.Static)
+                                  where m.Name == "Parse"
+                                  select m).FirstOrDefault();
+
+                    if (methodInfo == null)
+                        throw new ApplicationException("Unable to find Parse method!");
+
+                    value = (T)methodInfo.Invoke(null, new object[] { ans.Value });
+
+                    return (T)value;
+                }
+            }
+
+            return default(T);
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
