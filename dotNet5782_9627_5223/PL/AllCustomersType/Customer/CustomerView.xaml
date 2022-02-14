@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Title="CustomerView" Height="650" Width="800"
         Icon="/images/toplogo.jpg"
-        x:Name="StationWindow">
+        x:Name="CustomerWindow">
     <Grid x:Name ="station" Height="634" VerticalAlignment="Top">
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
@@ -31,9 +31,9 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <WrapPanel Grid.Row="0" Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Button x:Name="button1" Content="Close" Width="92" Command="{Binding Cancel}" CommandParameter="{Binding ElementName=StationWindow }" Background="#FFD40202" BorderBrush="White"  Foreground="#DDFFFFFF"/>
+            <Button x:Name="button1" Content="Close" Width="92" Command="{Binding Cancel}" CommandParameter="{Binding ElementName=CustomerWindow }" Background="#FFD40202" BorderBrush="White"  Foreground="#DDFFFFFF"/>
             <Button x:Name="buttonState" Content="{Binding State}" Width="92" Command="{Binding AddOrUpdate}"  Background="Turquoise" BorderBrush="White"/>
-            <Button x:Name="buttonDelete" Content="Delete" Width="92" Command="{Binding Delete}" CommandParameter="{Binding ElementName=StationWindow }"  Background="#FFD40202" BorderBrush="White"/>
+            <Button x:Name="buttonDelete" Content="Delete" Width="92" Command="{Binding Delete}" CommandParameter="{Binding ElementName=CustomerWindow }"  Background="#FFD40202" BorderBrush="White"/>
         </WrapPanel>
 
         <TextBlock Text="Id:" Grid.Row="1" Grid.Column="1" Foreground="#FF2D2D2D"/>
