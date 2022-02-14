@@ -1,6 +1,7 @@
 ﻿using DO;
 using PL.PO;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Windows;
@@ -19,6 +20,8 @@ namespace PL
         public PO.Station BaseStation { get; set; }
         public bool EnableUpdate { get; set; }
         public bool EnableAdd { get; set; }
+
+        public List<string> ListOfCurrFields { get; set; }
         public string State
         {
             get => state;
@@ -128,7 +131,7 @@ namespace PL
             {
                 bl.Delete(StationPoToBo(BaseStation));
                 ListsModel.Instance.DeleteStation(BaseStation.Id);
-                MessageBoxResult message = MessageBox.Show("The station has been deleted successfully!");
+                MessageBoxResult message = MessageBox.Show("The station has been deleted successfully!\nPay attention - the last valid input is saved.");
                 (sender as Window).Close();
             }
             catch (IntIdException exe)
@@ -148,7 +151,7 @@ namespace PL
             {
                 bl.Add(StationPoToBo(BaseStation));
                 ListsModel.Instance.AddStation(BaseStation.Id);
-                MessageBoxResult message = MessageBox.Show("The station has been added successfully!");
+                MessageBoxResult message = MessageBox.Show("The station has been added successfully!\nPay attention - the last valid input is saved.");
             }
             catch (IntIdException exe)
             {
@@ -166,7 +169,7 @@ namespace PL
             {
                 bl.UpdateBaseStation(BaseStation.Id, BaseStation.Name, BaseStation.ChargeSlots.ToString());
                 ListsModel.Instance.UpdateStation(BaseStation.Id);
-                MessageBoxResult message = MessageBox.Show("The station has been updated successfully!");
+                MessageBoxResult message = MessageBox.Show("The station has been updated successfully!\nPay attention - the last valid input is saved.");
             }
             catch (IntIdException exe)
             {
