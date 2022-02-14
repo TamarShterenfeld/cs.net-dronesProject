@@ -199,6 +199,15 @@ namespace PL
             ListsModel.Instance.UpdateDrone(Drone.Id);
         }
 
+        private void updateDrone() => worker.ReportProgress(0);
+        private bool checkStop() => worker.CancellationPending;
+        private void updateDroneView()
+        {
+            ListsModel.Instance.UpdateDrone(Drone.Id);
+            //updateFlags();
+            //this.setAndNotify(PropertyChanged, nameof(Drone), out drone, drone);
+        }
+
         /// <summary>
         /// 
         /// </summary>
