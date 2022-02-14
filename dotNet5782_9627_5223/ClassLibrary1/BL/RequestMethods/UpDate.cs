@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 
 namespace IBL
 {
-    public partial class BL 
+    public partial class BL
     {
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateDrone(int droneId, string model)
@@ -39,7 +39,7 @@ namespace IBL
                     station.ChargeSlots = chargeSlots1;
                 }
                 dal.UpDate(station, baseStationId);
-            }  
+            }
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
@@ -62,7 +62,7 @@ namespace IBL
                 UpDateDroneForList(droneForList);
                 DO.Drone drone = ConvertBoToDoDrone(ConvertDroneForListToDrone(droneForList));
                 dal.UpDate(drone, drone.Id);
-            }  
+            }
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
@@ -97,8 +97,6 @@ namespace IBL
         {
             lock (dal)
             {
-
-
                 DroneForList currentDrone = GetDroneForList(droneId);
                 List<Customer> customersList = (List<Customer>)GetBOCustomersList();
                 bool isAssociate = false;
@@ -192,7 +190,7 @@ namespace IBL
             DroneForList drone = GetDroneForList(droneId);
             Parcel parcel1 = GetBLParcel(drone.ParcelId);
             Customer target = GetBLCustomer(parcel1.Target.Id);
-            if (parcel1.PickUpDate != null ) 
+            if (parcel1.PickUpDate != null)
             {
                 if (parcel1.SupplyDate == null)
                 {
@@ -223,28 +221,30 @@ namespace IBL
                 List<BaseStationForList> availableBaseStations = (List<BaseStationForList>)GetAvailableChargeSlots();
                 if (availableBaseStations != null)
                 {
-                    List<BaseStation> baseStations1 = (List<BaseStation>)ConvertBaseStationsForListToBaseStation(availableBaseStations);
-                    BaseStation baseStation = NearestBaseStation(drone, baseStations1);
-                    double battery = ComputeBatteryRemained(drone, baseStation);
-                    if (baseStation.ChargeSlots == 0)
-                        throw new BLChargeSlotsException(0);
-                    if (battery < 0)
-                        throw new BatteryException(drone.Battery);
-                    drone.Battery = battery;
-                    drone.Location = baseStation.Location;
-                    drone.Status = DroneStatuses.Maintenance;
-                    DroneInCharging drone1 = new() { Battery = drone.Battery, Id = droneId };
-                    baseStation.DroneCharging = new();
-                    baseStation.DroneCharging.Add(drone1);
-                    //the amount of available chargeSlots is decrease by one
-                    //while adding the drone to chargeDrone. 
-                    UpdateDrone(drone);
-                    dal.SendDroneToRecharge(drone.Id, baseStation.Id);
-                    UpDateBaseStation(baseStation);
+                    lock (dal)
+                    {
+                        List<BaseStation> baseStations1 = (List<BaseStation>)ConvertBaseStationsForListToBaseStation(availableBaseStations);
+                        BaseStation baseStation = NearestBaseStation(drone, baseStations1);
+                        double battery = ComputeBatteryRemained(drone, baseStation);
+                        if (baseStation.ChargeSlots == 0)
+                            throw new BLChargeSlotsException(0);
+                        if (battery < 0)
+                            throw new BatteryException(drone.Battery);
+                        drone.Battery = battery;
+                        drone.Location = baseStation.Location;
+                        drone.Status = DroneStatuses.Maintenance;
+                        DroneInCharging drone1 = new() { Battery = drone.Battery, Id = droneId };
+                        baseStation.DroneCharging = new();
+                        baseStation.DroneCharging.Add(drone1);
+                        //the amount of available chargeSlots is decrease by one
+                        //while adding the drone to chargeDrone. 
+                        UpdateDrone(drone);
+                        dal.SendDroneToRecharge(drone.Id, baseStation.Id);
+                        UpDateBaseStation(baseStation);
+                    }
                 }
                 else
                     throw new ParcelActionsException(ParcelActions.SendforRecharge);
-
             }
             else
                 throw new DroneStatusException(drone.Status);
@@ -255,7 +255,6 @@ namespace IBL
         {
             lock (dal)
             {
-
                 DroneForList drone = GetDroneForList(droneId);
                 if (drone.Status == DroneStatuses.Maintenance)
                 {
@@ -292,7 +291,6 @@ namespace IBL
                     throw new DroneStatusException(drone.Status);
             }
         }
-
 
     }
 }
