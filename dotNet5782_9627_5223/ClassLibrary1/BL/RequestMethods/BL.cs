@@ -39,84 +39,88 @@ namespace IBL
                 Random rand = new();
                 for (int i = 0; i < dronesForList.Count; i++)
                 {
-                    BO.Parcel parcelOfDrone = GetBLParcel(dronesForList[i].ParcelId);
-                    //the parcel hasn't been supplied.
-                    if (parcelOfDrone.SupplyDate == null &&
-                        dronesForList[i].Status == BO.DroneStatuses.Shipment)
-                    {
-
-                        //the parcel has been accosiated and hasn't been picked up.
-                        if (parcelOfDrone.AssociationDate == null &&
-                            parcelOfDrone.PickUpDate != null)
-                        {
-                            dronesForList[i].Location = NearestBaseStation(dronesForList[i], (List<BO.BaseStation>)GetBOBaseStationsList()).Location;
-                        }
-
-                        //the parcel has been picked hasn't been supplied - (in the general condition)
-                        else
-                        {
-                            dronesForList[i].Location = GetBOCustomersList().First(item => GetBLParcel(dronesForList[i].ParcelId).Sender.Id == item.Id).Location;
-                        }
-
-                        double minBattery = ComputeMinBatteryNeeded(dronesForList[i], GetBLCustomer(GetBLParcel(dronesForList[i].ParcelId).Target.Id));
-                        if (minBattery != -1)
-                        {
-                            dronesForList[i].Battery = RandomBattery(minBattery);
-                        }
-                    }
-                    else
-                    {
-                        DroneStatuses status = (BO.DroneStatuses)rand.Next(1, 3);
-                        if (status == DroneStatuses.Maintenance)
-                        {
-                            List<BO.BaseStation> baseStations = GetBOBaseStationsList().ToList();
-                            BO.BaseStation baseStation = baseStations[rand.Next(0, baseStations.Count - 1)];
-                            if (baseStation.ChargeSlots > 0)
-                            {
-                                dronesForList[i].Status = DroneStatuses.Maintenance;
-                                dal.SendDroneToRecharge(dronesForList[i].Id, baseStation.Id);
-                            }
-                            else
-                            {
-                                dronesForList[i].Status = DroneStatuses.Available;
-                            }
-                        }
-                        else
-                        {
-                            dronesForList[i].Status = DroneStatuses.Available;
-                        }
-
-                        List<BO.BaseStation> baseStationList = (List<BO.BaseStation>)GetBOBaseStationsList();
-                        List<BO.Customer> customersList = (List<BO.Customer>)GetBOCustomersList();
-                        switch (dronesForList[i].Status)
-                        {
-                            case BO.DroneStatuses.Available:
-                                {
-                                    List<CustomerForList> customerForLists = (List<CustomerForList>)CustomersWithSuppliedParcels();
-                                    if (customerForLists.Count != 0)
-                                    {
-                                        int index = rand.Next(0, customerForLists.Count - 1);
-                                        BO.Customer chosenCustomer = customersList.First(item => item.Id == customerForLists[index].Id);
-                                        dronesForList[i].Location = chosenCustomer.Location;
-                                        double minBattery = ComputeMinBatteryNeeded(dronesForList[i], chosenCustomer);
-                                        dronesForList[i].Battery = RandomBattery(minBattery);
-                                    }
-                                    break;
-                                }
-
-                            case BO.DroneStatuses.Maintenance:
-                                {
-                                    dronesForList[i].Location = baseStationList[rand.Next(0, baseStationList.Count - 1)].Location;
-                                    dronesForList[i].Battery = rand.Next(0, 20);
-                                    break;
-                                }
-                        }
-                    }
+                    parcelForDrone(dronesForList[i]);
                 }
 
             }
 
         }
+        void parcelForDrone(DroneForList drone)
+        {
+            BO.Parcel parcelOfDrone = GetBLParcel(drone.ParcelId);
+            //the parcel hasn't been supplied.
+            if (parcelOfDrone.SupplyDate == null &&
+                drone.Status == BO.DroneStatuses.Shipment)
+            {
 
+                //the parcel has been accosiated and hasn't been picked up.
+                if (parcelOfDrone.AssociationDate == null &&
+                    parcelOfDrone.PickUpDate != null)
+                {
+                    drone.Location = NearestBaseStation(drone, (List<BO.BaseStation>)GetBOBaseStationsList()).Location;
+                }
+
+                //the parcel has been picked hasn't been supplied - (in the general condition)
+                else
+                {
+                    drone.Location = GetBOCustomersList().First(item => GetBLParcel(drone.ParcelId).Sender.Id == item.Id).Location;
+                }
+
+                double minBattery = ComputeMinBatteryNeeded(drone, GetBLCustomer(GetBLParcel(drone.ParcelId).Target.Id));
+                if (minBattery != -1)
+                {
+                    drone.Battery = RandomBattery(minBattery);
+                }
+            }
+            else
+            {
+                DroneStatuses status = (BO.DroneStatuses)rand.Next(1, 3);
+                if (status == DroneStatuses.Maintenance)
+                {
+                    List<BO.BaseStation> baseStations = GetBOBaseStationsList().ToList();
+                    BO.BaseStation baseStation = baseStations[rand.Next(0, baseStations.Count - 1)];
+                    if (baseStation.ChargeSlots > 0)
+                    {
+                        drone.Status = DroneStatuses.Maintenance;
+                        dal.SendDroneToRecharge(drone.Id, baseStation.Id);
+                    }
+                    else
+                    {
+                        drone.Status = DroneStatuses.Available;
+                    }
+                }
+                else
+                {
+                    drone.Status = DroneStatuses.Available;
+                }
+
+                List<BO.BaseStation> baseStationList = (List<BO.BaseStation>)GetBOBaseStationsList();
+                List<BO.Customer> customersList = (List<BO.Customer>)GetBOCustomersList();
+                switch (drone.Status)
+                {
+                    case BO.DroneStatuses.Available:
+                        {
+                            List<CustomerForList> customerForLists = (List<CustomerForList>)CustomersWithSuppliedParcels();
+                            if (customerForLists.Count != 0)
+                            {
+                                int index = rand.Next(0, customerForLists.Count - 1);
+                                BO.Customer chosenCustomer = customersList.First(item => item.Id == customerForLists[index].Id);
+                                drone.Location = chosenCustomer.Location;
+                                double minBattery = ComputeMinBatteryNeeded(drone, chosenCustomer);
+                                drone.Battery = RandomBattery(minBattery);
+                            }
+                            break;
+                        }
+
+                    case BO.DroneStatuses.Maintenance:
+                        {
+                            drone.Location = baseStationList[rand.Next(0, baseStationList.Count - 1)].Location;
+                            drone.Battery = rand.Next(0, 20);
+                            break;
+                        }
+                }
+            }
+
+        }
     }
 }
