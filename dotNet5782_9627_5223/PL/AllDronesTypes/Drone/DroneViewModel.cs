@@ -12,14 +12,13 @@ using System.ComponentModel;
 
 namespace PL
 {
-    public class DroneViewModel
+    public class DroneViewModel : INotifyPropertyChanged
     {
         BLApi.IBL bl;
         object coorLon, coorLat;
         public PO.Drone Drone { get; set; }
         public bool EnableUpdate { get; set; }
-        //int counterSimulator = 0;
-        //public string SimulatorOrRegular { get; set; } = "Simulator";
+        public bool InSimulator { get => inSimulator; set { inSimulator = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(InSimulator))); } }
         public RelayCommand Cancel { get; set; }
         public RelayCommand AddOrUpdate { get; set; }
         public RelayCommand Delete { get; set; }
@@ -99,6 +98,9 @@ namespace PL
         string button3SelectedItem;
         string parcelOption;
         private string simulatorOrRegular;
+        private bool inSimulator;
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
 
         //properties
@@ -202,7 +204,7 @@ namespace PL
         /// <param name="sender"></param>
         private void Button_Simulator(object sender)
         {
-           // SimulatorOrRegular = ++counterSimulator % 2 == 0? "Regular":"Simulator";
+            InSimulator = !InSimulator;
         }
 
         /// <summary>
@@ -217,8 +219,8 @@ namespace PL
         private void Simulator_Click(Object sender, EventArgs e)
         {
             BackgroundWorker worker = new BackgroundWorker();
-           // worker.DoWork += bl.InvokeSimulator<BO.Drone>((sender as BO.Drone).Id, );
-           // worker.ProgressChanged += func;
+            // worker.DoWork += bl.InvokeSimulator<BO.Drone>((sender as BO.Drone).Id, );
+            // worker.ProgressChanged += func;
             worker.WorkerReportsProgress = true;
         }
 

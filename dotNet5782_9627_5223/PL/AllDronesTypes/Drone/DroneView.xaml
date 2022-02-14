@@ -10,6 +10,7 @@
         <local:BoolToBoolConverter x:Key="BoolToBoolConverter" />
         <local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
         <local:BoolToVisibilityInUpdateConverter x:Key="BoolToVisibilityInUpdateConverter" />
+        <local:BoolToIsSimulatorConverter x:Key="BoolToIsSimulatorConverter" />
     </Window.Resources>
     <Grid x:Name ="curdrone" Height="634" VerticalAlignment="Top">
         <Grid.RowDefinitions>
@@ -145,7 +146,7 @@
         
         <!--SelectedItem="{Binding StationId}"-->
         <WrapPanel Grid.Row="10" Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding EnableUpdate,Converter={StaticResource BoolToVisibilityInUpdateConverter}}">
-            <Button x:Name="Simulator" Content="{Binding SimulatorOrRegular}" Command="{Binding Simulator}" Background="#FFD40202" BorderBrush="White"/>
+            <Button x:Name="Simulator" Content="{Binding InSimulator,Converter={StaticResource BoolToIsSimulatorConverter}}" Command="{Binding Simulator}" Background="#FFD40202" BorderBrush="White"/>
         </WrapPanel>
         
         <Grid >
