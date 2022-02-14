@@ -10,9 +10,9 @@ using System.Xml.Serialization;
 using System.Runtime.CompilerServices;
 
 
-namespace DalXml
+namespace  DalXml
 {
-    class XMLTools
+    public static class XMLTools
     {
         public static XElement CustomersRoot;
         public static XElement ConfigRoot;
@@ -22,7 +22,7 @@ namespace DalXml
 
         //a constructor which construct also files
         //of XmlSeriakizer and files of XElement.
-        public XMLTools()
+         static XMLTools()
         {
             if (!Directory.Exists(dirPath))
                 Directory.CreateDirectory(dirPath);
@@ -72,10 +72,11 @@ namespace DalXml
         #endregion
 
         #region LinqToXml
-        void CreateFiles()
+        static void CreateFiles()
         {
             CustomersRoot = new XElement("Customers");
             CustomersRoot.Save(dirPath + CustomerPath);
+            ConfigRoot = XElement.Load(dirPath + ConfigPath);
         }
 
         public static void LoadData()
