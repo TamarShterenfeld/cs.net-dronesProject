@@ -17,10 +17,7 @@ namespace IBL
         [MethodImpl(MethodImplOptions.Synchronized)]
         public BaseStation GetBLBaseStation(int id)
         {
-            lock (dal)
-            {
-                return ConvertBaseStationDOtOBO(dal.GetBaseStation(id));
-            }
+            return ConvertBaseStationDOtOBO(dal.GetBaseStation(id));
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
@@ -43,14 +40,11 @@ namespace IBL
         [MethodImpl(MethodImplOptions.Synchronized)]
         public Drone GetBLDrone(int id)
         {
-            lock (dal)
-            {
-                Drone drone = ConvertDroneDOtOBO(dal.GetDrone(id));
-                DroneForList drone1 = dronesForList.First(item => item.Id == drone.Id);
-                drone.Battery = drone1.Battery; drone.Status = drone1.Status; drone.Parcel.Id = drone1.ParcelId;
-                drone.Location = drone1.Location;
-                return drone;
-            }
+            Drone drone = ConvertDroneDOtOBO(dal.GetDrone(id));
+            DroneForList drone1 = dronesForList.First(item => item.Id == drone.Id);
+            drone.Battery = drone1.Battery; drone.Status = drone1.Status; drone.Parcel.Id = drone1.ParcelId;
+            drone.Location = drone1.Location;
+            return drone;
         }
 
 
@@ -96,10 +90,7 @@ namespace IBL
         [MethodImpl(MethodImplOptions.Synchronized)]
         public Parcel GetBLParcel(int id)
         {
-            lock (dal)
-            {
-                return ParcelDOtOBO(dal.GetParcel(id));
-            }
+            return ParcelDOtOBO(dal.GetParcel(id));
 
         }
 
@@ -125,22 +116,22 @@ namespace IBL
         [MethodImpl(MethodImplOptions.Synchronized)]
         public ParcelInPassing GetParcelInPassing(int id)
         {
-                Parcel parcel = GetBLParcel(id);
-                Customer sender = GetBLCustomer(parcel.Sender.Id);
-                Customer target = GetBLCustomer(parcel.Target.Id);
-                ParcelInPassing parcelInPassing = new()
-                {
-                    Id = parcel.Id,
-                    Weight = parcel.Weight,
-                    Priority = parcel.Priority,
-                    ToDestination = parcel.PickUpDate == null,
-                    Sender = parcel.Sender,
-                    Target = parcel.Target,
-                    Collect = GetBLCustomer(parcel.Sender.Id).Location,
-                    Destination = GetBLCustomer(parcel.Target.Id).Location,
-                    Distatnce = sender.Distance(target),
-                };
-                return parcelInPassing;
+            Parcel parcel = GetBLParcel(id);
+            Customer sender = GetBLCustomer(parcel.Sender.Id);
+            Customer target = GetBLCustomer(parcel.Target.Id);
+            ParcelInPassing parcelInPassing = new()
+            {
+                Id = parcel.Id,
+                Weight = parcel.Weight,
+                Priority = parcel.Priority,
+                ToDestination = parcel.PickUpDate == null,
+                Sender = parcel.Sender,
+                Target = parcel.Target,
+                Collect = GetBLCustomer(parcel.Sender.Id).Location,
+                Destination = GetBLCustomer(parcel.Target.Id).Location,
+                Distatnce = sender.Distance(target),
+            };
+            return parcelInPassing;
         }
 
 
@@ -149,12 +140,8 @@ namespace IBL
         [MethodImpl(MethodImplOptions.Synchronized)]
         public Customer GetBLCustomer(string id)
         {
-            lock (dal)
-            {
-                DO.Customer customer = dal.GetCustomer(id);
-                return ConvertCustomerDoToBo(customer);
-            }
-
+            DO.Customer customer = dal.GetCustomer(id);
+            return ConvertCustomerDoToBo(customer);
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
@@ -177,10 +164,7 @@ namespace IBL
         [MethodImpl(MethodImplOptions.Synchronized)]
         public CustomerInParcel GetCustomrInParcel(string id)
         {
-            lock(dal)
-            {
-                return ConvertCustomerDoToCustomerInParcel(dal.GetCustomer(id));
-            }
+            return ConvertCustomerDoToCustomerInParcel(dal.GetCustomer(id));
         }
     }
 }
