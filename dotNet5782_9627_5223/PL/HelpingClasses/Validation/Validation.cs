@@ -2,8 +2,9 @@
 
 namespace PL
 {
-    public static class Validation
+     static class Validation
     {
+        
         internal static bool IsValidPhone(string phone)
         {
             foreach (char ch in phone)
@@ -13,13 +14,9 @@ namespace PL
             }
             return true;
         }
-        internal static bool IsValidLongitude(double longitude)
+        internal static bool IsValidLocation(double longitude)
         {
             return longitude >= -180 && longitude <= 180;
-        }
-        internal static bool IsValidLatitude(double latitude)
-        {
-            return latitude >= -90 && latitude <= 90;
         }
         internal static bool IsValidName(string name)
         {

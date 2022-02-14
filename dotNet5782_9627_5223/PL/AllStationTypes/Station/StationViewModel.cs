@@ -3,6 +3,7 @@ using PL.PO;
 using System;
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Controls;
 using static PL.PO.POConverter;
 
 namespace PL
@@ -26,47 +27,6 @@ namespace PL
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(State)));
             }
         }
-        public RelayCommand Cancel { get; set; }
-        public RelayCommand AddOrUpdate { get; set; }
-        public RelayCommand Delete { get; set; }
-        public RelayCommand LeftDoubleClick { get; set; }
-
-        public StationViewModel(BLApi.IBL bl, BO.BaseStationForList station)
-            : this(bl)
-        {
-            try
-            {
-                BaseStation = new(bl, station);
-                State = "Update";
-                AddOrUpdate = new(Button_ClickUpdate, null);
-                Delete = new(Button_ClickDelete, null);
-                EnableUpdate = false;
-                EnableAdd = false;
-                coorLon = BaseStation.Location.CoorLongitude.ToString();
-                coorLat = BaseStation.Location.CoorLatitude.ToString();
-            }
-            catch(IntIdException exe )
-            {
-                MessageBox.Show(exe.ToString());
-            }
-        }
-        public StationViewModel(BLApi.IBL bl)
-        {
-            try
-            {
-                this.bl = bl;
-                BaseStation = new Station();
-                Cancel = new(Button_ClickCancel, null);
-                State = "Add";
-                AddOrUpdate = new(Button_ClickAdd, null);
-                EnableUpdate = true;
-                LeftDoubleClick = new(doubleClickDrone, null);
-            }
-            catch (IntIdException exe)
-            { 
-                MessageBox.Show(exe.ToString());
-            }
-        }
 
         public object CoorLon
         {
@@ -75,8 +35,17 @@ namespace PL
             {
                 if (double.TryParse(value.ToString(), out double longitude))
                 {
+                    if (!Validation.IsValidLocation(longitude))
+                    {
+                        MessageBox.Show("Location must be in range of -180º to 180º");
+                        return;
+                    }
                     coorLon = value;
                     BaseStation.Location.CoorLongitude = new PO.Coordinate(longitude, POConverter.Locations.Longitude);
+                }
+                else
+                {
+                    MessageBox.Show("Location must be a double value type");
                 }
             }
         }
@@ -90,8 +59,41 @@ namespace PL
                     coorLat = value;
                     BaseStation.Location.CoorLatitude = new PO.Coordinate(latitude, POConverter.Locations.Latitude);
                 }
+                else
+                {
+                    MessageBox.Show("Location must be a double value type");
+                }
             }
         }
+
+        public RelayCommand Cancel { get; set; }
+        public RelayCommand AddOrUpdate { get; set; }
+        public RelayCommand Delete { get; set; }
+        public RelayCommand LeftDoubleClick { get; set; }
+
+        public StationViewModel(BLApi.IBL bl, BO.BaseStationForList station)
+            : this(bl)
+        {
+            BaseStation = new(bl, station);
+            State = "Update";
+            AddOrUpdate = new(Button_ClickUpdate, null);
+            Delete = new(Button_ClickDelete, null);
+            EnableUpdate = false;
+            EnableAdd = false;
+            coorLon = BaseStation.Location.CoorLongitude.ToString();
+            coorLat = BaseStation.Location.CoorLatitude.ToString();
+        }
+        public StationViewModel(BLApi.IBL bl)
+        {
+            this.bl = bl;
+            BaseStation = new Station();
+            Cancel = new(Button_ClickCancel, null);
+            State = "Add";
+            AddOrUpdate = new(Button_ClickAdd, null);
+            EnableUpdate = true;
+            LeftDoubleClick = new(doubleClickDrone, null);
+        }
+
 
         //---------------------------------BaseStation's Methods------------------------------
         /// <summary>
@@ -99,39 +101,69 @@ namespace PL
         /// </summary>
         /// <param name="sender">the invoking object</param>
         /// <param name="e">the event</param>
-        private void Button_ClickCancel(object sender, EventArgs e)
+        private void Button_ClickCancel(object sender)
         {
             (sender as Window).Close();
         }
 
-        private void Button_ClickDelete(object sender, EventArgs e)
+        private void Button_ClickDelete(object sender)
         {
             if (BaseStation.DroneCharging.Count != 0)
             {
                 MessageBox.Show("Can not delete this station since it charges drones\n release the drones and try again.");
                 return;
             }
-            bl.Delete(StationPoToBo(BaseStation));
-            ListsModel.Instance.DeleteStation(BaseStation.Id);
-            (sender as Window).Close();
+            try
+            {
+                bl.Delete(StationPoToBo(BaseStation));
+                ListsModel.Instance.DeleteStation(BaseStation.Id);
+                MessageBoxResult message =  MessageBox.Show("The station has been deleted successfully!");
+                (sender as Window).Close();
+            }
+            catch (IntIdException exe)
+            {
+                MessageBox.Show($"the chosen id: {exe.Id} doesn't exist in the database");
+            }
         }
 
-        private void Button_ClickAdd(object sender, EventArgs e)
+        private void Button_ClickAdd(object sender)
         {
-            bl.Add(StationPoToBo(BaseStation));
-            ListsModel.Instance.AddStation(BaseStation.Id);
+            try
+            {
+                bl.Add(StationPoToBo(BaseStation));
+                ListsModel.Instance.AddStation(BaseStation.Id);
+                MessageBoxResult message = MessageBox.Show("The station has been added successfully!");
+            }
+            catch (IntIdException exe)
+            {
+                MessageBox.Show($"the chosen id: {exe.Id} already exists in the database");
+            }
         }
-        private void Button_ClickUpdate(object sender, EventArgs e)
+        private void Button_ClickUpdate(object sender)
         {
-            bl.UpdateBaseStation(BaseStation.Id, BaseStation.Name, BaseStation.ChargeSlots.ToString());
-            ListsModel.Instance.UpdateStation(BaseStation.Id);
+            try
+            {
+                bl.UpdateBaseStation(BaseStation.Id, BaseStation.Name, BaseStation.ChargeSlots.ToString());
+                ListsModel.Instance.UpdateStation(BaseStation.Id);
+                MessageBoxResult message = MessageBox.Show("The station has been updated successfully!");
+            }
+            catch (IntIdException exe)
+            {
+                MessageBox.Show($"the chosen id: {exe.Id} doesn't exist in the database");
+            }
 
         }
         private void doubleClickDrone(object sender)
         {
+
             new DroneView(new DroneViewModel(bl, DroneForListBOToPO(bl.GetDroneForList((sender as PO.DroneInCharging).Id)))).Show();
         }
 
+        internal bool IsAllValid()
+        {
+            
 
+            return true;
+        }
     }
 }
