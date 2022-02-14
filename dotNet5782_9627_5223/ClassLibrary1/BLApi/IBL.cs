@@ -14,7 +14,7 @@ namespace BLApi
     public interface IBL : IBaseStationBL, ICustomerBL, IDroneBL, IParcelBL
     {
 
-        void InvokeSimulator<T>(int droneId, Action<T> refreshDisplay, Func<bool> checkStopping);
+        void InvokeSimulator(int droneId, Action refreshDisplay, Func<bool> checkStopping);
 
         /// <summary>
         /// The function gives associate date to the parcel.

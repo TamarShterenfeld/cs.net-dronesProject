@@ -27,6 +27,7 @@ namespace PL
         public ListCollectionView DroneWeightsList { get; set; }
         public ListCollectionView Statuses { get; set; }
         public ListCollectionView StationsId { get; set; }
+        BackgroundWorker worker;
 
         /// <summary>
         /// constructor
@@ -204,7 +205,12 @@ namespace PL
         /// <param name="sender"></param>
         private void Button_Simulator(object sender)
         {
-            InSimulator = !InSimulator;
+            InSimulator = true;
+            worker = new() { WorkerReportsProgress = true, WorkerSupportsCancellation = true};
+            worker.DoWork += (sender, args) => bl.InvokeSimulator((int)args.Argument, updateDrone, checkStop);
+            worker.RunWorkerCompleted += (sender, args) => InSimulator = false;
+            worker.ProgressChanged += (sender, args) => updateDroneView();
+            worker.RunWorkerAsync(Drone.Id);
         }
 
         /// <summary>
@@ -218,10 +224,16 @@ namespace PL
 
         private void Simulator_Click(Object sender, EventArgs e)
         {
-            BackgroundWorker worker = new BackgroundWorker();
+            worker = new() { WorkerReportsProgress = true, WorkerSupportsCancellation = true, };
             // worker.DoWork += bl.InvokeSimulator<BO.Drone>((sender as BO.Drone).Id, );
             // worker.ProgressChanged += func;
-            worker.WorkerReportsProgress = true;
+            
+            //Auto = true;
+            
+            //worker.DoWork += (sender, args) => bl.StartDroneSimulator((int)args.Argument, updateDrone, checkStop);
+            //worker.RunWorkerCompleted += (sender, args) => Auto = false;
+            //worker.ProgressChanged += (sender, args) => updateDroneView();
+            //worker.RunWorkerAsync(Drone.Id);
         }
 
 
