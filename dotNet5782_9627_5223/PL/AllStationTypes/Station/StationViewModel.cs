@@ -57,6 +57,11 @@ namespace PL
             {
                 if (double.TryParse(value.ToString(), out double latitude))
                 {
+                    if (!Validation.IsValidLocation(latitude))
+                    {
+                        MessageBox.Show("Location must be in range of -180º to 180º");
+                        return;
+                    }
                     coorLat = value;
                     BaseStation.Location.CoorLatitude = new PO.Coordinate(latitude, POConverter.Locations.Latitude);
                 }
@@ -109,6 +114,11 @@ namespace PL
 
         private void Button_ClickDelete(object sender)
         {
+            if (!IsAllValid())
+            {
+                MessageBox.Show("Not all the fields are filled with correct values\nThis action is invalid!");
+                return;
+            }
             if (BaseStation.DroneCharging.Count != 0)
             {
                 MessageBox.Show("Can not delete this station since it charges drones\n release the drones and try again.");
@@ -129,6 +139,11 @@ namespace PL
 
         private void Button_ClickAdd(object sender)
         {
+            if (!IsAllValid())
+            {
+                MessageBox.Show("Not all the fields are filled with correct values\nThis action is invalid!");
+                return;
+            }
             try
             {
                 bl.Add(StationPoToBo(BaseStation));
@@ -142,6 +157,11 @@ namespace PL
         }
         private void Button_ClickUpdate(object sender)
         {
+            if (!IsAllValid())
+            {
+                MessageBox.Show("Not all the fields are filled with correct values\nThis action is invalid!");
+                return;
+            }
             try
             {
                 bl.UpdateBaseStation(BaseStation.Id, BaseStation.Name, BaseStation.ChargeSlots.ToString());
@@ -156,26 +176,52 @@ namespace PL
         }
         private void doubleClickDrone(object sender)
         {
-
             new DroneView(new DroneViewModel(bl, DroneForListBOToPO(bl.GetDroneForList((sender as PO.DroneInCharging).Id)))).Show();
         }
 
-        internal bool IsAllValid()
+        bool IsAllValid()
         {
+            return IsValidId() && IsValidName() && IsValidChargeSlots() && IsValidLocation();
+        }
 
-            NameRule n1 = new();
+        bool IsValidId()
+        {
+            NotEmptyRule n1 = new();
             NumberRule n2 = new();
             RealPositiveNumberRule n3 = new();
-            PositiveNumberRule n4 = new();
-            NumberRule n5 = new();
-            NotEmptyRule n6 = new();
-            DoubleValRule n7 = new();
-
             CultureInfo c1 = new(1);
-            n1.Validate(BaseStation.Name, c1);
-            
+            return n1.Validate(BaseStation.Id.ToString(), c1).IsValid &&
+                n2.Validate(BaseStation.Id.ToString(),c1).IsValid && 
+                n3.Validate(BaseStation.Id.ToString(),c1).IsValid;
+        }
 
-            return true;
+        bool IsValidName()
+        {
+            NotEmptyRule n1 = new();
+            NameRule n2 = new();
+            CultureInfo c1 = new(2);
+            return n1.Validate(BaseStation.Name, c1).IsValid &&
+                n2.Validate(BaseStation.Name, c1).IsValid;
+        }
+
+        bool IsValidChargeSlots()
+        {
+            NotEmptyRule n1 = new();
+            NumberRule n2 = new();
+            PositiveNumberRule n3 = new();
+            CultureInfo c1 = new(3);
+            return n1.Validate(BaseStation.ChargeSlots.ToString(), c1).IsValid &&
+                n2.Validate(BaseStation.ChargeSlots.ToString(), c1).IsValid
+                && n3.Validate(BaseStation.ChargeSlots.ToString(),c1).IsValid;
+        }
+
+        bool IsValidLocation()
+        {
+            NotEmptyRule n1 = new();
+            CultureInfo c1 = new(4);
+            CultureInfo c2 = new(5);
+            return n1.Validate(CoorLon, c1).IsValid &&
+                n1.Validate(CoorLat, c1).IsValid;
         }
     }
 }

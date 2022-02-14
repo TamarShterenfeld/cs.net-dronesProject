@@ -25,5 +25,7 @@ namespace PL
             InitializeComponent();
             this.DataContext = stationViewModel;
         }
+
+       
     }
 }

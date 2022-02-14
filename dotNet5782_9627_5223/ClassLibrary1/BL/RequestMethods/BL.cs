@@ -16,8 +16,9 @@ namespace IBL
     /// </summary>
     sealed partial class BL : Singleton<BL>, BLApi.IBL
     {
-        //the single object which has the responsibility of pulling the data from the DAl logic level.
-        internal DalApi.IDal dal;
+        //the single object which has the res
+        //ponsibility of pulling the data from the DAl logic level.
+        public DalApi.IDal dal;
         readonly List<DroneForList> dronesForList;
         readonly double electricityConsumingOfAvailable;
         readonly double electricityConsumingOfLightWeight;

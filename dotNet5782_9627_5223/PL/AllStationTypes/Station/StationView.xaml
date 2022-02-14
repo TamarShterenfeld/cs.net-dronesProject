@@ -46,7 +46,7 @@
                 <Binding Path="BaseStation.Id" UpdateSourceTrigger="PropertyChanged" >
                     <Binding.ValidationRules>
                         <local:NotEmptyRule ValidatesOnTargetUpdated="True"/>
-                        <local:NumberRule ValidatesOnTargetUpdated="True" ValidationStep="UpdatedValue"/>
+                        <local:NumberRule ValidatesOnTargetUpdated="True" />
                         <local:RealPositiveNumberRule  ValidatesOnTargetUpdated="True"/>
                     </Binding.ValidationRules>
                 </Binding>
@@ -93,7 +93,14 @@
             VerticalAlignment="Top" 
             Width="140" 
             IsEnabled="{Binding EnableUpdate}"  Grid.RowSpan="2"
-            Text ="{Binding CoorLat}">
+           >
+            <TextBox.Text >
+                <Binding Path="CoorLon" UpdateSourceTrigger="PropertyChanged" >
+                    <Binding.ValidationRules>
+                        <local:NotEmptyRule ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
         </TextBox>
 
         <TextBlock Text="Latitude:" Grid.Row="5" Grid.Column="1" Foreground="#FF3F4245"/>
@@ -103,7 +110,14 @@
             VerticalAlignment="Top" 
             Width="140" 
             IsEnabled="{Binding EnableUpdate}"
-            Text ="{Binding CoorLat}" >
+            >
+            <TextBox.Text >
+                <Binding Path="CoorLat" UpdateSourceTrigger="PropertyChanged" >
+                    <Binding.ValidationRules>
+                        <local:NotEmptyRule ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
         </TextBox> 
 
         <TextBlock Text="In_Charging:" Grid.Row="6" Grid.Column="1" Foreground="#FF3F4245"/>
