@@ -7,12 +7,11 @@ using System.ComponentModel;
 
 namespace IBL
 {
-    internal class Simulator<T>
+    internal class Simulator
     {
         const int timer = 1000;//a second is allocated for every pause stop.
         const double speed = 5000;//speed of 1,000 km per a second.
-        BackgroundWorker worker;
-        public Simulator(IBL.BL bl, int droneId, Action<T> refreshDisplay, Func<bool> checkStopping)
+        public Simulator(IBL.BL bl, int droneId, Action refreshDisplay, Func<bool> checkStopping)
         {
                     
         }
