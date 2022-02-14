@@ -13,8 +13,19 @@ namespace BLApi
     /// </summary>
     public interface IBL : IBaseStationBL, ICustomerBL, IDroneBL, IParcelBL
     {
-
+        /// <summary>
+        /// invokes the simulator.
+        /// </summary>
+        /// <param name="droneId">drone's ID</param>
+        /// <param name="refreshDisplay">refresh display</param>
+        /// <param name="checkStopping">check stopping</param>
         void InvokeSimulator(int droneId, Action refreshDisplay, Func<bool> checkStopping);
+
+        /// <summary>
+        /// returns the DalApi.IDal instance.
+        /// </summary>
+        /// <returns>DalApi.IDal object</returns>
+        DalApi.IDal GetMyDal();
 
         /// <summary>
         /// The function gives associate date to the parcel.
@@ -168,32 +179,13 @@ namespace BLApi
         /// <param name="id">drone's id</param>
         Drone GetBLDrone(int id);
 
-        /// <summary>
-        /// the function converts a DO.Drone object to a BO.Drone object.
-        /// </summary>
-        /// <param name="drone"></param>
-        /// <returns>a BO.Drone object</returns>
-        //Drone ConvertDroneDOtOBO(DO.Drone drone);
+      
 
         /// <summary>
         /// returns the List dronesForList
         /// </summary>
         /// <returns>the List dronesForList</returns>
         DroneForList GetDroneForList(int id);
-
-        /// <summary>
-        /// the function gets a BO.Drone object and converts it to DronForList object.
-        /// </summary>
-        /// <param name="drone"></param>
-        /// <returns>a DroneForList object</returns>
-      //  DroneForList ConvertDroneBoToDroneForList(Drone drone);
-
-        /// <summary>
-        /// the function converts a DO.Drone object to DroneForList object
-        /// </summary>
-        /// <param name="drone">a drone to convert</param>
-        /// <returns>the converted object</returns>
-       // DroneForList ConvertDroneDoToDroneForList(DO.Drone drone);
 
         /// <summary>
         /// The function displays a drone in parcel according to id.
@@ -286,13 +278,6 @@ namespace BLApi
         ParcelInPassing GetParcelInPassing(int id);
 
         /// <summary>
-        /// the function gets a DO.Parcel object ParcelStatus(by the values of the Dates)
-        /// </summary>
-        /// <param name="parcel">the Parcel object for checking</param>
-        /// <returns>the appropriate ParcelStatus</returns>
-        //ParcelStatuses ParcelStatus(DO.Parcel parcel);
-
-        /// <summary>
         /// the function updates the parcel object instead of the prev object in the same id.
         /// </summary>
         /// <param name="parcel">the object to convert</param>
@@ -332,13 +317,6 @@ namespace BLApi
         Customer GetBLCustomer(string id);
 
         /// <summary>
-        /// the function converts a DO.Customer to a BO.Customer.
-        /// </summary>
-        /// <param name="customer"></param>
-        /// <returns></returns>
-       // Customer ConvertCustomerDoToBo(DO.Customer customer);
-
-        /// <summary>
         /// the function returns a CustomerForList object - according to the requested id.
         /// </summary>
         /// <param name="id">the requested customer's id</param>
@@ -350,13 +328,6 @@ namespace BLApi
         /// </summary>
         /// <param name="id">parcel's id</param>
         CustomerInParcel GetCustomrInParcel(string id);
-
-        /// <summary>
-        /// the function converts a DO,Customer obj to a customerInParcel obsj
-        /// </summary>
-        /// <param name="customer"></param>
-        /// <returns></returns>
-       // CustomerInParcel ConvertCustomerDoToCustomerInParcel(DO.Customer customer);
 
         /// <summary>
         /// update a Customer object with at least one of the parameters: name / phone (the one that isn't null)
