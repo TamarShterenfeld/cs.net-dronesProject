@@ -1,8 +1,0 @@
-<Config>
-	<ParcelId>0</ParcelId>
-	<ElectricityConsumingOfAvailable>0.0001</ElectricityConsumingOfAvailable>
-	<ElectricityConsumingOfLightWeight>0.0002</ElectricityConsumingOfLightWeight>
-	<ElectricityConsumingOfAverageWeight>0.0003</ElectricityConsumingOfAverageWeight>
-	<ElectricityConsumingOfHeavyWeight>0.0004</ElectricityConsumingOfHeavyWeight>
-	<ChargeRate>20.25</ChargeRate>
-</Config>

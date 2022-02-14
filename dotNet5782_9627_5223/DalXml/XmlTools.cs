@@ -26,7 +26,7 @@ namespace  DalXml
         {
             if (!Directory.Exists(dirPath))
                 Directory.CreateDirectory(dirPath);
-            if (!File.Exists(CustomerPath))
+            if (!File.Exists(dirPath+CustomerPath))
                 CreateFiles();
             else
                 LoadData();

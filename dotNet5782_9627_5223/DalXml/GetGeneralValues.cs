@@ -43,20 +43,26 @@ namespace DalXml
 
         {
             double[] electricitiesConsuming = new double[5];
-            electricitiesConsuming[0] = 
+            object ans = new();
                 (from c in ConfigRoot.Elements()
-                select double.Parse(c.Element("ElectricityConsumingOfAvailable").Value)).FirstOrDefault();
+                 where c.Name == "ElectricityConsumingOfAvailable"
+                 select new { A = c.Element("ElectricityConsumingOfAvailable").Value}).FirstOrDefault();
+            electricitiesConsuming[0] = (double)ans;
             electricitiesConsuming[1] =
                (from c in ConfigRoot.Elements()
+                where c.Name == "ElectricityConsumingOfLightWeight"
                 select double.Parse(c.Element("ElectricityConsumingOfLightWeight").Value)).FirstOrDefault();
             electricitiesConsuming[2] =
                (from c in ConfigRoot.Elements()
+                where c.Name == "ElectricityConsumingOfAverageWeight"
                 select double.Parse(c.Element("ElectricityConsumingOfAverageWeight").Value)).FirstOrDefault();
             electricitiesConsuming[3] =
                (from c in ConfigRoot.Elements()
+                where c.Name == "ElectricityConsumingOfHeavyWeight"
                 select double.Parse(c.Element("ElectricityConsumingOfHeavyWeight").Value)).FirstOrDefault();
             electricitiesConsuming[4] =
                (from c in ConfigRoot.Elements()
+                where c.Name == "electricitiesConsuming"
                 select double.Parse(c.Element("electricitiesConsuming").Value)).FirstOrDefault();
 
             return electricitiesConsuming;
@@ -66,6 +72,7 @@ namespace DalXml
         public int GetLastParcelId()
         {
             int parcelId = (from c in ConfigRoot.Elements()
+                            where c.Name == "ParcelId"
                             select int.Parse(c.Element("ParcelId").Value)).FirstOrDefault();
             return parcelId;
         }
