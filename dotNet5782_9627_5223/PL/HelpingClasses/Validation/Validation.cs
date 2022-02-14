@@ -2,7 +2,7 @@
 
 namespace PL
 {
-    static class Validation
+    public static class Validation
     {
         internal static bool IsValidPhone(string phone)
         {
