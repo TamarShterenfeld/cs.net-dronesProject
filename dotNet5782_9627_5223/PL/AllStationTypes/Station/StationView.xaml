@@ -45,6 +45,7 @@
             <TextBox.Text >
                 <Binding Path="BaseStation.Id" UpdateSourceTrigger="PropertyChanged" >
                     <Binding.ValidationRules>
+                        <local:NotEmptyRule ValidatesOnTargetUpdated="True"/>
                         <local:NumberRule ValidatesOnTargetUpdated="True" ValidationStep="UpdatedValue"/>
                         <local:RealPositiveNumberRule  ValidatesOnTargetUpdated="True"/>
                     </Binding.ValidationRules>
@@ -61,6 +62,7 @@
             <TextBox.Text >
                 <Binding Path="BaseStation.Name" UpdateSourceTrigger="PropertyChanged" >
                     <Binding.ValidationRules>
+                        <local:NotEmptyRule ValidatesOnTargetUpdated="True"/>
                         <local:NameRule ValidatesOnTargetUpdated="True" />
                     </Binding.ValidationRules>
                 </Binding>
@@ -76,6 +78,7 @@
             <TextBox.Text >
                 <Binding Path="BaseStation.ChargeSlots" UpdateSourceTrigger="PropertyChanged" >
                     <Binding.ValidationRules>
+                        <local:NotEmptyRule ValidatesOnTargetUpdated="True"/>
                         <local:NumberRule ValidatesOnTargetUpdated="True" />
                         <local:PositiveNumberRule  ValidatesOnTargetUpdated="True"/>
                     </Binding.ValidationRules>

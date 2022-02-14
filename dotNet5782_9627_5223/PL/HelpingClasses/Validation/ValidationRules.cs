@@ -8,7 +8,7 @@ using System.Windows.Controls;
 
 namespace PL
 {
-    class NameRule : ValidationRule
+    class  NameRule : ValidationRule
     {
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {

@@ -2,6 +2,7 @@
 using PL.PO;
 using System;
 using System.ComponentModel;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using static PL.PO.POConverter;
@@ -117,7 +118,7 @@ namespace PL
             {
                 bl.Delete(StationPoToBo(BaseStation));
                 ListsModel.Instance.DeleteStation(BaseStation.Id);
-                MessageBoxResult message =  MessageBox.Show("The station has been deleted successfully!");
+                MessageBoxResult message = MessageBox.Show("The station has been deleted successfully!");
                 (sender as Window).Close();
             }
             catch (IntIdException exe)
@@ -161,6 +162,17 @@ namespace PL
 
         internal bool IsAllValid()
         {
+
+            NameRule n1 = new();
+            NumberRule n2 = new();
+            RealPositiveNumberRule n3 = new();
+            PositiveNumberRule n4 = new();
+            NumberRule n5 = new();
+            NotEmptyRule n6 = new();
+            DoubleValRule n7 = new();
+
+            CultureInfo c1 = new(1);
+            n1.Validate(BaseStation.Name, c1);
             
 
             return true;
