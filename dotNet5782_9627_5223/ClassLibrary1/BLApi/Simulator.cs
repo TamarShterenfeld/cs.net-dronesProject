@@ -19,7 +19,7 @@ namespace IBL
         public Simulator(BLApi.IBL Bl, int droneId, Action updateDrone, Func<bool> checkStop)
         {
             BLApi.IBL bl = Bl;
-            var dal = bl.GetMyDal();
+        //    var dal = bl.GetMyDal();
         //    var drone = bl.GetDroneForList(droneId);
         //    int? parcelId = null;
         //    int? baseStationId = null;

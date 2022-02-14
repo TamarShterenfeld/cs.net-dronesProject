@@ -12,12 +12,6 @@ namespace IBL
 {
     public partial class BL
     {
-        [MethodImpl(MethodImplOptions.Synchronized)]
-        public DalApi.IDal GetMyDal()
-        {
-            return this.dal;
-        }
-
         //----------------------------------BaseStation GetObject Methods---------------------------------
         [MethodImpl(MethodImplOptions.Synchronized)]
         public BaseStation GetBLBaseStation(int id)

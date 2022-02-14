@@ -22,12 +22,6 @@ namespace BLApi
         void InvokeSimulator(int droneId, Action refreshDisplay, Func<bool> checkStopping);
 
         /// <summary>
-        /// returns the DalApi.IDal instance.
-        /// </summary>
-        /// <returns>DalApi.IDal object</returns>
-        DalApi.IDal GetMyDal();
-
-        /// <summary>
         /// The function gives associate date to the parcel.
         /// </summary>
         /// <param name="parcelId">parcel id</param>
