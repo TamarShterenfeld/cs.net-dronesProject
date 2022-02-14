@@ -10,6 +10,7 @@
         <local:BoolToBoolConverter x:Key="BoolToBoolConverter" />
         <local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
         <local:BoolToVisibilityInUpdateConverter x:Key="BoolToVisibilityInUpdateConverter" />
+        <local:BoolToIsSimulatorConverter x:Key="BoolToIsSimulatorConverter" />
     </Window.Resources>
     <Grid x:Name ="curdrone" Height="634" VerticalAlignment="Top">
         <Grid.RowDefinitions>
@@ -33,9 +34,12 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <WrapPanel Grid.Row="0" Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Button x:Name="button1" Content="Close" Width="92" Command="{Binding Cancel}" CommandParameter="{Binding ElementName=DroneWindow}" Background="#FFD40202" BorderBrush="White"  Foreground="#DDFFFFFF"/>
-            <Button x:Name="buttonState" Content="{Binding EnableUpdate,Converter={StaticResource BoolToStringConverter}}" Width="92" Command="{Binding AddOrUpdate}" CommandParameter="{Binding ElementName=station,Path=SelectedItem}" Background="Turquoise" BorderBrush="White"/>
-            <Button x:Name="buttonDelete" Content="Delete" Width="92" Command="{Binding Delete}" CommandParameter="{Binding ElementName=DroneWindow }"  Background="#FFD40202" BorderBrush="White"/>
+            <Button x:Name="button1" Content="Close" Width="92" Command="{Binding Cancel}" CommandParameter="{Binding ElementName=DroneWindow}" 
+                    Background="#FFD40202" BorderBrush="White"  Foreground="#DDFFFFFF" IsEnabled="{Binding InSimulator ,Converter={StaticResource BoolToBoolConverter}}"/>
+            <Button x:Name="buttonState" Content="{Binding EnableUpdate,Converter={StaticResource BoolToStringConverter}}" Width="92" 
+                    Command="{Binding AddOrUpdate}" CommandParameter="{Binding ElementName=station,Path=SelectedItem}" Background="Turquoise" BorderBrush="White" IsEnabled="{Binding InSimulator ,Converter={StaticResource BoolToBoolConverter}}"/>
+            <Button x:Name="buttonDelete" Content="Delete" Width="92" Command="{Binding Delete}" CommandParameter="{Binding ElementName=DroneWindow }" 
+                    Background="#FFD40202" BorderBrush="White" IsEnabled="{Binding InSimulator ,Converter={StaticResource BoolToBoolConverter}}"/>
             <!--<ComboBox x:Name="button3" 
                       ItemsSource="{Binding Button3Content}" 
                       SelectedItem="{Binding Button3SelectedItem}"   
@@ -145,7 +149,7 @@
         
         <!--SelectedItem="{Binding StationId}"-->
         <WrapPanel Grid.Row="10" Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding EnableUpdate,Converter={StaticResource BoolToVisibilityInUpdateConverter}}">
-            <Button x:Name="Simulator" Content="{Binding SimulatorOrRegular}" Command="{Binding Simulator}" Background="#FFD40202" BorderBrush="White"/>
+            <Button x:Name="Simulator" Content="{Binding InSimulator,Converter={StaticResource BoolToIsSimulatorConverter}}" Command="{Binding Simulator}" Background="#FFD40202" BorderBrush="White"/>
         </WrapPanel>
         
         <Grid >
