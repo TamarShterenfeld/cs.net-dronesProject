@@ -240,20 +240,7 @@ namespace PL
             new ParcelInPassingView(new ParcelInPassingViewModel(bl.GetParcelInPassing(Drone.Id), bl)).Show();
         }
 
-        private void Simulator_Click(Object sender, EventArgs e)
-        {
-            worker = new() { WorkerReportsProgress = true, WorkerSupportsCancellation = true, };
-            // worker.DoWork += bl.InvokeSimulator<BO.Drone>((sender as BO.Drone).Id, );
-            // worker.ProgressChanged += func;
-            
-            //Auto = true;
-            
-            //worker.DoWork += (sender, args) => bl.StartDroneSimulator((int)args.Argument, updateDrone, checkStop);
-            //worker.RunWorkerCompleted += (sender, args) => Auto = false;
-            //worker.ProgressChanged += (sender, args) => updateDroneView();
-            //worker.RunWorkerAsync(Drone.Id);
-        }
-
+       
 
 
 

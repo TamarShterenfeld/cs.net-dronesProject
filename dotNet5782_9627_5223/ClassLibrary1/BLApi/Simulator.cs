@@ -10,7 +10,7 @@ namespace IBL
 {
     internal class Simulator
     {
-        enum Maintenance { Starting, Going, Charging }
+        enum Maintenance { Starting, Charging ,Finishing }
         enum BatteryUsage { Available, Light, Medium, Heavy, Charging }
         private const double VELOCITY = 1.0;
         private const int DELAY = 500;
@@ -37,7 +37,7 @@ namespace IBL
                 parcel = dal.GetParcel(id);
                 batteryUsage = (int)Enum.Parse(typeof(BatteryUsage), parcel?.Weight.ToString());
                 pickedUp = parcel?.PickUpDate is not null;
-                customer = bl.GetBLCustomer((pickedUp ? parcel?.TargetId : parcel?.SenderId));
+                customer = bl.GetBLCustomer(pickedUp ? parcel?.TargetId : parcel?.SenderId);
             }
 
             do
@@ -48,7 +48,6 @@ namespace IBL
                 {
                     case DroneForList { Status: DroneStatuses.Available }:
                         if (!sleepDelayTime()) break;
-
                         lock (bl)
                         {
                             try 
@@ -84,11 +83,28 @@ namespace IBL
                                     try { station = bl.GetBLBaseStation(dal.GetDroneChargeBaseStationId(droneId));  }
                                     catch (IntIdException ex) { throw new IntIdException("Internal error base station", ex); }
                                     distance = drone.Distance(station);
-                                    maintenance = Maintenance.Going;
+                                    maintenance = Maintenance.Finishing;
                                 }
                                 break;
 
-                            case Maintenance.Going:
+                            case Maintenance.Charging:
+                                if (drone.Battery == 1.0)
+                                    lock (bl)
+                                    {
+                                        drone.Status = DroneStatuses.Available;
+                                        lock (dal)
+                                        {
+                                            dal.ReleaseDroneFromRecharge(droneId);
+                                        }
+                                    }
+                                else
+                                {
+                                    if (!sleepDelayTime()) break;
+                                    lock (bl) drone.Battery = Min(1.0, drone.Battery + bl.BatteryUsages[BL.DRONE_CHARGE] * TIME_STEP);
+                                }
+                                break;
+
+                            case Maintenance.Finishing:
                                 if (distance < 0.01)
                                     lock (bl)
                                     {
@@ -104,23 +120,6 @@ namespace IBL
                                         distance -= delta;
                                         drone.Battery = Max(0.0, drone.Battery - delta * bl.BatteryUsages[BL.DRONE_FREE]);
                                     }
-                                }
-                                break;
-
-                            case Maintenance.Charging:
-                                if (drone.Battery == 1.0)
-                                    lock (bl)
-                                    {
-                                        drone.Status = DroneStatuses.Available;
-                                        lock(dal)
-                                        {
-                                            dal.ReleaseDroneFromRecharge(droneId);
-                                        }
-                                    }
-                                else
-                                {
-                                    if (!sleepDelayTime()) break;
-                                    lock (bl) drone.Battery = Min(1.0, drone.Battery + bl.BatteryUsages[BL.DRONE_CHARGE] * TIME_STEP);
                                 }
                                 break;
                             default:
