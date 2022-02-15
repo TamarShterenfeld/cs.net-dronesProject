@@ -65,6 +65,7 @@ namespace IBL
                                         case (null, _):
                                             if (baseStationId != null)
                                             {
+                                                //drone.Status = DroneStatuses.Maintenance;
                                                 maintenance = Maintenance.Starting;
                                             }
                                             break;
