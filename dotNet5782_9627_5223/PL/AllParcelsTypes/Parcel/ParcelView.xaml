@@ -86,7 +86,6 @@
                 Grid.Row ="3" 
                 HorizontalAlignment="Center" 
                 VerticalAlignment="Bottom"
-                FontWeight="ExtraBlack"
                 Width="150" Height="21" IsEnabled="{Binding EnableUpdate}" >
                     <TextBox.Text >
                         <Binding Path="MyParcel.SenderId" UpdateSourceTrigger="PropertyChanged" >
@@ -110,7 +109,6 @@
                 </StackPanel.InputBindings>
                 <TextBox x:Name="TargetId"
                 TextWrapping="Wrap" 
-                FontWeight="ExtraBlack"
                 Grid.Column="2"
                 Grid.Row ="4" 
                 HorizontalAlignment="Center"
@@ -142,7 +140,6 @@
                 Grid.Row ="5" 
                HorizontalAlignment="Center" 
                 VerticalAlignment="Bottom"
-                FontWeight="ExtraBlack"
                 Width="150" Height="23" IsEnabled="{Binding EnableUpdate}">
                     <TextBox.Text >
                         <Binding Path="MyParcel.DroneId" UpdateSourceTrigger="PropertyChanged" >
