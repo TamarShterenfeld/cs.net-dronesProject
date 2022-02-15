@@ -18,12 +18,12 @@ namespace PL.PO
         //---------------------------Parcel Enums-------------------------
         public enum GroupOptions
         {
-            GroupBySender = 1, GroupByTarget
+            None = 0, GroupBySender, GroupByTarget
         }
 
         public enum SortOptions
         {
-            SortedId = 1, SortedStatus, SortedWeight, SortedPriority
+            None = 0, SortedId, SortedStatus, SortedWeight, SortedPriority
         }
 
         public enum Priorities
@@ -36,7 +36,7 @@ namespace PL.PO
         /// </summary>
         public enum ParcelStatuses
         {
-            Production, Associated, PickedUp, Supplied
+           None = 0, Production, Associated, PickedUp, Supplied
         }
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace PL.PO
         /// </summary>
         public enum ParcelActions
         {
-            Associate, PickUp, Supply, SendforRecharge,
+            None = 0, Associate, PickUp, Supply, SendforRecharge,
         }
 
 
