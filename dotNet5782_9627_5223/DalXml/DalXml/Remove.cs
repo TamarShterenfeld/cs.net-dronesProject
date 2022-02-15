@@ -14,8 +14,8 @@ namespace DalXml
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void Remove(DroneCharge drone)
         {
-            List<DroneCharge> droneCharges = LoadListFromXmlSerializer<DroneCharge>(droneChargesPath);
-            List<BaseStation> baseStations = LoadListFromXmlSerializer<BaseStation>(baseStationsPath);
+            List<DroneCharge> droneCharges = LoadListFromXmlSerializer<DroneCharge>(droneChargesPath).ToList();
+            List<BaseStation> baseStations = LoadListFromXmlSerializer<BaseStation>(baseStationsPath).ToList();
             CheckExistenceOfDroneCharge(drone.DroneId);
             droneCharges.Remove(GetDroneCharge(drone.DroneId));
             BaseStation baseStation = GetBaseStation(drone.StationId);

@@ -38,12 +38,12 @@ namespace DalXml
         [MethodImpl(MethodImplOptions.Synchronized)]
         public int CaughtChargeSlots(int baseStationId)
         {
-            List<BaseStation> baseStations = LoadListFromXmlSerializer<DO.BaseStation>(baseStationsPath);
+            List<BaseStation> baseStations = LoadListFromXmlSerializer<DO.BaseStation>(baseStationsPath).ToList();
             return ((List<int>)GetDronesIdInBaseStation(baseStationId)).Count;
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public double[] ElectricityConsuming()
+        public double[] BatteryUsages()
         {
             double[] electricitiesConsuming = new double[5];
             electricitiesConsuming[0] = RescueConfigValueByName<double>("ElectricityConsumingOfAvailable");
@@ -94,10 +94,23 @@ namespace DalXml
         [MethodImpl(MethodImplOptions.Synchronized)]
         public int GetLastParcelId()
         {
-            int parcelId = (from c in ConfigRoot.Elements()
+            XElement parcelId = (from c in ConfigRoot.Elements()
                             where c.Name == "ParcelId"
-                            select int.Parse(c.Element("ParcelId").Value)).FirstOrDefault();
-            return parcelId;
+                            select c ).FirstOrDefault();
+            return int.Parse(parcelId.Value);
         }
+
+
+        /// <summary>
+        /// <param name="droneId"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public int GetDroneChargeBaseStationId(int droneId)
+        {
+            CheckExistenceOfDroneCharge(droneId);
+            List<DroneCharge> droneCharges = LoadListFromXmlSerializer<DroneCharge>(droneChargesPath).ToList();
+            return droneCharges.Find(dc => dc.DroneId == droneId).StationId;
+        }
+
     }
 }

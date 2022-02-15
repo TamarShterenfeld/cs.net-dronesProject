@@ -86,7 +86,7 @@ namespace DalXml
             {
                 //initalize at least the first five drones in DronesList
                 RandomDrones();
-                SaveListToXmlSerializer<Drone>(DronesList, droneChargesPath);
+                SaveListToXmlSerializer<Drone>(DronesList, dronesPath);
             }
 
 

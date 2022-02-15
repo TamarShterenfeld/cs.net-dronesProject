@@ -5,7 +5,8 @@ using System.Linq;
 using System.Reflection;
 using Singleton;
 using System.Runtime.CompilerServices;
-
+using DO;
+using static DalXml.XMLTools;
 
 namespace DalXml
 {
@@ -29,17 +30,8 @@ namespace DalXml
             parcelsPath = "Parcels.xml";
             customersPath = "Customers.xml";
             droneChargesPath = "DroneCharges.xml";
-        //Initialize();
+        Initialize();
     }
-       
-        public double[] BatteryUsages()
-        {
-            throw new NotImplementedException();
-        }
-       
-        public int GetDroneChargeBaseStationId(int droneId)
-        {
-            throw new NotImplementedException();
-        }
+     
     }
 }

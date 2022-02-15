@@ -10,7 +10,7 @@ namespace IBL
 {
     internal class Simulator
     {
-        enum Maintenance { Starting, Charging ,Finishing }
+        enum Maintenance { Starting, Charging, Finishing}
         enum BatteryUsage { Available, Light, Medium, Heavy, Charging }
         private const double VELOCITY = 1.0;
         private const int DELAY = 500;

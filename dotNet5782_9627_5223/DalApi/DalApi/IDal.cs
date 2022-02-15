@@ -183,12 +183,7 @@ namespace DalApi
         /// <param name="predicate">a predicate</param>
         /// <returns>all the parcels with a certain condition</returns>
         public IEnumerable<Parcel> Parcels(Predicate<Parcel> predicate);
-
-        /// <summary>
-        /// a double array which contains all the electricities consuming by a drone + the charge rate.
-        /// </summary>
-        /// <returns></returns>
-        double[] ElectricityConsuming();
+        
 
         /// <summary>
         /// returns the highest parcel's id
@@ -204,9 +199,10 @@ namespace DalApi
         int GetDroneChargeBaseStationId(int droneId);
 
         /// <summary>
-        /// returns battery usages
+        ///  returns a double array which contains all the batteryusages
+        /// + the charge rate.(5 elements)
         /// </summary>
-        /// <returns>battery usages</returns>
+        /// <returns>double[] type</returns>
         double[] BatteryUsages();
     }
 }
