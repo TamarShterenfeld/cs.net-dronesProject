@@ -70,7 +70,8 @@ namespace IBL
                                             break;
                                     }
                                 }
-                            } catch (ParcelActionsException ex){ } catch(DroneStatusException ex){} catch(Exception ex){}
+                            } 
+                            catch (ParcelActionsException ex){ } catch(DroneStatusException ex){} catch(Exception ex){}
                         }
                         break;
 

@@ -135,7 +135,6 @@ namespace DalObject
                     parcel.AssociationDate = null;
                 }
                 ParcelsList.Add(parcel);
-
             }
         }
 
