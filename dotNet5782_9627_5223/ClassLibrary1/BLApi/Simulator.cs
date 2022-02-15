@@ -1,16 +1,14 @@
-﻿using System;
-using BO;
-using System.Threading;
-using DalApi;
-using System.Linq;
-using static System.Math;
+﻿using BO;
 using DO;
+using System;
+using System.Threading;
+using static System.Math;
 
 namespace IBL
 {
     internal class Simulator
     {
-        enum Maintenance { Starting,Going, Charging }
+        enum Maintenance { Starting, Going, Charging }
         enum BatteryUsage { Available, Light, Medium, Heavy, Charging }
         private const double VELOCITY = 1.0;
         private const int DELAY = 500;
@@ -30,7 +28,7 @@ namespace IBL
             DO.Parcel? parcel = null;
             bool pickedUp = false;
             BO.Customer customer = null;
-            Maintenance maintenance = drone.Status == DroneStatuses.Maintenance? Maintenance.Charging: Maintenance.Starting;
+            Maintenance maintenance = drone.Status == DroneStatuses.Maintenance ? Maintenance.Charging : Maintenance.Starting;
 
             void initDelivery(int id)
             {
@@ -50,9 +48,9 @@ namespace IBL
                         if (!sleepDelayTime()) break;
                         lock (bl)
                         {
-                            try 
-                            { 
-                                lock(bl)
+                            try
+                            {
+                                lock (bl)
                                 {
                                     bl.AssociateParcel(droneId);
                                     parcelId = bl.GetBLDrone(droneId).Parcel?.Id;
@@ -70,18 +68,24 @@ namespace IBL
                                             break;
                                     }
                                 }
-                            } 
-                            catch (ParcelActionsException ex){ } catch(DroneStatusException ex){} catch(Exception ex){}
+                            }
+                            catch (ParcelActionsException ex)
+                            {
+                                //bl.SendDroneForCharge(droneId);
+                                //maintenance = Maintenance.Starting;
+                            }
+                            catch (DroneStatusException ex) { }
+                            catch (Exception ex) { }
                         }
                         break;
 
-                    case DroneForList { Status: DroneStatuses.Maintenance }:
+                    case DroneForList { Status: DroneStatuses.Maintenance } :
                         switch (maintenance)
                         {
                             case Maintenance.Starting:
                                 lock (bl)
                                 {
-                                    try { station = bl.GetBLBaseStation(dal.GetDroneChargeBaseStationId(droneId));  }
+                                    try { station = bl.GetBLBaseStation(dal.GetDroneChargeBaseStationId(droneId)); }
                                     catch (IntIdException ex) { throw new IntIdException("Internal error base station", ex); }
                                     distance = drone.Distance(station);
                                     maintenance = Maintenance.Going;
@@ -168,7 +172,7 @@ namespace IBL
                                 drone.Battery = Max(0.0, drone.Battery - delta * bl.BatteryUsages[pickedUp ? batteryUsage : BL.DRONE_FREE]);
                                 double lat = drone.Location.CoorLatitude.InputCoorValue + (customer.Location.CoorLatitude.InputCoorValue - drone.Location.CoorLatitude.InputCoorValue) * proportion;
                                 double lon = drone.Location.CoorLongitude.InputCoorValue + (customer.Location.CoorLongitude.InputCoorValue - drone.Location.CoorLongitude.InputCoorValue) * proportion;
-                                drone.Location = new(new BO.Coordinate(lon,BO.Locations.Longitude),new BO.Coordinate(lat,BO.Locations.Latitude));
+                                drone.Location = new(new BO.Coordinate(lon, BO.Locations.Longitude), new BO.Coordinate(lat, BO.Locations.Latitude));
                             }
                         }
                         break;

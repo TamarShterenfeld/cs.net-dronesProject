@@ -224,7 +224,7 @@ namespace IBL
         /// <returns>the converted BO.Drone object</returns>
         Drone ConvertDroneDOtOBO(DO.Drone drone)
         {
-            Drone bODrone = new (drone.Id, drone.Model, (WeightCategories)(drone.MaxWeight), 0, DroneStatuses.Available, new ParcelInPassing(), new Location());
+            Drone bODrone = new (drone.Id, drone.Model, (WeightCategories)drone.MaxWeight,dronesForList.FirstOrDefault(item => item.Id == drone.Id).Battery, DroneStatuses.Available, ParcelInPassing.Empty, new Location());
             return bODrone;
         }
 
