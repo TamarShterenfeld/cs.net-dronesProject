@@ -10,7 +10,7 @@ namespace IBL
 {
     internal class Simulator
     {
-        enum Maintenance { Starting, Going, Charging }
+        enum Maintenance { Starting, Charging, Finishing}
         enum BatteryUsage { Available, Light, Medium, Heavy, Charging }
         private const double VELOCITY = 1.0;
         private const int DELAY = 500;
@@ -84,11 +84,11 @@ namespace IBL
                                     try { station = bl.GetBLBaseStation(dal.GetDroneChargeBaseStationId(droneId));  }
                                     catch (IntIdException ex) { throw new IntIdException("Internal error base station", ex); }
                                     distance = drone.Distance(station);
-                                    maintenance = Maintenance.Going;
+                                    maintenance = Maintenance.Finishing;
                                 }
                                 break;
 
-                            case Maintenance.Going:
+                            case Maintenance.Finishing:
                                 if (distance < 0.01)
                                     lock (bl)
                                     {
