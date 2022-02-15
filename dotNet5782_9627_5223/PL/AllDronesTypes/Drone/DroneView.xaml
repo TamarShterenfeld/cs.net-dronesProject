@@ -56,15 +56,32 @@
             TextWrapping="Wrap" 
             Width="140" 
             IsEnabled="{Binding EnableUpdate}"
-            Text="{Binding Drone.Id}" Margin="63,0,63,24"/>
+            Margin="63,0,63,24">
+            <TextBox.Text >
+                <Binding Path="Drone.Id" UpdateSourceTrigger="PropertyChanged" >
+                    <Binding.ValidationRules>
+                        <local:NotEmptyRule ValidatesOnTargetUpdated="True"/>
+                        <local:NumberRule ValidatesOnTargetUpdated="True" />
+                        <local:RealPositiveNumberRule  ValidatesOnTargetUpdated="True"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
         <TextBlock  Text="Model:" Grid.Row="2" Grid.Column="1" Foreground="#FF2D2D2D"/>
         <TextBox x:Name="model" 
-            Text="{Binding Drone.Model}"
             Grid.Row="2" Grid.Column="2" 
             TextWrapping="Wrap" 
             VerticalAlignment="Top" 
             HorizontalAlignment="Center"
-            Width="140"/>
+            Width="140">
+            <TextBox.Text >
+                <Binding Path="Drone.Model" UpdateSourceTrigger="PropertyChanged" >
+                    <Binding.ValidationRules>
+                        <local:NotEmptyRule ValidatesOnTargetUpdated="True"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
         <TextBlock Text="Max Weight:" Grid.Row="3" Grid.Column="1" Foreground="#FF4C386B"/>
         <ComboBox x:Name ="weight" 
                   Grid.Row="3" Grid.Column="2" 
@@ -78,12 +95,21 @@
         <TextBlock Text="Battery:" Grid.Row="4" Grid.Column="1" Foreground="#FF3F4245"/>
         <TextBox x:Name="battery"
            Grid.Row="4" Grid.Column="2"
-            Text="{Binding Drone.Battery}"
             TextWrapping="Wrap" 
             VerticalAlignment="Top" 
             HorizontalAlignment="Center"
             Width="140" 
-            IsEnabled="False"/>
+            IsEnabled="False">
+            <TextBox.Text >
+                <Binding Path="Drone.Battery" UpdateSourceTrigger="PropertyChanged" >
+                    <Binding.ValidationRules>
+                        <local:NotEmptyRule ValidatesOnTargetUpdated="True"/>
+                        <local:NumberRule ValidatesOnTargetUpdated="True"/>
+                        <local:PositiveNumberRule ValidatesOnTargetUpdated="True"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
         <TextBlock Text="Status:" Grid.Row="5" Grid.Column="1" Foreground="#FF3F4245"/>
         <ComboBox x:Name ="status" 
                   Grid.Row="5" Grid.Column="2"
@@ -124,18 +150,32 @@
             VerticalAlignment="Top" 
             HorizontalAlignment="Center"
             Width="140" 
-            Text="{Binding CoorLon}"
-            IsEnabled="{Binding EnableUpdate}"/>
+            IsEnabled="{Binding EnableUpdate}">
+            <TextBox.Text >
+                <Binding Path="CoorLon" UpdateSourceTrigger="PropertyChanged" >
+                    <Binding.ValidationRules>
+                        <local:NotEmptyRule ValidatesOnTargetUpdated="True"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
 
         <TextBlock Text="Latitude:" Grid.Row="8" Grid.Column="1" Foreground="#FF3F4245"/>
         <TextBox x:Name="latitude"
             Grid.Row="8" Grid.Column="2"
-            Text="{Binding CoorLat}"
             IsEnabled="{Binding EnableUpdate}"
             TextWrapping="Wrap" 
             VerticalAlignment="Top" 
             HorizontalAlignment="Center"
-            Width="140"/>
+            Width="140">
+            <TextBox.Text >
+                <Binding Path="CoorLat" UpdateSourceTrigger="PropertyChanged" >
+                    <Binding.ValidationRules>
+                        <local:NotEmptyRule ValidatesOnTargetUpdated="True"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
 
         <TextBlock x:Name="Lstation" Grid.Row= "9" Grid.Column="1" Foreground="#FF3F4245" Grid.ColumnSpan="2" Grid.RowSpan="2" Visibility="{Binding EnableUpdate,Converter={StaticResource BoolToVisibilityConverter}}">
             <Run FlowDirection="RightToLeft" Language="he-il" Text="S"/><Run Text="tation ID:"/></TextBlock>
@@ -146,13 +186,13 @@
                   Width="140"                  
                   ItemsSource="{Binding StationsId}"
                   Height="24"/>
-        
+
         <!--SelectedItem="{Binding StationId}"-->
         <WrapPanel Grid.Row="10" Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding EnableUpdate,Converter={StaticResource BoolToVisibilityInUpdateConverter}}">
             <Button x:Name="Simulator" Content="Simulator" Command="{Binding Simulator}" Background="#FFD40202" BorderBrush="White" Visibility="{Binding InSimulator, Converter={StaticResource BoolToVisibilityInUpdateConverter }}"/>
             <Button x:Name="Regular"  Content="Regular" Command="{Binding Regular}" Background="#FFD40202" BorderBrush="White" Visibility="{Binding InSimulator, Converter={StaticResource BoolToVisibilityConverter}}"/>
         </WrapPanel>
-        
+
         <Grid >
             <Grid.Background>
                 <ImageBrush Stretch="Fill" ImageSource="../../images/logo1.jpg"/>

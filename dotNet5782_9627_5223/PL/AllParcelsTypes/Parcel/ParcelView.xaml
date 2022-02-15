@@ -53,13 +53,12 @@
             <TextBlock Text="Parcel Id:" Grid.Column="1" Grid.Row ="2" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Foreground="#FF4C386B" Height="16" Width="51" Margin="0,0,0,58" Grid.RowSpan="2"/>
             <TextBox x:Name="ParcelId"
                 TextWrapping="Wrap"
-                IsEnabled="False"
                 Width="150"
                 Grid.Column="2"
                 Grid.Row ="2" 
                 HorizontalAlignment="Center" 
                 VerticalAlignment="Bottom"             
-                Height="25" Grid.RowSpan="2" >
+                Height="25" Grid.RowSpan="2" IsEnabled="{Binding EnableUpdate}" >
                 <TextBox.Text >
                     <Binding Path="MyParcel.ParcelId" UpdateSourceTrigger="PropertyChanged" >
                         <Binding.ValidationRules>
@@ -83,12 +82,11 @@
                 </StackPanel.InputBindings>
                 <TextBox x:Name="SenderId"
                 TextWrapping="Wrap" 
-                IsEnabled="False"
                 Grid.Column="2"
                 Grid.Row ="3" 
                 HorizontalAlignment="Center"
                 FontWeight="ExtraBlack"
-                Width="150" Height="21" Cursor="Hand" >
+                Width="150" Height="21" Cursor="{Binding Curser}" IsEnabled="{Binding EnableUpdate}" >
                     <TextBox.Text >
                         <Binding Path="MyParcel.SenderId" UpdateSourceTrigger="PropertyChanged" >
                             <Binding.ValidationRules>
@@ -112,11 +110,10 @@
                 <TextBox x:Name="TargetId"
                 TextWrapping="Wrap" 
                 FontWeight="ExtraBlack"
-                IsEnabled="False"
                 Grid.Column="2"
                 Grid.Row ="4" 
                 HorizontalAlignment="Center"
-                Width="150" Height="22" >
+                Width="150" Height="22" Cursor="{Binding Curser}" IsEnabled="{Binding EnableUpdate}" >
                     <TextBox.Text >
                         <Binding Path="MyParcel.TargetId" UpdateSourceTrigger="PropertyChanged" >
                             <Binding.ValidationRules>
@@ -140,12 +137,11 @@
                 </StackPanel.InputBindings>
                 <TextBox x:Name="DroneId"
                 TextWrapping="Wrap"                    
-                IsEnabled="False"
                 Grid.Column="2"
                 Grid.Row ="5" 
                 HorizontalAlignment="Center"
                 FontWeight="ExtraBlack"
-                Width="150" Height="23">
+                Width="150" Height="23" Cursor="{Binding Curser}" IsEnabled="{Binding EnableUpdate}">
                     <TextBox.Text >
                         <Binding Path="MyParcel.DroneId" UpdateSourceTrigger="PropertyChanged" >
                             <Binding.ValidationRules>
@@ -163,32 +159,29 @@
                 Grid.Column="2"
                 HorizontalAlignment="Center" 
                 VerticalAlignment="Bottom"
-                IsEnabled="False"
                 Width="150"
                 Height="24" 
                 ItemsSource="{Binding Weights}" 
-                SelectedItem="{Binding SelectedWeight}"   />
+                SelectedItem="{Binding SelectedWeight}" IsEnabled="{Binding EnableUpdate}"   />
 
             <TextBlock Text="Priority:" Grid.Row="7" Grid.Column="1" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Foreground="#FF3F4245" Height="16" Width="49" />
             <ComboBox x:Name ="priority"
-                IsEnabled="False"
                 Grid.Row="7" 
                 Grid.Column="2"
                 Width="150"
                 HorizontalAlignment="Center" 
                 VerticalAlignment="Bottom"
                ItemsSource="{Binding Priorities}" 
-                SelectedItem="{Binding SelectedPriority}" Height="25" />
+                SelectedItem="{Binding SelectedPriority}" Height="25"  IsEnabled="{Binding EnableUpdate}"  />
             <TextBlock Text="Status:" Grid.Row="8" Grid.Column="1" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Foreground="#FF3F4245" Height="16" Width="49" Margin="0,0,0,57" Grid.RowSpan="2" />
             <ComboBox x:Name ="status" 
-                IsEnabled="False"
                 Grid.Row="8" 
                 Grid.Column="2"
                 Width="150"
                 HorizontalAlignment="Center"
                  ItemsSource="{Binding Statuses}" 
                 SelectedItem="{Binding SelectedStatus}"
-                VerticalAlignment="Bottom" Height="25" />
+                VerticalAlignment="Bottom" Height="25"  IsEnabled="{Binding EnableUpdate}"  />
         </Grid>
 
     </Grid>

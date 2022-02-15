@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Data;
 using System.Linq;
 using System.ComponentModel;
+using static PL.Validation;
 
 namespace PL
 {
@@ -20,6 +21,48 @@ namespace PL
         public bool EnableUpdate { get; set; }
         bool inSimulator;
         public bool InSimulator { get => inSimulator; set { inSimulator = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(InSimulator))); } }
+        public object CoorLon
+        {
+            get => coorLon;
+            set
+            {
+                if (double.TryParse(value.ToString(), out double longitude))
+                {
+                    if (!IsValidLocation(longitude))
+                    {
+                        MessageBox.Show("Location must be in range of -180º to 180º");
+                        return;
+                    }
+                    coorLon = value;
+                    Drone.Location.CoorLongitude = new PO.Coordinate(longitude, POConverter.Locations.Longitude);
+                }
+                else
+                {
+                    MessageBox.Show("Location must be a double value type");
+                }
+            }
+        }
+        public object CoorLat
+        {
+            get => coorLat;
+            set
+            {
+                if (double.TryParse(value.ToString(), out double latitude))
+                {
+                    if (!IsValidLocation(latitude))
+                    {
+                        MessageBox.Show("Location must be in range of -180º to 180º");
+                        return;
+                    }
+                    coorLat = value;
+                    Drone.Location.CoorLatitude = new PO.Coordinate(latitude, POConverter.Locations.Latitude);
+                }
+                else
+                {
+                    MessageBox.Show("Location must be a double value type");
+                }
+            }
+        }
         public RelayCommand Cancel { get; set; }
         public RelayCommand AddOrUpdate { get; set; }
         public RelayCommand Delete { get; set; }
@@ -68,41 +111,11 @@ namespace PL
             StationsId = new ListCollectionView(bl.GetAvailableChargeSlots().ToList());
         }
 
-        public object CoorLon
-        {
-            get => coorLon;
-            set
-            {
-                if (double.TryParse(value.ToString(), out double longitude))
-                {
-                    coorLon = value;
-                    Drone.Location.CoorLongitude = new PO.Coordinate(longitude, POConverter.Locations.Longitude);
-                }
-            }
-        }
-        public object CoorLat
-        {
-            get => coorLat;
-            set
-            {
-                if (double.TryParse(value.ToString(), out double latitude))
-                {
-                    coorLat = value;
-                    Drone.Location.CoorLatitude = new PO.Coordinate(latitude, POConverter.Locations.Latitude);
-                }
-            }
-        }
-
-
-
         //public PO.ParcelInPassing Parcel { get; set; }
 
         //readonly Action refreshDroneList;
-        object chargeDurationTime;
-        string button3SelectedItem;
-        string parcelOption;
         private string simulatorOrRegular;
-        
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -207,7 +220,7 @@ namespace PL
         private void updateDroneView()
         {
             ListsModel.Instance.UpdateDrone(Drone.Id);
-            Drone = DroneBOToPO(bl.GetBLDrone(Drone.Id),bl);
+            Drone = DroneBOToPO(bl.GetBLDrone(Drone.Id), bl);
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Drone)));
         }
 
@@ -240,7 +253,7 @@ namespace PL
             new ParcelInPassingView(new ParcelInPassingViewModel(bl.GetParcelInPassing(Drone.Id), bl)).Show();
         }
 
-       
+
 
 
 
