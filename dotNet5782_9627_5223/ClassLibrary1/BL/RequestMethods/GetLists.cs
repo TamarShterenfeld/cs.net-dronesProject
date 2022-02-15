@@ -94,7 +94,16 @@ namespace IBL
             {
                 singleDrone = ConvertDroneDoToDroneForList(drone);
                 var parcel = dal.GetParcelsList().FirstOrDefault(parcel => parcel.DroneId == singleDrone.Id);
-                singleDrone.ParcelId = parcel.DroneId == singleDrone.Id ? parcel.Id : 0;
+                if(parcel.DroneId == singleDrone.Id)
+                {
+                    singleDrone.ParcelId = parcel.Id;
+                    singleDrone.Status = DroneStatuses.Shipment;
+                }
+                else
+                {
+                    singleDrone.ParcelId = 0;
+                    singleDrone.Status = DroneStatuses.Available;
+                }
                 Coordinate coorLongitude = new Coordinate(rand.Next(0, 180) * 0.6 + rand.Next(-180, 0) * 0.4, Locations.Longitude);
                 Coordinate coorLatitude = new Coordinate(rand.Next(0, 180) * 0.4 + rand.Next(-180, 0) * 0.6, Locations.Latitude);
                 singleDrone.Location = new Location(coorLongitude, coorLatitude);

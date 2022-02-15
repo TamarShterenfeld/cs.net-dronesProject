@@ -113,7 +113,6 @@ namespace DalObject
         //random at least the first tenth parcels in ParcelsList.
         private static void RandomParcels()
         {
-            int countDrones = 0; 
             int size = rand.Next(10, PARCELS_BASE_AMOUNT);
             for (int i = 0; i < size; i++)
             {
@@ -126,22 +125,15 @@ namespace DalObject
                 //initalize (random) a date of ProductionDate & the other DateTime fields are based on it.
                 //while assuming that each part of the shipment process maximum takes 14 business days.
                 parcel.ProductionDate = DateTime.Now;
-
-                if(countDrones < DronesList.Count && DronesList[i].MaxWeight >= parcel.Weight)
-                {
-                    parcel.AssociationDate = DateTime.Now;
-                    parcel.DroneId = i;
-                }
-                //parcel.AssociationDate = parcel.AssociationDate != null? parcel.ProductionDate.Value.AddDays(rand.Next(14)).AddHours(rand.Next(1, 24)) : null;
-                //parcel.PickUpDate = parcel.PickUpDate != null ? parcel.AssociationDate.Value.AddDays(rand.Next(14)).AddHours(rand.Next(1, 24)) : null;
-                //parcel.SupplyDate = parcel.SupplyDate!= null? parcel.PickUpDate.Value.AddDays(rand.Next(14)).AddHours(rand.Next(1, 24)) : null;
-                //
+                parcel.AssociationDate = parcel.AssociationDate != null? parcel.ProductionDate.Value.AddDays(rand.Next(14)).AddHours(rand.Next(1, 24)) : null;
+                parcel.PickUpDate = parcel.PickUpDate != null ? parcel.AssociationDate.Value.AddDays(rand.Next(14)).AddHours(rand.Next(1, 24)) : null;
+                parcel.SupplyDate = parcel.SupplyDate!= null? parcel.PickUpDate.Value.AddDays(rand.Next(14)).AddHours(rand.Next(1, 24)) : null; 
                 //there wasn't an available drone.
                 //the date: 01/ 01/ 0001 - is a sign for an unassociated parcel - a default value.
-                //if (parcel.DroneId == -1)
-                //{
-                //    parcel.AssociationDate = null;
-                //}
+                if (parcel.DroneId == -1)
+                {
+                    parcel.AssociationDate = null;
+                }
                 ParcelsList.Add(parcel);
 
             }
