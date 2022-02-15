@@ -59,8 +59,18 @@
                 Grid.Row ="2" 
                 HorizontalAlignment="Center" 
                 VerticalAlignment="Bottom"             
-                Text="{Binding MyParcel.ParcelId}" Height="25" Grid.RowSpan="2" 
-                     />
+                Height="25" Grid.RowSpan="2" >
+                <TextBox.Text >
+                    <Binding Path="MyParcel.ParcelId" UpdateSourceTrigger="PropertyChanged" >
+                        <Binding.ValidationRules>
+                            <local:NotEmptyRule ValidatesOnTargetUpdated="True"/>
+                            <local:NumberRule ValidatesOnTargetUpdated="True" />
+                            <local:RealPositiveNumberRule  ValidatesOnTargetUpdated="True"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+
 
             <TextBlock Text="Sender Id:" Grid.Column="1" Grid.Row ="3" HorizontalAlignment="Left" Foreground="#FF4C386B" Width="53" VerticalAlignment="Bottom" Height="16" Margin="0,0,0,57" Grid.RowSpan="2" />
             <StackPanel  Grid.Column="2"
@@ -78,7 +88,18 @@
                 Grid.Row ="3" 
                 HorizontalAlignment="Center"
                 FontWeight="ExtraBlack"
-                Text="{Binding MyParcel.SenderId }"  Width="150" Height="21" Cursor="Hand" />
+                Width="150" Height="21" Cursor="Hand" >
+                    <TextBox.Text >
+                        <Binding Path="MyParcel.SenderId" UpdateSourceTrigger="PropertyChanged" >
+                            <Binding.ValidationRules>
+                                <local:NotEmptyRule ValidatesOnTargetUpdated="True"/>
+                                <local:NumberRule ValidatesOnTargetUpdated="True" />
+                                <local:RealPositiveNumberRule  ValidatesOnTargetUpdated="True"/>
+                                <local:StringIdRule ValidatesOnTargetUpdated="True"/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
             </StackPanel>
             <TextBlock Text="Target Id:" Grid.Row="4" Grid.Column="1" Foreground="#FF4C386B" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Height="16" Width="48" />
             <StackPanel  Grid.Column="2"
@@ -95,7 +116,18 @@
                 Grid.Column="2"
                 Grid.Row ="4" 
                 HorizontalAlignment="Center"
-                Text="{Binding MyParcel.TargetId }"  Width="150" Height="22" />
+                Width="150" Height="22" >
+                    <TextBox.Text >
+                        <Binding Path="MyParcel.TargetId" UpdateSourceTrigger="PropertyChanged" >
+                            <Binding.ValidationRules>
+                                <local:NotEmptyRule ValidatesOnTargetUpdated="True"/>
+                                <local:NumberRule ValidatesOnTargetUpdated="True" />
+                                <local:RealPositiveNumberRule  ValidatesOnTargetUpdated="True"/>
+                                <local:StringIdRule ValidatesOnTargetUpdated="True"/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
             </StackPanel>
 
             <TextBlock Text="DroneId:" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Foreground="#FF3F4245" Height="16" Width="49" Margin="0,0,0,57" Grid.RowSpan="2"/>
@@ -113,38 +145,50 @@
                 Grid.Row ="5" 
                 HorizontalAlignment="Center"
                 FontWeight="ExtraBlack"
-                Text="{Binding MyParcel.DroneId }"  Width="150" Height="23" />
+                Width="150" Height="23">
+                    <TextBox.Text >
+                        <Binding Path="MyParcel.DroneId" UpdateSourceTrigger="PropertyChanged" >
+                            <Binding.ValidationRules>
+                                <local:NotEmptyRule ValidatesOnTargetUpdated="True"/>
+                                <local:NumberRule ValidatesOnTargetUpdated="True" />
+                                <local:RealPositiveNumberRule  ValidatesOnTargetUpdated="True"/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
             </StackPanel>
             <TextBlock Text="Weight" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Foreground="#FF3F4245" Height="16" Width="49" />
-            <TextBox x:Name ="weight" 
+            <ComboBox x:Name ="weight" 
                 Grid.Row="6" 
-                TextWrapping="Wrap" 
                 Grid.Column="2"
                 HorizontalAlignment="Center" 
                 VerticalAlignment="Bottom"
                 IsEnabled="False"
                 Width="150"
-                Text="{Binding MyParcel.Weight }" Height="24" />
+                Height="24" 
+                ItemsSource="{Binding Weights}" 
+                SelectedItem="{Binding SelectedWeight}"   />
+
             <TextBlock Text="Priority:" Grid.Row="7" Grid.Column="1" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Foreground="#FF3F4245" Height="16" Width="49" />
-            <TextBox x:Name ="priority"
+            <ComboBox x:Name ="priority"
                 IsEnabled="False"
                 Grid.Row="7" 
                 Grid.Column="2"
-                TextWrapping="Wrap"
                 Width="150"
                 HorizontalAlignment="Center" 
                 VerticalAlignment="Bottom"
-                Text ="{Binding MyParcel.Priority}" Height="25" />
+               ItemsSource="{Binding Priorities}" 
+                SelectedItem="{Binding SelectedPriority}" Height="25" />
             <TextBlock Text="Status:" Grid.Row="8" Grid.Column="1" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Foreground="#FF3F4245" Height="16" Width="49" Margin="0,0,0,57" Grid.RowSpan="2" />
-            <TextBox x:Name ="status" 
+            <ComboBox x:Name ="status" 
                 IsEnabled="False"
                 Grid.Row="8" 
                 Grid.Column="2"
                 Width="150"
                 HorizontalAlignment="Center"
-                Text="{Binding MyParcel.Status}"
+                 ItemsSource="{Binding Statuses}" 
+                SelectedItem="{Binding SelectedStatus}"
                 VerticalAlignment="Bottom" Height="25" />
-
         </Grid>
 
     </Grid>

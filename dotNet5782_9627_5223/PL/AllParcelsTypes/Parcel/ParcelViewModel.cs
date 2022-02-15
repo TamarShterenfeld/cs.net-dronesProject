@@ -24,6 +24,11 @@ namespace PL
         public bool EnableUpdate { get; set; }
         public PO.Parcel MyParcel { set; get; }
         public ListCollectionView Statuses { get; set; }
+        public ListCollectionView Weights { get; set; }
+        public ListCollectionView Priorities { get; set; }
+        public DroneStatuses SelectedStatus { get; set; }
+        public WeightCategories SelectedWeight { get; set; }
+        public Priorities SelectedPriority { get; set; }
         public RelayCommand Delete { get; set; }
         public RelayCommand LeftDoubleClick_Sender { get; set; }
         public RelayCommand LeftDoubleClick_Target { get; set; }
@@ -34,7 +39,9 @@ namespace PL
         {
             this.bl = bl;
             MyParcel = new PO.Parcel(bl, parcel);
-            Statuses = new ListCollectionView(new List<string>() { "PickUp", "Supply"});
+            Statuses = new ListCollectionView(Enum.GetNames(typeof(DroneStatuses)));
+            Weights = new ListCollectionView(Enum.GetNames(typeof(WeightCategories)));
+            Priorities = new ListCollectionView(Enum.GetNames(typeof(Priorities)));
             Cancel = new(ButtonClick_Cancel);
             Delete = new(Button_ClickDelete, null);
             LeftDoubleClick_Sender = new(DoubleClick_Sender, null);

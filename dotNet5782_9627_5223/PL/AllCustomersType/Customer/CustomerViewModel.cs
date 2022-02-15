@@ -129,7 +129,7 @@ namespace PL
                 }
                 bl.Delete(CustomerPoToBo(Customer));
                 ListsModel.Instance.DeleteCustomer(Customer.Id);
-                MessageBox.Show("The station has been deleted successfully!\nPay attention - the last valid input is saved.");
+                MessageBox.Show("The customer has been deleted successfully!\nPay attention - the last valid input is saved.");
                 (sender as Window).Close();
             }
             catch (StringIdException exe)
@@ -158,7 +158,7 @@ namespace PL
             {
                 bl.Add(CustomerPoToBo(Customer));
                 ListsModel.Instance.AddCustomer(Customer.Id);
-                MessageBox.Show("The station has been added successfully!\nPay attention - the last valid input is saved.");
+                MessageBox.Show("The customer has been added successfully!\nPay attention - the last valid input is saved.");
                 (sender as Window).Close();
             }
             catch (StringIdException exe)
@@ -187,7 +187,7 @@ namespace PL
             {
                 bl.UpdateCustomer(Customer.Id, Customer.Name, Customer.Phone);
                 ListsModel.Instance.UpdateCustomer(Customer.Id);
-                MessageBox.Show("The station has been updated successfully!\nPay attention - the last valid input is saved.");
+                MessageBox.Show("The customer has been updated successfully!\nPay attention - the last valid input is saved.");
             }
             catch (IntIdException exe)
             {
