@@ -46,7 +46,7 @@ namespace DalXml
                            where p.Element("id").Value == customerId
                            select p).First();
 
-            if (ans == null) throw new IntIdException(customerId); 
+            if (ans == null) throw new StringIdException(customerId); 
         }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace DalXml
                    where p.Element("id").Value == customerId
                    select p).First();
 
-            if (ans != null) throw new IntIdException(customerId);
+            if (ans != null) throw new StringIdException(customerId);
         }
 
         /// <summary>

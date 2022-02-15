@@ -7,6 +7,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using static PL.PO.POConverter;
+using static PL.Validation;
 
 namespace PL
 {
@@ -19,7 +20,6 @@ namespace PL
         string state;
         public PO.Station BaseStation { get; set; }
         public bool EnableUpdate { get; set; }
-        public bool EnableAdd { get; set; }
 
         public List<string> ListOfCurrFields { get; set; }
         public string State
@@ -39,7 +39,7 @@ namespace PL
             {
                 if (double.TryParse(value.ToString(), out double longitude))
                 {
-                    if (!Validation.IsValidLocation(longitude))
+                    if (!IsValidLocation(longitude))
                     {
                         MessageBox.Show("Location must be in range of -180º to 180º");
                         return;
@@ -60,7 +60,7 @@ namespace PL
             {
                 if (double.TryParse(value.ToString(), out double latitude))
                 {
-                    if (!Validation.IsValidLocation(latitude))
+                    if (!IsValidLocation(latitude))
                     {
                         MessageBox.Show("Location must be in range of -180º to 180º");
                         return;
@@ -88,10 +88,10 @@ namespace PL
             AddOrUpdate = new(Button_ClickUpdate, null);
             Delete = new(Button_ClickDelete, null);
             EnableUpdate = false;
-            EnableAdd = false;
             coorLon = BaseStation.Location.CoorLongitude.ToString();
             coorLat = BaseStation.Location.CoorLatitude.ToString();
         }
+
         public StationViewModel(BLApi.IBL bl)
         {
             this.bl = bl;
@@ -131,7 +131,7 @@ namespace PL
             {
                 bl.Delete(StationPoToBo(BaseStation));
                 ListsModel.Instance.DeleteStation(BaseStation.Id);
-                MessageBoxResult message = MessageBox.Show("The station has been deleted successfully!\nPay attention - the last valid input is saved.");
+                MessageBox.Show("The station has been deleted successfully!\nPay attention - the last valid input is saved.");
                 (sender as Window).Close();
             }
             catch (IntIdException exe)
@@ -151,7 +151,8 @@ namespace PL
             {
                 bl.Add(StationPoToBo(BaseStation));
                 ListsModel.Instance.AddStation(BaseStation.Id);
-                MessageBoxResult message = MessageBox.Show("The station has been added successfully!\nPay attention - the last valid input is saved.");
+                MessageBox.Show("The station has been added successfully!\nPay attention - the last valid input is saved.");
+                (sender as Window).Close();
             }
             catch (IntIdException exe)
             {
@@ -169,7 +170,7 @@ namespace PL
             {
                 bl.UpdateBaseStation(BaseStation.Id, BaseStation.Name, BaseStation.ChargeSlots.ToString());
                 ListsModel.Instance.UpdateStation(BaseStation.Id);
-                MessageBoxResult message = MessageBox.Show("The station has been updated successfully!\nPay attention - the last valid input is saved.");
+                MessageBox.Show("The station has been updated successfully!\nPay attention - the last valid input is saved.");
             }
             catch (IntIdException exe)
             {
@@ -177,6 +178,7 @@ namespace PL
             }
 
         }
+
         private void doubleClickDrone(object sender)
         {
             new DroneView(new DroneViewModel(bl, DroneForListBOToPO(bl.GetDroneForList((sender as PO.DroneInCharging).Id)))).Show();
@@ -184,47 +186,17 @@ namespace PL
 
         bool IsAllValid()
         {
-            return IsValidId() && IsValidName() && IsValidChargeSlots() && IsValidLocation();
-        }
-
-        bool IsValidId()
-        {
             NotEmptyRule n1 = new();
             NumberRule n2 = new();
-            RealPositiveNumberRule n3 = new();
-            CultureInfo c1 = new(1);
-            return n1.Validate(BaseStation.Id.ToString(), c1).IsValid &&
-                n2.Validate(BaseStation.Id.ToString(),c1).IsValid && 
-                n3.Validate(BaseStation.Id.ToString(),c1).IsValid;
+            NameRule n3 = new();
+            RealPositiveNumberRule n4 = new();
+            PositiveNumberRule n5 = new();
+            return IsValid(BaseStation.Id.ToString(), n1, n2, n4) &&
+                IsValid(BaseStation.Name, n1, n3) &&
+                IsValid(BaseStation.ChargeSlots.ToString(), n1, n2, n5) &&
+                IsValid(CoorLon, n1) && IsValid(CoorLat, n1);
         }
 
-        bool IsValidName()
-        {
-            NotEmptyRule n1 = new();
-            NameRule n2 = new();
-            CultureInfo c1 = new(2);
-            return n1.Validate(BaseStation.Name, c1).IsValid &&
-                n2.Validate(BaseStation.Name, c1).IsValid;
-        }
-
-        bool IsValidChargeSlots()
-        {
-            NotEmptyRule n1 = new();
-            NumberRule n2 = new();
-            PositiveNumberRule n3 = new();
-            CultureInfo c1 = new(3);
-            return n1.Validate(BaseStation.ChargeSlots.ToString(), c1).IsValid &&
-                n2.Validate(BaseStation.ChargeSlots.ToString(), c1).IsValid
-                && n3.Validate(BaseStation.ChargeSlots.ToString(),c1).IsValid;
-        }
-
-        bool IsValidLocation()
-        {
-            NotEmptyRule n1 = new();
-            CultureInfo c1 = new(4);
-            CultureInfo c2 = new(5);
-            return n1.Validate(CoorLon, c1).IsValid &&
-                n1.Validate(CoorLat, c1).IsValid;
-        }
+        
     }
 }
