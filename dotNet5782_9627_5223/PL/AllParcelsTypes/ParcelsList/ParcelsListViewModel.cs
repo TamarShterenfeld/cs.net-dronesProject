@@ -19,8 +19,8 @@ namespace PL
         SortDescription allParcelsSortWeight;
         SortDescription allParcelsSortPriority;
         SortDescription allParcelsSortId;
-        private PO.POConverter.GroupOptions selectedGroup;
-        private PO.POConverter.SortOptions selectedSort;
+        private GroupOptions selectedGroup;
+        private SortOptions selectedSort;
         public RelayCommand Cancel { get; set; }
         public RelayCommand Add { get; set; }
         public RelayCommand LeftDoubleClick { get; set; }

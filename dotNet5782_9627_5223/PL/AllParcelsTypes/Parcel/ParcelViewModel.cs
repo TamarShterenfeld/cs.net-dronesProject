@@ -21,6 +21,7 @@ namespace PL
     {
         BLApi.IBL bl;
         string selectedParcelStatus;
+        public string Cursor { get; set; }
         public bool EnableUpdate { get; set; }
         public string State { get; set; }
         public PO.Parcel MyParcel { set; get; }
@@ -47,6 +48,7 @@ namespace PL
             Cancel = new(ButtonClick_Cancel);
             EnableUpdate = false;
             State = "Update";
+            Cursor = "Hand";
             Delete = new(Button_ClickDelete, null);
             LeftDoubleClick_Sender = new(DoubleClick_Sender, null);
             LeftDoubleClick_Target = new(DoubleClick_Target, null);
@@ -60,6 +62,10 @@ namespace PL
             AddOrUpdate = new(Button_ClickAdd, null);
             EnableUpdate = true;
             State = "Add";
+            Cursor = "IBeam";
+            Statuses = new ListCollectionView(Enum.GetNames(typeof(DroneStatuses)));
+            Weights = new ListCollectionView(Enum.GetNames(typeof(WeightCategories)));
+            Priorities = new ListCollectionView(Enum.GetNames(typeof(Priorities)));
             LeftDoubleClick_Sender = new(DoubleClick_Sender, null);
             LeftDoubleClick_Target = new(DoubleClick_Target, null);
             LeftDoubleClick_Drone = new(DoubleClick_Drone, null);
