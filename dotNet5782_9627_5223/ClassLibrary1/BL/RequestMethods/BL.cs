@@ -43,6 +43,7 @@ namespace IBL
         void parcelForDrone(DroneForList drone)
         {
             BO.Parcel parcelOfDrone = GetBLParcel(drone.ParcelId);
+            drone.Battery = rand.Next(0, 99);
             //the parcel hasn't been supplied.
             if (parcelOfDrone.SupplyDate == null &&
                 drone.Status == BO.DroneStatuses.Shipment)
@@ -88,7 +89,7 @@ namespace IBL
                 {
                     drone.Status = DroneStatuses.Available;
                 }
-                drone.Battery = rand.Next(0, 99);/////
+                
 
                 List<BO.BaseStation> baseStationList = (List<BO.BaseStation>)GetBOBaseStationsList();
                 List<BO.Customer> customersList = (List<BO.Customer>)GetBOCustomersList();
@@ -111,7 +112,7 @@ namespace IBL
                     case BO.DroneStatuses.Maintenance:
                         {
                             drone.Location = baseStationList[rand.Next(0, baseStationList.Count - 1)].Location;
-                            drone.Battery = rand.Next(0, 99);
+                            drone.Battery = rand.Next(0, 20);
                             break;
                         }
                 }

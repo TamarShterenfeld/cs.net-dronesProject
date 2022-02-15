@@ -12,18 +12,24 @@ namespace PL.PO
         {
             return new BO.Drone(drone.Id, drone.Model, (BO.WeightCategories)drone.Weight,
                 drone.Battery, (BO.DroneStatuses)drone.Status,
-                drone.Parcel != null ?  new(drone.Parcel.Id, (BO.Priorities)drone.Parcel.Priority,
+                drone.Parcel != null ? new(drone.Parcel.Id, (BO.Priorities)drone.Parcel.Priority,
                 CustomerInParcelPOTOBO(drone.Parcel.Sender),
-                CustomerInParcelPOTOBO(drone.Parcel.Target)):null,
+                CustomerInParcelPOTOBO(drone.Parcel.Target)) : null,
                 LocationPOTOBO(drone.Location));
         }
 
-        public static PO.Drone DroneBOToPO(BO.Drone drone ,BLApi.IBL bl)
+        public static PO.Drone DroneBOToPO(BO.Drone drone, BLApi.IBL bl)
         {
-            return new PO.Drone() { Id = drone.Id , Battery = drone.Battery , Location = LocationBOTOPO(drone.Location), Model = drone.Model, Status = (DroneStatuses)drone.Status, 
-                                    Weight = (WeightCategories)drone.MaxWeight,
-                                    Parcel = drone.Parcel != null ? new ParcelInPassing(drone.Parcel,bl) : null,
-                                    
+            return new PO.Drone()
+            {
+                Id = drone.Id,
+                Battery = drone.Battery,
+                Location = LocationBOTOPO(drone.Location),
+                Model = drone.Model,
+                Status = (DroneStatuses)drone.Status,
+                Weight = (WeightCategories)drone.MaxWeight,
+                Parcel = drone.Parcel != null && drone.Parcel.Id != default ? new ParcelInPassing(drone.Parcel, bl) : null,
+
             };
         }
 

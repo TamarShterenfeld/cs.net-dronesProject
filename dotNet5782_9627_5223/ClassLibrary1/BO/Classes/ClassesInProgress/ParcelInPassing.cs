@@ -13,6 +13,11 @@ namespace BO
     /// </summary>
     public class ParcelInPassing
     {
+        public static ParcelInPassing Empty { get; private set; }
+        static ParcelInPassing()
+        {
+            Empty = new ParcelInPassing();
+        }
         int id;
         public int Id
         {
