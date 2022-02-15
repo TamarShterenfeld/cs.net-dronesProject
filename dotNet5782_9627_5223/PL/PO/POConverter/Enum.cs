@@ -28,7 +28,7 @@ namespace PL.PO
 
         public enum Priorities
         {
-            Standard = 1, Fast, Emergency
+           None = 0, Standard, Fast, Emergency
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace PL.PO
         /// </summary>
         public enum WeightCategories
         {
-            None = 0, Light = 1, Average, Heavy
+            None = 0, Light , Average, Heavy
         }
 
 
