@@ -18,12 +18,14 @@ namespace PL
         object coorLon, coorLat;
         public PO.Drone Drone { get; set; }
         public bool EnableUpdate { get; set; }
+        bool inSimulator;
         public bool InSimulator { get => inSimulator; set { inSimulator = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(InSimulator))); } }
         public RelayCommand Cancel { get; set; }
         public RelayCommand AddOrUpdate { get; set; }
         public RelayCommand Delete { get; set; }
         public RelayCommand LeftDoubleClick { get; set; }
         public RelayCommand Simulator { get; set; }
+        public RelayCommand Regular { get; set; }
         public ListCollectionView DroneWeightsList { get; set; }
         public ListCollectionView Statuses { get; set; }
         public ListCollectionView StationsId { get; set; }
@@ -40,6 +42,7 @@ namespace PL
             AddOrUpdate = new(Button_ClickUpdate, null);
             Delete = new(Button_ClickDelete, null);
             Simulator = new(Button_Simulator, null);
+            Regular = new(Button_Regular, null);
             EnableUpdate = false;
             coorLon = Drone.Location.CoorLongitude.ToString();
             coorLat = Drone.Location.CoorLatitude.ToString();
@@ -99,7 +102,7 @@ namespace PL
         string button3SelectedItem;
         string parcelOption;
         private string simulatorOrRegular;
-        private bool inSimulator;
+        
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -204,23 +207,28 @@ namespace PL
         private void updateDroneView()
         {
             ListsModel.Instance.UpdateDrone(Drone.Id);
-            //updateFlags();
-            //this.setAndNotify(PropertyChanged, nameof(Drone), out drone, drone);
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Drone)));
         }
 
         /// <summary>
-        /// 
+        /// Invoke the simulator
         /// </summary>
-        /// <param name="sender"></param>
+        /// <param name="sender">the sender</param>
         private void Button_Simulator(object sender)
         {
             InSimulator = true;
-            worker = new() { WorkerReportsProgress = true, WorkerSupportsCancellation = true};
-            //worker.DoWork += (sender, args) => bl.InvokeSimulator((int)args.Argument, updateDrone, checkStop);
-            //worker.RunWorkerCompleted += (sender, args) => InSimulator = false;
-            //worker.ProgressChanged += (sender, args) => updateDroneView();
+            worker = new() { WorkerReportsProgress = true, WorkerSupportsCancellation = true };
+            worker.DoWork += (sender, args) => bl.InvokeSimulator((int)args.Argument, updateDrone, checkStop);
+            worker.RunWorkerCompleted += (sender, args) => InSimulator = false;
+            worker.ProgressChanged += (sender, args) => updateDroneView();
             worker.RunWorkerAsync(Drone.Id);
         }
+
+        /// <summary>
+        /// Stop the simulator
+        /// </summary>
+        /// <param name="sender">the sender</param>
+        private void Button_Regular(object sender) => worker?.CancelAsync();
 
         /// <summary>
         /// show full details of parcelInCustomer object

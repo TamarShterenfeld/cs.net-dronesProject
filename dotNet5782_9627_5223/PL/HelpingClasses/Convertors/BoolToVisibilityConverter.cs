@@ -12,12 +12,12 @@ namespace PL
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (bool)value? "Visible" : "Hidden";
+            return (bool)value? "Visible" : "Collapsed";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (bool)value ? "Visible" : "Hidden";
+            return (bool)value ? "Visible" : "Collapsed";
         }
     }
 }

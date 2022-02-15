@@ -263,21 +263,21 @@ namespace IBL
                     {
                         case BO.WeightCategories.Light:
                             {
-                                myBattery = electricityConsumingOfLightWeight;
+                                myBattery = BatteryUsages[1];
                                 break;
                             }
                         case BO.WeightCategories.Average:
                             {
-                                myBattery = electricityConsumingOfAverageWeight;
+                                myBattery = BatteryUsages[2];
                                 break;
                             }
                         case BO.WeightCategories.Heavy:
                             {
-                                myBattery = electricityConsumingOfHeavyWeight;
+                                myBattery = BatteryUsages[3];
                                 break;
                             }
                     }
-                    drone.Battery = myBattery * (timeCharge * chargeRate);
+                    drone.Battery = myBattery * (timeCharge * BatteryUsages[4]);
                     drone.Status = DroneStatuses.Available;
                     //the chargeSlots is increased by one within the function 'Remove'
                     //which treats the case a removing of a droneCharge from DronesChargeList occurs.

@@ -4,6 +4,7 @@ using System.Text;
 using static DalObject.DataSource;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using DO;
 
 namespace DalObject
 {
@@ -45,6 +46,17 @@ namespace DalObject
         public int GetLastParcelId()
         {
             return Config.ParcelId;
+        }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public int GetDroneChargeBaseStationId(int droneId)
+        {
+            try
+            {
+                CheckExistenceOfDroneCharge(droneId);
+                return DronesChargeList.Find(dc => dc.DroneId == droneId).StationId;
+            }
+            catch (IntIdException ex) { throw new IntIdException(ex.Data.ToString()); }
         }
     }
 }

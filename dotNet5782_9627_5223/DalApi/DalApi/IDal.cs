@@ -168,7 +168,7 @@ namespace DalApi
         /// </summary>
         /// <param name="stationId"> an id of the baseStation</param>
         /// <returns>a list that contains all the drones {</returns>
-        IEnumerable<int> GetDronesIdInBaseStation(int requestedId);
+        IEnumerable<int> GetDronesIdInBaseStation(int stationId);
 
         /// <summary>
         /// creates a lists that contains all the drones that are charged in the currStation.
@@ -195,5 +195,18 @@ namespace DalApi
         /// </summary>
         /// <returns>the highest parcel's id</returns>
         int GetLastParcelId();
+
+        /// <summary>
+        /// returns station's id where the drone is charged in.
+        /// </summary>
+        /// <param name="droneId">drone's id</param>
+        /// <returns>station's id</returns>
+        int GetDroneChargeBaseStationId(int droneId);
+
+        /// <summary>
+        /// returns battery usages
+        /// </summary>
+        /// <returns>battery usages</returns>
+        double[] BatteryUsages();
     }
 }

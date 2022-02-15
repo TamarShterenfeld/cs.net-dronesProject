@@ -20,11 +20,14 @@ namespace IBL
         //ponsibility of pulling the data from the DAl logic level.
         public DalApi.IDal dal;
         readonly List<DroneForList> dronesForList;
-        readonly double electricityConsumingOfAvailable;
-        readonly double electricityConsumingOfLightWeight;
-        readonly double electricityConsumingOfHeavyWeight;
-        readonly double electricityConsumingOfAverageWeight;
-        readonly double chargeRate;
+        internal readonly double[] BatteryUsages;
+        internal const int DRONE_FREE = 0;
+        internal const int DRONE_CHARGE = 4;
+        //readonly double electricityConsumingOfAvailable;
+        //readonly double electricityConsumingOfLightWeight;
+        //readonly double electricityConsumingOfHeavyWeight;
+        //readonly double electricityConsumingOfAverageWeight;
+        //readonly double chargeRate;
         BL()
         {
             dal = DalApi.DalFactory.GetDal();
@@ -32,11 +35,12 @@ namespace IBL
             {
                 dronesForList = (List<DroneForList>)InitDroneForList();
                 double[] droneElectricityInfo = dal.ElectricityConsuming();
-                electricityConsumingOfAvailable = droneElectricityInfo[0];
-                electricityConsumingOfLightWeight = droneElectricityInfo[1];
-                electricityConsumingOfAverageWeight = droneElectricityInfo[2];
-                electricityConsumingOfHeavyWeight = droneElectricityInfo[3];
-                chargeRate = droneElectricityInfo[4];
+                //electricityConsumingOfAvailable = droneElectricityInfo[0];
+                //electricityConsumingOfLightWeight = droneElectricityInfo[1];
+                //electricityConsumingOfAverageWeight = droneElectricityInfo[2];
+                //electricityConsumingOfHeavyWeight = droneElectricityInfo[3];
+                //chargeRate = droneElectricityInfo[4];
+                BatteryUsages = dal.BatteryUsages();
                 Random rand = new();
                 for (int i = 0; i < dronesForList.Count; i++)
                 {

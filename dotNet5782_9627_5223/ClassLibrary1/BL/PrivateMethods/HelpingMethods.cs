@@ -125,7 +125,7 @@ namespace IBL
             if (drone.Status == BO.DroneStatuses.Available)
             {
 
-                return distance * electricityConsumingOfAvailable;
+                return distance * BatteryUsages[0];
             }
             else
             {
@@ -133,15 +133,15 @@ namespace IBL
                 {
                     case BO.WeightCategories.Light:
                         {
-                            return electricityConsumingOfLightWeight * distance;
+                            return BatteryUsages[1] * distance;
                         }
                     case BO.WeightCategories.Average:
                         {
-                            return electricityConsumingOfAverageWeight * distance;
+                            return BatteryUsages[2] * distance;
                         }
                     case BO.WeightCategories.Heavy:
                         {
-                            return electricityConsumingOfHeavyWeight * distance;
+                            return BatteryUsages[3] * distance;
                         }
                 }
 

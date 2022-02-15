@@ -31,6 +31,23 @@ namespace DalXml
             droneChargesPath = "DroneCharges.xml";
         //Initialize();
     }
+        /// <summary>
+        /// //////////////////
+        /// </summary>
+        /// <returns></returns>
+        public double[] BatteryUsages()
+        {
+            throw new NotImplementedException();
+        }
+        /// <summary>
+        /// ///////////
+        /// </summary>
+        /// <param name="droneId"></param>
+        /// <returns></returns>
+        public int GetDroneChargeBaseStationId(int droneId)
+        {
+            throw new NotImplementedException();
+        }
         //public static DalApi.IDal Instance { get; init{ In } = new ();
     }
 }

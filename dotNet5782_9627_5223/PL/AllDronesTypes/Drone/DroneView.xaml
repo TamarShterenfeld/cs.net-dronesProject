@@ -149,7 +149,8 @@
         
         <!--SelectedItem="{Binding StationId}"-->
         <WrapPanel Grid.Row="10" Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding EnableUpdate,Converter={StaticResource BoolToVisibilityInUpdateConverter}}">
-            <Button x:Name="Simulator" Content="{Binding InSimulator,Converter={StaticResource BoolToIsSimulatorConverter}}" Command="{Binding Simulator}" Background="#FFD40202" BorderBrush="White"/>
+            <Button x:Name="Simulator" Content="Simulator" Command="{Binding Simulator}" Background="#FFD40202" BorderBrush="White" Visibility="{Binding InSimulator, Converter={StaticResource BoolToVisibilityInUpdateConverter }}"/>
+            <Button x:Name="Regular"  Content="Regular" Command="{Binding Regular}" Background="#FFD40202" BorderBrush="White" Visibility="{Binding InSimulator, Converter={StaticResource BoolToVisibilityConverter}}"/>
         </WrapPanel>
         
         <Grid >

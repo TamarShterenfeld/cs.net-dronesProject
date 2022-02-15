@@ -20,6 +20,14 @@ namespace DalObject
         {
             Initialize();
         }
+       public double[] BatteryUsages() => new[]
+       {
+            Config.ElectricityConsumingOfAvailable,
+            Config.ElectricityConsumingOfLightWeight,
+            Config.ElectricityConsumingOfAverageWeight,
+            Config.ElectricityConsumingOfHeavyWeight,
+            Config.ChargeRate
+       };
     }
 }
 

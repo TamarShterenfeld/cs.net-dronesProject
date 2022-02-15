@@ -69,7 +69,6 @@ namespace DalObject
             public static double ChargeRate = 20.5;
         }
 
-
         /// <summary>
         /// randoms at least the two first objects in the BaseStationList.
         /// </summary>
