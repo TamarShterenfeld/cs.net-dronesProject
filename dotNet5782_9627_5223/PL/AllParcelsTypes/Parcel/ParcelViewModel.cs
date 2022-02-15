@@ -22,6 +22,7 @@ namespace PL
         BLApi.IBL bl;
         string selectedParcelStatus;
         public bool EnableUpdate { get; set; }
+        public string State { get; set; }
         public PO.Parcel MyParcel { set; get; }
         public ListCollectionView Statuses { get; set; }
         public ListCollectionView Weights { get; set; }
@@ -29,6 +30,7 @@ namespace PL
         public DroneStatuses SelectedStatus { get; set; }
         public WeightCategories SelectedWeight { get; set; }
         public Priorities SelectedPriority { get; set; }
+        public RelayCommand AddOrUpdate { get; set; }
         public RelayCommand Delete { get; set; }
         public RelayCommand LeftDoubleClick_Sender { get; set; }
         public RelayCommand LeftDoubleClick_Target { get; set; }
@@ -38,17 +40,31 @@ namespace PL
         public ParcelViewModel(BO.ParcelForList parcel, BLApi.IBL bl)
         {
             this.bl = bl;
-            MyParcel = new PO.Parcel(bl, parcel);
+            MyParcel = new Parcel(bl, parcel);
             Statuses = new ListCollectionView(Enum.GetNames(typeof(DroneStatuses)));
             Weights = new ListCollectionView(Enum.GetNames(typeof(WeightCategories)));
             Priorities = new ListCollectionView(Enum.GetNames(typeof(Priorities)));
             Cancel = new(ButtonClick_Cancel);
+            EnableUpdate = false;
+            State = "Update";
             Delete = new(Button_ClickDelete, null);
             LeftDoubleClick_Sender = new(DoubleClick_Sender, null);
             LeftDoubleClick_Target = new(DoubleClick_Target, null);
             LeftDoubleClick_Drone = new(DoubleClick_Drone, null);
         }
-
+        public ParcelViewModel(BLApi.IBL bl)
+        {
+            this.bl = bl;
+            MyParcel = new();
+            Cancel = new(ButtonClick_Cancel, null);
+            AddOrUpdate = new(Button_ClickAdd, null);
+            EnableUpdate = true;
+            State = "Add";
+            LeftDoubleClick_Sender = new(DoubleClick_Sender, null);
+            LeftDoubleClick_Target = new(DoubleClick_Target, null);
+            LeftDoubleClick_Drone = new(DoubleClick_Drone, null);
+        }
+       
         public string SelectedParcelStatus
         {
             set
@@ -85,11 +101,6 @@ namespace PL
             {
                 return selectedParcelStatus;
             }
-        }
-        public ParcelViewModel(BLApi.IBL bl)
-        {
-            this.bl = bl;
-            MyParcel = new Parcel();
         }
 
         public void ButtonClick_Cancel(object sender)
@@ -139,11 +150,11 @@ namespace PL
             BO.DroneForList drone = bl.GetDroneForList(MyParcel.DroneId);
            
         }
-        //private void Button_ClickAdd(object sender)
-        //{
-        //    bl.Add(ParcelPoToBo(Parcel));
-        //    ListsModel.Instance.AddParcel(Parcel.ParcelId);
-        //}
+        private void Button_ClickAdd(object sender)
+        {
+            bl.Add(ParcelPoToBo(MyParcel));
+            ListsModel.Instance.AddParcel(MyParcel.ParcelId);
+        }
 
         //there's no option to update something in parcel entity.
         //private void Button_ClickUpdate(object sender)
