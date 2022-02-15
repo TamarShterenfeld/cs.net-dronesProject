@@ -173,8 +173,7 @@ namespace BLApi
         /// <param name="id">drone's id</param>
         Drone GetBLDrone(int id);
 
-      
-
+     
         /// <summary>
         /// returns the List dronesForList
         /// </summary>

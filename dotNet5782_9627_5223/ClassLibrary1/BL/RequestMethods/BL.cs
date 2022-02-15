@@ -34,7 +34,7 @@ namespace IBL
             lock (dal)
             {
                 dronesForList = (List<DroneForList>)InitDroneForList();
-                double[] droneElectricityInfo = dal.ElectricityConsuming();
+                double[] droneElectricityInfo = dal.BatteryUsages();
                 //electricityConsumingOfAvailable = droneElectricityInfo[0];
                 //electricityConsumingOfLightWeight = droneElectricityInfo[1];
                 //electricityConsumingOfAverageWeight = droneElectricityInfo[2];
