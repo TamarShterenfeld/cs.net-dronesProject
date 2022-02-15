@@ -64,7 +64,7 @@ namespace PL
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             if (value == null) return new ValidationResult(false, "Required.");
-            return double.TryParse((string)value, out double num) ? ValidationResult.ValidResult : new ValidationResult(false, "Input has to contain an integral value.");
+            return double.TryParse((string)value, out double num) ? ValidationResult.ValidResult : new ValidationResult(false, "Input has to contain a double value.");
         }
     }
 
