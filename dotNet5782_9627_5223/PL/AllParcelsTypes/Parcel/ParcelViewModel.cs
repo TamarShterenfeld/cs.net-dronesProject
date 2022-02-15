@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using static PL.PO.POConverter;
 using PL.PO;
+using static PL.Validation;
 
 namespace PL
 {
@@ -28,9 +29,11 @@ namespace PL
         public ListCollectionView Statuses { get; set; }
         public ListCollectionView Weights { get; set; }
         public ListCollectionView Priorities { get; set; }
+        public ListCollectionView ParcelActions { get; set; }
         public DroneStatuses SelectedStatus { get; set; }
         public WeightCategories SelectedWeight { get; set; }
         public Priorities SelectedPriority { get; set; }
+        public ParcelActions SelectedParcelAction { get; set; }
         public RelayCommand AddOrUpdate { get; set; }
         public RelayCommand Delete { get; set; }
         public RelayCommand LeftDoubleClick_Sender { get; set; }
@@ -45,6 +48,7 @@ namespace PL
             Statuses = new ListCollectionView(Enum.GetNames(typeof(DroneStatuses)));
             Weights = new ListCollectionView(Enum.GetNames(typeof(WeightCategories)));
             Priorities = new ListCollectionView(Enum.GetNames(typeof(Priorities)));
+            ParcelActions = new ListCollectionView(Enum.GetNames(typeof(ParcelActions)));
             Cancel = new(ButtonClick_Cancel);
             EnableUpdate = false;
             State = "Update";
@@ -66,6 +70,7 @@ namespace PL
             Statuses = new ListCollectionView(Enum.GetNames(typeof(DroneStatuses)));
             Weights = new ListCollectionView(Enum.GetNames(typeof(WeightCategories)));
             Priorities = new ListCollectionView(Enum.GetNames(typeof(Priorities)));
+            ParcelActions = new ListCollectionView(Enum.GetNames(typeof(ParcelActions)));
             LeftDoubleClick_Sender = new(DoubleClick_Sender, null);
             LeftDoubleClick_Target = new(DoubleClick_Target, null);
             LeftDoubleClick_Drone = new(DoubleClick_Drone, null);
@@ -130,6 +135,11 @@ namespace PL
         }
         private void Button_ClickDelete(object sender)
         {
+            if (!IsAllValid())
+            {
+                MessageBox.Show("Not all the fields are filled with correct values\nThis action is invalid!");
+                return;
+            }
             if (MyParcel.Status != ParcelStatuses.Production)
             {
                 MessageBox.Show("Can not delete this parcel since \nit has been associated already.");
@@ -139,10 +149,17 @@ namespace PL
             {
                 MessageBox.Show("No parcel was chosen, \nnot possible deleting nothing.");
             }
-            bl.Delete(ParcelPoToBo(MyParcel));
-            ListsModel.Instance.DeleteParcel(MyParcel.ParcelId);
-            MessageBox.Show("Parcel was deleted succesfully!");
-            (sender as Window).Close();
+            try
+            {
+                bl.Delete(ParcelPoToBo(MyParcel));
+                ListsModel.Instance.DeleteParcel(MyParcel.ParcelId);
+                MessageBox.Show("The parcel has been deleted successfully!\nPay attention - the last valid input is saved.");
+                (sender as Window).Close();
+            }
+            catch
+            {
+
+            }
         }
 
         private void CheckStatus_Changed(ParcelStatuses status)
@@ -158,8 +175,21 @@ namespace PL
         }
         private void Button_ClickAdd(object sender)
         {
-            bl.Add(ParcelPoToBo(MyParcel));
-            ListsModel.Instance.AddParcel(MyParcel.ParcelId);
+            if (!IsAllValid())
+            {
+                MessageBox.Show("Not all the fields are filled with correct values\nThis action is invalid!");
+                return;
+            }
+            try
+            {
+                bl.Add(ParcelPoToBo(MyParcel));
+                ListsModel.Instance.AddParcel(MyParcel.ParcelId);
+                MessageBox.Show("The parcel has been added successfully!\nPay attention - the last valid input is saved.");
+            }
+            catch
+            {
+
+            }
         }
 
         //there's no option to update something in parcel entity.
@@ -168,6 +198,23 @@ namespace PL
         //    bl.UpdateParcel(ParcelPoToBo(Parcel));
         //    ListsModel.Instance.UpdateParcel(Parcel.ParcelId);
         //}
+
+        bool IsAllValid()
+        {
+            NotEmptyRule n1 = new();
+            NumberRule n2 = new();
+            NameRule n3 = new();
+            RealPositiveNumberRule n4 = new();
+            PositiveNumberRule n5 = new();
+            PositiveDoubleRule n6 = new();
+            StringIdRule n7 = new();
+            PositiveDoubleRule n8 = new();
+            DoubleRule n9 = new();
+            return IsValid(MyParcel.ParcelId, n1, n2, n4) &&
+                IsValid(MyParcel.SenderId, n1, n2, n4, n7) &&
+                IsValid(MyParcel.TargetId, n1, n2, n4, n7) &&
+                IsValid(MyParcel.DroneId, n1, n2, n4);
+        }
     }
 }
 

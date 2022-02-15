@@ -48,7 +48,7 @@ namespace PL
             CultureInfo c1 = new(1);
             foreach (var item in validations)
             {
-                if (!item.Validate((string)target, c1).IsValid)
+                if (!item.Validate(target, c1).IsValid)
                     return false;
             }
             return true;
