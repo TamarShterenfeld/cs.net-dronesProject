@@ -170,6 +170,7 @@ namespace IBL
                         throw new Exception("Internal error: not available after Delivery...");
 
                 }
+                bl.UpdateDronesForSimulator(drone);
                 updateDrone();
             } while (!checkStop());
         }

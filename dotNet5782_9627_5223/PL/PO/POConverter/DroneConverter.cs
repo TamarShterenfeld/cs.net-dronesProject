@@ -18,5 +18,14 @@ namespace PL.PO
                 LocationPOTOBO(drone.Location));
         }
 
+        public static PO.Drone DroneBOToPO(BO.Drone drone ,BLApi.IBL bl)
+        {
+            return new PO.Drone() { Id = drone.Id , Battery = drone.Battery , Location = LocationBOTOPO(drone.Location), Model = drone.Model, Status = (DroneStatuses)drone.Status, 
+                                    Weight = (WeightCategories)drone.MaxWeight,
+                                    Parcel = drone.Parcel != null ? new ParcelInPassing(drone.Parcel,bl) : null,
+                                    
+            };
+        }
+
     }
 }

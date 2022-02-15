@@ -291,6 +291,15 @@ namespace IBL
                     throw new DroneStatusException(drone.Status);
             }
         }
+        /// <summary>
+        /// Update drones location,battery, status....
+        /// </summary>
+        /// <param name="drone">drone</param>
+        public void UpdateDronesForSimulator(DroneForList drone)
+        {
+            dronesForList.Remove(dronesForList.FirstOrDefault(item => item.Id == drone.Id));
+            dronesForList.Add(drone);
+        }
 
     }
 }

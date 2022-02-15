@@ -93,7 +93,7 @@ namespace IBL
             DO.Drone doDrone = new()
             {
                 Id = boDrone.Id,
-                MaxWeight = (DO.WeightCategories)(boDrone.MaxWeight),
+                MaxWeight = (DO.WeightCategories)boDrone.MaxWeight,
                 Model = boDrone.Model,
             };
             return doDrone;

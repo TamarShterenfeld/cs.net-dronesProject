@@ -43,6 +43,7 @@ namespace DalObject
             ParcelsList.Add(parcel);
         }
 
+
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void SendDroneToRecharge(int droneId, int baseStationId)
         {

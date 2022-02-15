@@ -207,6 +207,7 @@ namespace PL
         private void updateDroneView()
         {
             ListsModel.Instance.UpdateDrone(Drone.Id);
+            Drone = DroneBOToPO(bl.GetBLDrone(Drone.Id),bl);
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Drone)));
         }
 
