@@ -29,8 +29,8 @@ namespace DalXml
             parcelsPath = "Parcels.xml";
             customersPath = "Customers.xml";
             droneChargesPath = "DroneCharges.xml";
-        //Initialize();
-    }
+            Initialize();
+        }
         //public static DalApi.IDal Instance { get; init{ In } = new ();
     }
 }

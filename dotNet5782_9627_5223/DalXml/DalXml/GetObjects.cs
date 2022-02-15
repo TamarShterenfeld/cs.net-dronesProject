@@ -37,7 +37,6 @@ namespace DalXml
         [MethodImpl(MethodImplOptions.Synchronized)]
         public Customer GetCustomer(string customerId)
         {
-            List<Customer> customers = LoadListFromXmlSerializer<Customer>(customersPath);
             CheckExistenceOfCustomer(customerId);
             LoadData();
             Customer customer;

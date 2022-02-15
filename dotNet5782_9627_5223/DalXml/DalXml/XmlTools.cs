@@ -15,10 +15,10 @@ namespace  DalXml
     public static class XMLTools
     {
         public static XElement CustomersRoot;
-        public static XElement ConfigRoot;
+        public static XElement ConfigRoot = new XElement("Config");
         public static string CustomerPath = @"Customers.xml";
         public static string ConfigPath = @"Config.xml";
-        private static readonly string dirPath = @"Xml\";
+        internal static readonly string dirPath = @"Xml\";
 
         //a constructor which construct also files
         //of XmlSeriakizer and files of XElement.
@@ -76,7 +76,7 @@ namespace  DalXml
         {
             CustomersRoot = new XElement("Customers");
             CustomersRoot.Save(dirPath + CustomerPath);
-            ConfigRoot = XElement.Load(dirPath + ConfigPath);
+            ConfigRoot.Save(dirPath + ConfigPath);
         }
 
         public static void LoadData()

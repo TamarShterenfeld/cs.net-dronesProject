@@ -41,8 +41,9 @@ namespace DalXml
         void CheckExistenceOfCustomer(string customerId)
         {
             LoadData();
-            dynamic ans;
-                 ans = (from p in CustomersRoot.Elements()
+            if (CustomersRoot.IsEmpty)
+                return;
+            var ans = (from p in CustomersRoot.Elements()
                            where p.Element("id").Value == customerId
                            select p).First();
 
@@ -56,11 +57,11 @@ namespace DalXml
         void CheckNotExistenceOfCustomer(string customerId)
         {
             LoadData();
-            dynamic ans;
-            ans = (from p in CustomersRoot.Elements()
+            if (CustomersRoot.IsEmpty)
+                return;
+            var ans = (from p in CustomersRoot.Elements()
                    where p.Element("id").Value == customerId
-                   select p).First();
-
+                   select p).FirstOrDefault();
             if (ans != null) throw new StringIdException(customerId);
         }
 
@@ -122,11 +123,11 @@ namespace DalXml
         /// <param name="droneForListId">the id for checking</param>
         void CheckExistenceOfDroneCharge(int droneForListId)
         {
-            List<DroneCharge> drones = LoadListFromXmlSerializer<DO.DroneCharge>(dronesPath);
+            List<DroneCharge> drones = LoadListFromXmlSerializer<DO.DroneCharge>(droneChargesPath);
             int droneIndex = drones.FindIndex(item => item.DroneId == droneForListId);
             if (droneIndex == -1)
                 throw new IntIdException(droneForListId);
-            SaveListToXmlSerializer<DroneCharge>(drones, parcelsPath);
+            SaveListToXmlSerializer<DroneCharge>(drones, droneChargesPath);
         }
 
         /// <summary>
@@ -135,11 +136,11 @@ namespace DalXml
         /// <param name="droneForListId">the id for checking</param>
         void CheckNotExistenceOfDroneCharge(int droneForListId)
         {
-            List<DroneCharge> drones = LoadListFromXmlSerializer<DO.DroneCharge>(dronesPath);
+            List<DroneCharge> drones = LoadListFromXmlSerializer<DO.DroneCharge>(droneChargesPath);
             int droneIndex = drones.FindIndex(item => item.DroneId == droneForListId);
             if (droneIndex != -1)
                 throw new IntIdException(droneForListId);
-            SaveListToXmlSerializer<DroneCharge>(drones, parcelsPath);
+            SaveListToXmlSerializer<DroneCharge>(drones, droneChargesPath);
         }
 
     }
