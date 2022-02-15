@@ -3,6 +3,11 @@ using System.Reflection;
 
 namespace Singleton
 {
+    /// <summary>
+    /// the abstract class SingleTon can produce maximum one object.
+    /// </summary>
+    /// <typeparam name="T">the class is generic -
+    /// in order to enable many kind of class to inherit it</typeparam>
     public abstract class Singleton<T> where T : Singleton<T>
     {
         // make the static and protected constructors

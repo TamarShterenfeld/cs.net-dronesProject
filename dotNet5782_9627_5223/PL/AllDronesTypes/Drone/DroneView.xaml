@@ -104,7 +104,7 @@
                 <Binding Path="Drone.Battery" UpdateSourceTrigger="PropertyChanged" >
                     <Binding.ValidationRules>
                         <local:NotEmptyRule ValidatesOnTargetUpdated="True"/>
-                        <local:NumberRule ValidatesOnTargetUpdated="True"/>
+                        <local:DoubleRule ValidatesOnTargetUpdated="True"/>
                         <local:PositiveNumberRule ValidatesOnTargetUpdated="True"/>
                     </Binding.ValidationRules>
                 </Binding>

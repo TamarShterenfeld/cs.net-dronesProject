@@ -5,6 +5,10 @@ using System.Text;
 
 namespace Singleton
 {
+    /// <summary>
+    /// the class SingletonException inherits the class "Exception"
+    /// it adds another constructor besides the Exception's constructor.
+    /// </summary>
     [Serializable]
     public class SingletonException:Exception
     {
