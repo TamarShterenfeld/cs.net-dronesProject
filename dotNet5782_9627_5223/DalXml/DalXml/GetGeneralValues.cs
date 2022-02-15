@@ -21,12 +21,17 @@ namespace DalXml
         public static int IncreaseParcelIndex()
         {
             int parcelId = RescueConfigValueByName<int>("ParcelId");
+            ++parcelId;
             XElement parcelIdXElement =
                  (from c in ConfigRoot.Elements()
-                  select c.Element("ParcelId")).FirstOrDefault();
-            parcelIdXElement.Element("parcelId").Value = parcelId + 1.ToString();
-            ConfigRoot.Save(ConfigPath);
-            return ++parcelId;
+                  where c.Name == "ParcelId"
+                  select c ).FirstOrDefault();
+            XElement temp = new XElement("ParcelId", parcelId);
+            parcelIdXElement.Remove();
+            parcelIdXElement = temp;
+            ConfigRoot.Add(parcelIdXElement);
+            ConfigRoot.Save(dirPath+ConfigPath);
+            return parcelId;
         }
 
 

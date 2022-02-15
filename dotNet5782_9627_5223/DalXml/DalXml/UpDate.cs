@@ -45,7 +45,7 @@ namespace DalXml
             customerXElement.Element("isDeleted").Value = customer.IsDeleted.ToString();
             customerXElement.Element("location").Element("longitude").Value = customer.Longitude.ToString();
             customerXElement.Element("location").Element("latitude").Value = customer.Latitude.ToString();
-            CustomersRoot.Save(customersPath);
+            CustomersRoot.Save(dirPath + customersPath);
         }
 
 

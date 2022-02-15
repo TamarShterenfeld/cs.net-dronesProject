@@ -1,12 +1,17 @@
 ﻿using System;
+using System.Globalization;
+using System.Windows.Controls;
 
 namespace PL
 {
-     static class Validation
+     internal static class Validation
     {
         
         internal static bool IsValidPhone(string phone)
         {
+            int length = phone.Length;
+            if (length < 9) return false;
+            if(phone[0] != '0') return false;
             foreach (char ch in phone)
             {
                 if (ch == '-') continue;
@@ -29,9 +34,24 @@ namespace PL
             }
             return true;
         }
+
+        internal static bool IsValidStringId(string name)
+        {
+            return name.Length == 9;
+        }
         internal static bool IsValidEnumOption<T>(int option)
         {
             return option >= 0 && option < Enum.GetValues(typeof(T)).Length;
+        }
+        internal static bool  IsValid(object target, params ValidationRule[] validations)
+        {
+            CultureInfo c1 = new(1);
+            foreach (var item in validations)
+            {
+                if (!item.Validate((string)target, c1).IsValid)
+                    return false;
+            }
+            return true;
         }
     }
 }

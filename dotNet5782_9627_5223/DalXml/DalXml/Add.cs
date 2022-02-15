@@ -37,7 +37,7 @@ namespace DalXml
             XElement location = new XElement("location",longitude, latitude);
             XElement myCustomer = new XElement("Customer", id, name, phone,isDeleted, location);
             CustomersRoot.Add(myCustomer);
-            CustomersRoot.Save(customersPath);
+            CustomersRoot.Save(dirPath + customersPath);
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
@@ -46,7 +46,7 @@ namespace DalXml
             List<Drone> drones = LoadListFromXmlSerializer<DO.Drone>(dronesPath);
             CheckNotExistenceOfDrone(drone.Id);
             drones.Add(drone);
-            SaveListToXmlSerializer<Drone>(drones, baseStationsPath);
+            SaveListToXmlSerializer<Drone>(drones, dronesPath);
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
@@ -55,7 +55,7 @@ namespace DalXml
             List<Parcel> parcels = LoadListFromXmlSerializer < DO.Parcel>(parcelsPath);
             CheckNotExistenceOfParcel(parcel.Id);
             parcels.Add(parcel);
-            SaveListToXmlSerializer<Parcel>(parcels, baseStationsPath);
+            SaveListToXmlSerializer<Parcel>(parcels, parcelsPath);
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
@@ -64,7 +64,7 @@ namespace DalXml
             List<DroneCharge> dronesCharge = LoadListFromXmlSerializer<DO.DroneCharge>(droneChargesPath);
             CheckNotExistenceOfDroneCharge(droneCharge.DroneId);
             dronesCharge.Add(droneCharge);
-            SaveListToXmlSerializer<DroneCharge>(dronesCharge, baseStationsPath);
+            SaveListToXmlSerializer<DroneCharge>(dronesCharge, droneChargesPath);
         }
     }
 }

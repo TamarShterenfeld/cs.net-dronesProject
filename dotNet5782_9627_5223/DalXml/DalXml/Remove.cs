@@ -22,6 +22,7 @@ namespace DalXml
             baseStation.ChargeSlots++;
             baseStations.Remove(GetBaseStation(baseStation.Id));
             baseStations.Add(baseStation);
+            SaveListToXmlSerializer<BaseStation>(baseStations, baseStationsPath);
         }
     }
 }

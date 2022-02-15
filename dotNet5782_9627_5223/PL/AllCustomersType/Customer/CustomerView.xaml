@@ -32,7 +32,7 @@
         </Grid.ColumnDefinitions>
         <WrapPanel Grid.Row="0" Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Button x:Name="button1" Content="Close" Width="92" Command="{Binding Cancel}" CommandParameter="{Binding ElementName=CustomerWindow }" Background="#FFD40202" BorderBrush="White"  Foreground="#DDFFFFFF"/>
-            <Button x:Name="buttonState" Content="{Binding State}" Width="92" Command="{Binding AddOrUpdate}"  Background="Turquoise" BorderBrush="White"/>
+            <Button x:Name="buttonState" Content="{Binding State}" Width="92" Command="{Binding AddOrUpdate}"  CommandParameter="{Binding ElementName=CustomerWindow }" Background="Turquoise" BorderBrush="White"/>
             <Button x:Name="buttonDelete" Content="Delete" Width="92" Command="{Binding Delete}" CommandParameter="{Binding ElementName=CustomerWindow }"  Background="#FFD40202" BorderBrush="White"/>
         </WrapPanel>
 
@@ -41,43 +41,86 @@
             TextWrapping="Wrap" 
             Width="140" 
             IsEnabled="{Binding EnableUpdate}"
-            Text="{Binding Customer.Id}" Margin="63,5,63,22" Grid.Row="1"/>
+            Margin="63,5,63,22" Grid.Row="1">
+            <TextBox.Text >
+                <Binding Path="Customer.Id" UpdateSourceTrigger="PropertyChanged" >
+                    <Binding.ValidationRules>
+                        <local:NotEmptyRule ValidatesOnTargetUpdated="True"/>
+                        <local:NumberRule ValidatesOnTargetUpdated="True" />
+                        <local:RealPositiveNumberRule  ValidatesOnTargetUpdated="True"/>
+                        <local:StringIdRule ValidatesOnTargetUpdated="True"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
         <!--<TextBlock Text="{Binding Customer.Id}" Grid.Row="1" Grid.Column="3" Foreground="red"  />-->
-        
+
         <TextBlock  Text="Name:" Grid.Row="2" Grid.Column="1" Foreground="#FF2D2D2D"/>
         <TextBox x:Name="name" 
-            Text="{Binding Customer.Name}"
             Grid.Row="2" Grid.Column="2" 
             TextWrapping="Wrap" 
             VerticalAlignment="Top" 
-            Width="140" Grid.RowSpan="2" />
+            Width="140" Grid.RowSpan="2">
+            <TextBox.Text >
+                <Binding Path="Customer.Name" UpdateSourceTrigger="PropertyChanged" >
+                    <Binding.ValidationRules>
+                        <local:NotEmptyRule ValidatesOnTargetUpdated="True"/>
+                        <local:NameRule ValidatesOnTargetUpdated="True" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
 
         <TextBlock Text="Phone:" Grid.Row="3" Grid.Column="1" Foreground="#FF4C386B"/>
         <TextBox x:Name="slots" 
-            Text="{Binding Customer.Phone}"
             Grid.Row="2" Grid.Column="2" 
             TextWrapping="Wrap" 
-            Width="140" Grid.RowSpan="2" Margin="63,49,63,24" />
+            Width="140" Grid.RowSpan="2" Margin="63,49,63,24">
+            <TextBox.Text >
+                <Binding Path="Customer.Phone" UpdateSourceTrigger="PropertyChanged" >
+                    <Binding.ValidationRules>
+                        <local:NotEmptyRule ValidatesOnTargetUpdated="True"/>
+                        <local:NumberRule ValidatesOnTargetUpdated="True" />
+                        <local:PhoneRule ValidatesOnTargetUpdated="True" />
+                        <local:PositiveNumberRule  ValidatesOnTargetUpdated="True"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
 
 
 
         <TextBlock Text="Longitude:" Grid.Row="4" Grid.Column="1" Foreground="#FF3F4245"/>
         <TextBox x:Name="longitude"
-            Text="{Binding CoorLon}"
             Grid.Row="4" Grid.Column="2"
             TextWrapping="Wrap" 
             VerticalAlignment="Top" 
             Width="140" 
-            IsEnabled="{Binding EnableUpdate}"  Grid.RowSpan="2"/>
+            IsEnabled="{Binding EnableUpdate}"  Grid.RowSpan="2">
+            <TextBox.Text >
+                <Binding Path="CoorLon" UpdateSourceTrigger="PropertyChanged" >
+                    <Binding.ValidationRules>
+                        <local:NotEmptyRule ValidatesOnTargetUpdated="True"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
 
         <TextBlock Text="Latitude:" Grid.Row="5" Grid.Column="1" Foreground="#FF3F4245"/>
         <TextBox x:Name="latitude"
-           Text="{Binding CoorLat}"
             Grid.Row="5" Grid.Column="2"
             TextWrapping="Wrap" 
             VerticalAlignment="Top" 
             Width="140" 
-            IsEnabled="{Binding EnableUpdate}" />
+            IsEnabled="{Binding EnableUpdate}">
+            <TextBox.Text >
+                <Binding Path="CoorLat" UpdateSourceTrigger="PropertyChanged" >
+                    <Binding.ValidationRules>
+                        <local:NotEmptyRule ValidatesOnTargetUpdated="True"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
         <WrapPanel Grid.Row="6" HorizontalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="6">
             <WrapPanel Orientation="Vertical">
                 <TextBlock Text="From Me:" Foreground="#FF3F4245"/>
@@ -116,7 +159,7 @@
                 </ListView>
             </WrapPanel>
         </WrapPanel>
-        
+
         <Grid Margin="-18,0,80,20" Grid.ColumnSpan="2">
             <Grid.Background>
                 <ImageBrush Stretch="Fill" ImageSource="/images/logo1.jpg"/>
