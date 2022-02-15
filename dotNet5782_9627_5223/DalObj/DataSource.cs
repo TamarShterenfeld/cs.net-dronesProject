@@ -62,11 +62,11 @@ namespace DalObject
         internal static class Config
         {
             public static int ParcelId = 0;
-            public static double ElectricityConsumingOfAvailable = 0.0001;
-            public static double ElectricityConsumingOfLightWeight = 0.0002;
-            public static double ElectricityConsumingOfAverageWeight = 0.0003;
-            public static double ElectricityConsumingOfHeavyWeight = 0.0004;
-            public static double ChargeRate = 20.5;
+            public static double ElectricityConsumingOfAvailable = 0.01;
+            public static double ElectricityConsumingOfLightWeight = 0.02;
+            public static double ElectricityConsumingOfAverageWeight = 0.03;
+            public static double ElectricityConsumingOfHeavyWeight = 0.04;
+            public static double ChargeRate = 0.04; ///
         }
 
         /// <summary>
@@ -77,12 +77,7 @@ namespace DalObject
             int size = rand.Next(2, BASESTATIONS_BASE_AMOUNT);
             for (int i = 1; i < size+1; i++)
             {
-                BaseStation baseStation = new();
-                baseStation.Id = i;
-                baseStation.Name = RandomBaseStationName();
-                baseStation.ChargeSlots = RandomChargeSlot();
-                baseStation.Longitude = RandomLongitude();
-                baseStation.Latitude = RandomLatitude();
+                BaseStation baseStation = new() {Id = i, Name = RandomBaseStationName() , ChargeSlots = RandomChargeSlot(),Longitude = RandomLongitude(), Latitude = RandomLatitude() ,IsDeleted = false};
                 BaseStationsList.Add(baseStation);
             }
 
@@ -95,18 +90,11 @@ namespace DalObject
         private static void RandomDrones()
         {
             int size = rand.Next(5, DRONES_BASE_AMOUNT);
-
             for (int i = 1; i < size+1; i++)
             {
-                Drone drone = new();
-                drone.Id = i;
-                drone.Model = RandomModel();
-                drone.MaxWeight = RandomWeight();
+                Drone drone = new() { Id = i,Model = RandomModel() , MaxWeight = RandomWeight() ,IsDeleted = false};
                 DronesList.Add(drone);
-
-
             }
-
         }
 
         /// <summary>
@@ -117,21 +105,15 @@ namespace DalObject
             int size = rand.Next(10, CUSTOMERS_BASE_AMOUNT);
             for (int i = 0; i < size; i++)
             {
-                Customer customer = new();
-                customer.Id = RandomId();
-                customer.Name = RandomCustomerName();
-                customer.Phone = RandomPhone();
-                customer.Longitude = RandomLongitude();
-                customer.Latitude = RandomLatitude();
+                Customer customer = new() {Id = RandomId(),Name = RandomCustomerName(), Phone = RandomPhone(), Longitude = RandomLongitude(), Latitude = RandomLatitude(), IsDeleted = false };
                 CustomersList.Add(customer);
-
             }
-
         }
 
         //random at least the first tenth parcels in ParcelsList.
         private static void RandomParcels()
         {
+            int countDrones = 0; 
             int size = rand.Next(10, PARCELS_BASE_AMOUNT);
             for (int i = 0; i < size; i++)
             {
@@ -144,15 +126,22 @@ namespace DalObject
                 //initalize (random) a date of ProductionDate & the other DateTime fields are based on it.
                 //while assuming that each part of the shipment process maximum takes 14 business days.
                 parcel.ProductionDate = DateTime.Now;
-                parcel.AssociationDate = parcel.AssociationDate != null? parcel.ProductionDate.Value.AddDays(rand.Next(14)).AddHours(rand.Next(1, 24)) : null;
-                parcel.PickUpDate = parcel.PickUpDate != null ? parcel.AssociationDate.Value.AddDays(rand.Next(14)).AddHours(rand.Next(1, 24)) : null;
-                parcel.SupplyDate = parcel.SupplyDate!= null? parcel.PickUpDate.Value.AddDays(rand.Next(14)).AddHours(rand.Next(1, 24)) : null; 
+
+                if(countDrones < DronesList.Count && DronesList[i].MaxWeight >= parcel.Weight)
+                {
+                    parcel.AssociationDate = DateTime.Now;
+                    parcel.DroneId = i;
+                }
+                //parcel.AssociationDate = parcel.AssociationDate != null? parcel.ProductionDate.Value.AddDays(rand.Next(14)).AddHours(rand.Next(1, 24)) : null;
+                //parcel.PickUpDate = parcel.PickUpDate != null ? parcel.AssociationDate.Value.AddDays(rand.Next(14)).AddHours(rand.Next(1, 24)) : null;
+                //parcel.SupplyDate = parcel.SupplyDate!= null? parcel.PickUpDate.Value.AddDays(rand.Next(14)).AddHours(rand.Next(1, 24)) : null;
+                //
                 //there wasn't an available drone.
                 //the date: 01/ 01/ 0001 - is a sign for an unassociated parcel - a default value.
-                if (parcel.DroneId == -1)
-                {
-                    parcel.AssociationDate = null;
-                }
+                //if (parcel.DroneId == -1)
+                //{
+                //    parcel.AssociationDate = null;
+                //}
                 ParcelsList.Add(parcel);
 
             }

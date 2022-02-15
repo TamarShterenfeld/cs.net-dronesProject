@@ -10,7 +10,7 @@ namespace IBL
 {
     internal class Simulator
     {
-        enum Maintenance { Starting, Charging, Finishing}
+        enum Maintenance { Starting,Going, Charging }
         enum BatteryUsage { Available, Light, Medium, Heavy, Charging }
         private const double VELOCITY = 1.0;
         private const int DELAY = 500;
@@ -30,7 +30,7 @@ namespace IBL
             DO.Parcel? parcel = null;
             bool pickedUp = false;
             BO.Customer customer = null;
-            Maintenance maintenance = Maintenance.Starting;
+            Maintenance maintenance = drone.Status == DroneStatuses.Maintenance? Maintenance.Charging: Maintenance.Starting;
 
             void initDelivery(int id)
             {
@@ -58,13 +58,13 @@ namespace IBL
                                     parcelId = bl.GetBLDrone(droneId).Parcel?.Id;
                                     switch (parcelId, drone.Battery)
                                     {
-                                        case (null, 1.0):
+                                        case (null, 100):
                                             break;
 
                                         case (null, _):
                                             if (baseStationId != null)
                                             {
-                                                //drone.Status = DroneStatuses.Maintenance;
+                                                drone.Status = DroneStatuses.Maintenance;//
                                                 maintenance = Maintenance.Starting;
                                             }
                                             break;
@@ -83,12 +83,36 @@ namespace IBL
                                     try { station = bl.GetBLBaseStation(dal.GetDroneChargeBaseStationId(droneId));  }
                                     catch (IntIdException ex) { throw new IntIdException("Internal error base station", ex); }
                                     distance = drone.Distance(station);
-                                    maintenance = Maintenance.Finishing;
+                                    maintenance = Maintenance.Going;
+                                }
+                                break;
+
+                            case Maintenance.Going:
+                                if (distance < 1)
+                                    lock (bl)
+                                    {
+                                        drone.Location = station.Location;
+                                        maintenance = Maintenance.Charging;
+                                        dal.SendDroneToRecharge(droneId, station.Id);
+                                    }
+                                else
+                                {
+                                    if (!sleepDelayTime()) break;
+                                    lock (bl)
+                                    {
+                                        double delta = distance < STEP ? distance : STEP;
+                                        double proportion = delta / distance;//
+                                        distance -= delta;
+                                        drone.Battery = Max(0.0, drone.Battery - delta * bl.BatteryUsages[BL.DRONE_FREE]);
+                                        double lat = drone.Location.CoorLatitude.InputCoorValue + (customer.Location.CoorLatitude.InputCoorValue - drone.Location.CoorLatitude.InputCoorValue) * proportion;//
+                                        double lon = drone.Location.CoorLongitude.InputCoorValue + (customer.Location.CoorLongitude.InputCoorValue - drone.Location.CoorLongitude.InputCoorValue) * proportion;//
+                                        drone.Location = new(new BO.Coordinate(lon, BO.Locations.Longitude), new BO.Coordinate(lat, BO.Locations.Latitude));//
+                                    }
                                 }
                                 break;
 
                             case Maintenance.Charging:
-                                if (drone.Battery == 1.0)
+                                if (drone.Battery == 100)
                                     lock (bl)
                                     {
                                         drone.Status = DroneStatuses.Available;
@@ -100,28 +124,10 @@ namespace IBL
                                 else
                                 {
                                     if (!sleepDelayTime()) break;
-                                    lock (bl) drone.Battery = Min(1.0, drone.Battery + bl.BatteryUsages[BL.DRONE_CHARGE] * TIME_STEP);
+                                    lock (bl) drone.Battery = Min(100, drone.Battery + bl.BatteryUsages[BL.DRONE_CHARGE] * TIME_STEP);
                                 }
                                 break;
 
-                            case Maintenance.Finishing:
-                                if (distance < 0.01)
-                                    lock (bl)
-                                    {
-                                        drone.Location = station.Location;
-                                        maintenance = Maintenance.Charging;
-                                    }
-                                else
-                                {
-                                    if (!sleepDelayTime()) break;
-                                    lock (bl)
-                                    {
-                                        double delta = distance < STEP ? distance : STEP;
-                                        distance -= delta;
-                                        drone.Battery = Max(0.0, drone.Battery - delta * bl.BatteryUsages[BL.DRONE_FREE]);
-                                    }
-                                }
-                                break;
                             default:
                                 throw new Exception("Internal error: wrong maintenance substate");
                         }
@@ -135,7 +141,7 @@ namespace IBL
                             distance = drone.Distance(customer);
                         }
 
-                        if (distance < 0.01 || drone.Battery == 0.0)
+                        if (distance < 1 || drone.Battery == 0.0)
                             lock (bl)
                             {
                                 drone.Location = customer.Location;
