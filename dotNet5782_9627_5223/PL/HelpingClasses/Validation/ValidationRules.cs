@@ -50,6 +50,15 @@ namespace PL
             return int.Parse((string)value) >= 0 ? ValidationResult.ValidResult : new ValidationResult(false, "Input has to contain a positive value.");
         }
     }
+
+    class PositiveDoubleRule : ValidationRule
+    {
+        public override ValidationResult Validate(object value, CultureInfo cultureInfo)
+        {
+            if (value == null) return new ValidationResult(false, "Required.");
+            return double.Parse((string)value) >= 0 ? ValidationResult.ValidResult : new ValidationResult(false, "Input has to contain a positive value.");
+        }
+    }
     class NumberRule : ValidationRule
     {
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
