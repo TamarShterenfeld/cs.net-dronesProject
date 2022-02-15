@@ -14,14 +14,14 @@ namespace DalXml
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DroneCharge> DronesChargingInMe(Predicate<DroneCharge> InMe)
         {
-            List<DroneCharge> droneCharges = LoadListFromXmlSerializer<DroneCharge>(droneChargesPath);
+            List<DroneCharge> droneCharges = LoadListFromXmlSerializer<DroneCharge>(droneChargesPath).ToList();
             return droneCharges.Where(drone => InMe(drone));
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<int> GetDronesIdInBaseStation(int stationId)
         {
-            List<DroneCharge> droneCharges = LoadListFromXmlSerializer<DroneCharge>(droneChargesPath);
+            List<DroneCharge> droneCharges = LoadListFromXmlSerializer<DroneCharge>(droneChargesPath).ToList();
             return droneCharges.FindAll(dc => dc.StationId == stationId).ConvertAll(dc => dc.DroneId);
         }
 

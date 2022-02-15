@@ -44,7 +44,7 @@ namespace  DalXml
         #endregion
 
         #region LoadListFromXmlSerializer
-        public static List<T> LoadListFromXmlSerializer<T>(string filePath)
+        public static IEnumerable<T> LoadListFromXmlSerializer<T>(string filePath)
         {
             try
             {

@@ -18,7 +18,7 @@ namespace DalXml
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void Add(BaseStation baseStation)
         {
-            List<BaseStation> baseStations = LoadListFromXmlSerializer<DO.BaseStation>(baseStationsPath);
+            List<BaseStation> baseStations = LoadListFromXmlSerializer<DO.BaseStation>(baseStationsPath).ToList();
             CheckNotExistenceOfBaseStation(baseStation.Id);
             baseStations.Add(baseStation);
             SaveListToXmlSerializer<BaseStation>(baseStations, baseStationsPath);
@@ -43,7 +43,7 @@ namespace DalXml
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void Add(Drone drone)
         {
-            List<Drone> drones = LoadListFromXmlSerializer<DO.Drone>(dronesPath);
+            List<Drone> drones = LoadListFromXmlSerializer<DO.Drone>(dronesPath).ToList();
             CheckNotExistenceOfDrone(drone.Id);
             drones.Add(drone);
             SaveListToXmlSerializer<Drone>(drones, dronesPath);
@@ -52,7 +52,7 @@ namespace DalXml
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void Add(Parcel parcel)
         {
-            List<Parcel> parcels = LoadListFromXmlSerializer < DO.Parcel>(parcelsPath);
+            List<Parcel> parcels = LoadListFromXmlSerializer < DO.Parcel>(parcelsPath).ToList();
             CheckNotExistenceOfParcel(parcel.Id);
             parcels.Add(parcel);
             SaveListToXmlSerializer<Parcel>(parcels, parcelsPath);
@@ -61,7 +61,7 @@ namespace DalXml
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void Add(DroneCharge droneCharge)
         {
-            List<DroneCharge> dronesCharge = LoadListFromXmlSerializer<DO.DroneCharge>(droneChargesPath);
+            List<DroneCharge> dronesCharge = LoadListFromXmlSerializer<DO.DroneCharge>(droneChargesPath).ToList();
             CheckNotExistenceOfDroneCharge(droneCharge.DroneId);
             dronesCharge.Add(droneCharge);
             SaveListToXmlSerializer<DroneCharge>(dronesCharge, droneChargesPath);

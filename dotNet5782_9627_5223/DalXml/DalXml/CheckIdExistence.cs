@@ -18,7 +18,7 @@ namespace DalXml
         /// <param name="baseStationId">the id for checking</param>
         void CheckExistenceOfBaseStation(int baseStationId)
         {
-            List<BaseStation> baseStations = LoadListFromXmlSerializer<DO.BaseStation>(baseStationsPath);
+            List<BaseStation> baseStations = LoadListFromXmlSerializer<DO.BaseStation>(baseStationsPath).ToList();
             int baseStationIndex = baseStations.FindIndex(item => item.Id == baseStationId);
             if (baseStationIndex == -1)
                 throw new IntIdException(baseStationId);
@@ -27,7 +27,7 @@ namespace DalXml
 
         void CheckNotExistenceOfBaseStation(int baseStationId)
         {
-            List<BaseStation> baseStations = LoadListFromXmlSerializer<DO.BaseStation>(baseStationsPath);
+            List<BaseStation> baseStations = LoadListFromXmlSerializer<DO.BaseStation>(baseStationsPath).ToList();
             int baseStationIndex = baseStations.FindIndex(item => item.Id == baseStationId);
             if (baseStationIndex != -1)
                 throw new IntIdException(baseStationId);
@@ -71,7 +71,7 @@ namespace DalXml
         /// <param name="droneId">the id for checking</param>
         void CheckExistenceOfDrone(int droneId)
         {
-            List<Drone> drones = LoadListFromXmlSerializer<DO.Drone>(dronesPath);
+            List<Drone> drones = LoadListFromXmlSerializer<DO.Drone>(dronesPath).ToList();
             int droneIndex = drones.FindIndex(item => item.Id == droneId);
             if (droneIndex == -1)
                 throw new IntIdException(droneId);
@@ -84,7 +84,7 @@ namespace DalXml
         /// <param name="droneId">the id for checking</param>
         void CheckNotExistenceOfDrone(int droneId)
         {
-            List<Drone> drones = LoadListFromXmlSerializer<DO.Drone>(dronesPath);
+            List<Drone> drones = LoadListFromXmlSerializer<DO.Drone>(dronesPath).ToList();
             int droneIndex = drones.FindIndex(item => item.Id == droneId);
             if (droneIndex != -1)
                 throw new IntIdException(droneId);
@@ -97,7 +97,7 @@ namespace DalXml
         /// <param name="parcelId">the id for checking</param>
         void CheckExistenceOfParcel(int parcelId)
         {
-            List<Parcel> parcels = LoadListFromXmlSerializer<DO.Parcel>(parcelsPath);
+            List<Parcel> parcels = LoadListFromXmlSerializer<DO.Parcel>(parcelsPath).ToList();
             int droneIndex = parcels.FindIndex(item => item.Id == parcelId);
             if (droneIndex == -1)
                 throw new IntIdException(parcelId);
@@ -110,7 +110,7 @@ namespace DalXml
         /// <param name="parcelId">the id for checking</param>
         void CheckNotExistenceOfParcel(int parcelId)
         {
-            List<Parcel> parcels = LoadListFromXmlSerializer<DO.Parcel>(parcelsPath);
+            List<Parcel> parcels = LoadListFromXmlSerializer<DO.Parcel>(parcelsPath).ToList();
             int droneIndex = parcels.FindIndex(item => item.Id == parcelId);
             if (droneIndex != -1)
                 throw new IntIdException(parcelId);
@@ -123,7 +123,7 @@ namespace DalXml
         /// <param name="droneForListId">the id for checking</param>
         void CheckExistenceOfDroneCharge(int droneForListId)
         {
-            List<DroneCharge> drones = LoadListFromXmlSerializer<DO.DroneCharge>(droneChargesPath);
+            List<DroneCharge> drones = LoadListFromXmlSerializer<DO.DroneCharge>(droneChargesPath).ToList();
             int droneIndex = drones.FindIndex(item => item.DroneId == droneForListId);
             if (droneIndex == -1)
                 throw new IntIdException(droneForListId);
@@ -136,7 +136,7 @@ namespace DalXml
         /// <param name="droneForListId">the id for checking</param>
         void CheckNotExistenceOfDroneCharge(int droneForListId)
         {
-            List<DroneCharge> drones = LoadListFromXmlSerializer<DO.DroneCharge>(droneChargesPath);
+            List<DroneCharge> drones = LoadListFromXmlSerializer<DO.DroneCharge>(droneChargesPath).ToList();
             int droneIndex = drones.FindIndex(item => item.DroneId == droneForListId);
             if (droneIndex != -1)
                 throw new IntIdException(droneForListId);

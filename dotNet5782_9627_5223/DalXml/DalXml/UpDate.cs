@@ -15,7 +15,7 @@ namespace DalXml
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpDate(Drone drone, int id)
         {
-            List<Drone> drones = LoadListFromXmlSerializer<Drone>(dronesPath);
+            List<Drone> drones = LoadListFromXmlSerializer<Drone>(dronesPath).ToList();
             CheckExistenceOfDrone(id);
             drones.Remove(drones.Find(item => item.Id == id));
             drones.Add(drone);
@@ -25,7 +25,7 @@ namespace DalXml
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpDate(BaseStation baseStation, int id)
         {
-            List<BaseStation> baseStations = LoadListFromXmlSerializer<BaseStation>(baseStationsPath);
+            List<BaseStation> baseStations = LoadListFromXmlSerializer<BaseStation>(baseStationsPath).ToList();
             CheckExistenceOfBaseStation(id);
             baseStations.Remove(baseStations.Find(item => item.Id == id));
             baseStations.Add(baseStation);
@@ -52,7 +52,7 @@ namespace DalXml
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpDate(Parcel parcel, int id)
         {
-            List<Parcel> parcels = LoadListFromXmlSerializer<Parcel>(parcelsPath);
+            List<Parcel> parcels = LoadListFromXmlSerializer<Parcel>(parcelsPath).ToList();
             CheckExistenceOfParcel(id);
             parcels.Remove(parcels.Find(item => item.Id == id));
             parcels.Add(parcel);

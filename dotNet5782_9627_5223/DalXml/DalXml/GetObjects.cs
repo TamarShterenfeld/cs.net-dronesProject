@@ -13,7 +13,7 @@ namespace DalXml
         [MethodImpl(MethodImplOptions.Synchronized)]
         public BaseStation GetBaseStation(int baseStationId)
         {
-            List<BaseStation> baseStations = LoadListFromXmlSerializer<BaseStation>(baseStationsPath);
+            List<BaseStation> baseStations = LoadListFromXmlSerializer<BaseStation>(baseStationsPath).ToList();
             CheckExistenceOfBaseStation(baseStationId);
             return baseStations.First(item => item.Id == baseStationId);
         }
@@ -21,7 +21,7 @@ namespace DalXml
         [MethodImpl(MethodImplOptions.Synchronized)]
         public Drone GetDrone(int droneId)
         {
-            List<Drone> drones = LoadListFromXmlSerializer<Drone>(dronesPath);
+            List<Drone> drones = LoadListFromXmlSerializer<Drone>(dronesPath).ToList();
             CheckExistenceOfDrone(droneId);
             return drones.First(item => item.Id == droneId);
         }
@@ -29,7 +29,7 @@ namespace DalXml
         [MethodImpl(MethodImplOptions.Synchronized)]
         public DroneCharge GetDroneCharge(int droneId)
         {
-            List<DroneCharge> drones = LoadListFromXmlSerializer<DroneCharge>(droneChargesPath);
+            List<DroneCharge> drones = LoadListFromXmlSerializer<DroneCharge>(droneChargesPath).ToList();
             CheckExistenceOfDroneCharge(droneId);
             return drones.First(item => item.DroneId == droneId);
         }
@@ -65,7 +65,7 @@ namespace DalXml
         [MethodImpl(MethodImplOptions.Synchronized)]
         public Parcel GetParcel(int parcelId)
         {
-            List<Parcel> parcels = LoadListFromXmlSerializer<Parcel>(parcelsPath);
+            List<Parcel> parcels = LoadListFromXmlSerializer<Parcel>(parcelsPath).ToList();
             CheckExistenceOfParcel(parcelId);
             return parcels.First(item => item.Id == parcelId);
         }
