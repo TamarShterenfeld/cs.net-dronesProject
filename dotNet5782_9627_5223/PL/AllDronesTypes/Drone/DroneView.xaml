@@ -113,7 +113,8 @@
                   Width="140" 
                   IsEnabled= "{Binding EnableUpdate,Converter={StaticResource BoolToBoolConverter}}"
                   ItemsSource="{Binding Statuses}"
-                  SelectedItem="{Binding Drone.Status}"/>
+                  SelectedItem="{Binding Drone.Status}"
+        />
         <TextBlock Text="Delivery:" Grid.Row= "6" Grid.Column="1" Foreground="#FF3F4245" Height="49"/>
         <StackPanel Grid.Row="6" Grid.Column="2"
             Width="160" VerticalAlignment="Center" 
