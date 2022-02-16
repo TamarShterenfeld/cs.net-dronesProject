@@ -81,9 +81,8 @@ namespace IBL
                                             try
                                             {
                                                 parcel.AssociationDate = DateTime.Now;
-                                                parcel.MyDrone = new() { Id = drone.Id, Battery = drone.Battery, 
-                                                                        CurrentLocation = new(new(drone.Location.CoorLongitude.InputCoorValue, BO.Locations.Longitude), new(drone.Location.CoorLatitude.InputCoorValue, BO.Locations.Latitude)) };
-                                                
+                                                parcel.MyDrone = new(drone.Id,drone.Battery, 
+                                                        new(new(drone.Location.CoorLongitude.InputCoorValue, BO.Locations.Longitude), new(drone.Location.CoorLatitude.InputCoorValue, BO.Locations.Latitude)) );                                               
                                                 drone.ParcelId = parcelId;
                                                 customer = bl.GetBLCustomer(parcel.Sender.Id);
                                                 bl.UpdateParcel(parcel);
