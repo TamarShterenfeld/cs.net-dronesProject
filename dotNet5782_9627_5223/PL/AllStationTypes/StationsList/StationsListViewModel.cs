@@ -73,7 +73,6 @@ namespace PL
             new StationView(new StationViewModel(bl, sender as BaseStationForList)).Show();
         }
 
-
         private void Button_AllStations()
         {
             AllStations.GroupDescriptions.Remove(allStationsGroupDescription);
@@ -87,6 +86,7 @@ namespace PL
             AllStations.SortDescriptions.Remove(allStationsSortId);
             AllStations.SortDescriptions.Add(allStationsSortFree);
         }
+
 
     }
 }
