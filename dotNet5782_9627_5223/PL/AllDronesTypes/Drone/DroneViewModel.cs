@@ -115,6 +115,7 @@ namespace PL
         {
             this.bl = bl;
             Drone = new();
+            Drone.Status = POConverter.DroneStatuses.Available;
             Cancel = new(Button_ClickCancel, null);
             AddOrUpdate = new(Button_ClickAdd, null);
             EnableUpdate = true;
@@ -223,7 +224,11 @@ namespace PL
         {
             ListsModel.Instance.UpdateDrone(Drone.Id);
             Drone = DroneBOToPO(bl.GetBLDrone(Drone.Id), bl);
+            coorLon = Drone.Location.CoorLongitude.ToString();
+            coorLat = Drone.Location.CoorLatitude.ToString();
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Drone)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(coorLon)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(coorLat)));
         }
 
         /// <summary>

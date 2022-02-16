@@ -62,11 +62,11 @@ namespace DalObject
         internal static class Config
         {
             public static int ParcelId = 0;
-            public static double ElectricityConsumingOfAvailable = 0.0001;
-            public static double ElectricityConsumingOfLightWeight = 0.0002;
-            public static double ElectricityConsumingOfAverageWeight = 0.0003;
-            public static double ElectricityConsumingOfHeavyWeight = 0.0004;
-            public static double ChargeRate = 0.2; ///
+            public static double ElectricityConsumingOfAvailable = 0.001;
+            public static double ElectricityConsumingOfLightWeight = 0.002;
+            public static double ElectricityConsumingOfAverageWeight = 0.003;
+            public static double ElectricityConsumingOfHeavyWeight = 0.004;
+            public static double ChargeRate = 0.4; 
         }
 
         /// <summary>

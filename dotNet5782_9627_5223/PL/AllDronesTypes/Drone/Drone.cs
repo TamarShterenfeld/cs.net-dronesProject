@@ -17,12 +17,12 @@ namespace PL
             {
                 Id = drone.Id;
                 Model = drone.Model;
-                Status = (DroneStatuses)drone.Status;
-                Weight = (WeightCategories)drone.MaxWeight;
+                Status = drone.Status;
+                Weight = drone.MaxWeight;
                 Battery = drone.Battery;
-                //ParcelId = drone.ParcelId;
+                parcel = drone.ParcelId == 0? null : ParcelInPassingBOTOPO(bl.GetParcelInPassing(drone.ParcelId));
                 BO.Drone drone1 = bl.GetBLDrone(Id);
-                Location = (PO.Location)POConverter.LocationBOTOPO(drone1.Location);
+                Location = LocationBOTOPO(drone1.Location);
             }
 
             /// <summary>
