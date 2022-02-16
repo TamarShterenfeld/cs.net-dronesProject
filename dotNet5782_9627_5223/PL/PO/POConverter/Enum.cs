@@ -51,9 +51,9 @@ namespace PL.PO
         /// <summary>
         /// an enum which contains the three actions of a parcel (in update option) which have an appropriate Exception.
         /// </summary>
-        public enum ParcelActions
+        public enum DroneActions
         {
-            Associate = 1, SendforRecharge, PickUp, Supply,
+            Associate = 1, SendforRecharge, ReleaseFromRecharge, PickUp, Supply,
         }
 
 
@@ -84,6 +84,11 @@ namespace PL.PO
         public enum DroneStatuses
         {
             Available = 1, Maintenance, Shipment
+        }
+
+        public enum MaintanceOptions
+        {
+            Charging = 2, NotCharging
         }
 
     }

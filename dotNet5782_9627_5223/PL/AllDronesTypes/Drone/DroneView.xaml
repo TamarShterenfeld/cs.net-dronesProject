@@ -34,22 +34,16 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <WrapPanel Grid.Row="0" Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Button x:Name="button1" Content="Close" Width="92" Command="{Binding Cancel}" CommandParameter="{Binding ElementName=DroneWindow}" 
+            <Button x:Name="cancelButton" Content="Close" Width="92" Command="{Binding Cancel}" CommandParameter="{Binding ElementName=DroneWindow}" 
                     Background="#FFD40202" BorderBrush="White"  Foreground="#DDFFFFFF" IsEnabled="{Binding InSimulator ,Converter={StaticResource BoolToBoolConverter}}"/>
-            <Button x:Name="buttonState" Content="{Binding EnableUpdate,Converter={StaticResource BoolToStringConverter}}" Width="92" 
+            <Button x:Name="stateButton" Content="{Binding EnableUpdate,Converter={StaticResource BoolToStringConverter}}" Width="92" 
                     Command="{Binding AddOrUpdate}" CommandParameter="{Binding ElementName=station,Path=SelectedItem}" Background="Turquoise" BorderBrush="White" IsEnabled="{Binding InSimulator ,Converter={StaticResource BoolToBoolConverter}}"/>
-            <Button x:Name="buttonDelete" Content="Delete" Width="92" Command="{Binding Delete}" CommandParameter="{Binding ElementName=DroneWindow }" 
+            <Button x:Name="deleteButton" Content="Delete" Width="92" Command="{Binding Delete}" CommandParameter="{Binding ElementName=DroneWindow }" 
                     Background="#FFD40202" BorderBrush="White" IsEnabled="{Binding InSimulator ,Converter={StaticResource BoolToBoolConverter}}"/>
-            <!--<ComboBox x:Name="button3" 
-                      ItemsSource="{Binding Button3Content}" 
-                      SelectedItem="{Binding Button3SelectedItem}"   
-                      Width="110" Background="Turquoise"  Visibility="Collapsed" Foreground="#FF313131" BorderThickness="1"/>-->
-
-            <!--<ComboBox x:Name="button4"
-                      Width="130"
-                       ItemsSource="{Binding ParcelOptions}" 
-                      SelectedItem="{Binding ParcelOption}"  
-                      Background="Turquoise"  Visibility="Collapsed" BorderThickness="1"  Foreground="#FF313131" />-->
+            <ComboBox x:Name="droneActionsButton" 
+                      ItemsSource="{Binding MyDroneActions}" 
+                      SelectedItem="{Binding SelectedDroneAction}"   
+                      Width="110" Background="Turquoise" Foreground="#FF313131" BorderThickness="1"/>
         </WrapPanel>
         <TextBlock x:Name="textBlock" Text="Id:" Grid.Row="1" Grid.Column="1" Foreground="#FF2D2D2D"/>
         <TextBox x:Name="id" Grid.Row="1" Grid.Column="2" MaxLength="9"
@@ -89,12 +83,12 @@
                   VerticalAlignment="Top" 
                   HorizontalAlignment="Center"
                   Width="140"  
-                  ItemsSource="{Binding DroneWeightsList}"
+                  ItemsSource="{Binding Weights}"
                   SelectedItem="{Binding Drone.Weight}"
                   IsEnabled="{Binding EnableUpdate}"
         />
         <TextBlock Text="Battery:" Grid.Row="4" Grid.Column="1" Foreground="#FF3F4245"/>
-        <TextBox x:Name="battery"  MaxLength="9"
+        <TextBox x:Name="battery"
            Grid.Row="4" Grid.Column="2"
             TextWrapping="Wrap" 
             VerticalAlignment="Top" 
@@ -139,9 +133,7 @@
             TextWrapping="Wrap" 
             VerticalAlignment="Top" 
             HorizontalAlignment="Center"
-            Width="140" 
-            MaxLength="9"
-            IsEnabled="{Binding EnableUpdate}">
+            Width="140"     IsEnabled="{Binding EnableUpdate}">
             <TextBox.Text >
                 <Binding Path="CoorLon" UpdateSourceTrigger="PropertyChanged" >
                     <Binding.ValidationRules>
@@ -158,7 +150,6 @@
             TextWrapping="Wrap" 
             VerticalAlignment="Top" 
             HorizontalAlignment="Center"
-            MaxLength="9"
             Width="140">
             <TextBox.Text >
                 <Binding Path="CoorLat" UpdateSourceTrigger="PropertyChanged" >

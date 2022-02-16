@@ -32,7 +32,7 @@ namespace PL
         IList<string> statuses = Enum.GetNames(typeof(POConverter.ParcelStatuses));
         IList<string> weights = Enum.GetNames(typeof(POConverter.WeightCategories));
         IList<string> priorities = Enum.GetNames(typeof(POConverter.Priorities));
-        IList<string> parcelActions = Enum.GetNames(typeof(POConverter.ParcelActions)).TakeLast<string>(2).ToList();
+        IList<string> parcelActions = Enum.GetNames(typeof(POConverter.DroneActions)).TakeLast<string>(2).ToList();
         #endregion
 
         #region Properties
@@ -70,7 +70,7 @@ namespace PL
 
                 switch (selectedParcelAction)
                 {
-                    case nameof(POConverter.ParcelActions.PickUp):
+                    case nameof(POConverter.DroneActions.PickUp):
                         {
 
                             try
@@ -93,7 +93,7 @@ namespace PL
                         }
                         break;
 
-                    case nameof(POConverter.ParcelActions.Supply):
+                    case nameof(POConverter.DroneActions.Supply):
                         {
                             try
                             {

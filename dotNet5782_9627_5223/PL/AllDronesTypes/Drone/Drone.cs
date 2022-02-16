@@ -31,8 +31,8 @@ namespace PL
             public Drone() { }
 
             public double Battery { get; set; }
-            private ParcelInPassing parcel;
-            public ParcelInPassing Parcel { set { parcel = value; } get { return parcel; } }
+            private Parcel parcel;
+            public Parcel Parcel { set { parcel = value; } get { return parcel; } }
             public Location Location
             {
                 get => location;
