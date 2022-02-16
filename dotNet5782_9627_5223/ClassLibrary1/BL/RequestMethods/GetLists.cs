@@ -21,7 +21,7 @@ namespace IBL
         public IEnumerable<BO.BaseStation> GetBOBaseStationsList()
         {
             List<BO.BaseStation> boBaseStationList = new();
-            List<DO.BaseStation> doBaseStationList = (List<DO.BaseStation>)dal.GetBaseStationsList();
+            List<DO.BaseStation> doBaseStationList = dal.GetBaseStationsList().ToList();
             foreach (DO.BaseStation item in doBaseStationList)
             {
                 boBaseStationList.Add(GetBLBaseStation(item.Id));
@@ -45,7 +45,7 @@ namespace IBL
         public IEnumerable<BaseStationForList> GetBaseStationList()
         {
             List<BaseStationForList> baseStationForLists = new();
-            List<BO.BaseStation> baseStations = (List<BO.BaseStation>)GetBOBaseStationsList();
+            List<BO.BaseStation> baseStations = GetBOBaseStationsList().ToList();
             foreach (BO.BaseStation item in baseStations)
             {
                 baseStationForLists.Add(GetBaseStationForList(item.Id));
@@ -117,7 +117,7 @@ namespace IBL
         public IEnumerable<BO.Parcel> GetBOParcelsList()
         {
             List<BO.Parcel> boParcelList = new();
-            List<DO.Parcel> doParcelList = (List<DO.Parcel>)dal.GetParcelsList();
+            List<DO.Parcel> doParcelList = dal.GetParcelsList().ToList();
             foreach (DO.Parcel item in doParcelList)
             {
                 boParcelList.Add(GetBLParcel(item.Id));
@@ -141,7 +141,7 @@ namespace IBL
         public IEnumerable<ParcelForList> GetParcelsList()
         {
             List<ParcelForList> parcelsForList = new();
-            List<BO.Parcel> parcels = (List<BO.Parcel>)GetBOParcelsList();
+            List<BO.Parcel> parcels = GetBOParcelsList().ToList();
 
             foreach (BO.Parcel item in parcels)
             {
@@ -168,7 +168,7 @@ namespace IBL
         public IEnumerable<BO.Customer> GetBOCustomersList()
         {
             List<BO.Customer> boCustomerList = new();
-            List<DO.Customer> doCustomerList = (List<DO.Customer>)dal.GetCustomersList();
+            List<DO.Customer> doCustomerList = dal.GetCustomersList().ToList();
             foreach (DO.Customer item in doCustomerList)
             {
                 boCustomerList.Add(GetBLCustomer(item.Id));
@@ -180,7 +180,7 @@ namespace IBL
         public IEnumerable<CustomerForList> GetCustomersList()
         {
             List<CustomerForList> customersForList = new();
-            List<BO.Customer> customers = (List<BO.Customer>)GetBOCustomersList();
+            List<BO.Customer> customers = GetBOCustomersList().ToList();
             foreach (BO.Customer item in customers)
             {
                 customersForList.Add(GetCustomerForList(item.Id));

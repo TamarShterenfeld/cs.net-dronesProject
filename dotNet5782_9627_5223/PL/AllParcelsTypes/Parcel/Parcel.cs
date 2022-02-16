@@ -20,9 +20,9 @@ namespace PL
                 SenderId = parcelForList.SenderId;
                 TargetId = parcelForList.TargetId;
                 DroneId = parcelForList.DroneId;
-                Weight = (POConverter.WeightCategories)(int)parcelForList.Weight;
-                Priority = (POConverter.Priorities)(int)parcelForList.Priority;
-                Status = (POConverter.ParcelStatuses)(int)parcelForList.Status;
+                Weight = (POConverter.WeightCategories)Enum.Parse(typeof(POConverter.WeightCategories), parcelForList.Weight.ToString());
+                Priority = (POConverter.Priorities)Enum.Parse(typeof(POConverter.Priorities), parcelForList.Priority.ToString());
+                Status = (POConverter.ParcelStatuses)Enum.Parse(typeof(POConverter.ParcelStatuses), parcelForList.Status.ToString());
             }
 
             int parcelId;

@@ -12,23 +12,23 @@ namespace PL.PO
         //-----------------------------Enums----------------------------
         public enum Directions
         {
-            NORTH, EAST, WEST, SOUTH
+            NORTH = 1, EAST, WEST, SOUTH
         }
 
         //---------------------------Parcel Enums-------------------------
         public enum GroupOptions
         {
-          GroupBySender, GroupByTarget
+          GroupBySender = 1, GroupByTarget
         }
 
         public enum SortOptions
         {
-            SortedId, SortedStatus, SortedWeight, SortedPriority
+            SortedId = 1, SortedStatus, SortedWeight, SortedPriority
         }
 
         public enum Priorities
         {
-           Standard, Fast, Emergency
+           Standard = 1, Fast, Emergency
         }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace PL.PO
         /// </summary>
         public enum ParcelStatuses
         {
-          Production, Associated, PickedUp, Supplied
+          Production = 1, Associated, PickedUp, Supplied
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace PL.PO
         /// </summary>
         public enum WeightCategories
         {
-          Light , Average, Heavy
+          Light = 1, Average, Heavy
         }
 
 
@@ -53,7 +53,7 @@ namespace PL.PO
         /// </summary>
         public enum ParcelActions
         {
-            Associate, SendforRecharge, PickUp, Supply,
+            Associate = 1, SendforRecharge, PickUp, Supply,
         }
 
 
@@ -62,7 +62,7 @@ namespace PL.PO
         /// </summary>
         public enum FromOrTo
         {
-            From, To
+            From = 1, To
         }
 
 
@@ -73,7 +73,7 @@ namespace PL.PO
         /// </summary>
         public enum Locations
         {
-            Latitude, Longitude
+            Latitude = 1, Longitude
         }
 
 
@@ -83,7 +83,7 @@ namespace PL.PO
         /// </summary>
         public enum DroneStatuses
         {
-            Available, Maintenance, Shipment
+            Available = 1, Maintenance, Shipment
         }
 
     }

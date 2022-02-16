@@ -17,13 +17,15 @@ using PL.PO;
 using static PL.Validation;
 using static IBL.BL;
 using DO;
+using System.ComponentModel;
 
 namespace PL
 {
-    public class ParcelViewModel
+    public class ParcelViewModel : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
         BLApi.IBL bl;
-        string selectedParcelStatus;
+        string selectedParcelAction, selectedWeight, selectedPriority, selectedParcelStatus;
         IList<string> nullString = new List<string>() { "" };
         IList<string> statuses = Enum.GetNames(typeof(ParcelStatuses));
         IList<string> weights = Enum.GetNames(typeof(POConverter.WeightCategories));
@@ -37,10 +39,9 @@ namespace PL
         public ListCollectionView Weights { get; set; }
         public ListCollectionView Priorities { get; set; }
         public ListCollectionView ParcelActions { get; set; }
-        public string SelectedStatus { get; set; }
-        public string SelectedWeight { get; set; }
-        public string SelectedPriority { get; set; }
-        public string SelectedParcelAction { get; set; }
+        public string SelectedWeight { set { selectedWeight = value; MyParcel.Weight = (POConverter.WeightCategories)Enum.Parse(typeof(POConverter.WeightCategories), value); PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedWeight))); } get => selectedWeight; }
+        public string SelectedPriority { set { selectedPriority = value;  PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedPriority))); } get => selectedPriority; }
+        public string SelectedParcelStatus { set { selectedParcelStatus = value; MyParcel.Status = (POConverter.ParcelStatuses)Enum.Parse(typeof(POConverter.ParcelStatuses), value); PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedParcelStatus))); } get => selectedParcelStatus; }
         public RelayCommand AddOrUpdate { get; set; }
         public RelayCommand Delete { get; set; }
         public RelayCommand LeftDoubleClick_Sender { get; set; }
@@ -52,6 +53,9 @@ namespace PL
         {
             this.bl = bl;
             MyParcel = new PO.Parcel(bl, parcel);
+            SelectedWeight = ((object)MyParcel.Weight).ToString();
+            SelectedParcelStatus = ((object)MyParcel.Status).ToString();
+            SelectedPriority = ((object)MyParcel.Priority).ToString();
             Statuses = new ListCollectionView(nullString.Concat<string>(statuses).ToList());
             Weights = new ListCollectionView(nullString.Concat<string>(weights).ToList());
             Priorities = new ListCollectionView(nullString.Concat<string>(priorities).ToList());
@@ -61,6 +65,7 @@ namespace PL
             State = "Update";
             Cursor = "Hand";
             Delete = new(Button_ClickDelete, null);
+            AddOrUpdate = new(Button_ClickUpdate, null);
             LeftDoubleClick_Sender = new(DoubleClick_Sender, null);
             LeftDoubleClick_Target = new(DoubleClick_Target, null);
             LeftDoubleClick_Drone = new(DoubleClick_Drone, null);
@@ -69,14 +74,17 @@ namespace PL
         {
             this.bl = bl;
             MyParcel = new();
-            MyParcel.ParcelId = GetParcelIndex()+1;
+            MyParcel.ParcelId = GetParcelIndex() + 1;
             MyParcel.Status = ParcelStatuses.Production;
-            SelectedStatus = nameof(ParcelStatuses.Production);
+            SelectedParcelAction = nameof(ParcelStatuses.Production);
             Cancel = new(ButtonClick_Cancel, null);
             AddOrUpdate = new(Button_ClickAdd, null);
             EnableUpdate = true;
             State = "Add";
             Cursor = "IBeam";
+            SelectedWeight = ((object)MyParcel.Weight).ToString();
+            SelectedParcelStatus = ((object)MyParcel.Status).ToString();
+            SelectedPriority = ((object)MyParcel.Priority).ToString();
             Statuses = new ListCollectionView(nullString.Concat<string>(statuses).ToList());
             Weights = new ListCollectionView(nullString.Concat<string>(weights).ToList());
             Priorities = new ListCollectionView(nullString.Concat<string>(priorities).ToList());
@@ -85,13 +93,14 @@ namespace PL
             LeftDoubleClick_Target = new(DoubleClick_Target, null);
             LeftDoubleClick_Drone = new(DoubleClick_Drone, null);
         }
-       
-        public string SelectedParcelStatus
+
+        public string SelectedParcelAction
         {
             set
             {
-                selectedParcelStatus = value;   
-                if(selectedParcelStatus == "PickUp")
+                selectedParcelAction = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedParcelAction)));
+                if (selectedParcelStatus == "PickUp")
                 {
                     if (MyParcel.Status == ParcelStatuses.Associated)
                     {
@@ -141,7 +150,7 @@ namespace PL
 
         private void DoubleClick_Drone(object sender)
         {
-            new DroneView(new DroneViewModel(bl,DroneForListBOToPO( bl.GetDroneForList(MyParcel.DroneId)))).Show();
+            new DroneView(new DroneViewModel(bl, DroneForListBOToPO(bl.GetDroneForList(MyParcel.DroneId)))).Show();
         }
         private void Button_ClickDelete(object sender)
         {
@@ -174,14 +183,14 @@ namespace PL
 
         private void CheckStatus_Changed(ParcelStatuses status)
         {
-            ParcelStatuses originalStatus = MyParcel.Status;         
+            ParcelStatuses originalStatus = MyParcel.Status;
             CheckValidationOfStatus(originalStatus, status);
         }
 
         private void CheckValidationOfStatus(ParcelStatuses originalStatus, ParcelStatuses status)
         {
             BO.DroneForList drone = bl.GetDroneForList(MyParcel.DroneId);
-           
+
         }
         private void Button_ClickAdd(object sender)
         {
@@ -196,13 +205,45 @@ namespace PL
                 ListsModel.Instance.AddParcel(MyParcel.ParcelId);
                 MessageBox.Show("The parcel has been added successfully!\nPay attention - the last valid input is saved.");
             }
-            catch(IntIdException exe)
+            catch (IntIdException exe)
             {
                 MessageBox.Show($"the chosen id: {exe.Id} already exists in the database");
             }
-            catch(StringIdException exe)
+            catch (StringIdException exe)
             {
                 MessageBox.Show($"the chosen id: {exe.Id} doesn't exist in the database");
+            }
+        }
+
+        private void Button_ClickUpdate(object sender)
+        {
+            if (!IsAllValid())
+            {
+                MessageBox.Show("Not all the fields are filled with correct values\nThis action is invalid!");
+                return;
+            }
+            try
+            {
+                int droneId = MyParcel.DroneId;
+                if (droneId != 0)
+                {
+                    if (SelectedPriority != ((object)MyParcel.Priority).ToString())
+                    {
+                        MessageBox.Show($"This action isn't valid for the chosen drone can't carry such a weight\nchoose another drone that can carry the {MyParcel.Weight} weight.");
+                        return;
+                    }
+                    MyParcel.Priority = (POConverter.Priorities)Enum.Parse(typeof(POConverter.Priorities), SelectedPriority);
+
+                }
+
+                bl.UpdateParcel(ParcelPoToBo(MyParcel));
+                ListsModel.Instance.UpdateParcel(MyParcel.ParcelId);
+                MessageBox.Show("The parcel has been updated successfully!\nPay attention - the last valid input is saved.");
+            }
+            catch (IntIdException exe)
+            {
+                MessageBox.Show($"the chosen id: {exe.Id} doesn't exists in the database");
+                return;
             }
         }
 

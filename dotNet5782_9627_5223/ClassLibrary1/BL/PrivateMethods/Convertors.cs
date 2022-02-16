@@ -23,10 +23,10 @@ namespace IBL
             {
                 Id = parcel.Id,
                 DroneId = parcel.MyDrone.Id,
-                Priority = (DO.Priorities)(parcel.Priority),
+                Priority = (DO.Priorities)Enum.Parse(typeof(DO.Priorities), parcel.Priority.ToString()),
                 SenderId = parcel.Sender.Id,
                 TargetId = parcel.Target.Id,
-                Weight = (DO.WeightCategories)(parcel.Weight),
+                Weight = (DO.WeightCategories)Enum.Parse(typeof(DO.WeightCategories), parcel.Weight.ToString()),
                 ProductionDate = parcel.ProductionDate,
                 AssociationDate = parcel.AssociationDate,
                 PickUpDate = parcel.PickUpDate,
@@ -93,7 +93,7 @@ namespace IBL
             DO.Drone doDrone = new()
             {
                 Id = boDrone.Id,
-                MaxWeight = (DO.WeightCategories)boDrone.MaxWeight,
+                MaxWeight = (DO.WeightCategories)Enum.Parse(typeof(DO.WeightCategories), boDrone.MaxWeight.ToString()),
                 Model = boDrone.Model,
             };
             return doDrone;
@@ -171,8 +171,8 @@ namespace IBL
             ParcelInCustomer BOCustomerInParcel = new()
             {
                 Id = parcel.Id,
-                Weight = (BO.WeightCategories)parcel.Weight,
-                Priority = (BO.Priorities)parcel.Priority,
+                Weight = (BO.WeightCategories)Enum.Parse(typeof(BO.WeightCategories), parcel.Weight.ToString()),
+                Priority = (BO.Priorities)Enum.Parse(typeof(BO.Priorities), parcel.Priority.ToString()),
                 ParcelStatus = ParcelStatus(parcel),
                 SourceOrDest = fromOrTo == FromOrTo.From ? GetCustomrInParcel(parcel.SenderId) : GetCustomrInParcel(parcel.TargetId)                
             };
@@ -210,7 +210,7 @@ namespace IBL
             DroneForList current = new()
             {
                 Id = drone.Id,
-                MaxWeight = (BO.WeightCategories)drone.MaxWeight,
+                MaxWeight = (BO.WeightCategories)Enum.Parse(typeof(BO.WeightCategories), drone.MaxWeight.ToString()),
                 Model = drone.Model,
 
             };
@@ -224,7 +224,7 @@ namespace IBL
         /// <returns>the converted BO.Drone object</returns>
         Drone ConvertDroneDOtOBO(DO.Drone drone)
         {
-            Drone bODrone = new (drone.Id, drone.Model, (WeightCategories)drone.MaxWeight,dronesForList.FirstOrDefault(item => item.Id == drone.Id).Battery, DroneStatuses.Available, ParcelInPassing.Empty, new Location());
+            Drone bODrone = new (drone.Id, drone.Model, (BO.WeightCategories)Enum.Parse(typeof(BO.WeightCategories), drone.MaxWeight.ToString()), dronesForList.FirstOrDefault(item => item.Id == drone.Id).Battery, DroneStatuses.Available, ParcelInPassing.Empty, new Location());
             return bODrone;
         }
 
@@ -264,6 +264,49 @@ namespace IBL
                 IsDeleted = baseStation.IsDeleted
             };
             return DOBaseStation;
+        }
+
+        /// <summary>
+        /// the function converts a IDal.DO.Parcel object to a BO.Parcel object.
+        /// </summary>
+        /// <param name="parcel">the IDal.DO parcel object</param>
+        /// <returns>a BO.Parcel object</returns>
+        Parcel ParcelDOtOBO(DO.Parcel parcel)
+        {
+            Parcel BOParcel = new()
+            {
+                Id = parcel.Id,
+                Sender = GetCustomrInParcel(parcel.SenderId),
+                Target = GetCustomrInParcel(parcel.TargetId),
+                Weight = (BO.WeightCategories)Enum.Parse(typeof(BO.WeightCategories), parcel.Weight.ToString()),
+                Priority = (BO.Priorities)Enum.Parse(typeof(BO.Priorities), parcel.Priority.ToString()),
+                MyDrone = GetBLDroneInParcel(parcel.DroneId),
+                ProductionDate = parcel.ProductionDate,
+                AssociationDate = parcel.AssociationDate,
+                PickUpDate = parcel.PickUpDate,
+                SupplyDate = parcel.SupplyDate
+            };
+            return BOParcel;
+        }
+
+        /// <summary>
+        /// convert Coordinate object from BO to DO
+        /// </summary>
+        /// <param name="coor">BO coordinate</param>
+        /// <returns>DO coordinate</returns>
+        DO.Coordinate CoordinateBoToDo(BO.Coordinate coor)
+        {
+            return new DO.Coordinate() { InputCoorValue = coor.InputCoorValue, Degrees = coor.Degrees, Direction = (DO.Directions)Enum.Parse(typeof(DO.Directions), coor.Direction.ToString()), MyLocation = (DO.Locations)Enum.Parse(typeof(DO.Locations), coor.MyLocation.ToString()), Minutes = coor.Minutes, Seconds = coor.Seconds };
+        }
+
+        /// <summary>
+        /// convert Coordinate object from DO to BO
+        /// </summary>
+        /// <param name="coor">DO coordinate</param>
+        /// <returns>BO coordinate</returns>
+        static BO.Coordinate CoordinateDoToBo(DO.Coordinate coor)
+        {
+            return new BO.Coordinate() { InputCoorValue = coor.InputCoorValue, Degrees = coor.Degrees, Direction = (BO.Directions)Enum.Parse(typeof(BO.Directions), coor.Direction.ToString()), MyLocation = (BO.Locations)Enum.Parse(typeof(BO.Locations), coor.MyLocation.ToString()), Minutes = coor.Minutes, Seconds = coor.Seconds };
         }
 
     }

@@ -7,7 +7,7 @@ namespace BO
     /// </summary>
     public enum Directions
     {
-        NORTH, EAST, WEST, SOUTH
+        NORTH = 1, EAST, WEST, SOUTH
     }
 
     /// <summary>
@@ -16,7 +16,7 @@ namespace BO
     /// </summary>
     public enum Locations
     {
-        Latitude, Longitude
+        Latitude = 1, Longitude
     }
 
     /// <summary>
@@ -44,7 +44,7 @@ namespace BO
     /// </summary>
     public enum ParcelStatuses
     {
-        Production, Associated, PickedUp, Supplied
+        Production = 1, Associated, PickedUp, Supplied
     }
 
     /// <summary>
@@ -52,7 +52,7 @@ namespace BO
     /// </summary>
     public enum FromOrTo
     {
-        From, To
+        From = 1, To
     }
 
     /// <summary>
@@ -60,6 +60,6 @@ namespace BO
     /// </summary>
     public enum ParcelActions
     {
-        Associate, PickUp, Supply, SendforRecharge,
+        Associate = 1, PickUp, Supply, SendforRecharge,
     }
 }

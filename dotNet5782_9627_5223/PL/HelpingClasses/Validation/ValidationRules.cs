@@ -86,8 +86,14 @@ namespace PL
         }
     }
 
+    class NotInitalize : ValidationRule
+    {
+        public override ValidationResult Validate(object value, CultureInfo cultureInfo)
+        {
+            return int.Parse(value.ToString()) == 0 ? ValidationResult.ValidResult : new ValidationResult(false, "Not initalised field.");
+        }
+    }
 
-   
 }
 
 
