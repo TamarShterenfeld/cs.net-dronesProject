@@ -9,7 +9,8 @@
         x:Name="MyParcelView"
         Icon ="../../images/toplogo.jpg">
     <Grid>
-        <Grid Margin="0,12,669,555" >
+        
+        <Grid x:Name="logo" Margin="0,12,669,555" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
@@ -22,7 +23,8 @@
                 <ImageBrush Stretch="Fill" ImageSource="/images/logo1.jpg"/>
             </Grid.Background>
         </Grid>
-        <Grid x:Name ="curdrone" Margin="-31,0,0,0" >
+
+        <Grid x:Name ="details" Margin="-31,0,0,0" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="80*"/>
                 <RowDefinition Height="80*"/>
@@ -43,13 +45,15 @@
                 <ColumnDefinition Width="237*"/>
                 <ColumnDefinition Width="260*"/>
             </Grid.ColumnDefinitions>
-            <WrapPanel Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="1" Grid.ColumnSpan="3" Margin="73,0,0,0" Width="420">
-                <Button x:Name="button1" Width="79" Content="Cancel" Command="{Binding Cancel}" CommandParameter="{Binding ElementName=MyParcelView}" Background="#FFD40202" BorderBrush="White"  Foreground="White" Grid.Column="2" Grid.Row="1" Height="32" VerticalAlignment="Bottom" />
-                <ComboBox x:Name="ParcelActions"  Width="79" ItemsSource="{Binding ParcelActions}" SelectedItem="{Binding SelectedParcelAction}" BorderBrush="White" Grid.Column="2" Grid.Row="1" Height="32" Background="Turquoise" VerticalAlignment="Bottom" BorderThickness="0,0,0,0"/>
-                <Button x:Name="buttonState" Content="{Binding State}"  Width="78" Command="{Binding AddOrUpdate}" CommandParameter="{Binding ElementName=MyParcelView}" Background="Turquoise" BorderBrush="White"  Foreground="White" Grid.Column="2" Grid.Row="1" Height="32" VerticalAlignment="Bottom"  />
-                <Button x:Name="buttonDelete" Width="79" Content="Delete" Command="{Binding Delete}" CommandParameter="{Binding ElementName=MyParcelView}"  Background="#FFD40202" BorderBrush="White" RenderTransformOrigin="4.262,1.155" Height="32" VerticalAlignment="Center" HorizontalAlignment="Right" />
+
+            <WrapPanel x:Name="buttons" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="1" Grid.ColumnSpan="3" Margin="73,0,0,0" Width="420">
+                <Button x:Name="cancel" Width="79" Content="Cancel" Command="{Binding Cancel}" CommandParameter="{Binding ElementName=MyParcelView}" Background="#FFD40202" BorderBrush="White"  Foreground="White" Grid.Column="2" Grid.Row="1" Height="32" VerticalAlignment="Bottom" />
+                <ComboBox x:Name="ParcelActions"  Width="79" ItemsSource="{Binding MyParcelActions}" SelectedItem="{Binding SelectedParcelAction}" BorderBrush="White" Grid.Column="2" Grid.Row="1" Height="32" Background="Turquoise" VerticalAlignment="Bottom" BorderThickness="0,0,0,0"/>
+                <Button x:Name="stateButton" Content="{Binding State}"  Width="78" Command="{Binding AddOrUpdate}" CommandParameter="{Binding ElementName=MyParcelView}" Background="Turquoise" BorderBrush="White"  Foreground="White" Grid.Column="2" Grid.Row="1" Height="32" VerticalAlignment="Bottom"  />
+                <Button x:Name="deleteButton" Width="79" Content="Delete" Command="{Binding Delete}" CommandParameter="{Binding ElementName=MyParcelView}"  Background="#FFD40202" BorderBrush="White" RenderTransformOrigin="4.262,1.155" Height="32" VerticalAlignment="Center" HorizontalAlignment="Right" />
             </WrapPanel>
-            <TextBlock Text="Parcel Id:" Grid.Column="1" Grid.Row ="2" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Foreground="#FF4C386B" Height="16" Width="51"/>
+
+            <TextBlock x:Name ="ParcelIdLable" Grid.Column="1" Grid.Row ="2" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Foreground="#FF4C386B" Height="16" Width="51"/>
             <TextBox x:Name="ParcelId"
                 TextWrapping="Wrap"
                 Width="150"
@@ -58,20 +62,19 @@
                 HorizontalAlignment="Center" 
                 VerticalAlignment="Bottom"             
                 Height="25" IsEnabled="False" >
-                <TextBox.Text >
+                <TextBox.Text MaxLength ="9" MinLength ="9">
                     <Binding Path="MyParcel.ParcelId" UpdateSourceTrigger="PropertyChanged" >
                         <Binding.ValidationRules>
                             <local:NotEmptyRule ValidatesOnTargetUpdated="True"/>
                             <local:NumberRule ValidatesOnTargetUpdated="True" />
-                            <local:RealPositiveNumberRule  ValidatesOnTargetUpdated="True"/>
+                            <local:PositiveNumberRule  ValidatesOnTargetUpdated="True"/>
                         </Binding.ValidationRules>
                     </Binding>
                 </TextBox.Text>
             </TextBox>
 
-
-            <TextBlock Text="Sender Id:" Grid.Column="1" Grid.Row ="3" HorizontalAlignment="Left" Foreground="#FF4C386B" Width="53" VerticalAlignment="Bottom" Height="16" />
-            <StackPanel  Grid.Column="2"
+            <TextBlock x:Name ="SenderIdLable" Text="Sender Id:" Grid.Column="1" Grid.Row ="3" HorizontalAlignment="Left" Foreground="#FF4C386B" Width="53" VerticalAlignment="Bottom" Height="16" />
+            <StackPanel  x:Name="SenderIdStackPanel" Grid.Column="2"
                 Grid.Row ="3" 
                 HorizontalAlignment="Center" Cursor="{Binding Cursor}"
                 VerticalAlignment="Bottom" Width="180" Height="25" >
@@ -83,7 +86,7 @@
                 Grid.Column="2"
                 Grid.Row ="3"
                 Width="150" Height="22"  IsEnabled="{Binding EnableUpdate}" VerticalAlignment="Bottom" HorizontalAlignment="Center" >
-                    <TextBox.Text >
+                    <TextBox.Text MaxLength ="9" MinLength ="9" >
                         <Binding Path="MyParcel.SenderId" UpdateSourceTrigger="PropertyChanged" >
                             <Binding.ValidationRules>
                                 <local:NotEmptyRule ValidatesOnTargetUpdated="True"/>
@@ -96,8 +99,8 @@
                 </TextBox>
             </StackPanel>
 
-            <TextBlock Text="Target Id:" Grid.Row="4" Grid.Column="1" Foreground="#FF4C386B" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Height="16" Width="48" />
-            <StackPanel  Grid.Column="2"
+            <TextBlock x:Name ="TargetIdLable" Text="Target Id:" Grid.Row="4" Grid.Column="1" Foreground="#FF4C386B" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Height="16" Width="48" />
+            <StackPanel  x:Name="TargetIdStackPanel" Grid.Column="2"
                 Grid.Row ="4" 
                 HorizontalAlignment="Center" Cursor="{Binding Cursor}"
                 VerticalAlignment="Bottom" Width="180" Height="25" >
@@ -109,7 +112,7 @@
                 Grid.Column="2"
                 Grid.Row ="4"
                 Width="150" Height="22"  IsEnabled="{Binding EnableUpdate}" VerticalAlignment="Bottom" HorizontalAlignment="Center" >
-                    <TextBox.Text >
+                    <TextBox.Text MaxLength ="9" MinLength ="9">
                         <Binding Path="MyParcel.TargetId" UpdateSourceTrigger="PropertyChanged" >
                             <Binding.ValidationRules>
                                 <local:NotEmptyRule ValidatesOnTargetUpdated="True"/>
@@ -122,8 +125,8 @@
                 </TextBox>
             </StackPanel>
 
-            <TextBlock Text="DroneId:" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Foreground="#FF3F4245" Height="16" Width="49"/>
-            <StackPanel  Grid.Column="2"
+            <TextBlock x:Name ="DroneIdLable" Text="DroneId:" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Foreground="#FF3F4245" Height="16" Width="49"/>
+            <StackPanel  x:Name="DroneIdStackPanel" Grid.Column="2"
                 Grid.Row ="5" 
                 HorizontalAlignment="Center" Cursor="{Binding Cursor}"
                 VerticalAlignment="Bottom" Width="180" Height="25">
@@ -136,19 +139,21 @@
                 Grid.Row ="5" 
                HorizontalAlignment="Center" 
                 VerticalAlignment="Bottom"
-                Width="150" Height="23" IsEnabled="True">
-                    <TextBox.Text >
+                Width="150" Height="23" IsEnabled="False">
+                    <TextBox.Text MaxLength ="9">
                         <Binding Path="MyParcel.DroneId" UpdateSourceTrigger="PropertyChanged" >
                             <Binding.ValidationRules>
                                 <local:NotEmptyRule ValidatesOnTargetUpdated="True"/>
                                 <local:NumberRule ValidatesOnTargetUpdated="True" />
-                                <local:RealPositiveNumberRule  ValidatesOnTargetUpdated="True"/>
+                                <local:PositiveNumberRule  ValidatesOnTargetUpdated="True"/>
+                                <local:NotInitalizeRule ValidatesOnTargetUpdated="True"/>
                             </Binding.ValidationRules>
                         </Binding>
                     </TextBox.Text>
                 </TextBox>
             </StackPanel>
-            <TextBlock Text="Weight" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Foreground="#FF3F4245" Height="16" Width="49" />
+
+            <TextBlock x:Name ="WeightLable" Text="Weight" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Foreground="#FF3F4245" Height="16" Width="49" />
             <ComboBox x:Name ="weight" 
                 Grid.Row="6" 
                 Grid.Column="2"
@@ -159,7 +164,7 @@
                 ItemsSource="{Binding Weights}" 
                 SelectedItem="{Binding SelectedWeight}" IsEnabled="{Binding EnableUpdate}"/>
 
-            <TextBlock Text="Priority:" Grid.Row="7" Grid.Column="1" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Foreground="#FF3F4245" Height="16" Width="49" />
+            <TextBlock  x:Name ="PrioritytLable" Text="Priority:" Grid.Row="7" Grid.Column="1" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Foreground="#FF3F4245" Height="16" Width="49" />
             <ComboBox x:Name ="priority"
                 Grid.Row="7" 
                 Grid.Column="2"
@@ -168,7 +173,8 @@
                 VerticalAlignment="Bottom"
                ItemsSource="{Binding Priorities}" 
                SelectedItem="{Binding SelectedPriority}" Height="25" IsEnabled="True" />
-            <TextBlock Text="Status:" Grid.Row="8" Grid.Column="1" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Foreground="#FF3F4245" Height="16" Width="49" />
+
+            <TextBlock  x:Name ="StatusLable" Text="Status:" Grid.Row="8" Grid.Column="1" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Foreground="#FF3F4245" Height="16" Width="49" />
             <ComboBox x:Name ="status" 
                 Grid.Row="8" 
                 Grid.Column="2"
@@ -178,7 +184,6 @@
                 SelectedItem="{Binding SelectedParcelStatus}"
                 VerticalAlignment="Bottom" Height="25" IsEnabled="False" />
         </Grid>
-
     </Grid>
 </Window>
     

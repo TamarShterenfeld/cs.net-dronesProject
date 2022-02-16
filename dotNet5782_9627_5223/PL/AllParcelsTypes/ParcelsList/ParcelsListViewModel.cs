@@ -108,16 +108,7 @@ namespace PL
         public event PropertyChangedEventHandler PropertyChanged;
 
         //---------------------------------Stations's Methods------------------------------
-        /// <summary>
-        /// the function treats the event of clicking on the button 'Cancel'.
-        /// </summary>
-        /// <param name="sender">the invoking object</param>
-        /// <param name="e">the event</param>
-
-        /// <summary>
-        /// the function treats the event of clicking on the button 'Add'.
-        /// </summary>
-
+       
         private void DroneListView_MouseDoubleClick(object sender)
         {
             new ParcelView(new ParcelViewModel(sender as BO.ParcelForList, bl)).Show();

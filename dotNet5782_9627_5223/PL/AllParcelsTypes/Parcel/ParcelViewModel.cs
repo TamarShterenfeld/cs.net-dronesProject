@@ -18,19 +18,26 @@ using static PL.Validation;
 using static IBL.BL;
 using DO;
 using System.ComponentModel;
+using BO;
 
 namespace PL
 {
     public class ParcelViewModel : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
+        #region Private Fields
+        //---------------------------------------PrivateFields-----------------------------------------
         BLApi.IBL bl;
         string selectedParcelAction, selectedWeight, selectedPriority, selectedParcelStatus;
         IList<string> nullString = new List<string>() { "" };
-        IList<string> statuses = Enum.GetNames(typeof(ParcelStatuses));
+        IList<string> statuses = Enum.GetNames(typeof(POConverter.ParcelStatuses));
         IList<string> weights = Enum.GetNames(typeof(POConverter.WeightCategories));
         IList<string> priorities = Enum.GetNames(typeof(POConverter.Priorities));
-        IList<string> parcelActions = Enum.GetNames(typeof(ParcelActions)).TakeLast<string>(2).ToList();
+        IList<string> parcelActions = Enum.GetNames(typeof(POConverter.ParcelActions)).TakeLast<string>(2).ToList();
+        #endregion
+
+        #region Properties
+        //---------------------------------------Properties-----------------------------------------
+        public event PropertyChangedEventHandler PropertyChanged;
         public string Cursor { get; set; }
         public bool EnableUpdate { get; set; }
         public string State { get; set; }
@@ -38,9 +45,9 @@ namespace PL
         public ListCollectionView Statuses { get; set; }
         public ListCollectionView Weights { get; set; }
         public ListCollectionView Priorities { get; set; }
-        public ListCollectionView ParcelActions { get; set; }
+        public ListCollectionView MyParcelActions { get; set; }
         public string SelectedWeight { set { selectedWeight = value; MyParcel.Weight = (POConverter.WeightCategories)Enum.Parse(typeof(POConverter.WeightCategories), value); PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedWeight))); } get => selectedWeight; }
-        public string SelectedPriority { set { selectedPriority = value;  PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedPriority))); } get => selectedPriority; }
+        public string SelectedPriority { set { selectedPriority = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedPriority))); } get => selectedPriority; }
         public string SelectedParcelStatus { set { selectedParcelStatus = value; MyParcel.Status = (POConverter.ParcelStatuses)Enum.Parse(typeof(POConverter.ParcelStatuses), value); PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedParcelStatus))); } get => selectedParcelStatus; }
         public RelayCommand AddOrUpdate { get; set; }
         public RelayCommand Delete { get; set; }
@@ -48,7 +55,73 @@ namespace PL
         public RelayCommand LeftDoubleClick_Target { get; set; }
         public RelayCommand LeftDoubleClick_Drone { get; set; }
         public RelayCommand Cancel { set; get; }
+        public string SelectedParcelAction
+        {
+            set
+            {
+                selectedParcelAction = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedParcelAction)));
+                NotInitalizeRule n1 = new();
+                if (!(IsAllValid() && IsValid(MyParcel.DroneId, n1)) && value!= "")
+                {
+                    MessageBox.Show("Not all the fields are filled with correct values\nThis action is invalid!");
+                    return;
+                }
 
+                switch (selectedParcelAction)
+                {
+                    case nameof(POConverter.ParcelActions.PickUp):
+                        {
+
+                            try
+                            {
+                                bl.PickUpParcel(MyParcel.DroneId);
+                                MessageBox.Show("Parcel has been pickedUp successfully!");
+                            }
+                            catch (ParcelStatusException exe)
+                            {
+                                MessageBox.Show($"Parcel's status: {exe.ParcelStatus} isn't valid for picking it up.");
+                            }
+                            catch (DroneStatusException exe)
+                            {
+                                MessageBox.Show($"Drone's status: {exe.Status} isn't valid for picking it up.");
+                            }
+                            catch (ParcelActionsException exe)
+                            {
+                                MessageBox.Show($"Parcel Action: {exe.Action} wasn't succeeded in being completed.");
+                            }
+                        }
+                        break;
+
+                    case nameof(POConverter.ParcelActions.Supply):
+                        {
+                            try
+                            {
+                                bl.SupplyParcel(MyParcel.DroneId);
+                                MessageBox.Show("Parcel is supplied successfully!");
+                            }
+                            catch (ParcelStatusException exe)
+                            {
+                                MessageBox.Show($"Parcel's status: {exe.ParcelStatus} isn't valid for supplying it.");
+                            }
+                            catch (ParcelActionsException exe)
+                            {
+                                MessageBox.Show($"Parcel Action: {exe.Action} wasn't succeeded in being completed.");
+                            }
+                            break;
+                        }
+                }
+            }
+            get
+            {
+                return selectedParcelStatus;
+            }
+        }
+
+        #endregion
+
+        #region Constructors
+        //-----------------------------------Constructors-----------------------------------------
         public ParcelViewModel(BO.ParcelForList parcel, BLApi.IBL bl)
         {
             this.bl = bl;
@@ -59,7 +132,7 @@ namespace PL
             Statuses = new ListCollectionView(nullString.Concat<string>(statuses).ToList());
             Weights = new ListCollectionView(nullString.Concat<string>(weights).ToList());
             Priorities = new ListCollectionView(nullString.Concat<string>(priorities).ToList());
-            ParcelActions = new ListCollectionView(nullString.Concat<string>(parcelActions).ToList());
+            MyParcelActions = new ListCollectionView(nullString.Concat<string>(parcelActions).ToList());
             Cancel = new(ButtonClick_Cancel);
             EnableUpdate = false;
             State = "Update";
@@ -75,8 +148,7 @@ namespace PL
             this.bl = bl;
             MyParcel = new();
             MyParcel.ParcelId = GetParcelIndex() + 1;
-            MyParcel.Status = ParcelStatuses.Production;
-            SelectedParcelAction = nameof(ParcelStatuses.Production);
+            MyParcel.Status = POConverter.ParcelStatuses.Production;
             Cancel = new(ButtonClick_Cancel, null);
             AddOrUpdate = new(Button_ClickAdd, null);
             EnableUpdate = true;
@@ -88,70 +160,42 @@ namespace PL
             Statuses = new ListCollectionView(nullString.Concat<string>(statuses).ToList());
             Weights = new ListCollectionView(nullString.Concat<string>(weights).ToList());
             Priorities = new ListCollectionView(nullString.Concat<string>(priorities).ToList());
-            ParcelActions = new ListCollectionView(nullString.Concat<string>(parcelActions).ToList());
+            MyParcelActions = new ListCollectionView(nullString.Concat<string>(parcelActions).ToList());
             LeftDoubleClick_Sender = new(DoubleClick_Sender, null);
             LeftDoubleClick_Target = new(DoubleClick_Target, null);
             LeftDoubleClick_Drone = new(DoubleClick_Drone, null);
         }
+        #endregion
 
-        public string SelectedParcelAction
-        {
-            set
-            {
-                selectedParcelAction = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedParcelAction)));
-                if (selectedParcelStatus == "PickUp")
-                {
-                    if (MyParcel.Status == ParcelStatuses.Associated)
-                    {
-                        bl.PickUpParcel(MyParcel.DroneId);
-                        //צריך לטפל במקרה של חריגות.
-                        MessageBox.Show("Parcel is pickedUp successfully!");
-                    }
-                    else
-                    {
-                        MessageBox.Show("Parcel's status isn't valid for picking it up.");
-                    }
-                }
-                if (selectedParcelStatus == "Supply")
-                {
-                    if (MyParcel.Status == ParcelStatuses.PickedUp)
-                    {
-                        bl.SupplyParcel(MyParcel.DroneId);
-                        //צריך לטפל במקרה של חריגות.
-                        MessageBox.Show("Parcel is supplied successfully!");
-                    }
-                    else
-                    {
-                        MessageBox.Show("Parcel's status isn't valid for suppling it.");
-                    }
-                }
-            }
-            get
-            {
-                return selectedParcelStatus;
-            }
-        }
-
+        #region Buttons
+        //---------------------------------------Buttons-----------------------------------------
         public void ButtonClick_Cancel(object sender)
         {
             (sender as Window).Close();
         }
 
+        #endregion
+
+        #region DoubleClick_Events
+        //---------------------------------------DoubleClick_Events-----------------------------------------
         private void DoubleClick_Sender(object sender)
         {
             new CustomerView(new CustomerViewModel(bl, bl.GetCustomerForList(MyParcel.SenderId))).Show();
         }
 
         private void DoubleClick_Target(object sender)
-        {
+        {          
             new CustomerView(new CustomerViewModel(bl, bl.GetCustomerForList(MyParcel.TargetId))).Show();
         }
-
         private void DoubleClick_Drone(object sender)
         {
             new DroneView(new DroneViewModel(bl, DroneForListBOToPO(bl.GetDroneForList(MyParcel.DroneId)))).Show();
         }
+        #endregion
+
+        #region CRUD Events
+        //------------------------------------CRUD Events------------------------------------------------
+
         private void Button_ClickDelete(object sender)
         {
             if (!IsAllValid())
@@ -159,14 +203,10 @@ namespace PL
                 MessageBox.Show("Not all the fields are filled with correct values\nThis action is invalid!");
                 return;
             }
-            if (MyParcel.Status != ParcelStatuses.Production)
+            if (MyParcel.Status != POConverter.ParcelStatuses.Production)
             {
                 MessageBox.Show("Can not delete this parcel since \nit has been associated already.");
                 return;
-            }
-            if (MyParcel == null)
-            {
-                MessageBox.Show("No parcel was chosen, \nnot possible deleting nothing.");
             }
             try
             {
@@ -180,18 +220,6 @@ namespace PL
 
             }
         }
-
-        private void CheckStatus_Changed(ParcelStatuses status)
-        {
-            ParcelStatuses originalStatus = MyParcel.Status;
-            CheckValidationOfStatus(originalStatus, status);
-        }
-
-        private void CheckValidationOfStatus(ParcelStatuses originalStatus, ParcelStatuses status)
-        {
-            BO.DroneForList drone = bl.GetDroneForList(MyParcel.DroneId);
-
-        }
         private void Button_ClickAdd(object sender)
         {
             if (!IsAllValid())
@@ -201,6 +229,7 @@ namespace PL
             }
             try
             {
+                MyParcel.Priority = (POConverter.Priorities)Enum.Parse(typeof(POConverter.Priorities), SelectedPriority);
                 bl.Add(ParcelPoToBo(MyParcel));
                 ListsModel.Instance.AddParcel(MyParcel.ParcelId);
                 MessageBox.Show("The parcel has been added successfully!\nPay attention - the last valid input is saved.");
@@ -225,20 +254,23 @@ namespace PL
             try
             {
                 int droneId = MyParcel.DroneId;
-                if (droneId != 0)
+                NotInitalizeRule n1 = new();
+                if (!IsValid(MyParcel.DroneId, n1))
                 {
                     if (SelectedPriority != ((object)MyParcel.Priority).ToString())
                     {
-                        MessageBox.Show($"This action isn't valid for the chosen drone can't carry such a weight\nchoose another drone that can carry the {MyParcel.Weight} weight.");
+                        MyParcel.Priority = (POConverter.Priorities)Enum.Parse(typeof(POConverter.Priorities), SelectedPriority);
+                        bl.UpdateParcel(ParcelPoToBo(MyParcel));
+                        ListsModel.Instance.UpdateParcel(MyParcel.ParcelId);
+                        MessageBox.Show("The parcel has been updated successfully!\nPay attention - the last valid input is saved.");
                         return;
                     }
-                    MyParcel.Priority = (POConverter.Priorities)Enum.Parse(typeof(POConverter.Priorities), SelectedPriority);
-
+                    else
+                    {
+                        MessageBox.Show("No changes have been done.\nThere's no what to update.");
+                        return;
+                    }
                 }
-
-                bl.UpdateParcel(ParcelPoToBo(MyParcel));
-                ListsModel.Instance.UpdateParcel(MyParcel.ParcelId);
-                MessageBox.Show("The parcel has been updated successfully!\nPay attention - the last valid input is saved.");
             }
             catch (IntIdException exe)
             {
@@ -246,14 +278,10 @@ namespace PL
                 return;
             }
         }
+        #endregion
 
-        //there's no option to update something in parcel entity.
-        //private void Button_ClickUpdate(object sender)
-        //{
-        //    bl.UpdateParcel(ParcelPoToBo(Parcel));
-        //    ListsModel.Instance.UpdateParcel(Parcel.ParcelId);
-        //}
-
+        #region Validation
+        //---------------------------------------Validation-----------------------------------
         bool IsAllValid()
         {
             NotEmptyRule n1 = new();
@@ -268,8 +296,9 @@ namespace PL
             return IsValid(MyParcel.ParcelId, n1, n2, n4) &&
                 IsValid(MyParcel.SenderId, n1, n2, n4, n7) &&
                 IsValid(MyParcel.TargetId, n1, n2, n4, n7) &&
-                IsValid(MyParcel.DroneId, n1, n2, n4);
+                IsValid(MyParcel.DroneId, n1, n2, n6);
         }
+        #endregion
     }
 }
 

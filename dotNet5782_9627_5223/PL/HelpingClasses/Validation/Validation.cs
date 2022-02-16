@@ -9,8 +9,6 @@ namespace PL
         
         internal static bool IsValidPhone(string phone)
         {
-            int length = phone.Length;
-            if (length < 9) return false;
             if(phone[0] != '0') return false;
             foreach (char ch in phone)
             {
@@ -35,14 +33,22 @@ namespace PL
             return true;
         }
 
+        internal static bool IsValidNumber(string name)
+        {
+            if (name == null) return true;
+
+            foreach (char ch in name)
+            {
+                if (!Char.IsDigit(ch)) return false;
+            }
+            return true;
+        }
+
         internal static bool IsValidStringId(string name)
         {
             return name.Length == 9;
         }
-        internal static bool IsValidEnumOption<T>(int option)
-        {
-            return option >= 0 && option < Enum.GetValues(typeof(T)).Length;
-        }
+        
         internal static bool  IsValid(object target, params ValidationRule[] validations)
         {
             CultureInfo c1 = new(1);
