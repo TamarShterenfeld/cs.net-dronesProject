@@ -151,7 +151,7 @@ namespace IBL
         /// </summary>
         /// <param name="baseStationForLists"></param>
         /// <returns></returns>
-        IEnumerable<BaseStation> ConvertBaseStationsForListToBaseStation(List<BaseStationForList> baseStationForLists)
+        public IEnumerable<BaseStation> ConvertBaseStationsForListToBaseStation(List<BaseStationForList> baseStationForLists)
         {
             List<BaseStation> baseStations = new();
             foreach (BaseStationForList item in baseStationForLists)

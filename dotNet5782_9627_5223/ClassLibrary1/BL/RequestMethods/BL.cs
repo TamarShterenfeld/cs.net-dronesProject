@@ -23,6 +23,9 @@ namespace IBL
         internal readonly double[] BatteryUsages;
         internal const int DRONE_FREE = 0;
         internal const int DRONE_CHARGE = 4;
+
+        double[] BLApi.IBL.BatteryUsages => BatteryUsages;
+
         BL()
         {
             dal = DalApi.DalFactory.GetDal();

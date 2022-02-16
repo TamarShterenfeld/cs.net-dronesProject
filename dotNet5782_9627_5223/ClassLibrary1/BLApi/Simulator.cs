@@ -1,6 +1,7 @@
 ﻿using BO;
 using DO;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using static System.Math;
 
@@ -9,7 +10,7 @@ namespace IBL
     internal class Simulator
     {
         enum Maintenance { Starting, Going, Charging }
-        enum BatteryUsage { Available, Light, Medium, Heavy, Charging }
+
         private const double VELOCITY = 1.0;
         private const int DELAY = 500;
         private const double TIME_STEP = DELAY / 1000.0;
@@ -17,26 +18,26 @@ namespace IBL
 
         public Simulator(BLApi.IBL Bl, int droneId, Action updateDrone, Func<bool> checkStop)
         {
-            BL bl = Bl as BL;
-            var dal = bl.dal;
+            BLApi.IBL bl = Bl;
+            DalApi.IDal dal = DalApi.DalFactory.GetDal();
             var drone = bl.GetDroneForList(droneId);
-            int? parcelId = null;
-            int? baseStationId = null;
+            int parcelId = 0;
+            BO.Parcel parcel = drone.ParcelId == 0? null: bl.GetBLParcel(drone.ParcelId);
+            int baseStationId = 0;
             BO.BaseStation station = null;
             double distance = 0.0;
             int batteryUsage = 0;
-            DO.Parcel? parcel = null;
             bool pickedUp = false;
             BO.Customer customer = null;
             Maintenance maintenance = drone.Status == DroneStatuses.Maintenance ? Maintenance.Charging : Maintenance.Starting;
 
-            void initDelivery(int id)
-            {
-                parcel = dal.GetParcel(id);
-                batteryUsage = (int)Enum.Parse(typeof(BatteryUsage), parcel?.Weight.ToString());
-                pickedUp = parcel?.PickUpDate is not null;
-                customer = bl.GetBLCustomer(pickedUp ? parcel?.TargetId : parcel?.SenderId);
-            }
+            //void initDelivery(int id)
+            //{
+            //    parcel = dal.GetParcel(id);
+            //    batteryUsage = (int)Enum.Parse(typeof(BatteryUsage), parcel?.Weight.ToString());
+            //    pickedUp = parcel?.PickUpDate is not null;
+            //    customer = bl.GetBLCustomer(pickedUp ? parcel?.TargetId : parcel?.SenderId);
+            //}
 
             do
             {
@@ -52,19 +53,43 @@ namespace IBL
                             {
                                 lock (bl)
                                 {
-                                    bl.AssociateParcel(droneId);
-                                    parcelId = bl.GetBLDrone(droneId).Parcel?.Id;
+                                    //bl.AssociateParcel(droneId);
+                                    //parcel = bl.GetBLParcel(drone.ParcelId);
+                                    parcel = bl.associateparcel(drone);
+                                    parcelId = parcel != default(BO.Parcel) ? parcel.Id : 0;
                                     switch (parcelId, drone.Battery)
                                     {
-                                        case (null, 100):
+                                        case (default(int), 100):
                                             break;
 
-                                        case (null, _):
-                                            if (baseStationId != null)
+                                        case (default(int), _):
+                                            if (baseStationId != default(int))
                                             {
+                                                //baseStationId = bl.FindClosestBaseStation(drone, charge: true)?.Id;
+                                                //if (baseStationId != null)
+                                                //{
+                                                //    drone.Status = DroneStatuses.Maintenance;
+                                                //    maintenance = Maintenance.Starting;
+                                                //    dal.BaseStationDroneIn((int)baseStationId);
+                                                //    dal.AddDroneCharge(droneId, (int)baseStationId);
+                                                //}
                                                 drone.Status = DroneStatuses.Maintenance;//
                                                 maintenance = Maintenance.Starting;
                                             }
+                                            break;
+                                        case (_, _):
+                                            try
+                                            {
+                                                parcel.AssociationDate = DateTime.Now;
+                                                parcel.MyDrone = new(drone.Id,drone.Battery, 
+                                                        new(new(drone.Location.CoorLongitude.InputCoorValue, BO.Locations.Longitude), new(drone.Location.CoorLatitude.InputCoorValue, BO.Locations.Latitude)) );                                               
+                                                drone.ParcelId = parcelId;
+                                                customer = bl.GetBLCustomer(parcel.Sender.Id);
+                                                bl.UpdateParcel(parcel);
+                                                //initDelivery(parcelId);
+                                                drone.Status = DroneStatuses.Shipment;
+                                            }
+                                            catch (Exception ex) { throw new Exception("Internal error getting parcel", ex); }
                                             break;
                                     }
                                 }
@@ -85,7 +110,11 @@ namespace IBL
                             case Maintenance.Starting:
                                 lock (bl)
                                 {
-                                    try { station = bl.GetBLBaseStation(dal.GetDroneChargeBaseStationId(droneId)); }
+                                    try
+                                    {
+                                        List<BO.BaseStation> baseStations1 = (List<BO.BaseStation>)bl.ConvertBaseStationsForListToBaseStation((List<BO.BaseStationForList>)bl.GetAvailableChargeSlots());
+                                        station = bl.NearestBaseStation(drone, baseStations1);
+                                    }
                                     catch (IntIdException ex) { throw new IntIdException("Internal error base station", ex); }
                                     distance = drone.Distance(station);
                                     maintenance = Maintenance.Going;
@@ -106,26 +135,21 @@ namespace IBL
                                     lock (bl)
                                     {
                                         double delta = distance < STEP ? distance : STEP;
-                                        double proportion = delta / distance;//
                                         distance -= delta;
                                         drone.Battery = Max(0.0, drone.Battery - delta * bl.BatteryUsages[BL.DRONE_FREE]);
-                                        double lat = drone.Location.CoorLatitude.InputCoorValue + (customer.Location.CoorLatitude.InputCoorValue - drone.Location.CoorLatitude.InputCoorValue) * proportion;//
-                                        double lon = drone.Location.CoorLongitude.InputCoorValue + (customer.Location.CoorLongitude.InputCoorValue - drone.Location.CoorLongitude.InputCoorValue) * proportion;//
-                                        drone.Location = new(new BO.Coordinate(lon, BO.Locations.Longitude), new BO.Coordinate(lat, BO.Locations.Latitude));//
                                     }
                                 }
                                 break;
 
                             case Maintenance.Charging:
                                 if (drone.Battery == 100)
-                                    lock (bl)
+                                {
+                                    lock (dal)
                                     {
                                         drone.Status = DroneStatuses.Available;
-                                        lock (dal)
-                                        {
-                                            dal.ReleaseDroneFromRecharge(droneId);
-                                        }
+                                        dal.ReleaseDroneFromRecharge(droneId);
                                     }
+                                } 
                                 else
                                 {
                                     if (!sleepDelayTime()) break;
@@ -139,26 +163,21 @@ namespace IBL
                         break;
 
                     case DroneForList { Status: DroneStatuses.Shipment }:
-                        lock (bl)
-                        {
-                            try { if (parcelId == null) initDelivery(drone.ParcelId); }
-                            catch (IntIdException ex) { throw new IntIdException("Internal error getting parcel", ex); }
-                            distance = drone.Distance(customer);
-                        }
-
+                        
+                        distance = drone.Distance(customer);
                         if (distance < 1 || drone.Battery == 0.0)
                             lock (bl)
                             {
                                 drone.Location = customer.Location;
                                 if (pickedUp)
                                 {
-                                    bl.SupplyParcel((int)parcel?.Id);
+                                    bl.SupplyParcel(drone.Id);
                                     drone.Status = DroneStatuses.Available;
                                 }
                                 else
                                 {
-                                    bl.PickUpParcel((int)parcel?.Id);
-                                    customer = bl.GetBLCustomer(parcel?.TargetId);
+                                    bl.PickUpParcel(drone.Id);
+                                    customer = bl.GetBLCustomer(parcel.Target.Id);
                                     pickedUp = true;
                                 }
                             }
@@ -167,6 +186,7 @@ namespace IBL
                             if (!sleepDelayTime()) break;
                             lock (bl)
                             {
+                                batteryUsage = (int)Enum.Parse(typeof(BatteryUsage), parcel?.Weight.ToString());
                                 double delta = distance < STEP ? distance : STEP;
                                 double proportion = delta / distance;
                                 drone.Battery = Max(0.0, drone.Battery - delta * bl.BatteryUsages[pickedUp ? batteryUsage : BL.DRONE_FREE]);
@@ -175,6 +195,7 @@ namespace IBL
                                 drone.Location = new(new BO.Coordinate(lon, BO.Locations.Longitude), new BO.Coordinate(lat, BO.Locations.Latitude));
                             }
                         }
+
                         break;
 
                     default:

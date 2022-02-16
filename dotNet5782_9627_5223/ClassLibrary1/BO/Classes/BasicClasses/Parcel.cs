@@ -16,7 +16,7 @@ namespace BO
         DateTime? associationDate = null;
         DateTime? pickUpDate = null;
         DateTime? supplyDate = null;        
-        DroneInParcel drone = null;
+        DroneInParcel drone = new();
         public int Id
         {
             get { return id; }
