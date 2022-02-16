@@ -23,7 +23,6 @@ namespace IBL
             DroneForList drone = bl.GetDroneForList(droneId);
             int parcelId = 0;
             BO.Parcel parcel = drone.ParcelId == 0? null: bl.GetBLParcel(drone.ParcelId);
-            int baseStationId = 0;
             BO.BaseStation station = null;
             double distance = 0.0;
             int batteryUsage = 0;
@@ -51,11 +50,8 @@ namespace IBL
                                             break;
 
                                         case (default(int), _):
-                                            if (baseStationId != default(int))
-                                            {
-                                                drone.Status = DroneStatuses.Maintenance;//
-                                                maintenance = Maintenance.Starting;
-                                            }
+                                            drone.Status = DroneStatuses.Maintenance;
+                                            maintenance = Maintenance.Starting;
                                             break;
                                         case (_, _):
                                             try
