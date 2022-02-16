@@ -120,7 +120,7 @@ namespace IBL
                                 isAssociate = true;
                                 currentDrone.Status = DroneStatuses.Shipment;
                                 currentDrone.ParcelId = parcel.Id;
-                                if (BatteryRemainedInLastDestination(currentDrone, parcel) == 0)
+                                if (BatteryRemainedInLastDestination(currentDrone, parcel) <= 0)
                                 {
                                     if (nearestBaseStation.ChargeSlots > 0)
                                     {
@@ -128,6 +128,10 @@ namespace IBL
                                         DO.DroneCharge droneCharge = new() { DroneId = currentDrone.Id, StationId = nearestBaseStation.Id, EntryTime = DateTime.Now };
                                         dal.Add(droneCharge);
                                     }
+                                }
+                                else
+                                {
+                                    currentDrone.Battery = BatteryRemainedInLastDestination(currentDrone, parcel);
                                 }
                             }
                             currentDrone.Status = DroneStatuses.Shipment;
