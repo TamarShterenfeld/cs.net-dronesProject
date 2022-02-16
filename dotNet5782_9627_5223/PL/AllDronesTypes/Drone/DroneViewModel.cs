@@ -123,7 +123,6 @@ namespace PL
             EnableUpdate = true;
             LeftDoubleClick = new(doubleClickParcel, null);
             MyDroneActions = new ListCollectionView(nullString.Concat<string>(droneActions).ToList());
-            if (Drone.Status.ToString() == "") { Drone.Status = POConverter.DroneStatuses.Available; }
             StationsId = new ListCollectionView(bl.GetAvailableChargeSlots().ToList());
         }
 

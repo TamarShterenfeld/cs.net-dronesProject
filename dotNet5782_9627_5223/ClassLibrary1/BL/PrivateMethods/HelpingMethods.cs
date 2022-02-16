@@ -88,8 +88,8 @@ namespace IBL
         /// <returns>the nearest baseStation</returns>
         public BaseStation NearestBaseStation(ILocatable location, List<BaseStation> baseStations)
         {
-            double minDistance = baseStations.Min(station => station.Distance(location));
-            return baseStations.FirstOrDefault(item =>item.Distance(location) == minDistance);
+            double minDistance = baseStations.Min(station => location.Distance(station));
+            return baseStations.FirstOrDefault(item => location.Distance(item) == minDistance);
         }
 
         /// <summary>

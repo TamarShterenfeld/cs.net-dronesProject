@@ -30,6 +30,11 @@ namespace IBL
             BO.Customer customer = null;
             Maintenance maintenance = drone.Status == DroneStatuses.Maintenance ? Maintenance.Charging : Maintenance.Starting;
 
+            void calculateDistance()
+            {
+
+            }
+
             do
             {
                 switch (drone)
