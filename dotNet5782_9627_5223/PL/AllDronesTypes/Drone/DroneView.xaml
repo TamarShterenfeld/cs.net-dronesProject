@@ -63,6 +63,7 @@
                         <local:NotEmptyRule ValidatesOnTargetUpdated="True"/>
                         <local:NumberRule ValidatesOnTargetUpdated="True" />
                         <local:RealPositiveNumberRule  ValidatesOnTargetUpdated="True"/>
+                        <local:NotInitalizeRule ValidatesOnTargetUpdated="True"/>
                     </Binding.ValidationRules>
                 </Binding>
             </TextBox.Text>
@@ -130,17 +131,6 @@
                 Text="{Binding Drone.Parcel.Id}"
                 IsEnabled="False"  VerticalAlignment="Center" 
             HorizontalAlignment="Center"/>
-            <!--<TextBox x:Name="line"
-                Width="140" IsEnabled="False" Height="19" >
-                <TextBox.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform ScaleY="1"/>
-                        <SkewTransform/>
-                        <RotateTransform/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </TextBox.RenderTransform>
-            </TextBox>-->
         </StackPanel>
 
         <TextBlock Text="Longitude:" Grid.Row="7" Grid.Column="1" Foreground="#FF3F4245"/>

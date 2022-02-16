@@ -86,49 +86,6 @@ namespace IBL
             return num;
         }
 
-        /// <summary>
-        /// the function converts a IDal.DO.Parcel object to a BO.Parcel object.
-        /// </summary>
-        /// <param name="parcel">the IDal.DO parcel object</param>
-        /// <returns>a BO.Parcel object</returns>
-         Parcel ParcelDOtOBO(DO.Parcel parcel)
-        {
-            Parcel BOParcel = new()
-            {
-                Id = parcel.Id,
-                Sender = GetCustomrInParcel(parcel.SenderId),
-                Target = GetCustomrInParcel(parcel.TargetId),
-                Weight = (BO.WeightCategories)parcel.Weight,
-                Priority = (BO.Priorities)parcel.Priority,
-                MyDrone = GetBLDroneInParcel(parcel.DroneId),
-                ProductionDate = parcel.ProductionDate,
-                AssociationDate = parcel.AssociationDate,
-                PickUpDate = parcel.PickUpDate,
-                SupplyDate = parcel.SupplyDate
-            };
-            return BOParcel;
-        }
-
-        /// <summary>
-        /// convert Coordinate object from BO to DO
-        /// </summary>
-        /// <param name="coor">BO coordinate</param>
-        /// <returns>DO coordinate</returns>
-        DO.Coordinate CoordinateBoToDo(BO.Coordinate coor)
-        {
-            return new DO.Coordinate() { InputCoorValue = coor.InputCoorValue, Degrees = coor.Degrees, Direction = (DO.Directions)coor.Direction, MyLocation = (DO.Locations)coor.MyLocation , Minutes = coor.Minutes, Seconds = coor.Seconds};
-        }
-
-        /// <summary>
-        /// convert Coordinate object from DO to BO
-        /// </summary>
-        /// <param name="coor">DO coordinate</param>
-        /// <returns>BO coordinate</returns>
-        static BO.Coordinate CoordinateDoToBo(DO.Coordinate coor)
-        {
-            return new BO.Coordinate() { InputCoorValue = coor.InputCoorValue, Degrees = coor.Degrees, Direction = (BO.Directions)coor.Direction, MyLocation = (BO.Locations)coor.MyLocation, Minutes = coor.Minutes, Seconds = coor.Seconds };
-        }
-
         ParcelStatuses ParcelStatus(DO.Parcel parcel)
         {
             if (parcel.AssociationDate == null)

@@ -14,21 +14,48 @@ namespace PL
         public class Parcel
         {
 
+            #region Constructors
             public Parcel(BLApi.IBL bl, BO.ParcelForList parcelForList)
             {
                 ParcelId = parcelForList.ParcelId;
                 SenderId = parcelForList.SenderId;
                 TargetId = parcelForList.TargetId;
                 DroneId = parcelForList.DroneId;
-                Weight = (POConverter.WeightCategories)(int)parcelForList.Weight;
-                Priority = (POConverter.Priorities)(int)parcelForList.Priority;
-                Status = (POConverter.ParcelStatuses)(int)parcelForList.Status;
+                Weight = (POConverter.WeightCategories)Enum.Parse(typeof(POConverter.WeightCategories), parcelForList.Weight.ToString());
+                Priority = (POConverter.Priorities)Enum.Parse(typeof(POConverter.Priorities), parcelForList.Priority.ToString());
+                Status = (POConverter.ParcelStatuses)Enum.Parse(typeof(POConverter.ParcelStatuses), parcelForList.Status.ToString());
+            }
+              /// <summary>
+            /// default constructor
+            /// </summary>
+            public Parcel() { }
+
+            /// <summary>
+            /// a constructor with parameters.
+            /// </summary>
+            /// <param name="droneId"></param>
+            /// <param name="parcelId"></param>
+            /// <param name="senderId"></param>
+            /// <param name="targetId"></param>
+            /// <param name="weight"></param>
+            /// <param name="priority"></param>
+            /// <param name="status"></param>
+            public Parcel(int droneId, int parcelId, string senderId, string targetId, BO.WeightCategories weight, BO.Priorities priority, BO.ParcelStatuses status)
+            {
+                DroneId = droneId; ParcelId = parcelId; SenderId = senderId; TargetId = targetId; Weight = (POConverter.WeightCategories)(int)weight; Priority = (POConverter.Priorities)(int)priority; Status = (POConverter.ParcelStatuses)(int)status;
             }
 
+
+            #endregion
+
+            #region PrivateFields
             int parcelId;
             string senderId;
             string targetId;
             int droneId;
+            #endregion
+
+            #region Properties
             public int DroneId
             {
                 get { return droneId; }
@@ -69,31 +96,13 @@ namespace PL
                     targetId = value;
                 }
             }
-
             public POConverter.WeightCategories Weight { get; set; }
             public POConverter.Priorities Priority { set; get; }
             public POConverter.ParcelStatuses Status { set; get; }
 
-            /// <summary>
-            /// default constructor
-            /// </summary>
-            public Parcel() { }
+            #endregion
 
-            /// <summary>
-            /// a constructor with parameters.
-            /// </summary>
-            /// <param name="droneId"></param>
-            /// <param name="parcelId"></param>
-            /// <param name="senderId"></param>
-            /// <param name="targetId"></param>
-            /// <param name="weight"></param>
-            /// <param name="priority"></param>
-            /// <param name="status"></param>
-            public Parcel(int droneId, int parcelId, string senderId, string targetId, BO.WeightCategories weight, BO.Priorities priority, BO.ParcelStatuses status)
-            {
-                DroneId = droneId; ParcelId = parcelId; SenderId = senderId; TargetId = targetId; Weight = (POConverter.WeightCategories)(int)weight; Priority = (POConverter.Priorities)(int)priority; Status = (POConverter.ParcelStatuses)(int)status;
-            }
-
+            #region ToString
             /// <summary>
             /// override ToString function.
             /// </summary>
@@ -109,6 +118,7 @@ namespace PL
                         $"status: {Status}";
 
             }
+            #endregion
         }
     }
 

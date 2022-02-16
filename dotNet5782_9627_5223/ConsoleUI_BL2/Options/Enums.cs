@@ -12,7 +12,7 @@ namespace ConsoleUI_BL
     /// </summary>
     public enum Options
     {
-        Add = 1, UpDate, Display, ShowLists, Exit
+        Add, UpDate, Display, ShowLists, Exit
     }
 
    /// <summary>
@@ -20,7 +20,7 @@ namespace ConsoleUI_BL
    /// </summary>
     public enum AddOptions
     {
-        BaseStation = 1, Drone, Customer, Parcel,
+        BaseStation, Drone, Customer, Parcel,
     }
 
     /// <summary>
@@ -28,7 +28,7 @@ namespace ConsoleUI_BL
     /// </summary>
     public enum UpDateOptions
     {
-        UpdateDrone = 1, UpdateBaseStation, UpdateCustomer,  ChargeDrone, StopDroneCharge, AssociationParcel, PickUpParcel, SupplyParcel, 
+        UpdateDrone, UpdateBaseStation, UpdateCustomer,  ChargeDrone, StopDroneCharge, AssociationParcel, PickUpParcel, SupplyParcel, 
     }
 
     /// <summary>
@@ -36,7 +36,7 @@ namespace ConsoleUI_BL
     /// </summary>
     public enum DisplayOptions
     {
-        BaseStation = 1, Drone, Customer, Parcel,
+        BaseStation, Drone, Customer, Parcel,
     }
 
     /// <summary>
@@ -44,7 +44,7 @@ namespace ConsoleUI_BL
     /// </summary>
     public enum ShowingListsOptions
     {
-        BaseStations = 1, Drones, Customers, Parcels, NotAssociatedParcels, AvailableChargeSlots,
+        BaseStations, Drones, Customers, Parcels, NotAssociatedParcels, AvailableChargeSlots,
     }
 }
 

@@ -38,7 +38,7 @@ namespace PL
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             if (value == null) return new ValidationResult(false, "Required.");
-            return int.Parse(value.ToString()) > 0 ? ValidationResult.ValidResult : new ValidationResult(false, "Input has to contain a real positive value.");
+            return long.Parse(value.ToString()) > 0 ? ValidationResult.ValidResult : new ValidationResult(false, "Input has to contain a real positive value.");
         }
     }
 
@@ -47,7 +47,7 @@ namespace PL
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             if (value == null) return new ValidationResult(false, "Required.");
-            return int.Parse(value.ToString()) >= 0 ? ValidationResult.ValidResult : new ValidationResult(false, "Input has to contain a positive value.");
+            return long.Parse(value.ToString()) >= 0 ? ValidationResult.ValidResult : new ValidationResult(false, "Input has to contain a positive value.");
         }
     }
 
@@ -56,7 +56,7 @@ namespace PL
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             if (value == null) return new ValidationResult(false, "Required.");
-            return double.Parse(value.ToString()) >= 0 ? ValidationResult.ValidResult : new ValidationResult(false, "Input has to contain a positive value.");
+            return  double.Parse(value.ToString()) >= 0 ? ValidationResult.ValidResult : new ValidationResult(false, "Input has to contain a positive value.");
         }
     }
     class NumberRule : ValidationRule
@@ -64,7 +64,7 @@ namespace PL
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             if (value == null) return new ValidationResult(false, "Required.");
-            return int.TryParse(value.ToString(), out int num) ? ValidationResult.ValidResult : new ValidationResult(false, "Input has to contain an integral value.");
+            return Validation.IsValidNumber(value.ToString()) ? ValidationResult.ValidResult : new ValidationResult(false, "Input has to contain only digits.");
         }
     }
 
@@ -86,8 +86,14 @@ namespace PL
         }
     }
 
+    class NotInitalizeRule : ValidationRule
+    {
+        public override ValidationResult Validate(object value, CultureInfo cultureInfo)
+        {
+            return long.Parse(value.ToString()) != 0 ? ValidationResult.ValidResult : new ValidationResult(false, "Not initalized field.");
+        }
+    }
 
-   
 }
 
 
