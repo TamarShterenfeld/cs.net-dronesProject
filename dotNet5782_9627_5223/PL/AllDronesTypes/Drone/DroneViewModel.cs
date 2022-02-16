@@ -18,8 +18,8 @@ namespace PL
         BLApi.IBL bl;
         object coorLon, coorLat;
         IList<string> nullString = new List<string>() { "" };
-        IList<string> statuses = Enum.GetNames(typeof(POConverter.ParcelStatuses));
-        IList<string> weights = Enum.GetNames(typeof(POConverter.ParcelStatuses));
+        IList<string> statuses = Enum.GetNames(typeof(POConverter.DroneStatuses));
+        IList<string> weights = Enum.GetNames(typeof(POConverter.WeightCategories));
         IList<string> droneActions = Enum.GetNames(typeof(DroneActions));
         string selectedDroneAction, selectedStatus, selectedWeight;
         public PO.Drone Drone { get; set; }
@@ -114,14 +114,14 @@ namespace PL
         public DroneViewModel(BLApi.IBL bl)
         {
             this.bl = bl;
+            Weights = new ListCollectionView(nullString.Concat(weights).ToList());
+            Statuses = new ListCollectionView(nullString.Concat(statuses).ToList());
             Drone = new();
             Drone.Status = POConverter.DroneStatuses.Available;
             Cancel = new(Button_ClickCancel, null);
             AddOrUpdate = new(Button_ClickAdd, null);
             EnableUpdate = true;
             LeftDoubleClick = new(doubleClickParcel, null);
-            Weights = new ListCollectionView(nullString.Concat<string>(weights).ToList());
-            Statuses = new ListCollectionView(nullString.Concat<string>(statuses).ToList());
             MyDroneActions = new ListCollectionView(nullString.Concat<string>(droneActions).ToList());
             if (Drone.Status.ToString() == "") { Drone.Status = POConverter.DroneStatuses.Available; }
             StationsId = new ListCollectionView(bl.GetAvailableChargeSlots().ToList());

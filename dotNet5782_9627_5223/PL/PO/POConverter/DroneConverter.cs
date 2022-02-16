@@ -12,7 +12,7 @@ namespace PL.PO
 
         public static BO.Drone DronePOToBo(PO.Drone drone)
         {
-            PO.Parcel parcel = drone.Parcel;
+            //PO.Parcel parcel = drone.Parcel;
             return new BO.Drone
             {
                 Id = drone.Id,
@@ -20,14 +20,7 @@ namespace PL.PO
                 Location = LocationPOTOBO(drone.Location),
                 MaxWeight = (BO.WeightCategories)Enum.Parse(typeof(BO.WeightCategories), drone.Weight.ToString()),
                 Model = drone.Model,
-                Parcel = new ParcelInPassing
-                {
-                    Id = parcel.ParcelId,
-                    Weight = (BO.WeightCategories)Enum.Parse(typeof(BO.WeightCategories), parcel.Weight.ToString()),
-                    Priority = (BO.Priorities)Enum.Parse(typeof(BO.Priorities), parcel.Weight.ToString()),
-                    Sender = new BO.CustomerInParcel { Id = parcel.SenderId },
-                    Target = new BO.CustomerInParcel { Id = parcel.TargetId },
-                },
+                Parcel = new(drone.Parcel.Id,drone.Parcel.Priority,CustomerInParcelPOTOBO(drone.Parcel.Sender), CustomerInParcelPOTOBO(drone.Parcel.Target)),
                 Status = (BO.DroneStatuses)Enum.Parse(typeof(BO.DroneStatuses), drone.Status.ToString()),
             };
         }
@@ -41,8 +34,7 @@ namespace PL.PO
                 Model = drone.Model,
                 Status = (DroneStatuses)Enum.Parse(typeof(DroneStatuses), drone.Status.ToString()),
                 Weight = (WeightCategories)Enum.Parse(typeof(WeightCategories), drone.MaxWeight.ToString()),
-                Parcel = drone.Parcel != null && drone.Parcel.Id != default ? new PO.Parcel(bl, bl.GetParcelForList(drone.Parcel.Id)) : null,
-
+                Parcel = drone.Parcel != null && drone.Parcel.Id != default ? new(drone.Parcel,bl) : null,
             };
         }
 
