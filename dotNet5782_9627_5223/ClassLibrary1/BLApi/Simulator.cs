@@ -54,6 +54,7 @@ namespace IBL
                                 lock (bl)
                                 {
                                     //bl.AssociateParcel(droneId);
+                                    //parcel = bl.GetBLParcel(drone.ParcelId);
                                     parcel = bl.associateparcel(drone);
                                     parcelId = parcel != default(BO.Parcel) ? parcel.Id : 0;
                                     switch (parcelId, drone.Battery)
@@ -80,9 +81,11 @@ namespace IBL
                                             try
                                             {
                                                 parcel.AssociationDate = DateTime.Now;
-                                                parcel.MyDrone.Id = drone.Id;
-                                                parcel.MyDrone.Battery = drone.Battery;
+                                                parcel.MyDrone = new() { Id = drone.Id, Battery = drone.Battery, 
+                                                                        CurrentLocation = new(new(drone.Location.CoorLongitude.InputCoorValue, BO.Locations.Longitude), new(drone.Location.CoorLatitude.InputCoorValue, BO.Locations.Latitude)) };
+                                                
                                                 drone.ParcelId = parcelId;
+                                                customer = bl.GetBLCustomer(parcel.Sender.Id);
                                                 bl.UpdateParcel(parcel);
                                                 //initDelivery(parcelId);
                                                 drone.Status = DroneStatuses.Shipment;
@@ -175,7 +178,7 @@ namespace IBL
                                 else
                                 {
                                     bl.PickUpParcel(drone.Id);
-                                    customer = bl.GetBLCustomer(parcel.Target.Id);////????למה צריך את השורה הזו
+                                    customer = bl.GetBLCustomer(parcel.Target.Id);
                                     pickedUp = true;
                                 }
                             }

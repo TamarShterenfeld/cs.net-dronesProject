@@ -108,11 +108,28 @@ namespace IBL
             Parcel parcel = GetBLParcel(parcelId);
             Customer sender = GetBLCustomer(parcel.Sender.Id);
             Customer target = GetBLCustomer(parcel.Target.Id);
-            double battery = BatteryUsages[(int)Enum.Parse(typeof(BatteryUsage), parcel.Weight.ToString())] * sender.Distance(target);
+            double battery = 0;
+            if (target != null)
+            {
+                battery = BatteryUsages[(int)Enum.Parse(typeof(BatteryUsage), parcel.Weight.ToString())] * sender.Distance(target);
+            }
+            else
+            {
+
+            }
             List<BaseStation> baseStations1 = (List<BaseStation>)ConvertBaseStationsForListToBaseStation((List<BaseStationForList>)GetAvailableChargeSlots());
-            battery += BatteryUsages[DRONE_FREE] * target.Distance(NearestBaseStation(target, baseStations1));
-            if (parcel.SupplyDate is null)
-                battery +=BatteryUsages[DRONE_FREE] * drone.Distance(sender);
+            BaseStation item = NearestBaseStation(target, baseStations1);
+            if (item != null)
+            {
+                battery += BatteryUsages[DRONE_FREE] * target.Distance(item);
+            }
+            else { }
+            if( sender != null)
+            {
+                if (parcel.SupplyDate is null)
+                    battery += BatteryUsages[DRONE_FREE] * drone.Distance(sender);
+            }
+            else { }
             return battery;
         }
 
