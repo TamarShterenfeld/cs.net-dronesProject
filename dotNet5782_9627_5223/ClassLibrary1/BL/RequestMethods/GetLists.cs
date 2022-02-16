@@ -76,7 +76,7 @@ namespace IBL
         public IEnumerable<BO.Drone> GetBODronesList()
         {
             List<BO.Drone> BoDronesList = new();
-            List<DO.Drone> DoDronesList = (List<DO.Drone>)dal.GetDronesList();
+            List<DO.Drone> DoDronesList = dal.GetDronesList().ToList();
             foreach (var item in DoDronesList)
             {
                 BoDronesList.Add(GetBLDrone(item.Id));

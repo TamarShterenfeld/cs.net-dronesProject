@@ -56,6 +56,7 @@ namespace DalXml
             CheckNotExistenceOfParcel(parcel.Id);
             parcels.Add(parcel);
             SaveListToXmlSerializer<Parcel>(parcels, parcelsPath);
+            IncreaseParcelIndex();
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]

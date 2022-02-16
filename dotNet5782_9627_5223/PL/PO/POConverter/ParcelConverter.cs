@@ -35,11 +35,11 @@ namespace PL.PO
 
             boParcel.Id = parcel.ParcelId;
             boParcel.IsDeleted = false;
-            boParcel.Weight = (BO.WeightCategories)parcel.Weight;
+            boParcel.Weight = (BO.WeightCategories)Enum.Parse(typeof(BO.WeightCategories),parcel.Weight.ToString());
             boParcel.Target = new BO.CustomerInParcel { Id = parcel.TargetId };
             boParcel.Sender = new BO.CustomerInParcel { Id = parcel.SenderId };
             boParcel.MyDrone = new BO.DroneInParcel { Id = parcel.DroneId };
-            boParcel.Priority = (BO.Priorities)parcel.Priority;
+            boParcel.Priority = (BO.Priorities)Enum.Parse(typeof(BO.Priorities), parcel.Priority.ToString());
             return boParcel;
         }
 

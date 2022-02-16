@@ -16,7 +16,7 @@ namespace PL.PO
         /// <returns>PO.ParcelInCustomer</returns>
         public static PO.ParcelInCustomer ParcelInCustomerBOToPO(BO.ParcelInCustomer parcel)
         {
-            return new PO.ParcelInCustomer(parcel.Id, (WeightCategories)parcel.Weight, (Priorities)parcel.Priority, (ParcelStatuses)parcel.ParcelStatus, CustomerInParcelBOTOPO(parcel.SourceOrDest));
+            return new PO.ParcelInCustomer(parcel.Id, (WeightCategories)Enum.Parse(typeof(WeightCategories), parcel.Weight.ToString()), (Priorities)Enum.Parse(typeof(Priorities), parcel.Priority.ToString()), (ParcelStatuses)Enum.Parse(typeof(ParcelStatuses), parcel.ParcelStatus.ToString()), CustomerInParcelBOTOPO(parcel.SourceOrDest));
         }
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace PL.PO
         /// <returns>BO.ParcelInCustomer</returns>
         public static BO.ParcelInCustomer ParcelInCustomerPOToBO(PO.ParcelInCustomer parcel)
         {
-            return new BO.ParcelInCustomer(parcel.Id, (BO.WeightCategories)parcel.Weight, (BO.Priorities)parcel.Priority, (BO.ParcelStatuses)parcel.ParcelStatus, CustomerInParcelPOTOBO(parcel.SourceOrDest));
+            return new BO.ParcelInCustomer(parcel.Id, (BO.WeightCategories)Enum.Parse(typeof(BO.WeightCategories), parcel.Weight.ToString()), (BO.Priorities)Enum.Parse(typeof(Priorities), parcel.Priority.ToString()), (BO.ParcelStatuses)Enum.Parse(typeof(ParcelStatuses), parcel.ParcelStatus.ToString()), CustomerInParcelPOTOBO(parcel.SourceOrDest));
         }
 
         /// <summary>

@@ -15,6 +15,8 @@ using System.Windows.Shapes;
 using static PL.PO.POConverter;
 using PL.PO;
 using static PL.Validation;
+using static IBL.BL;
+using DO;
 
 namespace PL
 {
@@ -22,6 +24,11 @@ namespace PL
     {
         BLApi.IBL bl;
         string selectedParcelStatus;
+        IList<string> nullString = new List<string>() { "" };
+        IList<string> statuses = Enum.GetNames(typeof(ParcelStatuses));
+        IList<string> weights = Enum.GetNames(typeof(POConverter.WeightCategories));
+        IList<string> priorities = Enum.GetNames(typeof(POConverter.Priorities));
+        IList<string> parcelActions = Enum.GetNames(typeof(ParcelActions)).TakeLast<string>(2).ToList();
         public string Cursor { get; set; }
         public bool EnableUpdate { get; set; }
         public string State { get; set; }
@@ -30,10 +37,10 @@ namespace PL
         public ListCollectionView Weights { get; set; }
         public ListCollectionView Priorities { get; set; }
         public ListCollectionView ParcelActions { get; set; }
-        public DroneStatuses SelectedStatus { get; set; }
-        public WeightCategories SelectedWeight { get; set; }
-        public Priorities SelectedPriority { get; set; }
-        public ParcelActions SelectedParcelAction { get; set; }
+        public string SelectedStatus { get; set; }
+        public string SelectedWeight { get; set; }
+        public string SelectedPriority { get; set; }
+        public string SelectedParcelAction { get; set; }
         public RelayCommand AddOrUpdate { get; set; }
         public RelayCommand Delete { get; set; }
         public RelayCommand LeftDoubleClick_Sender { get; set; }
@@ -44,11 +51,11 @@ namespace PL
         public ParcelViewModel(BO.ParcelForList parcel, BLApi.IBL bl)
         {
             this.bl = bl;
-            MyParcel = new Parcel(bl, parcel);
-            Statuses = new ListCollectionView(Enum.GetNames(typeof(DroneStatuses)));
-            Weights = new ListCollectionView(Enum.GetNames(typeof(WeightCategories)));
-            Priorities = new ListCollectionView(Enum.GetNames(typeof(Priorities)));
-            ParcelActions = new ListCollectionView(Enum.GetNames(typeof(ParcelActions)));
+            MyParcel = new PO.Parcel(bl, parcel);
+            Statuses = new ListCollectionView(nullString.Concat<string>(statuses).ToList());
+            Weights = new ListCollectionView(nullString.Concat<string>(weights).ToList());
+            Priorities = new ListCollectionView(nullString.Concat<string>(priorities).ToList());
+            ParcelActions = new ListCollectionView(nullString.Concat<string>(parcelActions).ToList());
             Cancel = new(ButtonClick_Cancel);
             EnableUpdate = false;
             State = "Update";
@@ -62,15 +69,18 @@ namespace PL
         {
             this.bl = bl;
             MyParcel = new();
+            MyParcel.ParcelId = GetParcelIndex()+1;
+            MyParcel.Status = ParcelStatuses.Production;
+            SelectedStatus = nameof(ParcelStatuses.Production);
             Cancel = new(ButtonClick_Cancel, null);
             AddOrUpdate = new(Button_ClickAdd, null);
             EnableUpdate = true;
             State = "Add";
             Cursor = "IBeam";
-            Statuses = new ListCollectionView(Enum.GetNames(typeof(DroneStatuses)));
-            Weights = new ListCollectionView(Enum.GetNames(typeof(WeightCategories)));
-            Priorities = new ListCollectionView(Enum.GetNames(typeof(Priorities)));
-            ParcelActions = new ListCollectionView(Enum.GetNames(typeof(ParcelActions)));
+            Statuses = new ListCollectionView(nullString.Concat<string>(statuses).ToList());
+            Weights = new ListCollectionView(nullString.Concat<string>(weights).ToList());
+            Priorities = new ListCollectionView(nullString.Concat<string>(priorities).ToList());
+            ParcelActions = new ListCollectionView(nullString.Concat<string>(parcelActions).ToList());
             LeftDoubleClick_Sender = new(DoubleClick_Sender, null);
             LeftDoubleClick_Target = new(DoubleClick_Target, null);
             LeftDoubleClick_Drone = new(DoubleClick_Drone, null);
@@ -186,9 +196,13 @@ namespace PL
                 ListsModel.Instance.AddParcel(MyParcel.ParcelId);
                 MessageBox.Show("The parcel has been added successfully!\nPay attention - the last valid input is saved.");
             }
-            catch
+            catch(IntIdException exe)
             {
-
+                MessageBox.Show($"the chosen id: {exe.Id} already exists in the database");
+            }
+            catch(StringIdException exe)
+            {
+                MessageBox.Show($"the chosen id: {exe.Id} doesn't exist in the database");
             }
         }
 

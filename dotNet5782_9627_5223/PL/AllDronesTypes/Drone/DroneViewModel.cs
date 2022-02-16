@@ -107,7 +107,7 @@ namespace PL
             LeftDoubleClick = new(doubleClickParcel, null);
             DroneWeightsList = new ListCollectionView(Enum.GetValues(typeof(PO.POConverter.WeightCategories)).Cast<PO.POConverter.WeightCategories>().ToList());
             Statuses = new ListCollectionView(Enum.GetValues(typeof(PO.POConverter.DroneStatuses)).Cast<PO.POConverter.DroneStatuses>().ToList());
-            if (Drone.Status == POConverter.DroneStatuses.None) { Drone.Status = POConverter.DroneStatuses.Available; }
+            if (Drone.Status.ToString() == "") { Drone.Status = POConverter.DroneStatuses.Available; }
             StationsId = new ListCollectionView(bl.GetAvailableChargeSlots().ToList());
         }
 

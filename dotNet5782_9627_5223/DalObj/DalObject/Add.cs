@@ -45,6 +45,7 @@ namespace DalObject
             if (parcel.DroneId != 0)
             { CheckExistenceOfDrone(parcel.DroneId); }
             ParcelsList.Add(parcel);
+            IncreaseParcelIndex();
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]

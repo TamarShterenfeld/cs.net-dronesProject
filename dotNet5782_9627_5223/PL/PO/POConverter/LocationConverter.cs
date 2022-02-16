@@ -11,12 +11,12 @@ namespace PL.PO
         //-----------------------------Coordinate & Location Converting--------------------------
         public static PO.Coordinate CoordinateBoToPo(BO.Coordinate coor)
         {
-            return new PO.Coordinate() { InputCoorValue = coor.InputCoorValue, Degrees = coor.Degrees, Direction = (Directions)coor.Direction, MyLocation = (Locations)coor.MyLocation, Minutes = coor.Minutes, Seconds = coor.Seconds };
+            return new PO.Coordinate() { InputCoorValue = coor.InputCoorValue, Degrees = coor.Degrees, Direction = (Directions)coor.Direction, MyLocation = (Locations)Enum.Parse(typeof(Locations), coor.MyLocation.ToString()), Minutes = coor.Minutes, Seconds = coor.Seconds };
         }
 
         public static BO.Coordinate CoordinatePoToBo(PO.Coordinate coor)
         {
-            return new BO.Coordinate() { InputCoorValue = coor.InputCoorValue, Degrees = coor.Degrees, Direction = (BO.Directions)coor.Direction, MyLocation = (BO.Locations)coor.MyLocation, Minutes = coor.Minutes, Seconds = coor.Seconds };
+            return new BO.Coordinate() { InputCoorValue = coor.InputCoorValue, Degrees = coor.Degrees, Direction = (BO.Directions)Enum.Parse(typeof(BO.Directions), coor.Direction.ToString()), MyLocation = (BO.Locations)coor.MyLocation, Minutes = coor.Minutes, Seconds = coor.Seconds };
         }
 
         public static PO.Location LocationBOTOPO(BO.Location location)

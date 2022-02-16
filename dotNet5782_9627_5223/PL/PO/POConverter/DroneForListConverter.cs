@@ -15,7 +15,7 @@ namespace PL.PO
         /// <returns>PO droneForList</returns>
         public static PL.PO.DroneForList DroneForListBOToPO(BO.DroneForList drone)
         {
-            return new PL.PO.DroneForList(drone.Id,drone.ParcelId,drone.Model,(WeightCategories)drone.MaxWeight,drone.Battery,(DroneStatuses)drone.Status, LocationBOTOPO(drone.Location));
+            return new PL.PO.DroneForList(drone.Id,drone.ParcelId,drone.Model, (WeightCategories)Enum.Parse(typeof(WeightCategories), drone.MaxWeight.ToString()), drone.Battery,(DroneStatuses)drone.Status, LocationBOTOPO(drone.Location));
         }
 
         /// <summary>
@@ -25,7 +25,7 @@ namespace PL.PO
         /// <returns>BO droneForList</returns>
         public static BO.DroneForList DroneForListPOToBO(PL.PO.DroneForList drone)
         {
-            return new BO.DroneForList(drone.Id, drone.ParcelId, drone.Model, (BO.WeightCategories)drone.MaxWeight, drone.Battery, (BO.DroneStatuses)drone.Status, LocationPOTOBO(drone.Location));
+            return new BO.DroneForList(drone.Id, drone.ParcelId, drone.Model, (BO.WeightCategories)Enum.Parse(typeof(BO.WeightCategories), drone.MaxWeight.ToString()), drone.Battery, (BO.DroneStatuses)drone.Status, LocationPOTOBO(drone.Location));
         }
 
         /// <summary>

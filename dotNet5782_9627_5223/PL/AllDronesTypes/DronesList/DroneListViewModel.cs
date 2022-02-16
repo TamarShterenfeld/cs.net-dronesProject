@@ -34,8 +34,8 @@ namespace PL
         {
             if (obj is PO.DroneForList drone)
             {
-                return (SelectedStatusFilter == POConverter.DroneStatuses.None || drone.Status == SelectedStatusFilter)
-                    && (SelectedWeightFilter == POConverter.WeightCategories.None || drone.MaxWeight == SelectedWeightFilter);
+                return (SelectedStatusFilter.ToString() == "" || drone.Status == SelectedStatusFilter)
+                    && (SelectedWeightFilter.ToString() == "" || drone.MaxWeight == SelectedWeightFilter);
             }
             return false;
         }

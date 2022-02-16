@@ -160,6 +160,17 @@ namespace IBL
             return current;
         }
 
+        /// <summary>
+        /// the function increases the parcel's index
+        /// and returns it.
+        /// </summary>
+        /// <returns>the next parcel index</returns>
+        
+        public static int GetParcelIndex()
+        {
+            return DalApi.DalFactory.GetDal().GetLastParcelId();
+        }
+
         [MethodImpl(MethodImplOptions.Synchronized)]
         public CustomerInParcel GetCustomrInParcel(string id)
         {

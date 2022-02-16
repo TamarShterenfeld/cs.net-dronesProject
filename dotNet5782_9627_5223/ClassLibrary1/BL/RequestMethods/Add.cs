@@ -71,7 +71,7 @@ namespace IBL
             {
                 dal.Add(new DO.Parcel()
                 {
-                    Id = GetParcelIndex(),
+                    Id = parcel.Id,
                     SenderId = parcel.Sender.Id,
                     TargetId = parcel.Target.Id,
                     DroneId = 0,

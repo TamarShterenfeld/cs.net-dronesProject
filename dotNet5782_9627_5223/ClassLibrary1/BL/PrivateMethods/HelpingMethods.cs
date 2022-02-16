@@ -8,15 +8,7 @@ namespace IBL
 {
     public partial class BL 
     {
-        /// <summary>
-        /// the function increases the parcel's index
-        /// and returns it.
-        /// </summary>
-        /// <returns>the next parcel index</returns>
-        static int GetParcelIndex()
-        {
-            return DalApi.DalFactory.GetDal().GetLastParcelId();    
-        }
+       
 
         /// <summary>
         /// the function computes if the drone will succeed in arriving at the locatable's location.
