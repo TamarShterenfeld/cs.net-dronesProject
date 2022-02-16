@@ -15,40 +15,39 @@ namespace PL
       
         #region privateFields
         BLApi.IBL bl;
-        POConverter.DroneStatuses selectedStatusFilter;
-        private POConverter.WeightCategories selectedWeightFilter;
+        string selectedStatusFilter;
+        string selectedWeightFilter;
+        IList<string> nullString = new List<string>() { "" };
+        IList<string> statuses = Enum.GetNames(typeof(POConverter.DroneStatuses));
+        IList<string> weights = Enum.GetNames(typeof(POConverter.WeightCategories));
         #endregion
 
         #region Properties
         public event PropertyChangedEventHandler PropertyChanged;
-        public POConverter.DroneStatuses SelectedStatusFilter
+        public string SelectedStatusFilter
         {
             get => selectedStatusFilter;
             set
             {
-                PropertyChanged ?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedStatusFilter)));
                 selectedStatusFilter = value;
-                DronesListView.Refresh();
+                DronesListView.Filter = DroneFilter;
             }
         }      
-        public POConverter.WeightCategories SelectedWeightFilter
+        public string SelectedWeightFilter
         {
             get => selectedWeightFilter;
             set
             {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedWeightFilter)));
                 selectedWeightFilter = value;
-                DronesListView.Refresh();
+                DronesListView.Filter = DroneFilter;
             }
         }
-        public ObservableCollection<POConverter.WeightCategories> WeightFilters { get; private set; }
-        public ObservableCollection<POConverter.DroneStatuses> StatusFilters { get; private set; }
+        public ListCollectionView Weights { get; private set; }
+        public ListCollectionView Statuses { get; private set; }
         public ListCollectionView DronesListView { get; set; }
         public RelayCommand Cancel { get; set; }
         public RelayCommand Add { get; set; }
-        public RelayCommand DisplayDroneViewCommand { get; set; }
-       
-
+        public RelayCommand LeftDoubleClick { get; set; }
         #endregion
 
         #region Constructor
@@ -58,9 +57,9 @@ namespace PL
             Cancel = new(Button_ClickCancel, null);
             Add = new(Button_ClickAdd, null);
             DronesListView = new ListCollectionView(ListsModel.Instance.Drones);
-            StatusFilters = new(Enum.GetValues(typeof(PO.POConverter.DroneStatuses)).Cast<PO.POConverter.DroneStatuses>().ToList());
-            WeightFilters = new(Enum.GetValues(typeof(PO.POConverter.WeightCategories)).Cast<PO.POConverter.WeightCategories>().ToList());
-            DisplayDroneViewCommand = new(DisplayDroneView, null);
+            Statuses = new ListCollectionView(nullString.Concat<string>(statuses).ToList()); 
+            Weights = new ListCollectionView(nullString.Concat<string>(weights).ToList());
+            LeftDoubleClick = new(DroneListView_MouseDoubleClick, null);
         }
         #endregion
 
@@ -70,8 +69,8 @@ namespace PL
         {
             if (obj is PO.DroneForList drone)
             {
-                return (SelectedStatusFilter.ToString() == "" || drone.Status == SelectedStatusFilter)
-                    && (SelectedWeightFilter.ToString() == "" || drone.MaxWeight == SelectedWeightFilter);
+                return (SelectedStatusFilter == null || drone.Status.ToString() == SelectedStatusFilter)
+                    && (SelectedWeightFilter == null || drone.MaxWeight.ToString() == SelectedWeightFilter);
             }
             return false;
         }
@@ -94,13 +93,9 @@ namespace PL
             new DroneView(new DroneViewModel(bl)).Show();
         }
 
-        /// <summary>
-        /// shows full details of a specific drone.
-        /// </summary>
-        /// <param name="sender">the selected drone</param>
-        private void DisplayDroneView(object sender)
+        private void DroneListView_MouseDoubleClick(object sender)
         {
-            new DroneView(new DroneViewModel(bl, sender as PL.PO.DroneForList)).Show();
+            new DroneView(new DroneViewModel(bl, sender as PO.DroneForList)).Show();
         }
         #endregion
     }

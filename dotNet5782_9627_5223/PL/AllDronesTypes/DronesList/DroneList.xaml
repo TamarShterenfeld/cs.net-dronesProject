@@ -25,12 +25,12 @@
                 <ColumnDefinition Width="10*"/>
                 <ColumnDefinition Width="371*"/>
             </Grid.ColumnDefinitions>
-            <ListView x:Name ="DroneListView"    BorderThickness="0" Margin="0,0,359,0" FontFamily="Levenim MT" FontSize="12" 
+            <ListView x:Name ="DroneListView"  BorderThickness="0" Margin="0,0,359,0" FontFamily="Levenim MT" FontSize="12" 
                       ItemsSource="{Binding DronesListView}" SelectionMode="Extended" Grid.ColumnSpan="3">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDoubleClick">
                         <i:InvokeCommandAction 
-                        Command="{Binding DisplayDroneViewCommand}"
+                        Command="{Binding LeftDoubleClick}"
                         CommandParameter="{Binding ElementName=DroneListView, Path=SelectedItem}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
@@ -50,17 +50,16 @@
             </Grid>
         </Grid>
         <WrapPanel Grid.Row="1" Grid.Column="0" HorizontalAlignment="center"  VerticalAlignment="center">
-            <ComboBox x:Name="ChooseCategory" ItemsSource="{Binding StatusFilters}"  HorizontalAlignment="center"  VerticalAlignment="center" 
+            <ComboBox x:Name="ChooseCategory" ItemsSource="{Binding Statuses}"  HorizontalAlignment="center"  VerticalAlignment="center" 
                       Width="120"  Text="choose category" BorderBrush="#8909FFFE" Foreground="#FF272626" IsEditable="True" IsReadOnly="True"
                       SelectedItem="{Binding SelectedStatusFilter}">
             </ComboBox>
             
         </WrapPanel>
         <WrapPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="center"  VerticalAlignment="center">
-            <ComboBox x:Name="StatusFilterComboBox" Text="filter" ItemsSource="{Binding WeightFilters}"  HorizontalAlignment="Center"  
+            <ComboBox x:Name="StatusFilterComboBox" ItemsSource="{Binding Weights}"  HorizontalAlignment="Center"  
                       VerticalAlignment="Center" Width="146"   BorderBrush="#FF38FFFD" Foreground="#FF2A2828" IsReadOnly="True"
-                      SelectedItem="{Binding SelectedWeightFilter}">
-            </ComboBox>
+                      SelectedItem="{Binding SelectedWeightFilter}" Text="filter by" IsEditable="True"/>
         </WrapPanel>
         
         <Grid Height="62" VerticalAlignment="Top" Margin="10,0,253,0">
