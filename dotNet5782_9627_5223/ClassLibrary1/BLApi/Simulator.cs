@@ -12,7 +12,7 @@ namespace IBL
         enum Maintenance { Starting, Going, Charging }
 
         private const double VELOCITY = 1.0;
-        private const int DELAY = 500;
+        private const int DELAY = 100;
         private const double TIME_STEP = DELAY / 1000.0;
         private const double STEP = VELOCITY / TIME_STEP;
 
@@ -20,7 +20,7 @@ namespace IBL
         {
             BLApi.IBL bl = Bl;
             DalApi.IDal dal = DalApi.DalFactory.GetDal();
-            var drone = bl.GetDroneForList(droneId);
+            DroneForList drone = bl.GetDroneForList(droneId);
             int parcelId = 0;
             BO.Parcel parcel = drone.ParcelId == 0? null: bl.GetBLParcel(drone.ParcelId);
             int baseStationId = 0;
@@ -31,18 +31,8 @@ namespace IBL
             BO.Customer customer = null;
             Maintenance maintenance = drone.Status == DroneStatuses.Maintenance ? Maintenance.Charging : Maintenance.Starting;
 
-            //void initDelivery(int id)
-            //{
-            //    parcel = dal.GetParcel(id);
-            //    batteryUsage = (int)Enum.Parse(typeof(BatteryUsage), parcel?.Weight.ToString());
-            //    pickedUp = parcel?.PickUpDate is not null;
-            //    customer = bl.GetBLCustomer(pickedUp ? parcel?.TargetId : parcel?.SenderId);
-            //}
-
             do
             {
-                //(var next, var id) = drone.nextAction(bl);
-
                 switch (drone)
                 {
                     case DroneForList { Status: DroneStatuses.Available }:
@@ -53,8 +43,6 @@ namespace IBL
                             {
                                 lock (bl)
                                 {
-                                    //bl.AssociateParcel(droneId);
-                                    //parcel = bl.GetBLParcel(drone.ParcelId);
                                     parcel = bl.associateparcel(drone);
                                     parcelId = parcel != default(BO.Parcel) ? parcel.Id : 0;
                                     switch (parcelId, drone.Battery)
@@ -65,14 +53,6 @@ namespace IBL
                                         case (default(int), _):
                                             if (baseStationId != default(int))
                                             {
-                                                //baseStationId = bl.FindClosestBaseStation(drone, charge: true)?.Id;
-                                                //if (baseStationId != null)
-                                                //{
-                                                //    drone.Status = DroneStatuses.Maintenance;
-                                                //    maintenance = Maintenance.Starting;
-                                                //    dal.BaseStationDroneIn((int)baseStationId);
-                                                //    dal.AddDroneCharge(droneId, (int)baseStationId);
-                                                //}
                                                 drone.Status = DroneStatuses.Maintenance;//
                                                 maintenance = Maintenance.Starting;
                                             }
@@ -86,7 +66,6 @@ namespace IBL
                                                 drone.ParcelId = parcelId;
                                                 customer = bl.GetBLCustomer(parcel.Sender.Id);
                                                 bl.UpdateParcel(parcel);
-                                                //initDelivery(parcelId);
                                                 drone.Status = DroneStatuses.Shipment;
                                             }
                                             catch (Exception ex) { throw new Exception("Internal error getting parcel", ex); }
@@ -96,8 +75,6 @@ namespace IBL
                             }
                             catch (ParcelActionsException ex)
                             {
-                                //bl.SendDroneForCharge(droneId);
-                                //maintenance = Maintenance.Starting;
                             }
                             catch (DroneStatusException ex) { }
                             catch (Exception ex) { }
@@ -171,12 +148,13 @@ namespace IBL
                                 drone.Location = customer.Location;
                                 if (pickedUp)
                                 {
-                                    bl.SupplyParcel(drone.Id);
+                                    parcel.SupplyDate = DateTime.Now;
                                     drone.Status = DroneStatuses.Available;
+                                    drone.ParcelId = 0;
                                 }
                                 else
                                 {
-                                    bl.PickUpParcel(drone.Id);
+                                    parcel.PickUpDate = DateTime.Now;
                                     customer = bl.GetBLCustomer(parcel.Target.Id);
                                     pickedUp = true;
                                 }

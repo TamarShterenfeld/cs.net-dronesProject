@@ -22,10 +22,6 @@ namespace BO
         /// <returns></returns>
         public static double Distance(this ILocatable from, ILocatable to)
         {
-            if(to == null)
-            {
-
-            }
             int R = 6371 * 1000; // metres
             double phi1 = from.Location.CoorLongitude.InputCoorValue * Math.PI / 180; // φ, λ in radians
             double phi2 = to.Location.CoorLatitude.InputCoorValue * Math.PI / 180;
