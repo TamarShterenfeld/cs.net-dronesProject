@@ -62,4 +62,13 @@ namespace BO
     {
         Associate, PickUp, Supply, SendforRecharge,
     }
+
+    /// <summary>
+    /// an enum which contains some parameters in order to know the battery rate.
+    /// </summary>
+    public enum BatteryUsage
+    { 
+        Available, Light, Average, Heavy, Maintenance
+    }
+
 }

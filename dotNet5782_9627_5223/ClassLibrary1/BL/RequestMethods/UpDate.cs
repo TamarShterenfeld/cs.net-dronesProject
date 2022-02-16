@@ -93,6 +93,30 @@ namespace IBL
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
+        public Parcel associateparcel(DroneForList drone)//לבדוק אם עובד בצורה טובה...
+        {
+            return (from parcel in GetBOParcelsList()
+                    where parcel.SupplyDate == null && parcel.Weight <= drone.MaxWeight && RequiredBattery(drone, parcel.Id) <= drone.Battery
+                    orderby parcel.Priority descending, parcel.Weight descending
+                    select parcel).FirstOrDefault();
+            
+        }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        private double RequiredBattery(ILocatable drone,int parcelId)
+        {
+            Parcel parcel = GetBLParcel(parcelId);
+            Customer sender = GetBLCustomer(parcel.Sender.Id);
+            Customer target = GetBLCustomer(parcel.Target.Id);
+            double battery = BatteryUsages[(int)Enum.Parse(typeof(BatteryUsage), parcel.Weight.ToString())] * sender.Distance(target);
+            List<BaseStation> baseStations1 = (List<BaseStation>)ConvertBaseStationsForListToBaseStation((List<BaseStationForList>)GetAvailableChargeSlots());
+            battery += BatteryUsages[DRONE_FREE] * target.Distance(NearestBaseStation(target, baseStations1));
+            if (parcel.SupplyDate is null)
+                battery +=BatteryUsages[DRONE_FREE] * drone.Distance(sender);
+            return battery;
+        }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AssociateParcel(int droneId)
         {
             lock (dal)
@@ -164,18 +188,17 @@ namespace IBL
             bool isPickedUp;
             DroneForList currDrone = GetDroneForList(droneId);
             ParcelForList parcelForList = GetParcelForList(currDrone.ParcelId);
-            Customer sender = GetBLCustomer(parcelForList.SenderId);
+            //Customer sender = GetBLCustomer(parcelForList.SenderId);
             //the drone is in shipment status' but the parcel still wasn't picked up.
             if (currDrone.Status == DroneStatuses.Shipment)
             {
                 if (parcelForList.Status == ParcelStatuses.Associated)
                 {
                     isPickedUp = true;
-                    currDrone.Battery = ComputeBatteryRemained(currDrone, sender);
-                    currDrone.Location = sender.Location;
+                    //currDrone.Battery = ComputeBatteryRemained(currDrone, sender);
+                    //currDrone.Location = sender.Location;
                     Parcel parcel = ConvertParcelForListToParcel(parcelForList);
                     parcel.PickUpDate = DateTime.Now;
-                    UpdateDrone(currDrone);
                     UpdateParcel(parcel);
                 }
                 else
@@ -295,10 +318,6 @@ namespace IBL
                     throw new DroneStatusException(drone.Status);
             }
         }
-        /// <summary>
-        /// Update drones location,battery, status....
-        /// </summary>
-        /// <param name="drone">drone</param>
         public void UpdateDronesForSimulator(DroneForList drone)
         {
             dronesForList.Remove(dronesForList.FirstOrDefault(item => item.Id == drone.Id));

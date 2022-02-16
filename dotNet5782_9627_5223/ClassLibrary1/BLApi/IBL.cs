@@ -58,7 +58,17 @@ namespace BLApi
         /// <param name="droneId">drone's id</param>
         void ReleaseDroneFromRecharge(int droneId, double timeCharge);
 
+        /// <summary>
+        /// associates a parcel to a drone
+        /// </summary>
+        /// <param name="drone">droneForList</param>
+        /// <returns>parcel</returns>
+        Parcel associateparcel(DroneForList drone);////////////////////////////////////////////////////////////////////
 
+        /// <summary>
+        /// returns battery rate.
+        /// </summary>
+        double[] BatteryUsages { get; }
     }
 
     /// <summary>
@@ -117,6 +127,21 @@ namespace BLApi
         /// <returns>the BO.BaseStation converted object</returns>
         //BaseStation ConvertBaseStationDOtOBO(DO.BaseStation baseStation);
         void UpdateBaseStation(int id, string name, string num);
+
+        /// <summary>
+        /// convert a stations' list from baseStationForList to BaseStation
+        /// </summary>
+        /// <param name="baseStationForLists">baseStationForList's list</param>
+        /// <returns>station's list</returns>
+        IEnumerable<BaseStation> ConvertBaseStationsForListToBaseStation(List<BaseStationForList> baseStationForLists);
+
+        /// <summary>
+        /// returns the nearest station to the locateable object.
+        /// </summary>
+        /// <param name="location">locatable object</param>
+        /// <param name="baseStations">stations' list</param>
+        /// <returns>nearest station</returns>
+        BaseStation NearestBaseStation(ILocatable location, List<BaseStation> baseStations);
 
     }
 
@@ -206,6 +231,12 @@ namespace BLApi
         /// </summary>
         /// <param name="droneForList">the droneForList object to update</param>
         void UpdateDrone(DroneForList droneForList);
+
+        /// <summary>
+        /// Update drones location,battery, status.... in the list of droneForList in BL.
+        /// </summary>
+        /// <param name="drone">drone for list</param>
+        void UpdateDronesForSimulator(DroneForList drone);
     }
 
     /// <summary>
