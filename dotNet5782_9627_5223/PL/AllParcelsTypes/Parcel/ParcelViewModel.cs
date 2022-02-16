@@ -167,7 +167,7 @@ namespace PL
         }
         #endregion
 
-        #region Buttons
+        #region ButtonsEvents
         //---------------------------------------Buttons-----------------------------------------
         public void ButtonClick_Cancel(object sender)
         {

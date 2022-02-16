@@ -58,6 +58,7 @@
                     SelectedItem="{Binding ParcelOption}"  
                     Background="Turquoise"  Visibility="Collapsed" BorderThickness="1"  Foreground="#FF313131" />
             </WrapPanel>
+            
             <TextBlock Text="Id:" Grid.Column="1" Grid.Row ="0" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Foreground="#FF4C386B"/>
             <TextBox x:Name="id"
             TextWrapping="Wrap"
@@ -66,8 +67,17 @@
             Grid.Column="2"
             Grid.Row ="0" 
             HorizontalAlignment="Center" 
-            VerticalAlignment="Bottom"             
-            Text="{Binding ParcelInPass.Id}"/>
+            VerticalAlignment="Bottom">
+                <TextBox.Text >
+                    <Binding Path="ParcelInPass.Id" UpdateSourceTrigger="PropertyChanged" >
+                        <Binding.ValidationRules>
+                            <local:NotEmptyRule ValidatesOnTargetUpdated="True"/>
+                            <local:NumberRule ValidatesOnTargetUpdated="True" />
+                            <local:PositiveNumberRule  ValidatesOnTargetUpdated="True"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
 
             <TextBlock Text="For Destination::" Grid.Column="1" Grid.Row ="1" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Foreground="#FF4C386B"/>
             <TextBox x:Name="ToDestinatioin"
@@ -119,7 +129,7 @@
 
             <TextBlock Text="Collect:" Grid.Row="6" Grid.Column="1"  HorizontalAlignment="Left"  VerticalAlignment="Bottom" Foreground="#FF3F4245"  />
             <TextBox x:Name="CollectLocation"
-            Grid.Row="6" Grid.Column="2"
+            Grid.Row="6" Grid.Column="2" 
             TextWrapping="Wrap" 
             VerticalAlignment="Bottom"
             HorizontalAlignment="Center"
@@ -144,7 +154,7 @@
             TextWrapping="Wrap" 
             VerticalAlignment="Bottom"
             HorizontalAlignment="Center"
-            Width="150"
+            Width="150" MaxLength="9"
             IsEnabled="False" Height="25"  Text="{Binding ParcelInPass.Distance}"/>
         </Grid>
     </Grid>

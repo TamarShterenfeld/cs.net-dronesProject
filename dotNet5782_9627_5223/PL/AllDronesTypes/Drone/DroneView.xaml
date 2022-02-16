@@ -73,7 +73,7 @@
             Grid.Row="2" Grid.Column="2" 
             TextWrapping="Wrap" 
             VerticalAlignment="Top" 
-            HorizontalAlignment="Center"
+            HorizontalAlignment="Center" MaxLength="20"
             Width="140">
             <TextBox.Text >
                 <Binding Path="Drone.Model" UpdateSourceTrigger="PropertyChanged" >
@@ -94,7 +94,7 @@
                   IsEnabled="{Binding EnableUpdate}"
         />
         <TextBlock Text="Battery:" Grid.Row="4" Grid.Column="1" Foreground="#FF3F4245"/>
-        <TextBox x:Name="battery"
+        <TextBox x:Name="battery"  MaxLength="9"
            Grid.Row="4" Grid.Column="2"
             TextWrapping="Wrap" 
             VerticalAlignment="Top" 
@@ -127,7 +127,7 @@
             <StackPanel.InputBindings>
                 <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding LeftDoubleClick}"/>
             </StackPanel.InputBindings>
-            <TextBlock x:Name="delivery"
+            <TextBlock x:Name="delivery" 
                 Text="{Binding Drone.Parcel.Id}"
                 IsEnabled="False"  VerticalAlignment="Center" 
             HorizontalAlignment="Center"/>
@@ -140,6 +140,7 @@
             VerticalAlignment="Top" 
             HorizontalAlignment="Center"
             Width="140" 
+            MaxLength="9"
             IsEnabled="{Binding EnableUpdate}">
             <TextBox.Text >
                 <Binding Path="CoorLon" UpdateSourceTrigger="PropertyChanged" >
@@ -157,6 +158,7 @@
             TextWrapping="Wrap" 
             VerticalAlignment="Top" 
             HorizontalAlignment="Center"
+            MaxLength="9"
             Width="140">
             <TextBox.Text >
                 <Binding Path="CoorLat" UpdateSourceTrigger="PropertyChanged" >

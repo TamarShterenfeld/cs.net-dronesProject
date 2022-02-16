@@ -11,10 +11,13 @@ namespace PL
     {
         public class DroneForList : INotifyPropertyChanged
         {
+            #region PrivateFields
             int id;
             int parcelId;
             double battery;
+            #endregion
 
+            #region Properties
             public int Id
             {
                 get => id;
@@ -54,6 +57,11 @@ namespace PL
 
             public PO.Location Location { get; set; }
 
+            public event PropertyChangedEventHandler PropertyChanged;
+
+            #endregion
+
+            #region Constructors
             /// <summary>
             /// default constructor
             /// </summary>
@@ -73,6 +81,10 @@ namespace PL
             {
                 Id = id; ParcelId = parcelId; Model = model; MaxWeight = weight; Battery = battery; Status = status; Location = location;
             }
+
+            #endregion
+
+            #region ToString
             /// <summary>
             /// override ToString function.
             /// </summary>
@@ -88,7 +100,9 @@ namespace PL
                         $"locaion: {Location}";
             }
 
-            public event PropertyChangedEventHandler PropertyChanged;
+            #endregion
+
+          
         }
     }
 }

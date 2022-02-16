@@ -16,7 +16,6 @@ namespace PL
             ParcelInPass = new PO.ParcelInPassing(parcel, bl);
             PrioritiesArr = typeof(BO.Priorities).GetEnumValues();
             WeightArr = typeof(BO.WeightCategories).GetEnumValues();
-            
         }
     }
 }

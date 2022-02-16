@@ -50,17 +50,16 @@
             </Grid>
         </Grid>
         <WrapPanel Grid.Row="1" Grid.Column="0" HorizontalAlignment="center"  VerticalAlignment="center">
-            <ComboBox x:Name="ChooseCategory" ItemsSource="{Binding StatusFilter}"  HorizontalAlignment="center"  VerticalAlignment="center" 
+            <ComboBox x:Name="ChooseCategory" ItemsSource="{Binding StatusFilters}"  HorizontalAlignment="center"  VerticalAlignment="center" 
                       Width="120"  Text="choose category" BorderBrush="#8909FFFE" Foreground="#FF272626" IsEditable="True" IsReadOnly="True"
                       SelectedItem="{Binding SelectedStatusFilter}">
             </ComboBox>
             
         </WrapPanel>
         <WrapPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="center"  VerticalAlignment="center">
-            <ComboBox x:Name="StatusFilterComboBox" Text="filter" ItemsSource="{Binding WeightFilter}"  HorizontalAlignment="Center"  
+            <ComboBox x:Name="StatusFilterComboBox" Text="filter" ItemsSource="{Binding WeightFilters}"  HorizontalAlignment="Center"  
                       VerticalAlignment="Center" Width="146"   BorderBrush="#FF38FFFD" Foreground="#FF2A2828" IsReadOnly="True"
                       SelectedItem="{Binding SelectedWeightFilter}">
-                
             </ComboBox>
         </WrapPanel>
         

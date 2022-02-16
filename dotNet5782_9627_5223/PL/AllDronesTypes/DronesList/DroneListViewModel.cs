@@ -12,24 +12,60 @@ namespace PL
 {
     public class DroneListViewModel : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
+      
+        #region privateFields
         BLApi.IBL bl;
         POConverter.DroneStatuses selectedStatusFilter;
         private POConverter.WeightCategories selectedWeightFilter;
+        #endregion
 
+        #region Properties
+        public event PropertyChangedEventHandler PropertyChanged;
+        public POConverter.DroneStatuses SelectedStatusFilter
+        {
+            get => selectedStatusFilter;
+            set
+            {
+                PropertyChanged ?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedStatusFilter)));
+                selectedStatusFilter = value;
+                DronesListView.Refresh();
+            }
+        }      
+        public POConverter.WeightCategories SelectedWeightFilter
+        {
+            get => selectedWeightFilter;
+            set
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedWeightFilter)));
+                selectedWeightFilter = value;
+                DronesListView.Refresh();
+            }
+        }
+        public ObservableCollection<POConverter.WeightCategories> WeightFilters { get; private set; }
+        public ObservableCollection<POConverter.DroneStatuses> StatusFilters { get; private set; }
+        public ListCollectionView DronesListView { get; set; }
+        public RelayCommand Cancel { get; set; }
+        public RelayCommand Add { get; set; }
+        public RelayCommand DisplayDroneViewCommand { get; set; }
+       
+
+        #endregion
+
+        #region Constructor
         public DroneListViewModel(BLApi.IBL bl)
         {
             this.bl = bl;
             Cancel = new(Button_ClickCancel, null);
             Add = new(Button_ClickAdd, null);
             DronesListView = new ListCollectionView(ListsModel.Instance.Drones);
-            DronesListView.Filter = DroneFilter;
-            StatusFilter = new(Enum.GetValues(typeof(PO.POConverter.DroneStatuses)).Cast<PO.POConverter.DroneStatuses>().ToList());
-            WeightFilter = new(Enum.GetValues(typeof(PO.POConverter.WeightCategories)).Cast<PO.POConverter.WeightCategories>().ToList());
+            StatusFilters = new(Enum.GetValues(typeof(PO.POConverter.DroneStatuses)).Cast<PO.POConverter.DroneStatuses>().ToList());
+            WeightFilters = new(Enum.GetValues(typeof(PO.POConverter.WeightCategories)).Cast<PO.POConverter.WeightCategories>().ToList());
             DisplayDroneViewCommand = new(DisplayDroneView, null);
         }
+        #endregion
 
+        #region ButtonEvents
+        //---------------------------------ButtonsEvents------------------------------
         private bool DroneFilter(object obj)
         {
             if (obj is PO.DroneForList drone)
@@ -39,34 +75,7 @@ namespace PL
             }
             return false;
         }
-
-        public RelayCommand Cancel { get; set; }
-        public RelayCommand Add { get; set; }
-        public RelayCommand DisplayDroneViewCommand { get; set; }
-        public ObservableCollection<POConverter.DroneStatuses> StatusFilter { get; private set; }
-        public POConverter.DroneStatuses SelectedStatusFilter
-        {
-            get => selectedStatusFilter;
-            set
-            {
-                selectedStatusFilter = value;
-                DronesListView.Refresh();
-            }
-        }
-        public ObservableCollection<POConverter.WeightCategories> WeightFilter { get; private set; }
-        public POConverter.WeightCategories SelectedWeightFilter
-        {
-            get => selectedWeightFilter;
-            set
-            {
-                selectedWeightFilter = value;
-                DronesListView.Refresh();
-            }
-        }
-        public ListCollectionView DronesListView { get; set; }
-
-
-        //---------------------------------Stations's Methods------------------------------
+       
         /// <summary>
         /// the function treats the event of clicking on the button 'Cancel'.
         /// </summary>
@@ -93,5 +102,6 @@ namespace PL
         {
             new DroneView(new DroneViewModel(bl, sender as PL.PO.DroneForList)).Show();
         }
+        #endregion
     }
 }
