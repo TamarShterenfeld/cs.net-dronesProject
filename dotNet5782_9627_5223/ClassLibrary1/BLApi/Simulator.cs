@@ -27,7 +27,7 @@ namespace IBL
             double distance = 0.0;
             int batteryUsage = 0;
             bool pickedUp = false;
-            BO.Customer customer = null;
+            BO.Customer customer = parcel != null ? bl.GetBLCustomer(pickedUp? parcel.Target.Id:parcel.Sender.Id) : null;
             Maintenance maintenance = drone.Status == DroneStatuses.Maintenance ? Maintenance.Charging : Maintenance.Starting;
 
             do
@@ -35,7 +35,8 @@ namespace IBL
                 switch (drone)
                 {
                     case DroneForList { Status: DroneStatuses.Available }:
-                        if (!sleepDelayTime()) break;
+                        if (!sleepDelayTime()) 
+                            break;
                         lock (bl)
                         {
                             try

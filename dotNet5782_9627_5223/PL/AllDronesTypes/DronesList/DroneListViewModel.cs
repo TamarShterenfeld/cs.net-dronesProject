@@ -71,7 +71,7 @@ namespace PL
             if (obj is PO.DroneForList drone)
             {
                 return (SelectedStatusFilter == null || SelectedStatusFilter == "" || drone.Status.ToString() == SelectedStatusFilter)
-                    && (SelectedWeightFilter == null || SelectedStatusFilter == "" || drone.MaxWeight.ToString() == SelectedWeightFilter);
+                    && (SelectedWeightFilter == null || SelectedWeightFilter == "" || drone.MaxWeight.ToString() == SelectedWeightFilter);
             }
             return false;
         }

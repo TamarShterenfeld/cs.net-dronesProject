@@ -340,6 +340,7 @@ namespace IBL
                     throw new DroneStatusException(drone.Status);
             }
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateDronesForSimulator(DroneForList drone)
         {
             dronesForList.Remove(dronesForList.FirstOrDefault(item => item.Id == drone.Id));
