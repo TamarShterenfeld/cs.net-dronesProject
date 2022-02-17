@@ -30,7 +30,7 @@
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDoubleClick">
                         <i:InvokeCommandAction 
-                        Command="{Binding LeftDoubleClick}"
+                        Command="{Binding DisplayDroneViewCommand}"
                         CommandParameter="{Binding ElementName=DroneListView, Path=SelectedItem}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
