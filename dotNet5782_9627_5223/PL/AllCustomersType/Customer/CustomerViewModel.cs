@@ -26,7 +26,7 @@ namespace PL
         /// </summary>
         /// <param name="bl">BL object</param>
         /// <param name="customer">CustomerForList object</param>
-        public CustomerViewModel(BLApi.IBL bl, BO.CustomerForList customer)
+        public CustomerViewModel(BLApi.IBL bl, PO.CustomerForList customer)
             : this(bl)
         {
             Customer = new PO.Customer(bl, customer);

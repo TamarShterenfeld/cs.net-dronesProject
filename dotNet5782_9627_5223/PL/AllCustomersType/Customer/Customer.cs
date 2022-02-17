@@ -81,7 +81,7 @@ namespace PL.PO
         /// </summary>
         /// <param name="bl">bl object</param>
         /// <param name="customer">customerForList</param>
-        public Customer(BLApi.IBL bl, BO.CustomerForList customer)
+        public Customer(BLApi.IBL bl, PO.CustomerForList customer)
         {
             BO.Customer CurCustomer = bl.GetBLCustomer(customer.Id);
             this.bl = bl;
