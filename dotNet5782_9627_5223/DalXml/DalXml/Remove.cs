@@ -12,7 +12,7 @@ namespace DalXml
     sealed partial class DalXml
     {
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public void Remove(DroneCharge drone)
+        public BaseStation Remove(DroneCharge drone)
         {
             List<DroneCharge> droneCharges = LoadListFromXmlSerializer<DroneCharge>(droneChargesPath).ToList();
             List<BaseStation> baseStations = LoadListFromXmlSerializer<BaseStation>(baseStationsPath).ToList();
@@ -23,6 +23,7 @@ namespace DalXml
             baseStations.Remove(GetBaseStation(baseStation.Id));
             baseStations.Add(baseStation);
             SaveListToXmlSerializer<BaseStation>(baseStations, baseStationsPath);
+            return baseStation;
         }
     }
 }

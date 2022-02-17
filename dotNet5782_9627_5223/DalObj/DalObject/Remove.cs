@@ -12,7 +12,7 @@ namespace DalObject
     public partial class DalObject 
     {
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public void Remove(DroneCharge drone)
+        public BaseStation Remove(DroneCharge drone)
         {
             CheckExistenceOfDroneCharge(drone.DroneId);
             DronesChargeList.Remove(GetDroneCharge(drone.DroneId));
@@ -20,6 +20,7 @@ namespace DalObject
             baseStation.ChargeSlots++;
             BaseStationsList.Remove(GetBaseStation(baseStation.Id));
             BaseStationsList.Add(baseStation);
+            return baseStation;
         }
     }
 }

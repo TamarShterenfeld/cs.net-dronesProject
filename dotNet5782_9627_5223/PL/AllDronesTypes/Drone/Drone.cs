@@ -13,7 +13,7 @@ namespace PL
             private string model;
             private Location location = new();
             private WeightCategories weight;
-            private DroneStatuses status;
+            private DroneStatuses status = DroneStatuses.Available;
             private double battery = rand.NextDouble() * 20 + 20;
 
             public Drone(PL.PO.DroneForList drone, BLApi.IBL bl)
@@ -33,9 +33,9 @@ namespace PL
             /// </summary>
             public Drone() { }
 
-            public double Battery { get => battery; set => battery = value; } 
+            public double Battery { get => battery; set { battery = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Battery))); } } 
             private ParcelInPassing parcel;
-            public ParcelInPassing Parcel { set { parcel = value; } get { return parcel; } }
+            public ParcelInPassing Parcel { set { parcel = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Parcel))); } get { return parcel; } }
             public Location Location
             {
                 get => location;

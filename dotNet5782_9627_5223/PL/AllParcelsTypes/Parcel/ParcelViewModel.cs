@@ -62,55 +62,20 @@ namespace PL
                 selectedParcelAction = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedParcelAction)));
                 NotInitalizeRule n1 = new();
-                if (!(IsAllValid() && IsValid(MyParcel.DroneId, n1)) && value!= "")
+                if (!(IsAllValid()) && value!= "")
                 {
                     MessageBox.Show("Not all the fields are filled with correct values\nThis action is invalid!");
                     return;
                 }
-
-                switch (selectedParcelAction)
+                else
                 {
-                    case nameof(POConverter.DroneActions.PickUp):
-                        {
-
-                            try
-                            {
-                                bl.PickUpParcel(MyParcel.DroneId);
-                                MessageBox.Show("Parcel has been pickedUp successfully!");
-                            }
-                            catch (ParcelStatusException exe)
-                            {
-                                MessageBox.Show($"Parcel's status: {exe.ParcelStatus} isn't valid for picking it up.");
-                            }
-                            catch (DroneStatusException exe)
-                            {
-                                MessageBox.Show($"Drone's status: {exe.Status} isn't valid for picking it up.");
-                            }
-                            catch (ParcelActionsException exe)
-                            {
-                                MessageBox.Show($"Parcel Action: {exe.Action} wasn't succeeded in being completed.");
-                            }
-                        }
-                        break;
-
-                    case nameof(POConverter.DroneActions.Supply):
-                        {
-                            try
-                            {
-                                bl.SupplyParcel(MyParcel.DroneId);
-                                MessageBox.Show("Parcel is supplied successfully!");
-                            }
-                            catch (ParcelStatusException exe)
-                            {
-                                MessageBox.Show($"Parcel's status: {exe.ParcelStatus} isn't valid for supplying it.");
-                            }
-                            catch (ParcelActionsException exe)
-                            {
-                                MessageBox.Show($"Parcel Action: {exe.Action} wasn't succeeded in being completed.");
-                            }
-                            break;
-                        }
+                    if(!IsValid(MyParcel.DroneId, n1))
+                    {
+                        MessageBox.Show($"It's not possible to perform the action: {selectedParcelAction} \nbecause the drone id field isn't initalized.!");
+                        return;
+                    }
                 }
+                ParcelAction_Selected(value);
             }
             get
             {
@@ -169,10 +134,58 @@ namespace PL
 
         #region ButtonsEvents
         //---------------------------------------Buttons-----------------------------------------
-        public void ButtonClick_Cancel(object sender)
+        private void ButtonClick_Cancel(object sender)
         {
             (sender as Window).Close();
         }
+
+        private void ParcelAction_Selected(object sender)
+        {
+            switch (sender)
+            {
+                case nameof(POConverter.DroneActions.PickUp):
+                    {
+
+                        try
+                        {
+                            bl.PickUpParcel(MyParcel.DroneId);
+                            MessageBox.Show("Parcel has been pickedUp successfully!");
+                        }
+                        catch (ParcelStatusException exe)
+                        {
+                            MessageBox.Show($"Parcel's status: {exe.ParcelStatus} isn't valid for picking it up.");
+                        }
+                        catch (DroneStatusException exe)
+                        {
+                            MessageBox.Show($"Drone's status: {exe.Status} isn't valid for picking it up.");
+                        }
+                        catch (ParcelActionsException exe)
+                        {
+                            MessageBox.Show($"Parcel Action: {exe.Action} wasn't succeeded in being completed.");
+                        }
+                    }
+                    break;
+
+                case nameof(POConverter.DroneActions.Supply):
+                    {
+                        try
+                        {
+                            bl.SupplyParcel(MyParcel.DroneId);
+                            MessageBox.Show("Parcel is supplied successfully!");
+                        }
+                        catch (ParcelStatusException exe)
+                        {
+                            MessageBox.Show($"Parcel's status: {exe.ParcelStatus} isn't valid for supplying it.");
+                        }
+                        catch (ParcelActionsException exe)
+                        {
+                            MessageBox.Show($"Parcel Action: {exe.Action} wasn't succeeded in being completed.");
+                        }
+                        break;
+                    }
+            }
+        }
+
 
         #endregion
 
@@ -215,9 +228,9 @@ namespace PL
                 MessageBox.Show("The parcel has been deleted successfully!\nPay attention - the last valid input is saved.");
                 (sender as Window).Close();
             }
-            catch
+            catch(IntIdException exe)
             {
-
+                MessageBox.Show($"the chosen id: {exe.Id} doesn't exist in the database");
             }
         }
         private void Button_ClickAdd(object sender)
@@ -236,11 +249,11 @@ namespace PL
             }
             catch (IntIdException exe)
             {
-                MessageBox.Show($"the chosen id: {exe.Id} already exists in the database");
+                MessageBox.Show($"the chosen id: {exe.Id} already exists in the database.");
             }
             catch (StringIdException exe)
             {
-                MessageBox.Show($"the chosen id: {exe.Id} doesn't exist in the database");
+                MessageBox.Show($"the chosen id: {exe.Id} already exists in the database.");
             }
         }
 
@@ -270,6 +283,10 @@ namespace PL
                         MessageBox.Show("No changes have been done.\nThere's no what to update.");
                         return;
                     }
+                }
+                else
+                {
+                    MessageBox.Show("It isn't possible to change the priority \nafter associating the parcel to a drone.");
                 }
             }
             catch (IntIdException exe)

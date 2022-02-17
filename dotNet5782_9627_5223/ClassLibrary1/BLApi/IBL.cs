@@ -50,13 +50,13 @@ namespace BLApi
         /// </summary>
         /// <param name="droneId">drone's id</param>
         /// <param name="baseStationId">base station's id</param>
-        void SendDroneForCharge(int droneId);
+        BaseStation SendDroneForCharge(int droneId);
 
         /// <summary>
         /// the function stops the drone from charging
         /// </summary>
         /// <param name="droneId">drone's id</param>
-        void ReleaseDroneFromRecharge(int droneId, double timeCharge);
+        BaseStation ReleaseDroneFromRecharge(int droneId, double timeCharge);
 
         /// <summary>
         /// returns battery rate.

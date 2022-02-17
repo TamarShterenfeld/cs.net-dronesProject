@@ -79,7 +79,7 @@ namespace DalApi
         /// release the requested drone from the base station it has been charged till now.
         /// </summary>
         /// <param name="droneId">like that, it's possible to identity the requested drone</param>
-        void ReleaseDroneFromRecharge(int droneId);
+        BaseStation ReleaseDroneFromRecharge(int droneId);
 
         /// <summary>
         /// the function removes a DroneCharge object from the DronesChargeList
@@ -87,7 +87,7 @@ namespace DalApi
         /// by increasing them by one.
         /// </summary>
         /// <param name="drone"></param>
-        void Remove(DroneCharge drone);
+        BaseStation Remove(DroneCharge drone);
 
         /// <summary>
         /// getts a specific base station by its id

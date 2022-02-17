@@ -53,11 +53,11 @@ namespace DalObject
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public void ReleaseDroneFromRecharge(int droneId)
+        public BaseStation ReleaseDroneFromRecharge(int droneId)
         {
             CheckExistenceOfDroneCharge(droneId);
             DroneCharge droneCharge = GetDroneCharge(droneId);
-            Remove(droneCharge);
+            return Remove(droneCharge);
         }
     }
 }
