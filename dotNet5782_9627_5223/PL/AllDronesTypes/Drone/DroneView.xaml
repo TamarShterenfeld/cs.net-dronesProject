@@ -209,7 +209,7 @@
                     <Binding.ValidationRules>
                         <local:NotEmptyRule ValidatesOnTargetUpdated="True"/>
                         <local:DoubleRule ValidatesOnTargetUpdated="True" />
-                        <local:R ValidatesOnTargetUpdated="True"/>
+                        <local:RealPositiveDoubleRule ValidatesOnTargetUpdated="True"/>
                     </Binding.ValidationRules>
                 </Binding>
             </TextBox.Text>
