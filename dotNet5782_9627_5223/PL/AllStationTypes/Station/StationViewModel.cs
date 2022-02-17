@@ -80,7 +80,7 @@ namespace PL
         public RelayCommand Delete { get; set; }
         public RelayCommand LeftDoubleClick { get; set; }
 
-        public StationViewModel(BLApi.IBL bl, BO.BaseStationForList station)
+        public StationViewModel(BLApi.IBL bl, PO.BaseStationForList station)
             : this(bl)
         {
             BaseStation = new(bl, station);

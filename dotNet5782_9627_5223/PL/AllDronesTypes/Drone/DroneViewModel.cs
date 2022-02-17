@@ -198,12 +198,12 @@ namespace PL
         /// <param name="sender">the event</param>
         private void Button_ClickAdd(object sender)
         {
-            if (sender as BaseStationForList == null)
+            if (sender as PO.BaseStationForList == null)
             {
                 MessageBox.Show("please select a station and try again.");
                 return;
             }
-            bl.Add(DronePOToBo(Drone), (sender as BaseStationForList).Id);
+            bl.Add(DronePOToBo(Drone), (sender as PO.BaseStationForList).Id);
             ListsModel.Instance.AddDrone(Drone.Id);
         }
 

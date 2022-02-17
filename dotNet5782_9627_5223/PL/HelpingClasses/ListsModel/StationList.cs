@@ -16,7 +16,7 @@ namespace PL
         // StationViewModel Lists
  
         BLApi.IBL bl;
-        ObservableCollection<BaseStationForList> stations;
+        ObservableCollection<PO.BaseStationForList> stations;
 
         /// <summary>
         /// private constructor
@@ -24,13 +24,13 @@ namespace PL
         private ListsModel()
         {
             bl = BLApi.BLFactory.GetBl();
-            Stations = new ObservableCollection<BaseStationForList>(bl.GetBaseStationList().ToList());
-            Customers = new ObservableCollection<PL.PO.CustomerForList>(ListOFCustomerForListBOToPO(bl.GetCustomersList().ToList()));
+            Stations = new ObservableCollection<PO.BaseStationForList>(ListOfStationForListBOToPO(bl.GetBaseStationList()).ToList());
+            Customers = new ObservableCollection<PO.CustomerForList>(ListOFCustomerForListBOToPO(bl.GetCustomersList().ToList()));
             Parcels = new ObservableCollection<ParcelForList>(bl.GetParcelsList().ToList());
-            Drones = new ObservableCollection<PL.PO.DroneForList>(DroneListBOToPO(bl.GetDronesForList()).ToList());
+            Drones = new ObservableCollection<PO.DroneForList>(DroneListBOToPO(bl.GetDronesForList()).ToList());
         }
 
-        public ObservableCollection<BO.BaseStationForList> Stations
+        public ObservableCollection<PO.BaseStationForList> Stations
         {
             get => stations;
             private set
@@ -46,8 +46,10 @@ namespace PL
         /// <param name="stationId">station's id</param>
         public void UpdateStation(int stationId)
         {
-            DeleteStation(stationId);
-            AddStation(stationId);
+            PO.BaseStationForList station = Stations.FirstOrDefault(station => station.Id == stationId);
+            int index = Stations.IndexOf(station);
+            DeleteStation(station.Id);
+            Stations.Insert(index, StationForListBOToPO(bl.GetBaseStationForList(stationId)));
         }
 
         /// <summary>
@@ -66,7 +68,7 @@ namespace PL
         /// <param name="stationId">station's id</param>
         public void AddStation(int stationId)
         {
-            Stations.Add(bl.GetBaseStationForList(stationId));
+            Stations.Add(StationForListBOToPO(bl.GetBaseStationForList(stationId)));
         }
         
         public event PropertyChangedEventHandler PropertyChanged;
