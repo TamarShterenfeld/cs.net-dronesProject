@@ -49,17 +49,19 @@
                 </Grid.RowDefinitions>
             </Grid>
         </Grid>
-        <WrapPanel Grid.Row="1" Grid.Column="0" HorizontalAlignment="center"  VerticalAlignment="center">
+        <WrapPanel Grid.Row="1" Grid.Column="0" HorizontalAlignment="center"  VerticalAlignment="center" Orientation="Vertical">
+            <TextBlock Foreground="RoyalBlue">Choose Status Filter</TextBlock>
             <ComboBox x:Name="ChooseCategory" ItemsSource="{Binding Statuses}"  HorizontalAlignment="center"  VerticalAlignment="center" 
-                      Width="120"  Text="choose category" BorderBrush="#8909FFFE" Foreground="#FF272626" IsEditable="True" IsReadOnly="True"
-                      SelectedItem="{Binding SelectedStatusFilter}">
+                      Width="120"  BorderBrush="#8909FFFE" Foreground="#FF272626" 
+                      SelectedItem="{Binding SelectedStatusFilter}" >
             </ComboBox>
             
         </WrapPanel>
-        <WrapPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="center"  VerticalAlignment="center">
+        <WrapPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="center"  VerticalAlignment="center" Orientation="Vertical">
+            <TextBlock Foreground="RoyalBlue" >Choose Weight Filter</TextBlock>
             <ComboBox x:Name="StatusFilterComboBox" ItemsSource="{Binding Weights}"  HorizontalAlignment="Center"  
-                      VerticalAlignment="Center" Width="146"   BorderBrush="#FF38FFFD" Foreground="#FF2A2828" IsReadOnly="True"
-                      SelectedItem="{Binding SelectedWeightFilter}" Text="filter by" IsEditable="True"/>
+                      VerticalAlignment="Center" Width="146"   BorderBrush="#FF38FFFD" Foreground="#FF2A2828"
+                      SelectedItem="{Binding SelectedWeightFilter}"  />
         </WrapPanel>
         
         <Grid Height="62" VerticalAlignment="Top" Margin="10,0,253,0">

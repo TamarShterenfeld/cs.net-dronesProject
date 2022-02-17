@@ -25,5 +25,6 @@ namespace PL
             InitializeComponent();
             this.DataContext = stationListVMl;
         }
+
     }
 }
