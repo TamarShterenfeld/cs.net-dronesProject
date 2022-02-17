@@ -16,7 +16,7 @@ namespace BO
     /// </summary>
     public enum Locations
     {
-        Latitude = 1, Longitude
+        Latitude, Longitude
     }
 
     /// <summary>

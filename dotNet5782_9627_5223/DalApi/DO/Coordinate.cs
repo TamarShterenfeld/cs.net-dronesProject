@@ -18,7 +18,7 @@ namespace DO
     /// </summary>
     public enum Locations
     {
-        Latitude, Longitude
+        Latitude , Longitude
     }
 
     /// <summary>
