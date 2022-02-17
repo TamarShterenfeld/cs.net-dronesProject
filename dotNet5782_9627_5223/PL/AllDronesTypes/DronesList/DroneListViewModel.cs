@@ -47,7 +47,7 @@ namespace PL
         public ListCollectionView DronesListView { get; set; }
         public RelayCommand Cancel { get; set; }
         public RelayCommand Add { get; set; }
-        public RelayCommand LeftDoubleClick { get; set; }
+        public RelayCommand DisplayDroneViewCommand { get; set; }
         #endregion
 
         #region Constructor
@@ -59,7 +59,7 @@ namespace PL
             DronesListView = new ListCollectionView(ListsModel.Instance.Drones);
             Statuses = new ListCollectionView(nullString.Concat<string>(statuses).ToList());
             Weights = new ListCollectionView(nullString.Concat<string>(weights).ToList());
-            LeftDoubleClick = new(DroneListView_MouseDoubleClick, null);
+            DisplayDroneViewCommand = new(DisplayDroneView, null);
             DronesListView.Filter = DroneFilter;
         }
         #endregion
@@ -75,6 +75,8 @@ namespace PL
             }
             return false;
         }
+
+
 
         /// <summary>
         /// the function treats the event of clicking on the button 'Cancel'.
@@ -94,10 +96,18 @@ namespace PL
             new DroneView(new DroneViewModel(bl)).Show();
         }
 
-        private void DroneListView_MouseDoubleClick(object sender)
+
+        /// <summary>
+        /// shows full details of a specific drone.
+        /// </summary>
+        /// <param name="sender">the selected drone</param>
+        private void DisplayDroneView(object sender)
         {
-            new DroneView(new DroneViewModel(bl, sender as PO.DroneForList)).Show();
+            new DroneView(new DroneViewModel(bl, sender as PL.PO.DroneForList)).Show();
         }
+
         #endregion
+
     }
+
 }
