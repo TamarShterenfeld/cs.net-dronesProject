@@ -1,37 +1,45 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace PL.PO
 {
-    public class CustomerInParcel
+    public class CustomerInParcel : INotifyPropertyChanged
     {
+        #region PrivateFields
         private string id;
         private string name;
+        #endregion
+
+        #region Properties
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public string Id
         {
-            get
-            {
-                return id;
-            }
+            get => id;
             set
             {
                 id = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(id)));
             }
         }
         public string Name
         {
-            get
-            {
-                return name;
-            }
+            get => name;
             set
             {
                 name = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(name)));
             }
         }
+
+        #endregion
+
+        #region Constructors
 
         /// <summary>
         /// a constructor with parameters
@@ -46,7 +54,10 @@ namespace PL.PO
 
         // default constructor
         public CustomerInParcel() { }
+        #endregion
 
+
+        #region ToString
         /// <summary>
         /// override ToString function.
         /// </summary>
@@ -56,7 +67,7 @@ namespace PL.PO
             return $"id: {Id}, " +
                     $"name: {Name}";
         }
-
+        #endregion
 
 
     }

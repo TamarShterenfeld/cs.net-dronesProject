@@ -10,6 +10,8 @@ namespace PL
 {
     public class BoolToBoolConverter : IValueConverter
     {
+        #region Convert&ConvertBack
+       
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             return !(bool)value;
@@ -19,5 +21,7 @@ namespace PL
         {
             return !(bool)value;
         }
+
+        #endregion
     }
 }

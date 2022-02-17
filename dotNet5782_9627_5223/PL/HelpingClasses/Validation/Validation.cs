@@ -6,7 +6,7 @@ namespace PL
 {
      internal static class Validation
     {
-        
+        #region IsValid_Methods
         internal static bool IsValidPhone(string phone)
         {
             if(phone[0] != '0') return false;
@@ -59,5 +59,6 @@ namespace PL
             }
             return true;
         }
+        #endregion
     }
 }

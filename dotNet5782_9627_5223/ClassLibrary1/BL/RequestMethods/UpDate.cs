@@ -78,6 +78,10 @@ namespace IBL
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpDateDroneForList(DroneForList droneForList)
         {
+            if(dronesForList.FindIndex(item => item.Id == droneForList.Id) == -1)
+            {
+                throw new BLIntIdException(droneForList.Id);
+            }
             dronesForList.Remove(dronesForList.First(item => item.Id == droneForList.Id));
             dronesForList.Add(droneForList);
         }
@@ -257,7 +261,7 @@ namespace IBL
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public void SendDroneForCharge(int droneId)
+        public BaseStation SendDroneForCharge(int droneId)
         {
             DroneForList drone = GetDroneForList(droneId);
             if (drone.Status == DroneStatuses.Available)
@@ -285,6 +289,7 @@ namespace IBL
                         UpdateDrone(drone);
                         dal.SendDroneToRecharge(drone.Id, baseStation.Id);
                         UpDateBaseStation(baseStation);
+                        return baseStation;
                     }
                 }
                 else
@@ -295,7 +300,7 @@ namespace IBL
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public void ReleaseDroneFromRecharge(int droneId, double timeCharge)
+        public BaseStation ReleaseDroneFromRecharge(int droneId, double timeCharge)
         {
             lock (dal)
             {
@@ -328,7 +333,7 @@ namespace IBL
                     UpDateDroneForList(drone);
                     DO.Drone drone1 = dal.GetDrone(drone.Id);
                     dal.UpDate(drone1, drone1.Id);
-                    dal.ReleaseDroneFromRecharge(drone.Id);
+                    return ConvertBaseStationDOtOBO(dal.ReleaseDroneFromRecharge(drone.Id));
 
                 }
                 else

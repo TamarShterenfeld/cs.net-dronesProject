@@ -13,15 +13,37 @@ namespace PL
 {
     public class StationViewModel : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
+       
+        #region PrivateFields
         BLApi.IBL bl;
         object coorLon, coorLat;
         string state;
-        public PO.Station BaseStation { get; set; }
-        public bool EnableUpdate { get; set; }
+        bool enableUpdate;
+        List<string> listOfCurrFiles;
+        #endregion
 
-        public List<string> ListOfCurrFields { get; set; }
+        #region Properties
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        public PO.Station BaseStation { get; set; }
+        public bool EnableUpdate
+        {
+            get => enableUpdate;
+            set
+            {
+                enableUpdate = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(State)));
+            }
+        }
+        public List<string> ListOfCurrFields
+        { 
+            get=> listOfCurrFiles;
+            set
+            {
+                listOfCurrFiles = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ListOfCurrFields)));
+            }
+        }
         public string State
         {
             get => state;
@@ -31,7 +53,6 @@ namespace PL
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(State)));
             }
         }
-
         public object CoorLon
         {
             get => coorLon;
@@ -45,6 +66,7 @@ namespace PL
                         return;
                     }
                     coorLon = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CoorLat)));
                     BaseStation.Location.CoorLongitude = new PO.Coordinate(longitude, POConverter.Locations.Longitude);
                 }
                 else
@@ -66,6 +88,7 @@ namespace PL
                         return;
                     }
                     coorLat = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CoorLat)));
                     BaseStation.Location.CoorLatitude = new PO.Coordinate(latitude, POConverter.Locations.Latitude);
                 }
                 else
@@ -80,6 +103,9 @@ namespace PL
         public RelayCommand Delete { get; set; }
         public RelayCommand LeftDoubleClick { get; set; }
 
+        #endregion
+
+        #region Constructors
         public StationViewModel(BLApi.IBL bl, PO.BaseStationForList station)
             : this(bl)
         {
@@ -103,8 +129,9 @@ namespace PL
             LeftDoubleClick = new(doubleClickDrone, null);
         }
 
+        #endregion
 
-        //---------------------------------BaseStation's Methods------------------------------
+        #region Buttons_Events
         /// <summary>
         /// the function treats the event of clicking on the button 'Cancel'.
         /// </summary>
@@ -114,7 +141,14 @@ namespace PL
         {
             (sender as Window).Close();
         }
+        private void doubleClickDrone(object sender)
+        {
+            new DroneView(new DroneViewModel(bl, DroneForListBOToPO(bl.GetDroneForList((sender as PO.DroneInCharging).Id)))).Show();
+        }
 
+        #endregion
+
+        #region CRUD_Events
         private void Button_ClickDelete(object sender)
         {
             if (!IsAllValid())
@@ -139,7 +173,6 @@ namespace PL
                 MessageBox.Show($"the chosen id: {exe.Id} doesn't exist in the database");
             }
         }
-
         private void Button_ClickAdd(object sender)
         {
             if (!IsAllValid())
@@ -178,11 +211,9 @@ namespace PL
             }
 
         }
+        #endregion
 
-        private void doubleClickDrone(object sender)
-        {
-            new DroneView(new DroneViewModel(bl, DroneForListBOToPO(bl.GetDroneForList((sender as PO.DroneInCharging).Id)))).Show();
-        }
+        #region Validation
 
         bool IsAllValid()
         {
@@ -196,7 +227,7 @@ namespace PL
                 IsValid(BaseStation.ChargeSlots.ToString(), n1, n2, n5) &&
                 IsValid(CoorLon, n1) && IsValid(CoorLat, n1);
         }
+        #endregion
 
-        
     }
 }

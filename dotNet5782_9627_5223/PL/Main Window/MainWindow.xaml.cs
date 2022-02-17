@@ -22,12 +22,20 @@ namespace PL
     /// </summary>
     public partial class MainWindow : Window
     {
-        public BLApi.IBL bl ;
+        #region Properties
+        public BLApi.IBL bl;
+        #endregion
+
+        #region Constructor
         public MainWindow()
         {
             bl = BLApi.BLFactory.GetBl();
             InitializeComponent();
         }
+
+        #endregion
+
+        #region Buttons_Events
 
         /// <summary>
         /// the function treats the event of clicking the button 'all drones'
@@ -61,6 +69,7 @@ namespace PL
         {
             new ParcelsListView(new ParcelsListViewModel(bl)).Show();
         }
+
         /// <summary>
         /// the function treats the event of clicking the button 'all stations'
         /// when it's pressed - it opens a new window named 'StationList'.
@@ -71,5 +80,7 @@ namespace PL
         {
             new CustomersList(new CustomersListViewModel(bl)).Show();
         }
+
+        #endregion
     }
 }

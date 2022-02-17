@@ -9,7 +9,16 @@ namespace PL.PO
 {
     public class ParcelInCustomer : INotifyPropertyChanged
     {
+        #region PrivateFields
+
         int id;
+        private WeightCategories weight;
+        private Priorities priority;
+        private ParcelStatuses parcelStatus;
+
+        #endregion
+
+        #region Properties
         public int Id
         {
             get => id;
@@ -19,10 +28,7 @@ namespace PL.PO
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Id)));
             }
         }
-        private WeightCategories weight;
-        private Priorities priority;
-        private ParcelStatuses parcelStatus;
-        public WeightCategories Weight 
+        public WeightCategories Weight
         {
             get => weight;
             set
@@ -51,15 +57,21 @@ namespace PL.PO
         }
 
         private CustomerInParcel sourceOrDest;
-        public CustomerInParcel SourceOrDest 
-        { 
-            get => sourceOrDest; 
-            set 
-            { 
-                sourceOrDest = value; 
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Id))); 
-            } 
+        public CustomerInParcel SourceOrDest
+        {
+            get => sourceOrDest;
+            set
+            {
+                sourceOrDest = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Id)));
+            }
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        #endregion
+
+        #region Constructors
 
         /// <summary>
         /// a constructor with parameters
@@ -78,6 +90,10 @@ namespace PL.PO
         // default constructor
         public ParcelInCustomer() { }
 
+        #endregion
+
+        #region ToString
+
         /// <summary>
         /// override ToString function.
         /// </summary>
@@ -89,6 +105,8 @@ namespace PL.PO
                     $"priority: {Priority}\n" +
                     $"parcelStatus: {ParcelStatus}\n";
         }
-        public event PropertyChangedEventHandler PropertyChanged;
+
+        #endregion
+        
     }
 }

@@ -13,12 +13,11 @@ namespace PL
 {
     sealed partial class ListsModel : Singleton<ListsModel>, INotifyPropertyChanged
     {
-        // ParcelsViewModel Lists
- 
+        #region PrivateFields
         ObservableCollection<PO.ParcelForList> parcels;
+        #endregion
 
-        
-
+        #region Properties
         public ObservableCollection<PO.ParcelForList> Parcels
         {
             get => parcels;
@@ -28,6 +27,10 @@ namespace PL
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Parcels)));
             }
         }
+
+        #endregion
+
+        #region CRUD_Methods
 
         /// <summary>
         /// update parcel
@@ -55,11 +58,11 @@ namespace PL
         /// add parcel
         /// </summary>
         /// <param name="parcelId">parcel's id</param>
-        public void AddParcel (int parcelId)
+        public void AddParcel(int parcelId)
         {
             Parcels.Add(ParcelForListBOToPO(bl.GetParcelForList(parcelId)));
         }
-        
 
+        #endregion
     }
 }

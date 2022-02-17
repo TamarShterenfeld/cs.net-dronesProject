@@ -10,6 +10,7 @@ namespace PL
 {
     public class IntToStringConverter : IValueConverter
     {
+        #region Convert&ConvertBack      
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             return value.ToString();
@@ -19,5 +20,6 @@ namespace PL
         {
             return int.Parse((string)value);
         }
+        #endregion
     }
 }

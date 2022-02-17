@@ -10,7 +10,11 @@ namespace PL
 {
     public class CustomersListViewModel : INotifyPropertyChanged
     {
+        #region PrivateFields
         BLApi.IBL bl;
+        #endregion
+
+        #region Properties
         public CustomersListViewModel(BLApi.IBL bl)
         {
             this.bl = bl;
@@ -26,7 +30,10 @@ namespace PL
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        //---------------------------------Customers's Methods------------------------------
+        #endregion
+
+        #region Buttons_Events
+
         /// <summary>
         /// the function treats the event of clicking on the button 'Cancel'.
         /// </summary>
@@ -48,5 +55,6 @@ namespace PL
         {
             new CustomerView(new CustomerViewModel(bl, sender as PO.CustomerForList)).Show();
         }
+        #endregion
     }
 }

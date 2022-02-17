@@ -9,8 +9,19 @@ namespace PL.PO
 {
     public class Coordinate : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
+        #region PrivateFields
         private double degrees;
+        private double minutes;
+        private double seconds;
+        double inputCoorValue;
+        Directions direction;
+        Locations myLocation;
+        #endregion
+
+        #region Properties
+       
+        public event PropertyChangedEventHandler PropertyChanged;
+       
         public double Degrees
         {
             get => degrees;
@@ -20,7 +31,7 @@ namespace PL.PO
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Degrees)));
             }
         }
-        private double minutes;
+        
         public double Minutes
         {
             get => minutes;
@@ -30,8 +41,7 @@ namespace PL.PO
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Minutes)));
             }
         }
-
-        private double seconds;
+       
         public double Seconds
         {
             get => seconds;
@@ -41,8 +51,7 @@ namespace PL.PO
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Seconds)));
             }
         }
-
-        double inputCoorValue;
+       
         public double InputCoorValue
         {
             get => inputCoorValue;
@@ -52,8 +61,7 @@ namespace PL.PO
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(InputCoorValue)));
             }
         }
-
-        Directions direction;
+      
         public Directions Direction
         {
             get => direction;
@@ -63,8 +71,7 @@ namespace PL.PO
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Direction)));
             }
         }
-
-        Locations myLocation;
+      
         public Locations MyLocation
         {
             get => myLocation;
@@ -75,6 +82,9 @@ namespace PL.PO
             }
         }
 
+        #endregion
+
+        #region Constructors
 
         /// <summary>
         /// constructor which gets degree and direction (longitude ot latitude)
@@ -92,6 +102,9 @@ namespace PL.PO
         /// </summary>
         public Coordinate() { }
 
+        #endregion
+
+        #region ToString
         /// <summary>
         /// override ToString function.
         /// </summary>
@@ -122,6 +135,8 @@ namespace PL.PO
             Seconds = (InputCoorValue - Degrees) * 3600 - Minutes * 60;
             return $"{Degrees}°{Minutes}′{Seconds:0.0}″{Direction.ToString()[0]}";
         }
+
+        #endregion
 
     }
 }
