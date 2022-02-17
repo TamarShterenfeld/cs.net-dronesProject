@@ -56,34 +56,35 @@ namespace BO
         /// </summary>
         public Coordinate() {}
 
-        
+
         /// override ToString function.
         /// </summary>
         /// <returns>description of the Coordinate object</returns>
         public override string ToString()
         {
+            double tempPlace = InputCoorValue;
             if (MyLocation == Locations.Longitude)
             {
                 Direction = Directions.EAST;
-                if (InputCoorValue < 0)
+                if (tempPlace < 0)
                 {
                     Direction = Directions.WEST;
-                    InputCoorValue = -InputCoorValue;
+                    tempPlace = -tempPlace;
                 }
             }
             else if (MyLocation == Locations.Latitude)
             {
                 Direction = Directions.NORTH;
-                if (InputCoorValue < 0)
+                if (tempPlace < 0)
                 {
                     Direction = Directions.SOUTH;
-                    InputCoorValue = -InputCoorValue;
+                    tempPlace = -tempPlace;
                 }
             }
 
-            Degrees = (int)InputCoorValue;
-            Minutes = (int)(60 * (InputCoorValue - Degrees));
-            Seconds = (InputCoorValue - Degrees) * 3600 - Minutes * 60;
+            Degrees = (int)tempPlace;
+            Minutes = (int)(60 * (tempPlace - Degrees));
+            Seconds = (tempPlace - Degrees) * 3600 - Minutes * 60;
             return $"{Degrees}°{Minutes}′{Seconds:0.0}″{Direction.ToString()[0]}";
         }
 

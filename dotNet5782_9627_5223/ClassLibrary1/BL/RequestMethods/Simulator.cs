@@ -8,7 +8,7 @@ namespace IBL
 {
     sealed partial class BL
     {
-        public void InvokeSimulator(int droneId, Action refreshDisplay, Func<bool> checkStopping)
+        public void InvokeSimulator(int droneId, Action<object> refreshDisplay, Func<bool> checkStopping)
         {
             Simulator simulator = new(this , droneId, refreshDisplay, checkStopping);
         }

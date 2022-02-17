@@ -40,9 +40,9 @@ namespace PL
             }
         }
         public PO.Drone Drone { get; set; }
-        public bool EnableUpdate 
+        public bool EnableUpdate
         {
-            get=> enableUpdate;
+            get => enableUpdate;
             set
             {
                 enableUpdate = value;
@@ -364,7 +364,7 @@ namespace PL
         /// </summary>
         /// <param name="sender">the event</param>
         private void Button_ClickAdd(object sender)
-        {          
+        {
             if (!IsAllValid())
             {
                 MessageBox.Show("Not all the fields are filled with correct values\nThis action is invalid!");
@@ -435,9 +435,9 @@ namespace PL
         #endregion
 
         #region Simulator
-        private void updateDrone() => worker.ReportProgress(0);
+        private void updateDrone(object userStage) => worker.ReportProgress(0, userStage);
         private bool checkStop() => worker.CancellationPending;
-        private void updateDroneView()
+        private void updateDroneView(object userStage)
         {
             ListsModel.Instance.UpdateDrone(Drone.Id);
             Drone = DroneBOToPO(bl.GetBLDrone(Drone.Id), bl);
@@ -458,7 +458,7 @@ namespace PL
             worker = new() { WorkerReportsProgress = true, WorkerSupportsCancellation = true };
             worker.DoWork += (sender, args) => bl.InvokeSimulator((int)args.Argument, updateDrone, checkStop);
             worker.RunWorkerCompleted += (sender, args) => InSimulator = false;
-            worker.ProgressChanged += (sender, args) => updateDroneView();
+            worker.ProgressChanged += (sender, args) => updateDroneView(args.UserState);
             worker.RunWorkerAsync(Drone.Id);
         }
 

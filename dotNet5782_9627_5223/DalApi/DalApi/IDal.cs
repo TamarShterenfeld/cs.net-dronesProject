@@ -64,9 +64,9 @@ namespace DalApi
         /// <summary>
         /// the function updates a parcel object in ParcelsList.
         /// </summary>
-        /// <param name="customer">the updated parcel</param>
+        /// <param name="parcel">the updated parcel</param>
         /// <param name="id">parcel's id</param>
-        void UpDate(Parcel customer, int id);
+        void UpDate(Parcel parcel, int id);
 
         /// <summary>
         /// sends the requsted drone to recharge in the requested base station.

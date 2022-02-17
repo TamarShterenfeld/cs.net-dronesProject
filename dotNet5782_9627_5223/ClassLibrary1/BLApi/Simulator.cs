@@ -16,7 +16,7 @@ namespace IBL
         private const double TIME_STEP = DELAY / 1000.0;
         private const double STEP = VELOCITY / TIME_STEP;
 
-        public Simulator(BLApi.IBL Bl, int droneId, Action updateDrone, Func<bool> checkStop)
+        public Simulator(BLApi.IBL Bl, int droneId, Action<object> updateDrone, Func<bool> checkStop)
         {
             BLApi.IBL bl = Bl;
             DalApi.IDal dal = DalApi.DalFactory.GetDal();
@@ -29,6 +29,12 @@ namespace IBL
             bool pickedUp = false;
             BO.Customer customer = parcel != null ? bl.GetBLCustomer(pickedUp? parcel.Target.Id:parcel.Sender.Id) : null;
             Maintenance maintenance = drone.Status == DroneStatuses.Maintenance ? Maintenance.Charging : Maintenance.Starting;
+
+            void startMaintenance()
+            {
+                drone.Status = DroneStatuses.Maintenance;
+                maintenance = Maintenance.Starting;
+            }
 
             do
             {
@@ -51,15 +57,14 @@ namespace IBL
                                             break;
 
                                         case (default(int), _):
-                                            drone.Status = DroneStatuses.Maintenance;
-                                            maintenance = Maintenance.Starting;
+                                            startMaintenance();
                                             break;
                                         case (_, _):
                                             try
                                             {
                                                 parcel.AssociationDate = DateTime.Now;
-                                                parcel.MyDrone = new(drone.Id,drone.Battery, 
-                                                        new(new(drone.Location.CoorLongitude.InputCoorValue, BO.Locations.Longitude), new(drone.Location.CoorLatitude.InputCoorValue, BO.Locations.Latitude)) );                                               
+                                                parcel.MyDrone = new(drone.Id, drone.Battery,
+                                                        new(new(drone.Location.CoorLongitude.InputCoorValue, BO.Locations.Longitude), new(drone.Location.CoorLatitude.InputCoorValue, BO.Locations.Latitude)));
                                                 drone.ParcelId = parcelId;
                                                 customer = bl.GetBLCustomer(parcel.Sender.Id);
                                                 bl.UpdateParcel(parcel);
@@ -72,10 +77,11 @@ namespace IBL
                             }
                             catch (ParcelActionsException ex)
                             {
+                                startMaintenance();
                             }
-                            catch (DroneStatusException ex) { }
-                            catch (Exception ex) { }
-                        }
+                            catch (DroneStatusException ex) { startMaintenance(); }
+                            catch (Exception ex){ startMaintenance(); }
+                            }
                         break;
 
                     case DroneForList { Status: DroneStatuses.Maintenance } :
@@ -147,7 +153,8 @@ namespace IBL
                                 {
                                     parcel.SupplyDate = DateTime.Now;
                                     drone.Status = DroneStatuses.Available;
-                                    drone.ParcelId = 0;
+                                    drone.ParcelId = parcelId = 0;
+                                    pickedUp = false;
                                 }
                                 else
                                 {
@@ -178,7 +185,7 @@ namespace IBL
 
                 }
                 bl.UpdateDronesForSimulator(drone);
-                updateDrone();
+                updateDrone(new { Distance = distance,PickedUp = pickedUp});
             } while (!checkStop());
         }
 
