@@ -118,7 +118,7 @@ namespace PL
         public ListCollectionView MyDroneActions { get; set; }
         public ListCollectionView StationsId { get; set; }
         public string SelectedWeight { set { selectedWeight = value; Drone.Weight = (POConverter.WeightCategories)Enum.Parse(typeof(POConverter.WeightCategories), value); PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedWeight))); } get => selectedWeight; }
-        public string SelectedStatus { set { selectedStatus = value; Drone.Status = (POConverter.DroneStatuses)Enum.Parse(typeof(POConverter.DroneStatuses), value); PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedStatus))); } get => selectedStatus; }
+        public string SelectedStatus { set { selectedStatus = value; selectedStatus = value; Drone.Status = (POConverter.DroneStatuses)Enum.Parse(typeof(POConverter.DroneStatuses), value); PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedStatus))); } get => selectedStatus; }
         public string SelectedDroneAction
         {
             get => selectedDroneAction;
