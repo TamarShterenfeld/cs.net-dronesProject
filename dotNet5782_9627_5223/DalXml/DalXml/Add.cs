@@ -28,18 +28,21 @@ namespace DalXml
         public void Add(Customer customer)
         {
             CheckNotExistenceOfCustomer(customer.Id);
+            Coordinate longit =  customer.Longitude;
+            Coordinate latit = customer.Latitude;
             XElement id = new XElement("id", customer.Id);
             XElement name = new XElement("name", customer.Name);
             XElement phone = new XElement("phone", customer.Phone);
             XElement isDeleted = new XElement("isDeleted", customer.IsDeleted);
-            XElement longitude = new XElement("longitude", customer.Longitude.ToString());
-            XElement latitude = new XElement("longitude", customer.Latitude.ToString());
-            XElement location = new XElement("location",longitude, latitude);
+            XElement longitude = Convertors.CoordinateToXElement(longit, Locations.Longitude);
+            XElement latitude = Convertors.CoordinateToXElement(latit, Locations.Latitude);
+            XElement location = new XElement("Location",longitude, latitude);
             XElement myCustomer = new XElement("Customer", id, name, phone,isDeleted, location);
             CustomersRoot.Add(myCustomer);
             CustomersRoot.Save(dirPath + customersPath);
         }
 
+       
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void Add(Drone drone)
         {
@@ -64,7 +67,11 @@ namespace DalXml
         {
             List<DroneCharge> dronesCharge = LoadListFromXmlSerializer<DO.DroneCharge>(droneChargesPath).ToList();
             CheckNotExistenceOfDroneCharge(droneCharge.DroneId);
-            dronesCharge.Add(droneCharge);
+            CheckExistenceOfDrone(droneCharge.DroneId);
+            BaseStation baseStation = GetBaseStation(droneCharge.StationId);
+            baseStation.ChargeSlots--;
+            UpDate(baseStation, baseStation.Id);
+            DronesChargeList.Add(droneCharge);
             SaveListToXmlSerializer<DroneCharge>(dronesCharge, droneChargesPath);
         }
     }

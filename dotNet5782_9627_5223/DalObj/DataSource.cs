@@ -144,7 +144,7 @@ namespace DalObject
         /// <returns>a coordinate object which stores a random longitude .</returns>
         private static Coordinate RandomLongitude()
         {
-            double longitude1 = 0.4321 * rand.Next(0, 180) + 0.5679* rand.Next(-180, 0);
+            double longitude1 = 0.4321 * rand.Next(0, 90) + 0.5679* rand.Next(-90, 0);
             return new() { InputCoorValue = longitude1, MyLocation = Locations.Longitude };
         }
 
@@ -154,7 +154,7 @@ namespace DalObject
         /// <returns>a coordinate object which stores a random latitude.</returns>
         private static Coordinate RandomLatitude()
         {
-            double latitude1 = 0.1234 * rand.Next(0, 180) + 0.8766 * rand.Next(-180, 0);
+            double latitude1 = 0.1234 * rand.Next(0, 90) + 0.8766 * rand.Next(-90, 0);
             return new () { InputCoorValue = latitude1, MyLocation = Locations.Latitude };
         }
 

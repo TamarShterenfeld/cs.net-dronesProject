@@ -85,7 +85,7 @@ namespace PL
                 {
                     if (!IsValidLocation(longitude))
                     {
-                        MessageBox.Show("Location must be in range of -180º to 180º");
+                        MessageBox.Show("Location must be in range of -90º to 90º");
                         return;
                     }
                     coorLon = value;
@@ -107,7 +107,7 @@ namespace PL
                 {
                     if (!IsValidLocation(latitude))
                     {
-                        MessageBox.Show("Location must be in range of -180º to 180º");
+                        MessageBox.Show("Location must be in range of -90º to 90º");
                         return;
                     }
                     coorLat = value;

@@ -26,7 +26,7 @@ namespace BO
             }
             set
             {
-                if (value < -180 || value > 180)
+                if (value < -90 || value > 90)
                     throw new BLLocationException(value);
                 inputCoorValue = value;
             }

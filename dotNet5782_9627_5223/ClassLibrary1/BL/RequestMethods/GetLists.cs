@@ -95,8 +95,8 @@ namespace IBL
             {
                 singleDrone = ConvertDroneDoToDroneForList(drone);
                 singleDrone.ParcelId = ++parcelId <= dal.GetLastParcelId() ? parcelId : 0;
-                Coordinate coorLongitude = new Coordinate(rand.Next(0, 180) * 0.6 + rand.Next(-180, 0) * 0.4, Locations.Longitude);
-                Coordinate coorLatitude = new Coordinate(rand.Next(0, 180) * 0.4 + rand.Next(-180, 0) * 0.6, Locations.Latitude);
+                Coordinate coorLongitude = new Coordinate(rand.Next(0, 90) * 0.6 + rand.Next(-90, 0) * 0.4, Locations.Longitude);
+                Coordinate coorLatitude = new Coordinate(rand.Next(0, 90) * 0.4 + rand.Next(-90, 0) * 0.6, Locations.Latitude);
                 singleDrone.Location = new Location(coorLongitude, coorLatitude);
 
                 droneForList.Add(singleDrone);

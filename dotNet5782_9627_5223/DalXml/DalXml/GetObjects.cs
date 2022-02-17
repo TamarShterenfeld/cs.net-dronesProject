@@ -1,10 +1,11 @@
-﻿using DalApi.DO;
+﻿using DalApi;
 using DO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using static DalXml.XMLTools;
 using System.Runtime.CompilerServices;
+using System.Xml.Linq;
 
 namespace DalXml
 {
@@ -50,8 +51,8 @@ namespace DalXml
                                 IsDeleted = bool.Parse(c.Element("isDeleted").Value),
                                 Name = c.Element("name").Value,
                                 Phone = c.Element("phone").Value,
-                                Longitude = (c.Element("location").Element("longitude").Value).Parse(Locations.Longitude),
-                                Latitude = (c.Element("location").Element("longitude").Value).Parse(Locations.Latitude)
+                                Longitude = Convertors.ExlementToCoordinate(c.Element("Location"), Locations.Longitude),
+                                Latitude = Convertors.ExlementToCoordinate(c.Element("Location"), Locations.Longitude)
 
                             }).FirstOrDefault();
             }

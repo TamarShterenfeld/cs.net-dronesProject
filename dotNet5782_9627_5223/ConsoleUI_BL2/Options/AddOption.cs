@@ -44,12 +44,12 @@ namespace ConsoleUI_BL
                                 }
                                 catch (LocationException exe)
                                 {
-                                    Console.WriteLine("the Location: " + exe.Location + " isn't valid in the DAL logic level" + "\nCoordinante value must be in range of - 180º to 180º");
+                                    Console.WriteLine("the Location: " + exe.Location + " isn't valid in the DAL logic level" + "\nCoordinante value must be in range of - 90º to 90º");
                                 }
 
                                 catch (BLLocationException exe)
                                 {
-                                    Console.WriteLine("The Location: " + exe.Location + " isn't valid in the BL logic level" + "\nCoordinante value must be in range of - 180º to 180º");
+                                    Console.WriteLine("The Location: " + exe.Location + " isn't valid in the BL logic level" + "\nCoordinante value must be in range of - 90º to 90º");
                                 }
                                 catch (BLChargeSlotsException exe)
                                 {
@@ -91,7 +91,7 @@ namespace ConsoleUI_BL
 
                                 catch (BLLocationException exe)
                                 {
-                                    Console.WriteLine("The Location: " + exe.Location + " isn't valid in the BL logic level" + "\nCoordinante value must be a positive number and in range of - 180º to 180º");
+                                    Console.WriteLine("The Location: " + exe.Location + " isn't valid in the BL logic level" + "\nCoordinante value must be a positive number and in range of - 90º to 90º");
                                 }
                                 break;
                             }
@@ -119,7 +119,7 @@ namespace ConsoleUI_BL
 
                                 catch (BLLocationException exe)
                                 {
-                                    Console.WriteLine("The Location: " + exe.Location + " isn't valid in the BL logic level" + "\nCoordinante value must be a positive number and in range of - 180º to 180º");
+                                    Console.WriteLine("The Location: " + exe.Location + " isn't valid in the BL logic level" + "\nCoordinante value must be a positive number and in range of - 90º to 90º");
                                 }
                                 catch (BLPhoneException exe)
                                 {

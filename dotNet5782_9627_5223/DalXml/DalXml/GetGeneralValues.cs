@@ -12,8 +12,6 @@ namespace DalXml
 {
     sealed partial class DalXml
     {
-
-
         /// <summary>
         ///a static method which increases the static field - 'ParcelId' in each time it is called. 
         /// </summary>
