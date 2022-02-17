@@ -35,7 +35,8 @@ namespace IBL
                 switch (drone)
                 {
                     case DroneForList { Status: DroneStatuses.Available }:
-                        if (!sleepDelayTime()) break;
+                        if (!sleepDelayTime()) 
+                            break;
                         lock (bl)
                         {
                             try

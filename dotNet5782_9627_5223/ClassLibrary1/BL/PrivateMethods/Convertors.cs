@@ -297,7 +297,7 @@ namespace IBL
         /// <returns>DO coordinate</returns>
         DO.Coordinate CoordinateBoToDo(BO.Coordinate coor)
         {
-            return new DO.Coordinate() { InputCoorValue = coor.InputCoorValue, Degrees = coor.Degrees, Direction = (DO.Directions)Enum.Parse(typeof(DO.Directions), coor.Direction.ToString()), MyLocation = (DO.Locations)Enum.Parse(typeof(DO.Locations), coor.MyLocation.ToString()), Minutes = coor.Minutes, Seconds = coor.Seconds };
+            return new DO.Coordinate() { InputCoorValue = coor.InputCoorValue,MyLocation = (DO.Locations)coor.MyLocation, };
         }
 
         /// <summary>
@@ -307,7 +307,7 @@ namespace IBL
         /// <returns>BO coordinate</returns>
         static BO.Coordinate CoordinateDoToBo(DO.Coordinate coor)
         {
-            return new BO.Coordinate() { InputCoorValue = coor.InputCoorValue, Degrees = coor.Degrees, Direction = (BO.Directions)Enum.Parse(typeof(BO.Directions), coor.Direction.ToString()), MyLocation = (BO.Locations)Enum.Parse(typeof(BO.Locations), coor.MyLocation.ToString()), Minutes = coor.Minutes, Seconds = coor.Seconds };
+            return new BO.Coordinate(coor.InputCoorValue,(BO.Locations)coor.MyLocation);
         }
 
     }

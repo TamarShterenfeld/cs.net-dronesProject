@@ -39,37 +39,6 @@ namespace BO
 
 
 
-        /// <summary>
-        /// converts a double value of position to a Coordinate object.
-        /// it contains a progress of calaulatios based on the location parameter value.
-        /// </summary>
-        /// <param name="value"></param>
-        /// <param name="position"></param>
-        /// <returns>a coordinate object which calculated based on the double value parameter.</returns>
-        public void CastDoubleToCoordinante()
-        {
-            if (InputCoorValue < -180 || InputCoorValue > 180)
-                throw new BLLocationException(InputCoorValue);
-            if (InputCoorValue < 0 && MyLocation == Locations.Longitude)
-                Direction = Directions.SOUTH;
-
-            if (InputCoorValue > 0 && MyLocation == Locations.Longitude)
-                Direction = Directions.NORTH;
-            if (InputCoorValue < 0 && MyLocation == Locations.Latitude)
-                Direction = Directions.WEST;
-            if (InputCoorValue > 0 && MyLocation == Locations.Latitude)
-                Direction = Directions.EAST;
-
-            //the absolute num of the decimal converted num.
-            var decimalNum = Math.Abs(Convert.ToDecimal(InputCoorValue));
-            var degrees = Decimal.Truncate(decimalNum);
-            decimalNum = (decimalNum - degrees) * 60;
-            var minutes = Decimal.Truncate(decimalNum);
-            var seconds = (decimalNum - minutes) * 60;
-            Degrees = Convert.ToDouble(degrees);
-            Minutes = Convert.ToDouble(minutes);
-            Seconds = Convert.ToDouble(seconds);
-        }
 
         /// <summary>
         /// constructor which gets degree and direction (longitude ot latitude)
@@ -80,7 +49,6 @@ namespace BO
         {
             InputCoorValue = degree;
             MyLocation = longOrLat;
-            CastDoubleToCoordinante();
         }
 
         /// <summary>
@@ -88,13 +56,35 @@ namespace BO
         /// </summary>
         public Coordinate() {}
 
-        /// <summary>
+        
         /// override ToString function.
         /// </summary>
         /// <returns>description of the Coordinate object</returns>
         public override string ToString()
         {
-            return Degrees + "º " + Minutes + "' " + Seconds + "'' " + Direction.ToString()[0];
+            if (MyLocation == Locations.Longitude)
+            {
+                Direction = Directions.EAST;
+                if (InputCoorValue < 0)
+                {
+                    Direction = Directions.WEST;
+                    InputCoorValue = -InputCoorValue;
+                }
+            }
+            else if (MyLocation == Locations.Latitude)
+            {
+                Direction = Directions.NORTH;
+                if (InputCoorValue < 0)
+                {
+                    Direction = Directions.SOUTH;
+                    InputCoorValue = -InputCoorValue;
+                }
+            }
+
+            Degrees = (int)InputCoorValue;
+            Minutes = (int)(60 * (InputCoorValue - Degrees));
+            Seconds = (InputCoorValue - Degrees) * 3600 - Minutes * 60;
+            return $"{Degrees}°{Minutes}′{Seconds:0.0}″{Direction.ToString()[0]}";
         }
 
     }

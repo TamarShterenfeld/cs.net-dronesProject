@@ -171,7 +171,7 @@ namespace PL
             LeftDoubleClick = new(doubleClickParcel, null);
             MyDroneActions = new ListCollectionView(nullString.Concat<string>(droneActions).ToList());
             StationsId = new ListCollectionView(ListOfStationForListBOToPO(bl.GetAvailableChargeSlots()).ToList());
-            if (StationsId != null) { station = (PO.BaseStationForList)StationsId.GetItemAt(0); }
+            if (StationsId.Count>0) { station = (PO.BaseStationForList)StationsId.GetItemAt(0); }
         }
 
         //public PO.ParcelInPassing Parcel { get; set; }

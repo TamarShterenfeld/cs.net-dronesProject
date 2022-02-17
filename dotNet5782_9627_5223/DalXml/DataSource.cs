@@ -200,9 +200,11 @@ namespace DalXml
         private Coordinate RandomLongitude()
         {
             double longitude1 = 0.4321 * rand.Next(0, 180) + 0.5679 * rand.Next(-180, 0);
-            Coordinate longitude = new() { InputCoorValue = longitude1, MyLocation = Locations.Longitude };
-            longitude.CastDoubleToCoordinante();
-            return longitude;
+            return new()
+            {
+                InputCoorValue = longitude1,
+                MyLocation = Locations.Longitude
+            };
         }
 
         /// <summary>
@@ -212,9 +214,7 @@ namespace DalXml
         private Coordinate RandomLatitude()
         {
             double latitude1 = 0.1234 * rand.Next(0, 180) + 0.8766 * rand.Next(-180, 0);
-            Coordinate latitude = new() { InputCoorValue = latitude1, MyLocation = Locations.Latitude };
-            latitude.CastDoubleToCoordinante();
-            return latitude;
+            return new() { InputCoorValue = latitude1, MyLocation = Locations.Latitude };
         }
 
         /// <summary>
