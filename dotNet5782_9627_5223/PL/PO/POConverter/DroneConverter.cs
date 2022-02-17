@@ -12,7 +12,6 @@ namespace PL.PO
 
         public static BO.Drone DronePOToBo(PO.Drone drone)
         {
-            //PO.Parcel parcel = drone.Parcel;
             return new BO.Drone
             {
                 Id = drone.Id,

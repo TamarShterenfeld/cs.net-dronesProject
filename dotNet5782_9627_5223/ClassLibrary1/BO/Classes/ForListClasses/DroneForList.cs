@@ -75,9 +75,9 @@ namespace BO
         /// <param name="battery">DroneForList's battery</param>
         /// <param name="status">DroneForList's status</param>
         /// <param name="location">DroneForList's location</param>
-        public DroneForList(int id, int parcelId, string model, WeightCategories weight, double battery, DroneStatuses status, Location location)
+        public DroneForList(int id, int parcelId, string model, WeightCategories weight, double battery, DroneStatuses status, Location location,bool isDeleted)
         {
-            Id = id; ParcelId = parcelId; Model = model; MaxWeight = weight; Battery = battery; Status = status; Location = location;
+            Id = id; ParcelId = parcelId; Model = model; MaxWeight = weight; Battery = battery; Status = status; Location = location;IsDeleted = isDeleted;
         }
         /// <summary>
         /// override ToString function.

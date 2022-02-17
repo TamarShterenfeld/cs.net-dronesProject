@@ -39,11 +39,7 @@ namespace IBL
         [MethodImpl(MethodImplOptions.Synchronized)]
         public Drone GetBLDrone(int id)
         {
-            Drone drone = ConvertDroneDOtOBO(dal.GetDrone(id));
-            DroneForList drone1 = dronesForList.First(item => item.Id == drone.Id);
-            drone.Battery = drone1.Battery; drone.Status = drone1.Status; drone.Parcel.Id = drone1.ParcelId;
-            drone.Location = drone1.Location;
-            return drone;
+            return ConvertDroneDOtOBO(dal.GetDrone(id));
         }
 
 
@@ -55,9 +51,9 @@ namespace IBL
         {
             Drone item = GetBLDrone(id);
             if (item.Parcel != null)
-                return new DroneForList(item.Id, item.Parcel.Id, item.Model, item.MaxWeight, item.Battery, item.Status, item.Location);
+                return new DroneForList(item.Id, item.Parcel.Id, item.Model, item.MaxWeight, item.Battery, item.Status, item.Location,item.IsDeleted);
             else
-                return new DroneForList(item.Id, 0, item.Model, item.MaxWeight, item.Battery, item.Status, item.Location);
+                return new DroneForList(item.Id, 0, item.Model, item.MaxWeight, item.Battery, item.Status, item.Location,item.IsDeleted);
         }
 
         //----------------------------------DroneInParcel GetObject Methods---------------------------------

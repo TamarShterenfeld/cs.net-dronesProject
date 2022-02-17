@@ -160,7 +160,7 @@ namespace PL
                 MessageBox.Show("Can not delete this drone since he has a parcel\n finish with the parcel and try again.");
                 return;
             }
-            //Bl.Delete(CustomerPoToBo(Customer));///////////////////////////////////////////////////////////////////////////////////////
+            bl.Delete(DronePOToBo(Drone));
             ListsModel.Instance.DeleteDrone(Drone.Id);
             Button_ClickCancel(sender);
         }

@@ -39,7 +39,8 @@ namespace IBL
                 {
                     Id = drone.Id,
                     MaxWeight = (DO.WeightCategories)drone.MaxWeight,
-                    Model = drone.Model
+                    Model = drone.Model,
+                    IsDeleted = drone.IsDeleted,
                 };
                 dal.Add(drone1);
                 dronesForList.Add(ConvertDroneBoToDroneForList(drone));

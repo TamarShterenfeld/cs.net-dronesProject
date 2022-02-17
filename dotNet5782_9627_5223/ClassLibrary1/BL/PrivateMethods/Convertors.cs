@@ -213,7 +213,7 @@ namespace IBL
                 Id = drone.Id,
                 MaxWeight = (BO.WeightCategories)Enum.Parse(typeof(BO.WeightCategories), drone.MaxWeight.ToString()),
                 Model = drone.Model,
-
+                IsDeleted = drone.IsDeleted,
             };
             return current;
         }
