@@ -25,7 +25,6 @@ namespace DO
             get { return id; }
         }
         public string Model { get; set; }
-
         public bool IsDeleted { get; set; } 
         public WeightCategories MaxWeight { set; get; }
 

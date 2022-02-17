@@ -95,6 +95,7 @@ namespace IBL
                 Id = boDrone.Id,
                 MaxWeight = (DO.WeightCategories)Enum.Parse(typeof(DO.WeightCategories), boDrone.MaxWeight.ToString()),
                 Model = boDrone.Model,
+                IsDeleted = boDrone.IsDeleted,
             };
             return doDrone;
         }
@@ -104,12 +105,11 @@ namespace IBL
         /// </summary>
         /// <param name="droneForList">the object to convert</param>
         /// <returns>a BO.Drone converted object</returns>
-         Drone ConvertDroneForListToDrone(DroneForList droneForList)
-        {
-            ParcelInPassing parcel = new() { Id = droneForList.ParcelId };
-            Drone drone = new (droneForList.Id, droneForList.Model, droneForList.MaxWeight, droneForList.Battery, droneForList.Status, parcel, droneForList.Location);
-            return drone;
-        }
+         Drone ConvertDroneForListToDrone(DroneForList drone)
+         {
+            ParcelInPassing parcel = new() { Id = drone.ParcelId };
+            return new (drone.Id, drone.Model, drone.MaxWeight, drone.Battery, drone.Status, parcel, drone.Location,drone.IsDeleted );
+         }
 
         /// <summary>
         /// the function converts a Customer object to a CustomerInParcel object
@@ -196,6 +196,7 @@ namespace IBL
                 Status = drone.Status,
                 Location = drone.Location,
                 ParcelId = drone.Parcel != null ? drone.Parcel.Id : 0,
+                IsDeleted = drone.IsDeleted,
             };
             return current;
         }
@@ -224,8 +225,8 @@ namespace IBL
         /// <returns>the converted BO.Drone object</returns>
         Drone ConvertDroneDOtOBO(DO.Drone drone)
         {
-            Drone bODrone = new (drone.Id, drone.Model, (BO.WeightCategories)Enum.Parse(typeof(BO.WeightCategories), drone.MaxWeight.ToString()), dronesForList.FirstOrDefault(item => item.Id == drone.Id).Battery, DroneStatuses.Available, ParcelInPassing.Empty, new Location());
-            return bODrone;
+            DroneForList droneForList = dronesForList.FirstOrDefault(item => item.Id == drone.Id);
+            return new(drone.Id, drone.Model,(BO.WeightCategories)drone.MaxWeight, droneForList.Battery, (BO.DroneStatuses)droneForList.Status, GetParcelInPassing(droneForList.ParcelId), droneForList.Location, drone.IsDeleted);
         }
 
         /// <summary>

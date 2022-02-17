@@ -59,7 +59,7 @@ namespace BO
         public DroneStatuses Status { set; get; }
 
         public Location Location { get; set; }
-
+        public bool IsDeleted { get; set; }
         /// <summary>
         /// default constructor
         /// </summary>

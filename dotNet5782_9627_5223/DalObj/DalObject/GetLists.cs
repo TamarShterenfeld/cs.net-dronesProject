@@ -25,13 +25,13 @@ namespace DalObject
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<BaseStation> GetBaseStationsList()
         {
-            return BaseStationsList.Where(item=>!item.IsDeleted);
+            return BaseStationsList.Where(item => !item.IsDeleted);
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Drone> GetDronesList()
         {
-            return DronesList;
+            return DronesList.Where(item => !item.IsDeleted);
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
