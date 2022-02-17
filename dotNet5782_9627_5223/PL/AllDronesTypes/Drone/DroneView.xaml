@@ -133,39 +133,26 @@
                 IsEnabled="False"  VerticalAlignment="Center" 
             HorizontalAlignment="Center"/>
         </StackPanel>
-
+        <WrapPanel Grid.Row="6" Grid.Column="3" Orientation="Vertical" Visibility="{Binding InSimulator, Converter={StaticResource BoolToVisibilityConverter }}">
+            <TextBlock Text="{Binding Stage}"/>
+        </WrapPanel>
         <TextBlock Text="Longitude:" Grid.Row="7" Grid.Column="1" Foreground="#FF3F4245"/>
         <TextBox x:Name="longitude"
             Grid.Row="7" Grid.Column="2"
             TextWrapping="Wrap" 
             VerticalAlignment="Top" 
             HorizontalAlignment="Center"
-            Width="140"     IsEnabled="{Binding EnableUpdate}">
-            <TextBox.Text >
-                <Binding Path="CoorLon" UpdateSourceTrigger="PropertyChanged" >
-                    <Binding.ValidationRules>
-                        <local:NotEmptyRule ValidatesOnTargetUpdated="True"/>
-                    </Binding.ValidationRules>
-                </Binding>
-            </TextBox.Text>
-        </TextBox>
+            Width="140"     IsEnabled="false" Text="{Binding CoorLon}"/>
 
         <TextBlock Text="Latitude:" Grid.Row="8" Grid.Column="1" Foreground="#FF3F4245"/>
         <TextBox x:Name="latitude"
             Grid.Row="8" Grid.Column="2"
-            IsEnabled="{Binding EnableUpdate}"
+            IsEnabled="false"
             TextWrapping="Wrap" 
             VerticalAlignment="Top" 
             HorizontalAlignment="Center"
-            Width="140">
-            <TextBox.Text >
-                <Binding Path="CoorLat" UpdateSourceTrigger="PropertyChanged" >
-                    <Binding.ValidationRules>
-                        <local:NotEmptyRule ValidatesOnTargetUpdated="True"/>
-                    </Binding.ValidationRules>
-                </Binding>
-            </TextBox.Text>
-        </TextBox>
+            Width="140" Text="{Binding CoorLat}"/>
+
 
         <TextBlock x:Name="Lstation" Grid.Row= "9" Grid.Column="1" Foreground="#FF3F4245" Grid.ColumnSpan="2" Grid.RowSpan="2" Visibility="{Binding EnableUpdate,Converter={StaticResource BoolToVisibilityConverter}}">
             <Run FlowDirection="RightToLeft" Language="he-il" Text="S"/><Run Text="tation ID:"/></TextBlock>
