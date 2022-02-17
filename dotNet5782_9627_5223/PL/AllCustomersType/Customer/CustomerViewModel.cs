@@ -205,7 +205,7 @@ namespace PL
         /// <param name="sender">the event</param>
         private void doubleClickParcel(object sender)
         {
-            new ParcelView(new ParcelViewModel( bl.GetParcelForList((sender as PO.ParcelInCustomer).Id), bl )).Show();
+            new ParcelView(new ParcelViewModel(ParcelForListBOToPO( bl.GetParcelForList((sender as PO.ParcelInCustomer).Id)), bl )).Show();
         }
 
         bool IsAllValid()

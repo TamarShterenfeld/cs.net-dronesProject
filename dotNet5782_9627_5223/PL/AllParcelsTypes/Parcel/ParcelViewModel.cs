@@ -122,7 +122,7 @@ namespace PL
 
         #region Constructors
         //-----------------------------------Constructors-----------------------------------------
-        public ParcelViewModel(BO.ParcelForList parcel, BLApi.IBL bl)
+        public ParcelViewModel(PO.ParcelForList parcel, BLApi.IBL bl)
         {
             this.bl = bl;
             MyParcel = new PO.Parcel(bl, parcel);

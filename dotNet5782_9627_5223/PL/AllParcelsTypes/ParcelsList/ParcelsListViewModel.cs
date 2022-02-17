@@ -111,7 +111,7 @@ namespace PL
        
         private void DroneListView_MouseDoubleClick(object sender)
         {
-            new ParcelView(new ParcelViewModel(sender as BO.ParcelForList, bl)).Show();
+            new ParcelView(new ParcelViewModel(sender as PO.ParcelForList, bl)).Show();
         }
 
 

@@ -15,7 +15,7 @@ namespace PL
         {
 
             #region Constructors
-            public Parcel(BLApi.IBL bl, BO.ParcelForList parcelForList)
+            public Parcel(BLApi.IBL bl, ParcelForList parcelForList)
             {
                 ParcelId = parcelForList.ParcelId;
                 SenderId = parcelForList.SenderId;
