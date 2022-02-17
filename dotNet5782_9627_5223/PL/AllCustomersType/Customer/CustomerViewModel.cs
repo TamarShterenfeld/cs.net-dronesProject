@@ -9,18 +9,88 @@ using static  PL.Validation;
 
 namespace PL
 {
-    public class CustomerViewModel
+    public class CustomerViewModel : INotifyPropertyChanged
     {
+        #region PrivateFields
         BLApi.IBL bl;
         object coorLon, coorLat;
+        bool enableUpdate;
+        string state;
+        public event PropertyChangedEventHandler PropertyChanged;
+        #endregion
+
+        #region Properties
         public PO.Customer Customer { get; set; }
-        public bool EnableUpdate { get; set; }
-        public string State { get; set; }
+        public bool EnableUpdate 
+        {
+            get=> enableUpdate;
+            set
+            {
+                enableUpdate = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(EnableUpdate)));
+            }
+        
+        }
+        public string State 
+        { 
+            get=> state;
+            set
+            {
+                state = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(EnableUpdate)));
+            }
+        }
         public RelayCommand Cancel { get; set; }
         public RelayCommand AddOrUpdate { get; set; }
         public RelayCommand Delete { get; set; }
         public RelayCommand LeftDoubleClick { get; set; }
+        public object CoorLon
+        {
+            get => coorLon;
+            set
+            {
+                if (double.TryParse(value.ToString(), out double longitude))
+                {
+                    if (!Validation.IsValidLocation(longitude))
+                    {
+                        MessageBox.Show("Location must be in range of -180º to 180º");
+                        return;
+                    }
+                    coorLon = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CoorLon)));
+                    Customer.Location.CoorLongitude = new PO.Coordinate(longitude, POConverter.Locations.Longitude);                  
+                }
+                else
+                {
+                    MessageBox.Show("Location must be a double value type");
+                }
+            }
+        }
+        public object CoorLat
+        {
+            get => coorLat;
+            set
+            {
+                if (double.TryParse(value.ToString(), out double latitude))
+                {
+                    if (!Validation.IsValidLocation(latitude))
+                    {
+                        MessageBox.Show("Location must be in range of -180º to 180º");
+                        return;
+                    }
+                    coorLat = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CoorLat)));
+                    Customer.Location.CoorLatitude = new PO.Coordinate(latitude, POConverter.Locations.Latitude);
+                }
+                else
+                {
+                    MessageBox.Show("Location must be a double value type");
+                }
+            }
+        }
+        #endregion
 
+        #region constructors
         /// <summary>
         /// constructor
         /// </summary>
@@ -54,51 +124,9 @@ namespace PL
             State = "Add";
             LeftDoubleClick = new(doubleClickParcel, null);
         }
-        public object CoorLon
-        {
-            get => coorLon;
-            set
-            {
-                if (double.TryParse(value.ToString(), out double longitude))
-                {
-                    if (!Validation.IsValidLocation(longitude))
-                    {
-                        MessageBox.Show("Location must be in range of -180º to 180º");
-                        return;
-                    }
-                    coorLon = value;
-                    Customer.Location.CoorLongitude = new PO.Coordinate(longitude, POConverter.Locations.Longitude);
-                }
-                else
-                {
-                    MessageBox.Show("Location must be a double value type");
-                }
-            }
-        }
-        public object CoorLat
-        {
-            get => coorLat;
-            set
-            {
-                if (double.TryParse(value.ToString(), out double latitude))
-                {
-                    if (!Validation.IsValidLocation(latitude))
-                    {
-                        MessageBox.Show("Location must be in range of -180º to 180º");
-                        return;
-                    }
-                    coorLat = value;
-                    Customer.Location.CoorLatitude = new PO.Coordinate(latitude, POConverter.Locations.Latitude);
-                }
-                else
-                {
-                    MessageBox.Show("Location must be a double value type");
-                }
-            }
-        }
+        #endregion
 
-
-        //---------------------------------BaseStation's Methods------------------------------
+        #region Button_Events
         /// <summary>
         /// the function treats the event of clicking on the button 'Cancel'.
         /// </summary>
@@ -109,6 +137,18 @@ namespace PL
             (sender as Window).Close();
         }
 
+        /// <summary>
+        /// show full details of parcelInCustomer object
+        /// </summary>
+        /// <param name="sender">the event</param>
+        private void doubleClickParcel(object sender)
+        {
+            new ParcelView(new ParcelViewModel(ParcelForListBOToPO(bl.GetParcelForList((sender as PO.ParcelInCustomer).Id)), bl)).Show();
+        }
+
+        #endregion
+
+        #region CRUD_Events
         /// <summary>
         /// delete a customer.
         /// </summary>
@@ -198,16 +238,9 @@ namespace PL
                 MessageBox.Show($"the chosen id: {exe.Id} doesn't exist in the database");
             }
         }
+        #endregion
 
-        /// <summary>
-        /// show full details of parcelInCustomer object
-        /// </summary>
-        /// <param name="sender">the event</param>
-        private void doubleClickParcel(object sender)
-        {
-            new ParcelView(new ParcelViewModel(ParcelForListBOToPO( bl.GetParcelForList((sender as PO.ParcelInCustomer).Id)), bl )).Show();
-        }
-
+        #region Validation
         bool IsAllValid()
         {
             NotEmptyRule n1 = new();
@@ -222,5 +255,6 @@ namespace PL
                 IsValid(Customer.Phone, n1, n2, n5, n7) &&
                 IsValid(CoorLon, n1) && IsValid(CoorLon, n1);
         }
+        #endregion
     }
 }

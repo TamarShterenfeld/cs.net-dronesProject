@@ -14,8 +14,11 @@ namespace PL
     sealed partial class ListsModel : Singleton<ListsModel>, INotifyPropertyChanged
     {
         // CustomerViewModel Lists
-        
+        #region PrivateFields
         ObservableCollection<PO.CustomerForList> customers;
+        #endregion
+
+        #region Properties
         public ObservableCollection<PO.CustomerForList> Customers
         {
             get => customers;
@@ -25,6 +28,9 @@ namespace PL
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Customers)));
             }
         }
+        #endregion
+
+        #region CRUD_Methods   
 
         /// <summary>
         /// update customer
@@ -56,6 +62,8 @@ namespace PL
         {
             Customers.Add(CustomerForListBOToPO(bl.GetCustomerForList(id)));
         }
+
+        #endregion
     }
 }
 

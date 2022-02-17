@@ -13,23 +13,14 @@ namespace PL
 {
     sealed partial class ListsModel : Singleton<ListsModel>, INotifyPropertyChanged
     {
-        // StationViewModel Lists
- 
+        #region PrivateFields
         BLApi.IBL bl;
         ObservableCollection<PO.BaseStationForList> stations;
+        #endregion
 
-        /// <summary>
-        /// private constructor
-        /// </summary>
-        private ListsModel()
-        {
-            bl = BLApi.BLFactory.GetBl();
-            Stations = new ObservableCollection<PO.BaseStationForList>(ListOfStationForListBOToPO(bl.GetBaseStationList()).ToList());
-            Customers = new ObservableCollection<PO.CustomerForList>(ListOFCustomerForListBOToPO(bl.GetCustomersList().ToList()));
-            Parcels = new ObservableCollection<PO.ParcelForList>(ListOfParcelForListBOToPO(bl.GetParcelsList()).ToList());
-            Drones = new ObservableCollection<PO.DroneForList>(DroneListBOToPO(bl.GetDronesForList()).ToList());
-        }
+        #region Properties
 
+        public event PropertyChangedEventHandler PropertyChanged;
         public ObservableCollection<PO.BaseStationForList> Stations
         {
             get => stations;
@@ -39,6 +30,10 @@ namespace PL
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Stations)));
             }
         }
+
+        #endregion
+
+        #region CRUD_Methods
 
         /// <summary>
         /// update station
@@ -70,8 +65,23 @@ namespace PL
         {
             Stations.Add(StationForListBOToPO(bl.GetBaseStationForList(stationId)));
         }
-        
-        public event PropertyChangedEventHandler PropertyChanged;
+
+        #endregion
+
+        #region Constructor
+        /// <summary>
+        /// private constructor
+        /// </summary>
+        private ListsModel()
+        {
+            bl = BLApi.BLFactory.GetBl();
+            Stations = new ObservableCollection<PO.BaseStationForList>(ListOfStationForListBOToPO(bl.GetBaseStationList()).ToList());
+            Customers = new ObservableCollection<PO.CustomerForList>(ListOFCustomerForListBOToPO(bl.GetCustomersList().ToList()));
+            Parcels = new ObservableCollection<PO.ParcelForList>(ListOfParcelForListBOToPO(bl.GetParcelsList()).ToList());
+            Drones = new ObservableCollection<PO.DroneForList>(DroneListBOToPO(bl.GetDronesForList()).ToList());
+        }
+
+        #endregion
 
     }
 }

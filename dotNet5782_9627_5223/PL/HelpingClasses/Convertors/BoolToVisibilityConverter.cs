@@ -10,6 +10,7 @@ namespace PL
 {
     public class BoolToVisibilityConverter : IValueConverter
     {
+        #region Convert&ConvertBack       
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             return (bool)value? "Visible" : "Hidden";
@@ -19,5 +20,6 @@ namespace PL
         {
             return (bool)value ? "Visible" : "Hidden";
         }
+        #endregion
     }
 }

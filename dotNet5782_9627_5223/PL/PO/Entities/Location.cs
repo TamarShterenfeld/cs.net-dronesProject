@@ -9,9 +9,14 @@ namespace PL.PO
 {
     public class Location:INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
+        #region PrivateFields
 
         Coordinate coorLongitude;
+        Coordinate coorLatitude;
+
+        #endregion
+
+        #region Properties
         public Coordinate CoorLongitude
         {
             set
@@ -21,7 +26,7 @@ namespace PL.PO
             }
             get => coorLongitude;
         }
-        Coordinate coorLatitude;
+
         public Coordinate CoorLatitude
         {
             set
@@ -31,6 +36,13 @@ namespace PL.PO
             }
             get => coorLatitude;
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+
+        #endregion
+
+        #region Constructors
 
         /// <summary>
         /// constructor
@@ -47,6 +59,10 @@ namespace PL.PO
         public Location()
         { }
 
+        #endregion
+
+        #region ToString
+
         /// <summary>
         /// ovveride ToString function.
         /// </summary>
@@ -56,6 +72,6 @@ namespace PL.PO
             return $"longitude: {CoorLongitude} , latitude: {CoorLatitude}";
         }
 
-
+        #endregion
     }
 }

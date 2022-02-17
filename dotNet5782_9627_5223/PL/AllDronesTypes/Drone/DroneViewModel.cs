@@ -14,6 +14,7 @@ namespace PL
 {
     public class DroneViewModel : INotifyPropertyChanged
     {
+        #region PrivateFields
         BLApi.IBL bl;
         object coorLon, coorLat;
         IList<string> nullString = new List<string>() { "" };
@@ -21,8 +22,14 @@ namespace PL
         IList<string> weights = Enum.GetNames(typeof(POConverter.WeightCategories));
         IList<string> droneActions = Enum.GetNames(typeof(DroneActions));
         string selectedDroneAction, selectedStatus, selectedWeight, selectedModel;
-        double timeCharge; bool visibleTimeCharging;
-        RelayCommand lostFocus;
+        double timeCharge; bool visibleTimeCharging, enableUpdate;
+        bool inSimulator;
+        PO.BaseStationForList station;
+        BackgroundWorker worker;
+
+        #endregion
+
+        #region Properties
         public bool VisibleTimeCharging
         {
             get => visibleTimeCharging;
@@ -33,9 +40,15 @@ namespace PL
             }
         }
         public PO.Drone Drone { get; set; }
-        public bool EnableUpdate { get; set; }
-
-        bool inSimulator;
+        public bool EnableUpdate 
+        {
+            get=> enableUpdate;
+            set
+            {
+                enableUpdate = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(EnableUpdate)));
+            }
+        }
         public bool InSimulator
         {
             get => inSimulator;
@@ -45,7 +58,6 @@ namespace PL
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(InSimulator)));
             }
         }
-        PO.BaseStationForList station;
         public PO.BaseStationForList Station
         {
             get => station;
@@ -68,6 +80,7 @@ namespace PL
                         return;
                     }
                     coorLon = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CoorLon)));
                     Drone.Location.CoorLongitude = new PO.Coordinate(longitude, POConverter.Locations.Longitude);
                 }
                 else
@@ -89,6 +102,7 @@ namespace PL
                         return;
                     }
                     coorLat = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CoorLat)));
                     Drone.Location.CoorLatitude = new PO.Coordinate(latitude, POConverter.Locations.Latitude);
                 }
                 else
@@ -138,9 +152,11 @@ namespace PL
             }
 
         }
+        public event PropertyChangedEventHandler PropertyChanged;
 
-        BackgroundWorker worker;
+        #endregion
 
+        #region Constructors
         /// <summary>
         /// constructor
         /// </summary>
@@ -184,19 +200,19 @@ namespace PL
             if (!StationsId.IsEmpty) { station = (PO.BaseStationForList)StationsId.GetItemAt(0); }
         }
 
-        //public PO.ParcelInPassing Parcel { get; set; }
+        #endregion
 
-        //readonly Action refreshDroneList;
-        private string simulatorOrRegular;
+        #region Button_Events
 
+        /// <summary>
+        /// show full details of parcelInCustomer object
+        /// </summary>
+        /// <param name="sender">the event</param>
+        private void doubleClickParcel(object sender)
+        {
+            new ParcelView(new ParcelViewModel(ParcelForListBOToPO(bl.GetParcelForList(Drone.Id)), bl)).Show();
+        }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-
-        //properties
-
-
-        //---------------------------------Drone's Methods------------------------------
         /// <summary>
         /// the function treats the event of clicking on the button 'Cancel'.
         /// </summary>
@@ -226,41 +242,6 @@ namespace PL
                 MessageBox.Show($"The status: {exe.Status} isn't correct for release the drone from charging.");
             }
         }
-
-        /// <summary>
-        /// delete a customer.
-        /// </summary>
-        /// <param name="sender">the event</param>
-        private void Button_ClickDelete(object sender)
-        {
-            if (!IsAllValid())
-            {
-                MessageBox.Show("Not all the fields are filled with correct values\nThis action is invalid!");
-                return;
-            }
-            Drone.Weight = (POConverter.WeightCategories)Enum.Parse(typeof(POConverter.WeightCategories), SelectedWeight);
-            Drone.Model = SelectedModel;
-            Drone.Status = POConverter.DroneStatuses.Available;
-            if (Drone.Parcel != null)
-            {
-                MessageBox.Show("Can not delete this drone since he has a parcel\n finish with the parcel and try again.");
-                return;
-            }
-            try
-            {
-                BO.Drone boDrone = DronePOToBo(Drone);
-                boDrone.IsDeleted = true;
-                bl.Delete(boDrone);
-                ListsModel.Instance.DeleteDrone(Drone.Id);
-                Button_ClickCancel(sender);
-                MessageBox.Show("The drone has been deleted successfully!");
-            }
-            catch (IntIdException exe)
-            {
-                MessageBox.Show($"the chosen id: {exe.Id} doesn't exist in the database.");
-            }
-        }
-
 
         private void DroneAction_Selected(object sender)
         {
@@ -341,6 +322,42 @@ namespace PL
             }
 
         }
+        #endregion
+
+        #region CRUD_Events
+        /// <summary>
+        /// delete a customer.
+        /// </summary>
+        /// <param name="sender">the event</param>
+        private void Button_ClickDelete(object sender)
+        {
+            if (!IsAllValid())
+            {
+                MessageBox.Show("Not all the fields are filled with correct values\nThis action is invalid!");
+                return;
+            }
+            Drone.Weight = (POConverter.WeightCategories)Enum.Parse(typeof(POConverter.WeightCategories), SelectedWeight);
+            Drone.Model = SelectedModel;
+            Drone.Status = POConverter.DroneStatuses.Available;
+            if (Drone.Parcel != null)
+            {
+                MessageBox.Show("Can not delete this drone since he has a parcel\n finish with the parcel and try again.");
+                return;
+            }
+            try
+            {
+                BO.Drone boDrone = DronePOToBo(Drone);
+                boDrone.IsDeleted = true;
+                bl.Delete(boDrone);
+                ListsModel.Instance.DeleteDrone(Drone.Id);
+                Button_ClickCancel(sender);
+                MessageBox.Show("The drone has been deleted successfully!");
+            }
+            catch (IntIdException exe)
+            {
+                MessageBox.Show($"the chosen id: {exe.Id} doesn't exist in the database.");
+            }
+        }
 
         /// <summary>
         /// add a new customer.
@@ -377,7 +394,6 @@ namespace PL
                 MessageBox.Show($"the chosen id: {exe.Id} already exists in the database.");
             }
         }
-
 
         /// <summary>
         /// update details of a customer.
@@ -416,7 +432,9 @@ namespace PL
                 return;
             }
         }
+        #endregion
 
+        #region Simulator
         private void updateDrone() => worker.ReportProgress(0);
         private bool checkStop() => worker.CancellationPending;
         private void updateDroneView()
@@ -449,16 +467,9 @@ namespace PL
         /// </summary>
         /// <param name="sender">the sender</param>
         private void Button_Regular(object sender) => worker?.CancelAsync();
+        #endregion
 
-        /// <summary>
-        /// show full details of parcelInCustomer object
-        /// </summary>
-        /// <param name="sender">the event</param>
-        private void doubleClickParcel(object sender)
-        {
-            new ParcelView(new ParcelViewModel(ParcelForListBOToPO(bl.GetParcelForList(Drone.Id)), bl)).Show();
-        }
-
+        #region Validation 
         public bool IsAllValid()
         {
             NotEmptyRule n1 = new NotEmptyRule();
@@ -474,6 +485,6 @@ namespace PL
                 && IsValid(CoorLon, n1)
                 && IsValid(CoorLat, n1);
         }
-
+        #endregion
     }
 }

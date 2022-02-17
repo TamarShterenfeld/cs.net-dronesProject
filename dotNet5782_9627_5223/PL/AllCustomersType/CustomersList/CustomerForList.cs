@@ -10,18 +10,18 @@ namespace PL.PO
 {
     public class CustomerForList:INotifyPropertyChanged
     {
-
-        public event PropertyChangedEventHandler PropertyChanged;
+        #region PrivateFields
         private string id;
-
         private string name;
         private string phone;
         int amountOfSendAndSuppliedParcels;
         int amountOfSendAndNotSuppliedParcels;
         int amountOfGetParcels;
         int amountOfInPassingParcels;
+        #endregion
 
-
+        #region Properties
+        public event PropertyChangedEventHandler PropertyChanged;
         public string Id
         {
             get => id;
@@ -92,8 +92,9 @@ namespace PL.PO
             }
 
         }
+        #endregion
 
-
+        #region Constructor
         /// <summary>
         /// default constructor
         /// </summary>
@@ -116,6 +117,10 @@ namespace PL.PO
             AmountOfInPassingParcels = customer.AmountOfInPassingParcels;
         }
 
+
+        #endregion
+
+        #region ToString
         /// <summary>
         /// override ToString function.
         /// </summary>
@@ -130,6 +135,8 @@ namespace PL.PO
                     $"amount of get parcels: { AmountOfGetParcels}\n" +
                     $"amount of In Passing parcels: {AmountOfInPassingParcels}";
         }
+
+        #endregion
 
     }
 }

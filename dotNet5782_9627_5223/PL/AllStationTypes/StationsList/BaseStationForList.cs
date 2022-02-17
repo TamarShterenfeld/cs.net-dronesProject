@@ -20,9 +20,16 @@ namespace PL.PO
     /// </summary>
     public class BaseStationForList:INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
+       
+        #region PrivateFields
         private int id;
+        private string name;
+        private int availableChargeSlots;
+        private int caughtChargeSlots;
+        #endregion
+
+        #region Properties
+        public event PropertyChangedEventHandler PropertyChanged;
         public int Id
         {
             get => id;
@@ -32,7 +39,6 @@ namespace PL.PO
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Id)));
             }
         }
-        private string name;
         public string Name
         {
             get => name;
@@ -43,19 +49,15 @@ namespace PL.PO
             }
         }
 
-        private int availableChargeSlots;
-
         public int AvailableChargeSlots
         {
             get => availableChargeSlots;
             set
-            { 
+            {
                 availableChargeSlots = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AvailableChargeSlots)));
             }
         }
-
-        private int caughtChargeSlots;
         public int CaughtChargeSlots
         {
             get => caughtChargeSlots;
@@ -65,6 +67,10 @@ namespace PL.PO
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CaughtChargeSlots)));
             }
         }
+
+        #endregion
+
+        #region Constructors
 
         /// <summary>
         /// a constructor with parameters
@@ -83,6 +89,9 @@ namespace PL.PO
         /// </summary>
         public BaseStationForList() { }
 
+        #endregion
+
+        #region ToString
         /// <summary>
         /// override ToString function.
         /// </summary>
@@ -94,6 +103,8 @@ namespace PL.PO
                    $"number of free charge slots: {availableChargeSlots}\n" +
                    $"number of caught charge slots: {caughtChargeSlots}";
         }
+        #endregion
+
     }
 
 

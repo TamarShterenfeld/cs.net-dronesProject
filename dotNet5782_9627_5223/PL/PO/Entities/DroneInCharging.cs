@@ -9,19 +9,27 @@ namespace PL.PO
 {
     public class DroneInCharging: INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
+        #region PrivateFields
+
         int id;
+        double battery;
+
+        #endregion
+
+        #region Properties
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public int Id
         {
+            get => id;
             set
-            { 
+            {
                 id = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Id)));
             }
-            get =>id; 
-        }
 
-        double battery;
+        }
         public double Battery
         {
             set
@@ -31,6 +39,10 @@ namespace PL.PO
             }
             get => battery;
         }
+
+        #endregion
+
+        #region Constructors
 
         /// <summary>
         /// a constructor with parameters
@@ -48,12 +60,17 @@ namespace PL.PO
         // default constructor
         public DroneInCharging() { }
 
+        #endregion
+
+        #region ToString
         public override string ToString()
         {
             String strBattery = String.Format("%.2F", Battery);
             return $"id: { Id } \n" +
                    $"battery: {Math.Round(Battery,2)}\n";
         }
+
+        #endregion
     }
 
 }

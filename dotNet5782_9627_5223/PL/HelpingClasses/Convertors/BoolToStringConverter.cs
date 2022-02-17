@@ -10,6 +10,8 @@ namespace PL
 {
     public class BoolToStringConverter : IValueConverter
     {
+        #region Convert&ConvertBack
+       
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             return (bool)value? "Add" : "Update";
@@ -19,5 +21,6 @@ namespace PL
         {
             return (bool)value ? "Add" : "Update";
         }
+        #endregion
     }
 }

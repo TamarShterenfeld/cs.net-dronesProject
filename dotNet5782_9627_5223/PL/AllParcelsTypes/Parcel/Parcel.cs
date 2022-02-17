@@ -13,41 +13,6 @@ namespace PL
         /// </summary>
         public class Parcel
         {
-
-            #region Constructors
-            public Parcel(BLApi.IBL bl, ParcelForList parcelForList)
-            {
-                ParcelId = parcelForList.ParcelId;
-                SenderId = parcelForList.SenderId;
-                TargetId = parcelForList.TargetId;
-                DroneId = parcelForList.DroneId;
-                Weight = (POConverter.WeightCategories)Enum.Parse(typeof(POConverter.WeightCategories), parcelForList.Weight.ToString());
-                Priority = (POConverter.Priorities)Enum.Parse(typeof(POConverter.Priorities), parcelForList.Priority.ToString());
-                Status = (POConverter.ParcelStatuses)Enum.Parse(typeof(POConverter.ParcelStatuses), parcelForList.Status.ToString());
-            }
-              /// <summary>
-            /// default constructor
-            /// </summary>
-            public Parcel() { }
-
-            /// <summary>
-            /// a constructor with parameters.
-            /// </summary>
-            /// <param name="droneId"></param>
-            /// <param name="parcelId"></param>
-            /// <param name="senderId"></param>
-            /// <param name="targetId"></param>
-            /// <param name="weight"></param>
-            /// <param name="priority"></param>
-            /// <param name="status"></param>
-            public Parcel(int droneId, int parcelId, string senderId, string targetId, BO.WeightCategories weight, BO.Priorities priority, BO.ParcelStatuses status)
-            {
-                DroneId = droneId; ParcelId = parcelId; SenderId = senderId; TargetId = targetId; Weight = (POConverter.WeightCategories)(int)weight; Priority = (POConverter.Priorities)(int)priority; Status = (POConverter.ParcelStatuses)(int)status;
-            }
-
-
-            #endregion
-
             #region PrivateFields
             int parcelId;
             string senderId;
@@ -102,6 +67,40 @@ namespace PL
 
             #endregion
 
+            #region Constructors
+            public Parcel(BLApi.IBL bl, ParcelForList parcelForList)
+            {
+                ParcelId = parcelForList.ParcelId;
+                SenderId = parcelForList.SenderId;
+                TargetId = parcelForList.TargetId;
+                DroneId = parcelForList.DroneId;
+                Weight = (POConverter.WeightCategories)Enum.Parse(typeof(POConverter.WeightCategories), parcelForList.Weight.ToString());
+                Priority = (POConverter.Priorities)Enum.Parse(typeof(POConverter.Priorities), parcelForList.Priority.ToString());
+                Status = (POConverter.ParcelStatuses)Enum.Parse(typeof(POConverter.ParcelStatuses), parcelForList.Status.ToString());
+            }
+              /// <summary>
+            /// default constructor
+            /// </summary>
+            public Parcel() { }
+
+            /// <summary>
+            /// a constructor with parameters.
+            /// </summary>
+            /// <param name="droneId"></param>
+            /// <param name="parcelId"></param>
+            /// <param name="senderId"></param>
+            /// <param name="targetId"></param>
+            /// <param name="weight"></param>
+            /// <param name="priority"></param>
+            /// <param name="status"></param>
+            public Parcel(int droneId, int parcelId, string senderId, string targetId, BO.WeightCategories weight, BO.Priorities priority, BO.ParcelStatuses status)
+            {
+                DroneId = droneId; ParcelId = parcelId; SenderId = senderId; TargetId = targetId; Weight = (POConverter.WeightCategories)(int)weight; Priority = (POConverter.Priorities)(int)priority; Status = (POConverter.ParcelStatuses)(int)status;
+            }
+
+
+            #endregion
+   
             #region ToString
             /// <summary>
             /// override ToString function.

@@ -10,31 +10,30 @@ namespace PL
 {
     public class StationsListViewModel : INotifyPropertyChanged
     {
+        #region PrivateFields
         BLApi.IBL bl;
         PropertyGroupDescription allStationsGroupDescription;
         SortDescription allStationsSortFree;
         SortDescription allStationsSortId;
+        private string selectedFilter;
+        List<string> options;
+        #endregion
 
-        public StationsListViewModel(BLApi.IBL bl)
-        {
-            this.bl = bl;
-            allStationsGroupDescription = new PropertyGroupDescription(nameof(BO.BaseStationForList.AvailableChargeSlots));
-            allStationsSortFree = new(nameof(BO.BaseStationForList.AvailableChargeSlots), ListSortDirection.Ascending);
-            allStationsSortId = new(nameof(BO.BaseStationForList.Id), ListSortDirection.Ascending);
-            Cancel = new(Button_ClickCancel, null);
-            Add = new(Button_ClickAdd, null);
-            Options = new List<string>() { "All BaseStations", "Group By Free ChargeSlots" };
-            AllStations = new ListCollectionView(ListsModel.Instance.Stations);
-            Button_AllStations();
-            LeftDoubleClick = new(DroneListView_MouseDoubleClick, null);
-        }
+        #region Properties
         public RelayCommand Cancel { get; set; }
         public RelayCommand Add { get; set; }
         public RelayCommand LeftDoubleClick { get; set; }
-        public List<string> Options { get; set; }
+        public List<string> Options
+        {
+            get => options;
+            set
+            {
+                options = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Options)));
+            }
+        }
         public ListCollectionView AllStations { get; set; }
-
-        private string selectedFilter;
+      
         public string SelectedFilter
         {
             get => selectedFilter;
@@ -50,43 +49,64 @@ namespace PL
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        //---------------------------------Stations's Methods------------------------------
-        /// <summary>
-        /// the function treats the event of clicking on the button 'Cancel'.
-        /// </summary>
-        /// <param name="sender">the invoking object</param>
-        /// <param name="e">the event</param>
-        private void Button_ClickCancel(object sender)
-        {
-            (sender as Window).Close();
-        }
+        #endregion
 
-        /// <summary>
-        /// the function treats the event of clicking on the button 'Add'.
-        /// </summary>
-        private void Button_ClickAdd(object sender)
+        #region Constructors
+        public StationsListViewModel(BLApi.IBL bl)
         {
-            new StationView(new StationViewModel(bl)).Show();
+            this.bl = bl;
+            allStationsGroupDescription = new PropertyGroupDescription(nameof(BO.BaseStationForList.AvailableChargeSlots));
+            allStationsSortFree = new(nameof(BO.BaseStationForList.AvailableChargeSlots), ListSortDirection.Ascending);
+            allStationsSortId = new(nameof(BO.BaseStationForList.Id), ListSortDirection.Ascending);
+            Cancel = new(Button_ClickCancel, null);
+            Add = new(Button_ClickAdd, null);
+            Options = new List<string>() { "All BaseStations", "Group By Free ChargeSlots" };
+            AllStations = new ListCollectionView(ListsModel.Instance.Stations);
+            Button_AllStations();
+            LeftDoubleClick = new(DroneListView_MouseDoubleClick, null);
         }
-        private void DroneListView_MouseDoubleClick(object sender)
-        {
-            new StationView(new StationViewModel(bl, sender as PO.BaseStationForList)).Show();
-        }
+        #endregion
 
-        private void Button_AllStations()
-        {
-            AllStations.GroupDescriptions.Remove(allStationsGroupDescription);
-            AllStations.SortDescriptions.Remove(allStationsSortFree);
-            AllStations.SortDescriptions.Add(allStationsSortId);
-        }
+        #region Buttons_Events
 
-        private void Button_GroupByChargeSlots()
-        {
-            AllStations.GroupDescriptions.Add(allStationsGroupDescription);
-            AllStations.SortDescriptions.Remove(allStationsSortId);
-            AllStations.SortDescriptions.Add(allStationsSortFree);
-        }
+            //---------------------------------Stations's Methods------------------------------
+            /// <summary>
+            /// the function treats the event of clicking on the button 'Cancel'.
+            /// </summary>
+            /// <param name="sender">the invoking object</param>
+            /// <param name="e">the event</param>
+            private void Button_ClickCancel(object sender)
+            {
+                (sender as Window).Close();
+            }
 
+            /// <summary>
+            /// the function treats the event of clicking on the button 'Add'.
+            /// </summary>
+            private void Button_ClickAdd(object sender)
+            {
+                new StationView(new StationViewModel(bl)).Show();
+            }
+
+            private void DroneListView_MouseDoubleClick(object sender)
+            {
+                new StationView(new StationViewModel(bl, sender as PO.BaseStationForList)).Show();
+            }
+
+            private void Button_AllStations()
+            {
+                AllStations.GroupDescriptions.Remove(allStationsGroupDescription);
+                AllStations.SortDescriptions.Remove(allStationsSortFree);
+                AllStations.SortDescriptions.Add(allStationsSortId);
+            }
+
+            private void Button_GroupByChargeSlots()
+            {
+                AllStations.GroupDescriptions.Add(allStationsGroupDescription);
+                AllStations.SortDescriptions.Remove(allStationsSortId);
+                AllStations.SortDescriptions.Add(allStationsSortFree);
+            }
+            #endregion
 
     }
 }

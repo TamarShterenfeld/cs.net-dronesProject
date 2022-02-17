@@ -14,8 +14,11 @@ namespace PL
     sealed partial class ListsModel 
     {
         // DroneViewModel Lists
-
+        #region PrivateFields
         ObservableCollection<PL.PO.DroneForList> drones;
+        #endregion
+
+        #region Properties
         public ObservableCollection<PL.PO.DroneForList> Drones
         {
             get => drones;
@@ -26,6 +29,9 @@ namespace PL
             }
         }
 
+        #endregion
+
+        #region CRUD_Methods
         /// <summary>
         /// update drone
         /// </summary>
@@ -56,5 +62,6 @@ namespace PL
         {
             Drones.Add(PO.POConverter.DroneForListBOToPO(bl.GetDroneForList(droneId)));
         }
+        #endregion
     }
 }

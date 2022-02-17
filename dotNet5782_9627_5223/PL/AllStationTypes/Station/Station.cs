@@ -15,12 +15,17 @@ namespace PL.PO
 {
     public class Station : INotifyPropertyChanged
     {
+        #region PrivateFields
         BLApi.IBL bl;
         public event PropertyChangedEventHandler PropertyChanged;
-
         private int id;
         Location location = new();
+        private string name;
+        private int chargeSlots;
+        List<DroneInCharging> droneCharging;
+        #endregion
 
+        #region Properties
         public int Id
         {
             get => id;
@@ -30,9 +35,6 @@ namespace PL.PO
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Id)));
             }
         }
-        private string name;
-
-
         public string Name
         {
             get => name;
@@ -42,21 +44,15 @@ namespace PL.PO
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Name)));
             }
         }
-
         public Location Location
         {
-            get
-            {
-                return location;
-            }
-            set
+            get =>location;
+            set   
             {
                 location = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Location)));
             }
         }
-
-        private int chargeSlots;
-
         public int ChargeSlots
         {
             get => chargeSlots;
@@ -66,8 +62,19 @@ namespace PL.PO
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ChargeSlots)));
             }
         }
-        public List<DroneInCharging> DroneCharging { get; set; }
         public bool IsDeleted { get; set; }
+        #endregion
+
+        #region Constructors
+        public List<DroneInCharging> DroneCharging
+        {
+            get => droneCharging;
+            set
+            {
+                droneCharging = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DroneCharging)));
+            }
+        }
         public Station(BLApi.IBL bl, PO.BaseStationForList station)
         {
             BO.BaseStation CurStation = bl.GetBLBaseStation(station.Id);
@@ -79,7 +86,7 @@ namespace PL.PO
 
         // default constructor
         public Station() { }
-
+        #endregion
 
     }
 }

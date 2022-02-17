@@ -10,12 +10,18 @@ namespace PL.PO
 {
     public class Customer : INotifyPropertyChanged
     {
+        #region PrivateFields
         BLApi.IBL bl;
         public event PropertyChangedEventHandler PropertyChanged;
         string id;
         string name;
         string phone;
         Location myLocation = new();
+        List<ParcelInCustomer> fromCustomer;
+        List<ParcelInCustomer> toCustomer;
+        #endregion
+
+        #region Properties
         public string Id
         {
             get => id;
@@ -46,7 +52,6 @@ namespace PL.PO
             }
         }
 
-
         public Location Location
         {
             get => myLocation;
@@ -56,9 +61,28 @@ namespace PL.PO
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Location)));
             }
         }
-        public List<ParcelInCustomer> FromCustomer { get; set; }
-        public List<ParcelInCustomer> ToCustomer { get; set; }
+        public List<ParcelInCustomer> FromCustomer
+        {
+            set
+            {
+                fromCustomer = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(FromCustomer)));
+            }
+            get => fromCustomer;
+        }
+        public List<ParcelInCustomer> ToCustomer 
+        { 
+            get => toCustomer;
+            set
+            {
+                toCustomer = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ToCustomer)));
+            }
+        }
 
+        #endregion
+
+        #region Constructors
         // default constructor
         public Customer() { }
 
@@ -90,20 +114,9 @@ namespace PL.PO
             FromCustomer = ParcelInCustomerListBOToPO(CurCustomer.FromCustomer).ToList(); ToCustomer = ParcelInCustomerListBOToPO(CurCustomer.ToCustomer).ToList();
         }
 
-        /// <summary>
-        /// override ToString function.
-        /// </summary>
-        /// <returns>description of the Customer object</returns>
-        public override string ToString()
-        {
-            return $"id: {Id} \n" +
-                    $"name: {Name} \n" +
-                    $"phone: {Phone}\n" +
-                    $"location: {Location}\n" +
-                    $"FromCustomer: {DeliveryInCustomerDetails(FromCustomer)}\n" +
-                    $"ToCustomer: {DeliveryInCustomerDetails(ToCustomer)}";
-        }
+        #endregion
 
+        #region Private_Methods
         /// <summary>
         /// collect all the details about the delivery in customer
         /// </summary>
@@ -117,7 +130,23 @@ namespace PL.PO
             }
             return deliveryDetails;
         }
+        #endregion
 
+        #region ToString
+        /// <summary>
+        /// override ToString function.
+        /// </summary>
+        /// <returns>description of the Customer object</returns>
+        public override string ToString()
+        {
+            return $"id: {Id} \n" +
+                    $"name: {Name} \n" +
+                    $"phone: {Phone}\n" +
+                    $"location: {Location}\n" +
+                    $"FromCustomer: {DeliveryInCustomerDetails(FromCustomer)}\n" +
+                    $"ToCustomer: {DeliveryInCustomerDetails(ToCustomer)}";
+        }
+        #endregion
     }
 }
 

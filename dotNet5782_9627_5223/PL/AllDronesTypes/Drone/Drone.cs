@@ -8,6 +8,7 @@ namespace PL
     {
         public class Drone : INotifyPropertyChanged
         {
+            #region PrivateFields
             readonly static Random rand = new();
             private int id;
             private string model;
@@ -15,7 +16,10 @@ namespace PL
             private WeightCategories weight;
             private DroneStatuses status = DroneStatuses.Available;
             private double battery = rand.NextDouble() * 20 + 20;
+            private ParcelInPassing parcel;
+            #endregion
 
+            #region Constructors
             public Drone(PL.PO.DroneForList drone, BLApi.IBL bl)
             {
                 Id = drone.Id;
@@ -27,6 +31,9 @@ namespace PL
                 BO.Drone drone1 = bl.GetBLDrone(Id);
                 Location = LocationBOTOPO(drone1.Location);
             }
+            #endregion
+
+            #region Properties
 
             /// <summary>
             /// default constructor
@@ -34,7 +41,7 @@ namespace PL
             public Drone() { }
 
             public double Battery { get => battery; set { battery = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Battery))); } } 
-            private ParcelInPassing parcel;
+           
             public ParcelInPassing Parcel { set { parcel = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Parcel))); } get { return parcel; } }
             public Location Location
             {
@@ -83,6 +90,8 @@ namespace PL
                 }
             }
             public event PropertyChangedEventHandler PropertyChanged;
+
+            #endregion
         }
     }
 }

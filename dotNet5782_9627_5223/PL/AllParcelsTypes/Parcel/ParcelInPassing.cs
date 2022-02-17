@@ -16,6 +16,21 @@ namespace PL
         //(without changes).
         public class ParcelInPassing /* : INotifyPropertyChanged */
         {
+            #region Properties
+            public int Id { get; set; }
+            public string ToDestinition { set; get; }
+            public Priorities Priority { get; set; }
+            public WeightCategories Weight { get; set; }
+            public CustomerInParcel Sender { get; set; }
+            public CustomerInParcel Target { get; set; }
+            public Location Collect { get; set; }
+            public Location Destination { get; set; }
+            public double Distance { get; set; }
+
+            //public event PropertyChangedEventHandler PropertyChanged;
+            #endregion
+
+            #region Constructors
             public ParcelInPassing(BO.ParcelInPassing parcel, BLApi.IBL bL)
             {
                 BO.ParcelForList parcel1 = bL.GetParcelForList(parcel.Id);
@@ -43,17 +58,8 @@ namespace PL
                 Target = POConverter.CustomerInParcelBOTOPO(target); Collect = POConverter.LocationBOTOPO(collect);
                 Destination = POConverter.LocationBOTOPO(destination); Distance = distance;
             }
-            public int Id { get; set; }
-            public string ToDestinition { set; get; }
-            public Priorities Priority { get; set; }
-            public WeightCategories Weight { get; set; }
-            public CustomerInParcel Sender { get; set; }
-            public CustomerInParcel Target { get; set; }
-            public Location Collect { get; set; }
-            public Location Destination { get; set; }
-            public double Distance { get; set; }
+            #endregion'
 
-            //public event PropertyChangedEventHandler PropertyChanged;
         }
     }
 
