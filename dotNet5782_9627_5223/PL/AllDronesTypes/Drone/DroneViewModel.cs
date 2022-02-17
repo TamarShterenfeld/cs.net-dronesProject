@@ -118,7 +118,7 @@ namespace PL
         public ListCollectionView MyDroneActions { get; set; }
         public ListCollectionView StationsId { get; set; }
         public string SelectedWeight { set { selectedWeight = value; Drone.Weight = (POConverter.WeightCategories)Enum.Parse(typeof(POConverter.WeightCategories), value); PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedWeight))); } get => selectedWeight; }
-        public string SelectedStatus { set { selectedStatus = value; selectedStatus = value; Drone.Status = (POConverter.DroneStatuses)Enum.Parse(typeof(POConverter.DroneStatuses), value); PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedStatus))); } get => selectedStatus; }
+        public string SelectedStatus { set { selectedStatus = value; Drone.Status = (POConverter.DroneStatuses)Enum.Parse(typeof(POConverter.DroneStatuses), value); PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedStatus))); } get => selectedStatus; }
         public string SelectedDroneAction
         {
             get => selectedDroneAction;
@@ -302,9 +302,9 @@ namespace PL
             ListsModel.Instance.UpdateDrone(Drone.Id);
         }
 
-        private void updateDrone() => worker.ReportProgress(0);
+        private void updateDrone(object obj)=> worker.ReportProgress(0, obj);
         private bool checkStop() => worker.CancellationPending;
-        private void updateDroneView()
+        private void updateDroneView(object UserState)
         {
             ListsModel.Instance.UpdateDrone(Drone.Id);
             Drone = DroneBOToPO(bl.GetBLDrone(Drone.Id), bl);
@@ -323,9 +323,9 @@ namespace PL
         {
             InSimulator = true;
             worker = new() { WorkerReportsProgress = true, WorkerSupportsCancellation = true };
-            worker.DoWork += (sender, args) => bl.InvokeSimulator((int)args.Argument, updateDrone, checkStop);
+            worker.DoWork += (sender, args) => bl.InvokeSimulator((int)args.Argument, updateDrone , checkStop);
             worker.RunWorkerCompleted += (sender, args) => InSimulator = false;
-            worker.ProgressChanged += (sender, args) => updateDroneView();
+            worker.ProgressChanged += (sender, args) =>  updateDroneView(args.UserState); 
             worker.RunWorkerAsync(Drone.Id);
         }
 

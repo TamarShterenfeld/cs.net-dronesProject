@@ -19,7 +19,7 @@ namespace BLApi
         /// <param name="droneId">drone's ID</param>
         /// <param name="refreshDisplay">refresh display</param>
         /// <param name="checkStopping">check stopping</param>
-        void InvokeSimulator(int droneId, Action refreshDisplay, Func<bool> checkStopping);
+        void InvokeSimulator(int droneId, Action<object> refreshDisplay, Func<bool> checkStopping);
 
         /// <summary>
         /// The function gives associate date to the parcel.
