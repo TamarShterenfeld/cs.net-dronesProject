@@ -52,7 +52,7 @@ namespace DalXml
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpDate(Parcel parcel, int id)
         {
-            List<Parcel> parcels = LoadListFromXmlSerializer<Parcel>(parcelsPath).ToList();
+            List<Parcel> parcels = GetParcelsList().ToList();
             CheckExistenceOfParcel(id);
             parcels.Remove(parcels.Find(item => item.Id == id));
             parcels.Add(parcel);

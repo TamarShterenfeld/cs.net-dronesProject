@@ -43,7 +43,7 @@ namespace DalObject
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Parcel> GetParcelsList()
         {
-            return ParcelsList;
+            return ParcelsList.Where(item => !item.IsDeleted);
         }
 
 

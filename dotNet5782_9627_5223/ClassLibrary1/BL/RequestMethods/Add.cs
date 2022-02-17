@@ -81,7 +81,8 @@ namespace IBL
                     ProductionDate = parcel.ProductionDate,
                     AssociationDate = parcel.AssociationDate,
                     PickUpDate = parcel.PickUpDate,
-                    SupplyDate = parcel.SupplyDate
+                    SupplyDate = parcel.SupplyDate,
+                    IsDeleted = parcel.IsDeleted,
                 });
             }         
         }

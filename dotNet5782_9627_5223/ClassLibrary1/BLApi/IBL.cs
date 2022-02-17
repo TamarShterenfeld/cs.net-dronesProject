@@ -21,12 +21,12 @@ namespace BLApi
         /// <param name="checkStopping">check stopping</param>
         void InvokeSimulator(int droneId, Action<object> refreshDisplay, Func<bool> checkStopping);
 
-        /// <summary>
-        /// The function gives associate date to the parcel.
-        /// </summary>
-        /// <param name="parcelId">parcel id</param>
-        /// <param name="droneId">drone id</param>
-        void AssociateParcel(int droneId);
+        ///// <summary>
+        ///// The function gives associate date to the parcel.
+        ///// </summary>
+        ///// <param name="parcelId">parcel id</param>
+        ///// <param name="droneId">drone id</param>
+        //void AssociateParcel(int droneId);
 
         public Parcel Associateparcel(DroneForList drone);//לבדוק אם עובד בצורה טובה...
 
@@ -134,7 +134,7 @@ namespace BLApi
         /// <param name="location">locatable object</param>
         /// <param name="baseStations">stations' list</param>
         /// <returns>nearest station</returns>
-        BaseStation NearestBaseStation(ILocatable location, List<BaseStation> baseStations);
+        BaseStation NearestBaseStation(ILocatable location, IEnumerable<BaseStation> baseStations);
 
     }
 

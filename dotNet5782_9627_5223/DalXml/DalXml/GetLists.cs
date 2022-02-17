@@ -27,13 +27,13 @@ namespace DalXml
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<BaseStation> GetBaseStationsList()
         {
-            return LoadListFromXmlSerializer<BaseStation>(baseStationsPath);
+            return LoadListFromXmlSerializer<BaseStation>(baseStationsPath).Where(item => !item.IsDeleted);
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Drone> GetDronesList()
         {
-            return LoadListFromXmlSerializer<Drone>(dronesPath); 
+            return LoadListFromXmlSerializer<Drone>(dronesPath).Where(item => !item.IsDeleted);
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
@@ -50,13 +50,13 @@ namespace DalXml
             {
                 customers = null;
             }
-            return customers;
+            return customers.Where(item => !item.IsDeleted); ;
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Parcel> GetParcelsList()
         {
-            return LoadListFromXmlSerializer<Parcel>(parcelsPath);
+            return LoadListFromXmlSerializer<Parcel>(parcelsPath).Where(item => !item.IsDeleted);
         }
 
 

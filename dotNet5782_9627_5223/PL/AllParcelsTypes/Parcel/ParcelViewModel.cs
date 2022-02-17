@@ -225,7 +225,7 @@ namespace PL
             {
                 bl.Delete(ParcelPoToBo(MyParcel));
                 ListsModel.Instance.DeleteParcel(MyParcel.ParcelId);
-                MessageBox.Show("The parcel has been deleted successfully!\nPay attention - the last valid input is saved.");
+                MessageBox.Show("The parcel has been deleted successfully!");
                 (sender as Window).Close();
             }
             catch(IntIdException exe)
@@ -275,7 +275,7 @@ namespace PL
                         MyParcel.Priority = (POConverter.Priorities)Enum.Parse(typeof(POConverter.Priorities), SelectedPriority);
                         bl.UpdateParcel(ParcelPoToBo(MyParcel));
                         ListsModel.Instance.UpdateParcel(MyParcel.ParcelId);
-                        MessageBox.Show("The parcel has been updated successfully!\nPay attention - the last valid input is saved.");
+                        MessageBox.Show("The parcel has been updated successfully!");
                         return;
                     }
                     else

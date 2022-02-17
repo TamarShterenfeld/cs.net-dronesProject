@@ -121,8 +121,7 @@ namespace IBL
             {
 
             }
-            List<BaseStation> baseStations1 = (List<BaseStation>)ConvertBaseStationsForListToBaseStation((List<BaseStationForList>)GetAvailableChargeSlots());
-            BaseStation item = NearestBaseStation(target, baseStations1);
+            BaseStation item = NearestBaseStation(target,GetBOBaseStationsList());
             if (item != null)
             {
                 battery += BatteryUsages[DRONE_FREE] * target.Distance(item);
@@ -137,71 +136,71 @@ namespace IBL
             return battery;
         }
 
-        [MethodImpl(MethodImplOptions.Synchronized)]
-        public void AssociateParcel(int droneId)
-        {
-            lock (dal)
-            {
-                DroneForList currentDrone = GetDroneForList(droneId);
-                List<Customer> customersList = (List<Customer>)GetBOCustomersList();
-                bool isAssociate = false;
-                if (currentDrone.Status == DroneStatuses.Available)
-                {
-                    var parcels = dal.GetParcelsList()
-                         .OrderByDescending(parcel => (int)parcel.Priority)
-                         .ThenByDescending(parcel => (int)parcel.Weight)
-                         .ThenBy(parcel => customersList.First(customer => customer.Id == parcel.SenderId).Distance(currentDrone));
-                    List<BaseStationForList> availableBaseStations = (List<BaseStationForList>)GetAvailableChargeSlots();
-                    foreach (var item in parcels)
-                    {
-                        Parcel parcel = GetBLParcel(item.Id);
-                        if (DroneReachLastDestination(currentDrone, parcel))
-                        {
-                            if (availableBaseStations != null)
-                            {
-                                Customer target = GetBLCustomer(parcel.Target.Id);
-                                List<BaseStation> baseStations1 = (List<BaseStation>)ConvertBaseStationsForListToBaseStation(availableBaseStations);
-                                BaseStation nearestBaseStation = NearestBaseStation(currentDrone, baseStations1);
-                                isAssociate = true;
-                                currentDrone.Status = DroneStatuses.Shipment;
-                                currentDrone.ParcelId = parcel.Id;
-                                if (BatteryRemainedInLastDestination(currentDrone, parcel) <= 0)
-                                {
-                                    if (nearestBaseStation.ChargeSlots > 0)
-                                    {
-                                        currentDrone.Status = DroneStatuses.Maintenance;
-                                        DO.DroneCharge droneCharge = new() { DroneId = currentDrone.Id, StationId = nearestBaseStation.Id, EntryTime = DateTime.Now };
-                                        dal.Add(droneCharge);
-                                    }
-                                }
-                                else
-                                {
-                                    currentDrone.Battery = BatteryRemainedInLastDestination(currentDrone, parcel);
-                                }
-                            }
-                            currentDrone.Status = DroneStatuses.Shipment;
-                            UpdateDrone(currentDrone);
-                            parcel.AssociationDate = DateTime.Now;
-                            parcel.MyDrone = GetBLDroneInParcel(droneId);
-                            UpdateParcel(parcel);
-                            ParcelForList parcel1 = GetParcelForList(parcel.Id);
-                            parcel1.Status = ParcelStatuses.Associated;
-                            break;
-                        }
-                    }
-                    if (isAssociate == false)
-                        throw new ParcelActionsException(ParcelActions.Associate);
-                }
-                else
-                    throw new DroneStatusException(currentDrone.Status);
-            }
-        }
+        //[MethodImpl(MethodImplOptions.Synchronized)]
+        //public void AssociateParcel(int droneId)
+        //{
+        //    lock (dal)
+        //    {
+        //        DroneForList currentDrone = GetDroneForList(droneId);
+        //        List<Customer> customersList = (List<Customer>)GetBOCustomersList();
+        //        bool isAssociate = false;
+        //        if (currentDrone.Status == DroneStatuses.Available)
+        //        {
+        //            var parcels = dal.GetParcelsList()
+        //                 .OrderByDescending(parcel => (int)parcel.Priority)
+        //                 .ThenByDescending(parcel => (int)parcel.Weight)
+        //                 .ThenBy(parcel => customersList.First(customer => customer.Id == parcel.SenderId).Distance(currentDrone));
+        //            List<BaseStationForList> availableBaseStations = (List<BaseStationForList>)GetAvailableChargeSlots();
+        //            foreach (var item in parcels)
+        //            {
+        //                Parcel parcel = GetBLParcel(item.Id);
+        //                if (DroneReachLastDestination(currentDrone, parcel))
+        //                {
+        //                    if (availableBaseStations != null)
+        //                    {
+        //                        Customer target = GetBLCustomer(parcel.Target.Id);
+        //                        List<BaseStation> baseStations1 = (List<BaseStation>)ConvertBaseStationsForListToBaseStation(availableBaseStations);
+        //                        BaseStation nearestBaseStation = NearestBaseStation(currentDrone, baseStations1);
+        //                        isAssociate = true;
+        //                        currentDrone.Status = DroneStatuses.Shipment;
+        //                        currentDrone.ParcelId = parcel.Id;
+        //                        if (BatteryRemainedInLastDestination(currentDrone, parcel) <= 0)
+        //                        {
+        //                            if (nearestBaseStation.ChargeSlots > 0)
+        //                            {
+        //                                currentDrone.Status = DroneStatuses.Maintenance;
+        //                                DO.DroneCharge droneCharge = new() { DroneId = currentDrone.Id, StationId = nearestBaseStation.Id, EntryTime = DateTime.Now };
+        //                                dal.Add(droneCharge);
+        //                            }
+        //                        }
+        //                        else
+        //                        {
+        //                            currentDrone.Battery = BatteryRemainedInLastDestination(currentDrone, parcel);
+        //                        }
+        //                    }
+        //                    currentDrone.Status = DroneStatuses.Shipment;
+        //                    UpdateDrone(currentDrone);
+        //                    parcel.AssociationDate = DateTime.Now;
+        //                    parcel.MyDrone = GetBLDroneInParcel(droneId);
+        //                    UpdateParcel(parcel);
+        //                    ParcelForList parcel1 = GetParcelForList(parcel.Id);
+        //                    parcel1.Status = ParcelStatuses.Associated;
+        //                    break;
+        //                }
+        //            }
+        //            if (isAssociate == false)
+        //                throw new ParcelActionsException(ParcelActions.Associate);
+        //        }
+        //        else
+        //            throw new DroneStatusException(currentDrone.Status);
+        //    }
+        //}
 
-        [MethodImpl(MethodImplOptions.Synchronized)]
-        public bool AssociateParcel(DroneForList drone, Parcel parcel)
-        {
-            return DroneReachLastDestination(drone, parcel);
-        }
+        //[MethodImpl(MethodImplOptions.Synchronized)]
+        //public bool AssociateParcel(DroneForList drone, Parcel parcel)
+        //{
+        //    return DroneReachLastDestination(drone, parcel);
+        //}
 
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void PickUpParcel(int droneId)

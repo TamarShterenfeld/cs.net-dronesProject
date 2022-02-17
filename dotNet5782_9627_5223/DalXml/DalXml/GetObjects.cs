@@ -65,7 +65,7 @@ namespace DalXml
         [MethodImpl(MethodImplOptions.Synchronized)]
         public Parcel GetParcel(int parcelId)
         {
-            List<Parcel> parcels = LoadListFromXmlSerializer<Parcel>(parcelsPath).ToList();
+            List<Parcel> parcels = GetParcelsList().ToList();//
             CheckExistenceOfParcel(parcelId);
             return parcels.First(item => item.Id == parcelId);
         }
