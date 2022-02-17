@@ -28,7 +28,7 @@ namespace BLApi
         /// <param name="droneId">drone id</param>
         void AssociateParcel(int droneId);
 
-        public Parcel Associateparcel(DroneForList drone)//לבדוק אם עובד בצורה טובה...
+        public Parcel Associateparcel(DroneForList drone);//לבדוק אם עובד בצורה טובה...
 
 
         /// <summary>

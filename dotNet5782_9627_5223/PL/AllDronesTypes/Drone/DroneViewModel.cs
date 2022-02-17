@@ -23,11 +23,29 @@ namespace PL
         IList<string> droneActions = Enum.GetNames(typeof(DroneActions));
         string selectedDroneAction, selectedStatus, selectedWeight;
         double timeCharge; bool visibleTimeCharging;
-        public bool VisibleTimeCharging { get => visibleTimeCharging; set => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(VisibleTimeCharging))); }
+        RelayCommand lostFocus;
+        public bool VisibleTimeCharging
+        {
+            get => visibleTimeCharging;
+            set
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(VisibleTimeCharging)));
+                visibleTimeCharging = value;
+            }
+        }
         public PO.Drone Drone { get; set; }
         public bool EnableUpdate { get; set; }
+
         bool inSimulator;
-        public bool InSimulator { get => inSimulator; set { inSimulator = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(InSimulator))); } }
+        public bool InSimulator
+        {
+            get => inSimulator;
+            set
+            {
+                inSimulator = value; 
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(InSimulator)));
+            }
+        }
         PO.BaseStationForList station;
         public PO.BaseStationForList Station
         {
@@ -78,6 +96,15 @@ namespace PL
                 {
                     MessageBox.Show("Location must be a double value type");
                 }
+            }
+        }
+        public double TimeCharge
+        {
+            get => timeCharge;
+            set
+            {
+                timeCharge = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(TimeCharge)));
+                TimeDuration_LostFocus(value);
             }
         }
         public RelayCommand Cancel { get; set; }
@@ -140,7 +167,7 @@ namespace PL
             Cancel = new(Button_ClickCancel, null);
             AddOrUpdate = new(Button_ClickAdd, null);
             EnableUpdate = true;
-            VisibleTimeCharging = false;
+            VisibleTimeCharging = true;
             LeftDoubleClick = new(doubleClickParcel, null);
             MyDroneActions = new ListCollectionView(nullString.Concat<string>(droneActions).ToList());
             StationsId = new ListCollectionView(ListOfStationForListBOToPO(bl.GetAvailableChargeSlots()).ToList());
@@ -181,7 +208,7 @@ namespace PL
                 MessageBox.Show("Can not delete this drone since he has a parcel\n finish with the parcel and try again.");
                 return;
             }
-            BO.Drone boDrone= DronePOToBo(Drone);
+            BO.Drone boDrone = DronePOToBo(Drone);
             boDrone.IsDeleted = true;
             bl.Delete(boDrone);
             ListsModel.Instance.DeleteDrone(Drone.Id);
@@ -197,8 +224,8 @@ namespace PL
                 {
                     case nameof(DroneActions.Associate):
                         {
-                            bl.Associateparcel(bl.GetDroneForList(Drone.Id));
-                            MessageBox.Show("The drone succeeded in associating a parcel to it.");
+                            BO.Parcel parcel = bl.Associateparcel(bl.GetDroneForList(Drone.Id));
+                            MessageBox.Show($"The drone succeeded in associating the parcel number: {parcel.Id} to it.");
                             break;
                         }
                     case nameof(DroneActions.PickUp):
@@ -222,13 +249,14 @@ namespace PL
                     case nameof(DroneActions.ReleaseFromRecharge):
                         {
                             VisibleTimeCharging = true;
-                            bl.ReleaseDroneFromRecharge(Drone.Id, timeCharge);
-                            MessageBox.Show($"The drone now is released from charging...\nit's update battery is: {Drone.Battery}");
+                            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(VisibleTimeCharging)));
+                            MessageBox.Show("Please enter the time duration drone has been in charging.");
+                            //invoking the method from the event "Lost Focus" of TimeCharge field.
                             break;
                         }
                 }
             }
-            catch(DroneStatusException exe)
+            catch (DroneStatusException exe)
             {
                 MessageBox.Show($"The status: {exe.Status} isn't valid for the action:{sender}.");
             }
@@ -236,13 +264,19 @@ namespace PL
             {
                 MessageBox.Show($"The action: {exe.Action} was failed to be completed\nTry another valid action.");
             }
-            catch(ParcelStatusException exe)
+            catch (ParcelStatusException exe)
             {
                 MessageBox.Show($"The parcel status: {exe.ParcelStatus} isn't valid for the action: {sender}.");
             }
 
         }
 
+        private void TimeDuration_LostFocus(object sender)
+        {
+            TimeCharge = double.Parse(sender.ToString());
+            bl.ReleaseDroneFromRecharge(Drone.Id, timeCharge);
+            MessageBox.Show($"The drone now is released from charging...\nit's update battery is: {Drone.Battery}");
+        }
         /// <summary>
         /// add a new customer.
         /// </summary>
@@ -307,7 +341,7 @@ namespace PL
         /// <param name="sender">the event</param>
         private void doubleClickParcel(object sender)
         {
-            new ParcelView(new ParcelViewModel(bl.GetParcelForList(Drone.Id), bl)).Show();
+            new ParcelView(new ParcelViewModel(POConverter.ParcelForListBOToPO(bl.GetParcelForList(Drone.Id)), bl)).Show();
         }
 
         public bool IsAllValid()
@@ -315,7 +349,8 @@ namespace PL
             NotEmptyRule n1 = new NotEmptyRule();
             NumberRule n2 = new NumberRule();
             RealPositiveNumberRule m3 = new();
-            DoubleRule n4 = new();
+            PositiveDoubleRule n4 = new();
+            DoubleRule n5 = new();
             return true;
         }
 

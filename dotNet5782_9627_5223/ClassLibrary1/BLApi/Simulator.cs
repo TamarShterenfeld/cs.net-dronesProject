@@ -42,7 +42,7 @@ namespace IBL
                             {
                                 lock (bl)
                                 {
-                                    parcel = bl.associateparcel(drone);
+                                    parcel = bl.Associateparcel(drone);
                                     parcelId = parcel != default(BO.Parcel) ? parcel.Id : 0;
                                     switch (parcelId, drone.Battery)
                                     {
