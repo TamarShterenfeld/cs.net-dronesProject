@@ -307,7 +307,7 @@ namespace PL
         /// <param name="sender">the event</param>
         private void doubleClickParcel(object sender)
         {
-            new ParcelView(new ParcelViewModel(bl.GetParcelForList(Drone.Id), bl)).Show();
+            new ParcelView(new ParcelViewModel(ParcelForListBOToPO(bl.GetParcelForList(Drone.Id)), bl)).Show();
         }
 
         public bool IsAllValid()
