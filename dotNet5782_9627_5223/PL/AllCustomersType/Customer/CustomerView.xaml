@@ -101,7 +101,7 @@
             MaxLength ="9"
             IsEnabled="{Binding EnableUpdate}"  Grid.RowSpan="2">
             <TextBox.Text>
-                <Binding Path="CoorLon" UpdateSourceTrigger="PropertyChanged" >
+                <Binding Path="CoorLon" UpdateSourceTrigger="LostFocus" >
                     <Binding.ValidationRules>
                         <local:NotEmptyRule ValidatesOnTargetUpdated="True"/>
                     </Binding.ValidationRules>
@@ -118,7 +118,7 @@
             MaxLength ="9"
             IsEnabled="{Binding EnableUpdate}">
             <TextBox.Text >
-                <Binding Path="CoorLat" UpdateSourceTrigger="PropertyChanged" >
+                <Binding Path="CoorLat" UpdateSourceTrigger="LostFocus" >
                     <Binding.ValidationRules>
                         <local:NotEmptyRule ValidatesOnTargetUpdated="True"/>
                     </Binding.ValidationRules>
