@@ -191,28 +191,46 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
         </Grid>
-        <TextBlock Text="TimeCharge" Grid.Row="10" Grid.Column="1" Foreground="#FF3F4245" Grid.ColumnSpan="2" Margin="0,49,266,0" Grid.RowSpan="2"/>
+
+        <TextBlock Text="TimeCharge: " Grid.Row="9"  VerticalAlignment="Center" 
+            HorizontalAlignment="Left"  Visibility="{Binding VisibleTimeCharging,Converter={StaticResource BoolToVisibilityConverter}}" Grid.Column="3" Foreground="#FF3F4245"/>
         <TextBox x:Name="timeCharging"
-            Grid.Row="10" Grid.Column="2"
-            IsEnabled="{Binding VisibleTimeCharging}"
-            TextWrapping="Wrap" 
+            Grid.Row="9" Grid.Column="3"
+              Visibility="{Binding VisibleTimeCharging,Converter={StaticResource BoolToVisibilityConverter}}"
+                  Foreground="#FF3F4245"
             VerticalAlignment="Bottom" 
             HorizontalAlignment="Center"
-            Width="140" Margin="0,49,0,0" MaxLength="9" >
+            Width="140" Margin="0,0,0,0" Height="25" MaxLength="9"  >
+            <TextBox.RenderTransform>
+                <MatrixTransform/>
+            </TextBox.RenderTransform>
             <TextBox.Text >
-                <Binding Path="CoorLat" UpdateSourceTrigger="PropertyChanged" >
+                <Binding Path="TimeCharge" UpdateSourceTrigger="PropertyChanged"  >
                     <Binding.ValidationRules>
                         <local:NotEmptyRule ValidatesOnTargetUpdated="True"/>
                         <local:DoubleRule ValidatesOnTargetUpdated="True" />
-                        <local:RealPositiveNumberRule ValidatesOnTargetUpdated="True"/>
+                        <local:RealPositiveDoubleRule ValidatesOnTargetUpdated="True"/>
                     </Binding.ValidationRules>
                 </Binding>
             </TextBox.Text>
         </TextBox>
-        <Binding Path="CoorLat" UpdateSourceTrigger="PropertyChanged" >
+        <!--<TextBox x:Name="latitude_Copy"
+            Grid.Row="8" Grid.Column="2"
+            IsEnabled="{Binding EnableUpdate}"
+            TextWrapping="Wrap" 
+            VerticalAlignment="Top" 
+            HorizontalAlignment="Center"
+            Width="140">
+            <Binding Path="CoorLat" UpdateSourceTrigger="PropertyChanged" >
+                <Binding.ValidationRules>
+                    <local:NotEmptyRule ValidatesOnTargetUpdated="True"/>
+                </Binding.ValidationRules>
+            </Binding>
+        </TextBox>-->
+        <!--<Binding Path="CoorLat" UpdateSourceTrigger="PropertyChanged" >
             <Binding.ValidationRules>
             </Binding.ValidationRules>
-        </Binding>
+        </Binding>-->
         <!--<TextBlock x:Name="TimeText"   Grid.Row= "10" Grid.Column="1" Foreground="#FF3F4245" Visibility="Collapsed"   Grid.ColumnSpan="2" Text="Charge Duration:" />
         <TextBox x:Name="Time" Grid.Row="10" Grid.Column="2"  Visibility="Collapsed"
             Width="140"
