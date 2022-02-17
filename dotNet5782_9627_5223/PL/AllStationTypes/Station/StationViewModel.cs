@@ -58,15 +58,35 @@ namespace PL
             get => coorLon;
             set
             {
-                if (IsValidDouble(coorLon + ""))
+                bool isMinus = false;
+                if (value.ToString()[0] == '-')
                 {
-                    if (!IsValidLocation(coorLon + ""))
+                    value = ((string)value).Substring(1);
+                    isMinus = true;
+                }
+
+                if (IsValidDouble(value + ""))
+                {
+                    if (!IsValidLocation(value + ""))
                     {
                         MessageBox.Show("Location must be in range of -90º to 90º");
                         return;
                     }
-                    coorLon = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CoorLat)));
+                    if ((value == null || value.ToString() == "") && isMinus == true)
+                    {
+                        coorLon = "-";
+                        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CoorLon)));
+                        return;
+                    }
+                    if (isMinus == true)
+                    {
+                        coorLon = "-" + value;
+                    }
+                    else
+                    {
+                        coorLon = value;
+                    }
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CoorLon)));
                     BaseStation.Location.CoorLongitude = new PO.Coordinate((double)value, POConverter.Locations.Longitude);
                 }
                 else
@@ -80,16 +100,29 @@ namespace PL
             get => coorLat;
             set
             {
-                if (IsValidDouble(coorLat + ""))
+                bool isMinus = false;
+                if (value.ToString()[0] == '-')
                 {
-                    if (!IsValidLocation(coorLat + ""))
+                    value = ((string)value).Substring(1);
+                    isMinus = true;
+                }
+
+                if (IsValidDouble(value + ""))
+                {
+                    if (!IsValidLocation(value + ""))
                     {
                         MessageBox.Show("Location must be in range of -90º to 90º");
                         return;
                     }
+                    if ((value == null || value.ToString() == "") && isMinus == true)
+                    {
+                        coorLat = "-";
+                        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CoorLat)));
+                        return;
+                    }
                     coorLat = value;
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CoorLat)));
-                    BaseStation.Location.CoorLatitude = new PO.Coordinate((double)value, POConverter.Locations.Latitude);
+                    BaseStation.Location.CoorLatitude = new PO.Coordinate(double.Parse(value.ToString()), POConverter.Locations.Latitude);
                 }
                 else
                 {
@@ -97,7 +130,6 @@ namespace PL
                 }
             }
         }
-
         public RelayCommand Cancel { get; set; }
         public RelayCommand AddOrUpdate { get; set; }
         public RelayCommand Delete { get; set; }

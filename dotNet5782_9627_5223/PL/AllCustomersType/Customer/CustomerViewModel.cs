@@ -5,7 +5,7 @@ using System;
 using System.ComponentModel;
 using System.Windows;
 using static PL.PO.POConverter;
-using static  PL.Validation;
+using static PL.Validation;
 
 namespace PL
 {
@@ -21,19 +21,19 @@ namespace PL
 
         #region Properties
         public PO.Customer Customer { get; set; }
-        public bool EnableUpdate 
+        public bool EnableUpdate
         {
-            get=> enableUpdate;
+            get => enableUpdate;
             set
             {
                 enableUpdate = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(EnableUpdate)));
             }
-        
+
         }
-        public string State 
-        { 
-            get=> state;
+        public string State
+        {
+            get => state;
             set
             {
                 state = value;
@@ -49,16 +49,21 @@ namespace PL
             get => coorLon;
             set
             {
-                if (IsValidDouble(coorLon + ""))
+                if (value.ToString()[0] == '-')
                 {
-                    if (!IsValidLocation(coorLon + ""))
+                    value = double.Parse(value.ToString().Substring(1)) * -1;
+                }
+
+                if (IsValidDouble(value + ""))
+                {
+                    if (!IsValidLocation(value + ""))
                     {
                         MessageBox.Show("Location must be in range of -90º to 90º");
                         return;
                     }
                     coorLon = value;
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CoorLon)));
-                    Customer.Location.CoorLongitude = new PO.Coordinate((double)value, POConverter.Locations.Longitude);                  
+                    Customer.Location.CoorLongitude = new PO.Coordinate(double.Parse(value.ToString()), POConverter.Locations.Longitude);
                 }
                 else
                 {
@@ -71,16 +76,20 @@ namespace PL
             get => coorLat;
             set
             {
-                if (double.TryParse(value.ToString(), out double latitude))
+                if (value.ToString()[0] == '-')
                 {
-                    if (!Validation.IsValidLocation(latitude + ""))
+                    value = double.Parse(value.ToString().Substring(1)) * -1;
+                }
+                if (IsValidDouble(value + ""))
+                {
+                    if (!IsValidLocation(value + ""))
                     {
                         MessageBox.Show("Location must be in range of -90º to 90º");
                         return;
                     }
                     coorLat = value;
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CoorLat)));
-                    Customer.Location.CoorLatitude = new PO.Coordinate(latitude, POConverter.Locations.Latitude);
+                    Customer.Location.CoorLatitude = new PO.Coordinate(double.Parse(value.ToString()), POConverter.Locations.Latitude);
                 }
                 else
                 {
