@@ -1,5 +1,6 @@
 ﻿using static PL.PO.POConverter;
 using System.ComponentModel;
+using System;
 
 namespace PL
 {
@@ -7,11 +8,13 @@ namespace PL
     {
         public class Drone : INotifyPropertyChanged
         {
+            readonly static Random rand = new();
             private int id;
             private string model;
             private Location location = new();
             private WeightCategories weight;
             private DroneStatuses status;
+            private double battery = rand.NextDouble() * 20 + 20;
 
             public Drone(PL.PO.DroneForList drone, BLApi.IBL bl)
             {
@@ -30,7 +33,7 @@ namespace PL
             /// </summary>
             public Drone() { }
 
-            public double Battery { get; set; }
+            public double Battery { get => battery; set => battery = value; } 
             private ParcelInPassing parcel;
             public ParcelInPassing Parcel { set { parcel = value; } get { return parcel; } }
             public Location Location

@@ -34,16 +34,8 @@ namespace PL
         {
             var droneForList = Drones.FirstOrDefault(drone => drone.Id == droneId);
             int index = Drones.IndexOf(droneForList);
-            //drone = bl.GetDrone(Drone.Id);
             DeleteDrone(droneForList.Id);
             Drones.Insert(index, PO.POConverter.DroneForListBOToPO(bl.GetDroneForList(droneId)));
-            //updateFlags();
-            //this.setAndNotify(PropertyChanged, nameof(Drone), out drone, drone);
-
-
-            //לפני השינוי היו רק 2 השורות הבאות 
-            //DeleteDrone(droneId);
-            //AddDrone(droneId);
         }
 
         /// <summary>

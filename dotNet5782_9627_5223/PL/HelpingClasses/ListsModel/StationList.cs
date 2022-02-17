@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
+using static PL.PO.POConverter;
 using System.Threading.Tasks;
 using System.Windows.Data;
 
@@ -25,9 +25,9 @@ namespace PL
         {
             bl = BLApi.BLFactory.GetBl();
             Stations = new ObservableCollection<BaseStationForList>(bl.GetBaseStationList().ToList());
-            Customers = new ObservableCollection<CustomerForList>(bl.GetCustomersList().ToList());
+            Customers = new ObservableCollection<PL.PO.CustomerForList>(ListOFCustomerForListBOToPO(bl.GetCustomersList().ToList()));
             Parcels = new ObservableCollection<ParcelForList>(bl.GetParcelsList().ToList());
-            Drones = new ObservableCollection<PL.PO.DroneForList>(PO.POConverter.DroneListBOToPO(bl.GetDronesForList()).ToList());
+            Drones = new ObservableCollection<PL.PO.DroneForList>(DroneListBOToPO(bl.GetDronesForList()).ToList());
         }
 
         public ObservableCollection<BO.BaseStationForList> Stations

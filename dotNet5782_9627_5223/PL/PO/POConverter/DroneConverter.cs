@@ -20,7 +20,7 @@ namespace PL.PO
                 Location = LocationPOTOBO(drone.Location),
                 MaxWeight = (BO.WeightCategories)Enum.Parse(typeof(BO.WeightCategories), drone.Weight.ToString()),
                 Model = drone.Model,
-                Parcel = new(drone.Parcel.Id,drone.Parcel.Priority,CustomerInParcelPOTOBO(drone.Parcel.Sender), CustomerInParcelPOTOBO(drone.Parcel.Target)),
+                Parcel = drone.Parcel != null && drone.Parcel.Id != default ? new(drone.Parcel.Id,drone.Parcel.Priority,CustomerInParcelPOTOBO(drone.Parcel.Sender), CustomerInParcelPOTOBO(drone.Parcel.Target)) : null,
                 Status = (BO.DroneStatuses)Enum.Parse(typeof(BO.DroneStatuses), drone.Status.ToString()),
             };
         }
