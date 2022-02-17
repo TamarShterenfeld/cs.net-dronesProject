@@ -178,7 +178,7 @@ namespace DalApi
         IEnumerable<DroneCharge> DronesChargingInMe(Predicate<DroneCharge> InMe);
 
         /// <summary>
-        /// creates a list which contains all the parcels with a certain condition
+        /// creates a list which contains all the parcels with a certain condition (Do not check deletion).
         /// </summary>
         /// <param name="predicate">a predicate</param>
         /// <returns>all the parcels with a certain condition</returns>

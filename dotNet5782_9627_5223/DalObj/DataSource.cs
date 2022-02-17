@@ -22,10 +22,17 @@ namespace DalObject
 
 
         //internal lists of different entities.
-        internal static List<Drone> DronesList = new(DRONES_BASE_AMOUNT);
-        internal static List<BaseStation> BaseStationsList = new(BASESTATIONS_BASE_AMOUNT);
-        internal static List<Customer> CustomersList = new(CUSTOMERS_BASE_AMOUNT);
-        internal static List<Parcel> ParcelsList = new(PARCELS_BASE_AMOUNT);
+        // by full properties returns just not deleted entities.
+        internal static List<Drone> DronesList { get => dronesList.Where(item => !item.IsDeleted).ToList(); }
+        static List<Drone> dronesList = new(DRONES_BASE_AMOUNT);
+        internal static List<BaseStation> BaseStationsList { get => stationsList.Where(item => !item.IsDeleted).ToList(); }
+        static List<BaseStation> stationsList = new(BASESTATIONS_BASE_AMOUNT);
+        internal static List<Customer> CustomersList { get => customersList.Where(item => !item.IsDeleted).ToList(); }
+        static List<Customer> customersList = new(CUSTOMERS_BASE_AMOUNT);
+
+        internal static List<Parcel> ParcelsList { get => parcelsList.Where(item => !item.IsDeleted).ToList(); }
+        static List<Parcel> parcelsList = new(PARCELS_BASE_AMOUNT);
+
         internal static List<DroneCharge> DronesChargeList = new();
 
         //arrays of different data - for initalizing object of the structures.

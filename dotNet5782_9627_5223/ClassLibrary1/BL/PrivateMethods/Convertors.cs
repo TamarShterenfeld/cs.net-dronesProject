@@ -31,6 +31,7 @@ namespace IBL
                 AssociationDate = parcel.AssociationDate,
                 PickUpDate = parcel.PickUpDate,
                 SupplyDate = parcel.SupplyDate,
+                IsDeleted = parcel.IsDeleted,
             };
             return doParcel;
         }
@@ -165,7 +166,7 @@ namespace IBL
         /// </summary>
         /// <param name="parcel">the parcel to convert</param>
         /// <param name="fromOrTo">an enum value - for filling the SourceOrDest field</param>
-        /// <returns></returns>
+        /// <returns>ParcelInCustomer</returns>
         ParcelInCustomer ConvertParcelDoToParcelInCustomer(DO.Parcel parcel, FromOrTo fromOrTo)
         {
             ParcelInCustomer BOCustomerInParcel = new()
@@ -285,7 +286,8 @@ namespace IBL
                 ProductionDate = parcel.ProductionDate,
                 AssociationDate = parcel.AssociationDate,
                 PickUpDate = parcel.PickUpDate,
-                SupplyDate = parcel.SupplyDate
+                SupplyDate = parcel.SupplyDate,
+                IsDeleted = parcel.IsDeleted,
             };
             return BOParcel;
         }

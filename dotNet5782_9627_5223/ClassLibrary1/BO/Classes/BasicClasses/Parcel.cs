@@ -40,6 +40,7 @@ namespace BO
         public DateTime? PickUpDate { get { return pickUpDate; } set { pickUpDate = value; } }       
         public DateTime?SupplyDate { get { return supplyDate; } set { supplyDate = value; } }
 
+
         public bool IsDeleted { get; set; } = false;
         /// <summary>
         /// a contructor with parameters
