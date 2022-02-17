@@ -46,7 +46,6 @@ namespace DalXml
             var ans = (from p in CustomersRoot.Elements()
                            where p.Element("id").Value == customerId
                            select p).First();
-
             if (ans == null) throw new StringIdException(customerId); 
         }
 
@@ -62,7 +61,7 @@ namespace DalXml
             var ans = (from p in CustomersRoot.Elements()
                    where p.Element("id").Value == customerId
                    select p).FirstOrDefault();
-            if (ans != null) throw new StringIdException(customerId);
+            if (ans != default) throw new StringIdException(customerId);
         }
 
         /// <summary>

@@ -75,14 +75,14 @@ namespace DalXml
         public void Initialize()
         {
             InitalizeConfigElements();
-            if (GetBaseStationsList().ToList().Count == 0)
+            if (GetBaseStationsList() == null || GetBaseStationsList().ToList().Count == 0)
             {
                 //initalize at least the two first item in BaseStationList.        
                 RandomBaseStation();
                 SaveListToXmlSerializer<BaseStation>(BaseStationsList, baseStationsPath);
             }
 
-            if (GetDronesList().ToList().Count == 0)
+            if (GetDronesList() == null || GetDronesList().ToList().Count == 0)
             {
                 //initalize at least the first five drones in DronesList
                 RandomDrones();
@@ -90,14 +90,14 @@ namespace DalXml
             }
 
 
-            if (GetCustomersList().ToList().Count == 0)
+            if (GetCustomersList() == null || GetCustomersList().ToList().Count == 0 )
             {
                 //initalize at least the first tenth customers in CustomerList        
                 RandomCustomers();
             }
 
 
-            if (GetParcelsList().ToList().Count == 0)
+            if (GetParcelsList() == null || GetParcelsList().ToList().Count == 0)
             {
                 //initalize at least the first tenth parcels in ParcelList.            
                 RandomParcels();
@@ -199,7 +199,7 @@ namespace DalXml
         /// <returns>a coordinate object which stores a random longitude .</returns>
         private Coordinate RandomLongitude()
         {
-            double longitude1 = 0.4321 * rand.Next(0, 180) + 0.5679 * rand.Next(-180, 0);
+            double longitude1 = 0.4321 * rand.Next(0, 90) + 0.5679 * rand.Next(-90, 0);
             return new()
             {
                 InputCoorValue = longitude1,
@@ -213,7 +213,7 @@ namespace DalXml
         /// <returns>a coordinate object which stores a random latitude.</returns>
         private Coordinate RandomLatitude()
         {
-            double latitude1 = 0.1234 * rand.Next(0, 180) + 0.8766 * rand.Next(-180, 0);
+            double latitude1 = 0.1234 * rand.Next(0, 90) + 0.8766 * rand.Next(-90, 0);
             return new() { InputCoorValue = latitude1, MyLocation = Locations.Latitude };
         }
 

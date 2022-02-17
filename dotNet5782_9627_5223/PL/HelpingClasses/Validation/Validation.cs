@@ -19,7 +19,7 @@ namespace PL
         }
         internal static bool IsValidLocation(double longitude)
         {
-            return longitude >= -180 && longitude <= 180;
+            return longitude >= -90 && longitude <= 90;
         }
         internal static bool IsValidName(string name)
         {

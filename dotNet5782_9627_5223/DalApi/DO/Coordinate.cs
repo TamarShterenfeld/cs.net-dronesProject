@@ -36,7 +36,7 @@ namespace DO
         {
             set
             {
-                if (value < -180 || value > 180)
+                if (value < -90 || value > 90)
                     throw new LocationException(value);
                 inputCoorValue = value;
             }

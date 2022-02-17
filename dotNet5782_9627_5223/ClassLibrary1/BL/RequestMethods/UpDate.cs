@@ -275,9 +275,9 @@ namespace IBL
                         BaseStation baseStation = NearestBaseStation(drone, baseStations1);
                         double battery = ComputeBatteryRemained(drone, baseStation);
                         if (baseStation.ChargeSlots == 0)
-                            throw new BLChargeSlotsException(0);
+                            throw new ParcelActionsException(ParcelActions.SendforRecharge);
                         if (battery < 0)
-                            throw new BatteryException(drone.Battery);
+                            throw new ParcelActionsException(ParcelActions.SendforRecharge);
                         drone.Battery = battery;
                         drone.Location = baseStation.Location;
                         drone.Status = DroneStatuses.Maintenance;

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using DO;
 using System.Linq;
-using DalApi.DO;
 using static DalXml.XMLTools;
 using System.Runtime.CompilerServices;
 
@@ -45,15 +44,8 @@ namespace DalXml
             try
             {
                 customers = (from c in CustomersRoot.Elements()
-                            select new Customer()
-                            {
-                                Id = c.Element("id").Value,
-                                IsDeleted = bool.Parse(c.Element("isDeleted").Value),
-                                Name = c.Element("name").Value,
-                                Phone = c.Element("phone").Value,
-                                Longitude = (c.Element("location").Element("longitude").Value).Parse(Locations.Longitude),
-                                Latitude = (c.Element("location").Element("longitude").Value).Parse(Locations.Latitude)
-                            }).ToList();
+                            select GetCustomer(c.Element("id").Value)
+                             ).ToList();
             }
             catch
             {

@@ -31,8 +31,7 @@ namespace IBL
             dal = DalApi.DalFactory.GetDal();
             lock (dal)
             {
-                dronesForList = (List<DroneForList>)InitDroneForList();
-                double[] droneElectricityInfo = dal.BatteryUsages();
+                dronesForList = (List<DroneForList>)InitDroneForList();               
                 BatteryUsages = dal.BatteryUsages();
                 Random rand = new();
                 for (int i = 0; i < dronesForList.Count; i++)

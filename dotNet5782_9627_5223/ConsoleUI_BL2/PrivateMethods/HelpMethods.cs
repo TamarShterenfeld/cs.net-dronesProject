@@ -19,14 +19,14 @@ namespace ConsoleUI_BL
             double longitude = InputDoubleValue();
             while (longitude < -180 || longitude > 180)
             {
-                Console.WriteLine("the longitude value: " + longitude + " isn't valid" + "\nCoordinante value must be in range of - 180º to 180º");
+                Console.WriteLine("the longitude value: " + longitude + " isn't valid" + "\nCoordinante value must be in range of - 90º to 90º");
                 Console.WriteLine("Try again!");
                 longitude = InputDoubleValue(); 
             }
             double latitude = InputDoubleValue();
             while (latitude < -180 || latitude > 180)
             {
-                Console.WriteLine("the latitude value: " + latitude + " isn't valid"+ "\nCoordinante value must be in range of - 180º to 180º");
+                Console.WriteLine("the latitude value: " + latitude + " isn't valid"+ "\nCoordinante value must be in range of - 90º to 90º");
                 Console.WriteLine("Try again!");
                 latitude = InputDoubleValue();
             }

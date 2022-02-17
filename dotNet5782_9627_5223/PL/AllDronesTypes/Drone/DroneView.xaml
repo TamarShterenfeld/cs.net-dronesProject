@@ -140,7 +140,7 @@
             TextWrapping="Wrap" 
             VerticalAlignment="Top" 
             HorizontalAlignment="Center"
-            Width="140"     IsEnabled="{Binding EnableUpdate}">
+            Width="140" IsEnabled="{Binding EnableUpdate}">
             <TextBox.Text >
                 <Binding Path="CoorLon" UpdateSourceTrigger="PropertyChanged" >
                     <Binding.ValidationRules>
