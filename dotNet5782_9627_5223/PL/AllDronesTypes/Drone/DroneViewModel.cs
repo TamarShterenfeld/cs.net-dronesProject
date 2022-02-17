@@ -22,6 +22,8 @@ namespace PL
         IList<string> weights = Enum.GetNames(typeof(POConverter.WeightCategories));
         IList<string> droneActions = Enum.GetNames(typeof(DroneActions));
         string selectedDroneAction, selectedStatus, selectedWeight;
+        double timeCharge; bool visibleTimeCharging;
+        public bool VisibleTimeCharging { get => visibleTimeCharging; set => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(VisibleTimeCharging))); }
         public PO.Drone Drone { get; set; }
         public bool EnableUpdate { get; set; }
         bool inSimulator;
@@ -78,6 +80,8 @@ namespace PL
         public ListCollectionView Statuses { get; set; }
         public ListCollectionView MyDroneActions { get; set; }
         public ListCollectionView StationsId { get; set; }
+        public string SelectedWeight { set { selectedWeight = value; Drone.Weight = (POConverter.WeightCategories)Enum.Parse(typeof(POConverter.WeightCategories), value); PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedWeight))); } get => selectedWeight; }
+        public string SelectedStatus { set { selectedStatus = value; Drone.Status = (POConverter.DroneStatuses)Enum.Parse(typeof(POConverter.DroneStatuses), value); PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedStatus))); } get => selectedStatus; }
         public string SelectedDroneAction
         {
             get => selectedDroneAction;
@@ -85,7 +89,9 @@ namespace PL
             {
                 selectedDroneAction = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(selectedDroneAction)));
+                DroneAction_Selected(value);
             }
+
         }
 
         BackgroundWorker worker;
@@ -98,11 +104,14 @@ namespace PL
         public DroneViewModel(BLApi.IBL bl, PL.PO.DroneForList drone) : this(bl)
         {
             Drone = new PO.Drone(drone, bl);
+            SelectedWeight = ((object)Drone.Weight).ToString();
+            SelectedStatus = ((object)Drone.Status).ToString();
             AddOrUpdate = new(Button_ClickUpdate, null);
             Delete = new(Button_ClickDelete, null);
             Simulator = new(Button_Simulator, null);
             Regular = new(Button_Regular, null);
             EnableUpdate = false;
+            VisibleTimeCharging = false;
             coorLon = Drone.Location.CoorLongitude.ToString();
             coorLat = Drone.Location.CoorLatitude.ToString();
         }
@@ -121,6 +130,7 @@ namespace PL
             Cancel = new(Button_ClickCancel, null);
             AddOrUpdate = new(Button_ClickAdd, null);
             EnableUpdate = true;
+            VisibleTimeCharging = false;
             LeftDoubleClick = new(doubleClickParcel, null);
             MyDroneActions = new ListCollectionView(nullString.Concat<string>(droneActions).ToList());
             if (Drone.Status.ToString() == "") { Drone.Status = POConverter.DroneStatuses.Available; }
@@ -169,30 +179,58 @@ namespace PL
 
         private void DroneAction_Selected(object sender)
         {
-            switch (sender.ToString())
+            try
             {
-                case nameof(DroneActions.Associate):
-                    {
-                        break;
-                    }
-                case nameof(DroneActions.PickUp):
-                    {
-                        break;
-                    }
-                case nameof(DroneActions.Supply):
-                    {
-                        break;
-                    }
-                case nameof(DroneActions.SendforRecharge):
-                    {
-                        break;
-                    }
-                case nameof(DroneActions.ReleaseFromRecharge):
-                    {
-                        break;
-                    }
+                switch (sender.ToString())
+                {
+                    case nameof(DroneActions.Associate):
+                        {
+                            bl.Associateparcel(bl.GetDroneForList(Drone.Id));
+                            MessageBox.Show("The drone succeeded in associating a parcel to it.");
+                            break;
+                        }
+                    case nameof(DroneActions.PickUp):
+                        {
+                            bl.PickUpParcel(Drone.Id);
+                            MessageBox.Show("The drone succeeded in picking up the parcel.");
+                            break;
+                        }
+                    case nameof(DroneActions.Supply):
+                        {
+                            bl.SupplyParcel(Drone.Id);
+                            MessageBox.Show("The drone succeeded in supplying the parcel to its destination.");
+                            break;
+                        }
+                    case nameof(DroneActions.SendforRecharge):
+                        {
+                            bl.SendDroneForCharge(Drone.Id);
+                            MessageBox.Show("The drone now is in charging...");
+                            break;
+                        }
+                    case nameof(DroneActions.ReleaseFromRecharge):
+                        {
+                            VisibleTimeCharging = true;
+                            bl.ReleaseDroneFromRecharge(Drone.Id, timeCharge);
+                            MessageBox.Show($"The drone now is released from charging...\nit's update battery is: {Drone.Battery}");
+                            break;
+                        }
+                }
             }
+            catch(DroneStatusException exe)
+            {
+                MessageBox.Show($"The status: {exe.Status} isn't valid for the action:{sender}.");
+            }
+            catch (ParcelActionsException exe)
+            {
+                MessageBox.Show($"The action: {exe.Action} was failed to be completed\nTry another valid action.");
+            }
+            catch(ParcelStatusException exe)
+            {
+                MessageBox.Show($"The parcel status: {exe.ParcelStatus} isn't valid for the action: {sender}.");
+            }
+
         }
+
         /// <summary>
         /// add a new customer.
         /// </summary>
@@ -258,7 +296,16 @@ namespace PL
         private void doubleClickParcel(object sender)
         {
             new ParcelView(new ParcelViewModel(bl.GetParcelForList(Drone.Id), bl)).Show();
-        }    
+        }
+
+        public bool IsAllValid()
+        {
+            NotEmptyRule n1 = new NotEmptyRule();
+            NumberRule n2 = new NumberRule();
+            RealPositiveNumberRule m3 = new();
+            DoubleRule n4 = new();
+            return true;
+        }
 
     }
 }

@@ -93,7 +93,7 @@ namespace IBL
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public Parcel associateparcel(DroneForList drone)//לבדוק אם עובד בצורה טובה...
+        public Parcel Associateparcel(DroneForList drone)//לבדוק אם עובד בצורה טובה...
         {
             return (from parcel in GetBOParcelsList()
                     where parcel.SupplyDate == null && parcel.Weight <= drone.MaxWeight && RequiredBattery(drone, parcel.Id) <= drone.Battery

@@ -12,7 +12,7 @@ namespace PL
 {
     public class DroneListViewModel : INotifyPropertyChanged
     {
-      
+
         #region privateFields
         BLApi.IBL bl;
         string selectedStatusFilter;
@@ -30,16 +30,16 @@ namespace PL
             set
             {
                 selectedStatusFilter = value;
-                DronesListView.Filter = DroneFilter;
+                DronesListView.Refresh();
             }
-        }      
+        }
         public string SelectedWeightFilter
         {
             get => selectedWeightFilter;
             set
             {
                 selectedWeightFilter = value;
-                DronesListView.Filter = DroneFilter;
+                DronesListView.Refresh();
             }
         }
         public ListCollectionView Weights { get; private set; }
@@ -57,9 +57,10 @@ namespace PL
             Cancel = new(Button_ClickCancel, null);
             Add = new(Button_ClickAdd, null);
             DronesListView = new ListCollectionView(ListsModel.Instance.Drones);
-            Statuses = new ListCollectionView(nullString.Concat<string>(statuses).ToList()); 
+            Statuses = new ListCollectionView(nullString.Concat<string>(statuses).ToList());
             Weights = new ListCollectionView(nullString.Concat<string>(weights).ToList());
             LeftDoubleClick = new(DroneListView_MouseDoubleClick, null);
+            DronesListView.Filter = DroneFilter;
         }
         #endregion
 
@@ -69,12 +70,12 @@ namespace PL
         {
             if (obj is PO.DroneForList drone)
             {
-                return (SelectedStatusFilter == null || drone.Status.ToString() == SelectedStatusFilter)
-                    && (SelectedWeightFilter == null || drone.MaxWeight.ToString() == SelectedWeightFilter);
+                return (SelectedStatusFilter == null || SelectedStatusFilter == "" || drone.Status.ToString() == SelectedStatusFilter)
+                    && (SelectedWeightFilter == null || SelectedStatusFilter == "" || drone.MaxWeight.ToString() == SelectedWeightFilter);
             }
             return false;
         }
-       
+
         /// <summary>
         /// the function treats the event of clicking on the button 'Cancel'.
         /// </summary>

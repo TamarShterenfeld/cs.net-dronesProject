@@ -28,7 +28,7 @@ namespace BLApi
         /// <param name="droneId">drone id</param>
         void AssociateParcel(int droneId);
 
-        bool AssociateParcel(DroneForList d, Parcel p);
+        public Parcel Associateparcel(DroneForList drone)//לבדוק אם עובד בצורה טובה...
 
 
         /// <summary>
@@ -57,13 +57,6 @@ namespace BLApi
         /// </summary>
         /// <param name="droneId">drone's id</param>
         void ReleaseDroneFromRecharge(int droneId, double timeCharge);
-
-        /// <summary>
-        /// associates a parcel to a drone
-        /// </summary>
-        /// <param name="drone">droneForList</param>
-        /// <returns>parcel</returns>
-        Parcel associateparcel(DroneForList drone);////////////////////////////////////////////////////////////////////
 
         /// <summary>
         /// returns battery rate.

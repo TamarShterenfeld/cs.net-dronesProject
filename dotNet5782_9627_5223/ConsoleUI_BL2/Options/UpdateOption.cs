@@ -80,7 +80,7 @@ namespace ConsoleUI_BL
                             {
                                 Console.WriteLine("Please enter the drone id");
                                 id = InputIntValue();
-                                bl.AssociateParcel(id);
+                                bl.Associateparcel(bl.GetDroneForList(id));
                                 break;
                             }
                         case (int)UpDateOptions.PickUpParcel:
