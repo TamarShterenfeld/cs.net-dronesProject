@@ -26,6 +26,16 @@ namespace PL
         public bool EnableUpdate { get; set; }
         bool inSimulator;
         public bool InSimulator { get => inSimulator; set { inSimulator = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(InSimulator))); } }
+        PO.BaseStationForList station;
+        public PO.BaseStationForList Station
+        {
+            get => station;
+            set
+            {
+                station = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Station)));
+            }
+        }
         public object CoorLon
         {
             get => coorLon;
@@ -123,7 +133,8 @@ namespace PL
             EnableUpdate = true;
             LeftDoubleClick = new(doubleClickParcel, null);
             MyDroneActions = new ListCollectionView(nullString.Concat<string>(droneActions).ToList());
-            StationsId = new ListCollectionView(bl.GetAvailableChargeSlots().ToList());
+            StationsId = new ListCollectionView(ListOfStationForListBOToPO(bl.GetAvailableChargeSlots()).ToList());
+            if (StationsId != null) { station = (PO.BaseStationForList)StationsId.GetItemAt(0); }
         }
 
         //public PO.ParcelInPassing Parcel { get; set; }
@@ -160,7 +171,9 @@ namespace PL
                 MessageBox.Show("Can not delete this drone since he has a parcel\n finish with the parcel and try again.");
                 return;
             }
-            bl.Delete(DronePOToBo(Drone));
+            BO.Drone boDrone= DronePOToBo(Drone);
+            boDrone.IsDeleted = true;
+            bl.Delete(boDrone);
             ListsModel.Instance.DeleteDrone(Drone.Id);
             Button_ClickCancel(sender);
         }

@@ -226,7 +226,7 @@ namespace IBL
         Drone ConvertDroneDOtOBO(DO.Drone drone)
         {
             DroneForList droneForList = dronesForList.FirstOrDefault(item => item.Id == drone.Id);
-            return new(drone.Id, drone.Model,(BO.WeightCategories)drone.MaxWeight, droneForList.Battery, (BO.DroneStatuses)droneForList.Status, GetParcelInPassing(droneForList.ParcelId), droneForList.Location, drone.IsDeleted);
+            return new(drone.Id, drone.Model,(BO.WeightCategories)drone.MaxWeight, droneForList.Battery, (BO.DroneStatuses)droneForList.Status, droneForList.ParcelId != default ? GetParcelInPassing(droneForList.ParcelId): null, droneForList.Location, drone.IsDeleted);
         }
 
         /// <summary>

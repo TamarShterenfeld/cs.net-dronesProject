@@ -17,10 +17,10 @@ namespace PL.PO
                 Id = drone.Id,
                 Battery = drone.Battery,
                 Location = LocationPOTOBO(drone.Location),
-                MaxWeight = (BO.WeightCategories)Enum.Parse(typeof(BO.WeightCategories), drone.Weight.ToString()),
+                MaxWeight = (BO.WeightCategories)drone.Weight,
                 Model = drone.Model,
                 Parcel = drone.Parcel != null && drone.Parcel.Id != default ? new(drone.Parcel.Id,drone.Parcel.Priority,CustomerInParcelPOTOBO(drone.Parcel.Sender), CustomerInParcelPOTOBO(drone.Parcel.Target)) : null,
-                Status = (BO.DroneStatuses)Enum.Parse(typeof(BO.DroneStatuses), drone.Status.ToString()),
+                Status = (BO.DroneStatuses)drone.Status,
             };
         }
         public static PO.Drone DroneBOToPO(BO.Drone drone, BLApi.IBL bl)
@@ -31,8 +31,8 @@ namespace PL.PO
                 Battery = drone.Battery,
                 Location = LocationBOTOPO(drone.Location),
                 Model = drone.Model,
-                Status = (DroneStatuses)Enum.Parse(typeof(DroneStatuses), drone.Status.ToString()),
-                Weight = (WeightCategories)Enum.Parse(typeof(WeightCategories), drone.MaxWeight.ToString()),
+                Status = (DroneStatuses)drone.Status,
+                Weight = (WeightCategories)drone.MaxWeight,
                 Parcel = drone.Parcel != null && drone.Parcel.Id != default ? new(drone.Parcel,bl) : null,
             };
         }

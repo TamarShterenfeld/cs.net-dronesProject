@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
+using static PL.PO.POConverter;
 using System.Threading.Tasks;
 using System.Windows.Data;
 
@@ -35,7 +35,7 @@ namespace PL
             var droneForList = Drones.FirstOrDefault(drone => drone.Id == droneId);
             int index = Drones.IndexOf(droneForList);
             DeleteDrone(droneForList.Id);
-            Drones.Insert(index, PO.POConverter.DroneForListBOToPO(bl.GetDroneForList(droneId)));
+            Drones.Insert(index,DroneForListBOToPO(bl.GetDroneForList(droneId)));
         }
 
         /// <summary>
