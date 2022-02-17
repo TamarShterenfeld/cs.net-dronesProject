@@ -16,6 +16,8 @@ namespace PL
     {
         #region PrivateFields
         BLApi.IBL bl;
+        PO.UserStage stage;
+        public PO.UserStage Stage { get => stage; set { stage = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Stage))); } }
         object coorLon, coorLat;
         IList<string> nullString = new List<string>() { "" };
         IList<string> statuses = Enum.GetNames(typeof(POConverter.DroneStatuses));
@@ -64,8 +66,15 @@ namespace PL
             set
             {
                 station = value;
+                initLocation();
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Station)));
             }
+        }
+        void initLocation()
+        {
+            PO.Coordinate longitude = CoordinateBoToPo(bl.GetBLBaseStation(Station.Id).Location.CoorLongitude);
+            PO.Coordinate latitude = CoordinateBoToPo(bl.GetBLBaseStation(Station.Id).Location.CoorLatitude);
+            Drone.Location = new(new(longitude.InputCoorValue, longitude.MyLocation), new(latitude.InputCoorValue, latitude.MyLocation));
         }
         public object CoorLon
         {
@@ -196,8 +205,9 @@ namespace PL
             SelectedStatus = nameof(POConverter.DroneStatuses.Available);
             LeftDoubleClick = new(doubleClickParcel, null);
             MyDroneActions = new ListCollectionView(nullString.Concat<string>(droneActions).ToList());
-            StationsId = new ListCollectionView(ListOfStationForListBOToPO(bl.GetAvailableChargeSlots()).ToList());
-            if (!StationsId.IsEmpty) { station = (PO.BaseStationForList)StationsId.GetItemAt(0); }
+            StationsId = new ListCollectionView(ListOfStationForListBOToPO(bl.GetBaseStationList()).ToList()); 
+            Station = (PO.BaseStationForList)StationsId.GetItemAt(0);
+            initLocation();
         }
 
         #endregion
@@ -360,7 +370,7 @@ namespace PL
         }
 
         /// <summary>
-        /// add a new customer.
+        /// add a new drone
         /// </summary>
         /// <param name="sender">the event</param>
         private void Button_ClickAdd(object sender)
@@ -439,6 +449,7 @@ namespace PL
         private bool checkStop() => worker.CancellationPending;
         private void updateDroneView(object userStage)
         {
+            Stage = new PO.UserStage(userStage as BO.UserStage);
             ListsModel.Instance.UpdateDrone(Drone.Id);
             Drone = DroneBOToPO(bl.GetBLDrone(Drone.Id), bl);
             coorLon = Drone.Location.CoorLongitude.ToString();
@@ -481,9 +492,7 @@ namespace PL
             return IsValid(Drone.Id, n1, n2, n3)
                 && IsValid(SelectedModel, n1)
                 && IsValid(Drone.Battery, n1, n5, n4)
-                && IsValid(SelectedWeight, n1)
-                && IsValid(CoorLon, n1)
-                && IsValid(CoorLat, n1);
+                && IsValid(SelectedWeight, n1);
         }
         #endregion
     }

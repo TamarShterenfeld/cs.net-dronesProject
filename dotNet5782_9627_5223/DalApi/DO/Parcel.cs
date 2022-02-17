@@ -93,6 +93,7 @@ namespace DO
         public DateTime? AssociationDate { get; set; }
         public DateTime? PickUpDate { get; set; }
         public DateTime? SupplyDate { get; set; }
+        public bool IsDeleted { get; set; }
 
         /// <summary>
         /// override ToString function.

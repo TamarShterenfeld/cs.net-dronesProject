@@ -27,7 +27,7 @@ namespace IBL
             double distance = 0.0;
             int batteryUsage = 0;
             bool pickedUp = false;
-            BO.Customer customer = parcel != null ? bl.GetBLCustomer(pickedUp? parcel.Target.Id:parcel.Sender.Id) : null;
+            BO.Customer customer = parcel != null && parcel.Id != 0 ? bl.GetBLCustomer(parcel.PickUpDate!= null? parcel.Target.Id:parcel.Sender.Id) : null;
             Maintenance maintenance = drone.Status == DroneStatuses.Maintenance ? Maintenance.Charging : Maintenance.Starting;
 
             void startMaintenance()
@@ -185,7 +185,7 @@ namespace IBL
 
                 }
                 bl.UpdateDronesForSimulator(drone);
-                updateDrone(new { Distance = distance,PickedUp = pickedUp});
+                updateDrone(new UserStage(distance,pickedUp,drone.Status));
             } while (!checkStop());
         }
 
