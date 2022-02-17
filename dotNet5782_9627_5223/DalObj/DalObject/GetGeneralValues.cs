@@ -40,8 +40,8 @@ namespace DalObject
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public double[] BatteryUsages() => new[]
-      {
+       public double[] BatteryUsages() => new[]
+       {
             Config.ElectricityConsumingOfAvailable,
             Config.ElectricityConsumingOfLightWeight,
             Config.ElectricityConsumingOfAverageWeight,
