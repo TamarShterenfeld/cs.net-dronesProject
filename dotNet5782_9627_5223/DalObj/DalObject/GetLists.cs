@@ -25,7 +25,7 @@ namespace DalObject
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<BaseStation> GetBaseStationsList()
         {
-            return BaseStationsList;
+            return BaseStationsList.Where(item=>!item.IsDeleted);
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
@@ -37,7 +37,7 @@ namespace DalObject
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Customer> GetCustomersList()
         {
-            return CustomersList;
+            return CustomersList.Where(item => !item.IsDeleted);
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
