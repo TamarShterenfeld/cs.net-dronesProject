@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
+using static PL.PO.POConverter;
 using System.Threading.Tasks;
 using System.Windows.Data;
 
@@ -15,11 +15,11 @@ namespace PL
     {
         // ParcelsViewModel Lists
  
-        ObservableCollection<ParcelForList> parcels;
+        ObservableCollection<PO.ParcelForList> parcels;
 
         
 
-        public ObservableCollection<BO.ParcelForList> Parcels
+        public ObservableCollection<PO.ParcelForList> Parcels
         {
             get => parcels;
             private set
@@ -35,8 +35,10 @@ namespace PL
         /// <param name="parcelId">parcel's id</param>
         public void UpdateParcel(int parcelId)
         {
-            DeleteParcel(parcelId);
-            AddParcel(parcelId);
+            PO.ParcelForList parcel = Parcels.FirstOrDefault(item => item.ParcelId == parcelId);
+            int index = Parcels.IndexOf(parcel);
+            DeleteParcel(parcel.ParcelId);
+            Parcels.Insert(index, ParcelForListBOToPO(bl.GetParcelForList(parcelId)));
         }
 
         /// <summary>
@@ -55,7 +57,7 @@ namespace PL
         /// <param name="parcelId">parcel's id</param>
         public void AddParcel (int parcelId)
         {
-            Parcels.Add(bl.GetParcelForList(parcelId));
+            Parcels.Add(ParcelForListBOToPO(bl.GetParcelForList(parcelId)));
         }
         
 

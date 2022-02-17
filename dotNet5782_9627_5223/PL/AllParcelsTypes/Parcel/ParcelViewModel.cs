@@ -122,7 +122,7 @@ namespace PL
 
         #region Constructors
         //-----------------------------------Constructors-----------------------------------------
-        public ParcelViewModel(BO.ParcelForList parcel, BLApi.IBL bl)
+        public ParcelViewModel(PO.ParcelForList parcel, BLApi.IBL bl)
         {
             this.bl = bl;
             MyParcel = new PO.Parcel(bl, parcel);
@@ -180,12 +180,12 @@ namespace PL
         //---------------------------------------DoubleClick_Events-----------------------------------------
         private void DoubleClick_Sender(object sender)
         {
-            new CustomerView(new CustomerViewModel(bl, bl.GetCustomerForList(MyParcel.SenderId))).Show();
+            new CustomerView(new CustomerViewModel(bl,CustomerForListBOToPO( bl.GetCustomerForList(MyParcel.SenderId)))).Show();
         }
 
         private void DoubleClick_Target(object sender)
         {          
-            new CustomerView(new CustomerViewModel(bl, bl.GetCustomerForList(MyParcel.TargetId))).Show();
+            new CustomerView(new CustomerViewModel(bl, CustomerForListBOToPO(bl.GetCustomerForList(MyParcel.TargetId)))).Show();
         }
         private void DoubleClick_Drone(object sender)
         {

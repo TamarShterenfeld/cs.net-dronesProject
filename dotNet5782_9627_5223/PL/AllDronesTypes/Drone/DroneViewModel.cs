@@ -5,7 +5,7 @@ using static PL.PO.POConverter;
 using System;
 using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Input;
+using static PL.PO.POConverter;
 using System.Windows.Data;
 using System.Linq;
 using System.ComponentModel;
@@ -28,6 +28,16 @@ namespace PL
         public bool EnableUpdate { get; set; }
         bool inSimulator;
         public bool InSimulator { get => inSimulator; set { inSimulator = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(InSimulator))); } }
+        PO.BaseStationForList station;
+        public PO.BaseStationForList Station
+        {
+            get => station;
+            set
+            {
+                station = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Station)));
+            }
+        }
         public object CoorLon
         {
             get => coorLon;
@@ -133,8 +143,8 @@ namespace PL
             VisibleTimeCharging = false;
             LeftDoubleClick = new(doubleClickParcel, null);
             MyDroneActions = new ListCollectionView(nullString.Concat<string>(droneActions).ToList());
-            if (Drone.Status.ToString() == "") { Drone.Status = POConverter.DroneStatuses.Available; }
-            StationsId = new ListCollectionView(bl.GetAvailableChargeSlots().ToList());
+            StationsId = new ListCollectionView(ListOfStationForListBOToPO(bl.GetAvailableChargeSlots()).ToList());
+            if (StationsId != null) { station = (PO.BaseStationForList)StationsId.GetItemAt(0); }
         }
 
         //public PO.ParcelInPassing Parcel { get; set; }
@@ -171,7 +181,9 @@ namespace PL
                 MessageBox.Show("Can not delete this drone since he has a parcel\n finish with the parcel and try again.");
                 return;
             }
-            //Bl.Delete(CustomerPoToBo(Customer));///////////////////////////////////////////////////////////////////////////////////////
+            BO.Drone boDrone= DronePOToBo(Drone);
+            boDrone.IsDeleted = true;
+            bl.Delete(boDrone);
             ListsModel.Instance.DeleteDrone(Drone.Id);
             Button_ClickCancel(sender);
         }
@@ -237,12 +249,12 @@ namespace PL
         /// <param name="sender">the event</param>
         private void Button_ClickAdd(object sender)
         {
-            if (sender as BaseStationForList == null)
+            if (sender as PO.BaseStationForList == null)
             {
                 MessageBox.Show("please select a station and try again.");
                 return;
             }
-            bl.Add(DronePOToBo(Drone), (sender as BaseStationForList).Id);
+            bl.Add(DronePOToBo(Drone), (sender as PO.BaseStationForList).Id);
             ListsModel.Instance.AddDrone(Drone.Id);
         }
 

@@ -46,7 +46,7 @@ namespace PL
         }
         private void DroneListView_MouseDoubleClick(object sender)
         {
-            new CustomerView(new CustomerViewModel(bl, sender as CustomerForList)).Show();
+            new CustomerView(new CustomerViewModel(bl, sender as PO.CustomerForList)).Show();
         }
     }
 }

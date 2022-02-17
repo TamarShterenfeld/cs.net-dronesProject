@@ -1,54 +1,45 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using static PL.PO.POConverter;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections;
+using System.ComponentModel.DataAnnotations;
+using System.Text.RegularExpressions;
+using Microsoft.VisualBasic;
+using System.Diagnostics;
 
-
-namespace BO
+namespace PL.PO
 {
+
     /// <summary>
     /// the class BaseStationForList contains all the baseStation's details
     /// that we want to show to the client.
     /// </summary>
-    public  class BaseStationForList
+    public class BaseStationForList:INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
         private int id;
         public int Id
         {
-            get
-            {
-                return id;
-            }
+            get => id;
             set
             {
-                if (value < 0)
-                {
-                    throw new BLIntIdException(value);
-                }
                 id = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Id)));
             }
         }
         private string name;
         public string Name
         {
-            get
-            {
-                return name;
-            }
+            get => name;
             set
             {
-                foreach (char letter in value)
-                {
-                    if (letter != ' ')
-                    {
-                        if (!Char.IsLetter(letter))
-                        {
-                            throw new BLStringException(value);
-                        }
-                    }
-                }
                 name = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Name)));
             }
         }
 
@@ -56,37 +47,22 @@ namespace BO
 
         public int AvailableChargeSlots
         {
-            get
-            {
-                return availableChargeSlots;
-            }
+            get => availableChargeSlots;
             set
-            {
-                if (value < 0)
-                {
-                    throw (new BLChargeSlotsException(value));
-                }
-
+            { 
                 availableChargeSlots = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AvailableChargeSlots)));
             }
         }
 
         private int caughtChargeSlots;
-
         public int CaughtChargeSlots
         {
-            get
-            {
-                return caughtChargeSlots;
-            }
+            get => caughtChargeSlots;
             set
             {
-                if (value < 0)
-                {
-                    throw (new BLChargeSlotsException(value));
-                }
-
                 caughtChargeSlots = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CaughtChargeSlots)));
             }
         }
 
@@ -97,10 +73,9 @@ namespace BO
         /// <param name="name">base station's name</param>
         /// <param name="availableChargeSlots">available charge slots in the base station</param>
         /// <param name="caughtChargeSlots">caught charge slots in the base station</param>
-        public BaseStationForList(int id, string name,int availableChargeSlots, int caughtChargeSlots)
+        public BaseStationForList(BO.BaseStationForList stations)
         {
-            this.id = id; this.name = name; this.availableChargeSlots = availableChargeSlots; this.caughtChargeSlots = caughtChargeSlots;
-            Id = id; Name = name; AvailableChargeSlots = availableChargeSlots; CaughtChargeSlots = caughtChargeSlots;
+            Id = stations.Id; Name = stations.Name; AvailableChargeSlots = stations.AvailableChargeSlots; CaughtChargeSlots = stations.CaughtChargeSlots;
         }
 
         /// <summary>
@@ -116,8 +91,10 @@ namespace BO
         {
             return $"id: {Id} \n" +
                    $"name: {Name} \n" +
-                   $"number of free charge slots: {availableChargeSlots}\n"+
+                   $"number of free charge slots: {availableChargeSlots}\n" +
                    $"number of caught charge slots: {caughtChargeSlots}";
         }
     }
+
+
 }

@@ -26,7 +26,7 @@ namespace PL
         /// </summary>
         /// <param name="bl">BL object</param>
         /// <param name="customer">CustomerForList object</param>
-        public CustomerViewModel(BLApi.IBL bl, BO.CustomerForList customer)
+        public CustomerViewModel(BLApi.IBL bl, PO.CustomerForList customer)
             : this(bl)
         {
             Customer = new PO.Customer(bl, customer);
@@ -205,7 +205,7 @@ namespace PL
         /// <param name="sender">the event</param>
         private void doubleClickParcel(object sender)
         {
-            new ParcelView(new ParcelViewModel( bl.GetParcelForList((sender as PO.ParcelInCustomer).Id), bl )).Show();
+            new ParcelView(new ParcelViewModel(ParcelForListBOToPO( bl.GetParcelForList((sender as PO.ParcelInCustomer).Id)), bl )).Show();
         }
 
         bool IsAllValid()

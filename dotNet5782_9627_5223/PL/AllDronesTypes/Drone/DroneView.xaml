@@ -169,6 +169,7 @@
                   HorizontalAlignment="Center"
                   Width="140"                  
                   ItemsSource="{Binding StationsId}"
+                  SelectedItem="{Binding Station}"
                   Height="24"/>
 
         <!--SelectedItem="{Binding StationId}"-->

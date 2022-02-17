@@ -68,7 +68,7 @@ namespace PL.PO
         }
         public List<DroneInCharging> DroneCharging { get; set; }
         public bool IsDeleted { get; set; }
-        public Station(BLApi.IBL bl, BO.BaseStationForList station)
+        public Station(BLApi.IBL bl, PO.BaseStationForList station)
         {
             BO.BaseStation CurStation = bl.GetBLBaseStation(station.Id);
             this.bl = bl;

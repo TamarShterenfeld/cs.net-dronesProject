@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
+using static PL.PO.POConverter;
 using System.Threading.Tasks;
 using System.Windows.Data;
 
@@ -15,8 +15,8 @@ namespace PL
     {
         // CustomerViewModel Lists
         
-        ObservableCollection<CustomerForList> customers;
-        public ObservableCollection<BO.CustomerForList> Customers
+        ObservableCollection<PO.CustomerForList> customers;
+        public ObservableCollection<PO.CustomerForList> Customers
         {
             get => customers;
             private set
@@ -32,8 +32,10 @@ namespace PL
         /// <param name="id">customer's id</param>
         public void UpdateCustomer(string id)
         {
-            DeleteCustomer(id);
-            AddCustomer(id);
+            var customerForList = Customers.FirstOrDefault(customer => customer.Id == id);
+            int index = Customers.IndexOf(customerForList);
+            DeleteCustomer(customerForList.Id);
+            Customers.Insert(index,CustomerForListBOToPO(bl.GetCustomerForList(id)));
         }
 
         /// <summary>
@@ -52,7 +54,7 @@ namespace PL
         /// <param name="id">customer's id</param>
         public void AddCustomer(string id)
         {
-            Customers.Add(bl.GetCustomerForList(id));
+            Customers.Add(CustomerForListBOToPO(bl.GetCustomerForList(id)));
         }
     }
 }

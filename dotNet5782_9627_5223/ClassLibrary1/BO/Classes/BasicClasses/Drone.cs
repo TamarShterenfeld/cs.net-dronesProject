@@ -57,20 +57,20 @@ namespace BO
                 return location;
             }
         }
-
-       /// <summary>
-       /// a constructor with parameters.
-       /// </summary>
-       /// <param name="id"></param>
-       /// <param name="model"></param>
-       /// <param name="weight"></param>
-       /// <param name="battery"></param>
-       /// <param name="status"></param>
-       /// <param name="parcel"></param>
-       /// <param name="location"></param>
-        public Drone(int id, string model, WeightCategories weight, double battery, DroneStatuses status, ParcelInPassing parcel, Location location)
+        public bool IsDeleted { get; set; }
+        /// <summary>
+        /// a constructor with parameters.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="model"></param>
+        /// <param name="weight"></param>
+        /// <param name="battery"></param>
+        /// <param name="status"></param>
+        /// <param name="parcel"></param>
+        /// <param name="location"></param>
+        public Drone(int id, string model, WeightCategories weight, double battery, DroneStatuses status, ParcelInPassing parcel, Location location , bool isDeleted)
         {
-            Id = id; Model = model; MaxWeight = weight; Battery = battery; Status = status; Parcel = parcel; Location = location;
+            Id = id; Model = model; MaxWeight = weight; Battery = battery; Status = status; Parcel = parcel; Location = location;IsDeleted = isDeleted;
         }
 
         /// <summary>
