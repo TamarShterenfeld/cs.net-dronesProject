@@ -100,7 +100,7 @@ namespace PL
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             if (value == null) return new ValidationResult(false, "Required.");
-            return double.TryParse(value.ToString(), out double num) ? ValidationResult.ValidResult : new ValidationResult(false, "Input has to contain a double value.");
+            return Validation.IsValidDouble(value.ToString()) ? ValidationResult.ValidResult : new ValidationResult(false, "Input has to contain a double value.");
         }
         #endregion
     }

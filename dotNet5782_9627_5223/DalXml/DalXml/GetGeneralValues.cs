@@ -24,10 +24,7 @@ namespace DalXml
                  (from c in ConfigRoot.Elements()
                   where c.Name == "ParcelId"
                   select c ).FirstOrDefault();
-            XElement temp = new XElement("ParcelId", parcelId);
-            parcelIdXElement.Remove();
-            parcelIdXElement = temp;
-            ConfigRoot.Add(parcelIdXElement);
+            parcelIdXElement.Value = (int.Parse(parcelIdXElement.Value) + 1).ToString();
             ConfigRoot.Save(dirPath+ConfigPath);
             return parcelId;
         }

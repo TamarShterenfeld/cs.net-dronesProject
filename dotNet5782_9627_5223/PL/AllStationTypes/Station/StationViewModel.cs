@@ -58,16 +58,16 @@ namespace PL
             get => coorLon;
             set
             {
-                if (double.TryParse(value.ToString(), out double longitude))
+                if (IsValidDouble(coorLon + ""))
                 {
-                    if (!IsValidLocation(longitude))
+                    if (!IsValidLocation(coorLon + ""))
                     {
                         MessageBox.Show("Location must be in range of -90º to 90º");
                         return;
                     }
                     coorLon = value;
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CoorLat)));
-                    BaseStation.Location.CoorLongitude = new PO.Coordinate(longitude, POConverter.Locations.Longitude);
+                    BaseStation.Location.CoorLongitude = new PO.Coordinate((double)value, POConverter.Locations.Longitude);
                 }
                 else
                 {
@@ -80,16 +80,16 @@ namespace PL
             get => coorLat;
             set
             {
-                if (double.TryParse(value.ToString(), out double latitude))
+                if (IsValidDouble(coorLat + ""))
                 {
-                    if (!IsValidLocation(latitude))
+                    if (!IsValidLocation(coorLat + ""))
                     {
                         MessageBox.Show("Location must be in range of -90º to 90º");
                         return;
                     }
                     coorLat = value;
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CoorLat)));
-                    BaseStation.Location.CoorLatitude = new PO.Coordinate(latitude, POConverter.Locations.Latitude);
+                    BaseStation.Location.CoorLatitude = new PO.Coordinate((double)value, POConverter.Locations.Latitude);
                 }
                 else
                 {

@@ -18,7 +18,7 @@ namespace DalXml
     sealed partial class DalXml
     {
 
-        internal static class Config
+        public static class Config
         {
 
             public static int ParcelId = 0;
@@ -27,8 +27,8 @@ namespace DalXml
             public static double ElectricityConsumingOfAverageWeight = 0.0003;
             public static double ElectricityConsumingOfHeavyWeight = 0.0004;
             public static double ChargeRate = 20.5;
-            
-            internal static void InitalizeConfigElements()
+
+            public static void InitalizeConfigElements()
             {
                 AddXElementToConfig<int>("ParcelId", ParcelId);
                 AddXElementToConfig<double>("ElectricityConsumingOfAvailable", ElectricityConsumingOfAvailable);
@@ -38,7 +38,7 @@ namespace DalXml
                 AddXElementToConfig<double>("ChargeRate", ChargeRate);
             }
 
-            internal static void AddXElementToConfig<T>(string name, T val)
+            public static void AddXElementToConfig<T>(string name, T val)
             {
                 XElement xElement = new XElement(name, val);
                 ConfigRoot.Add(xElement);
@@ -74,7 +74,13 @@ namespace DalXml
         /// </summary>
         public void Initialize()
         {
-            InitalizeConfigElements();
+            if (GetCustomersList() == null || GetCustomersList().ToList().Count == 0)
+            {
+                //initalize at least the first tenth customers in CustomerList        
+                RandomCustomers();
+            }
+
+           
             if (GetBaseStationsList() == null || GetBaseStationsList().ToList().Count == 0)
             {
                 //initalize at least the two first item in BaseStationList.        
@@ -88,14 +94,6 @@ namespace DalXml
                 RandomDrones();
                 SaveListToXmlSerializer<Drone>(DronesList, dronesPath);
             }
-
-
-            if (GetCustomersList() == null || GetCustomersList().ToList().Count == 0 )
-            {
-                //initalize at least the first tenth customers in CustomerList        
-                RandomCustomers();
-            }
-
 
             if (GetParcelsList() == null || GetParcelsList().ToList().Count == 0)
             {
@@ -288,8 +286,7 @@ namespace DalXml
         /// </summary>
         /// <returns>a random customer id - from the customersList's names</returns>
         private string RandomCustomerId()
-        {
-          
+        {       
             return CustomersList[rand.Next(0, CustomersList.Count - 1)].Id;
         }
 

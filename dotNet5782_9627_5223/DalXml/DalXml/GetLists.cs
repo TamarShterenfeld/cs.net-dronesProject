@@ -39,7 +39,6 @@ namespace DalXml
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Customer> GetCustomersList()
         {
-            LoadData();
             List<Customer> customers;
             try
             {

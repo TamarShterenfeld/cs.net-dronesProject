@@ -39,7 +39,6 @@ namespace DalXml
         public Customer GetCustomer(string customerId)
         {
             CheckExistenceOfCustomer(customerId);
-            LoadData();
             Customer customer;
             try
             {

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 using System.Runtime.CompilerServices;
+using static DalXml.DalXml.Config;
 
 
 namespace  DalXml
@@ -75,6 +76,7 @@ namespace  DalXml
         static void CreateFiles()
         {
             CustomersRoot = new XElement("Customers");
+            InitalizeConfigElements();
             CustomersRoot.Save(dirPath + CustomerPath);
             ConfigRoot.Save(dirPath + ConfigPath);
         }
