@@ -114,7 +114,7 @@ namespace IBL
             dal.UpDate(ConvertBoToDoParcel(p), p.Id);
             drone.Status = DroneStatuses.Shipment;
             drone.ParcelId = p.Id;
-            dal.UpDate(ConvertBoToDoDrone(ConvertDroneForListToDrone(drone)), drone.Id);
+            UpdateDrone(drone);
             return p;
         }
 

@@ -41,8 +41,21 @@ namespace PL
             SelectedModel = Drone.Model;
             CoorLon = Drone.Location.CoorLongitude.ToString();
             CoorLat = Drone.Location.CoorLatitude.ToString();
+            ListsModel.Instance.UpdateDrone(Drone.Id);
+            PO.ParcelForList parcel = null;
+            if (Drone.Parcel != null && Drone.Parcel.Id != 0)
+            {
+                parcel = ParcelForListBOToPO(bl.GetParcelForList(Drone.Parcel.Id));
+
+                ListsModel.Instance.UpdateParcel(Drone.Parcel.Id);
+                ListsModel.Instance.UpdateCustomer(parcel.TargetId);
+                ListsModel.Instance.UpdateCustomer(parcel.SenderId);
+            }
+            if(Drone.Status == POConverter.DroneStatuses.Maintenance)
+            {
+                ListsModel.Instance.UpdateStation(bl.GetDroneChargeBaseStationId(Drone.Id));
+            }
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Drone)));
-            
         }
 
         #endregion
@@ -81,28 +94,16 @@ namespace PL
         {
             PO.Coordinate longitude = CoordinateBoToPo(bl.GetBLBaseStation(Station.Id).Location.CoorLongitude);
             PO.Coordinate latitude = CoordinateBoToPo(bl.GetBLBaseStation(Station.Id).Location.CoorLatitude);
-            Drone.Location = new(new(longitude.InputCoorValue, longitude.MyLocation), new(latitude.InputCoorValue, latitude.MyLocation));
+            //Drone.Location = new(new(longitude.InputCoorValue, longitude.MyLocation), new(latitude.InputCoorValue, latitude.MyLocation));
         }
         public object CoorLon
         {
             get => coorLon;
             set
             {
-                if (IsValidDouble(coorLon + ""))
-                {
-                    if (!IsValidLocation(coorLon + ""))
-                    {
-                        MessageBox.Show("Location must be in range of -90º to 90º");
-                        return;
-                    }
-                    coorLon = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CoorLon)));
-                    Drone.Location.CoorLongitude = new PO.Coordinate((double)value, POConverter.Locations.Longitude);
-                }
-                else
-                {
-                    MessageBox.Show("Location must be a double value type");
-                }
+                coorLon = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CoorLon)));
+                //Drone.Location.CoorLongitude = new PO.Coordinate((double)value, POConverter.Locations.Longitude);
             }
         }
         public object CoorLat
@@ -110,21 +111,10 @@ namespace PL
             get => coorLat;
             set
             {
-                if (IsValidDouble(coorLat + ""))
-                {
-                    if (!IsValidLocation(coorLat + ""))
-                    {
-                        MessageBox.Show("Location must be in range of -90º to 90º");
-                        return;
-                    }
-                    coorLon = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CoorLat)));
-                    Drone.Location.CoorLongitude = new PO.Coordinate((double)value, POConverter.Locations.Latitude);
-                }
-                else
-                {
-                    MessageBox.Show("Location must be a double value type");
-                }
+                coorLon = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CoorLat)));
+                //Drone.Location.CoorLongitude = new PO.Coordinate((double)value, POConverter.Locations.Latitude);
+                
             }
         }
         public string SelectedModel
