@@ -36,12 +36,7 @@ namespace IBL
                 drone.Status = DroneStatuses.Maintenance;
                 maintenance = Maintenance.Starting;
             }
-            void releaseMaintenance(DroneForList droneForList)
-            {
-                droneForList.Status = DroneStatuses.Available;
-                bl.ReleaseDroneFromRecharge(droneForList.Id);
-                bl.UpdateDrone(droneForList);
-            }
+          
 
             do
             {
@@ -105,7 +100,9 @@ namespace IBL
                                         {
                                             double maxBattery = station.DroneCharging.Max(item => item.Battery);
                                             DroneForList droneWithMaxBattery =bl.GetDroneForList(station.DroneCharging.Where(item => item.Battery == maxBattery).FirstOrDefault().Id);
-                                            releaseMaintenance(droneWithMaxBattery);
+                                            drone.Status = DroneStatuses.Available;
+                                            bl.ReleaseDroneFromRecharge(drone.Id);
+                                            bl.UpdateDrone(drone);
                                         }
                                     }
                                     catch (IntIdException ex) { throw new IntIdException("Internal error base station", ex); }
@@ -139,7 +136,9 @@ namespace IBL
                                 {
                                     lock (dal)
                                     {
-                                        releaseMaintenance(drone);
+                                        drone.Status = DroneStatuses.Available;
+                                        dal.ReleaseDroneFromRecharge(drone.Id);
+                                        bl.UpdateDrone(drone);
                                     }
                                 } 
                                 else
