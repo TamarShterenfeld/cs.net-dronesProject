@@ -39,8 +39,8 @@ namespace IBL
             void releaseMaintenance(DroneForList droneForList)
             {
                 droneForList.Status = DroneStatuses.Available;
-                dal.ReleaseDroneFromRecharge(droneForList.Id);
-                bl.UpdateDronesForSimulator(droneForList);
+                bl.ReleaseDroneFromRecharge(droneForList.Id);
+                bl.UpdateDrone(droneForList);
             }
 
             do
@@ -120,7 +120,7 @@ namespace IBL
                                     {
                                         drone.Location = station.Location;
                                         maintenance = Maintenance.Charging;
-                                        dal.SendDroneToRecharge(droneId, station.Id);
+                                        bl.SendDroneForCharge(droneId);
                                     }
                                 else
                                 {
@@ -196,7 +196,7 @@ namespace IBL
                         throw new Exception("Internal error: not available after Delivery...");
 
                 }
-                bl.UpdateDronesForSimulator(drone);
+                bl.UpdateDrone(drone);
                 updateDrone(new UserStage(distance,pickedUp,drone.Status));
             } while (!checkStop());
         }

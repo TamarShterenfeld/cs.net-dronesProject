@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using static System.Math;
+
 
 namespace IBL
 {
@@ -97,7 +99,7 @@ namespace IBL
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public Parcel Associateparcel(DroneForList drone)//לבדוק אם עובד בצורה טובה...
+        public Parcel Associateparcel(DroneForList drone)
         {
             return (from parcel in GetBOParcelsList()
                     where parcel.SupplyDate == null && parcel.Weight <= drone.MaxWeight && RequiredBattery(drone, parcel.Id) <= drone.Battery
@@ -272,16 +274,15 @@ namespace IBL
                     {
                         List<BaseStation> baseStations1 = (List<BaseStation>)ConvertBaseStationsForListToBaseStation(availableBaseStations);
                         BaseStation baseStation = NearestBaseStation(drone, baseStations1);
-                        double battery = ComputeBatteryRemained(drone, baseStation);
+                        double batteryNeeded = BatteryUsages[DRONE_FREE] * drone.Distance(baseStation);
                         if (baseStation.ChargeSlots == 0)
                             throw new ParcelActionsException(ParcelActions.SendforRecharge);
-                        if (battery < 0)
+                        drone.Battery -= batteryNeeded;
+                        if (drone.Battery < 0)
                             throw new ParcelActionsException(ParcelActions.SendforRecharge);
-                        drone.Battery = battery;
                         drone.Location = baseStation.Location;
                         drone.Status = DroneStatuses.Maintenance;
                         DroneInCharging drone1 = new() { Battery = drone.Battery, Id = droneId };
-                        baseStation.DroneCharging = new();
                         baseStation.DroneCharging.Add(drone1);
                         //the amount of available chargeSlots is decrease by one
                         //while adding the drone to chargeDrone. 
@@ -299,39 +300,19 @@ namespace IBL
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public BaseStation ReleaseDroneFromRecharge(int droneId, double timeCharge)
+        public BaseStation ReleaseDroneFromRecharge(int droneId)
         {
             lock (dal)
             {
                 DroneForList drone = GetDroneForList(droneId);
                 if (drone.Status == DroneStatuses.Maintenance)
                 {
-                    double myBattery = 1;
-                    switch (drone.MaxWeight)
-                    {
-                        case BO.WeightCategories.Light:
-                            {
-                                myBattery = BatteryUsages[1];
-                                break;
-                            }
-                        case BO.WeightCategories.Average:
-                            {
-                                myBattery = BatteryUsages[2];
-                                break;
-                            }
-                        case BO.WeightCategories.Heavy:
-                            {
-                                myBattery = BatteryUsages[3];
-                                break;
-                            }
-                    }
-                    drone.Battery = myBattery * (timeCharge * BatteryUsages[4]);
+                    TimeSpan timeSpan = DateTime.Now - dal.GetDroneCharge(droneId).EntryTime.GetValueOrDefault();
+                    drone.Battery = Max(100, drone.Battery + BatteryUsages[DRONE_CHARGE] * timeSpan.TotalMilliseconds/100);
                     drone.Status = DroneStatuses.Available;
                     //the chargeSlots is increased by one within the function 'Remove'
                     //which treats the case a removing of a droneCharge from DronesChargeList occurs.
-                    UpDateDroneForList(drone);
-                    DO.Drone drone1 = dal.GetDrone(drone.Id);
-                    dal.UpDate(drone1, drone1.Id);
+                    UpdateDrone(drone);
                     return ConvertBaseStationDOtOBO(dal.ReleaseDroneFromRecharge(drone.Id));
 
                 }
@@ -339,12 +320,7 @@ namespace IBL
                     throw new DroneStatusException(drone.Status);
             }
         }
-        [MethodImpl(MethodImplOptions.Synchronized)]
-        public void UpdateDronesForSimulator(DroneForList drone)
-        {
-            dronesForList.Remove(dronesForList.FirstOrDefault(item => item.Id == drone.Id));
-            dronesForList.Add(drone);
-        }
+        
 
     }
 }
