@@ -12,9 +12,15 @@ using System.Windows;
 
 namespace PL
 {
-    sealed partial class ListsModel 
+    static class RefreshAllWindows
     {
-        public static List<Window> OpenWindows = new();
-       
+        public static event EventHandler RefreshStation;
+
+        public static event EventHandler RefreshDrone;
+
+        public static event EventHandler RefreshCustomer;
+
+        public static event EventHandler RefreshParcel;
+
     }
 }
