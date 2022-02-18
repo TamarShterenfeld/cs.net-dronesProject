@@ -20,7 +20,7 @@ namespace PL
             {
                 foreach (EventHandler item in Refresh.GetInvocationList())
                 {
-                    item.Invoke(null,EventArgs.Empty);
+                    item?.Invoke(null,EventArgs.Empty);
                 }
             }
 
