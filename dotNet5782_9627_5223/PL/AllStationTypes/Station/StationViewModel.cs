@@ -59,35 +59,30 @@ namespace PL
             set
             {
                 bool isMinus = false;
+                object currValue = "";
                 if (value.ToString()[0] == '-')
                 {
-                    value = ((string)value).Substring(1);
+                    currValue = double.Parse(value.ToString().Substring(1));
                     isMinus = true;
                 }
 
-                if (IsValidDouble(value + ""))
+                if (IsValidDouble(currValue + ""))
                 {
-                    if (!IsValidLocation(value + ""))
+                    if (!IsValidLocation(currValue + ""))
                     {
                         MessageBox.Show("Location must be in range of -90º to 90º");
                         return;
                     }
-                    if ((value == null || value.ToString() == "") && isMinus == true)
-                    {
-                        coorLon = "-";
-                        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CoorLon)));
-                        return;
-                    }
+                    coorLon = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CoorLon)));
                     if (isMinus == true)
                     {
-                        coorLon = "-" + value;
+                        BaseStation.Location.CoorLongitude = new PO.Coordinate(double.Parse(value.ToString()) * -1, POConverter.Locations.Longitude);
                     }
                     else
                     {
-                        coorLon = value;
+                        BaseStation.Location.CoorLongitude = new PO.Coordinate(double.Parse(value.ToString()), POConverter.Locations.Longitude);
                     }
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CoorLon)));
-                    BaseStation.Location.CoorLongitude = new PO.Coordinate((double)value, POConverter.Locations.Longitude);
                 }
                 else
                 {
@@ -101,28 +96,30 @@ namespace PL
             set
             {
                 bool isMinus = false;
+                object currValue = "";
                 if (value.ToString()[0] == '-')
                 {
-                    value = ((string)value).Substring(1);
+                    currValue = double.Parse(value.ToString().Substring(1));
                     isMinus = true;
                 }
-
-                if (IsValidDouble(value + ""))
+                if (IsValidDouble(currValue + ""))
                 {
-                    if (!IsValidLocation(value + ""))
+                    if (!IsValidLocation(currValue + ""))
                     {
                         MessageBox.Show("Location must be in range of -90º to 90º");
                         return;
                     }
-                    if ((value == null || value.ToString() == "") && isMinus == true)
-                    {
-                        coorLat = "-";
-                        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CoorLat)));
-                        return;
-                    }
                     coorLat = value;
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CoorLat)));
-                    BaseStation.Location.CoorLatitude = new PO.Coordinate(double.Parse(value.ToString()), POConverter.Locations.Latitude);
+                    if (isMinus == true)
+                    {
+                        BaseStation.Location.CoorLatitude = new PO.Coordinate(double.Parse(value.ToString()) * -1, POConverter.Locations.Latitude);
+                    }
+                    else
+                    {
+                        BaseStation.Location.CoorLatitude = new PO.Coordinate(double.Parse(value.ToString()), POConverter.Locations.Latitude);
+                    }
+
                 }
                 else
                 {
@@ -197,7 +194,7 @@ namespace PL
             {
                 bl.Delete(StationPoToBo(BaseStation));
                 ListsModel.Instance.DeleteStation(BaseStation.Id);
-                MessageBox.Show("The station has been deleted successfully!\nPay attention - the last valid input is saved.");
+                MessageBox.Show("The station has been deleted successfully!");
                 (sender as Window).Close();
             }
             catch (IntIdException exe)
@@ -259,6 +256,8 @@ namespace PL
                 IsValid(BaseStation.ChargeSlots.ToString(), n1, n2, n5) &&
                 IsValid(CoorLon, n1) && IsValid(CoorLat, n1);
         }
+
+      
         #endregion
 
     }

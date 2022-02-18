@@ -106,6 +106,8 @@ namespace PL
                 AllStations.SortDescriptions.Remove(allStationsSortId);
                 AllStations.SortDescriptions.Add(allStationsSortFree);
             }
+
+
             #endregion
 
     }
