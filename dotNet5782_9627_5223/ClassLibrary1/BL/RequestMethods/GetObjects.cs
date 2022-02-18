@@ -14,6 +14,11 @@ namespace IBL
     {
         //----------------------------------BaseStation GetObject Methods---------------------------------
         [MethodImpl(MethodImplOptions.Synchronized)]
+        public int GetDroneChargeBaseStationId(int droneId)
+        {
+            return dal.GetDroneChargeBaseStationId(droneId);
+        }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public BaseStation GetBLBaseStation(int id)
         {
             return ConvertBaseStationDOtOBO(dal.GetBaseStation(id));

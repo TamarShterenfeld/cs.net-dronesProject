@@ -41,8 +41,21 @@ namespace PL
             SelectedModel = Drone.Model;
             CoorLon = Drone.Location.CoorLongitude.ToString();
             CoorLat = Drone.Location.CoorLatitude.ToString();
+            ListsModel.Instance.UpdateDrone(Drone.Id);
+            PO.ParcelForList parcel = null;
+            if (Drone.Parcel != null && Drone.Parcel.Id != 0)
+            {
+                parcel = ParcelForListBOToPO(bl.GetParcelForList(Drone.Parcel.Id));
+
+                ListsModel.Instance.UpdateParcel(Drone.Parcel.Id);
+                ListsModel.Instance.UpdateCustomer(parcel.TargetId);
+                ListsModel.Instance.UpdateCustomer(parcel.SenderId);
+            }
+            if(Drone.Status == POConverter.DroneStatuses.Maintenance)
+            {
+                ListsModel.Instance.UpdateStation(bl.GetDroneChargeBaseStationId(Drone.Id));
+            }
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Drone)));
-            
         }
 
         #endregion

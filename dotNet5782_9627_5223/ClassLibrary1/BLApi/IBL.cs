@@ -14,6 +14,13 @@ namespace BLApi
     public interface IBL : IBaseStationBL, ICustomerBL, IDroneBL, IParcelBL
     {
         /// <summary>
+        /// returns station's id where the drone is charged in.
+        /// </summary>
+        /// <param name="droneId">drone's id</param>
+        /// <returns>station's id</returns>
+        int GetDroneChargeBaseStationId(int droneId);
+
+        /// <summary>
         /// invokes the simulator.
         /// </summary>
         /// <param name="droneId">drone's ID</param>

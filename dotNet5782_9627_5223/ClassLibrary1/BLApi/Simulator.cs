@@ -64,13 +64,8 @@ namespace IBL
                                         case (_, _):
                                             try
                                             {
-                                                parcel.AssociationDate = DateTime.Now;
-                                                parcel.MyDrone = new(drone.Id, drone.Battery,
-                                                        new(new(drone.Location.CoorLongitude.InputCoorValue, BO.Locations.Longitude), new(drone.Location.CoorLatitude.InputCoorValue, BO.Locations.Latitude)));
-                                                drone.ParcelId = parcelId;
                                                 customer = bl.GetBLCustomer(parcel.Sender.Id);
                                                 bl.UpdateParcel(parcel);
-                                                drone.Status = DroneStatuses.Shipment;
                                             }
                                             catch (Exception ex) { throw new Exception("Internal error getting parcel", ex); }
                                             break;
@@ -188,7 +183,7 @@ namespace IBL
                                 drone.Location = new(new BO.Coordinate(lon, BO.Locations.Longitude), new BO.Coordinate(lat, BO.Locations.Latitude));
                             }
                         }
-
+                        
                         break;
 
                     default:
