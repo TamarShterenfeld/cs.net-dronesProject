@@ -63,7 +63,7 @@ namespace IBL
             {
                 foreach (DO.DroneCharge droneCharge in dal.DronesChargingInMe(drone => drone.StationId == stationId).ToList())
                 {
-                    DroneInCharging drone = new(droneCharge.DroneId, rand.NextDouble() * 40 + 60);
+                    DroneInCharging drone = new(droneCharge.DroneId, dronesForList.FirstOrDefault(item=>item.Id == droneCharge.DroneId).Battery);
                     droneInCharging.Add(drone);
                 }
             }

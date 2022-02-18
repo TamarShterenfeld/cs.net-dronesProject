@@ -61,24 +61,24 @@ namespace IBL
             return false;
         }
 
-        /// <summary>
-        /// the function computes the remained battery after arriving at:
-        /// 1.the sender location.
-        /// 2.then, to the target's location.
-        /// 3.then, to the nearest baseStation's location.
-        /// </summary>
-        /// <param name="drone">the drone object</param>
-        /// <param name="parcel">the parcel that is supposed to be passed</param>
-        /// <returns></returns>
-        double BatteryRemainedInLastDestination(DroneForList drone, Parcel parcel)
-        {
-            Customer sender = GetBOCustomersList().First(item1 => item1.Id == parcel.Sender.Id);
-            Customer target = GetBOCustomersList().First(item1 => item1.Id == parcel.Target.Id);
-            BaseStation baseStation = NearestBaseStation(target, (List<BaseStation>)GetBOBaseStationsList());
-            drone.Battery = ComputeBatteryRemained(drone, sender);
-            drone.Battery = ComputeBatteryRemained(drone, target);
-            return ComputeBatteryRemained(drone, baseStation);
-        }
+        ///// <summary>
+        ///// the function computes the remained battery after arriving at:
+        ///// 1.the sender location.
+        ///// 2.then, to the target's location.
+        ///// 3.then, to the nearest baseStation's location.
+        ///// </summary>
+        ///// <param name="drone">the drone object</param>
+        ///// <param name="parcel">the parcel that is supposed to be passed</param>
+        ///// <returns>battery</returns>
+        //double BatteryRemainedInLastDestination(DroneForList drone, Parcel parcel)
+        //{
+        //    Customer sender = GetBOCustomersList().First(item1 => item1.Id == parcel.Sender.Id);
+        //    Customer target = GetBOCustomersList().First(item1 => item1.Id == parcel.Target.Id);
+        //    BaseStation baseStation = NearestBaseStation(target, (List<BaseStation>)GetBOBaseStationsList());
+        //    drone.Battery = ComputeBatteryRemained(drone, sender);
+        //    drone.Battery = ComputeBatteryRemained(drone, target);
+        //    return ComputeBatteryRemained(drone, baseStation);
+        //}
 
         /// <summary>
         /// the function returns the nearest BaseStation to the input drone.
@@ -86,7 +86,7 @@ namespace IBL
         /// <param name="location"></param>
         /// <param name="baseStations">the list of the basStations that the nearest baseStation has to be found from.</param>
         /// <returns>the nearest baseStation</returns>
-        public BaseStation NearestBaseStation(ILocatable location, List<BaseStation> baseStations)
+        public BaseStation NearestBaseStation(ILocatable location, IEnumerable<BaseStation> baseStations)
         {
             double minDistance = baseStations.Min(station => location.Distance(station));
             return baseStations.FirstOrDefault(item => location.Distance(item) == minDistance);

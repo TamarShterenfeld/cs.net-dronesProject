@@ -39,8 +39,6 @@ namespace BO
         public DateTime? AssociationDate { get { return associationDate; } set { associationDate = value; } }  
         public DateTime? PickUpDate { get { return pickUpDate; } set { pickUpDate = value; } }       
         public DateTime?SupplyDate { get { return supplyDate; } set { supplyDate = value; } }
-
-
         public bool IsDeleted { get; set; } = false;
         /// <summary>
         /// a contructor with parameters
@@ -51,9 +49,9 @@ namespace BO
         /// <param name="weight">the parcel's weight</param>
         /// <param name="priority">the parcel's priority</param>
         /// <param name="drone">the drone that has to pass the parcel</param>
-        public Parcel(int id, CustomerInParcel sender, CustomerInParcel target, WeightCategories weight, Priorities priority, DroneInParcel drone)
+        public Parcel(int id, CustomerInParcel sender, CustomerInParcel target, WeightCategories weight, Priorities priority, DroneInParcel drone,bool isDeleted)
         {
-            this.id = id; Sender = sender; Target = target; Weight = weight; Priority = priority; MyDrone = drone;
+            this.id = id; Sender = sender; Target = target; Weight = weight; Priority = priority; MyDrone = drone;IsDeleted = isDeleted;
             //a default value in the creation of the object.
             ProductionDate = AssociationDate = PickUpDate = SupplyDate = null;
         }

@@ -2,6 +2,7 @@
 using DO;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using static System.Math;
 
@@ -34,6 +35,12 @@ namespace IBL
             {
                 drone.Status = DroneStatuses.Maintenance;
                 maintenance = Maintenance.Starting;
+            }
+            void releaseMaintenance(DroneForList droneForList)
+            {
+                droneForList.Status = DroneStatuses.Available;
+                dal.ReleaseDroneFromRecharge(droneForList.Id);
+                bl.UpdateDronesForSimulator(droneForList);
             }
 
             do
@@ -92,8 +99,14 @@ namespace IBL
                                 {
                                     try
                                     {
-                                        List<BO.BaseStation> baseStations1 = (List<BO.BaseStation>)bl.ConvertBaseStationsForListToBaseStation((List<BO.BaseStationForList>)bl.GetAvailableChargeSlots());
-                                        station = bl.NearestBaseStation(drone, baseStations1);
+                                        station = bl.NearestBaseStation(drone, bl.GetBOBaseStationsList());
+                                        //if all chargeSlots are cought.the drone with the highest battery leave the station.
+                                        if(station.DroneCharging.Count == station.ChargeSlots)
+                                        {
+                                            double maxBattery = station.DroneCharging.Max(item => item.Battery);
+                                            DroneForList droneWithMaxBattery =bl.GetDroneForList(station.DroneCharging.Where(item => item.Battery == maxBattery).FirstOrDefault().Id);
+                                            releaseMaintenance(droneWithMaxBattery);
+                                        }
                                     }
                                     catch (IntIdException ex) { throw new IntIdException("Internal error base station", ex); }
                                     distance = drone.Distance(station);
@@ -126,8 +139,7 @@ namespace IBL
                                 {
                                     lock (dal)
                                     {
-                                        drone.Status = DroneStatuses.Available;
-                                        dal.ReleaseDroneFromRecharge(droneId);
+                                        releaseMaintenance(drone);
                                     }
                                 } 
                                 else
