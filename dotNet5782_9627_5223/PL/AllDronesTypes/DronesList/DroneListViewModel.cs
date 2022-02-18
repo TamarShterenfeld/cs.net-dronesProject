@@ -103,7 +103,7 @@ namespace PL
         /// <param name="sender">the selected drone</param>
         private void DisplayDroneView(object sender)
         {
-            new DroneView(new DroneViewModel(bl, sender as PL.PO.DroneForList)).Show();
+             new DroneView(new DroneViewModel(bl, sender as PL.PO.DroneForList)).Show();
         }
 
         #endregion

@@ -6,21 +6,26 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using static PL.PO.POConverter;
-using System.Threading.Tasks;
-using System.Windows.Data;
 using System.Windows;
 
 namespace PL
 {
-    static class RefreshAllWindows
+    sealed partial class ListsModel
     {
-        public static event EventHandler RefreshStation;
-
-        public static event EventHandler RefreshDrone;
-
-        public static event EventHandler RefreshCustomer;
-
-        public static event EventHandler RefreshParcel;
-
+        public event EventHandler RefreshStations;
+        public void RefreshAll()
+        {
+            if (RefreshStations != null)
+            {
+                foreach (EventHandler item in RefreshStations.GetInvocationList())
+                {
+                    item.Invoke(null,EventArgs.Empty);
+                }
+            }
+           
+        }
     }
+
+
+
 }

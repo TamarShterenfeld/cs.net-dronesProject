@@ -34,15 +34,6 @@ namespace PL
         #endregion
 
         #region Properties
-        //public bool VisibleTimeCharging
-        //{
-        //    get => visibleTimeCharging;
-        //    set
-        //    {
-        //        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(VisibleTimeCharging)));
-        //        visibleTimeCharging = value;
-        //    }
-        //}
         public PO.Drone Drone { get; set; }
         public bool EnableUpdate
         {
@@ -122,15 +113,6 @@ namespace PL
                 }
             }
         }
-        //public double TimeCharge
-        //{
-        //    get => timeCharge;
-        //    set
-        //    {
-        //        timeCharge = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(TimeCharge)));
-        //        TimeDuration_Changed((object)value);
-        //    }
-        //}
         public string SelectedModel
         {
             get => selectedModel;
@@ -467,14 +449,17 @@ namespace PL
         private bool checkStop() => worker.CancellationPending;
         private void updateDroneView(object userStage)
         {
-            Stage = new PO.UserStage(userStage as BO.UserStage);
-            ListsModel.Instance.UpdateDrone(Drone.Id);
-            Drone = DroneBOToPO(bl.GetBLDrone(Drone.Id), bl);
-            coorLon = Drone.Location.CoorLongitude.ToString();
-            coorLat = Drone.Location.CoorLatitude.ToString();
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Drone)));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(coorLon)));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(coorLat)));
+            ListsModel.Instance.RefreshAll();
+            //Stage = new PO.UserStage(userStage as BO.UserStage);
+            //ListsModel.Instance.UpdateDrone(Drone.Id);
+
+            
+            //Drone = DroneBOToPO(bl.GetBLDrone(Drone.Id), bl);
+            //coorLon = Drone.Location.CoorLongitude.ToString();
+            //coorLat = Drone.Location.CoorLatitude.ToString();
+            //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Drone)));
+            //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(coorLon)));
+            //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(coorLat)));
         }
 
         /// <summary>
