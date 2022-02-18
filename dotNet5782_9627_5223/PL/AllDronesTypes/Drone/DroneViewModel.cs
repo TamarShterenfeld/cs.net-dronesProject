@@ -256,17 +256,17 @@ namespace PL
                     MessageBox.Show("Not all the fields are filled with correct values\nThis action is invalid!");
                     return;
                 }
-                Drone.Weight = (POConverter.WeightCategories)Enum.Parse(typeof(POConverter.WeightCategories), SelectedWeight);
-                Drone.Model = SelectedModel;
-                Drone.Status = POConverter.DroneStatuses.Available;
+                //Drone.Weight = (POConverter.WeightCategories)Enum.Parse(typeof(POConverter.WeightCategories), SelectedWeight);
+                //Drone.Model = SelectedModel;
+                //Drone.Status = POConverter.DroneStatuses.Available;
                 switch (sender.ToString())
                 {
-
                     case nameof(DroneActions.Associate):
                         {
                             BO.Parcel parcel = bl.Associateparcel(bl.GetDroneForList(Drone.Id));
-                            SelectedStatus = ((object)Drone.Status).ToString();
-                            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedStatus)));
+                            SelectedStatus = ((object)POConverter.DroneStatuses.Shipment).ToString();
+                            Drone.Status = (POConverter.DroneStatuses)Enum.Parse(typeof(POConverter.DroneStatuses), SelectedStatus);
+                            ParcelId = parcel.Id.ToString();
                             ListsModel.Instance.UpdateDrone(Drone.Id);
                             ListsModel.Instance.UpdateParcel(parcel.Id);
                             MessageBox.Show($"The drone succeeded in associating the parcel number: {parcel.Id} to it.");
@@ -407,7 +407,7 @@ namespace PL
         /// <param name="sender">the event</param>
         private void Button_ClickUpdate(object sender)
         {
-            Drone.Model = SelectedModel;
+    
             if (!IsAllValid())
             {
                 MessageBox.Show("Not all the fields are filled with correct values\nThis action is invalid!");
@@ -417,8 +417,9 @@ namespace PL
             {
                 if (SelectedModel != Drone.Model)
                 {
+                    Drone.Model = SelectedModel;
                     bl.UpdateDrone(Drone.Id, Drone.Model);
-                    ListsModel.Instance.UpdateDrone(Drone.Id);
+                    ListsModel.Instance.UpdateDrone(Drone.Id);            
                     MessageBox.Show("The drone has been updated successfully!\nPay attention - the last valid input is saved.");
                 }
                 else

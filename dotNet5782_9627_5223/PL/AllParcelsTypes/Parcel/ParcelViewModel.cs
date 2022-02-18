@@ -276,8 +276,7 @@ namespace PL
                 return;
             }
             try
-            {
-                int droneId = MyParcel.DroneId;
+            { 
                 NotInitalizeRule n1 = new();
                 if (!IsValid(MyParcel.DroneId, n1))
                 {

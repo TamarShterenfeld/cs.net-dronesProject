@@ -101,11 +101,21 @@ namespace IBL
         [MethodImpl(MethodImplOptions.Synchronized)]
         public Parcel Associateparcel(DroneForList drone)
         {
-            return (from parcel in GetBOParcelsList()
+            if(drone.Status != DroneStatuses.Available)
+                throw new DroneStatusException(drone.Status);
+            Parcel p = (from parcel in GetBOParcelsList()
                     where parcel.SupplyDate == null && parcel.Weight <= drone.MaxWeight && RequiredBattery(drone, parcel.Id) <= drone.Battery
                     orderby parcel.Priority descending, parcel.Weight descending
                     select parcel).FirstOrDefault();
-            
+            if (p == null)
+                throw new ParcelActionsException(ParcelActions.Associate);
+            p.MyDrone = new DroneInParcel { Id = drone.Id, Battery = drone.Battery, CurrentLocation = drone.Location };
+            p.AssociationDate = DateTime.Now;
+            dal.UpDate(ConvertBoToDoParcel(p), p.Id);
+            drone.Status = DroneStatuses.Shipment;
+            drone.ParcelId = p.Id;
+            dal.UpDate(ConvertBoToDoDrone(ConvertDroneForListToDrone(drone)), drone.Id);
+            return p;
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
