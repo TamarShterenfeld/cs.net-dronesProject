@@ -81,34 +81,14 @@ namespace PL
             get => coorLon;
             set
             {
-                bool isMinus = false;
-                if (value.ToString()[0] == '-')
+                if (IsValidDouble(coorLon + ""))
                 {
-                    value = ((string)value).Substring(1);
-                    isMinus = true;
-                }
-
-                if (IsValidDouble(value + ""))
-                {
-                    if (!IsValidLocation(value + ""))
+                    if (!IsValidLocation(coorLon + ""))
                     {
                         MessageBox.Show("Location must be in range of -90º to 90º");
                         return;
                     }
-                    if ((value == null || value.ToString() == "") && isMinus == true)
-                    {
-                        coorLon = "-";
-                        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CoorLon)));
-                        return;
-                    }
-                    if (isMinus == true)
-                    {
-                        coorLon = "-" + value;
-                    }
-                    else
-                    {
-                        coorLon = value;
-                    }
+                    coorLon = value;
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CoorLon)));
                     Drone.Location.CoorLongitude = new PO.Coordinate((double)value, POConverter.Locations.Longitude);
                 }
@@ -123,36 +103,16 @@ namespace PL
             get => coorLat;
             set
             {
-                bool isMinus = false;
-                if (value.ToString()[0] == '-')
+                if (double.TryParse(value.ToString(), out double latitude))
                 {
-                    value = ((string)value).Substring(1);
-                    isMinus = true;
-                }
-
-                if (IsValidDouble(value + ""))
-                {
-                    if (!IsValidLocation(value + ""))
+                    if (!IsValidLocation(latitude+""))
                     {
                         MessageBox.Show("Location must be in range of -90º to 90º");
                         return;
                     }
-                    if ((value == null || value.ToString() == "") && isMinus == true)
-                    {
-                        coorLat = "-";
-                        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CoorLat)));
-                        return;
-                    }
-                    if (isMinus == true)
-                    {
-                        coorLat = "-" + value;
-                    }
-                    else
-                    {
-                        coorLat = value;
-                    }
+                    coorLat = value;
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CoorLat)));
-                    Drone.Location.CoorLatitude = new PO.Coordinate(double.Parse(value.ToString()), POConverter.Locations.Latitude);
+                    Drone.Location.CoorLatitude = new PO.Coordinate(latitude, POConverter.Locations.Latitude);
                 }
                 else
                 {

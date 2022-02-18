@@ -315,8 +315,6 @@ namespace PL
                 IsValid(MyParcel.TargetId, n1, n2, n4, n7) &&
                 IsValid(MyParcel.DroneId, n1, n2, n6);
         }
-
-      
         #endregion
     }
 }

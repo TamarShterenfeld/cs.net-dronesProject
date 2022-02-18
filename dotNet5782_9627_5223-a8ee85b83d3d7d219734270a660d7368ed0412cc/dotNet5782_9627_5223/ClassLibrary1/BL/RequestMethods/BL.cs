@@ -80,7 +80,9 @@ namespace IBL
                     if (baseStation.ChargeSlots > 0)
                     {
                         drone.Status = DroneStatuses.Maintenance;
+                        drone.Battery = rand.Next(20);
                         dal.SendDroneToRecharge(drone.Id, baseStation.Id);
+                        dal.UpDate(ConvertBoToDoDrone(ConvertDroneForListToDrone(drone)), drone.Id);
                     }
                     else
                     {

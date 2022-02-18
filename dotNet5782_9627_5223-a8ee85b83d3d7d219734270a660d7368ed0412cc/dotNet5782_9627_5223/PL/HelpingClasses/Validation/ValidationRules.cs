@@ -57,7 +57,7 @@ namespace PL
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             if (value == null) return new ValidationResult(false, "Required.");
-            return long.Parse(value.ToString()) >= 0 ? ValidationResult.ValidResult : new ValidationResult(false, "Input has to contain a positive value.");
+            return int.Parse(value.ToString()) >= 0 ? ValidationResult.ValidResult : new ValidationResult(false, "Input has to contain a positive value.");
         }
         #endregion
     }

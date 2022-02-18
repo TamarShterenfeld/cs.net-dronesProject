@@ -3,14 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-        xmlns:command="http://www.galasoft.ch/mvvmlight"
-    xmlns:local="clr-namespace:PL"
+        xmlns:local="clr-namespace:PL"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         Title="CustomerView" Height="650" Width="800"
         Icon="/images/toplogo.jpg"
-        x:Name="CustomerWindow"
-        >
+        x:Name="CustomerWindow">
     <Grid x:Name ="station" Height="634" VerticalAlignment="Top">
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
@@ -58,7 +56,6 @@
         </TextBox>
         <!--<TextBlock Text="{Binding Customer.Id}" Grid.Row="1" Grid.Column="3" Foreground="red"  />-->
 
-        
         <TextBlock  Text="Name:" Grid.Row="2" Grid.Column="1" Foreground="#FF2D2D2D"/>
         <TextBox x:Name="name" 
             Grid.Row="2" Grid.Column="2" 
@@ -101,10 +98,10 @@
             TextWrapping="Wrap" 
             VerticalAlignment="Top" 
             Width="140" 
-            MaxLength ="20" 
+            MaxLength ="9"
             IsEnabled="{Binding EnableUpdate}"  Grid.RowSpan="2">
             <TextBox.Text>
-                <Binding Path="CoorLon" UpdateSourceTrigger="LostFocus" >
+                <Binding Path="CoorLon" UpdateSourceTrigger="PropertyChanged" >
                     <Binding.ValidationRules>
                         <local:NotEmptyRule ValidatesOnTargetUpdated="True"/>
                     </Binding.ValidationRules>
@@ -118,10 +115,10 @@
             TextWrapping="Wrap" 
             VerticalAlignment="Top" 
             Width="140" 
-            MaxLength ="20" 
+            MaxLength ="9"
             IsEnabled="{Binding EnableUpdate}">
             <TextBox.Text >
-                <Binding Path="CoorLat" UpdateSourceTrigger="LostFocus" >
+                <Binding Path="CoorLat" UpdateSourceTrigger="PropertyChanged" >
                     <Binding.ValidationRules>
                         <local:NotEmptyRule ValidatesOnTargetUpdated="True"/>
                     </Binding.ValidationRules>

@@ -5,7 +5,7 @@ using System;
 using System.ComponentModel;
 using System.Windows;
 using static PL.PO.POConverter;
-using static PL.Validation;
+using static  PL.Validation;
 
 namespace PL
 {
@@ -20,21 +20,20 @@ namespace PL
         #endregion
 
         #region Properties
-        public RelayCommand NotClosing { get; set; }
         public PO.Customer Customer { get; set; }
-        public bool EnableUpdate
+        public bool EnableUpdate 
         {
-            get => enableUpdate;
+            get=> enableUpdate;
             set
             {
                 enableUpdate = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(EnableUpdate)));
             }
-
+        
         }
-        public string State
-        {
-            get => state;
+        public string State 
+        { 
+            get=> state;
             set
             {
                 state = value;
@@ -50,31 +49,16 @@ namespace PL
             get => coorLon;
             set
             {
-                bool isMinus = false;
-                object currValue = value;
-                if (value.ToString()[0] == '-')
+                if (IsValidDouble(coorLon + ""))
                 {
-                    currValue = double.Parse(value.ToString().Substring(1));
-                    isMinus = true;
-                }
-
-                if (IsValidDouble(currValue + ""))
-                {
-                    if (!IsValidLocation(currValue + ""))
+                    if (!IsValidLocation(coorLon + ""))
                     {
                         MessageBox.Show("Location must be in range of -90º to 90º");
                         return;
                     }
                     coorLon = value;
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CoorLon)));
-                    if (isMinus == true)
-                    {
-                        Customer.Location.CoorLongitude = new PO.Coordinate(double.Parse(currValue.ToString()) * -1, POConverter.Locations.Longitude);
-                    }
-                    else
-                    {
-                        Customer.Location.CoorLongitude = new PO.Coordinate(double.Parse(value.ToString()), POConverter.Locations.Longitude);
-                    }
+                    Customer.Location.CoorLongitude = new PO.Coordinate((double)value, POConverter.Locations.Longitude);                  
                 }
                 else
                 {
@@ -87,31 +71,16 @@ namespace PL
             get => coorLat;
             set
             {
-                bool isMinus = false;
-                object currValue = value;
-                if (value.ToString()[0] == '-')
+                if (double.TryParse(value.ToString(), out double latitude))
                 {
-                    currValue = double.Parse(value.ToString().Substring(1));
-                    isMinus = true;
-                }
-                if (IsValidDouble(currValue + ""))
-                {
-                    if (!IsValidLocation(currValue + ""))
+                    if (!Validation.IsValidLocation(latitude + ""))
                     {
                         MessageBox.Show("Location must be in range of -90º to 90º");
                         return;
                     }
                     coorLat = value;
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CoorLat)));
-                    if (isMinus == true)
-                    {
-                        Customer.Location.CoorLatitude = new PO.Coordinate(double.Parse(currValue.ToString()) * -1, POConverter.Locations.Latitude);
-                    }
-                    else
-                    {
-                        Customer.Location.CoorLatitude = new PO.Coordinate(double.Parse(value.ToString()), POConverter.Locations.Latitude);
-                    }
-
+                    Customer.Location.CoorLatitude = new PO.Coordinate(latitude, POConverter.Locations.Latitude);
                 }
                 else
                 {
@@ -163,9 +132,8 @@ namespace PL
         /// </summary>
         /// <param name="sender">the invoking object</param>
         /// <param name="e">the event</param>
-        private void Button_ClickCancel(object sender, CancelEventArgs e)
+        private void Button_ClickCancel(object sender)
         {
-            e.Cancel = false;
             (sender as Window).Close();
         }
 
@@ -201,7 +169,7 @@ namespace PL
                 }
                 bl.Delete(CustomerPoToBo(Customer));
                 ListsModel.Instance.DeleteCustomer(Customer.Id);
-                MessageBox.Show("The customer has been deleted successfully!");
+                MessageBox.Show("The customer has been deleted successfully!\nPay attention - the last valid input is saved.");
                 (sender as Window).Close();
             }
             catch (StringIdException exe)
@@ -285,10 +253,8 @@ namespace PL
             return IsValid(Customer.Id, n1, n2, n4, n6) &&
                 IsValid(Customer.Name, n1, n3) &&
                 IsValid(Customer.Phone, n1, n2, n5, n7) &&
-                IsValid(CoorLon, n1) && IsValid(CoorLat, n1);
+                IsValid(CoorLon, n1) && IsValid(CoorLon, n1);
         }
-
-       
         #endregion
     }
 }

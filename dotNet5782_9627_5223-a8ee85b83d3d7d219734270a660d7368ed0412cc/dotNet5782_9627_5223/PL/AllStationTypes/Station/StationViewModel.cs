@@ -58,31 +58,16 @@ namespace PL
             get => coorLon;
             set
             {
-                bool isMinus = false;
-                object currValue = "";
-                if (value.ToString()[0] == '-')
+                if (IsValidDouble(coorLon + ""))
                 {
-                    currValue = double.Parse(value.ToString().Substring(1));
-                    isMinus = true;
-                }
-
-                if (IsValidDouble(currValue + ""))
-                {
-                    if (!IsValidLocation(currValue + ""))
+                    if (!IsValidLocation(coorLon + ""))
                     {
                         MessageBox.Show("Location must be in range of -90º to 90º");
                         return;
                     }
                     coorLon = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CoorLon)));
-                    if (isMinus == true)
-                    {
-                        BaseStation.Location.CoorLongitude = new PO.Coordinate(double.Parse(value.ToString()) * -1, POConverter.Locations.Longitude);
-                    }
-                    else
-                    {
-                        BaseStation.Location.CoorLongitude = new PO.Coordinate(double.Parse(value.ToString()), POConverter.Locations.Longitude);
-                    }
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CoorLat)));
+                    BaseStation.Location.CoorLongitude = new PO.Coordinate((double)value, POConverter.Locations.Longitude);
                 }
                 else
                 {
@@ -95,31 +80,16 @@ namespace PL
             get => coorLat;
             set
             {
-                bool isMinus = false;
-                object currValue = "";
-                if (value.ToString()[0] == '-')
+                if (IsValidDouble(coorLat + ""))
                 {
-                    currValue = double.Parse(value.ToString().Substring(1));
-                    isMinus = true;
-                }
-                if (IsValidDouble(currValue + ""))
-                {
-                    if (!IsValidLocation(currValue + ""))
+                    if (!IsValidLocation(coorLat + ""))
                     {
                         MessageBox.Show("Location must be in range of -90º to 90º");
                         return;
                     }
                     coorLat = value;
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CoorLat)));
-                    if (isMinus == true)
-                    {
-                        BaseStation.Location.CoorLatitude = new PO.Coordinate(double.Parse(value.ToString()) * -1, POConverter.Locations.Latitude);
-                    }
-                    else
-                    {
-                        BaseStation.Location.CoorLatitude = new PO.Coordinate(double.Parse(value.ToString()), POConverter.Locations.Latitude);
-                    }
-
+                    BaseStation.Location.CoorLatitude = new PO.Coordinate((double)value, POConverter.Locations.Latitude);
                 }
                 else
                 {
@@ -127,6 +97,7 @@ namespace PL
                 }
             }
         }
+
         public RelayCommand Cancel { get; set; }
         public RelayCommand AddOrUpdate { get; set; }
         public RelayCommand Delete { get; set; }
@@ -194,7 +165,7 @@ namespace PL
             {
                 bl.Delete(StationPoToBo(BaseStation));
                 ListsModel.Instance.DeleteStation(BaseStation.Id);
-                MessageBox.Show("The station has been deleted successfully!");
+                MessageBox.Show("The station has been deleted successfully!\nPay attention - the last valid input is saved.");
                 (sender as Window).Close();
             }
             catch (IntIdException exe)
@@ -256,8 +227,6 @@ namespace PL
                 IsValid(BaseStation.ChargeSlots.ToString(), n1, n2, n5) &&
                 IsValid(CoorLon, n1) && IsValid(CoorLat, n1);
         }
-
-      
         #endregion
 
     }

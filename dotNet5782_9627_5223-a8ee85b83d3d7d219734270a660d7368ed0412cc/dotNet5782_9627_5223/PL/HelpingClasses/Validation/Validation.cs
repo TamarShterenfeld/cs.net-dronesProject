@@ -10,7 +10,6 @@ namespace PL
         internal static bool IsValidPhone(string phone)
         {
             if (phone[0] != '0') return false;
-            if(phone.Length < 9) return false;
             foreach (char ch in phone)
             {
                 if (ch == '-') continue;
@@ -23,15 +22,23 @@ namespace PL
         {
             foreach (char ch in location)
             {
+                if (location[0] == '-') continue;
                 if (double.TryParse(location, out double result) == false) return false;
             }
             return true;
         }
         internal static bool IsValidLocation(string num)
         {
-            if (num == null) return true;
-            if (num == "") return true;
-            return double.Parse(num) <= 90 && double.Parse(num) >= -90;
+            if (num[0] == '-')
+            {
+                double dnum = double.Parse(num.Substring(1));
+                return dnum <= 90 && dnum >= 90;
+            }
+            else
+            {
+                double dnum = double.Parse(num);
+                return dnum <= 90 && dnum >= 90;
+            }
         }
         internal static bool IsValidName(string name)
         {
