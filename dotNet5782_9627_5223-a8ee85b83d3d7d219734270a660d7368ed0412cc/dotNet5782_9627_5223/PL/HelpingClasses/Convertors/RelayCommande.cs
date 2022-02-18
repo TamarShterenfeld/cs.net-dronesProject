@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -9,14 +8,13 @@ using System.Windows.Input;
 
 namespace PL
 {
-    public class RelayCommand<T> : ICommand
+    public class RelayCommand : ICommand
     {
         #region Fields
 
         readonly Action<object>_execute ;
         readonly object _execute2;
         readonly Func<object, bool> _canExecute ;
-        private Action<object, CancelEventArgs> button_ClickCancel;
 
         public Action<object, MouseButtonEventArgs> Button_DoubleClick { get; }
         public object P { get; }
@@ -30,12 +28,12 @@ namespace PL
         /// </summary>
         /// <param name="execute">Delegate to execute when Execute is called on the command.  This can be null to just hook up a CanExecute delegate.</param>
         /// <remarks><seealso cref="CanExecute"/> will always return true.</remarks>
-        public RelayCommand(Action<object> execute, object p)
+        public RelayCommand(Action<object> execute)
             : this(execute, null)
         {
         }
 
-        public RelayCommand(object executed2, object p) 
+        public RelayCommand(object executed2) 
         {
             this._execute2 = executed2;  
         }
@@ -57,12 +55,6 @@ namespace PL
         public RelayCommand(Action<object, MouseButtonEventArgs> button_DoubleClick, object p)
         {
             Button_DoubleClick = button_DoubleClick;
-            P = p;
-        }
-
-        public RelayCommand(Action<object, CancelEventArgs> button_ClickCancel, object p)
-        {
-            this.button_ClickCancel = button_ClickCancel;
             P = p;
         }
 
