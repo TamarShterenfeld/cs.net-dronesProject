@@ -100,7 +100,7 @@ namespace IBL
                                     try
                                     {
                                         station = bl.NearestBaseStation(drone, bl.GetBOBaseStationsList());
-                                        //if all chargeSlots are cought.the drone with the highest battery leave the station.
+                                        //if all chargeSlots are cought.the drone with the highest battery leave the charge slot.
                                         if(station.DroneCharging.Count == station.ChargeSlots)
                                         {
                                             double maxBattery = station.DroneCharging.Max(item => item.Battery);
