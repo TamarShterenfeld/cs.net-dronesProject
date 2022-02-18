@@ -113,8 +113,10 @@ namespace IBL
             p.AssociationDate = DateTime.Now;
             dal.UpDate(ConvertBoToDoParcel(p), p.Id);
             drone.Status = DroneStatuses.Shipment;
-            drone.ParcelId = p.Id;
-            UpdateDrone(drone);
+            Drone drone2 = GetBLDrone(drone.Id);
+            drone2.Parcel = new ParcelInPassing { Id = p.Id, Priority = p.Priority, Sender = p.Sender, Target = p.Target, Weight = p.Weight };
+            dal.UpDate(ConvertBoToDoDrone(ConvertDroneForListToDrone(drone)), drone.Id);
+            dal.UpDate(ConvertBoToDoDrone(drone2), drone2.Id);
             return p;
         }
 
