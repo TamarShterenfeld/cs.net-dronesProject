@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "dgSpecHash": "YIn/kI44sE2d3/ILVXb3HgPBi1H7lB3QxSwlLsJDdkacxV4DBiui4kFM4DKQ8H/L8mLK+HNO+TNS3N9L6Adrdw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\user1\\source\\repos\\02 01 2022\\dotNet5782_9627_5223-a8ee85b83d3d7d219734270a660d7368ed0412cc\\dotNet5782_9627_5223\\DalObj\\DalObject.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\user1\\.nuget\\packages\\googlemaps.locationservices\\1.2.0.5\\googlemaps.locationservices.1.2.0.5.nupkg.sha512",
+    "C:\\Users\\user1\\.nuget\\packages\\material.icons\\1.0.66\\material.icons.1.0.66.nupkg.sha512",
+    "C:\\Users\\user1\\.nuget\\packages\\materialdesigncolors\\2.0.4\\materialdesigncolors.2.0.4.nupkg.sha512",
+    "C:\\Users\\user1\\.nuget\\packages\\materialdesignthemes\\4.3.0\\materialdesignthemes.4.3.0.nupkg.sha512",
+    "C:\\Users\\user1\\.nuget\\packages\\mediakit.animations\\0.3.1\\mediakit.animations.0.3.1.nupkg.sha512",
+    "C:\\Users\\user1\\.nuget\\packages\\mediakit.core\\0.3.0\\mediakit.core.0.3.0.nupkg.sha512",
+    "C:\\Users\\user1\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
+    "C:\\Users\\user1\\.nuget\\packages\\xamarin.forms\\2.5.0.121934\\xamarin.forms.2.5.0.121934.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -1,0 +1,13 @@
+C:\Users\user1\source\repos\02 01 2022\dotNet5782_9627_5223-a8ee85b83d3d7d219734270a660d7368ed0412cc\dotNet5782_9627_5223\bin\net5.0-windows\Debug\net5.0\DalXml.deps.json
+C:\Users\user1\source\repos\02 01 2022\dotNet5782_9627_5223-a8ee85b83d3d7d219734270a660d7368ed0412cc\dotNet5782_9627_5223\bin\net5.0-windows\Debug\net5.0\DalXml.dll
+C:\Users\user1\source\repos\02 01 2022\dotNet5782_9627_5223-a8ee85b83d3d7d219734270a660d7368ed0412cc\dotNet5782_9627_5223\bin\net5.0-windows\Debug\net5.0\ref\DalXml.dll
+C:\Users\user1\source\repos\02 01 2022\dotNet5782_9627_5223-a8ee85b83d3d7d219734270a660d7368ed0412cc\dotNet5782_9627_5223\bin\net5.0-windows\Debug\net5.0\DalXml.pdb
+C:\Users\user1\source\repos\02 01 2022\dotNet5782_9627_5223-a8ee85b83d3d7d219734270a660d7368ed0412cc\dotNet5782_9627_5223\obj\net5.0-windows\Debug\net5.0\DalXml.csproj.AssemblyReference.cache
+C:\Users\user1\source\repos\02 01 2022\dotNet5782_9627_5223-a8ee85b83d3d7d219734270a660d7368ed0412cc\dotNet5782_9627_5223\obj\net5.0-windows\Debug\net5.0\DalXml.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user1\source\repos\02 01 2022\dotNet5782_9627_5223-a8ee85b83d3d7d219734270a660d7368ed0412cc\dotNet5782_9627_5223\obj\net5.0-windows\Debug\net5.0\DalXml.AssemblyInfoInputs.cache
+C:\Users\user1\source\repos\02 01 2022\dotNet5782_9627_5223-a8ee85b83d3d7d219734270a660d7368ed0412cc\dotNet5782_9627_5223\obj\net5.0-windows\Debug\net5.0\DalXml.AssemblyInfo.cs
+C:\Users\user1\source\repos\02 01 2022\dotNet5782_9627_5223-a8ee85b83d3d7d219734270a660d7368ed0412cc\dotNet5782_9627_5223\obj\net5.0-windows\Debug\net5.0\DalXml.csproj.CoreCompileInputs.cache
+C:\Users\user1\source\repos\02 01 2022\dotNet5782_9627_5223-a8ee85b83d3d7d219734270a660d7368ed0412cc\dotNet5782_9627_5223\obj\net5.0-windows\Debug\net5.0\DalXml.csproj.CopyComplete
+C:\Users\user1\source\repos\02 01 2022\dotNet5782_9627_5223-a8ee85b83d3d7d219734270a660d7368ed0412cc\dotNet5782_9627_5223\obj\net5.0-windows\Debug\net5.0\DalXml.dll
+C:\Users\user1\source\repos\02 01 2022\dotNet5782_9627_5223-a8ee85b83d3d7d219734270a660d7368ed0412cc\dotNet5782_9627_5223\obj\net5.0-windows\Debug\net5.0\ref\DalXml.dll
+C:\Users\user1\source\repos\02 01 2022\dotNet5782_9627_5223-a8ee85b83d3d7d219734270a660d7368ed0412cc\dotNet5782_9627_5223\obj\net5.0-windows\Debug\net5.0\DalXml.pdb

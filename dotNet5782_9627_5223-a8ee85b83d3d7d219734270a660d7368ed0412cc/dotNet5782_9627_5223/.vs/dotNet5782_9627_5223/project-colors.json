@@ -1,0 +1,36 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "9c84121c-998b-486e-ae07-d71135189340": {
+      "ProjectGuid": "9c84121c-998b-486e-ae07-d71135189340",
+      "DisplayName": "BL",
+      "ColorIndex": 0
+    },
+    "06b51774-b93c-4866-a4cd-a536b98b6951": {
+      "ProjectGuid": "06b51774-b93c-4866-a4cd-a536b98b6951",
+      "DisplayName": "DalApi",
+      "ColorIndex": 1
+    },
+    "02b5610e-baff-4c41-a7ad-9ef670d0243a": {
+      "ProjectGuid": "02b5610e-baff-4c41-a7ad-9ef670d0243a",
+      "DisplayName": "DalXml",
+      "ColorIndex": 2
+    },
+    "7603563e-fd87-4d0b-bc6f-5efd35acdb02": {
+      "ProjectGuid": "7603563e-fd87-4d0b-bc6f-5efd35acdb02",
+      "DisplayName": "DalObject",
+      "ColorIndex": 3
+    },
+    "f16ffd5d-a943-4e03-93e5-95a682da861b": {
+      "ProjectGuid": "f16ffd5d-a943-4e03-93e5-95a682da861b",
+      "DisplayName": "Solution Items",
+      "ColorIndex": 4
+    },
+    "b92c7121-398d-4ca6-bf07-adb9a810f8f2": {
+      "ProjectGuid": "b92c7121-398d-4ca6-bf07-adb9a810f8f2",
+      "DisplayName": "PL",
+      "ColorIndex": 5
+    }
+  },
+  "NextColorIndex": 6
+}
