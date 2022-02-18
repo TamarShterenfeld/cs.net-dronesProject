@@ -38,19 +38,15 @@ namespace IBL
                 {
                     parcelForDrone(dronesForList[i]);
                 }
-
             }
-
         }
         void parcelForDrone(DroneForList drone)
         {
             BO.Parcel parcelOfDrone = GetBLParcel(drone.ParcelId);
             drone.Battery = rand.Next(0, 99);
             //the parcel hasn't been supplied.
-            if (parcelOfDrone.SupplyDate == null &&
-                drone.Status == BO.DroneStatuses.Shipment)
+            if (parcelOfDrone.SupplyDate == null && parcelOfDrone.AssociationDate != null)
             {
-
                 //the parcel has been accosiated and hasn't been picked up.
                 if (parcelOfDrone.AssociationDate == null &&
                     parcelOfDrone.PickUpDate != null)
@@ -68,6 +64,7 @@ namespace IBL
                 if (minBattery != -1)
                 {
                     drone.Battery = RandomBattery(minBattery);
+                    drone.Status = DroneStatuses.Shipment;
                 }
             }
             else
@@ -80,13 +77,10 @@ namespace IBL
                     if (baseStation.ChargeSlots > 0)
                     {
                         drone.Status = DroneStatuses.Maintenance;
-                        drone.Battery = rand.Next(20);
-                        dal.SendDroneToRecharge(drone.Id, baseStation.Id);
                         dal.UpDate(ConvertBoToDoDrone(ConvertDroneForListToDrone(drone)), drone.Id);
                     }
                     else
                     {
-
                         drone.Status = DroneStatuses.Available;
                     }
                 }
@@ -110,7 +104,9 @@ namespace IBL
                                 drone.Location = chosenCustomer.Location;
                                 double minBattery = ComputeMinBatteryNeeded(drone, chosenCustomer);
                                 drone.Battery = RandomBattery(minBattery);
+                                drone.ParcelId = 0;
                             }
+                            drone.ParcelId = 0;
                             break;
                         }
 
@@ -118,6 +114,7 @@ namespace IBL
                         {
                             drone.Location = baseStationList[rand.Next(0, baseStationList.Count - 1)].Location;
                             drone.Battery = rand.Next(0, 20);
+                            drone.ParcelId = 0;
                             break;
                         }
                 }

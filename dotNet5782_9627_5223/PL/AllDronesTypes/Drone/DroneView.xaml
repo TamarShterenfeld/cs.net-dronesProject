@@ -129,7 +129,7 @@
                 <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding LeftDoubleClick}"/>
             </StackPanel.InputBindings>
             <TextBlock x:Name="delivery" 
-                Text="{Binding Drone.Parcel.Id}"
+                Text="{Binding ParcelId}"
                 IsEnabled="False"  VerticalAlignment="Center" 
             HorizontalAlignment="Center"/>
         </StackPanel>
