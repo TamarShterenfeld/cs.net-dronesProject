@@ -86,6 +86,7 @@ namespace IBL
                     }
                     else
                     {
+
                         drone.Status = DroneStatuses.Available;
                     }
                 }
