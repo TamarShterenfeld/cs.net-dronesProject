@@ -20,15 +20,13 @@ namespace BLApi
         /// <param name="refreshDisplay">refresh display</param>
         /// <param name="checkStopping">check stopping</param>
         void InvokeSimulator(int droneId, Action<object> refreshDisplay, Func<bool> checkStopping);
-
-        ///// <summary>
-        ///// The function gives associate date to the parcel.
-        ///// </summary>
-        ///// <param name="parcelId">parcel id</param>
-        ///// <param name="droneId">drone id</param>
-        //void AssociateParcel(int droneId);
-
-        public Parcel Associateparcel(DroneForList drone);//לבדוק אם עובד בצורה טובה...
+        
+        /// <summary>
+        /// The function gives associate date to the parcel.
+        /// </summary>
+        /// <param name="drone">drone's id</param>
+        /// <returns>parcel</returns>
+        public Parcel Associateparcel(DroneForList drone);
 
 
         /// <summary>
