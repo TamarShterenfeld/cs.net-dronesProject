@@ -94,7 +94,7 @@ namespace PL
         {
             PO.Coordinate longitude = CoordinateBoToPo(bl.GetBLBaseStation(Station.Id).Location.CoorLongitude);
             PO.Coordinate latitude = CoordinateBoToPo(bl.GetBLBaseStation(Station.Id).Location.CoorLatitude);
-            //Drone.Location = new(new(longitude.InputCoorValue, longitude.MyLocation), new(latitude.InputCoorValue, latitude.MyLocation));
+            Drone.Location = new(new(longitude.InputCoorValue, longitude.MyLocation), new(latitude.InputCoorValue, latitude.MyLocation));
         }
         public object CoorLon
         {
