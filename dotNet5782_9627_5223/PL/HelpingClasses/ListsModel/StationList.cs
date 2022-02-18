@@ -75,6 +75,12 @@ namespace PL
         private ListsModel()
         {
             bl = BLApi.BLFactory.GetBl();
+            initLists(null,EventArgs.Empty);
+            Refresh += initLists;
+        }
+
+        void initLists( object obj,EventArgs e)
+        {
             Stations = new ObservableCollection<PO.BaseStationForList>(ListOfStationForListBOToPO(bl.GetBaseStationList()).ToList());
             Customers = new ObservableCollection<PO.CustomerForList>(ListOFCustomerForListBOToPO(bl.GetCustomersList().ToList()));
             Parcels = new ObservableCollection<PO.ParcelForList>(ListOfParcelForListBOToPO(bl.GetParcelsList()).ToList());

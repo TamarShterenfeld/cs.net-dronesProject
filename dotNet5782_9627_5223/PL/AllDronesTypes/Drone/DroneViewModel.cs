@@ -42,7 +42,7 @@ namespace PL
             CoorLon = Drone.Location.CoorLongitude.ToString();
             CoorLat = Drone.Location.CoorLatitude.ToString();
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Drone)));
-            ListsModel.Instance.Refresh += refresh;
+            
         }
 
         #endregion
@@ -446,12 +446,7 @@ namespace PL
         private void updateDroneView(object userStage)
         {
             ListsModel.Instance.RefreshAll();
-            Stage = new PO.UserStage(userStage as BO.UserStage);
-            //ListsModel.Instance.UpdateDrone(Drone.Id);
-
-            
-            
-            
+            Stage = new PO.UserStage(userStage as BO.UserStage);  
         }
 
         /// <summary>
