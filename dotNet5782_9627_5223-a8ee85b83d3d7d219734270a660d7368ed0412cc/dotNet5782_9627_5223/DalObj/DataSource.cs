@@ -124,10 +124,11 @@ namespace DalObject
                 parcel.Weight = RandomWeight();
                 //initalize (random) a date of ProductionDate & the other DateTime fields are based on it.
                 //while assuming that each part of the shipment process maximum takes 14 business days.
-                parcel.ProductionDate = DateTime.Now;
-                parcel.AssociationDate = parcel.AssociationDate != null? parcel.ProductionDate.Value.AddDays(rand.Next(14)).AddHours(rand.Next(1, 24)) : null;
-                parcel.PickUpDate = parcel.PickUpDate != null ? parcel.AssociationDate.Value.AddDays(rand.Next(14)).AddHours(rand.Next(1, 24)) : null;
-                parcel.SupplyDate = parcel.SupplyDate!= null? parcel.PickUpDate.Value.AddDays(rand.Next(14)).AddHours(rand.Next(1, 24)) : null; 
+                int random = rand.Next(1,5);
+                parcel.ProductionDate = random == 1 ? DateTime.Now : null;
+                parcel.AssociationDate = random == 2 ? DateTime.Now : null;
+                parcel.PickUpDate = random == 3 ? DateTime.Now : null;
+                parcel.SupplyDate = random == 4 ? DateTime.Now : null;
                 //there wasn't an available drone.
                 //the date: 01/ 01/ 0001 - is a sign for an unassociated parcel - a default value.
                 if (parcel.DroneId == -1)
@@ -137,6 +138,8 @@ namespace DalObject
                 ParcelsList.Add(parcel);
             }
         }
+
+        
 
         /// <summary>
         /// randoms a longitude value of a Coordinate object.
