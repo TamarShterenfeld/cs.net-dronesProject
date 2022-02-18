@@ -17,6 +17,7 @@ namespace PL
         #region PrivateFields
         BLApi.IBL bl;
         PO.UserStage stage;
+        string parcelId;
         public PO.UserStage Stage { get => stage; set { stage = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Stage))); } }
         object coorLon, coorLat;
         IList<string> nullString = new List<string>() { "" };
@@ -138,6 +139,19 @@ namespace PL
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedModel)));
             }
         }
+        public string ParcelId 
+        {
+            get => parcelId;
+            set
+            {
+                if (value == null) return;
+                if(int.Parse(value) > 0)
+                {
+                    parcelId = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ParcelId)));
+                }              
+            }
+        }
         public RelayCommand Cancel { get; set; }
         public RelayCommand AddOrUpdate { get; set; }
         public RelayCommand Delete { get; set; }
@@ -176,6 +190,7 @@ namespace PL
             Drone = new PO.Drone(drone, bl);
             SelectedWeight = ((object)Drone.Weight).ToString();
             SelectedStatus = ((object)Drone.Status).ToString();
+            ParcelId = Drone.Parcel != null ? ((object)Drone.Parcel.Id).ToString():null;
             SelectedModel = Drone.Model;
             AddOrUpdate = new(Button_ClickUpdate, null);
             Delete = new(Button_ClickDelete, null);

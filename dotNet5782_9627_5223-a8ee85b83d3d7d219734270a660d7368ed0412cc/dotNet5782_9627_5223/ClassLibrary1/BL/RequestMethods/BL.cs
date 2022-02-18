@@ -104,7 +104,9 @@ namespace IBL
                                 drone.Location = chosenCustomer.Location;
                                 double minBattery = ComputeMinBatteryNeeded(drone, chosenCustomer);
                                 drone.Battery = RandomBattery(minBattery);
+                                drone.ParcelId = 0;
                             }
+                            drone.ParcelId = 0;
                             break;
                         }
 
@@ -112,6 +114,7 @@ namespace IBL
                         {
                             drone.Location = baseStationList[rand.Next(0, baseStationList.Count - 1)].Location;
                             drone.Battery = rand.Next(0, 20);
+                            drone.ParcelId = 0;
                             break;
                         }
                 }
