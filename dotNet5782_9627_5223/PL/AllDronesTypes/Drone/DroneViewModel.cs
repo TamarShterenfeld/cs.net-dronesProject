@@ -278,7 +278,7 @@ namespace PL
             try
             {
                 timeCharge = double.Parse(sender.ToString());
-                BO.BaseStation baseStation = bl.ReleaseDroneFromRecharge(Drone.Id, timeCharge);
+                BO.BaseStation baseStation = bl.ReleaseDroneFromRecharge(Drone.Id);
                 SelectedStatus = ((object)Drone.Status).ToString();
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedStatus)));
                 ListsModel.Instance.UpdateDrone(Drone.Id);

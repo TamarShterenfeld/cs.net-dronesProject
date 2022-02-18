@@ -56,7 +56,7 @@ namespace BLApi
         /// the function stops the drone from charging
         /// </summary>
         /// <param name="droneId">drone's id</param>
-        BaseStation ReleaseDroneFromRecharge(int droneId, double timeCharge);
+        BaseStation ReleaseDroneFromRecharge(int droneId);
 
         /// <summary>
         /// returns battery rate.
@@ -225,11 +225,6 @@ namespace BLApi
         /// <param name="droneForList">the droneForList object to update</param>
         void UpdateDrone(DroneForList droneForList);
 
-        /// <summary>
-        /// Update drones location,battery, status.... in the list of droneForList in BL.
-        /// </summary>
-        /// <param name="drone">drone for list</param>
-        void UpdateDronesForSimulator(DroneForList drone);
     }
 
     /// <summary>

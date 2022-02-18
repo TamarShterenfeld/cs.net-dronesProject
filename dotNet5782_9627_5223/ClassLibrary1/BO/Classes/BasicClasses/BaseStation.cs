@@ -85,7 +85,7 @@ namespace BO
                 chargeSlots = value;
             }
         }
-        public List<DroneInCharging> DroneCharging { get; set; }
+        public List<DroneInCharging> DroneCharging { get; set; } = new();
         public bool IsDeleted { get; set; }
 
         /// <summary>

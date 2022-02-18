@@ -73,7 +73,7 @@ namespace ConsoleUI_BL
                                 Console.WriteLine("Please enter droneId and timeCharge");
                                 id = InputIntValue();
                                 timeCharge = InputDoubleValue();
-                                bl.ReleaseDroneFromRecharge(id, timeCharge);
+                                bl.ReleaseDroneFromRecharge(id);
                                 break;
                             }
                         case (int)UpDateOptions.AssociationParcel:
