@@ -25,7 +25,8 @@ namespace PL
         IList<string> weights = Enum.GetNames(typeof(POConverter.WeightCategories));
         IList<string> droneActions = Enum.GetNames(typeof(DroneActions));
         string selectedDroneAction, selectedStatus, selectedWeight, selectedModel;
-        double timeCharge; bool visibleTimeCharging, enableUpdate;
+        //double timeCharge;
+        bool visibleTimeCharging, enableUpdate;
         bool inSimulator;
         PO.BaseStationForList station;
         BackgroundWorker worker;
@@ -33,15 +34,15 @@ namespace PL
         #endregion
 
         #region Properties
-        public bool VisibleTimeCharging
-        {
-            get => visibleTimeCharging;
-            set
-            {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(VisibleTimeCharging)));
-                visibleTimeCharging = value;
-            }
-        }
+        //public bool VisibleTimeCharging
+        //{
+        //    get => visibleTimeCharging;
+        //    set
+        //    {
+        //        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(VisibleTimeCharging)));
+        //        visibleTimeCharging = value;
+        //    }
+        //}
         public PO.Drone Drone { get; set; }
         public bool EnableUpdate
         {
@@ -121,15 +122,15 @@ namespace PL
                 }
             }
         }
-        public double TimeCharge
-        {
-            get => timeCharge;
-            set
-            {
-                timeCharge = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(TimeCharge)));
-                TimeDuration_Changed((object)value);
-            }
-        }
+        //public double TimeCharge
+        //{
+        //    get => timeCharge;
+        //    set
+        //    {
+        //        timeCharge = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(TimeCharge)));
+        //        TimeDuration_Changed((object)value);
+        //    }
+        //}
         public string SelectedModel
         {
             get => selectedModel;
@@ -197,7 +198,7 @@ namespace PL
             Simulator = new(Button_Simulator, null);
             Regular = new(Button_Regular, null);
             EnableUpdate = false;
-            VisibleTimeCharging = false;
+            //VisibleTimeCharging = false;
             coorLon = Drone.Location.CoorLongitude.ToString();
             coorLat = Drone.Location.CoorLatitude.ToString();
         }
@@ -216,7 +217,7 @@ namespace PL
             Cancel = new(Button_ClickCancel, null);
             AddOrUpdate = new(Button_ClickAdd, null);
             EnableUpdate = true;
-            VisibleTimeCharging = false;
+            //VisibleTimeCharging = false;
             SelectedStatus = nameof(POConverter.DroneStatuses.Available);
             LeftDoubleClick = new(doubleClickParcel, null);
             MyDroneActions = new ListCollectionView(nullString.Concat<string>(droneActions).ToList());
@@ -248,25 +249,25 @@ namespace PL
             (sender as Window).Close();
         }
 
-        private void TimeDuration_Changed(object sender)
-        {
-            try
-            {
-                timeCharge = double.Parse(sender.ToString());
-                BO.BaseStation baseStation = bl.ReleaseDroneFromRecharge(Drone.Id);
-                SelectedStatus = ((object)Drone.Status).ToString();
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedStatus)));
-                ListsModel.Instance.UpdateDrone(Drone.Id);
-                ListsModel.Instance.UpdateStation(baseStation.Id);
-                MessageBox.Show($"The drone now is released from charging...\nit's update battery is: {Drone.Battery}");
-                VisibleTimeCharging = false;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(VisibleTimeCharging)));
-            }
-            catch (DroneStatusException exe)
-            {
-                MessageBox.Show($"The status: {exe.Status} isn't correct for release the drone from charging.");
-            }
-        }
+        //private void TimeDuration_Changed(object sender)
+        //{
+        //    try
+        //    {
+        //        timeCharge = double.Parse(sender.ToString());
+        //        BO.BaseStation baseStation = bl.ReleaseDroneFromRecharge(Drone.Id);
+        //        SelectedStatus = ((object)Drone.Status).ToString();
+        //        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedStatus)));
+        //        ListsModel.Instance.UpdateDrone(Drone.Id);
+        //        ListsModel.Instance.UpdateStation(baseStation.Id);
+        //        MessageBox.Show($"The drone now is released from charging...\nit's update battery is: {Drone.Battery}");
+        //        VisibleTimeCharging = false;
+        //        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(VisibleTimeCharging)));
+        //    }
+        //    catch (DroneStatusException exe)
+        //    {
+        //        MessageBox.Show($"The status: {exe.Status} isn't correct for release the drone from charging.");
+        //    }
+        //}
 
         private void DroneAction_Selected(object sender)
         {
@@ -325,9 +326,11 @@ namespace PL
                         }
                     case nameof(DroneActions.ReleaseFromRecharge):
                         {
-                            MessageBox.Show("Please enter the time duration drone has been in charging.");
-                            VisibleTimeCharging = true;
-                            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(VisibleTimeCharging)));
+                            //MessageBox.Show("Please enter the time duration drone has been in charging.");
+                            //VisibleTimeCharging = true;
+                            bl.ReleaseDroneFromRecharge(Drone.Id);
+                            Drone = new(DroneForListBOToPO( bl.GetDroneForList(Drone.Id)),bl);
+                            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Drone)));
                             //invoking the method from the event "Lost Focus" of TimeCharge field.
                             break;
                         }

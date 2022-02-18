@@ -308,7 +308,7 @@ namespace IBL
                 if (drone.Status == DroneStatuses.Maintenance)
                 {
                     TimeSpan timeSpan = DateTime.Now - dal.GetDroneCharge(droneId).EntryTime.GetValueOrDefault();
-                    drone.Battery = Max(100, drone.Battery + BatteryUsages[DRONE_CHARGE] * timeSpan.TotalMilliseconds/100);
+                    drone.Battery = Min(100, drone.Battery + BatteryUsages[DRONE_CHARGE] * timeSpan.TotalMilliseconds/100);
                     drone.Status = DroneStatuses.Available;
                     //the chargeSlots is increased by one within the function 'Remove'
                     //which treats the case a removing of a droneCharge from DronesChargeList occurs.
