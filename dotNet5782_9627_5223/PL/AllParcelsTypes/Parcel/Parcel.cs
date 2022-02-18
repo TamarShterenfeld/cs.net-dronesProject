@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,13 +12,18 @@ namespace PL
         /// <summary>
         /// the class ParcelForList contains all the ParcelForList's needed details.
         /// </summary>
-        public class Parcel
+        public class Parcel : INotifyPropertyChanged
         {
             #region PrivateFields
             int parcelId;
             string senderId;
             string targetId;
             int droneId;
+            POConverter.WeightCategories weight;
+            POConverter.Priorities priorities;
+            POConverter.ParcelStatuses statuses;
+
+            public event PropertyChangedEventHandler PropertyChanged;
             #endregion
 
             #region Properties
@@ -26,8 +32,8 @@ namespace PL
                 get { return droneId; }
                 set
                 {
-
                     droneId = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DroneId)));
                 }
             }
 
@@ -37,17 +43,19 @@ namespace PL
                 set
                 {
                     parcelId = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ParcelId)));
                 }
             }
             public string SenderId
             {
                 get
-                {
+                {  
                     return senderId;
                 }
                 set
                 {
                     senderId = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SenderId)));
                 }
             }
             public string TargetId
@@ -59,11 +67,38 @@ namespace PL
                 set
                 {
                     targetId = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(TargetId)));
                 }
             }
-            public POConverter.WeightCategories Weight { get; set; }
-            public POConverter.Priorities Priority { set; get; }
-            public POConverter.ParcelStatuses Status { set; get; }
+            public POConverter.WeightCategories Weight
+            {
+                get=> weight;
+                set
+                {
+                    weight = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Weight)));
+                }
+            }
+
+            public POConverter.Priorities Priority 
+            {
+                set
+                {
+                    priorities = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Priority)));
+                }
+                get => priorities;
+            }
+
+            public POConverter.ParcelStatuses Status 
+            {
+                set
+                {
+                    statuses = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Status)));
+                }
+                get => statuses;
+            }
 
             #endregion
 

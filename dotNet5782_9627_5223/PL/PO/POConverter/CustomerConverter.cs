@@ -29,6 +29,7 @@ namespace PL.PO
 
         public static PO.CustomerInParcel CustomerInParcelBOTOPO(BO.CustomerInParcel customer)
         {
+            if (customer == null) return new PO.CustomerInParcel();
             return new PO.CustomerInParcel(customer.Id, customer.Name);
         }
 

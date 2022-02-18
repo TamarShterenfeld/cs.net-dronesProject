@@ -88,21 +88,21 @@ namespace PL
             get => coorLon;
             set
             {
-                if (IsValidDouble(coorLon + ""))
-                {
-                    if (!IsValidLocation(coorLon + ""))
-                    {
-                        MessageBox.Show("Location must be in range of -90º to 90º");
-                        return;
-                    }
-                    coorLon = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CoorLon)));
-                    Drone.Location.CoorLongitude = new PO.Coordinate((double)value, POConverter.Locations.Longitude);
-                }
-                else
-                {
-                    MessageBox.Show("Location must be a double value type");
-                }
+                //if (IsValidDouble(coorLon + ""))
+                //{
+                //    if (!IsValidLocation(coorLon + ""))
+                //    {
+                //        MessageBox.Show("Location must be in range of -90º to 90º");
+                //        return;
+                //    }
+                  coorLon = value;
+                //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CoorLon)));
+                //    Drone.Location.CoorLongitude = new PO.Coordinate((double)value, POConverter.Locations.Longitude);
+                //}
+                //else
+                //{
+                //    MessageBox.Show("Location must be a double value type");
+                //}
             }
         }
         public object CoorLat
@@ -110,21 +110,21 @@ namespace PL
             get => coorLat;
             set
             {
-                if (IsValidDouble(coorLat + ""))
-                {
-                    if (!IsValidLocation(coorLat + ""))
-                    {
-                        MessageBox.Show("Location must be in range of -90º to 90º");
-                        return;
-                    }
-                    coorLon = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CoorLat)));
-                    Drone.Location.CoorLongitude = new PO.Coordinate((double)value, POConverter.Locations.Latitude);
-                }
-                else
-                {
-                    MessageBox.Show("Location must be a double value type");
-                }
+                //if (IsValidDouble(coorLat + ""))
+                //{
+                //    if (!IsValidLocation(coorLat + ""))
+                //    {
+                //        MessageBox.Show("Location must be in range of -90º to 90º");
+                //        return;
+                //    }
+                coorLon = value;
+                //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CoorLat)));
+                //    Drone.Location.CoorLongitude = new PO.Coordinate((double)value, POConverter.Locations.Latitude);
+                //}
+                //else
+                //{
+                //    MessageBox.Show("Location must be a double value type");
+                //}
             }
         }
         public string SelectedModel
@@ -141,11 +141,18 @@ namespace PL
             get => parcelId;
             set
             {
-                if (value == null) return;
-                if (int.Parse(value) > 0)
+                if (value == null || value == "")
                 {
                     parcelId = value;
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ParcelId)));
+                }
+                else
+                {
+                    if (int.Parse(value) > 0)
+                    {
+                        parcelId = value;
+                        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ParcelId)));
+                    }
                 }
             }
         }
@@ -275,27 +282,30 @@ namespace PL
                     case nameof(DroneActions.PickUp):
                         {
                             bl.PickUpParcel(Drone.Id);
-                            SelectedStatus = ((object)Drone.Status).ToString();
-                            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedStatus)));
+                            PO.DroneForList p = DroneForListBOToPO(bl.GetDroneForList(Drone.Id));
+                            Drone.Parcel = ParcelInPassingBOTOPO(new BO.ParcelInPassing { Id = p.Id});
                             ListsModel.Instance.UpdateDrone(Drone.Id);
-                            ListsModel.Instance.UpdateParcel(Drone.Parcel.Id);
+                            ListsModel.Instance.UpdateParcel(p.Id);
                             MessageBox.Show("The drone succeeded in picking up the parcel.");
                             break;
                         }
                     case nameof(DroneActions.Supply):
                         {
                             bl.SupplyParcel(Drone.Id);
-                            SelectedStatus = ((object)Drone.Status).ToString();
+                            SelectedStatus = ((object)POConverter.DroneStatuses.Available).ToString();
                             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedStatus)));
                             ListsModel.Instance.UpdateDrone(Drone.Id);
-                            ListsModel.Instance.UpdateParcel(Drone.Parcel.Id);
+                            ParcelId = null;
+                            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ParcelId)));         
                             MessageBox.Show("The drone succeeded in supplying the parcel to its destination.");
                             break;
                         }
                     case nameof(DroneActions.SendforRecharge):
                         {
                             BO.BaseStation baseStation = bl.SendDroneForCharge(Drone.Id);
-                            SelectedStatus = ((object)Drone.Status).ToString();
+                            Drone = new(DroneForListBOToPO(bl.GetDroneForList(Drone.Id)), bl);
+                            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Drone)));
+                            SelectedStatus = ((object)POConverter.DroneStatuses.Available).ToString();
                             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedStatus)));
                             ListsModel.Instance.UpdateDrone(Drone.Id);
                             ListsModel.Instance.UpdateStation(baseStation.Id);
@@ -309,6 +319,9 @@ namespace PL
                             bl.ReleaseDroneFromRecharge(Drone.Id);
                             Drone = new(DroneForListBOToPO(bl.GetDroneForList(Drone.Id)), bl);
                             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Drone)));
+                            SelectedStatus = ((object)POConverter.DroneStatuses.Maintenance).ToString();
+                            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedStatus)));
+
                             //invoking the method from the event "Lost Focus" of TimeCharge field.
                             break;
                         }
@@ -345,7 +358,7 @@ namespace PL
             Drone.Weight = (POConverter.WeightCategories)Enum.Parse(typeof(POConverter.WeightCategories), SelectedWeight);
             Drone.Model = SelectedModel;
             Drone.Status = POConverter.DroneStatuses.Available;
-            if (Drone.Parcel != null)
+            if (ParcelId != null)
             {
                 MessageBox.Show("Can not delete this drone since he has a parcel\n finish with the parcel and try again.");
                 return;

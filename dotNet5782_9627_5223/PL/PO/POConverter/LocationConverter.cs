@@ -21,6 +21,7 @@ namespace PL.PO
 
         public static PO.Location LocationBOTOPO(BO.Location location)
         {
+            if (location == null) return new PO.Location();
             return new PO.Location(CoordinateBoToPo(location.CoorLongitude), CoordinateBoToPo(location.CoorLatitude));
         }
 

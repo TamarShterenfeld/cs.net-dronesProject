@@ -113,9 +113,11 @@ namespace IBL
             p.AssociationDate = DateTime.Now;
             dal.UpDate(ConvertBoToDoParcel(p), p.Id);
             drone.Status = DroneStatuses.Shipment;
+            drone.ParcelId = p.Id;
+            dronesForList.Add(drone);
             Drone drone2 = GetBLDrone(drone.Id);
             drone2.Parcel = new ParcelInPassing { Id = p.Id, Priority = p.Priority, Sender = p.Sender, Target = p.Target, Weight = p.Weight };
-            dal.UpDate(ConvertBoToDoDrone(ConvertDroneForListToDrone(drone)), drone.Id);
+            UpdateDrone(drone);
             dal.UpDate(ConvertBoToDoDrone(drone2), drone2.Id);
             return p;
         }
@@ -220,12 +222,12 @@ namespace IBL
         public void PickUpParcel(int droneId)
         {
             bool isPickedUp;
-            DroneForList currDrone = GetDroneForList(droneId);
-            ParcelForList parcelForList = GetParcelForList(currDrone.ParcelId);
+            DroneForList currDrone = GetDroneForList(droneId);  
             //Customer sender = GetBLCustomer(parcelForList.SenderId);
             //the drone is in shipment status' but the parcel still wasn't picked up.
             if (currDrone.Status == DroneStatuses.Shipment)
             {
+                ParcelForList parcelForList = GetParcelForList(currDrone.ParcelId);
                 if (parcelForList.Status == ParcelStatuses.Associated)
                 {
                     isPickedUp = true;
@@ -300,6 +302,7 @@ namespace IBL
                         //while adding the drone to chargeDrone. 
                         UpdateDrone(drone);
                         dal.SendDroneToRecharge(drone.Id, baseStation.Id);
+                        dronesForList.Add(drone);
                         UpDateBaseStation(baseStation);
                         return baseStation;
                     }
