@@ -6,15 +6,27 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using static PL.PO.POConverter;
-using System.Threading.Tasks;
-using System.Windows.Data;
 using System.Windows;
 
 namespace PL
 {
-    sealed partial class ListsModel 
+    sealed partial class ListsModel
     {
-        public static List<Window> OpenWindows = new();
-       
+        public event EventHandler Refresh;
+
+        public void RefreshAll()
+        {
+            if (Refresh != null)
+            {
+                foreach (EventHandler item in Refresh.GetInvocationList())
+                {
+                    item.Invoke(null,EventArgs.Empty);
+                }
+            }
+
+        }
     }
+
+
+
 }

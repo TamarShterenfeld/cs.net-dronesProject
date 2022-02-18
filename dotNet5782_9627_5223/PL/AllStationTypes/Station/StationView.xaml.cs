@@ -23,7 +23,7 @@ namespace PL
         public StationView(StationViewModel stationViewModel)
         {
             InitializeComponent();
-            this.DataContext = stationViewModel;
+            DataContext = stationViewModel;
         }
     }
 }

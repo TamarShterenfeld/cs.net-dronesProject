@@ -20,6 +20,13 @@ namespace PL
         string state;
         bool enableUpdate;
         List<string> listOfCurrFiles;
+        private void refresh(object sender,EventArgs e)
+        {
+            BaseStation = new(bl,StationForListBOToPO( bl.GetBaseStationForList(BaseStation.Id)));
+            coorLon = BaseStation.Location.CoorLongitude.ToString();
+            coorLat = BaseStation.Location.CoorLatitude.ToString();
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(BaseStation)));
+        }
         #endregion
 
         #region Properties
@@ -116,6 +123,7 @@ namespace PL
             EnableUpdate = false;
             coorLon = BaseStation.Location.CoorLongitude.ToString();
             coorLat = BaseStation.Location.CoorLatitude.ToString();
+            ListsModel.Instance.Refresh += refresh;
         }
 
         public StationViewModel(BLApi.IBL bl)
@@ -127,7 +135,9 @@ namespace PL
             AddOrUpdate = new(Button_ClickAdd, null);
             EnableUpdate = true;
             LeftDoubleClick = new(doubleClickDrone, null);
+
         }
+
 
         #endregion
 
@@ -140,10 +150,11 @@ namespace PL
         private void Button_ClickCancel(object sender)
         {
             (sender as Window).Close();
+            ListsModel.Instance.Refresh -= refresh;
         }
         private void doubleClickDrone(object sender)
         {
-            new DroneView(new DroneViewModel(bl, DroneForListBOToPO(bl.GetDroneForList((sender as PO.DroneInCharging).Id)))).Show();
+           new DroneView(new DroneViewModel(bl, DroneForListBOToPO(bl.GetDroneForList((sender as PO.DroneInCharging).Id)))).Show();
         }
 
         #endregion
@@ -191,6 +202,7 @@ namespace PL
             {
                 MessageBox.Show($"the chosen id: {exe.Id} already exists in the database");
             }
+
         }
         private void Button_ClickUpdate(object sender)
         {

@@ -33,6 +33,14 @@ namespace PL
         IList<string> weights = Enum.GetNames(typeof(POConverter.WeightCategories));
         IList<string> priorities = Enum.GetNames(typeof(POConverter.Priorities));
         IList<string> parcelActions = Enum.GetNames(typeof(POConverter.DroneActions)).TakeLast<string>(2).ToList();
+        private void refresh(object sender, EventArgs e)
+        {
+            MyParcel = new PO.Parcel(bl, ParcelForListBOToPO( bl.GetParcelForList(MyParcel.ParcelId)));
+            SelectedWeight = ((object)MyParcel.Weight).ToString();
+            SelectedParcelStatus = ((object)MyParcel.Status).ToString();
+            SelectedPriority = ((object)MyParcel.Priority).ToString();
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(MyParcel)));
+        }
         #endregion
 
         #region Properties
@@ -107,6 +115,7 @@ namespace PL
             LeftDoubleClick_Sender = new(DoubleClick_Sender, null);
             LeftDoubleClick_Target = new(DoubleClick_Target, null);
             LeftDoubleClick_Drone = new(DoubleClick_Drone, null);
+            ListsModel.Instance.Refresh += refresh;
         }
         public ParcelViewModel(BLApi.IBL bl)
         {
@@ -137,6 +146,8 @@ namespace PL
         private void ButtonClick_Cancel(object sender)
         {
             (sender as Window).Close();
+            ListsModel.Instance.Refresh -= refresh;
+
         }
 
         private void ParcelAction_Selected(object sender)

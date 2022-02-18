@@ -15,6 +15,7 @@ namespace PL
     public class DroneViewModel : INotifyPropertyChanged
     {
         #region PrivateFields
+
         BLApi.IBL bl;
         PO.UserStage stage;
         string parcelId;
@@ -31,18 +32,22 @@ namespace PL
         PO.BaseStationForList station;
         BackgroundWorker worker;
 
+        private void refresh(object sender, EventArgs e)
+        {
+            Drone = new PO.Drone(DroneForListBOToPO(bl.GetDroneForList(Drone.Id)), bl);
+            SelectedWeight = ((object)Drone.Weight).ToString();
+            SelectedStatus = ((object)Drone.Status).ToString();
+            ParcelId = Drone.Parcel != null ? ((object)Drone.Parcel.Id).ToString() : null;
+            SelectedModel = Drone.Model;
+            CoorLon = Drone.Location.CoorLongitude.ToString();
+            CoorLat = Drone.Location.CoorLatitude.ToString();
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Drone)));
+            ListsModel.Instance.Refresh += refresh;
+        }
+
         #endregion
 
         #region Properties
-        //public bool VisibleTimeCharging
-        //{
-        //    get => visibleTimeCharging;
-        //    set
-        //    {
-        //        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(VisibleTimeCharging)));
-        //        visibleTimeCharging = value;
-        //    }
-        //}
         public PO.Drone Drone { get; set; }
         public bool EnableUpdate
         {
@@ -122,15 +127,6 @@ namespace PL
                 }
             }
         }
-        //public double TimeCharge
-        //{
-        //    get => timeCharge;
-        //    set
-        //    {
-        //        timeCharge = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(TimeCharge)));
-        //        TimeDuration_Changed((object)value);
-        //    }
-        //}
         public string SelectedModel
         {
             get => selectedModel;
@@ -201,6 +197,7 @@ namespace PL
             //VisibleTimeCharging = false;
             coorLon = Drone.Location.CoorLongitude.ToString();
             coorLat = Drone.Location.CoorLatitude.ToString();
+            ListsModel.Instance.Refresh += refresh;
         }
 
         /// <summary>
@@ -247,6 +244,7 @@ namespace PL
         private void Button_ClickCancel(object sender)
         {
             (sender as Window).Close();
+            ListsModel.Instance.Refresh -= refresh;
         }
 
         private void DroneAction_Selected(object sender)
@@ -447,14 +445,13 @@ namespace PL
         private bool checkStop() => worker.CancellationPending;
         private void updateDroneView(object userStage)
         {
+            ListsModel.Instance.RefreshAll();
             Stage = new PO.UserStage(userStage as BO.UserStage);
-            ListsModel.Instance.UpdateDrone(Drone.Id);
-            Drone = DroneBOToPO(bl.GetBLDrone(Drone.Id), bl);
-            coorLon = Drone.Location.CoorLongitude.ToString();
-            coorLat = Drone.Location.CoorLatitude.ToString();
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Drone)));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(coorLon)));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(coorLat)));
+            //ListsModel.Instance.UpdateDrone(Drone.Id);
+
+            
+            
+            
         }
 
         /// <summary>

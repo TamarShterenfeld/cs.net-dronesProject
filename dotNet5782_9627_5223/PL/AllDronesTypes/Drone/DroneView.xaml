@@ -4,6 +4,7 @@
         xmlns:local="clr-namespace:PL"
         Title="Drone" Height="650" Width="800"
         Icon="../../images/toplogo.jpg"
+        
         x:Name="DroneWindow">
     <Window.Resources>
         <local:BoolToStringConverter x:Key="BoolToStringConverter" />
@@ -11,6 +12,7 @@
         <local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
         <local:BoolToVisibilityInUpdateConverter x:Key="BoolToVisibilityInUpdateConverter" />
         <local:BoolToIsSimulatorConverter x:Key="BoolToIsSimulatorConverter" />
+
     </Window.Resources>
     <Grid x:Name ="curdrone" Height="634" VerticalAlignment="Top">
         <Grid.RowDefinitions>
