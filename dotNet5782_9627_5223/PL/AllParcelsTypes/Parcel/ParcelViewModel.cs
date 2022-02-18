@@ -39,6 +39,7 @@ namespace PL
             SelectedWeight = ((object)MyParcel.Weight).ToString();
             SelectedParcelStatus = ((object)MyParcel.Status).ToString();
             SelectedPriority = ((object)MyParcel.Priority).ToString();
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(MyParcel)));
         }
         #endregion
 

@@ -39,8 +39,9 @@ namespace PL
             SelectedStatus = ((object)Drone.Status).ToString();
             ParcelId = Drone.Parcel != null ? ((object)Drone.Parcel.Id).ToString() : null;
             SelectedModel = Drone.Model;
-            coorLon = Drone.Location.CoorLongitude.ToString();
-            coorLat = Drone.Location.CoorLatitude.ToString();
+            CoorLon = Drone.Location.CoorLongitude.ToString();
+            CoorLat = Drone.Location.CoorLatitude.ToString();
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Drone)));
             ListsModel.Instance.Refresh += refresh;
         }
 
@@ -465,16 +466,12 @@ namespace PL
         private void updateDroneView(object userStage)
         {
             ListsModel.Instance.RefreshAll();
-            //Stage = new PO.UserStage(userStage as BO.UserStage);
+            Stage = new PO.UserStage(userStage as BO.UserStage);
             //ListsModel.Instance.UpdateDrone(Drone.Id);
 
             
-            //Drone = DroneBOToPO(bl.GetBLDrone(Drone.Id), bl);
-            //coorLon = Drone.Location.CoorLongitude.ToString();
-            //coorLat = Drone.Location.CoorLatitude.ToString();
-            //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Drone)));
-            //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(coorLon)));
-            //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(coorLat)));
+            
+            
         }
 
         /// <summary>

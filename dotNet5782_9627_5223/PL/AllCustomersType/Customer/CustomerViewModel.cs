@@ -19,9 +19,10 @@ namespace PL
         public event PropertyChangedEventHandler PropertyChanged;
         private void refresh(object sender, EventArgs e)
         {
-            Customer = new PO.Customer(bl,POConverter.CustomerForListBOToPO(bl.GetCustomerForList(Customer.Id)));
+            Customer = new PO.Customer(bl,CustomerForListBOToPO(bl.GetCustomerForList(Customer.Id)));
             coorLon = Customer.Location.CoorLongitude.ToString();
             coorLat = Customer.Location.CoorLatitude.ToString();
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Customer)));
         }
         #endregion
 

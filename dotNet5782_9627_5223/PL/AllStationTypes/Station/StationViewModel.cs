@@ -25,6 +25,7 @@ namespace PL
             BaseStation = new(bl,StationForListBOToPO( bl.GetBaseStationForList(BaseStation.Id)));
             coorLon = BaseStation.Location.CoorLongitude.ToString();
             coorLat = BaseStation.Location.CoorLatitude.ToString();
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(BaseStation)));
         }
         #endregion
 
