@@ -17,6 +17,12 @@ namespace PL
         bool enableUpdate;
         string state;
         public event PropertyChangedEventHandler PropertyChanged;
+        private void refresh(object sender, EventArgs e)
+        {
+            Customer = new PO.Customer(bl,POConverter.CustomerForListBOToPO(bl.GetCustomerForList(Customer.Id)));
+            coorLon = Customer.Location.CoorLongitude.ToString();
+            coorLat = Customer.Location.CoorLatitude.ToString();
+        }
         #endregion
 
         #region Properties
@@ -106,6 +112,7 @@ namespace PL
             coorLon = Customer.Location.CoorLongitude.ToString();
             coorLat = Customer.Location.CoorLatitude.ToString();
             State = "Update";
+            ListsModel.Instance.Refresh += refresh;
         }
 
 
@@ -135,6 +142,8 @@ namespace PL
         private void Button_ClickCancel(object sender)
         {
             (sender as Window).Close();
+            ListsModel.Instance.Refresh -= refresh;
+
         }
 
         /// <summary>

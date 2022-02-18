@@ -15,6 +15,7 @@ namespace PL
     public class DroneViewModel : INotifyPropertyChanged
     {
         #region PrivateFields
+
         BLApi.IBL bl;
         PO.UserStage stage;
         string parcelId;
@@ -30,6 +31,18 @@ namespace PL
         bool inSimulator;
         PO.BaseStationForList station;
         BackgroundWorker worker;
+
+        private void refresh(object sender, EventArgs e)
+        {
+            Drone = new PO.Drone(DroneForListBOToPO(bl.GetDroneForList(Drone.Id)), bl);
+            SelectedWeight = ((object)Drone.Weight).ToString();
+            SelectedStatus = ((object)Drone.Status).ToString();
+            ParcelId = Drone.Parcel != null ? ((object)Drone.Parcel.Id).ToString() : null;
+            SelectedModel = Drone.Model;
+            coorLon = Drone.Location.CoorLongitude.ToString();
+            coorLat = Drone.Location.CoorLatitude.ToString();
+            ListsModel.Instance.Refresh += refresh;
+        }
 
         #endregion
 
@@ -183,6 +196,7 @@ namespace PL
             //VisibleTimeCharging = false;
             coorLon = Drone.Location.CoorLongitude.ToString();
             coorLat = Drone.Location.CoorLatitude.ToString();
+            ListsModel.Instance.Refresh += refresh;
         }
 
         /// <summary>
@@ -229,6 +243,7 @@ namespace PL
         private void Button_ClickCancel(object sender)
         {
             (sender as Window).Close();
+            ListsModel.Instance.Refresh -= refresh;
         }
 
         //private void TimeDuration_Changed(object sender)

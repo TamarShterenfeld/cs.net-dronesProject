@@ -20,7 +20,6 @@ namespace PL
         string state;
         bool enableUpdate;
         List<string> listOfCurrFiles;
-        
         private void refresh(object sender,EventArgs e)
         {
             BaseStation = new(bl,StationForListBOToPO( bl.GetBaseStationForList(BaseStation.Id)));
@@ -123,7 +122,7 @@ namespace PL
             EnableUpdate = false;
             coorLon = BaseStation.Location.CoorLongitude.ToString();
             coorLat = BaseStation.Location.CoorLatitude.ToString();
-            ListsModel.Instance.RefreshStations += refresh;
+            ListsModel.Instance.Refresh += refresh;
         }
 
         public StationViewModel(BLApi.IBL bl)
@@ -150,7 +149,7 @@ namespace PL
         private void Button_ClickCancel(object sender)
         {
             (sender as Window).Close();
-            ListsModel.Instance.RefreshStations -= refresh;
+            ListsModel.Instance.Refresh -= refresh;
         }
         private void doubleClickDrone(object sender)
         {

@@ -12,17 +12,18 @@ namespace PL
 {
     sealed partial class ListsModel
     {
-        public event EventHandler RefreshStations;
+        public event EventHandler Refresh;
+
         public void RefreshAll()
         {
-            if (RefreshStations != null)
+            if (Refresh != null)
             {
-                foreach (EventHandler item in RefreshStations.GetInvocationList())
+                foreach (EventHandler item in Refresh.GetInvocationList())
                 {
                     item.Invoke(null,EventArgs.Empty);
                 }
             }
-           
+
         }
     }
 
