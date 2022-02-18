@@ -105,16 +105,16 @@ namespace PL
             get => coorLat;
             set
             {
-                if (double.TryParse(value.ToString(), out double latitude))
+                if (IsValidDouble(coorLat + ""))
                 {
-                    if (!IsValidLocation(latitude+""))
+                    if (!IsValidLocation(coorLat + ""))
                     {
                         MessageBox.Show("Location must be in range of -90º to 90º");
                         return;
                     }
-                    coorLat = value;
+                    coorLon = value;
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CoorLat)));
-                    Drone.Location.CoorLatitude = new PO.Coordinate(latitude, POConverter.Locations.Latitude);
+                    Drone.Location.CoorLongitude = new PO.Coordinate((double)value, POConverter.Locations.Latitude);
                 }
                 else
                 {
@@ -140,17 +140,17 @@ namespace PL
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedModel)));
             }
         }
-        public string ParcelId 
+        public string ParcelId
         {
             get => parcelId;
             set
             {
                 if (value == null) return;
-                if(int.Parse(value) > 0)
+                if (int.Parse(value) > 0)
                 {
                     parcelId = value;
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ParcelId)));
-                }              
+                }
             }
         }
         public RelayCommand Cancel { get; set; }
@@ -191,7 +191,7 @@ namespace PL
             Drone = new PO.Drone(drone, bl);
             SelectedWeight = ((object)Drone.Weight).ToString();
             SelectedStatus = ((object)Drone.Status).ToString();
-            ParcelId = Drone.Parcel != null ? ((object)Drone.Parcel.Id).ToString():null;
+            ParcelId = Drone.Parcel != null ? ((object)Drone.Parcel.Id).ToString() : null;
             SelectedModel = Drone.Model;
             AddOrUpdate = new(Button_ClickUpdate, null);
             Delete = new(Button_ClickDelete, null);
@@ -221,7 +221,7 @@ namespace PL
             SelectedStatus = nameof(POConverter.DroneStatuses.Available);
             LeftDoubleClick = new(doubleClickParcel, null);
             MyDroneActions = new ListCollectionView(nullString.Concat<string>(droneActions).ToList());
-            StationsId = new ListCollectionView(ListOfStationForListBOToPO(bl.GetBaseStationList()).ToList()); 
+            StationsId = new ListCollectionView(ListOfStationForListBOToPO(bl.GetBaseStationList()).ToList());
             Station = (PO.BaseStationForList)StationsId.GetItemAt(0);
             initLocation();
         }
@@ -248,26 +248,6 @@ namespace PL
         {
             (sender as Window).Close();
         }
-
-        //private void TimeDuration_Changed(object sender)
-        //{
-        //    try
-        //    {
-        //        timeCharge = double.Parse(sender.ToString());
-        //        BO.BaseStation baseStation = bl.ReleaseDroneFromRecharge(Drone.Id);
-        //        SelectedStatus = ((object)Drone.Status).ToString();
-        //        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedStatus)));
-        //        ListsModel.Instance.UpdateDrone(Drone.Id);
-        //        ListsModel.Instance.UpdateStation(baseStation.Id);
-        //        MessageBox.Show($"The drone now is released from charging...\nit's update battery is: {Drone.Battery}");
-        //        VisibleTimeCharging = false;
-        //        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(VisibleTimeCharging)));
-        //    }
-        //    catch (DroneStatusException exe)
-        //    {
-        //        MessageBox.Show($"The status: {exe.Status} isn't correct for release the drone from charging.");
-        //    }
-        //}
 
         private void DroneAction_Selected(object sender)
         {
@@ -329,7 +309,7 @@ namespace PL
                             //MessageBox.Show("Please enter the time duration drone has been in charging.");
                             //VisibleTimeCharging = true;
                             bl.ReleaseDroneFromRecharge(Drone.Id);
-                            Drone = new(DroneForListBOToPO( bl.GetDroneForList(Drone.Id)),bl);
+                            Drone = new(DroneForListBOToPO(bl.GetDroneForList(Drone.Id)), bl);
                             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Drone)));
                             //invoking the method from the event "Lost Focus" of TimeCharge field.
                             break;

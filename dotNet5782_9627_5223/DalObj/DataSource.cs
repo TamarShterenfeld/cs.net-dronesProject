@@ -124,8 +124,8 @@ namespace DalObject
                 parcel.Weight = RandomWeight();
                 //initalize (random) a date of ProductionDate & the other DateTime fields are based on it.
                 //while assuming that each part of the shipment process maximum takes 14 business days.
-                int random = rand.Next(1,5);
-                parcel.ProductionDate = random == 1 ? DateTime.Now : null;
+                
+                parcel.ProductionDate = DateT ? DateTime.Now : null;
                 parcel.AssociationDate = random == 2 ? DateTime.Now : null;
                 parcel.PickUpDate = random == 3 ? DateTime.Now : null;
                 parcel.SupplyDate = random == 4 ? DateTime.Now : null;

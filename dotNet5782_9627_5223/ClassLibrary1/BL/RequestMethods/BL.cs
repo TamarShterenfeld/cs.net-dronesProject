@@ -72,23 +72,15 @@ namespace IBL
                 DroneStatuses status = (BO.DroneStatuses)rand.Next(1, 3);
                 if (status == DroneStatuses.Maintenance)
                 {
+                    drone.Status = DroneStatuses.Available;
                     List<BO.BaseStation> baseStations = GetBOBaseStationsList().ToList();
                     BO.BaseStation baseStation = baseStations[rand.Next(0, baseStations.Count - 1)];
                     if (baseStation.ChargeSlots > 0)
                     {
-                        drone.Status = DroneStatuses.Maintenance;
-                        dal.UpDate(ConvertBoToDoDrone(ConvertDroneForListToDrone(drone)), drone.Id);
-                    }
-                    else
-                    {
-                        drone.Status = DroneStatuses.Available;
+                        SendDroneForCharge(drone.Id);
+                        drone = GetDroneForList(drone.Id);
                     }
                 }
-                else
-                {
-                    drone.Status = DroneStatuses.Available;
-                }
-                
 
                 List<BO.BaseStation> baseStationList = (List<BO.BaseStation>)GetBOBaseStationsList();
                 List<BO.Customer> customersList = (List<BO.Customer>)GetBOCustomersList();
