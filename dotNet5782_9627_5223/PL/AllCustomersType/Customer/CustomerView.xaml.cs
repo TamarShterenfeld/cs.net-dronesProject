@@ -1,6 +1,7 @@
 ﻿using PL;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +25,10 @@ namespace PL
         {
             InitializeComponent();
             this.DataContext = customerViewModel;
+        }
+        private void NotClosing_Click(object sender, CancelEventArgs e)
+        {
+            e.Cancel = true;
         }
     }
 }

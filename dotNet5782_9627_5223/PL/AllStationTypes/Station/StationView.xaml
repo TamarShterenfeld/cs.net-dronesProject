@@ -92,7 +92,7 @@
             Grid.Row="4" Grid.Column="2"
             TextWrapping="Wrap" 
             VerticalAlignment="Top" 
-            Width="140"  MaxLength ="9" 
+            Width="140"  MaxLength ="20" 
             IsEnabled="{Binding EnableUpdate}"  Grid.RowSpan="2"
            >
             <TextBox.Text>
@@ -110,7 +110,7 @@
             TextWrapping="Wrap" 
             VerticalAlignment="Top" 
             Width="140" 
-            MaxLength ="9"
+            MaxLength ="20" 
             IsEnabled="{Binding EnableUpdate}"
             >
             <TextBox.Text >

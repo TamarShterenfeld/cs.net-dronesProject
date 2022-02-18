@@ -225,7 +225,7 @@ namespace PL
             {
                 bl.Delete(ParcelPoToBo(MyParcel));
                 ListsModel.Instance.DeleteParcel(MyParcel.ParcelId);
-                MessageBox.Show("The parcel has been deleted successfully!\nPay attention - the last valid input is saved.");
+                MessageBox.Show("The parcel has been deleted successfully!");
                 (sender as Window).Close();
             }
             catch(IntIdException exe)
@@ -315,6 +315,8 @@ namespace PL
                 IsValid(MyParcel.TargetId, n1, n2, n4, n7) &&
                 IsValid(MyParcel.DroneId, n1, n2, n6);
         }
+
+      
         #endregion
     }
 }
