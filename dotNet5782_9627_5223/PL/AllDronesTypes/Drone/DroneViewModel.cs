@@ -110,7 +110,7 @@ namespace PL
             get => coorLat;
             set
             {
-                coorLon = value;
+                coorLat = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CoorLat)));
             }
         }
@@ -161,7 +161,7 @@ namespace PL
             set
             {
                 selectedDroneAction = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(selectedDroneAction)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedDroneAction)));
                 DroneAction_Selected(value);
             }
 

@@ -144,16 +144,15 @@
             TextWrapping="Wrap" 
             VerticalAlignment="Top" 
             HorizontalAlignment="Center"
-            Width="140"     IsEnabled="false" Text="{Binding CoorLon}"/>
+            Width="140" IsEnabled="false" Text="{Binding CoorLon}"/>
 
         <TextBlock Text="Latitude:" Grid.Row="8" Grid.Column="1" Foreground="#FF3F4245"/>
         <TextBox x:Name="latitude"
             Grid.Row="8" Grid.Column="2"
-            IsEnabled="false"
             TextWrapping="Wrap" 
             VerticalAlignment="Top" 
             HorizontalAlignment="Center"
-            Width="140" Text="{Binding CoorLat}"/>
+            Width="140" IsEnabled="false" Text="{Binding CoorLat}"/>
 
 
         <TextBlock x:Name="Lstation" Grid.Row= "9" Grid.Column="1" Foreground="#FF3F4245" Grid.ColumnSpan="2" Grid.RowSpan="2" Visibility="{Binding EnableUpdate,Converter={StaticResource BoolToVisibilityConverter}}">
