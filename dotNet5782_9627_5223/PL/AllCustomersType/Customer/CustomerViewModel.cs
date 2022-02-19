@@ -56,21 +56,21 @@ namespace PL
             get => coorLon;
             set
             {
-                if (IsValidDouble(coorLon + ""))
+                if (IsValidDouble(coorLat + ""))
                 {
-                    if (!IsValidLocation(coorLon + ""))
+                    if (!IsValidLocation(coorLat + ""))
                     {
                         MessageBox.Show("Location must be in range of -90º to 90º");
                         return;
                     }
                     coorLon = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CoorLon)));
-                    Customer.Location.CoorLongitude = new PO.Coordinate((double)value, POConverter.Locations.Longitude);                  
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CoorLat)));
+                    Customer.Location.CoorLongitude = new PO.Coordinate((double)value, POConverter.Locations.Latitude);
                 }
-                else
-                {
-                    MessageBox.Show("Location must be a double value type");
-                }
+                //else
+                //{
+                //    MessageBox.Show("Location must be a double value type");
+                //}
             }
         }
         public object CoorLat
@@ -78,21 +78,21 @@ namespace PL
             get => coorLat;
             set
             {
-                if (double.TryParse(value.ToString(), out double latitude))
+                if (IsValidDouble(coorLat + ""))
                 {
-                    if (!Validation.IsValidLocation(latitude + ""))
+                    if (!IsValidLocation(coorLat + ""))
                     {
                         MessageBox.Show("Location must be in range of -90º to 90º");
                         return;
                     }
-                    coorLat = value;
+                    coorLon = value;
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CoorLat)));
-                    Customer.Location.CoorLatitude = new PO.Coordinate(latitude, POConverter.Locations.Latitude);
+                    Customer.Location.CoorLongitude = new PO.Coordinate((double)value, POConverter.Locations.Latitude);
                 }
-                else
-                {
-                    MessageBox.Show("Location must be a double value type");
-                }
+                //else
+                //{
+                //    MessageBox.Show("Location must be a double value type");
+                //}
             }
         }
         #endregion

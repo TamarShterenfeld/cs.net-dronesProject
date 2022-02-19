@@ -76,10 +76,10 @@ namespace PL
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CoorLat)));
                     BaseStation.Location.CoorLongitude = new PO.Coordinate((double)value, POConverter.Locations.Longitude);
                 }
-                else
-                {
-                    MessageBox.Show("Location must be a double value type");
-                }
+                //else
+                //{
+                //    MessageBox.Show("Location must be a double value type");
+                //}
             }
         }
         public object CoorLat
@@ -98,10 +98,10 @@ namespace PL
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CoorLat)));
                     BaseStation.Location.CoorLatitude = new PO.Coordinate((double)value, POConverter.Locations.Latitude);
                 }
-                else
-                {
-                    MessageBox.Show("Location must be a double value type");
-                }
+                //else
+                //{
+                //    MessageBox.Show("Location must be a double value type");
+                //}
             }
         }
 

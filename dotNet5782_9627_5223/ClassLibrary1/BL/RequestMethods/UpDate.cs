@@ -105,7 +105,7 @@ namespace IBL
         [MethodImpl(MethodImplOptions.Synchronized)]
         public Parcel Associateparcel(DroneForList drone)
         {
-            lock(dal)
+            lock (dal)
             {
                 if (drone.Status != DroneStatuses.Available)
                     throw new DroneStatusException(drone.Status);
@@ -117,11 +117,13 @@ namespace IBL
                     throw new ParcelActionsException(ParcelActions.Associate);
                 p.MyDrone = new DroneInParcel { Id = drone.Id, Battery = drone.Battery, CurrentLocation = drone.Location };
                 p.AssociationDate = DateTime.Now;
-                dal.UpDate(ConvertBoToDoParcel(p), p.Id);
                 drone.Status = DroneStatuses.Shipment;
+                dal.UpDate(ConvertBoToDoParcel(p), p.Id);               
+                drone.ParcelId = p.Id;
+                dronesForList.Add(drone);
                 Drone drone2 = GetBLDrone(drone.Id);
                 drone2.Parcel = new ParcelInPassing { Id = p.Id, Priority = p.Priority, Sender = p.Sender, Target = p.Target, Weight = p.Weight };
-                dal.UpDate(ConvertBoToDoDrone(ConvertDroneForListToDrone(drone)), drone.Id);
+                UpdateDrone(drone);
                 dal.UpDate(ConvertBoToDoDrone(drone2), drone2.Id);
                 return p;
             }
@@ -227,12 +229,12 @@ namespace IBL
         public void PickUpParcel(int droneId)
         {
             bool isPickedUp;
-            DroneForList currDrone = GetDroneForList(droneId);
-            ParcelForList parcelForList = GetParcelForList(currDrone.ParcelId);
+            DroneForList currDrone = GetDroneForList(droneId);  
             //Customer sender = GetBLCustomer(parcelForList.SenderId);
             //the drone is in shipment status' but the parcel still wasn't picked up.
             if (currDrone.Status == DroneStatuses.Shipment)
             {
+                ParcelForList parcelForList = GetParcelForList(currDrone.ParcelId);
                 if (parcelForList.Status == ParcelStatuses.Associated)
                 {
                     isPickedUp = true;
@@ -268,6 +270,10 @@ namespace IBL
                     drone.Location = target.Location;
                     drone.Status = DroneStatuses.Available;
                     parcel1.SupplyDate = DateTime.Now;
+                    drone.ParcelId = 0;
+                    parcel1.MyDrone = new DroneInParcel { Id = 0 };
+                    dronesForList.Remove(dronesForList.FirstOrDefault(item=>item.Id == drone.Id));
+                    dronesForList.Add(drone);
                     UpdateParcel(parcel1);
                     UpdateDrone(drone);
                 }
@@ -307,6 +313,7 @@ namespace IBL
                         //while adding the drone to chargeDrone. 
                         UpdateDrone(drone);
                         dal.SendDroneToRecharge(drone.Id, baseStation.Id);
+                        dronesForList.Add(drone);
                         UpDateBaseStation(baseStation);
                         return baseStation;
                     }

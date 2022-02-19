@@ -186,6 +186,7 @@
                 ItemsSource="{Binding Statuses}" 
                 SelectedItem="{Binding SelectedParcelStatus}"
                 VerticalAlignment="Bottom" Height="25" IsEnabled="False" />
+            <TextBlock x:Name ="SenderIdLable_Copy" Text="Id:" Grid.Column="1" Grid.Row ="2" HorizontalAlignment="Left" Foreground="#FF4C386B" Width="53" VerticalAlignment="Bottom" Height="16" Margin="0,0,0,1" />
         </Grid>
     </Grid>
 </Window>

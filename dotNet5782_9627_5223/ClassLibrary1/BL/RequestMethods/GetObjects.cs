@@ -64,11 +64,12 @@ namespace IBL
         [MethodImpl(MethodImplOptions.Synchronized)]
         public DroneForList GetDroneForList(int id)
         {
-            Drone item = GetBLDrone(id);
-            if (item.Parcel != null)
-                return new DroneForList(item.Id, item.Parcel.Id, item.Model, item.MaxWeight, item.Battery, item.Status, item.Location,item.IsDeleted);
-            else
-                return new DroneForList(item.Id, 0, item.Model, item.MaxWeight, item.Battery, item.Status, item.Location,item.IsDeleted);
+            return dronesForList.FirstOrDefault(item=>item.Id == id);
+            //Drone item = GetBLDrone(id);
+            //if (item.Parcel != null)
+            //    return new DroneForList(item.Id, item.Parcel.Id, item.Model, item.MaxWeight, item.Battery, item.Status, item.Location,item.IsDeleted);
+            //else
+            //    return new DroneForList(item.Id, 0, item.Model, item.MaxWeight, item.Battery, item.Status, item.Location,item.IsDeleted);
         }
 
         //----------------------------------DroneInParcel GetObject Methods---------------------------------
