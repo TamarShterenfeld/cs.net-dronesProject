@@ -27,8 +27,8 @@ namespace IBL
             BO.BaseStation station = null;
             double distance = 0.0;
             int batteryUsage = 0;
-            bool pickedUp = false;
-            BO.Customer customer = parcel != null && parcel.Id != 0 ? bl.GetBLCustomer(parcel.PickUpDate!= null? parcel.Target.Id:parcel.Sender.Id) : null;
+            bool pickedUp = parcel != null && parcel.Id != 0 && parcel.PickUpDate != null ? true:false;
+            BO.Customer customer = parcel != null && parcel.Id != 0 ? bl.GetBLCustomer(pickedUp ? parcel.Target.Id:parcel.Sender.Id) : null;
             Maintenance maintenance = drone.Status == DroneStatuses.Maintenance ? Maintenance.Charging : Maintenance.Starting;
 
             void startMaintenance()
@@ -133,6 +133,7 @@ namespace IBL
                                     {
                                         drone.Status = DroneStatuses.Available;
                                         dal.ReleaseDroneFromRecharge(drone.Id);
+                                        bl.UpdateDrone(drone);
                                     }
                                 } 
                                 else

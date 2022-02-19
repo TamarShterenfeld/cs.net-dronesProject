@@ -297,7 +297,7 @@ namespace DalXml
         /// <returns>a randomal chargeSlots in range of (0,10)</returns>
         private int RandomChargeSlot()
         {
-            return rand.Next(0, 10);
+            return rand.Next(1, 10);
         }
 
 
