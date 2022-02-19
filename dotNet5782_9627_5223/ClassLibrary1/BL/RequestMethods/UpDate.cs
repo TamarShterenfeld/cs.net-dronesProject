@@ -101,25 +101,28 @@ namespace IBL
         [MethodImpl(MethodImplOptions.Synchronized)]
         public Parcel Associateparcel(DroneForList drone)
         {
-            if(drone.Status != DroneStatuses.Available)
-                throw new DroneStatusException(drone.Status);
-            Parcel p = (from parcel in GetBOParcelsList()
-                    where parcel.SupplyDate == null && parcel.Weight <= drone.MaxWeight && RequiredBattery(drone, parcel.Id) <= drone.Battery
-                    orderby parcel.Priority descending, parcel.Weight descending
-                    select parcel).FirstOrDefault();
-            if (p == null)
-                throw new ParcelActionsException(ParcelActions.Associate);
-            p.MyDrone = new DroneInParcel { Id = drone.Id, Battery = drone.Battery, CurrentLocation = drone.Location };
-            p.AssociationDate = DateTime.Now;
-            dal.UpDate(ConvertBoToDoParcel(p), p.Id);
-            drone.Status = DroneStatuses.Shipment;
-            drone.ParcelId = p.Id;
-            dronesForList.Add(drone);
-            Drone drone2 = GetBLDrone(drone.Id);
-            drone2.Parcel = new ParcelInPassing { Id = p.Id, Priority = p.Priority, Sender = p.Sender, Target = p.Target, Weight = p.Weight };
-            UpdateDrone(drone);
-            dal.UpDate(ConvertBoToDoDrone(drone2), drone2.Id);
-            return p;
+            lock (dal)
+            {
+                if (drone.Status != DroneStatuses.Available)
+                    throw new DroneStatusException(drone.Status);
+                Parcel p = (from parcel in GetBOParcelsList()
+                            where parcel.SupplyDate == null && parcel.Weight <= drone.MaxWeight && RequiredBattery(drone, parcel.Id) <= drone.Battery
+                            orderby parcel.Priority descending, parcel.Weight descending
+                            select parcel).FirstOrDefault();
+                if (p == null)
+                    throw new ParcelActionsException(ParcelActions.Associate);
+                p.MyDrone = new DroneInParcel { Id = drone.Id, Battery = drone.Battery, CurrentLocation = drone.Location };
+                p.AssociationDate = DateTime.Now;
+                drone.Status = DroneStatuses.Shipment;
+                dal.UpDate(ConvertBoToDoParcel(p), p.Id);               
+                drone.ParcelId = p.Id;
+                dronesForList.Add(drone);
+                Drone drone2 = GetBLDrone(drone.Id);
+                drone2.Parcel = new ParcelInPassing { Id = p.Id, Priority = p.Priority, Sender = p.Sender, Target = p.Target, Weight = p.Weight };
+                UpdateDrone(drone);
+                dal.UpDate(ConvertBoToDoDrone(drone2), drone2.Id);
+                return p;
+            }
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
@@ -263,6 +266,10 @@ namespace IBL
                     drone.Location = target.Location;
                     drone.Status = DroneStatuses.Available;
                     parcel1.SupplyDate = DateTime.Now;
+                    drone.ParcelId = 0;
+                    parcel1.MyDrone = new DroneInParcel { Id = 0 };
+                    dronesForList.Remove(dronesForList.FirstOrDefault(item=>item.Id == drone.Id));
+                    dronesForList.Add(drone);
                     UpdateParcel(parcel1);
                     UpdateDrone(drone);
                 }
