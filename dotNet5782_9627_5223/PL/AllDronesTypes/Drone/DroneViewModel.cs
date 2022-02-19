@@ -103,7 +103,6 @@ namespace PL
             {
                 coorLon = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CoorLon)));
-                //Drone.Location.CoorLongitude = new PO.Coordinate((double)value, POConverter.Locations.Longitude);
             }
         }
         public object CoorLat
@@ -113,8 +112,6 @@ namespace PL
             {
                 coorLon = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CoorLat)));
-                //Drone.Location.CoorLongitude = new PO.Coordinate((double)value, POConverter.Locations.Latitude);
-                
             }
         }
         public string SelectedModel

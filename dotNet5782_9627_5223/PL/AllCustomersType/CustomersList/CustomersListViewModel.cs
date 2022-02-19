@@ -53,7 +53,10 @@ namespace PL
         }
         private void DroneListView_MouseDoubleClick(object sender)
         {
-            new CustomerView(new CustomerViewModel(bl, sender as PO.CustomerForList)).Show();
+            if (sender as PO.CustomerForList != null)
+            {
+                new CustomerView(new CustomerViewModel(bl, sender as PO.CustomerForList)).Show();
+            }
         }
         #endregion
     }

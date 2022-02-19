@@ -90,7 +90,7 @@ namespace PL
 
             private void DroneListView_MouseDoubleClick(object sender)
             {
-                new StationView(new StationViewModel(bl, sender as PO.BaseStationForList)).Show();
+                if (sender as PO.BaseStationForList != null) { new StationView(new StationViewModel(bl, sender as PO.BaseStationForList)).Show(); }
             }
 
             private void Button_AllStations()

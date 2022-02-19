@@ -133,7 +133,6 @@ namespace IBL
                                     {
                                         drone.Status = DroneStatuses.Available;
                                         dal.ReleaseDroneFromRecharge(drone.Id);
-                                        bl.UpdateDrone(drone);
                                     }
                                 } 
                                 else
@@ -190,7 +189,7 @@ namespace IBL
                         throw new Exception("Internal error: not available after Delivery...");
 
                 }
-                bl.UpdateDrone(drone);
+                lock (bl) { bl.UpdateDrone(drone); }
                 updateDrone(new UserStage(distance,pickedUp,drone.Status));
             } while (!checkStop());
         }

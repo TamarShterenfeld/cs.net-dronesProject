@@ -16,26 +16,33 @@ namespace IBL
         [MethodImpl(MethodImplOptions.Synchronized)]
         public int GetDroneChargeBaseStationId(int droneId)
         {
-            return dal.GetDroneChargeBaseStationId(droneId);
+            lock(dal)
+            { return dal.GetDroneChargeBaseStationId(droneId); }
         }
         [MethodImpl(MethodImplOptions.Synchronized)]
         public BaseStation GetBLBaseStation(int id)
         {
-            return ConvertBaseStationDOtOBO(dal.GetBaseStation(id));
+            lock (dal)
+            {
+                return ConvertBaseStationDOtOBO(dal.GetBaseStation(id));
+            }
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
         public BaseStationForList GetBaseStationForList(int id)
         {
             BaseStation item = GetBLBaseStation(id);
-            BaseStationForList current = new()
+            lock (dal)
             {
-                Id = item.Id,
-                AvailableChargeSlots = item.ChargeSlots,
-                CaughtChargeSlots = dal.CaughtChargeSlots(item.Id),
-                Name = item.Name,
-            };
-            return current;
+                BaseStationForList current = new()
+                {
+                    Id = item.Id,
+                    AvailableChargeSlots = item.ChargeSlots,
+                    CaughtChargeSlots = dal.CaughtChargeSlots(item.Id),
+                    Name = item.Name,
+                };
+                return current;
+            }
         }
 
         //----------------------------------Drone GetObject Methods---------------------------------
@@ -44,7 +51,10 @@ namespace IBL
         [MethodImpl(MethodImplOptions.Synchronized)]
         public Drone GetBLDrone(int id)
         {
-            return ConvertDroneDOtOBO(dal.GetDrone(id));
+            lock (dal)
+            {
+                return ConvertDroneDOtOBO(dal.GetDrone(id));
+            }
         }
 
 
@@ -90,8 +100,10 @@ namespace IBL
         [MethodImpl(MethodImplOptions.Synchronized)]
         public Parcel GetBLParcel(int id)
         {
-            return ParcelDOtOBO(dal.GetParcel(id));
-
+            lock (dal)
+            {
+                return ParcelDOtOBO(dal.GetParcel(id));
+            }
         }
 
         //----------------------------------ParcelForList GetObject Methods---------------------------------
@@ -140,8 +152,11 @@ namespace IBL
         [MethodImpl(MethodImplOptions.Synchronized)]
         public Customer GetBLCustomer(string id)
         {
-            DO.Customer customer = dal.GetCustomer(id);
-            return ConvertCustomerDoToBo(customer);
+           lock(dal)
+            {
+                DO.Customer customer = dal.GetCustomer(id);
+                return ConvertCustomerDoToBo(customer);
+            }
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
@@ -175,7 +190,11 @@ namespace IBL
         [MethodImpl(MethodImplOptions.Synchronized)]
         public CustomerInParcel GetCustomrInParcel(string id)
         {
-            return ConvertCustomerDoToCustomerInParcel(dal.GetCustomer(id));
+            lock(dal)
+            {
+                return ConvertCustomerDoToCustomerInParcel(dal.GetCustomer(id));
+
+            }
         }
     }
 }
