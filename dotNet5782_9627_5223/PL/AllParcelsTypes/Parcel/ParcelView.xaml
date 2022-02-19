@@ -79,7 +79,7 @@
                 HorizontalAlignment="Center" Cursor="{Binding Cursor}"
                 VerticalAlignment="Bottom" Width="180" Height="25" >
                 <StackPanel.InputBindings>
-                    <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding LeftDoubleClick_Target}" />
+                    <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding LeftDoubleClick_Sender}" />
                 </StackPanel.InputBindings>
                 <TextBox x:Name="SenderId"
                 TextWrapping="NoWrap" 
