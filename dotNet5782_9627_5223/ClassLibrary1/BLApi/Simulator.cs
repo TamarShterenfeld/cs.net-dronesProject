@@ -13,7 +13,7 @@ namespace IBL
         enum Maintenance { Starting, Going, Charging }
 
         private const double VELOCITY = 1.0;
-        private const int DELAY = 100;
+        private const int DELAY = 500;
         private const double TIME_STEP = DELAY / 1000.0;
         private const double STEP = VELOCITY / TIME_STEP;
 
@@ -95,7 +95,6 @@ namespace IBL
                                         {
                                             double maxBattery = station.DroneCharging.Max(item => item.Battery);
                                             DroneForList droneWithMaxBattery =bl.GetDroneForList(station.DroneCharging.Where(item => item.Battery == maxBattery).FirstOrDefault().Id);
-                                            droneWithMaxBattery.Status = DroneStatuses.Available;
                                             bl.ReleaseDroneFromRecharge(droneWithMaxBattery.Id);
                                             bl.UpdateDrone(droneWithMaxBattery);
                                         }
@@ -159,16 +158,17 @@ namespace IBL
                                 drone.Location = customer.Location;
                                 if (pickedUp)
                                 {
-                                    parcel.SupplyDate = DateTime.Now;
-                                    bl.UpdateParcel(parcel);
-                                    drone.Status = DroneStatuses.Available;
+                                    //parcel.SupplyDate = DateTime.Now;
+                                    bl.SupplyParcel(drone.Id);
+                                    //bl.UpdateParcel(parcel);
                                     drone.ParcelId = parcelId = 0;
                                     pickedUp = false;
                                 }
                                 else
                                 {
-                                    parcel.PickUpDate = DateTime.Now;
-                                    bl.UpdateParcel(parcel);
+                                    //parcel.PickUpDate = DateTime.Now;
+                                    //bl.UpdateParcel(parcel);
+                                    bl.PickUpParcel(drone.Id);
                                     customer = bl.GetBLCustomer(parcel.Target.Id);
                                     pickedUp = true;
                                 }

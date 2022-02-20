@@ -26,8 +26,8 @@ namespace DalXml
             public static double ElectricityConsumingOfLightWeight = 0.0002;
             public static double ElectricityConsumingOfAverageWeight = 0.0003;
             public static double ElectricityConsumingOfHeavyWeight = 0.0004;
-            public static double ChargeRate = 2;
-            
+            public static double ChargeRate = 0.004;
+
             internal static void InitalizeConfigElements()
             {
                 AddXElementToConfig<int>("ParcelId", ParcelId);

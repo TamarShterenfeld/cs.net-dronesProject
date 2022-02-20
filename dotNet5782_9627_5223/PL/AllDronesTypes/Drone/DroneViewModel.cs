@@ -458,7 +458,14 @@ namespace PL
         {
             InSimulator = true;
             worker = new() { WorkerReportsProgress = true, WorkerSupportsCancellation = true };
-            worker.DoWork += (sender, args) => bl.InvokeSimulator((int)args.Argument, updateDrone, checkStop);
+            try
+            {
+                worker.DoWork += (sender, args) => bl.InvokeSimulator((int)args.Argument, updateDrone, checkStop);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
             worker.RunWorkerCompleted += (sender, args) => InSimulator = false;
             worker.ProgressChanged += (sender, args) => updateDroneView(args.UserState);
             worker.RunWorkerAsync(Drone.Id);

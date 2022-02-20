@@ -242,6 +242,7 @@ namespace IBL
                     //currDrone.Location = sender.Location;
                     Parcel parcel = ConvertParcelForListToParcel(parcelForList);
                     parcel.PickUpDate = DateTime.Now;
+                    parcel.MyDrone = new(droneId, currDrone.Battery, currDrone.Location);
                     UpdateParcel(parcel);
                 }
                 else
@@ -271,7 +272,7 @@ namespace IBL
                     drone.Status = DroneStatuses.Available;
                     parcel1.SupplyDate = DateTime.Now;
                     drone.ParcelId = 0;
-                    parcel1.MyDrone = new DroneInParcel { Id = 0 };
+                    parcel1.MyDrone = new();
                     dronesForList.Remove(dronesForList.FirstOrDefault(item=>item.Id == drone.Id));
                     dronesForList.Add(drone);
                     UpdateParcel(parcel1);

@@ -62,10 +62,6 @@ namespace PL.PO
                 if (PickedUp)
                 {
                     stage = $"Distance till to target: {Distance}.\nParcel has already been picked up.";
-                    if (Distance < 100)
-                    {
-                        stage += "\n Supplying parcel.";
-                    }
                 }
                 else
                 {
