@@ -34,22 +34,34 @@ namespace PL.PO
         }
 
         private DroneStatuses status;
+
+        private bool inWayToMaintenance;
+        public bool InWayToMaintenance 
+        { 
+            get => inWayToMaintenance;
+            set
+            { 
+                inWayToMaintenance = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(InWayToMaintenance)));
+            }
+        }
         public DroneStatuses Status { get => status; set => status = value; }
         public UserStage(BO.UserStage stage)
         {
             Distance = stage.Distance;
             PickedUp = stage.PickedUp;
             Status = (DroneStatuses)stage.Status;
+            InWayToMaintenance = stage.InWayToMaintenance;
         }
         public UserStage() { }
         public override string ToString()
         {
             string stage = "";
-            if(Status == DroneStatuses.Shipment)
+            if (Status == DroneStatuses.Shipment)
             {
-                if(PickedUp)
+                if (PickedUp)
                 {
-                    stage = $"Distance till to target: {Distance}.\n Parcel has already been picked up.";
+                    stage = $"Distance till to target: {Distance}.\nParcel has already been picked up.";
                     if (Distance < 100)
                     {
                         stage += "\n Supplying parcel.";
@@ -57,10 +69,10 @@ namespace PL.PO
                 }
                 else
                 {
-                    stage = $"Distance till sender:{Distance}.\n Not Yet Picked Up.";
+                    stage = $"Distance till sender:{Distance}.\nNot Yet Picked Up.";
                 }
 
-                
+
             }
             return stage;
         }

@@ -14,11 +14,13 @@ namespace BO
         public double Distance { get; set; }
         public bool PickedUp { get; set; }
         public DroneStatuses Status { get; set; }
-        public UserStage(double distance, bool picked, DroneStatuses status )
+        public bool InWayToMaintenance { get; set; }
+        public UserStage(double distance, bool picked, DroneStatuses status , bool inWayToMaintenance)
         {
             Distance = distance;
             PickedUp = picked;
             Status = status;
+            InWayToMaintenance = inWayToMaintenance;
         }
         public UserStage() { }
     }

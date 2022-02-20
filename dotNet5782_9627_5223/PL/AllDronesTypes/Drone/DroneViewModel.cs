@@ -26,8 +26,7 @@ namespace PL
         IList<string> weights = Enum.GetNames(typeof(POConverter.WeightCategories));
         IList<string> droneActions = Enum.GetNames(typeof(DroneActions));
         string selectedDroneAction, selectedStatus, selectedWeight, selectedModel;
-        //double timeCharge;
-        bool visibleTimeCharging, enableUpdate;
+        bool enableUpdate;
         bool inSimulator;
         PO.BaseStationForList station;
         BackgroundWorker worker;
@@ -46,16 +45,17 @@ namespace PL
             if (Drone.Parcel != null && Drone.Parcel.Id != 0)
             {
                 parcel = ParcelForListBOToPO(bl.GetParcelForList(Drone.Parcel.Id));
-
+               
                 ListsModel.Instance.UpdateParcel(Drone.Parcel.Id);
                 ListsModel.Instance.UpdateCustomer(parcel.TargetId);
                 ListsModel.Instance.UpdateCustomer(parcel.SenderId);
             }
-            if(Drone.Status == POConverter.DroneStatuses.Maintenance)
+            if(Drone.Status == POConverter.DroneStatuses.Maintenance && Stage != default && !Stage.InWayToMaintenance)
             {
                 ListsModel.Instance.UpdateStation(bl.GetDroneChargeBaseStationId(Drone.Id));
             }
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Drone)));
+            Stage = default;
         }
 
         #endregion

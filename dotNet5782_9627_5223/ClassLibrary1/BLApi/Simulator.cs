@@ -95,9 +95,9 @@ namespace IBL
                                         {
                                             double maxBattery = station.DroneCharging.Max(item => item.Battery);
                                             DroneForList droneWithMaxBattery =bl.GetDroneForList(station.DroneCharging.Where(item => item.Battery == maxBattery).FirstOrDefault().Id);
-                                            drone.Status = DroneStatuses.Available;
-                                            bl.ReleaseDroneFromRecharge(drone.Id);
-                                            bl.UpdateDrone(drone);
+                                            droneWithMaxBattery.Status = DroneStatuses.Available;
+                                            bl.ReleaseDroneFromRecharge(droneWithMaxBattery.Id);
+                                            bl.UpdateDrone(droneWithMaxBattery);
                                         }
                                     }
                                     catch (IntIdException ex) { throw new IntIdException("Internal error base station", ex); }
@@ -112,6 +112,7 @@ namespace IBL
                                     {
                                         drone.Location = station.Location;
                                         maintenance = Maintenance.Charging;
+                                        drone.Status = DroneStatuses.Available;
                                         bl.SendDroneForCharge(droneId);
                                     }
                                 else
@@ -131,9 +132,10 @@ namespace IBL
                                 {
                                     lock (dal)
                                     {
-                                        drone.Status = DroneStatuses.Available;
                                         dal.ReleaseDroneFromRecharge(drone.Id);
+                                        drone.Status = DroneStatuses.Available;
                                         bl.UpdateDrone(drone);
+                                        maintenance = Maintenance.Starting;
                                     }
                                 } 
                                 else
@@ -158,6 +160,7 @@ namespace IBL
                                 if (pickedUp)
                                 {
                                     parcel.SupplyDate = DateTime.Now;
+                                    bl.UpdateParcel(parcel);
                                     drone.Status = DroneStatuses.Available;
                                     drone.ParcelId = parcelId = 0;
                                     pickedUp = false;
@@ -165,6 +168,7 @@ namespace IBL
                                 else
                                 {
                                     parcel.PickUpDate = DateTime.Now;
+                                    bl.UpdateParcel(parcel);
                                     customer = bl.GetBLCustomer(parcel.Target.Id);
                                     pickedUp = true;
                                 }
@@ -191,7 +195,7 @@ namespace IBL
 
                 }
                 lock (bl) { bl.UpdateDrone(drone); }
-                updateDrone(new UserStage(distance,pickedUp,drone.Status));
+                updateDrone(new UserStage(distance,pickedUp,drone.Status,maintenance != Maintenance.Charging));
             } while (!checkStop());
         }
 
